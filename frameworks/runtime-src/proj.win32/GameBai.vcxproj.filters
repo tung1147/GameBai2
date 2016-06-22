@@ -11,6 +11,12 @@
     <Filter Include="Classes">
       <UniqueIdentifier>{e93a77e1-af1e-4400-87d3-504b62ebdbb0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Classes\Action">
+      <UniqueIdentifier>{b9391c50-e837-4413-9e63-73980675c733}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\NewGUI">
+      <UniqueIdentifier>{e754e438-b855-4ed1-b4fd-ea613acb02e8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -18,6 +24,21 @@
     </ClCompile>
     <ClCompile Include="..\Classes\AppDelegate.cpp">
       <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\NewGUI\jsb_quyetnd_newui.cpp">
+      <Filter>Classes\NewGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\NewGUI\NewTableView.cpp">
+      <Filter>Classes\NewGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Action\ActionNumber.cpp">
+      <Filter>Classes\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Action\ActionShake2D.cpp">
+      <Filter>Classes\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Action\jsb_quyetnd_action.cpp">
+      <Filter>Classes\Action</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -28,6 +49,21 @@
       <Filter>win32</Filter>
     </ClInclude>
     <ClInclude Include="resource.h" />
+    <ClInclude Include="..\Classes\NewGUI\NewTableView.h">
+      <Filter>Classes\NewGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\NewGUI\jsb_quyetnd_newui.hpp">
+      <Filter>Classes\NewGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Action\jsb_quyetnd_action.hpp">
+      <Filter>Classes\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Action\ActionNumber.h">
+      <Filter>Classes\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Action\ActionShake2D.h">
+      <Filter>Classes\Action</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">
