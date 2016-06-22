@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Logger">
+      <UniqueIdentifier>{f082d5cf-2f35-4652-a62d-97b959d3b02f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects">
+      <UniqueIdentifier>{0608fd17-ae95-49fc-b8ee-38a2d50b5112}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Socket">
+      <UniqueIdentifier>{d46aaa4b-d2b4-4041-8062-e28215eda6b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\rapidjson">
+      <UniqueIdentifier>{5ce774dc-327f-463f-920c-25916266bf71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\rapidjson\error">
+      <UniqueIdentifier>{d7677f5b-672a-4db1-af87-a569d8f71d6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\rapidjson\internal">
+      <UniqueIdentifier>{5b806549-4e3b-4d90-9e8b-3f1e52aaed73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\rapidjson\msinttypes">
+      <UniqueIdentifier>{c6d65189-99ec-4ee2-9f1b-a36a8c90032f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\LobbyServer.h" />
+    <ClInclude Include="..\src\Logger\Logger.h">
+      <Filter>Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Objects\ArrayValue.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Objects\DictValue.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Objects\LobbyRef.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Objects\PrimitiveValue.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Objects\Value.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Socket\NetworkCore.h">
+      <Filter>Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Socket\NetworkDefine.h">
+      <Filter>Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Socket\SocketAdapter.h">
+      <Filter>Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Socket\TCPClient.h">
+      <Filter>Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Socket\UDTClient.h">
+      <Filter>Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Objects\ValueWriter.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Objects\ValueReader.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Objects\rapidjson\error\en.h">
+      <Filter>Objects\rapidjson\error</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Objects\rapidjson\error\error.h">
+      <Filter>Objects\rapidjson\error</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Objects\rapidjson\internal\biginteger.h">
+      <Filter>Objects\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Objects\rapidjson\internal\diyfp.h">
+      <Filter>Objects\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Objects\rapidjson\internal\dtoa.h">
+      <Filter>Objects\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Objects\rapidjson\internal\ieee754.h">
+      <Filter>Objects\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Objects\rapidjson\internal\itoa.h">
+      <Filter>Objects\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Objects\rapidjson\internal\meta.h">
+      <Filter>Objects\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Objects\rapidjson\internal\pow10.h">
+      <Filter>Objects\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Objects\rapidjson\internal\stack.h">
+      <Filter>Objects\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Objects\rapidjson\internal\strfunc.h">
+      <Filter>Objects\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Objects\rapidjson\internal\strtod.h">
+      <Filter>Objects\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Objects\rapidjson\msinttypes\inttypes.h">
+      <Filter>Objects\rapidjson\msinttypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Objects\rapidjson\msinttypes\stdint.h">
+      <Filter>Objects\rapidjson\msinttypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Objects\rapidjson\rapidjson.h">
+      <Filter>Objects\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Objects\rapidjson\reader.h">
+      <Filter>Objects\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Objects\rapidjson\stringbuffer.h">
+      <Filter>Objects\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Objects\rapidjson\writer.h">
+      <Filter>Objects\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Objects\rapidjson\allocators.h">
+      <Filter>Objects\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Objects\rapidjson\document.h">
+      <Filter>Objects\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Objects\rapidjson\encodedstream.h">
+      <Filter>Objects\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Objects\rapidjson\encodings.h">
+      <Filter>Objects\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Objects\rapidjson\filereadstream.h">
+      <Filter>Objects\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Objects\rapidjson\filestream.h">
+      <Filter>Objects\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Objects\rapidjson\filewritestream.h">
+      <Filter>Objects\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Objects\rapidjson\memorybuffer.h">
+      <Filter>Objects\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Objects\rapidjson\memorystream.h">
+      <Filter>Objects\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Objects\rapidjson\prettywriter.h">
+      <Filter>Objects\rapidjson</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\Logger\Logger.cpp">
+      <Filter>Logger</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Objects\ArrayValue.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Objects\DictValue.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Objects\LobbyRef.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Objects\PrimitiveValue.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Objects\Value.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Socket\NetworkCore.cpp">
+      <Filter>Socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Socket\NetworkDefine.cpp">
+      <Filter>Socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Socket\SocketAdapter.cpp">
+      <Filter>Socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Socket\TCPClient.cpp">
+      <Filter>Socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Socket\UDTClient.cpp">
+      <Filter>Socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Objects\ValueReader.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Objects\ValueWriter.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

@@ -206,6 +206,12 @@ copy "$(ProjectDir)..\..\..\project.json" "$(OutDir)\" /Y</Command>
     <ProjectReference Include="..\..\cocos2d-x\cocos\scripting\js-bindings\proj.win32\libjscocos2d.vcxproj">
       <Project>{39379840-825a-45a0-b363-c09ffef864bd}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\libs\LobbyClient\proj.win32\libLobbyClient.vcxproj">
+      <Project>{580e26bf-755b-4962-bd94-971e8d686efb}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\libs\SmartfoxClient\proj.win32\libSmarfoxClient.vcxproj">
+      <Project>{551319ea-e7c7-437b-b1d7-21528a5a0913}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

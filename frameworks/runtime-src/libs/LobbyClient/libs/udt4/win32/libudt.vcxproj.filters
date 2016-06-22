@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="udt">
+      <UniqueIdentifier>{cf5e960f-fa7d-4024-9f6d-fba6d60493d9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\udt\api.cpp">
+      <Filter>udt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\udt\buffer.cpp">
+      <Filter>udt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\udt\cache.cpp">
+      <Filter>udt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\udt\ccc.cpp">
+      <Filter>udt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\udt\channel.cpp">
+      <Filter>udt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\udt\common.cpp">
+      <Filter>udt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\udt\core.cpp">
+      <Filter>udt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\udt\epoll.cpp">
+      <Filter>udt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\udt\list.cpp">
+      <Filter>udt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\udt\md5.cpp">
+      <Filter>udt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\udt\packet.cpp">
+      <Filter>udt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\udt\queue.cpp">
+      <Filter>udt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\udt\window.cpp">
+      <Filter>udt</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\udt\api.h">
+      <Filter>udt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\udt\buffer.h">
+      <Filter>udt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\udt\cache.h">
+      <Filter>udt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\udt\ccc.h">
+      <Filter>udt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\udt\channel.h">
+      <Filter>udt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\udt\common.h">
+      <Filter>udt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\udt\core.h">
+      <Filter>udt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\udt\epoll.h">
+      <Filter>udt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\udt\list.h">
+      <Filter>udt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\udt\md5.h">
+      <Filter>udt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\udt\packet.h">
+      <Filter>udt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\udt\queue.h">
+      <Filter>udt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\udt\udt.h">
+      <Filter>udt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\udt\window.h">
+      <Filter>udt</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

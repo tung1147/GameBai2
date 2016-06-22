@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\Core\BaseMessage.cpp" />
+    <ClCompile Include="..\src\Core\BufferArray.cpp" />
+    <ClCompile Include="..\src\Core\DataSerializer.cpp" />
+    <ClCompile Include="..\src\Core\MD5.cpp" />
+    <ClCompile Include="..\src\Core\RequestType.cpp" />
+    <ClCompile Include="..\src\Core\SystemManager.cpp" />
+    <ClCompile Include="..\src\Entities\SFSArray.cpp" />
+    <ClCompile Include="..\src\Entities\SFSEntity.cpp" />
+    <ClCompile Include="..\src\Entities\SFSObject.cpp" />
+    <ClCompile Include="..\src\Entities\SFSPrimitive.cpp" />
+    <ClCompile Include="..\src\Entities\SFSRef.cpp" />
+    <ClCompile Include="..\src\Entities\SFSVec3D.cpp" />
+    <ClCompile Include="..\src\Event\BaseEvent.cpp" />
+    <ClCompile Include="..\src\Event\EventManager.cpp" />
+    <ClCompile Include="..\src\Event\ExtensionEvent.cpp" />
+    <ClCompile Include="..\src\Event\JoinRoomEvent.cpp" />
+    <ClCompile Include="..\src\Event\LoginEvent.cpp" />
+    <ClCompile Include="..\src\Event\UserExitRoomEvent.cpp" />
+    <ClCompile Include="..\src\Logger\SFSLogger.cpp" />
+    <ClCompile Include="..\src\Request\BaseRequest.cpp" />
+    <ClCompile Include="..\src\Request\ExtensionRequest.cpp" />
+    <ClCompile Include="..\src\Request\HandshakeRequest.cpp" />
+    <ClCompile Include="..\src\Request\JoinRoomRequest.cpp" />
+    <ClCompile Include="..\src\Request\LeaveRoomRequest.cpp" />
+    <ClCompile Include="..\src\Request\LoginRequest.cpp" />
+    <ClCompile Include="..\src\Request\LogoutRequest.cpp" />
+    <ClCompile Include="..\src\Request\PingRequest.cpp" />
+    <ClCompile Include="..\src\Request\PrivateMessageRequest.cpp" />
+    <ClCompile Include="..\src\Request\PublicMessageRequest.cpp" />
+    <ClCompile Include="..\src\Socket\NetworkCore.cpp" />
+    <ClCompile Include="..\src\Socket\NetworkDefine.cpp" />
+    <ClCompile Include="..\src\Socket\SFSTcpClient.cpp" />
+    <ClCompile Include="..\src\Socket\SocketAdapter.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\Core\BaseMessage.h" />
+    <ClInclude Include="..\src\Core\BufferArray.h" />
+    <ClInclude Include="..\src\Core\DataSerializer.h" />
+    <ClInclude Include="..\src\Core\MD5.h" />
+    <ClInclude Include="..\src\Core\RequestType.h" />
+    <ClInclude Include="..\src\Core\SystemManager.h" />
+    <ClInclude Include="..\src\Entities\rapidjson\allocators.h" />
+    <ClInclude Include="..\src\Entities\rapidjson\document.h" />
+    <ClInclude Include="..\src\Entities\rapidjson\encodedstream.h" />
+    <ClInclude Include="..\src\Entities\rapidjson\encodings.h" />
+    <ClInclude Include="..\src\Entities\rapidjson\error\en.h" />
+    <ClInclude Include="..\src\Entities\rapidjson\error\error.h" />
+    <ClInclude Include="..\src\Entities\rapidjson\filereadstream.h" />
+    <ClInclude Include="..\src\Entities\rapidjson\filestream.h" />
+    <ClInclude Include="..\src\Entities\rapidjson\filewritestream.h" />
+    <ClInclude Include="..\src\Entities\rapidjson\internal\biginteger.h" />
+    <ClInclude Include="..\src\Entities\rapidjson\internal\diyfp.h" />
+    <ClInclude Include="..\src\Entities\rapidjson\internal\dtoa.h" />
+    <ClInclude Include="..\src\Entities\rapidjson\internal\ieee754.h" />
+    <ClInclude Include="..\src\Entities\rapidjson\internal\itoa.h" />
+    <ClInclude Include="..\src\Entities\rapidjson\internal\meta.h" />
+    <ClInclude Include="..\src\Entities\rapidjson\internal\pow10.h" />
+    <ClInclude Include="..\src\Entities\rapidjson\internal\stack.h" />
+    <ClInclude Include="..\src\Entities\rapidjson\internal\strfunc.h" />
+    <ClInclude Include="..\src\Entities\rapidjson\internal\strtod.h" />
+    <ClInclude Include="..\src\Entities\rapidjson\memorybuffer.h" />
+    <ClInclude Include="..\src\Entities\rapidjson\memorystream.h" />
+    <ClInclude Include="..\src\Entities\rapidjson\msinttypes\inttypes.h" />
+    <ClInclude Include="..\src\Entities\rapidjson\msinttypes\stdint.h" />
+    <ClInclude Include="..\src\Entities\rapidjson\prettywriter.h" />
+    <ClInclude Include="..\src\Entities\rapidjson\rapidjson.h" />
+    <ClInclude Include="..\src\Entities\rapidjson\reader.h" />
+    <ClInclude Include="..\src\Entities\rapidjson\stringbuffer.h" />
+    <ClInclude Include="..\src\Entities\rapidjson\writer.h" />
+    <ClInclude Include="..\src\Entities\SFSArray.h" />
+    <ClInclude Include="..\src\Entities\SFSEntity.h" />
+    <ClInclude Include="..\src\Entities\SFSObject.h" />
+    <ClInclude Include="..\src\Entities\SFSPrimitive.h" />
+    <ClInclude Include="..\src\Entities\SFSRef.h" />
+    <ClInclude Include="..\src\Entities\SFSVec3D.h" />
+    <ClInclude Include="..\src\Event\BaseEvent.h" />
+    <ClInclude Include="..\src\Event\EventManager.h" />
+    <ClInclude Include="..\src\Event\ExtensionEvent.h" />
+    <ClInclude Include="..\src\Event\JoinRoomEvent.h" />
+    <ClInclude Include="..\src\Event\LoginEvent.h" />
+    <ClInclude Include="..\src\Event\UserExitRoomEvent.h" />
+    <ClInclude Include="..\src\Logger\SFSLogger.h" />
+    <ClInclude Include="..\src\Request\BaseRequest.h" />
+    <ClInclude Include="..\src\Request\ExtensionRequest.h" />
+    <ClInclude Include="..\src\Request\HandshakeRequest.h" />
+    <ClInclude Include="..\src\Request\JoinRoomRequest.h" />
+    <ClInclude Include="..\src\Request\LeaveRoomRequest.h" />
+    <ClInclude Include="..\src\Request\LoginRequest.h" />
+    <ClInclude Include="..\src\Request\LogoutRequest.h" />
+    <ClInclude Include="..\src\Request\PingRequest.h" />
+    <ClInclude Include="..\src\Request\PrivateMessageRequest.h" />
+    <ClInclude Include="..\src\Request\PublicMessageRequest.h" />
+    <ClInclude Include="..\src\SFSServer.h" />
+    <ClInclude Include="..\src\Socket\NetworkCore.h" />
+    <ClInclude Include="..\src\Socket\NetworkDefine.h" />
+    <ClInclude Include="..\src\Socket\SFSTcpClient.h" />
+    <ClInclude Include="..\src\Socket\SocketAdapter.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{551319EA-E7C7-437B-B1D7-21528A5A0913}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>libSmartfoxClient</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120_xp</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)$(Configuration).win32\</OutDir>
+    <IntDir>$(Configuration).win32\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;_LIB;LIBSMARTFOXCLIENT_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>false</SDLCheck>
+      <AdditionalIncludeDirectories>../src/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>OldStyle</DebugInformationFormat>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)$(ProjectName).dll</OutputFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;LIBELECTROCLIENT_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>false</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
