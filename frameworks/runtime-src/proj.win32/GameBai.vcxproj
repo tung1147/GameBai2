@@ -81,7 +81,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\Classes;$(EngineRoot);$(EngineRoot)cocos;$(EngineRoot)external\spidermonkey\include\win32;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\libs\LobbyClient\src;$(ProjectDir)..\libs\SmartfoxClient\src;$(ProjectDir)..\Classes;$(EngineRoot);$(EngineRoot)cocos;$(EngineRoot)external\spidermonkey\include\win32;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WINDOWS;STRICT;_DEBUG;XP_WIN;JS_HAVE___INTN;JS_INTPTR_TYPE=int;COCOS2D_DEBUG=1;COCOS2D_JAVASCRIPT=1;CC_ENABLE_CHIPMUNK_INTEGRATION=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_USRJSSTATIC;_USRLIBSIMSTATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -183,6 +183,9 @@ copy "$(ProjectDir)..\..\..\project.json" "$(OutDir)\" /Y</Command>
     <ClCompile Include="..\Classes\Action\jsb_quyetnd_action.cpp" />
     <ClCompile Include="..\Classes\NewGUI\jsb_quyetnd_newui.cpp" />
     <ClCompile Include="..\Classes\NewGUI\NewTableView.cpp" />
+    <ClCompile Include="..\Classes\Socket\jsb_quyetnd_lobbysocket.cpp" />
+    <ClCompile Include="..\Classes\Socket\LobbyClient.cpp" />
+    <ClCompile Include="..\Classes\Socket\SmartfoxClient.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
   </ItemGroup>
@@ -192,6 +195,9 @@ copy "$(ProjectDir)..\..\..\project.json" "$(OutDir)\" /Y</Command>
     <ClInclude Include="..\Classes\Action\jsb_quyetnd_action.hpp" />
     <ClInclude Include="..\Classes\NewGUI\jsb_quyetnd_newui.hpp" />
     <ClInclude Include="..\Classes\NewGUI\NewTableView.h" />
+    <ClInclude Include="..\Classes\Socket\jsb_quyetnd_lobbysocket.hpp" />
+    <ClInclude Include="..\Classes\Socket\LobbyClient.h" />
+    <ClInclude Include="..\Classes\Socket\SmartfoxClient.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="resource.h" />

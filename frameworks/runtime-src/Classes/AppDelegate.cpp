@@ -43,6 +43,10 @@
 #include "cocos/scripting/js-bindings/manual/platform/ios/JavaScriptObjCBridge.h"
 #endif
 
+#include "Action/jsb_quyetnd_action.hpp"
+#include "NewGUI/jsb_quyetnd_newui.hpp"
+#include "Socket/jsb_quyetnd_lobbysocket.hpp"
+
 USING_NS_CC;
 using namespace CocosDenshion;
 
@@ -83,6 +87,11 @@ bool AppDelegate::applicationDidFinishLaunching()
     sc->addRegisterCallback(register_all_cocos2dx);
     sc->addRegisterCallback(register_cocos2dx_js_core);
     sc->addRegisterCallback(jsb_register_system);
+
+	//custon
+	sc->addRegisterCallback(register_all_quyetnd_action);
+	sc->addRegisterCallback(register_all_quyetnd_newui);
+	sc->addRegisterCallback(register_all_quyetnd_lobbysocket);
 
     // extension can be commented out to reduce the package
     sc->addRegisterCallback(register_all_cocos2dx_extension);

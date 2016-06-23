@@ -8,7 +8,9 @@
 #ifndef LOBBYCLIENT_LOGGER_LOGGER_H_
 #define LOBBYCLIENT_LOGGER_LOGGER_H_
 
-#define LOBBY_LOGGER 1
+#ifndef LOBBY_LOGGER
+#define LOBBY_LOGGER 0
+#endif
 
 namespace quyetnd {
 	void log(const char * format, ...);

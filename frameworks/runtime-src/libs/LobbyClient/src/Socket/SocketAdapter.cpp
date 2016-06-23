@@ -74,7 +74,7 @@ SocketData* SocketPool::take(){
 
 		poolCond.wait(lk);
 
-		if (mData){
+		if (mData && !mData->empty()){
 			SocketData* data = mData->front();
 			mData->pop();
 

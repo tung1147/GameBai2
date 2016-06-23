@@ -110,7 +110,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_WINDOWS;_USRDLL;LIBLOBBYCLIENT_EXPORTS;_CRT_SECURE_NO_WARNINGS=1;-D_SCL_SECURE_NO_WARNINGS;RAPIDJSON_HAS_STDSTRING=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_WINDOWS;_USRDLL;LIBLOBBYCLIENT_EXPORTS;_CRT_SECURE_NO_WARNINGS=1;-D_SCL_SECURE_NO_WARNINGS;RAPIDJSON_HAS_STDSTRING=1;LOBBY_LOGGER=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\src;..\libs\udt4\udt;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>

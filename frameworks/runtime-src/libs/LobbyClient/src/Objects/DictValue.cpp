@@ -30,10 +30,12 @@ DictValue* DictValue::create(){
 
 void DictValue::writeToBuffer(quyetnd::data::ValueWriter* writer){
 	writer->writeMap(data.size());
-	for (auto it = data.begin(); it != data.end(); it++){
-		writer->writeString(it->first);
-		it->second->writeToBuffer(writer);
-	}
+	if (data.size() > 0){
+		for (auto it = data.begin(); it != data.end(); it++){
+			writer->writeString(it->first);
+			it->second->writeToBuffer(writer);
+		}
+	}	
 }
 
 void DictValue::writeJson(std::ostringstream& str){

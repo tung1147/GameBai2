@@ -20,9 +20,11 @@ ArrayValue::ArrayValue() {
 
 void ArrayValue::writeToBuffer(quyetnd::data::ValueWriter* writer){
 	writer->writeArray(data.size());
-	for (int i = 0; i < data.size(); i++){
-		data[i]->writeToBuffer(writer);
-	}
+	if (data.size() > 0){
+		for (int i = 0; i < data.size(); i++){
+			data[i]->writeToBuffer(writer);
+		}
+	}	
 }
 
 void ArrayValue::writeJson(std::ostringstream& str){

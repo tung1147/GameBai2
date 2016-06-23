@@ -93,7 +93,7 @@ SocketData* SocketPoolSender::take(){
 
 		poolCond.wait(lk);
 
-		if (mData){
+		if (mData && !mData->empty()){
 			SocketData* data = mData->front();
 			mData->pop();
 			return data;
@@ -305,7 +305,7 @@ void SocketClient::updateConnection(){
 	}
 	
 	SFS::AutoReleasePool::getInstance()->removePool();
-	this->release();
+	//this->release();
 }
 
 void SocketClient::startAdapter(){

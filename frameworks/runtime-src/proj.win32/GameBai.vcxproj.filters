@@ -17,6 +17,9 @@
     <Filter Include="Classes\NewGUI">
       <UniqueIdentifier>{e754e438-b855-4ed1-b4fd-ea613acb02e8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Classes\Socket">
+      <UniqueIdentifier>{4fbe3e62-c60b-469e-b69d-5291550e12bd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -39,6 +42,15 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Action\jsb_quyetnd_action.cpp">
       <Filter>Classes\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Socket\SmartfoxClient.cpp">
+      <Filter>Classes\Socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Socket\LobbyClient.cpp">
+      <Filter>Classes\Socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Socket\jsb_quyetnd_lobbysocket.cpp">
+      <Filter>Classes\Socket</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -63,6 +75,15 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Action\ActionShake2D.h">
       <Filter>Classes\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Socket\LobbyClient.h">
+      <Filter>Classes\Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Socket\SmartfoxClient.h">
+      <Filter>Classes\Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Socket\jsb_quyetnd_lobbysocket.hpp">
+      <Filter>Classes\Socket</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
