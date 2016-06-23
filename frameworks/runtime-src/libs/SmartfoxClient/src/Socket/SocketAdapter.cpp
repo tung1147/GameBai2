@@ -22,7 +22,7 @@ SocketPool::~SocketPool(){
 		while (!mData->empty()) {
 			SocketData* data = mData->front();
 			if (data){
-				delete data;
+				data->release();
 			}
 			mData->pop();
 		}
@@ -34,7 +34,12 @@ SocketPool::~SocketPool(){
 }
 
 void SocketPool::push(SocketData* data){
-
+	std::unique_lock<std::mutex> lk(poolMutex);
+	if (mData){
+		mData->push(data);
+		data->retain();
+	}
+	poolCond.notify_one();
 }
 
 void SocketPool::clear(){
@@ -42,46 +47,15 @@ void SocketPool::clear(){
 	if (mData){
 		while (!mData->empty()) {
 			SocketData* data = mData->front();
-			delete data;
+			data->release();
 			mData->pop();
 		}
 	}
+
+	poolCond.notify_all();
 }
 
 SocketData* SocketPool::take(){
-	return 0;
-}
-
-SocketData* SocketPool::pop(){
-	std::unique_lock<std::mutex> lk(poolMutex);
-	if (mData && !mData->empty()){
-		auto data = mData->front();
-		mData->pop();
-		return data;
-	}
-	return 0;
-}
-
-/* pool sender */
-SocketPoolSender::SocketPoolSender(){
-
-}
-
-SocketPoolSender::~SocketPoolSender(){
-
-}
-
-void SocketPoolSender::push(SocketData* _data){
-	std::unique_lock<std::mutex> lk(poolMutex);
-	if (mData){
-		mData->push(_data);
-	}
-
-
-	poolCond.notify_one();
-}
-
-SocketData* SocketPoolSender::take(){
 	std::unique_lock<std::mutex> lk(poolMutex);
 
 	if (mData){
@@ -95,7 +69,10 @@ SocketData* SocketPoolSender::take(){
 
 		if (mData && !mData->empty()){
 			SocketData* data = mData->front();
-			mData->pop();
+			data->retain();
+			data->autoRelease();
+
+			mData->pop();		
 			return data;
 		}
 		else{
@@ -106,36 +83,16 @@ SocketData* SocketPoolSender::take(){
 	return 0;
 }
 
-void SocketPoolSender::clear(){
+SocketData* SocketPool::pop(){
 	std::unique_lock<std::mutex> lk(poolMutex);
-
-	if (mData){
-		while (!mData->empty()) {
-			SocketData* data = mData->front();
-			delete data;
-			mData->pop();
-		}
-
-		delete mData;
-		mData = 0;
+	if (mData && !mData->empty()){
+		auto data = mData->front();
+		data->retain();
+		data->autoRelease();
+		mData->pop();
+		return data;
 	}
-
-	poolCond.notify_all();
-}
-
-/* pool receiver */
-SocketPoolReceiver::SocketPoolReceiver(){
-
-}
-SocketPoolReceiver::~SocketPoolReceiver(){
-
-}
-
-void SocketPoolReceiver::push(SocketData* data){
-	std::unique_lock<std::mutex> lk(poolMutex);
-	if (mData){
-		mData->push(data);
-	}
+	return 0;
 }
 
 /****/
@@ -198,41 +155,22 @@ SocketData* SocketAdapter::popMessage(){
 	return mData->pop();
 }
 
-//void SocketAdapter::popAllMessage(std::vector<SocketData*> &arr){
-//    mData->takeAll(arr);
-//}
-
-///
-
 SocketSender::SocketSender(){
-	mData = new SocketPoolSender();
+	mData = new SocketPool();
 }
 
 SocketSender::~SocketSender(){
 
 }
 
-//void SocketSender::setRunning(bool running){
-//	std::unique_lock<std::mutex> lk(mMutex);
-//	this->running = running;
-//	if(!running){
-//	    mData->clear();
-//	}
-//}
-
 /****/
 SocketReceiver::SocketReceiver(){
-	mData = new SocketPoolReceiver();
+	mData = new SocketPool();
 }
 
 SocketReceiver::~SocketReceiver(){
 
 }
-
-//void SocketReceiver::setRunning(bool running){
-//	std::unique_lock<std::mutex> lk(mMutex);
-//	this->running = running;
-//}
 
 /**/
 SocketClient::SocketClient(){
@@ -335,9 +273,6 @@ void SocketClient::sendMessage(SocketData* data){
 	if (mSender){
 		mSender->pushMessage(data);
 	}
-	else{
-		delete data;
-	}
 }
 
 void SocketClient::processEvent(){
@@ -355,13 +290,10 @@ void SocketClient::processRecvMessage(){
 		auto data = mReceiver->popMessage();
 		while (data){
 			if (this->getStatus() != SocketStatusType::Connected){
-				delete data;
 				break;
 			}
 
 			_recvCallback(data);
-			delete data;
-
 			data = mReceiver->popMessage();
 		}
 	}

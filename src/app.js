@@ -10,7 +10,8 @@ var HelloWorldLayer = cc.Layer.extend({
         this.addChild(button);
         button.setTouchEnabled(true);
         button.addClickEventListener(function () {
-            LobbyClient.getInstance().connect("10.0.1.88", 9999);
+            //LobbyClient.getInstance().connect("10.0.1.88", 9999);
+            SmartfoxClient.getInstance().connect("10.0.1.88", 9933);
         });
 
         return true;

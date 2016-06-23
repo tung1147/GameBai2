@@ -46,6 +46,7 @@
 #include "Action/jsb_quyetnd_action.hpp"
 #include "NewGUI/jsb_quyetnd_newui.hpp"
 #include "Socket/jsb_quyetnd_lobbysocket.hpp"
+#include "Socket/jsb_quyetnd_sfssocket.hpp"
 
 USING_NS_CC;
 using namespace CocosDenshion;
@@ -92,6 +93,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 	sc->addRegisterCallback(register_all_quyetnd_action);
 	sc->addRegisterCallback(register_all_quyetnd_newui);
 	sc->addRegisterCallback(register_all_quyetnd_lobbysocket);
+	sc->addRegisterCallback(register_all_quyetnd_sfssocket);
 
     // extension can be commented out to reduce the package
     sc->addRegisterCallback(register_all_cocos2dx_extension);

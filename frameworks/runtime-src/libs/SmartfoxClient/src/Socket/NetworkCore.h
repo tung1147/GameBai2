@@ -8,6 +8,7 @@
 #ifndef SFSCLIENT_SOCKET_NETWORKCORE_H_
 #define SFSCLIENT_SOCKET_NETWORKCORE_H_
 #include "NetworkDefine.h"
+#include "../Entities/SFSEntity.h"
 
 namespace SFS{
 enum SocketStatusType{
@@ -55,14 +56,7 @@ public:
 	void clear();
 };
 
-class SocketData{
-public:
-	SocketData(){};
-	virtual ~SocketData(){};
-	virtual void initWithBytes(const std::vector<char> &bytes){};
-	virtual void toByteArray(std::vector<char> &bytes){};
-	virtual void printDebug(){};
-};
+typedef SFS::Entity::SFSEntity SocketData;
 
 }
 #endif /* SFSCLIENT_SOCKET_NETWORKCORE_H_ */

@@ -10,9 +10,6 @@
 #include <cstdio>
 #include "../Logger/SFSLogger.h"
 #include "../Entities/SFSObject.h"
-#include "../Request/HandshakeRequest.h"
-#include "../Event/EventManager.h"
-#include "../Core/SystemManager.h"
 
 namespace SFS{
 //#define PRINT_DEBUG 1
@@ -34,7 +31,6 @@ void TcpSocketSender::update(){
 	int sentData;
 	unsigned int dataSize;
 
-	std::vector<char> senderBuffer(100 * 1024);
 	SFS::ReleasePool* mPool = SFS::AutoReleasePool::getInstance()->getPool();
 
 	while (true){
@@ -48,14 +44,14 @@ void TcpSocketSender::update(){
 		SocketData* sendData = mData->take();
 
 		if (sendData){
-			senderBuffer.clear();
-			sendData->toByteArray(senderBuffer);
+			writer.clear();
+			sendData->writeToBuffer(&writer);
+			auto senderBuffer = writer.getBuffer();
 			sentData = 0;
 
 			bool _exit = false;
 			while (true) {
-				rs = send(mSocket, senderBuffer.data() + sentData, senderBuffer.size() - sentData, 0);
-				//rs = write(mSocket, senderBuffer.data(), senderBuffer.size());
+				rs = send(mSocket, senderBuffer.data() + sentData, senderBuffer.size() - sentData, 0);;
 				if (rs > 0){
 					sentData += rs;
 					if (sentData < senderBuffer.size()){
@@ -88,9 +84,6 @@ void TcpSocketSender::update(){
 					break;
 				}
 			}
-
-			delete sendData;
-
 			if (_exit){
 				break;
 			}
@@ -146,17 +139,15 @@ void TcpSocketReceiver::updateRecvDataSize(){
 
 void TcpSocketReceiver::updateRecvData(){
 	if (recvBuffer.size() >= dataSize){
-		SFS::Entity::SFSObject* message = (SFS::Entity::SFSObject*)SFS::Entity::SFSEntity::createEntityWithData(recvBuffer.data(), dataSize);
-		auto mEvent = SFS::Event::EventManager::createWithSFSObject(message);
-		message->release();
-
-		if (mEvent){
+		auto message = SFS::Entity::SFSEntity::createEntityWithData(recvBuffer.data(), dataSize);
+		if (message){
 #ifdef SFS_PRINT_DEBUG
 			SFS::log("---------------------");
-			mEvent->printDebug();
+			message->printDebug();
 			SFS::log("---------------------");
 #endif	
-			this->pushMessage(mEvent);
+			this->pushMessage(message);
+			message->release();
 		}
 
 		//
@@ -246,13 +237,6 @@ TcpSocketClient::~TcpSocketClient() {
 	//Director::getInstance()->getScheduler()->unscheduleAllForTarget(this);
 }
 
-void TcpSocketClient::sendHandshakeRequest(){
-	auto request = new SFS::Request::HandshakeRequest();
-	request->version = "1.6.3";
-	request->client = "C++ API";
-	this->sendMessage(request);
-}
-
 void TcpSocketClient::onApplicationPause(const SocketData& sendData){
 
 }
@@ -329,9 +313,6 @@ bool TcpSocketClient::connectThread(){
     }
     
     //clearRoom
-	SystemManager::getInstance()->clearRoom();
-	SystemManager::getInstance()->setUserId(-1);
-    
     for(auto _peer = peer; _peer; _peer = _peer->ai_next){
         mSocket = socket(_peer->ai_family, _peer->ai_socktype, _peer->ai_protocol);
         if (mSocket == SYS_SOCKET_INVALID){
@@ -344,8 +325,6 @@ bool TcpSocketClient::connectThread(){
             std::unique_lock<std::mutex> lk(clientMutex);
             if (mSender && mReceiver){
                 freeaddrinfo(peer);
-                //send handshake
-                this->sendHandshakeRequest();
                 return true;
             }
         }

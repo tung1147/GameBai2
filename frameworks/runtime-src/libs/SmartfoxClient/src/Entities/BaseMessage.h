@@ -7,7 +7,6 @@
 
 #ifndef SFSCLIENT_CORE_BASEMESSAGE_H_
 #define SFSCLIENT_CORE_BASEMESSAGE_H_
-#include "RequestType.h"
 #include "../Entities/SFSEntity.h"
 #include "../Entities/SFSObject.h"
 #include "../Entities/SFSArray.h"
@@ -19,18 +18,21 @@
 
 namespace SFS {
 
-class BaseMessage : public SocketData{
+class BaseMessage{
 protected:
 	char _header;
 
 	int targetControler;
 	int messageType;
 	Entity::SFSObject* contents;
+
+	Entity::SFSObject* data;
 public:
 	BaseMessage();
 	virtual ~BaseMessage();
 
-	virtual void toByteArray(std::vector<char> &bytes);
+	std::string toJSON();
+	void initFromJSON(const std::string& json);
 };
 
 } /* namespace SFS */

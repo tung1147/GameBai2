@@ -1,20 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Core">
-      <UniqueIdentifier>{a4ca38ff-892d-4120-9caf-ed1e30734be3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Entities">
       <UniqueIdentifier>{698d53b4-c1a3-4399-ac4b-ae6873ac48b6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Event">
-      <UniqueIdentifier>{ebc3e2be-d698-4d4b-8696-d14c89481ead}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Logger">
       <UniqueIdentifier>{5f4497c0-98df-43e4-8736-fdb32f247cb3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Request">
-      <UniqueIdentifier>{c66e054e-2f88-4359-a950-55b375214b13}</UniqueIdentifier>
     </Filter>
     <Filter Include="Socket">
       <UniqueIdentifier>{555fa215-c05e-40fb-9f58-a3f0bdc3e071}</UniqueIdentifier>
@@ -33,24 +24,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\Core\BaseMessage.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Core\BufferArray.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Core\DataSerializer.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Core\MD5.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Core\RequestType.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Core\SystemManager.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Entities\SFSArray.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
@@ -69,53 +42,8 @@
     <ClCompile Include="..\src\Entities\SFSVec3D.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Event\BaseEvent.cpp">
-      <Filter>Event</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Event\EventManager.cpp">
-      <Filter>Event</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Event\ExtensionEvent.cpp">
-      <Filter>Event</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Event\JoinRoomEvent.cpp">
-      <Filter>Event</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Event\LoginEvent.cpp">
-      <Filter>Event</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Event\UserExitRoomEvent.cpp">
-      <Filter>Event</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Logger\SFSLogger.cpp">
       <Filter>Logger</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Request\BaseRequest.cpp">
-      <Filter>Request</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Request\ExtensionRequest.cpp">
-      <Filter>Request</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Request\HandshakeRequest.cpp">
-      <Filter>Request</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Request\JoinRoomRequest.cpp">
-      <Filter>Request</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Request\LeaveRoomRequest.cpp">
-      <Filter>Request</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Request\LoginRequest.cpp">
-      <Filter>Request</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Request\LogoutRequest.cpp">
-      <Filter>Request</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Request\PrivateMessageRequest.cpp">
-      <Filter>Request</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Request\PublicMessageRequest.cpp">
-      <Filter>Request</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Socket\NetworkCore.cpp">
       <Filter>Socket</Filter>
@@ -129,29 +57,14 @@
     <ClCompile Include="..\src\Socket\SocketAdapter.cpp">
       <Filter>Socket</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Request\PingRequest.cpp">
-      <Filter>Request</Filter>
+    <ClCompile Include="..\src\Entities\BufferArray.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Entities\BaseMessage.cpp">
+      <Filter>Entities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\Core\BaseMessage.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Core\BufferArray.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Core\DataSerializer.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Core\MD5.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Core\RequestType.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Core\SystemManager.h">
-      <Filter>Core</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\Entities\SFSArray.h">
       <Filter>Entities</Filter>
     </ClInclude>
@@ -170,53 +83,8 @@
     <ClInclude Include="..\src\Entities\SFSVec3D.h">
       <Filter>Entities</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Event\BaseEvent.h">
-      <Filter>Event</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Event\EventManager.h">
-      <Filter>Event</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Event\ExtensionEvent.h">
-      <Filter>Event</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Event\JoinRoomEvent.h">
-      <Filter>Event</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Event\LoginEvent.h">
-      <Filter>Event</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Event\UserExitRoomEvent.h">
-      <Filter>Event</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\Logger\SFSLogger.h">
       <Filter>Logger</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Request\BaseRequest.h">
-      <Filter>Request</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Request\ExtensionRequest.h">
-      <Filter>Request</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Request\HandshakeRequest.h">
-      <Filter>Request</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Request\JoinRoomRequest.h">
-      <Filter>Request</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Request\LeaveRoomRequest.h">
-      <Filter>Request</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Request\LoginRequest.h">
-      <Filter>Request</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Request\LogoutRequest.h">
-      <Filter>Request</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Request\PrivateMessageRequest.h">
-      <Filter>Request</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Request\PublicMessageRequest.h">
-      <Filter>Request</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Socket\NetworkCore.h">
       <Filter>Socket</Filter>
@@ -231,9 +99,6 @@
       <Filter>Socket</Filter>
     </ClInclude>
     <ClInclude Include="..\src\SFSServer.h" />
-    <ClInclude Include="..\src\Request\PingRequest.h">
-      <Filter>Request</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\Entities\rapidjson\error\en.h">
       <Filter>Entities\rapidjson\error</Filter>
     </ClInclude>
@@ -317,6 +182,12 @@
     </ClInclude>
     <ClInclude Include="..\src\Entities\rapidjson\reader.h">
       <Filter>Entities\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Entities\BufferArray.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Entities\BaseMessage.h">
+      <Filter>Entities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

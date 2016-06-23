@@ -16,6 +16,7 @@ namespace SFS{
 		char headerBuffer[4];
 		int messageNumber;
 
+		SFS::StreamWriter writer;
 		virtual void update();
 	public:
 		TcpSocketSender();
@@ -62,8 +63,6 @@ namespace SFS{
 		virtual void createAdapter();
 		virtual bool connectThread();
 		virtual void startAdapter();
-
-		virtual void sendHandshakeRequest();
 	public:
 		TcpSocketClient();
 		virtual ~TcpSocketClient();

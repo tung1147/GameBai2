@@ -24,6 +24,7 @@ class SocketPool{
 protected:
 	std::queue<SFS::SocketData*>* mData;
 	std::mutex poolMutex;
+	std::condition_variable poolCond;
 public:
 	SocketPool();
 	virtual ~SocketPool();
@@ -32,26 +33,6 @@ public:
 	virtual SFS::SocketData* take();
 	virtual SFS::SocketData* pop();
 	virtual void clear();
-};
-
-class SocketPoolSender : public SFS::SocketPool{
-	std::condition_variable poolCond;
-	char headerBuffer[4];
-public:
-	SocketPoolSender();
-	virtual ~SocketPoolSender();
-
-	void push(SFS::SocketData* data);
-	SFS::SocketData* take();
-	void clear();
-};
-
-class SocketPoolReceiver : public SFS::SocketPool{
-public:
-	SocketPoolReceiver();
-	virtual ~SocketPoolReceiver();
-
-	void push(SFS::SocketData* data);
 };
 
 class SocketAdapter : public SFS::SocketRef{

@@ -184,6 +184,7 @@ copy "$(ProjectDir)..\..\..\project.json" "$(OutDir)\" /Y</Command>
     <ClCompile Include="..\Classes\NewGUI\jsb_quyetnd_newui.cpp" />
     <ClCompile Include="..\Classes\NewGUI\NewTableView.cpp" />
     <ClCompile Include="..\Classes\Socket\jsb_quyetnd_lobbysocket.cpp" />
+    <ClCompile Include="..\Classes\Socket\jsb_quyetnd_sfssocket.cpp" />
     <ClCompile Include="..\Classes\Socket\LobbyClient.cpp" />
     <ClCompile Include="..\Classes\Socket\SmartfoxClient.cpp" />
     <ClCompile Include="main.cpp" />
@@ -196,6 +197,7 @@ copy "$(ProjectDir)..\..\..\project.json" "$(OutDir)\" /Y</Command>
     <ClInclude Include="..\Classes\NewGUI\jsb_quyetnd_newui.hpp" />
     <ClInclude Include="..\Classes\NewGUI\NewTableView.h" />
     <ClInclude Include="..\Classes\Socket\jsb_quyetnd_lobbysocket.hpp" />
+    <ClInclude Include="..\Classes\Socket\jsb_quyetnd_sfssocket.hpp" />
     <ClInclude Include="..\Classes\Socket\LobbyClient.h" />
     <ClInclude Include="..\Classes\Socket\SmartfoxClient.h" />
     <ClInclude Include="main.h" />

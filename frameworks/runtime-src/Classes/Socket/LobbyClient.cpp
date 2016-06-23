@@ -51,7 +51,7 @@ void LobbyClient::initClientWithType(int type){
 
 	mClient->_recvCallback = CC_CALLBACK_1(LobbyClient::onRecvMessage, this);
 	mClient->_statusCallback = CC_CALLBACK_1(LobbyClient::onRecvStatus, this);
-	Director::getInstance()->getScheduler()->scheduleUpdateForTarget(this, INT_MIN, false);
+	Director::getInstance()->getScheduler()->scheduleUpdateForTarget(this, INT_MAX, false);
 }
 
 void LobbyClient::update(float dt){

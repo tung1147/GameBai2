@@ -11,47 +11,23 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\Core\BaseMessage.cpp" />
-    <ClCompile Include="..\src\Core\BufferArray.cpp" />
-    <ClCompile Include="..\src\Core\DataSerializer.cpp" />
-    <ClCompile Include="..\src\Core\MD5.cpp" />
-    <ClCompile Include="..\src\Core\RequestType.cpp" />
-    <ClCompile Include="..\src\Core\SystemManager.cpp" />
+    <ClCompile Include="..\src\Entities\BaseMessage.cpp" />
+    <ClCompile Include="..\src\Entities\BufferArray.cpp" />
     <ClCompile Include="..\src\Entities\SFSArray.cpp" />
     <ClCompile Include="..\src\Entities\SFSEntity.cpp" />
     <ClCompile Include="..\src\Entities\SFSObject.cpp" />
     <ClCompile Include="..\src\Entities\SFSPrimitive.cpp" />
     <ClCompile Include="..\src\Entities\SFSRef.cpp" />
     <ClCompile Include="..\src\Entities\SFSVec3D.cpp" />
-    <ClCompile Include="..\src\Event\BaseEvent.cpp" />
-    <ClCompile Include="..\src\Event\EventManager.cpp" />
-    <ClCompile Include="..\src\Event\ExtensionEvent.cpp" />
-    <ClCompile Include="..\src\Event\JoinRoomEvent.cpp" />
-    <ClCompile Include="..\src\Event\LoginEvent.cpp" />
-    <ClCompile Include="..\src\Event\UserExitRoomEvent.cpp" />
     <ClCompile Include="..\src\Logger\SFSLogger.cpp" />
-    <ClCompile Include="..\src\Request\BaseRequest.cpp" />
-    <ClCompile Include="..\src\Request\ExtensionRequest.cpp" />
-    <ClCompile Include="..\src\Request\HandshakeRequest.cpp" />
-    <ClCompile Include="..\src\Request\JoinRoomRequest.cpp" />
-    <ClCompile Include="..\src\Request\LeaveRoomRequest.cpp" />
-    <ClCompile Include="..\src\Request\LoginRequest.cpp" />
-    <ClCompile Include="..\src\Request\LogoutRequest.cpp" />
-    <ClCompile Include="..\src\Request\PingRequest.cpp" />
-    <ClCompile Include="..\src\Request\PrivateMessageRequest.cpp" />
-    <ClCompile Include="..\src\Request\PublicMessageRequest.cpp" />
     <ClCompile Include="..\src\Socket\NetworkCore.cpp" />
     <ClCompile Include="..\src\Socket\NetworkDefine.cpp" />
     <ClCompile Include="..\src\Socket\SFSTcpClient.cpp" />
     <ClCompile Include="..\src\Socket\SocketAdapter.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\Core\BaseMessage.h" />
-    <ClInclude Include="..\src\Core\BufferArray.h" />
-    <ClInclude Include="..\src\Core\DataSerializer.h" />
-    <ClInclude Include="..\src\Core\MD5.h" />
-    <ClInclude Include="..\src\Core\RequestType.h" />
-    <ClInclude Include="..\src\Core\SystemManager.h" />
+    <ClInclude Include="..\src\Entities\BaseMessage.h" />
+    <ClInclude Include="..\src\Entities\BufferArray.h" />
     <ClInclude Include="..\src\Entities\rapidjson\allocators.h" />
     <ClInclude Include="..\src\Entities\rapidjson\document.h" />
     <ClInclude Include="..\src\Entities\rapidjson\encodedstream.h" />
@@ -86,23 +62,7 @@
     <ClInclude Include="..\src\Entities\SFSPrimitive.h" />
     <ClInclude Include="..\src\Entities\SFSRef.h" />
     <ClInclude Include="..\src\Entities\SFSVec3D.h" />
-    <ClInclude Include="..\src\Event\BaseEvent.h" />
-    <ClInclude Include="..\src\Event\EventManager.h" />
-    <ClInclude Include="..\src\Event\ExtensionEvent.h" />
-    <ClInclude Include="..\src\Event\JoinRoomEvent.h" />
-    <ClInclude Include="..\src\Event\LoginEvent.h" />
-    <ClInclude Include="..\src\Event\UserExitRoomEvent.h" />
     <ClInclude Include="..\src\Logger\SFSLogger.h" />
-    <ClInclude Include="..\src\Request\BaseRequest.h" />
-    <ClInclude Include="..\src\Request\ExtensionRequest.h" />
-    <ClInclude Include="..\src\Request\HandshakeRequest.h" />
-    <ClInclude Include="..\src\Request\JoinRoomRequest.h" />
-    <ClInclude Include="..\src\Request\LeaveRoomRequest.h" />
-    <ClInclude Include="..\src\Request\LoginRequest.h" />
-    <ClInclude Include="..\src\Request\LogoutRequest.h" />
-    <ClInclude Include="..\src\Request\PingRequest.h" />
-    <ClInclude Include="..\src\Request\PrivateMessageRequest.h" />
-    <ClInclude Include="..\src\Request\PublicMessageRequest.h" />
     <ClInclude Include="..\src\SFSServer.h" />
     <ClInclude Include="..\src\Socket\NetworkCore.h" />
     <ClInclude Include="..\src\Socket\NetworkDefine.h" />

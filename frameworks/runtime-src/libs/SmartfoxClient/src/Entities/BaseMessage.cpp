@@ -15,18 +15,23 @@ BaseMessage::BaseMessage() {
 	targetControler = 0;
 	messageType = 0;
 	contents = 0;
+	data = 0;
 }
 
 BaseMessage::~BaseMessage() {
 	// TODO Auto-generated destructor stub
-	if (contents){
-		contents->release();
-		contents = 0;
+	if (data){
+		data->release();
+		data = 0;
 	}
 }
 
-void BaseMessage::toByteArray(std::vector<char> &bytes){
-	
+std::string BaseMessage::toJSON(){
+	return data->toJSON();
+}
+
+void BaseMessage::initFromJSON(const std::string& json){
+	data = (SFS::Entity::SFSObject*)SFS::Entity::SFSEntity::createFromJSON(json);
 }
 
 } /* namespace SFS */

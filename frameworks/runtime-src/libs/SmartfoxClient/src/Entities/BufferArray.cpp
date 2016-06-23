@@ -117,13 +117,22 @@ StreamWriter::~StreamWriter(){
 
 }
 
-int StreamWriter::size(){
-	return _data.size(); 
+const std::vector<char>& StreamWriter::getBuffer(){
+	return _data;
 }
 
-void StreamWriter::writeToBuffer(std::vector<char> &buffer){
-	buffer.insert(buffer.end(), _data.begin(), _data.end());
+void StreamWriter::clear(){
+	_data.clear();
 }
+
+
+//int StreamWriter::size(){
+//	return _data.size(); 
+//}
+//
+//void StreamWriter::writeToBuffer(std::vector<char> &buffer){
+//	buffer.insert(buffer.end(), _data.begin(), _data.end());
+//}
 
 void StreamWriter::WriteBytes(const char* data, int size){
 	_data.insert(_data.end(), data, data + size);

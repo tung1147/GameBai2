@@ -46,8 +46,11 @@ public:
 	StreamWriter();
 	virtual ~StreamWriter();
 
-	int size();
-	void writeToBuffer(std::vector<char> &buffer);
+	const std::vector<char>& getBuffer();
+	void clear();
+	//int size();
+
+	//void writeToBuffer(std::vector<char> &buffer);
 
 	void WriteByte(char c);
 	void WriteBool(bool b);

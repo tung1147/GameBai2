@@ -31,10 +31,10 @@ bool js_quyetnd_lobbysocket_LobbyClient_send(JSContext *cx, uint32_t argc, jsval
     quyetnd::LobbyClient* cobj = (quyetnd::LobbyClient *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_quyetnd_lobbysocket_LobbyClient_send : Invalid Native Object");
     if (argc == 1) {
-        const char* arg0 = nullptr;
-        std::string arg0_tmp; ok &= jsval_to_std_string(cx, args.get(0), &arg0_tmp); arg0 = arg0_tmp.c_str();
+     //   const char* arg0 = nullptr;
+        std::string arg0_tmp; ok &= jsval_to_std_string(cx, args.get(0), &arg0_tmp); //arg0 = arg0_tmp.c_str();
         JSB_PRECONDITION2(ok, cx, false, "js_quyetnd_lobbysocket_LobbyClient_send : Error processing arguments");
-        cobj->send(arg0);
+		cobj->send(arg0_tmp);
         args.rval().setUndefined();
         return true;
     }
@@ -51,12 +51,12 @@ bool js_quyetnd_lobbysocket_LobbyClient_connect(JSContext *cx, uint32_t argc, js
     quyetnd::LobbyClient* cobj = (quyetnd::LobbyClient *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_quyetnd_lobbysocket_LobbyClient_connect : Invalid Native Object");
     if (argc == 2) {
-        const char* arg0 = nullptr;
+       // const char* arg0 = nullptr;
         int arg1 = 0;
-        std::string arg0_tmp; ok &= jsval_to_std_string(cx, args.get(0), &arg0_tmp); arg0 = arg0_tmp.c_str();
+        std::string arg0_tmp; ok &= jsval_to_std_string(cx, args.get(0), &arg0_tmp); //arg0 = arg0_tmp.c_str();
         ok &= jsval_to_int32(cx, args.get(1), (int32_t *)&arg1);
         JSB_PRECONDITION2(ok, cx, false, "js_quyetnd_lobbysocket_LobbyClient_connect : Error processing arguments");
-        cobj->connect(arg0, arg1);
+		cobj->connect(arg0_tmp, arg1);
         args.rval().setUndefined();
         return true;
     }

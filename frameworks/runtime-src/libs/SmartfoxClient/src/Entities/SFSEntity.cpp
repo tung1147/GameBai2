@@ -11,6 +11,7 @@
 #include "SFSArray.h"
 #include "rapidjson/rapidjson.h"
 #include "rapidjson/document.h"
+#include "../Logger/SFSLogger.h"
 
 namespace SFS{
 namespace Entity{
@@ -38,6 +39,12 @@ void SFSEntity::initWithReader(StreamReader* reader){
 
 void SFSEntity::printDebug(std::ostringstream& os, int padding){
 
+}
+
+void SFSEntity::printDebug(){
+	std::ostringstream outStream;
+	this->printDebug(outStream, 0);
+	SFS::log(outStream.str().c_str());
 }
 
 std::string SFSEntity::toJSON(){
