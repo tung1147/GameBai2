@@ -8,7 +8,7 @@
 #ifndef SFSCLIENT_SOCKET_NETWORKCORE_H_
 #define SFSCLIENT_SOCKET_NETWORKCORE_H_
 #include "NetworkDefine.h"
-#include "../Entities/SFSEntity.h"
+#include "../Entities/BaseMessage.h"
 
 namespace SFS{
 enum SocketStatusType{
@@ -56,7 +56,7 @@ public:
 	void clear();
 };
 
-typedef SFS::Entity::SFSEntity SocketData;
+typedef SFS::BaseMessage SocketData;
 
 }
 #endif /* SFSCLIENT_SOCKET_NETWORKCORE_H_ */

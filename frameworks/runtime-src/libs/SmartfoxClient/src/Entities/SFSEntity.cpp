@@ -11,7 +11,7 @@
 #include "SFSArray.h"
 #include "rapidjson/rapidjson.h"
 #include "rapidjson/document.h"
-#include "../Logger/SFSLogger.h"
+#include <stdint.h>
 
 namespace SFS{
 namespace Entity{
@@ -39,12 +39,6 @@ void SFSEntity::initWithReader(StreamReader* reader){
 
 void SFSEntity::printDebug(std::ostringstream& os, int padding){
 
-}
-
-void SFSEntity::printDebug(){
-	std::ostringstream outStream;
-	this->printDebug(outStream, 0);
-	SFS::log(outStream.str().c_str());
 }
 
 std::string SFSEntity::toJSON(){
@@ -153,34 +147,19 @@ SFSEntity* __SFS_createEntityFromJSON(rapidjson::Value& value){
 	return new SFSEntity();
 }
 
-void __SFS_createInt(int64_t i64, SFS::Entity::SFSPrimitive* primitive){
-	if (INT8_MIN <= i64 <= INT8_MAX){
-		primitive->setByte((char)i64);
-	}
-	else if (INT16_MIN <= i64 <= INT16_MAX){
-		primitive->setShort((int16_t)i64);
-	}
-	else if (INT32_MIN <= i64 <= INT32_MAX){
-		primitive->setInt((int32_t)i64);
-	}
-	else{
-		primitive->setLong(i64);
-	}
-}
-
 SFSEntity* __SFS_createNumberFromJSON(rapidjson::Value& value){
 	auto pret = new SFSPrimitive();
 	if (value.IsInt()){
-		__SFS_createInt(value.GetInt(), pret);
+		pret->setInt(value.GetInt());
 	}
 	else if (value.IsInt64()){
-		__SFS_createInt(value.GetInt64(), pret);
+		pret->setLong(value.GetInt64());
 	}
 	else if (value.IsUint()){
-		__SFS_createInt(value.GetUint(), pret);
+		pret->setInt(value.GetUint());
 	}
 	else if (value.IsUint64()){
-		__SFS_createInt(value.GetUint64(), pret);
+		pret->setLong(value.GetUint64());
 	}
 	else if (value.IsDouble()){
 		pret->setFloat(value.GetDouble());
@@ -205,26 +184,20 @@ SFSEntity* __SFS_createArrayFromJSON(rapidjson::Value& value){
 	int _is_string =	1 << 3;
 	int _flag = _is_bool | _is_int | _is_float | _is_string;
 	
-	int64_t intMaxValue = INT64_MIN;
-
 	for (int i = 0; i < value.Size(); i++){
 		if (!_flag){
 			break;
 		}
-		if (value[i].IsBool()){ //bool
+		if (value[i].IsBool()){ //bool array
 			_flag = _flag & _is_bool;
 		}
-		else if (value[i].IsDouble()){ //double
+		else if (value[i].IsDouble()){ //float array
 			_flag = _flag & _is_float;
 		}
-		else if (value.IsNumber()){ //int
+		else if (value.IsNumber()){ //int array
 			_flag = _flag & _is_int;
-			int64_t i64 = value.GetInt64();
-			if (i64 > intMaxValue){
-				intMaxValue = i64;
-			}
 		}
-		else if (value.IsString()){
+		else if (value.IsString()){ //string array
 			_flag = _flag & _is_string;
 		}
 	}
@@ -243,19 +216,6 @@ SFSEntity* __SFS_createArrayFromJSON(rapidjson::Value& value){
 		arr->dataType == SFS::Entity::SFSDataType::SFSDATATYPE_BOOL_ARRAY;
 	}
 	else if (_flag & _is_int){
-		//if (INT8_MIN <= intMaxValue <= INT8_MAX){ //int 8
-		//	arr->dataType == SFS::Entity::SFSDataType::SFSDATATYPE_BYTE_ARRAY;
-		//}
-		//else if (INT16_MIN <= intMaxValue <= INT16_MAX){ //int 16
-		//	arr->dataType == SFS::Entity::SFSDataType::SFSDATATYPE_SHORT_ARRAY;
-		//}
-		//else if (INT32_MIN <= intMaxValue <= INT32_MAX){ //int 32
-		//	arr->dataType == SFS::Entity::SFSDataType::SFSDATATYPE_INT_ARRAY;
-		//}
-		//else{ //int 64
-		//	arr->dataType == SFS::Entity::SFSDataType::SFSDATATYPE_LONG_ARRAY;
-		//}
-
 		arr->dataType == SFS::Entity::SFSDataType::SFSDATATYPE_INT_ARRAY;
 	}
 	else if (_flag & _is_float){
@@ -274,6 +234,14 @@ SFSEntity* SFSEntity::createFromJSON(const std::string& json){
 }
 
 SFSEntity* SFSEntity::createFromJSON(const char* json, int size){
+	rapidjson::Document doc;
+	bool b = doc.Parse<0>(json).HasParseError();
+	if (!b){
+		if (doc.IsObject()){		
+			SFSEntity*  value = __SFS_createEntityFromJSON(doc);
+			return value;
+		}	
+	}
 	return 0;
 }
 

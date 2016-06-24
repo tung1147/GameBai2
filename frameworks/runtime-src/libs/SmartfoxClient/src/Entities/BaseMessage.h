@@ -10,7 +10,6 @@
 #include "../Entities/SFSEntity.h"
 #include "../Entities/SFSObject.h"
 #include "../Entities/SFSArray.h"
-#include "../Socket/NetworkCore.h"
 
 #define SFS_CONTROLLER_ID "c"
 #define SFS_ACTION_ID "a"
@@ -18,21 +17,20 @@
 
 namespace SFS {
 
-class BaseMessage{
-protected:
-	char _header;
-
+class BaseMessage : public SFSRef{
+protected :
+	Entity::SFSObject* contents;
+public:
 	int targetControler;
 	int messageType;
-	Entity::SFSObject* contents;
-
-	Entity::SFSObject* data;
 public:
 	BaseMessage();
 	virtual ~BaseMessage();
+	void writeToBuffer(SFS::StreamWriter* writer);
+	virtual void printDebug();
 
-	std::string toJSON();
-	void initFromJSON(const std::string& json);
+	void setContents(Entity::SFSObject* contents);
+	Entity::SFSObject* getContents();	
 };
 
 } /* namespace SFS */

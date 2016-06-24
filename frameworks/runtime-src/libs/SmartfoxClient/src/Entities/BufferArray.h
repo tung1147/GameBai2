@@ -42,6 +42,8 @@ class StreamWriter {
 	std::vector<char> _data;
 
 	void WriteBytes(const char* data, int size);
+	void WriteHeader(const char* data, int size);
+	void WriteHeader(char header);
 public:
 	StreamWriter();
 	virtual ~StreamWriter();
@@ -60,6 +62,9 @@ public:
 	void WriteFloat(float f);
 	void WriteDouble(double d);
 	void WriteString(const std::string& str);
+
+	void WriteHeader();
+	void Reserve(int size);
 };
 
 }

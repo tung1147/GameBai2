@@ -1,14 +1,6 @@
 /**
  * Created by Quyet Nguyen on 6/23/2016.
  */
-
-socket.LobbyClient.UDT = 0;
-socket.LobbyClient.TCP = 1;
-
-socket.LobbyClient.prototype._ctor = function (socketType) {
-    this.initClientWithType(socketType);
-};
-
 var LobbyClient = (function() {
     var instance = null;
 
@@ -41,7 +33,6 @@ var LobbyClient = (function() {
         
         connect : function (host, port) {
             if(this.lobbySocket){
-                cc.log("connect");
                 this.lobbySocket.connect(host, port);
             }
         },

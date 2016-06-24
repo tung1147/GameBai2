@@ -58,8 +58,9 @@ void TcpSocketSender::update(){
 						continue;
 					}
 					else{
-#ifdef SFS_PRINT_DEBUG
+#ifdef SFS_PRINT_DEBUG	
 						SFS::log("---------------------");
+						SFS::log("SEND =>");
 						sendData->printDebug();
 						SFS::log("---------------------");
 #endif
@@ -139,15 +140,25 @@ void TcpSocketReceiver::updateRecvDataSize(){
 
 void TcpSocketReceiver::updateRecvData(){
 	if (recvBuffer.size() >= dataSize){
-		auto message = SFS::Entity::SFSEntity::createEntityWithData(recvBuffer.data(), dataSize);
-		if (message){
+		auto sfsObject = (SFS::Entity::SFSObject*)SFS::Entity::SFSEntity::createEntityWithData(recvBuffer.data(), dataSize);
+		if (sfsObject){
+			int targetController = sfsObject->getByte(SFS_CONTROLLER_ID);
+			int messageType = sfsObject->getShort(SFS_ACTION_ID);
+			SFS::Entity::SFSObject* contents = sfsObject->getSFSObject(SFS_PARAM_ID);
+
+			auto message = new BaseMessage();
+			message->targetControler = targetController;
+			message->messageType = messageType;
+			message->setContents(contents);
 #ifdef SFS_PRINT_DEBUG
 			SFS::log("---------------------");
+			SFS::log("RECV <=");
 			message->printDebug();
 			SFS::log("---------------------");
 #endif	
 			this->pushMessage(message);
 			message->release();
+			sfsObject->release();
 		}
 
 		//

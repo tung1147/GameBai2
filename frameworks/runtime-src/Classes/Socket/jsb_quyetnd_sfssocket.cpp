@@ -31,7 +31,7 @@ bool js_quyetnd_sfssocket_SmartfoxClient_connect(JSContext *cx, uint32_t argc, j
     quyetnd::SmartfoxClient* cobj = (quyetnd::SmartfoxClient *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_quyetnd_sfssocket_SmartfoxClient_connect : Invalid Native Object");
     if (argc == 2) {
-       // const char* arg0 = nullptr;
+      //  const char* arg0 = nullptr;
         int arg1 = 0;
         std::string arg0_tmp; ok &= jsval_to_std_string(cx, args.get(0), &arg0_tmp); //arg0 = arg0_tmp.c_str();
         ok &= jsval_to_int32(cx, args.get(1), (int32_t *)&arg1);
@@ -68,16 +68,18 @@ bool js_quyetnd_sfssocket_SmartfoxClient_send(JSContext *cx, uint32_t argc, jsva
     js_proxy_t *proxy = jsb_get_js_proxy(obj);
     quyetnd::SmartfoxClient* cobj = (quyetnd::SmartfoxClient *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_quyetnd_sfssocket_SmartfoxClient_send : Invalid Native Object");
-    if (argc == 1) {
-      //  const char* arg0 = nullptr;
-        std::string arg0_tmp; ok &= jsval_to_std_string(cx, args.get(0), &arg0_tmp); //arg0 = arg0_tmp.c_str();
+    if (argc == 2) {
+        int arg0 = 0;
+        //const char* arg1 = nullptr;
+        ok &= jsval_to_int32(cx, args.get(0), (int32_t *)&arg0);
+        std::string arg1_tmp; ok &= jsval_to_std_string(cx, args.get(1), &arg1_tmp);// arg1 = arg1_tmp.c_str();
         JSB_PRECONDITION2(ok, cx, false, "js_quyetnd_sfssocket_SmartfoxClient_send : Error processing arguments");
-		cobj->send(arg0_tmp);
+		cobj->send(arg0, arg1_tmp);
         args.rval().setUndefined();
         return true;
     }
 
-    JS_ReportError(cx, "js_quyetnd_sfssocket_SmartfoxClient_send : wrong number of arguments: %d, was expecting %d", argc, 1);
+    JS_ReportError(cx, "js_quyetnd_sfssocket_SmartfoxClient_send : wrong number of arguments: %d, was expecting %d", argc, 2);
     return false;
 }
 bool js_quyetnd_sfssocket_SmartfoxClient_constructor(JSContext *cx, uint32_t argc, jsval *vp)
@@ -150,7 +152,7 @@ void js_register_quyetnd_sfssocket_SmartfoxClient(JSContext *cx, JS::HandleObjec
     static JSFunctionSpec funcs[] = {
         JS_FN("connect", js_quyetnd_sfssocket_SmartfoxClient_connect, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("close", js_quyetnd_sfssocket_SmartfoxClient_close, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
-        JS_FN("send", js_quyetnd_sfssocket_SmartfoxClient_send, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FN("send", js_quyetnd_sfssocket_SmartfoxClient_send, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("ctor", js_quyetnd_sfssocket_SmartfoxClient_ctor, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FS_END
     };

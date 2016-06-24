@@ -20,8 +20,6 @@ class SmartfoxClient {
 
 	void onRecvMessage(SFS::SocketData* data);
 	void onRecvStatus(const SFS::SocketStatusData& data);
-	void sendMessage(SFS::SocketData* message);
-	void sendJSMessage(const std::string& messageName, const std::string& value);
 public:
 	SmartfoxClient();
 	virtual ~SmartfoxClient();
@@ -30,7 +28,7 @@ public:
 
 	void connect(const std::string& host, int port);
 	void close();
-	void send(const std::string& json);
+	void send(int messageType, const std::string& contensJSON);
 };
 
 } /* namespace quyetnd */

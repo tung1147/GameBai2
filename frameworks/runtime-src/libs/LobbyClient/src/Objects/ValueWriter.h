@@ -8,8 +8,11 @@
 #ifndef LOBBYCLIENT_OBJECTS_VALUEWRITER_H_
 #define LOBBYCLIENT_OBJECTS_VALUEWRITER_H_
 
-#include <vector>
+#ifndef __STDINT_LIMITS
+#define __STDINT_LIMITS
+#endif
 #include <cstdint>
+#include <vector>
 #include <string>
 #include <stack>
 

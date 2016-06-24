@@ -53,7 +53,6 @@ public:
 	virtual void writeToBuffer(StreamWriter* writer);
 	virtual void initWithReader(StreamReader* reader);	
 	virtual void printDebug(std::ostringstream& os, int padding = 0);
-	virtual void printDebug();
 
 	virtual std::string toJSON();
 

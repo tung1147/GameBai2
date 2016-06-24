@@ -30,9 +30,11 @@ close : function (
 
 /**
  * @method send
- * @param {char} arg0
+ * @param {int} arg0
+ * @param {char} arg1
  */
 send : function (
+int, 
 char 
 )
 {

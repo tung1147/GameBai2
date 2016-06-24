@@ -40,40 +40,8 @@ def check_environment_variables():
     return NDK_ROOT
 
 def select_toolchain_version(ndk_root):
-    ret_version = "4.8"
-
-    version_file_path = os.path.join(ndk_root, "RELEASE.TXT")
-    try:
-        versionFile = open(version_file_path)
-        lines = versionFile.readlines()
-        versionFile.close()
-
-        version_num = None
-        version_char = None
-        pattern = r'^[a-zA-Z]+(\d+)(\w)'
-        for line in lines:
-            str_line = line.lstrip()
-            match = re.match(pattern, str_line)
-            if match:
-                version_num = int(match.group(1))
-                version_char = match.group(2)
-                break
-
-        if version_num is None:
-            print("Parse NDK version from file %s failed." % version_file_path)
-        else:
-            version_char = version_char.lower()
-            if version_num > 10 or (version_num == 10 and cmp(version_char, 'c') >= 0):
-                ret_version = "4.9"
-
-    except:
-        print("Parse NDK version from file %s failed." % version_file_path)
-
+    ret_version = "4.9"
     print("NDK_TOOLCHAIN_VERSION: %s" % ret_version)
-    if ret_version == "4.8":
-        print(
-            "Your application may crash when using c++ 11 regular expression with NDK_TOOLCHAIN_VERSION %s" % ret_version)
-
     return ret_version
 
 def do_build(cocos_root, ndk_root, app_android_root, ndk_build_param,sdk_root,build_mode):

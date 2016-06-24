@@ -138,6 +138,14 @@ void StreamWriter::WriteBytes(const char* data, int size){
 	_data.insert(_data.end(), data, data + size);
 }
 
+void StreamWriter::WriteHeader(const char* data, int size){
+	_data.insert(_data.begin(), data, data + size);
+}
+
+void StreamWriter::WriteHeader(char header){
+	_data.insert(_data.begin(), header);
+}
+
 void StreamWriter::WriteByte(char c){
 	WriteBytes((const char*) &c, 1);
 }
@@ -174,6 +182,20 @@ void StreamWriter::WriteDouble(double d){
 void StreamWriter::WriteString(const std::string& str){
 	WriteShort(str.size());
 	WriteBytes(str.data(), str.length());
+}
+
+void StreamWriter::WriteHeader(){
+	//write dataSize;
+	int16_t dataSize = _data.size();
+	__reverse_bytes((char*)&dataSize, 2);
+	WriteHeader((char*)&dataSize, 2);
+
+	//write header
+	WriteHeader(0x00);
+}
+
+void StreamWriter::Reserve(int size){
+	_data.reserve(size);
 }
 
 }

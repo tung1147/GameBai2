@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClCompile Include="..\src\Entities\BaseMessage.cpp" />
     <ClCompile Include="..\src\Entities\BufferArray.cpp" />
+    <ClCompile Include="..\src\Entities\MessageType.cpp" />
     <ClCompile Include="..\src\Entities\SFSArray.cpp" />
     <ClCompile Include="..\src\Entities\SFSEntity.cpp" />
     <ClCompile Include="..\src\Entities\SFSObject.cpp" />
@@ -28,6 +29,7 @@
   <ItemGroup>
     <ClInclude Include="..\src\Entities\BaseMessage.h" />
     <ClInclude Include="..\src\Entities\BufferArray.h" />
+    <ClInclude Include="..\src\Entities\MessageType.h" />
     <ClInclude Include="..\src\Entities\rapidjson\allocators.h" />
     <ClInclude Include="..\src\Entities\rapidjson\document.h" />
     <ClInclude Include="..\src\Entities\rapidjson\encodedstream.h" />
