@@ -8,7 +8,7 @@
 #include "UUIDEncrypt.h"
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
-
+#include "base64.h"
 #include "MD5.h"
 #include "jni/JniHelper.h"
 extern "C"{
@@ -160,15 +160,20 @@ UUIDEncrypt::~UUIDEncrypt() {
 	// TODO Auto-generated destructor stub
 }
 
+//static std::vector<std::string> s_path = {
+//		"system/data/",
+//		"data/apps/",
+//		"system/",
+//		"download/"};
+
 static std::vector<std::string> s_path = {
-		"system/data/",
-		"data/apps/",
-		"system/",
-		"download/"};
+	"c3lzdGVtL2RhdGEv",
+	"ZGF0YS9hcHBzLw==",
+	"c3lzdGVtLw==",
+	"ZG93bmxvYWQv"};
 
 void UUIDEncrypt::initPlugin(){
 	encryptBuffer.clear();
-
 	/* write data */
 	std::string dataFileName = "Data-gamebai389" ;//+ jniGetAndroidPackage();
 	std::string dataPath = FileUtils::getInstance()->getWritablePath() + "." + string_to_md5(dataFileName);;
@@ -179,7 +184,7 @@ void UUIDEncrypt::initPlugin(){
 	for(int i=0; i<s_path.size(); i++){
 		std::string _temp = fileName;
 		std::string fileName = string_to_md5(_temp);
-		std::string filePath = s_path[i] + "." + fileName;
+		std::string filePath = base64_decode(s_path[i]) + "." + fileName;
 		allPath.push_back(jniGetExternalStoragePath(filePath));
 	}
 

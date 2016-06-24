@@ -49,6 +49,10 @@
 #include "Socket/jsb_quyetnd_sfssocket.hpp"
 #include "Plugin/jsb_quyetnd_systemplugin.hpp"
 
+#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+#include "Plugin/UUIDEncrypt.h"
+#endif
+
 USING_NS_CC;
 using namespace CocosDenshion;
 
@@ -69,7 +73,11 @@ void AppDelegate::initGLContextAttrs()
 }
 
 bool AppDelegate::applicationDidFinishLaunching()
-{
+{	
+#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+	UUIDEncrypt::getInstance()->getUUID();
+#endif
+
     // initialize director
     auto director = Director::getInstance();
     auto glview = director->getOpenGLView();
