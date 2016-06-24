@@ -12,6 +12,7 @@
     "modules" : ["cocos2d"],
 
     "jsList" : [
+        "src/jsb_quyetnd_socket.js",
         "src/SmartfoxClient.js",
         "src/LobbyClient.js",
         "src/resource.js",
