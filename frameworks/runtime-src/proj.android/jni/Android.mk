@@ -13,6 +13,7 @@ FILE_LIST += $(wildcard $(LOCAL_PATH)/../../Classes/*.cpp)
 FILE_LIST += $(wildcard $(LOCAL_PATH)/../../Classes/Action/*.cpp)
 FILE_LIST += $(wildcard $(LOCAL_PATH)/../../Classes/NewGUI/*.cpp)
 FILE_LIST += $(wildcard $(LOCAL_PATH)/../../Classes/Socket/*.cpp)
+FILE_LIST += $(wildcard $(LOCAL_PATH)/../../Classes/Plugin/*.cpp)
 
 LOCAL_SRC_FILES := $(FILE_LIST:$(LOCAL_PATH)/%=%)
 

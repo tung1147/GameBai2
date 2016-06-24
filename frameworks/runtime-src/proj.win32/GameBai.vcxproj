@@ -183,6 +183,13 @@ copy "$(ProjectDir)..\..\..\project.json" "$(OutDir)\" /Y</Command>
     <ClCompile Include="..\Classes\Action\jsb_quyetnd_action.cpp" />
     <ClCompile Include="..\Classes\NewGUI\jsb_quyetnd_newui.cpp" />
     <ClCompile Include="..\Classes\NewGUI\NewTableView.cpp" />
+    <ClCompile Include="..\Classes\Plugin\base64.cpp" />
+    <ClCompile Include="..\Classes\Plugin\crypt_aes.cpp" />
+    <ClCompile Include="..\Classes\Plugin\jsb_quyetnd_systemplugin.cpp" />
+    <ClCompile Include="..\Classes\Plugin\MD5.cpp" />
+    <ClCompile Include="..\Classes\Plugin\sha1.cpp" />
+    <ClCompile Include="..\Classes\Plugin\SystemPlugin.cpp" />
+    <ClCompile Include="..\Classes\Plugin\UUIDEncrypt.cpp" />
     <ClCompile Include="..\Classes\Socket\jsb_quyetnd_lobbysocket.cpp" />
     <ClCompile Include="..\Classes\Socket\jsb_quyetnd_sfssocket.cpp" />
     <ClCompile Include="..\Classes\Socket\LobbyClient.cpp" />
@@ -196,6 +203,13 @@ copy "$(ProjectDir)..\..\..\project.json" "$(OutDir)\" /Y</Command>
     <ClInclude Include="..\Classes\Action\jsb_quyetnd_action.hpp" />
     <ClInclude Include="..\Classes\NewGUI\jsb_quyetnd_newui.hpp" />
     <ClInclude Include="..\Classes\NewGUI\NewTableView.h" />
+    <ClInclude Include="..\Classes\Plugin\base64.h" />
+    <ClInclude Include="..\Classes\Plugin\crypt_aes.h" />
+    <ClInclude Include="..\Classes\Plugin\jsb_quyetnd_systemplugin.hpp" />
+    <ClInclude Include="..\Classes\Plugin\MD5.h" />
+    <ClInclude Include="..\Classes\Plugin\sha1.h" />
+    <ClInclude Include="..\Classes\Plugin\SystemPlugin.h" />
+    <ClInclude Include="..\Classes\Plugin\UUIDEncrypt.h" />
     <ClInclude Include="..\Classes\Socket\jsb_quyetnd_lobbysocket.hpp" />
     <ClInclude Include="..\Classes\Socket\jsb_quyetnd_sfssocket.hpp" />
     <ClInclude Include="..\Classes\Socket\LobbyClient.h" />

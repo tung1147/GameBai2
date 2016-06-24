@@ -20,6 +20,9 @@
     <Filter Include="Classes\Socket">
       <UniqueIdentifier>{4fbe3e62-c60b-469e-b69d-5291550e12bd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Classes\Plugin">
+      <UniqueIdentifier>{da1ae6a1-80ce-49ea-a05a-c3bc10819777}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -54,6 +57,27 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Socket\jsb_quyetnd_sfssocket.cpp">
       <Filter>Classes\Socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plugin\crypt_aes.cpp">
+      <Filter>Classes\Plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plugin\sha1.cpp">
+      <Filter>Classes\Plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plugin\SystemPlugin.cpp">
+      <Filter>Classes\Plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plugin\UUIDEncrypt.cpp">
+      <Filter>Classes\Plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plugin\base64.cpp">
+      <Filter>Classes\Plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plugin\MD5.cpp">
+      <Filter>Classes\Plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plugin\jsb_quyetnd_systemplugin.cpp">
+      <Filter>Classes\Plugin</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -90,6 +114,27 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Socket\jsb_quyetnd_sfssocket.hpp">
       <Filter>Classes\Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plugin\UUIDEncrypt.h">
+      <Filter>Classes\Plugin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plugin\crypt_aes.h">
+      <Filter>Classes\Plugin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plugin\sha1.h">
+      <Filter>Classes\Plugin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plugin\SystemPlugin.h">
+      <Filter>Classes\Plugin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plugin\MD5.h">
+      <Filter>Classes\Plugin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plugin\base64.h">
+      <Filter>Classes\Plugin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plugin\jsb_quyetnd_systemplugin.hpp">
+      <Filter>Classes\Plugin</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

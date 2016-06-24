@@ -11,7 +11,7 @@ var LobbyClient = (function() {
             if (instance) {
                 throw "Cannot create new instance for Singleton Class";
             } else {
-                this.lobbySocket = new socket.LobbyClient(socket.LobbyClient.UDT);
+                this.lobbySocket = new socket.LobbyClient(socket.LobbyClient.TCP);
                 var thiz = this;
                 this.lobbySocket.onEvent = function (messageName, data) {
                     thiz.onEvent(messageName, data);

@@ -25,6 +25,43 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+		<!-- GCM -->
+ 		<receiver
+            android:name="com.google.android.gms.gcm.GcmReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <category android:name="com.gamebaivip.doithuongthat" />
+            </intent-filter>
+        </receiver>
+        <service
+            android:name="vn.quyetnd.plugin.gcm.GcmListenerService"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
+        <service
+            android:name="vn.quyetnd.plugin.gcm.InstanceIDListenerService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.gms.iid.InstanceID" />
+            </intent-filter>
+        </service>
+        
+         <service
+            android:name="vn.quyetnd.plugin.gcm.RegistrationIntentService"
+            android:exported="false">
+        </service>
+        
+         <!-- SMS Receiver -->
+		<receiver android:name="vn.quyetnguyen.plugin.system.SMSReceiver" android:exported="true" >
+			<intent-filter android:priority="999" >
+		        <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+		    </intent-filter>
+		</receiver>
     </application>
 
     <supports-screens android:anyDensity="true"
@@ -33,12 +70,20 @@
                       android:largeScreens="true"
                       android:xlargeScreens="true"/>
 					  
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>  
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>  
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>  
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>  
+    <permission android:name="com.puppet.gamebai.permission.C2D_MESSAGE" android:protectionLevel="signature" />
+    <uses-permission android:name="com.puppet.gamebai.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     
-  	<uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
- 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+ 	
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+	<uses-permission android:name="android.permission.INTERNET" />    
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />       
+    <uses-permission android:name="com.android.vending.BILLING" />       
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />       
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <!-- SMS Receiver -->
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
 </manifest> 
