@@ -7,6 +7,7 @@
 
 #include "MessageType.h"
 #include <map>
+#include <string>
 
 namespace SFS {
 	std::map<int, std::string> _s_request_name = 

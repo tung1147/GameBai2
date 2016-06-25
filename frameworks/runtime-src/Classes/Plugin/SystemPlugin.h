@@ -46,6 +46,7 @@ public:
 
 	void onBuyItemFinished(int returnCode, const std::string& signature, const std::string& json);
 	void onBuyItemFinished(int returnCode, const std::string& recept);
+    void onRegisterNotificationSuccess(const std::string& uid, const std::string& token);
 
 	static SystemPlugin* getInstance();
 };

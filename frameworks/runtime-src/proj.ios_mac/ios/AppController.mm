@@ -30,6 +30,8 @@
 #import "AppDelegate.h"
 #import "RootViewController.h"
 #import "platform/ios/CCEAGLView-ios.h"
+#import "FacebookPlugin_iOS.h"
+#import "cMediate.h"
 
 @implementation AppController
 
@@ -76,13 +78,40 @@ static AppDelegate s_sharedApplication;
     [window makeKeyAndVisible];
 
     [[UIApplication sharedApplication] setStatusBarHidden: YES];
-
+    [[UIApplication sharedApplication] setIdleTimerDisabled:true];
+    
+    //notification
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0){
+        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
+        [[UIApplication sharedApplication] registerForRemoteNotifications];
+    }
+    else{
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
+         (UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert)];
+    }
+    
     // IMPORTANT: Setting the GLView should be done after creating the RootViewController
     cocos2d::GLView *glview = cocos2d::GLViewImpl::createWithEAGLView(eaglView);
     cocos2d::Director::getInstance()->setOpenGLView(glview);
 
     cocos2d::Application::getInstance()->run();
-    return YES;
+    
+    [[FacebookPlugin_iOS getInstance]initWithView:viewController];
+    return [[FacebookPlugin_iOS getInstance] application:application didFinishLaunchingWithOptions:launchOptions];
+    //return YES;
+}
+
+- (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken{
+    NSString  *token = [[[[deviceToken description]    stringByReplacingOccurrencesOfString:@"<" withString:@""]
+                         stringByReplacingOccurrencesOfString:@">" withString:@""]
+                        stringByReplacingOccurrencesOfString: @" " withString: @""];
+    NSString* uniqueIdentifier = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    obj_to_c_registerNotificationSuccess([token UTF8String], [uniqueIdentifier UTF8String]);
+}
+
+- (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
+{
+    NSLog(@"didFailToRegisterForRemoteNotificationsWithError");
 }
 
 
@@ -99,6 +128,7 @@ static AppDelegate s_sharedApplication;
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
      */
     cocos2d::Director::getInstance()->resume();
+    [[FacebookPlugin_iOS getInstance] applicationDidBecomeActive:application];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
@@ -121,6 +151,10 @@ static AppDelegate s_sharedApplication;
      Called when the application is about to terminate.
      See also applicationDidEnterBackground:.
      */
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    return [[FacebookPlugin_iOS getInstance] application:application openURL:url sourceApplication:sourceApplication annotation:annotation];
 }
 
 

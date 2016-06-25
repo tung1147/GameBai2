@@ -107,6 +107,10 @@ void obj_to_c_buyAppSuccess(int returnCode, std::string recept)
     
 }
 
+void obj_to_c_registerNotificationSuccess(const char* uid, const char* token){
+    quyetnd::SystemPlugin::getInstance()->onRegisterNotificationSuccess(uid, token);
+}
+
 #endif
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
@@ -264,6 +268,10 @@ void SystemPlugin::onBuyItemFinished(int returnCode, const std::string& signatur
 
 void SystemPlugin::onBuyItemFinished(int returnCode, const std::string& signature){
 	jsb_quyetnd_onBuyItemFinished_iOS(returnCode, signature);
+}
+    
+void SystemPlugin::onRegisterNotificationSuccess(const std::string& uid, const std::string& token){
+        
 }
 
 /***/
