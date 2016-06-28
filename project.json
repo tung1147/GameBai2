@@ -13,10 +13,6 @@
 
     "jsList" : [
         "src/jsb_quyetnd_socket.js",
-        "src/jsb_quyetnd_system_plugin.js",
-        "src/SmartfoxClient.js",
-        "src/LobbyClient.js",
-        "src/resource.js",
-        "src/app.js"
+        "src/jsb_quyetnd_system_plugin.js"
     ]
 }

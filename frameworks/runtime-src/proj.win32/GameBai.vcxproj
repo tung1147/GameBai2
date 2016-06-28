@@ -81,7 +81,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\libs\LobbyClient\src;$(ProjectDir)..\libs\SmartfoxClient\src;$(ProjectDir)..\Classes;$(EngineRoot);$(EngineRoot)cocos;$(EngineRoot)external\spidermonkey\include\win32;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\libs\LobbyClient\src;$(ProjectDir)..\libs\SmartfoxClient\src;$(ProjectDir)..\Classes;$(EngineRoot);$(EngineRoot)cocos;$(EngineRoot)external\spidermonkey\include\win32;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;$(EngineRoot)external\curl\include\win32;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WINDOWS;STRICT;_DEBUG;XP_WIN;JS_HAVE___INTN;JS_INTPTR_TYPE=int;COCOS2D_DEBUG=1;COCOS2D_JAVASCRIPT=1;CC_ENABLE_CHIPMUNK_INTEGRATION=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_USRJSSTATIC;_USRLIBSIMSTATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -181,9 +181,14 @@ copy "$(ProjectDir)..\..\..\project.json" "$(OutDir)\" /Y</Command>
     <ClCompile Include="..\Classes\Action\ActionNumber.cpp" />
     <ClCompile Include="..\Classes\Action\ActionShake2D.cpp" />
     <ClCompile Include="..\Classes\Action\jsb_quyetnd_action.cpp" />
+    <ClCompile Include="..\Classes\GameLaucher\GameLaucher.cpp" />
+    <ClCompile Include="..\Classes\GameLaucher\GameResource.cpp" />
+    <ClCompile Include="..\Classes\GameLaucher\LoadingScene.cpp" />
+    <ClCompile Include="..\Classes\GameLaucher\ResourceLoader.cpp" />
     <ClCompile Include="..\Classes\NewGUI\jsb_quyetnd_newui.cpp" />
     <ClCompile Include="..\Classes\NewGUI\NewTableView.cpp" />
     <ClCompile Include="..\Classes\Plugin\base64.cpp" />
+    <ClCompile Include="..\Classes\Plugin\CRC32.cpp" />
     <ClCompile Include="..\Classes\Plugin\crypt_aes.cpp" />
     <ClCompile Include="..\Classes\Plugin\jsb_quyetnd_systemplugin.cpp" />
     <ClCompile Include="..\Classes\Plugin\MD5.cpp" />
@@ -201,9 +206,14 @@ copy "$(ProjectDir)..\..\..\project.json" "$(OutDir)\" /Y</Command>
     <ClInclude Include="..\Classes\Action\ActionNumber.h" />
     <ClInclude Include="..\Classes\Action\ActionShake2D.h" />
     <ClInclude Include="..\Classes\Action\jsb_quyetnd_action.hpp" />
+    <ClInclude Include="..\Classes\GameLaucher\GameLaucher.h" />
+    <ClInclude Include="..\Classes\GameLaucher\GameResource.h" />
+    <ClInclude Include="..\Classes\GameLaucher\LoadingScene.h" />
+    <ClInclude Include="..\Classes\GameLaucher\ResourceLoader.h" />
     <ClInclude Include="..\Classes\NewGUI\jsb_quyetnd_newui.hpp" />
     <ClInclude Include="..\Classes\NewGUI\NewTableView.h" />
     <ClInclude Include="..\Classes\Plugin\base64.h" />
+    <ClInclude Include="..\Classes\Plugin\CRC32.h" />
     <ClInclude Include="..\Classes\Plugin\crypt_aes.h" />
     <ClInclude Include="..\Classes\Plugin\jsb_quyetnd_systemplugin.hpp" />
     <ClInclude Include="..\Classes\Plugin\MD5.h" />

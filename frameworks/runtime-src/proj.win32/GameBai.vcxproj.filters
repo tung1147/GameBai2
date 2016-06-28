@@ -23,6 +23,9 @@
     <Filter Include="Classes\Plugin">
       <UniqueIdentifier>{da1ae6a1-80ce-49ea-a05a-c3bc10819777}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Classes\GameLaucher">
+      <UniqueIdentifier>{db5bfcc5-7475-47a9-bec3-e9b35a3e1e41}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -78,6 +81,21 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Plugin\jsb_quyetnd_systemplugin.cpp">
       <Filter>Classes\Plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plugin\CRC32.cpp">
+      <Filter>Classes\Plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameLaucher\GameResource.cpp">
+      <Filter>Classes\GameLaucher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameLaucher\GameLaucher.cpp">
+      <Filter>Classes\GameLaucher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameLaucher\LoadingScene.cpp">
+      <Filter>Classes\GameLaucher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameLaucher\ResourceLoader.cpp">
+      <Filter>Classes\GameLaucher</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -135,6 +153,21 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Plugin\jsb_quyetnd_systemplugin.hpp">
       <Filter>Classes\Plugin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plugin\CRC32.h">
+      <Filter>Classes\Plugin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameLaucher\GameResource.h">
+      <Filter>Classes\GameLaucher</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameLaucher\GameLaucher.h">
+      <Filter>Classes\GameLaucher</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameLaucher\LoadingScene.h">
+      <Filter>Classes\GameLaucher</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameLaucher\ResourceLoader.h">
+      <Filter>Classes\GameLaucher</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

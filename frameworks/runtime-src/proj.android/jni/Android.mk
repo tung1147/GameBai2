@@ -3,6 +3,7 @@ LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 
 $(call import-add-path,$(LOCAL_PATH)/../../libs)
+$(call import-add-path,$(LOCAL_PATH)/../../../cocos2d-x)
 
 LOCAL_MODULE := cocos2djs_shared
 
@@ -14,6 +15,7 @@ FILE_LIST += $(wildcard $(LOCAL_PATH)/../../Classes/Action/*.cpp)
 FILE_LIST += $(wildcard $(LOCAL_PATH)/../../Classes/NewGUI/*.cpp)
 FILE_LIST += $(wildcard $(LOCAL_PATH)/../../Classes/Socket/*.cpp)
 FILE_LIST += $(wildcard $(LOCAL_PATH)/../../Classes/Plugin/*.cpp)
+FILE_LIST += $(wildcard $(LOCAL_PATH)/../../Classes/GameLaucher/*.cpp)
 
 LOCAL_SRC_FILES := $(FILE_LIST:$(LOCAL_PATH)/%=%)
 
@@ -29,3 +31,4 @@ include $(BUILD_SHARED_LIBRARY)
 $(call import-module, scripting/js-bindings/proj.android)
 $(call import-module,SmartfoxClient/proj.android)
 $(call import-module,LobbyClient/proj.android)
+$(call import-module,external/curl/prebuilt/android)
