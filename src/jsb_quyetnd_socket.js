@@ -7,6 +7,7 @@ socket.LobbyClient.UDT = 0;
 socket.LobbyClient.TCP = 1;
 socket.LobbyClient.prototype._ctor = function (socketType) {
     this.initClientWithType(socketType);
+    return true;
 };
 
 /* smartfox */

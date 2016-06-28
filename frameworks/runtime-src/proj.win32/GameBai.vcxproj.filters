@@ -97,6 +97,9 @@
     <ClCompile Include="..\Classes\GameLaucher\ResourceLoader.cpp">
       <Filter>Classes\GameLaucher</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\NewGUI\NewTextInput.cpp">
+      <Filter>Classes\NewGUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h">
@@ -168,6 +171,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\GameLaucher\ResourceLoader.h">
       <Filter>Classes\GameLaucher</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\NewGUI\NewTextInput.h">
+      <Filter>Classes\NewGUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -39,4 +39,16 @@ bool js_quyetnd_newui_TableView_refreshView(JSContext *cx, uint32_t argc, jsval 
 bool js_quyetnd_newui_TableView_jumpToRight(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_quyetnd_newui_TableView_TableView(JSContext *cx, uint32_t argc, jsval *vp);
 
+
+/**/
+extern JSClass  *jsb_quyetnd_EditBox_class;
+extern JSObject *jsb_quyetnd_EditBox_prototype;
+
+bool js_quyetnd_newui_EditBox_constructor(JSContext *cx, uint32_t argc, jsval *vp);
+void js_quyetnd_newui_EditBox_finalize(JSContext *cx, JSObject *obj);
+void js_register_quyetnd_newui_EditBox(JSContext *cx, JS::HandleObject global);
+bool js_quyetnd_newui_EditBox_initWithSize(JSContext *cx, uint32_t argc, jsval *vp);
+bool js_quyetnd_newui_EditBox_setBackgoundMargin(JSContext *cx, uint32_t argc, jsval *vp);
+bool js_quyetnd_newui_EditBox_EditBox(JSContext *cx, uint32_t argc, jsval *vp);
+
 #endif // __quyetnd_newui_h__

@@ -57,6 +57,8 @@
 #include "json/rapidjson.h"
 #include "json/document.h"
 
+#include "../NewGUI/NewTextInput.h"
+
 using namespace quyetnd;
 
 bool jsb_quyetnd_load_script(JSContext *cx, uint32_t argc, jsval *vp){
@@ -97,14 +99,6 @@ void LoadingScene::startJS(){
 	sc->addRegisterCallback(register_all_cocos2dx);
 	sc->addRegisterCallback(register_cocos2dx_js_core);
 	sc->addRegisterCallback(jsb_register_system);
-
-	//custon
-	sc->addRegisterCallback(register_all_quyetnd_action);
-	sc->addRegisterCallback(register_all_quyetnd_newui);
-	sc->addRegisterCallback(register_all_quyetnd_lobbysocket);
-	sc->addRegisterCallback(register_all_quyetnd_sfssocket);
-	sc->addRegisterCallback(register_all_quyetnd_systemplugin);
-	sc->addRegisterCallback(jsb_quyetnd_register_load_script);
 
 	// extension can be commented out to reduce the package
 	sc->addRegisterCallback(register_all_cocos2dx_extension);
@@ -167,6 +161,14 @@ void LoadingScene::startJS(){
 	sc->addRegisterCallback(register_all_cocos2dx_audioengine);
 #endif
 
+	//custom
+	sc->addRegisterCallback(register_all_quyetnd_action);
+	sc->addRegisterCallback(register_all_quyetnd_newui);
+	sc->addRegisterCallback(register_all_quyetnd_lobbysocket);
+	sc->addRegisterCallback(register_all_quyetnd_sfssocket);
+	sc->addRegisterCallback(register_all_quyetnd_systemplugin);
+	sc->addRegisterCallback(jsb_quyetnd_register_load_script);
+
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 	sc->addRegisterCallback(JavascriptJavaBridge::_js_register);
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
@@ -227,13 +229,14 @@ void LoadingScene::startLoadResources(){
 }
 
 void LoadingScene::initScene(){
+	Scene::init();
+
 	Size winSize = Director::getInstance()->getWinSize();
 	statusLabel = Label::createWithSystemFont("Đang tải dữ liệu", "arial", 30);
 	statusLabel->setPosition(winSize.width / 2, winSize.height / 2);
 	this->addChild(statusLabel);
 
 	gameLaucher = quyetnd::GameLaucher::getInstance();
-	Scene::init();
 }
 
 
@@ -285,11 +288,10 @@ void LoadingScene::onResourcesLoaderProcess(int current, int max){
 void LoadingScene::onEnter(){
 	status = 0;
 	Scene::onEnter(); 
-	this->scheduleUpdate();
-	statusLabel->setString("Đang kiểm tra phiên bản");
-	gameLaucher->startFromFile("res/Game/version.json");
 
-	//SpriteFrameCache::getInstance()->addSpriteFramesWithFile
+	statusLabel->setString("Đang kiểm tra phiên bản");
+	this->scheduleUpdate();
+	gameLaucher->startFromFile("res/Game/version.json");
 }
 
 void LoadingScene::onExit(){

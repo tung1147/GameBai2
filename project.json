@@ -13,6 +13,7 @@
 
     "jsList" : [
         "src/jsb_quyetnd_socket.js",
-        "src/jsb_quyetnd_system_plugin.js"
+        "src/jsb_quyetnd_system_plugin.js",
+        "src/jsb_quyetnd_newui.js"
     ]
 }
