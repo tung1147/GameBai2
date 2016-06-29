@@ -35,6 +35,10 @@ GameFile::~GameFile() {
 }
 
 bool GameFile::isExistFile(const std::string& filePath){
+	if (filePath == ""){
+		return false;
+	}
+
 	bool pret = false;
 	FILE* f = fopen(filePath.c_str(), "rb");
 	if (f){
@@ -47,42 +51,52 @@ bool GameFile::isExistFile(const std::string& filePath){
 bool GameFile::checkHashFile(){
 	bool pret = false;
 
-	ssize_t fileSize;
-	FILE* file = fopen(filePath.c_str(), "rb");
-	fseek(file, 0, SEEK_END);
-	fileSize = ftell(file);
-	fseek(file, 0, SEEK_SET);
-	char* data = new char[fileSize + 1];
-	fread(data, 1, fileSize, file);
-	fclose(file);
-	
-	MD5 md5;
-	md5.update(data, fileSize);
-	md5.finalize();
-	std::string md5Str = md5.hexdigest();
-	std::transform(md5Str.begin(), md5Str.end(), md5Str.begin(), ::tolower);
-	std::transform(md5Digest.begin(), md5Digest.end(), md5Digest.begin(), ::tolower);
-	if (md5Str == md5Digest){
-		pret = true;
+	ssize_t fileSize = 0;
+	unsigned char* mData = FileUtils::getInstance()->getFileData(filePath, "rb", &fileSize);
+	if (mData){
+		MD5 md5;
+		md5.update(mData, fileSize);
+		md5.finalize();
+		std::string md5Str = md5.hexdigest();
+		std::transform(md5Str.begin(), md5Str.end(), md5Str.begin(), ::tolower);
+		std::transform(md5Digest.begin(), md5Digest.end(), md5Digest.begin(), ::tolower);
+		if (md5Str == md5Digest){
+			pret = true;
+		}
+		delete[] mData;
+		return pret;
 	}
-	delete[] data;
-	return pret;
+	return false;
 }
 
-#define GAME_FILE_NOT_HASH 1
+//#define GAME_FILE_NOT_HASH 1
 bool GameFile::test(){
 #ifdef GAME_FILE_NOT_HASH
 	filePath = filePath = FileUtils::getInstance()->fullPathForFilename(fileName);
 	return true;
 #else	
-	filePath = filePath = FileUtils::getInstance()->fullPathForFilename(fileName);
+	filePath = FileUtils::getInstance()->getWritablePath() + "Game/" + fileName;
+//	filePath = FileUtils::getInstance()->fullPathForFilename(filePath);
+	if (!isExistFile(filePath)){
+		filePath = "res/Game/" + fileName;
+		if (!FileUtils::getInstance()->isFileExist(filePath)){
+			filePath = "";
+		}
+	}
+	
 	if (filePath != ""){
 		bool b = checkHashFile();
 		if (b){
 			return true;
 		}
+		else{
+			CCLOG("Test Invalid hash");
+		}
 	}
-	//failure
+	else{
+		CCLOG("Test file not found");
+	}
+	//failure	
 	filePath = FileUtils::getInstance()->getWritablePath() + "Game/" + fileName;
 	return false;
 #endif
@@ -96,7 +110,35 @@ size_t _GameFile_write_data(void *ptr, size_t size, size_t nmemb, FILE *stream) 
 	return written;
 }
 
-void _gamefile_create_parant_folder(const std::string& filePath){
+void _gamefile_create_folder_tree(const std::string& filePath){
+	//create parent
+	size_t n = filePath.find_last_of("/");
+	std::string parentFolder = filePath.substr(0, n);
+	
+	//create folder
+	struct stat info;
+	bool _parent = false;
+	if (stat(parentFolder.c_str(), &info) != 0){
+		_parent = false;
+	}
+	else if (info.st_mode & S_IFDIR){  // S_ISDIR() doesn't exist on my windows
+		_parent = true;
+	}
+	else{
+		_parent = false;
+	}
+	if (!_parent){
+		_gamefile_create_folder_tree(parentFolder);
+	}
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
+	_mkdir(filePath.c_str());
+#else
+	mkdir(filePath.c_str(), 0770);
+#endif
+}
+
+void _gamefile_create_parent_folder(const std::string& filePath){
 	size_t n = filePath.find_last_of("/");
 	std::string parentFolder = filePath.substr(0, n);
 
@@ -113,13 +155,8 @@ void _gamefile_create_parant_folder(const std::string& filePath){
 		folderExist = false;
 	}
 
-	if (!folderExist){
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
-		_mkdir(parentFolder.c_str());
-#else
-		mkdir(parentFolder.c_str(), 0770);
-#endif
-
+	if (!folderExist){		
+		_gamefile_create_folder_tree(parentFolder);
 	}
 }
 
@@ -129,21 +166,30 @@ int GameFile::update(const std::string& url){
 	CURLcode res;
 	auto root = FileUtils::getInstance()->getWritablePath();
 	curl = curl_easy_init();
+
+	int pret = 0;
 	if (curl != NULL) {
-		_gamefile_create_parant_folder(filePath);
+		_gamefile_create_parent_folder(filePath);
 
 		FILE *fp;
-		fp = fopen(filePath.c_str(), "wb+");
+		fp = fopen(filePath.c_str(), "wb");
 		if (fp != NULL) {
-			curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
+			curl_easy_setopt(curl, CURLOPT_URL, url.c_str());			
+			curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, true);
+			curl_easy_setopt(curl, CURLOPT_AUTOREFERER, true);
+			curl_easy_setopt(curl, CURLOPT_MAXREDIRS, 10);
+			curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, 120);
+			curl_easy_setopt(curl, CURLOPT_TIMEOUT, 120);
+			curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, true);
 			curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, _GameFile_write_data);
 			curl_easy_setopt(curl, CURLOPT_WRITEDATA, fp);
 			res = curl_easy_perform(curl);
 			curl_easy_cleanup(curl);
 			if (res == CURLE_OK) {
-				if (this->test()){
-					fclose(fp);
-					return 0;
+				fclose(fp);
+				if (this->checkHashFile()){
+					CCLOG("download file OK : %s", url.c_str());
+					return 0; 
 				}
 				else{
 					CCLOG("download file invalid hash: %s", url.c_str());
@@ -152,13 +198,17 @@ int GameFile::update(const std::string& url){
 			}
 			else{
 				CCLOG("download file network error[%d]: %s", res, url.c_str());
+				fclose(fp);
 				return 2;
-			}
-
-			fclose(fp);
+			}		
+			
+		}
+		else{
+			CCLOG("download file cannot create file:  %s", url.c_str());
+			return 3;
 		}
 	}
-	return 3;
+	return 4;
 }
 
 } /* namespace quyetnd */

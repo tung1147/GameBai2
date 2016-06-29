@@ -51,13 +51,6 @@ bool AppDelegate::applicationDidFinishLaunching()
 	//float designHeight = 720.0f;
 	//float designWidth = 
 
-
-
-	std::string externalPath = FileUtils::getInstance()->getWritablePath() + "Game/";
-	FileUtils::getInstance()->addSearchPath("res/Game/", true);
-	FileUtils::getInstance()->addSearchPath(externalPath, true);
-	auto a = FileUtils::getInstance()->getSearchPaths();
-
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0 / 60);
 	director->runWithScene(LoadingScene::scene());

@@ -95,6 +95,7 @@ LoadingScene::~LoadingScene() {
 }
 
 void LoadingScene::startJS(){
+	/****/
 	ScriptingCore* sc = ScriptingCore::getInstance();
 	sc->addRegisterCallback(register_all_cocos2dx);
 	sc->addRegisterCallback(register_cocos2dx_js_core);
@@ -187,6 +188,10 @@ void LoadingScene::startJS(){
 }
 
 void LoadingScene::startLoadResources(){
+	std::string externalPath = FileUtils::getInstance()->getWritablePath() + "Game/";
+	FileUtils::getInstance()->addSearchPath("res/Game/", true);
+	FileUtils::getInstance()->addSearchPath(externalPath, true);
+
 	GameFile* file =  gameLaucher->getFile("resources.json");
 
 	ssize_t fileSize;
@@ -247,7 +252,11 @@ void LoadingScene::update(float dt){
 	{
 	case 0:{ //update	
 		if (gameLaucher->getStatus() == quyetnd::GameLaucherStatus::GameLaucherStatus_Updating){
-			statusLabel->setString("Đang cập nhật phiên bản");
+			int current = 0;
+			int max = 0;
+			gameLaucher->getDownloadStatus(current, max);
+			sprintf(stringBuffer, "Đang cập nhật [%d/%d]", current, max);
+			statusLabel->setString(stringBuffer);
 		}
 		else if (gameLaucher->getStatus() == quyetnd::GameLaucherStatus::GameLaucherStatus_Finished){
 			//load resource
@@ -264,7 +273,7 @@ void LoadingScene::update(float dt){
 		break;
 	}
 
-	case 1:{ //load resource
+	case 1:{
 		float per = 100.0f * currentStep / maxStep;
 		sprintf(stringBuffer, "Đang tải tài nguyên [%d%]", (int)per);
 		statusLabel->setString(stringBuffer);

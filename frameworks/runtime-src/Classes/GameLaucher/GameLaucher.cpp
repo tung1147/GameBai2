@@ -16,6 +16,9 @@ namespace quyetnd {
 GameLaucher::GameLaucher() {
 	// TODO Auto-generated constructor stub
 	versionFile = "";
+	cDownload = 0;
+	maxDownload = 0;
+	resourceHost = "http://10.0.1.106/quyetnd/Game/";
 }
 
 GameLaucher::~GameLaucher() {
@@ -78,13 +81,19 @@ void GameLaucher::checkFiles(){
 
 	if (_resourceUpdate.size() > 0){
 		status_mutex.lock();
+		cDownload = 0;
+		maxDownload = _resourceUpdate.size();
 		this->status = GameLaucherStatus_Updating;
 		status_mutex.unlock();
 
 		for (int i = 0; i < _resourceUpdate.size();){
-			auto pret = _resourceUpdate[i]->update("https://genknews.vcmedia.vn/k:2016/1-1467047402424/10bophimthamhoachothaysucmanhdangsocuametunhien.jpg");
+			auto pret = _resourceUpdate[i]->update(resourceHost + _resourceUpdate[i]->fileName);
+		//	auto pret = _resourceUpdate[i]->update("https://httpsimage.com/img/bg_xocdia.png");
 			if (pret == 0){
 				i++;
+				status_mutex.lock();
+				cDownload = i;
+				status_mutex.unlock();			
 			}
 			else{
 				status_mutex.lock();
@@ -111,6 +120,12 @@ bool GameLaucher::startFromFile(const std::string& versionFile){
 int GameLaucher::getStatus(){
 	std::unique_lock<std::mutex> lk(status_mutex);
 	return status;
+}
+
+void GameLaucher::getDownloadStatus(int &current, int& max){
+	std::unique_lock<std::mutex> lk(status_mutex);
+	current = this->cDownload;
+	max = this->maxDownload;
 }
 
 GameFile* GameLaucher::getFile(const std::string& file){

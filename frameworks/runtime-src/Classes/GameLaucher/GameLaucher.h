@@ -24,12 +24,16 @@ enum GameLaucherStatus{
 };
 
 class GameLaucher {
+	std::string resourceHost;
+
 	std::string versionFile;
 	std::map<std::string, GameFile*> _allResources;
 	
 	bool checkFileExist(const std::string& file);
 
 	int status;
+	int cDownload;
+	int maxDownload;
 	std::mutex status_mutex;
 
 	void checkFiles();
@@ -41,6 +45,7 @@ public:
 
 	bool startFromFile(const std::string& versionFile);
 	int getStatus();
+	void getDownloadStatus(int &current, int& max);
 
 	GameFile* getFile(const std::string& file);
 
