@@ -176,12 +176,13 @@ void LoadingScene::startJS(){
 #endif
 	sc->start();
 	sc->runScript("script/jsb_boot.js");
+	//sc->runScript("src/jsb_boot.js");
 #if defined(COCOS2D_DEBUG) && (COCOS2D_DEBUG > 0)
 	sc->enableDebugger();
 #endif
 	ScriptEngineProtocol *engine = ScriptingCore::getInstance();
 	ScriptEngineManager::getInstance()->setScriptEngine(engine);
-	GameFile* mainJs = gameLaucher->getFile("script/main.js");
+	GameFile* mainJs = gameLaucher->getFile("js/main.js");
 	ScriptingCore::getInstance()->runScript(mainJs->filePath.c_str());
 }
 

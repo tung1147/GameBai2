@@ -52,9 +52,9 @@
  *
  */
  var LoadScript = (function(){
-    require("script/app.js");
-    require("script/LobbyClient.js");
-    require("script/SmartfoxClient.js");
+    require("js/app.js");
+    require("js/LobbyClient.js");
+    require("js/SmartfoxClient.js");
  })();
  
 cc.game.onStart = function(){
