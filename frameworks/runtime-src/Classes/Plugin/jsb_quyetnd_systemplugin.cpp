@@ -111,7 +111,7 @@ void jsb_quyetnd_onRegisterNotificationSuccess(const std::string& deviceId, cons
 				dataVal[0] = std_string_to_jsval(sc->getGlobalContext(), deviceId),
 				dataVal[1] = std_string_to_jsval(sc->getGlobalContext(), token)
 			};
-			sc->executeFunctionWithOwner(OBJECT_TO_JSVAL(jsb_quyetnd_systemplugin_target), "onBuyItemFinishAndroid", 2, dataVal);
+			sc->executeFunctionWithOwner(OBJECT_TO_JSVAL(jsb_quyetnd_systemplugin_target), "onRegisterNotificationSuccess", 2, dataVal);
 		}
 	}
 }

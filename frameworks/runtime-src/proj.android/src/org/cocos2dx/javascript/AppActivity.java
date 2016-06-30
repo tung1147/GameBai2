@@ -58,8 +58,8 @@ public class AppActivity extends Cocos2dxActivity {
 		SystemPlugin.getInstance().init(this);
 		UUDIPlugin.getInstance().initWithActivity(this);
 		FacebookPlugin.getInstance().init(this, Cocos2dxGLSurfaceView.getInstance());		
-		GcmPlugin.getInstance().initGcm(this, PluginConfig.GCM_SENDER_ID, PluginConfig.GCM_BUNDLEID, PluginConfig.GCM_URL);
-        AndroidBilling.getInstance().initBilling(this, Cocos2dxGLSurfaceView.getInstance(), PluginConfig.IAP_base64PublicKey); 	
+        AndroidBilling.getInstance().initBilling(this, Cocos2dxGLSurfaceView.getInstance(), PluginConfig.IAP_base64PublicKey);
+        GcmPlugin.getInstance().initGcm(this, PluginConfig.GCM_SENDER_ID, PluginConfig.GCM_BUNDLEID, PluginConfig.GCM_URL);
 	}
 	   
     @Override

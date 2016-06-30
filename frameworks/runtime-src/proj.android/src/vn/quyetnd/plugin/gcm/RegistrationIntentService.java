@@ -26,6 +26,7 @@ import com.google.android.gms.iid.InstanceID;
 import android.app.IntentService;
 import android.content.Intent;
 import android.util.Log;
+import vn.quyetnguyen.plugin.system.SystemPlugin;
 
 public class RegistrationIntentService extends IntentService {
     private static final String TAG = "RegIntentService";
@@ -42,7 +43,8 @@ public class RegistrationIntentService extends IntentService {
             String token = instanceID.getToken(senderId, GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
             
             sendToken(token);
-            
+           
+                       
             Log.i(TAG, "GCM Registration Token: " + token);
         } catch (Exception e) {
             Log.d(TAG, "Failed to complete token refresh", e);
@@ -50,38 +52,8 @@ public class RegistrationIntentService extends IntentService {
     }
     
     private void sendToken(final String token){
-		try {
-			String urlCallback = GcmPlugin.getInstance().getUrlCallback();
-			String android_id = GcmPlugin.getInstance().getAndroidId();
-			String bundleId = GcmPlugin.getInstance().getBundleId();
-			
-			String requestUrl = urlCallback + 
-					"&bundleId=" + bundleId + 
-					"&token=" + token +
-					"&udid=" + android_id;
-			
-			Log.i(TAG, "url reg: " + requestUrl);
-			
-			URL url = new URL(requestUrl);
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			conn.setRequestMethod("GET");
-								
-			int returnCode = conn.getResponseCode();		
-			if(returnCode != 200){
-				Log.e(TAG, "Error: "+returnCode);
-			}
-			else{	
-				InputStream inputStream = conn.getInputStream();
-				byte[] buffer = new byte[1024];
-				
-				inputStream.read(buffer);
-				String str = new String(buffer);
-				
-				Log.d(TAG, "OK : "+str.trim());			
-			}		
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    }
+		String android_id = GcmPlugin.getInstance().getAndroidId();    	
+		SystemPlugin.getInstance().onRegisterNotificationSuccess(android_id, token);
+		
+    }    
 }

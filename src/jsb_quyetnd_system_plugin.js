@@ -46,6 +46,10 @@ var SystemPlugin = (function() {
 
         onBuyItemFinishIOS : function (returnCode, signature) {
             cc.log(returnCode + " - " + signature);
+        },
+
+        onRegisterNotificationSuccess : function (deviceId, token) {
+            cc.log("onRegisterNotificationSuccess: "+deviceId + " - " + token);
         }
     });
 

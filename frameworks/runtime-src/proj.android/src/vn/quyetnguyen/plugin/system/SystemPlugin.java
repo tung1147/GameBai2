@@ -204,7 +204,18 @@ public class SystemPlugin {
 		SystemPlugin.getInstance().callSupport(phoneNumber);
 	}
 	
+	public void onRegisterNotificationSuccess(final String deviceId, final String token){
+		Cocos2dxGLSurfaceView.getInstance().queueEvent(new Runnable() {			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				nativeOnRegisterNotificationSuccess(deviceId, token);
+			}
+		});
+	}
+	
 	private static final long VIBRATOR_TIME = 100;
 	
 	private native void nativeWindowsVisibleChange(int bottom ,int left, int top, int right);
+	private native void nativeOnRegisterNotificationSuccess(String deviceId, String token);
 }

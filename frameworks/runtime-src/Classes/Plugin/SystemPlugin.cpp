@@ -29,6 +29,12 @@ JNIEXPORT void JNICALL Java_vn_quyetnguyen_plugin_system_SystemPlugin_nativeWind
 	quyetnd::SystemPlugin::getInstance()->android_onWindowsVisibleChange(bottom,left,top,right);
 }
 
+JNIEXPORT void JNICALL Java_vn_quyetnguyen_plugin_system_SystemPlugin_nativeOnRegisterNotificationSuccess(JNIEnv*  env, jobject thiz, jstring deviceId, jstring token){
+	std::string _deviceId = JniHelper::jstring2string(deviceId);
+	std::string _token = JniHelper::jstring2string(token);
+	quyetnd::SystemPlugin::getInstance()->onRegisterNotificationSuccess(_deviceId, _token);
+}
+
 bool jniRequestBuyItem(const std::string& itemId){
 	JniMethodInfo method;
 	bool bRet = JniHelper::getStaticMethodInfo(method,"vn/quyetnguyen/android/billing/AndroidBilling","jniBuyItem","(Ljava/lang/String;Z)V");
@@ -271,6 +277,7 @@ void SystemPlugin::onBuyItemFinished(int returnCode, const std::string& signatur
 }
     
 void SystemPlugin::onRegisterNotificationSuccess(const std::string& uid, const std::string& token){
+	//log("%s -- %s",uid.c_str(), token.c_str());
 	jsb_quyetnd_onRegisterNotificationSuccess(uid, token);
 }
 
