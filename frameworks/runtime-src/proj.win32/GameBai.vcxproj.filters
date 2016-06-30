@@ -100,6 +100,15 @@
     <ClCompile Include="..\Classes\NewGUI\NewTextInput.cpp">
       <Filter>Classes\NewGUI</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Plugin\FacebookPlugin.cpp">
+      <Filter>Classes\Plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plugin\jsb_quyetnd_facebook_plugin.cpp">
+      <Filter>Classes\Plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Action\CustomAction.cpp">
+      <Filter>Classes\Action</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h">
@@ -174,6 +183,15 @@
     </ClInclude>
     <ClInclude Include="..\Classes\NewGUI\NewTextInput.h">
       <Filter>Classes\NewGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plugin\FacebookPlugin.h">
+      <Filter>Classes\Plugin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plugin\jsb_quyetnd_facebook_plugin.hpp">
+      <Filter>Classes\Plugin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Action\CustomAction.h">
+      <Filter>Classes\Action</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

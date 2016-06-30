@@ -15,6 +15,25 @@ var LobbyClient = (function() {
                 var thiz = this;
                 this.lobbySocket.onEvent = function (messageName, data) {
                     thiz.onEvent(messageName, data);
+
+                    if(messageName == "socketStatus"){
+                        var messageData = JSON.parse(data);
+                        var event = new cc.EventCustom("lobbyStatus");
+                        event.setUserData({
+                            messageName : messageName,
+                            data : data
+                        });
+                        cc.eventManager.dispatchEvent(event);
+                    }
+                    else if(messageName == "message"){
+                        var messageData = JSON.parse(data);
+                        var event = new cc.EventCustom("lobbyMessage");
+                        event.setUserData({
+                            messageName : messageName,
+                            data : messageData
+                        });
+                        cc.eventManager.dispatchEvent(event);
+                    }
                 };
             }
         },
@@ -56,10 +75,8 @@ var LobbyClient = (function() {
                 }
             }
             else if(messageName == "message"){
-                var messageData = JSON.parse(data);
+
             }
-            cc.log("data: "+data);
-            cc.log("message: "+messageName);
         }
     });
 

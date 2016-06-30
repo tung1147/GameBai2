@@ -14,6 +14,7 @@ void js_register_quyetnd_sfssocket_SmartfoxClient(JSContext *cx, JS::HandleObjec
 void register_all_quyetnd_sfssocket(JSContext* cx, JS::HandleObject obj);
 bool js_quyetnd_sfssocket_SmartfoxClient_connect(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_quyetnd_sfssocket_SmartfoxClient_close(JSContext *cx, uint32_t argc, jsval *vp);
+bool js_quyetnd_sfssocket_SmartfoxClient_getStatus(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_quyetnd_sfssocket_SmartfoxClient_send(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_quyetnd_sfssocket_SmartfoxClient_SmartfoxClient(JSContext *cx, uint32_t argc, jsval *vp);
 

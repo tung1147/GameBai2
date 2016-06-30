@@ -115,6 +115,13 @@ void SmartfoxClient::send(int messageType, const std::string& contensJSON){
 	}
 }
 
+int SmartfoxClient::getStatus(){
+	if (client){
+		return client->getStatus();
+	}
+	return -1;
+}
+
 //void SmartfoxClient::send(const std::string& json){
 //	auto request = SFS::Entity::SFSObject::createFromJSON(json);
 //	this->sendMessage(request);

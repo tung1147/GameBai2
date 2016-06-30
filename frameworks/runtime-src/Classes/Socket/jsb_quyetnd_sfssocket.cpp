@@ -60,6 +60,23 @@ bool js_quyetnd_sfssocket_SmartfoxClient_close(JSContext *cx, uint32_t argc, jsv
     JS_ReportError(cx, "js_quyetnd_sfssocket_SmartfoxClient_close : wrong number of arguments: %d, was expecting %d", argc, 0);
     return false;
 }
+
+bool js_quyetnd_sfssocket_SmartfoxClient_getStatus(JSContext *cx, uint32_t argc, jsval *vp){
+	JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+	JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	quyetnd::SmartfoxClient* cobj = (quyetnd::SmartfoxClient *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2(cobj, cx, false, "js_quyetnd_sfssocket_SmartfoxClient_getStatus : Invalid Native Object");
+	if (argc == 0) {
+		int status = cobj->getStatus();
+		args.rval().setInt32(status);
+		return true;
+	}
+
+	JS_ReportError(cx, "js_quyetnd_sfssocket_SmartfoxClient_getStatus : wrong number of arguments: %d, was expecting %d", argc, 0);
+	return false;
+}
+
 bool js_quyetnd_sfssocket_SmartfoxClient_send(JSContext *cx, uint32_t argc, jsval *vp)
 {
     JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
@@ -152,6 +169,7 @@ void js_register_quyetnd_sfssocket_SmartfoxClient(JSContext *cx, JS::HandleObjec
     static JSFunctionSpec funcs[] = {
         JS_FN("connect", js_quyetnd_sfssocket_SmartfoxClient_connect, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("close", js_quyetnd_sfssocket_SmartfoxClient_close, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("getStatus", js_quyetnd_sfssocket_SmartfoxClient_getStatus, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("send", js_quyetnd_sfssocket_SmartfoxClient_send, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("ctor", js_quyetnd_sfssocket_SmartfoxClient_ctor, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FS_END

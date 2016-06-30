@@ -29,4 +29,16 @@ bool js_quyetnd_action_ActionShake2D_stop(JSContext *cx, uint32_t argc, jsval *v
 bool js_quyetnd_action_ActionShake2D_initWithDuration(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_quyetnd_action_ActionShake2D_ActionShake2D(JSContext *cx, uint32_t argc, jsval *vp);
 
+
+extern JSClass  *jsb_quyetnd_CustomAction_class;
+extern JSObject *jsb_quyetnd_CustomAction_prototype;
+
+bool js_quyetnd_action_CustomAction_constructor(JSContext *cx, uint32_t argc, jsval *vp);
+void js_quyetnd_action_CustomAction_finalize(JSContext *cx, JSObject *obj);
+void js_register_quyetnd_action_CustomAction(JSContext *cx, JS::HandleObject global);
+bool js_quyetnd_action_CustomAction_initCustomAction(JSContext *cx, uint32_t argc, jsval *vp);
+//bool js_quyetnd_action_CustomAction_startWithTarget(JSContext *cx, uint32_t argc, jsval *vp);
+//bool js_quyetnd_action_CustomAction_update(JSContext *cx, uint32_t argc, jsval *vp);
+//bool js_quyetnd_action_CustomAction_stop(JSContext *cx, uint32_t argc, jsval *vp);
+
 #endif // __quyetnd_action_h__

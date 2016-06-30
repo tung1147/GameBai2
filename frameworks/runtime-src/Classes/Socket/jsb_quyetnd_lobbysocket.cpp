@@ -80,6 +80,23 @@ bool js_quyetnd_lobbysocket_LobbyClient_close(JSContext *cx, uint32_t argc, jsva
     JS_ReportError(cx, "js_quyetnd_lobbysocket_LobbyClient_close : wrong number of arguments: %d, was expecting %d", argc, 0);
     return false;
 }
+
+bool js_quyetnd_lobbysocket_LobbyClient_getStatus(JSContext *cx, uint32_t argc, jsval *vp){
+	JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+	JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	quyetnd::LobbyClient* cobj = (quyetnd::LobbyClient *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2(cobj, cx, false, "js_quyetnd_lobbysocket_LobbyClient_getStatus : Invalid Native Object");
+	if (argc == 0) {
+		int status = cobj->getStatus();
+		args.rval().setInt32(status);
+		return true;
+	}
+
+	JS_ReportError(cx, "js_quyetnd_lobbysocket_LobbyClient_getStatus : wrong number of arguments: %d, was expecting %d", argc, 0);
+	return false;
+}
+
 bool js_quyetnd_lobbysocket_LobbyClient_initClientWithType(JSContext *cx, uint32_t argc, jsval *vp)
 {
     JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
@@ -171,6 +188,7 @@ void js_register_quyetnd_lobbysocket_LobbyClient(JSContext *cx, JS::HandleObject
         JS_FN("send", js_quyetnd_lobbysocket_LobbyClient_send, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("connect", js_quyetnd_lobbysocket_LobbyClient_connect, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("close", js_quyetnd_lobbysocket_LobbyClient_close, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("getStatus", js_quyetnd_lobbysocket_LobbyClient_getStatus, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("initClientWithType", js_quyetnd_lobbysocket_LobbyClient_initClientWithType, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("ctor", js_quyetnd_lobbysocket_LobbyClient_ctor, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FS_END

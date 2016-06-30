@@ -9,6 +9,7 @@ newui.TableView.prototype._ctor = function (size, row) {
 newui.EditBox.prototype._ctor = function () {
     if(arguments.length == 1){
         this.initWithSize(arguments[0]);
+        
     }
     else if(arguments.length == 3){
         this.initWithSizeAndBackgroundSprite(arguments[0], arguments[1], arguments[2]);

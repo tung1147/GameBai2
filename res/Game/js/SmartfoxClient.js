@@ -16,9 +16,21 @@ var SmartfoxClient = (function() {
                 var thiz = this;
                 this.lobbySocket.onEvent = function (eventName) {
                     thiz.onEvent(eventName);
+                    var messageData = JSON.parse(data);
+                    var event = new cc.EventCustom("sfsStatus");
+                    event.setUserData({
+                        data : eventName
+                    });
                 };
                 this.lobbySocket.onMessage = function (messageType, data) {
                     thiz.onMessage(messageType, data);
+                    var messageData = JSON.parse(data);
+                    var event = new cc.EventCustom("sfsMessage");
+                    event.setUserData({
+                        messageType : messageType,
+                        data : data
+                    });
+                    cc.eventManager.dispatchEvent(event);
                 }
             }
         },

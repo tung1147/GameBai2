@@ -91,6 +91,13 @@ void LobbyClient::onRecvMessage(quyetnd::net::SocketData* data){
 void LobbyClient::onRecvStatus(const quyetnd::net::SocketStatusData& data){
 	this->sendJSMessage("socketStatus", quyetnd::net::SocketStatusName(data.status));
 }
-	
+
+int LobbyClient::getStatus(){
+	if (mClient){
+		return mClient->getStatus();
+	}
+	return -1;
+}
+
 
 } /* namespace quyetnd */

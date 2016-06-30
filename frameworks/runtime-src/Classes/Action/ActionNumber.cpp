@@ -90,7 +90,7 @@ void ActionNumberCount::startWithTarget(Node *target){
 }
 
 void ActionNumberCount::update(float t){
-	int current = _from + t * (_to - _from);
+	int current = _from + (int)(t * (_to - _from));
 	if (formatType == NumberFormatType::FormatTypeNone){
 		updateFormatNone(current);
 	}

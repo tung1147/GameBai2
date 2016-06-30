@@ -1,22 +1,32 @@
 
 var HelloWorldLayer = cc.Layer.extend({
-    sprite:null,
+    //sprite:null,
     ctor:function () {
         this._super();
         var winSize = cc.winSize;
-      //   var editBox =  new newui.EditBox(cc.size(200, 50));
-      // //  editBox.setContentSize(cc.size(2,2));
-      //   editBox.setPlaceHolder("input text");
-      //   editBox.x = winSize.width/2;
-      //   editBox.y = winSize.height/2;
-      //   this.addChild(editBox);
+        var thiz = this;
 
-        var editBox = new newui.EditBox(cc.size(200, 50));
-        editBox.setPlaceHolder('aaaa');
-        editBox.x = winSize.width/2;
-        editBox.y = winSize.height/2;
-        this.addChild(editBox);
+
+        var button = new ccui.Button("10b.png","","", ccui.Widget.PLIST_TEXTURE);
+        button.x = winSize.width/2;
+        button.y = winSize.height/2;
+        button.addClickEventListener(function () {
+            if(sprite){
+                sprite.removeFromParent(true);
+                sprite = null;
+            }
+        });
+        this.addChild(button);
+
+        var action = new quyetnd.ActionShake2D(10.0, cc.p(10, 10));
+        button.runAction(action);
+
         return true;
+    },
+    
+    onEvent : function (obj) {
+        data = obj.getUserData().name;
+        cc.log("onevent" + data);
     }
 });
 

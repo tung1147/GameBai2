@@ -69,10 +69,13 @@ bool GameFile::checkHashFile(){
 	return false;
 }
 
-//#define GAME_FILE_NOT_HASH 1
+#if defined(COCOS2D_DEBUG) && (COCOS2D_DEBUG > 0)
+#define GAME_FILE_NOT_HASH 1
+#endif
+
 bool GameFile::test(){
 #ifdef GAME_FILE_NOT_HASH
-	filePath = filePath = FileUtils::getInstance()->fullPathForFilename(fileName);
+	filePath = "res/Game/" + fileName;
 	return true;
 #else	
 	filePath = FileUtils::getInstance()->getWritablePath() + "Game/" + fileName;
@@ -100,9 +103,6 @@ bool GameFile::test(){
 	filePath = FileUtils::getInstance()->getWritablePath() + "Game/" + fileName;
 	return false;
 #endif
-
-	//filePath = FileUtils::getInstance()->getWritablePath() + "Game/" + fileName;
-	//return false;
 }
 
 size_t _GameFile_write_data(void *ptr, size_t size, size_t nmemb, FILE *stream) {

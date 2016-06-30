@@ -37,6 +37,8 @@ public:
 	void connect(const std::string& host, int port);
 	void close();
 	void send(const std::string& json);
+
+	int getStatus();
 };
 
 } /* namespace quyetnd */

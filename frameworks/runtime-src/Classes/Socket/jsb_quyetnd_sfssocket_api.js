@@ -29,6 +29,13 @@ close : function (
 },
 
 /**
+ * @method getStatus
+ */
+getStatus : function () {
+
+},
+
+/**
  * @method send
  * @param {int} arg0
  * @param {char} arg1

@@ -3,6 +3,13 @@
  */
 
 /* lobby */
+socket.LobbyClient.NotConnection = 0;
+socket.LobbyClient.Connecting = 1;
+socket.LobbyClient.Connected = 2;
+socket.LobbyClient.ConnectFailure = 3;
+socket.LobbyClient.LostConnection = 4;
+socket.LobbyClient.Closed = 5;
+
 socket.LobbyClient.UDT = 0;
 socket.LobbyClient.TCP = 1;
 socket.LobbyClient.prototype._ctor = function (socketType) {
@@ -11,6 +18,13 @@ socket.LobbyClient.prototype._ctor = function (socketType) {
 };
 
 /* smartfox */
+socket.SmartfoxClient.NotConnection = 0;
+socket.SmartfoxClient.Connecting = 1;
+socket.SmartfoxClient.Connected = 2;
+socket.SmartfoxClient.ConnectFailure = 3;
+socket.SmartfoxClient.LostConnection = 4;
+socket.SmartfoxClient.Closed = 5;
+
 socket.SmartfoxClient.Handshake = 0;
 socket.SmartfoxClient.Login = 1;
 socket.SmartfoxClient.Logout = 2;

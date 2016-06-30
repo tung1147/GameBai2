@@ -2,6 +2,7 @@
 #include "scripting/js-bindings/manual/cocos2d_specifics.hpp"
 #include "ActionNumber.h"
 #include "ActionShake2D.h"
+#include "CustomAction.h"
 
 template<class T>
 static bool dummy_constructor(JSContext *cx, uint32_t argc, jsval *vp)
@@ -274,9 +275,7 @@ static bool js_quyetnd_action_ActionShake2D_ctor(JSContext *cx, uint32_t argc, j
 }
 
 
-extern JSObject *jsb_cocos2d_ActionInterval_prototype;
-
-    
+extern JSObject *jsb_cocos2d_ActionInterval_prototype;    
 void js_register_quyetnd_action_ActionShake2D(JSContext *cx, JS::HandleObject global) {
     jsb_quyetnd_ActionShake2D_class = (JSClass *)calloc(1, sizeof(JSClass));
     jsb_quyetnd_ActionShake2D_class->name = "ActionShake2D";
@@ -324,6 +323,167 @@ void js_register_quyetnd_action_ActionShake2D(JSContext *cx, JS::HandleObject gl
     anonEvaluate(cx, global, "(function () { cc.ActionShake2D.extend = cc.Class.extend; })()");
 }
 
+
+//
+JSClass  *jsb_quyetnd_CustomAction_class;
+JSObject *jsb_quyetnd_CustomAction_prototype;
+
+bool js_quyetnd_action_CustomAction_startWithTarget(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+	bool ok = true;
+	JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	quyetnd::CustomAction* cobj = (quyetnd::CustomAction *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2(cobj, cx, false, "js_quyetnd_action_CustomAction_startWithTarget : Invalid Native Object");
+	if (argc == 1) {
+		cocos2d::Node* arg0 = nullptr;
+		do {
+			if (args.get(0).isNull()) { arg0 = nullptr; break; }
+			if (!args.get(0).isObject()) { ok = false; break; }
+			js_proxy_t *jsProxy;
+			JS::RootedObject tmpObj(cx, args.get(0).toObjectOrNull());
+			jsProxy = jsb_get_js_proxy(tmpObj);
+			arg0 = (cocos2d::Node*)(jsProxy ? jsProxy->ptr : NULL);
+			JSB_PRECONDITION2(arg0, cx, false, "Invalid Native Object");
+		} while (0);
+		JSB_PRECONDITION2(ok, cx, false, "js_quyetnd_action_CustomAction_startWithTarget : Error processing arguments");
+		cobj->startWithTarget(arg0);
+		args.rval().setUndefined();
+		return true;
+	}
+
+	JS_ReportError(cx, "js_quyetnd_action_CustomAction_startWithTarget : wrong number of arguments: %d, was expecting %d", argc, 1);
+	return false;
+}
+
+bool js_quyetnd_action_CustomAction_stop(JSContext *cx, uint32_t argc, jsval *vp){
+	JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+	JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	quyetnd::CustomAction* cobj = (quyetnd::CustomAction *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2(cobj, cx, false, "js_quyetnd_action_CustomAction_stop : Invalid Native Object");
+	if (argc == 0) {
+		cobj->stop();
+		args.rval().setUndefined();
+		return true;
+	}
+
+	JS_ReportError(cx, "js_quyetnd_action_CustomAction_stop : wrong number of arguments: %d, was expecting %d", argc, 0);
+	return false;
+}
+
+bool js_quyetnd_action_CustomAction_initCustomAction(JSContext *cx, uint32_t argc, jsval *vp){
+	JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+	JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	quyetnd::CustomAction* cobj = (quyetnd::CustomAction *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2(cobj, cx, false, "js_quyetnd_action_CustomAction_initCustomAction : Invalid Native Object");
+	if (argc == 0) {
+		cobj->initCustomAction();
+		args.rval().setUndefined();
+		return true;
+	}
+
+	JS_ReportError(cx, "js_quyetnd_action_CustomAction_initCustomAction : wrong number of arguments: %d, was expecting %d", argc, 0);
+	return false;
+}
+
+bool js_quyetnd_action_CustomAction_update(JSContext *cx, uint32_t argc, jsval *vp){
+	JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+	JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	quyetnd::CustomAction* cobj = (quyetnd::CustomAction *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2(cobj, cx, false, "js_quyetnd_action_CustomAction_update : Invalid Native Object");
+	if (argc == 1) {
+		if (args.get(0).isDouble()){
+			float dt = args.get(0).toDouble();
+			cobj->update(dt);
+			args.rval().setUndefined();
+			return true;
+		}
+	}
+
+	JS_ReportError(cx, "js_quyetnd_action_CustomAction_update : wrong number of arguments: %d, was expecting %d", argc, 0);
+	return false;
+}
+
+bool js_quyetnd_action_CustomAction_constructor(JSContext *cx, uint32_t argc, jsval *vp){
+	JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+	bool ok = true;
+	quyetnd::CustomAction* cobj = new (std::nothrow) quyetnd::CustomAction();
+
+	js_type_class_t *typeClass = js_get_type_from_native<quyetnd::CustomAction>(cobj);
+
+	// link the native object with the javascript object
+	JS::RootedObject jsobj(cx, jsb_ref_create_jsobject(cx, cobj, typeClass, "quyetnd::CustomAction"));
+	args.rval().set(OBJECT_TO_JSVAL(jsobj));
+	if (JS_HasProperty(cx, jsobj, "_ctor", &ok) && ok)
+		ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(jsobj), "_ctor", args);
+	return true;
+}
+
+static bool js_quyetnd_action_CustomAction_ctor(JSContext *cx, uint32_t argc, jsval *vp){
+	JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+	JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
+	quyetnd::CustomAction *nobj = new (std::nothrow) quyetnd::CustomAction();
+	auto newproxy = jsb_new_proxy(nobj, obj);
+	jsb_ref_init(cx, &newproxy->obj, nobj, "quyetnd::CustomAction");
+	bool isFound = false;
+	if (JS_HasProperty(cx, obj, "_ctor", &isFound) && isFound)
+		ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", args);
+	args.rval().setUndefined();
+	return true;
+}
+
+void js_register_quyetnd_action_CustomAction(JSContext *cx, JS::HandleObject global){
+	jsb_quyetnd_CustomAction_class = (JSClass *)calloc(1, sizeof(JSClass));
+	jsb_quyetnd_CustomAction_class->name = "CustomAction";
+	jsb_quyetnd_CustomAction_class->addProperty = JS_PropertyStub;
+	jsb_quyetnd_CustomAction_class->delProperty = JS_DeletePropertyStub;
+	jsb_quyetnd_CustomAction_class->getProperty = JS_PropertyStub;
+	jsb_quyetnd_CustomAction_class->setProperty = JS_StrictPropertyStub;
+	jsb_quyetnd_CustomAction_class->enumerate = JS_EnumerateStub;
+	jsb_quyetnd_CustomAction_class->resolve = JS_ResolveStub;
+	jsb_quyetnd_CustomAction_class->convert = JS_ConvertStub;
+	jsb_quyetnd_CustomAction_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
+
+	static JSPropertySpec properties[] = {
+		JS_PS_END
+	};
+
+	static JSFunctionSpec funcs[] = {
+		//JS_FN("update", js_quyetnd_action_CustomAction_update, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		//JS_FN("startWithTarget", js_quyetnd_action_CustomAction_startWithTarget, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		//JS_FN("stop", js_quyetnd_action_CustomAction_stop, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("initCustomAction", js_quyetnd_action_CustomAction_initCustomAction, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("ctor", js_quyetnd_action_CustomAction_ctor, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FS_END
+	};
+
+	JSFunctionSpec *st_funcs = NULL;
+
+	JS::RootedObject parent_proto(cx, jsb_cocos2d_ActionInterval_prototype);
+	jsb_quyetnd_CustomAction_prototype = JS_InitClass(
+		cx, global,
+		parent_proto,
+		jsb_quyetnd_CustomAction_class,
+		js_quyetnd_action_CustomAction_constructor, 0, // constructor
+		properties,
+		funcs,
+		NULL, // no static properties
+		st_funcs);
+
+	JS::RootedObject proto(cx, jsb_quyetnd_CustomAction_prototype);
+	JS::RootedValue className(cx, std_string_to_jsval(cx, "CustomAction"));
+	JS_SetProperty(cx, proto, "_className", className);
+	JS_SetProperty(cx, proto, "__nativeObj", JS::TrueHandleValue);
+	JS_SetProperty(cx, proto, "__is_ref", JS::TrueHandleValue);
+	// add the proto and JSClass to the type->js info hash table
+	jsb_register_class<quyetnd::CustomAction>(cx, jsb_quyetnd_CustomAction_class, proto, parent_proto);
+	anonEvaluate(cx, global, "(function () { cc.CustomAction.extend = cc.Class.extend; })()");
+}
+
 void register_all_quyetnd_action(JSContext* cx, JS::HandleObject obj) {
     // Get the ns
     JS::RootedObject ns(cx);
@@ -331,5 +491,11 @@ void register_all_quyetnd_action(JSContext* cx, JS::HandleObject obj) {
 
     js_register_quyetnd_action_ActionShake2D(cx, ns);
     js_register_quyetnd_action_ActionNumberCount(cx, ns);
+	js_register_quyetnd_action_CustomAction(cx, ns);
+
+//	JS::RootedObject tmpObj(cx);
+//	tmpObj.set(jsb_quyetnd_CustomAction_prototype);
+//	JS_DefineFunction(cx, tmpObj, "stop", js_quyetnd_action_CustomAction_stop, 0, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+
 }
 

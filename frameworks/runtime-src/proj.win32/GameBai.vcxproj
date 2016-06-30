@@ -180,6 +180,7 @@ copy "$(ProjectDir)..\..\..\project.json" "$(OutDir)\" /Y</Command>
   <ItemGroup>
     <ClCompile Include="..\Classes\Action\ActionNumber.cpp" />
     <ClCompile Include="..\Classes\Action\ActionShake2D.cpp" />
+    <ClCompile Include="..\Classes\Action\CustomAction.cpp" />
     <ClCompile Include="..\Classes\Action\jsb_quyetnd_action.cpp" />
     <ClCompile Include="..\Classes\GameLaucher\GameLaucher.cpp" />
     <ClCompile Include="..\Classes\GameLaucher\GameResource.cpp" />
@@ -191,6 +192,8 @@ copy "$(ProjectDir)..\..\..\project.json" "$(OutDir)\" /Y</Command>
     <ClCompile Include="..\Classes\Plugin\base64.cpp" />
     <ClCompile Include="..\Classes\Plugin\CRC32.cpp" />
     <ClCompile Include="..\Classes\Plugin\crypt_aes.cpp" />
+    <ClCompile Include="..\Classes\Plugin\FacebookPlugin.cpp" />
+    <ClCompile Include="..\Classes\Plugin\jsb_quyetnd_facebook_plugin.cpp" />
     <ClCompile Include="..\Classes\Plugin\jsb_quyetnd_systemplugin.cpp" />
     <ClCompile Include="..\Classes\Plugin\MD5.cpp" />
     <ClCompile Include="..\Classes\Plugin\sha1.cpp" />
@@ -206,6 +209,7 @@ copy "$(ProjectDir)..\..\..\project.json" "$(OutDir)\" /Y</Command>
   <ItemGroup>
     <ClInclude Include="..\Classes\Action\ActionNumber.h" />
     <ClInclude Include="..\Classes\Action\ActionShake2D.h" />
+    <ClInclude Include="..\Classes\Action\CustomAction.h" />
     <ClInclude Include="..\Classes\Action\jsb_quyetnd_action.hpp" />
     <ClInclude Include="..\Classes\GameLaucher\GameLaucher.h" />
     <ClInclude Include="..\Classes\GameLaucher\GameResource.h" />
@@ -217,6 +221,8 @@ copy "$(ProjectDir)..\..\..\project.json" "$(OutDir)\" /Y</Command>
     <ClInclude Include="..\Classes\Plugin\base64.h" />
     <ClInclude Include="..\Classes\Plugin\CRC32.h" />
     <ClInclude Include="..\Classes\Plugin\crypt_aes.h" />
+    <ClInclude Include="..\Classes\Plugin\FacebookPlugin.h" />
+    <ClInclude Include="..\Classes\Plugin\jsb_quyetnd_facebook_plugin.hpp" />
     <ClInclude Include="..\Classes\Plugin\jsb_quyetnd_systemplugin.hpp" />
     <ClInclude Include="..\Classes\Plugin\MD5.h" />
     <ClInclude Include="..\Classes\Plugin\sha1.h" />

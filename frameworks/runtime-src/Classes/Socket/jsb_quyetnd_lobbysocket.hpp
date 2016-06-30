@@ -15,6 +15,7 @@ void register_all_quyetnd_lobbysocket(JSContext* cx, JS::HandleObject obj);
 bool js_quyetnd_lobbysocket_LobbyClient_send(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_quyetnd_lobbysocket_LobbyClient_connect(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_quyetnd_lobbysocket_LobbyClient_close(JSContext *cx, uint32_t argc, jsval *vp);
+bool js_quyetnd_lobbysocket_LobbyClient_getStatus(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_quyetnd_lobbysocket_LobbyClient_initClientWithType(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_quyetnd_lobbysocket_LobbyClient_LobbyClient(JSContext *cx, uint32_t argc, jsval *vp);
 

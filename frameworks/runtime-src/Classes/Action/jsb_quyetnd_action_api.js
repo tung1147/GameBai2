@@ -98,3 +98,22 @@ ActionShake2D : function (
 },
 
 };
+
+cc.CustomAction = {
+
+update : function (dt) {
+
+},
+startWithTarget : function (target) {
+
+},
+stop:function () {
+
+},
+
+CustomAction : function ()
+{
+
+},
+
+};

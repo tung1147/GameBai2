@@ -39,6 +39,12 @@ close : function (
 },
 
 /**
+ * @method getStatus
+ */
+getStatus : function () {
+
+},
+/**
  * @method initClientWithType
  * @param {int} arg0
  */

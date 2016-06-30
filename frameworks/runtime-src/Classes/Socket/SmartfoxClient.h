@@ -29,6 +29,7 @@ public:
 	void connect(const std::string& host, int port);
 	void close();
 	void send(int messageType, const std::string& contensJSON);
+	int getStatus();
 };
 
 } /* namespace quyetnd */

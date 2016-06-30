@@ -51,10 +51,11 @@
  }
  *
  */
- var LoadScript = (function(){
-    require("js/app.js");
+ (function(){
+    require("js/NewAction.js");
     require("js/LobbyClient.js");
     require("js/SmartfoxClient.js");
+    require("js/app.js");
  })();
  
 cc.game.onStart = function(){

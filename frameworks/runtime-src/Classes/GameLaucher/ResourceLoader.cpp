@@ -117,21 +117,19 @@ void ResourceLoader::update(float dt){
 					step = kStepWaitingLoadImage;
                     auto textureImg = _preLoad[index].texture;
                     auto plistData = _preLoad[index].plist;
-					CCLOG("load texture: %s -- plist: %s....", textureImg.c_str(), plistData.c_str());
+					CCLOG("loading texture: %s : %s", textureImg.c_str(), plistData.c_str());
                     
-
 					TextureCache* textureCache = Director::getInstance()->getTextureCache();
 					textureCache->addImageAsync(textureImg, [=](Texture2D* texture){
 						if (texture){
-							CCLOG("load texture: %s OK!!!!!", textureImg.c_str());
-
+							CCLOG("load texture OK: %s : %s", textureImg.c_str(), plistData.c_str());
 							if (plistData != ""){
 								SpriteFrameCache* spriteCache = SpriteFrameCache::getInstance();
-								spriteCache->addSpriteFramesWithFileContent(plistData, texture);
+								spriteCache->addSpriteFramesWithFile(plistData, textureImg);
 							}
 						}
 						else{
-							CCLOG("load texture: %s FAILURE!!!!!", textureImg.c_str());
+							CCLOG("load texture FAILURE: %s : %s", textureImg.c_str(), plistData.c_str());
 						}
 						
 						index++;
@@ -152,7 +150,7 @@ void ResourceLoader::update(float dt){
 			{	
 				if (index < _preloadBMFont.size()){
 					step = kStepWaitingLoadImage;
-					CCLOG("load fonts: %s -- font: %s", _preloadBMFont[index].texture.c_str(), _preloadBMFont[index].font.c_str());
+					CCLOG("load fonts: %s : %s", _preloadBMFont[index].texture.c_str(), _preloadBMFont[index].font.c_str());
 
 					TextureCache* textureCache = Director::getInstance()->getTextureCache();
 					textureCache->addImageAsync(_preloadBMFont[index].texture, [=](Texture2D* texture){
