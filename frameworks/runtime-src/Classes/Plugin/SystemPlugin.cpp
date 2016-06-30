@@ -271,7 +271,7 @@ void SystemPlugin::onBuyItemFinished(int returnCode, const std::string& signatur
 }
     
 void SystemPlugin::onRegisterNotificationSuccess(const std::string& uid, const std::string& token){
-        
+	jsb_quyetnd_onRegisterNotificationSuccess(uid, token);
 }
 
 /***/

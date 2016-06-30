@@ -8,6 +8,7 @@
 #include "FacebookPlugin.h"
 #include "cocos2d.h"
 USING_NS_CC;
+#include "jsb_quyetnd_facebook_plugin.hpp"
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
 #include "jni/JniHelper.h"
@@ -87,7 +88,7 @@ void FacebookPlugin::showLogin(){
 
 void FacebookPlugin::onLoginFinished(int returnCode, const std::string& userId, const std::string& accessToken){
 	log("returnCode : %d", returnCode);
-
+	jsb_quyetnd_facebook_on_login(returnCode, userId, accessToken);
 //	GlobalMessageDict dict;
 //	dict.setInt("returnCode", returnCode);
 //	dict.setString("userId", userId);

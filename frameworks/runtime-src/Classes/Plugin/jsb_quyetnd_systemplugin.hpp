@@ -11,5 +11,6 @@ void register_all_quyetnd_systemplugin(JSContext* cx, JS::HandleObject obj);
 
 void jsb_quyetnd_onBuyItemFinished_Android(int returnCode, const std::string& signature, const std::string& json);
 void jsb_quyetnd_onBuyItemFinished_iOS(int returnCode, const std::string& signature);
+void jsb_quyetnd_onRegisterNotificationSuccess(const std::string& deviceId, const std::string& token);
 
 #endif // __quyetnd_systemplugin_h__

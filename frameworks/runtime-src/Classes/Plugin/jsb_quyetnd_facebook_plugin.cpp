@@ -1,11 +1,13 @@
+#include "cocos2d.h"
+#include "FacebookPlugin.h"
 #include "jsb_quyetnd_facebook_plugin.hpp"
 #include "scripting/js-bindings/manual/cocos2d_specifics.hpp"
-#include "FacebookPlugin.h"
+USING_NS_CC;
 
-JSClass  *jsb_quyetnd_facebook_plugin_class;
-JSObject *jsb_quyetnd_facebook_plugin_prototype;
-JSObject *jsb_quyetnd_facebook_plugin_ns_object;
-JSObject *jsb_quyetnd_facebook_plugin_target;
+JSClass  *jsb_quyetnd_facebook_plugin_class = 0;
+JSObject *jsb_quyetnd_facebook_plugin_prototype = 0;
+JSObject *jsb_quyetnd_facebook_plugin_ns_object = 0;
+JSObject *jsb_quyetnd_facebook_plugin_target = 0;
 
 bool jsb_quyetnd_facebook_plugin_setJSTarget(JSContext *cx, uint32_t argc, jsval *vp){
 	if (argc == 1){
@@ -16,92 +18,29 @@ bool jsb_quyetnd_facebook_plugin_setJSTarget(JSContext *cx, uint32_t argc, jsval
 	return false;
 }
 
-//bool jsb_quyetnd_systemplugin_getVersionName(JSContext *cx, uint32_t argc, jsval *vp){
-//	if (argc == 0){
-//		JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
-//		auto versionName = quyetnd::SystemPlugin::getInstance()->getVersionName();
-//		args.rval().set(std_string_to_jsval(cx, versionName));
-//		return true;
-//	}
-//	return false;
-//}
-//
-//bool jsb_quyetnd_systemplugin_getPackageName(JSContext *cx, uint32_t argc, jsval *vp){
-//	if (argc == 0){
-//		JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
-//		auto packageName = quyetnd::SystemPlugin::getInstance()->getPackageName();
-//		args.rval().set(std_string_to_jsval(cx, packageName));
-//		return true;
-//	}
-//	
-//	return false;
-//}
-//
-//bool jsb_quyetnd_systemplugin_buyIAPItem(JSContext *cx, uint32_t argc, jsval *vp){
-//	JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
-//	auto packageName = quyetnd::SystemPlugin::getInstance()->getPackageName();
-//	args.rval().set(std_string_to_jsval(cx, packageName));
-//	if (argc == 1){
-//		std::string itemBundle;
-//		jsval_to_std_string(cx, args.get(0), &itemBundle);
-//		quyetnd::SystemPlugin::getInstance()->buyItem(itemBundle);
-//		return true;
-//	}
-//	return false;
-//}
-//
-//bool jsb_quyetnd_systemplugin_getDeviceUUID(JSContext *cx, uint32_t argc, jsval *vp){
-//	JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
-//	std::string deviceUUID = "";
-//	if (argc == 0){
-//		deviceUUID = quyetnd::SystemPlugin::getInstance()->getDeviceUUID();
-//	}
-//	else if(argc == 1){
-//		std::string key;
-//		jsval_to_std_string(cx, args.get(0), &key);
-//		deviceUUID = quyetnd::SystemPlugin::getInstance()->getDeviceUUID(key);
-//	}
-//	args.rval().set(std_string_to_jsval(cx, deviceUUID));
-//	return true;
-//}
-//
-//bool jsb_quyetnd_systemplugin_IOS_InitStore(JSContext *cx, uint32_t argc, jsval *vp){
-//	if (argc == 1){
-//		JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
-//		std::vector<std::string> itemList;
-//		jsval_to_std_vector_string(cx, args.get(0), &itemList);
-//		quyetnd::SystemPlugin::getInstance()->initStore(itemList);
-//		return true;
-//	}
-//	return false;
-//}
+bool jsb_quyetnd_facebook_plugin_login(JSContext *cx, uint32_t argc, jsval *vp){
+	if (argc == 0){
+		JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+		quyetnd::FacebookPlugin::getInstance()->showLogin();
+		args.rval().setUndefined();
+		return true;
+	}
+	return false;
+}
 
-//void jsb_quyetnd_onBuyItemFinished_Android(int returnCode, const std::string& signature, const std::string& json){
-//	if (jsb_quyetnd_systemplugin_target){
-//		ScriptingCore* sc = ScriptingCore::getInstance();
-//		if (sc){
-//			jsval dataVal[] = {
-//				dataVal[0] = INT_TO_JSVAL(returnCode),
-//				dataVal[1] = std_string_to_jsval(sc->getGlobalContext(), signature),
-//				dataVal[2] = std_string_to_jsval(sc->getGlobalContext(), json)
-//			};
-//			sc->executeFunctionWithOwner(OBJECT_TO_JSVAL(jsb_quyetnd_systemplugin_target), "onBuyItemFinishAndroid", 3, dataVal);
-//		}
-//	}
-//}
-//
-//void jsb_quyetnd_onBuyItemFinished_iOS(int returnCode, const std::string& signature){
-//	if (jsb_quyetnd_systemplugin_target){
-//		ScriptingCore* sc = ScriptingCore::getInstance();
-//		if (sc){
-//			jsval dataVal[] = {
-//				dataVal[0] = INT_TO_JSVAL(returnCode),
-//				dataVal[1] = std_string_to_jsval(sc->getGlobalContext(), signature),
-//			};
-//			sc->executeFunctionWithOwner(OBJECT_TO_JSVAL(jsb_quyetnd_systemplugin_target), "onBuyItemFinishIOS", 2, dataVal);
-//		}
-//	}
-//}
+void jsb_quyetnd_facebook_on_login(int returnCode, const std::string& userId, const std::string& accessToken){
+	if (jsb_quyetnd_facebook_plugin_target){
+		ScriptingCore* sc = ScriptingCore::getInstance();
+		if (sc){
+			jsval dataVal[] = {
+				dataVal[0] = INT_TO_JSVAL(returnCode),
+				dataVal[1] = std_string_to_jsval(sc->getGlobalContext(), userId),
+				dataVal[2] = std_string_to_jsval(sc->getGlobalContext(), accessToken)
+			};
+			sc->executeFunctionWithOwner(OBJECT_TO_JSVAL(jsb_quyetnd_facebook_plugin_target), "onLoginFinished", 3, dataVal);
+		}
+	}
+}
 
 bool js_quyetnd_facebook_plugin_constructor(JSContext *cx, uint32_t argc, jsval *vp){
 	JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
@@ -134,6 +73,7 @@ void js_register_quyetnd_facebook_plugin(JSContext *cx, JS::HandleObject global)
     };
 
     static JSFunctionSpec funcs[] = {
+		JS_FN("showLogin", jsb_quyetnd_facebook_plugin_login, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("setTarget", jsb_quyetnd_facebook_plugin_setJSTarget, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FS_END
     };

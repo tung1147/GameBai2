@@ -53,11 +53,10 @@
 #include "Socket/jsb_quyetnd_lobbysocket.hpp"
 #include "Socket/jsb_quyetnd_sfssocket.hpp"
 #include "Plugin/jsb_quyetnd_systemplugin.hpp"
+#include "Plugin/jsb_quyetnd_facebook_plugin.hpp"
 #include "GameLaucher.h"
 #include "json/rapidjson.h"
 #include "json/document.h"
-
-#include "../NewGUI/NewTextInput.h"
 
 using namespace quyetnd;
 
@@ -168,6 +167,7 @@ void LoadingScene::startJS(){
 	sc->addRegisterCallback(register_all_quyetnd_lobbysocket);
 	sc->addRegisterCallback(register_all_quyetnd_sfssocket);
 	sc->addRegisterCallback(register_all_quyetnd_systemplugin);
+	sc->addRegisterCallback(register_all_quyetnd_facebook_plugin);
 	sc->addRegisterCallback(jsb_quyetnd_register_load_script);
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)

@@ -2,6 +2,7 @@
  * Created by Quyet Nguyen on 6/30/2016.
  */
 
+//Point()|cc.p()|
 var quyetnd = quyetnd || {};
 quyetnd.ActionShake2D = cc.CustomAction.extend({
     _strength : null,

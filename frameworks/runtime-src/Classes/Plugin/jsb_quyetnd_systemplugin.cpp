@@ -103,6 +103,19 @@ void jsb_quyetnd_onBuyItemFinished_iOS(int returnCode, const std::string& signat
 	}
 }
 
+void jsb_quyetnd_onRegisterNotificationSuccess(const std::string& deviceId, const std::string& token){
+	if (jsb_quyetnd_systemplugin_target){
+		ScriptingCore* sc = ScriptingCore::getInstance();
+		if (sc){
+			jsval dataVal[] = {
+				dataVal[0] = std_string_to_jsval(sc->getGlobalContext(), deviceId),
+				dataVal[1] = std_string_to_jsval(sc->getGlobalContext(), token)
+			};
+			sc->executeFunctionWithOwner(OBJECT_TO_JSVAL(jsb_quyetnd_systemplugin_target), "onBuyItemFinishAndroid", 2, dataVal);
+		}
+	}
+}
+
 bool js_quyetnd_systemplugin_constructor(JSContext *cx, uint32_t argc, jsval *vp){
 	JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
 	JS::RootedObject parent(cx, jsb_quyetnd_systemplugin_ns_object);

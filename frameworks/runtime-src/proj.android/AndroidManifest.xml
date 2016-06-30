@@ -11,6 +11,8 @@
     <application android:label="@string/app_name"
                  android:icon="@drawable/icon">
 
+        <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
+         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id" />
         <!-- Tell NativeActivity the name of our .so -->
         <meta-data android:name="android.app.lib_name" android:value="cocos2djs" />
 
@@ -26,6 +28,11 @@
             </intent-filter>
         </activity>
         
+        <!-- FacebookSDK -->
+		<activity android:name="com.facebook.FacebookActivity"
+ 					android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+	 				android:theme="@android:style/Theme.Translucent.NoTitleBar"
+					android:label="@string/app_name" />        
 		<!-- GCM -->
  		<receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"

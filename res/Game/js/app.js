@@ -1,6 +1,5 @@
 
 var HelloWorldLayer = cc.Layer.extend({
-    //sprite:null,
     ctor:function () {
         this._super();
         var winSize = cc.winSize;
@@ -11,15 +10,11 @@ var HelloWorldLayer = cc.Layer.extend({
         button.x = winSize.width/2;
         button.y = winSize.height/2;
         button.addClickEventListener(function () {
-            if(sprite){
-                sprite.removeFromParent(true);
-                sprite = null;
-            }
+            FacebookPlugin.getInstance().showLogin();
         });
         this.addChild(button);
 
-        var action = new quyetnd.ActionShake2D(10.0, cc.p(10, 10));
-        button.runAction(action);
+
 
         return true;
     },
