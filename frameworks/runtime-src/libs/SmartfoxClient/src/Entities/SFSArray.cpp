@@ -139,8 +139,70 @@ void SFSArray::writeToJSON(std::ostringstream& stream){
 void SFSArray::writeToBuffer(StreamWriter* writer){
 	writer->WriteByte(dataType);
 	writer->WriteShort(mData.size());
-	for (int i = 0; i < mData.size(); i++){
-		mData[i]->writeToBuffer(writer);
+	switch (dataType){
+		case SFSDATATYPE_BOOL_ARRAY:{
+			for (int i = 0; i < mData.size(); i++){
+				writer->WriteBool(this->getBool(i));
+			}
+
+			break;
+		}
+		case SFSDATATYPE_BYTE_ARRAY:{
+			for (int i = 0; i < mData.size(); i++){
+				writer->WriteByte(this->getByte(i));
+			}
+
+			break;
+		}
+		case SFSDATATYPE_SHORT_ARRAY:{
+			for (int i = 0; i < mData.size(); i++){
+				writer->WriteShort(this->getShort(i));
+			}
+
+			break;
+		}
+		case SFSDATATYPE_INT_ARRAY:{
+			for (int i = 0; i < mData.size(); i++){
+				writer->WriteInt(this->getInt(i));
+			}
+
+			break;
+		}
+		case SFSDATATYPE_LONG_ARRAY:{
+			for (int i = 0; i < mData.size(); i++){
+				writer->WriteLong(this->getLong(i));
+			}
+
+			break;
+		}
+		case SFSDATATYPE_FLOAT_ARRAY:{
+			for (int i = 0; i < mData.size(); i++){
+				writer->WriteFloat(this->getFloat(i));
+			}
+
+			break;
+		}
+		case SFSDATATYPE_DOUBLE_ARRAY:{
+			for (int i = 0; i < mData.size(); i++){
+				writer->WriteDouble(this->getDouble(i));
+			}
+
+			break;
+		}
+		case SFSDATATYPE_STRING_ARRAY:{
+			for (int i = 0; i < mData.size(); i++){
+				writer->WriteString(this->getString(i));
+			}
+
+			break;
+		}
+		case SFSDATATYPE_SFS_ARRAY:{
+			for (int i = 0; i < mData.size(); i++){
+				mData[i]->writeToBuffer(writer);
+			}
+
+			break;
+		}
 	}
 }
 
