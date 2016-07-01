@@ -14,6 +14,7 @@ var HelloWorldLayer = cc.Layer.extend({
         });
         this.addChild(button);
 
+       
 
 
         return true;

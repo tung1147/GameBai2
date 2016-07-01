@@ -40,10 +40,10 @@ void SFSObject::writeToBuffer(StreamWriter* writer){
 		writer->WriteString(it->first);
 
 		//write type
-		if (it->second->dataType != SFSDataType::SFSDATATYPE_SFS_OBJECT &&
+/*		if (it->second->dataType != SFSDataType::SFSDATATYPE_SFS_OBJECT &&
 			it->second->dataType != SFSDataType::SFSDATATYPE_SFS_ARRAY){
 			writer->WriteByte(it->second->dataType);
-		}		
+		}	*/	
 
 		//write data
 		it->second->writeToBuffer(writer);
@@ -205,7 +205,7 @@ std::vector<bool> SFSObject::getBoolArray(const std::string& key){
 	std::vector<bool> pret;
 	auto item = getItem(key);
 	if (item && item->dataType == SFSDataType::SFSDATATYPE_BOOL_ARRAY){
-		SFSArray* arr;
+		SFSArray* arr = (SFSArray*)item;
 		for (int i = 0; i < arr->size(); i++){
 			pret.push_back(arr->getBool(i));
 		};
@@ -217,7 +217,7 @@ std::vector<char> SFSObject::getByteArray(const std::string& key){
 	std::vector<char> pret;
 	auto item = getItem(key);
 	if (item && item->dataType == SFSDataType::SFSDATATYPE_BYTE_ARRAY){
-		SFSArray* arr;
+		SFSArray* arr = (SFSArray*)item;
 		for (int i = 0; i < arr->size(); i++){
 			pret.push_back(arr->getByte(i));
 		};
@@ -229,7 +229,7 @@ std::vector<int16_t> SFSObject::getShortArray(const std::string& key){
 	std::vector<int16_t> pret;
 	auto item = getItem(key);
 	if (item && item->dataType == SFSDataType::SFSDATATYPE_SHORT_ARRAY){
-		SFSArray* arr;
+		SFSArray* arr = (SFSArray*)item;
 		for (int i = 0; i < arr->size(); i++){
 			pret.push_back(arr->getShort(i));
 		};
@@ -242,7 +242,7 @@ std::vector<int32_t> SFSObject::getIntArray(const std::string& key){
 	std::vector<int32_t> pret;
 	auto item = getItem(key);
 	if (item && item->dataType == SFSDataType::SFSDATATYPE_INT_ARRAY){
-		SFSArray* arr;
+		SFSArray* arr = (SFSArray*) item;
 		for (int i = 0; i < arr->size(); i++){
 			pret.push_back(arr->getInt(i));
 		};
@@ -254,7 +254,7 @@ std::vector<int64_t> SFSObject::getLongArray(const std::string& key){
 	std::vector<int64_t> pret;
 	auto item = getItem(key);
 	if (item && item->dataType == SFSDataType::SFSDATATYPE_LONG_ARRAY){
-		SFSArray* arr;
+		SFSArray* arr = (SFSArray*)item;
 		for (int i = 0; i < arr->size(); i++){
 			pret.push_back(arr->getLong(i));
 		};
@@ -266,7 +266,7 @@ std::vector<float> SFSObject::getFloatArray(const std::string& key){
 	std::vector<float> pret;
 	auto item = getItem(key);
 	if (item && item->dataType == SFSDataType::SFSDATATYPE_FLOAT_ARRAY){
-		SFSArray* arr;
+		SFSArray* arr = (SFSArray*)item;
 		for (int i = 0; i < arr->size(); i++){
 			pret.push_back(arr->getFloat(i));
 		};
@@ -278,7 +278,7 @@ std::vector<double> SFSObject::getDoubleArray(const std::string& key){
 	std::vector<double> pret;
 	auto item = getItem(key);
 	if (item && item->dataType == SFSDataType::SFSDATATYPE_DOUBLE_ARRAY){
-		SFSArray* arr;
+		SFSArray* arr = (SFSArray*)item;
 		for (int i = 0; i < arr->size(); i++){
 			pret.push_back(arr->getDouble(i));
 		};
@@ -290,7 +290,7 @@ std::vector<std::string> SFSObject::getStringArray(const std::string& key){
 	std::vector<std::string> pret;
 	auto item = getItem(key);
 	if (item && item->dataType == SFSDataType::SFSDATATYPE_STRING_ARRAY){
-		SFSArray* arr;
+		SFSArray* arr = (SFSArray*)item;
 		for (int i = 0; i < arr->size(); i++){
 			pret.push_back(arr->getString(i));
 		};
@@ -380,6 +380,7 @@ void SFSObject::setBoolArray(const std::string& key, const std::vector<bool>& ar
 	for (int i = 0; i < arr.size(); i++){
 		item->addBool(arr[i]);
 	}
+	item->dataType == SFS::Entity::SFSDataType::SFSDATATYPE_BOOL_ARRAY;
 	this->setItem(key, item);
 	item->release();
 }
@@ -389,6 +390,7 @@ void SFSObject::setByteArray(const std::string& key, const std::vector<char>& ar
 	for (int i = 0; i < arr.size(); i++){
 		item->addByte(arr[i]);
 	}
+	item->dataType == SFS::Entity::SFSDataType::SFSDATATYPE_BYTE_ARRAY;
 	this->setItem(key, item);
 	item->release();
 }
@@ -398,6 +400,7 @@ void SFSObject::setShortArray(const std::string& key, const std::vector<int16_t>
 	for (int i = 0; i < arr.size(); i++){
 		item->addShort(arr[i]);
 	}
+	item->dataType == SFS::Entity::SFSDataType::SFSDATATYPE_SHORT_ARRAY;
 	this->setItem(key, item);
 	item->release();
 }
@@ -407,6 +410,7 @@ void SFSObject::setIntArray(const std::string& key, const std::vector<int32_t>& 
 	for (int i = 0; i < arr.size(); i++){
 		item->addInt(arr[i]);
 	}
+	item->dataType == SFS::Entity::SFSDataType::SFSDATATYPE_INT_ARRAY;
 	this->setItem(key, item);
 	item->release();
 }
@@ -416,6 +420,7 @@ void SFSObject::setLongArray(const std::string& key, const std::vector<int64_t>&
 	for (int i = 0; i < arr.size(); i++){
 		item->addLong(arr[i]);
 	}
+	item->dataType == SFS::Entity::SFSDataType::SFSDATATYPE_LONG_ARRAY;
 	this->setItem(key, item);
 	item->release();
 }
@@ -425,6 +430,7 @@ void SFSObject::setFloatArray(const std::string& key, const std::vector<float>& 
 	for (int i = 0; i < arr.size(); i++){
 		item->addFloat(arr[i]);
 	}
+	item->dataType == SFS::Entity::SFSDataType::SFSDATATYPE_FLOAT_ARRAY;
 	this->setItem(key, item);
 	item->release();
 }
@@ -434,6 +440,7 @@ void SFSObject::setDoubleArray(const std::string& key, const std::vector<double>
 	for (int i = 0; i < arr.size(); i++){
 		item->addDouble(arr[i]);
 	}
+	item->dataType == SFS::Entity::SFSDataType::SFSDATATYPE_DOUBLE_ARRAY;
 	this->setItem(key, item);
 	item->release();
 }
@@ -443,6 +450,7 @@ void SFSObject::setStringArray(const std::string& key, const std::vector<std::st
 	for (int i = 0; i < arr.size(); i++){
 		item->addString(arr[i]);
 	}
+	item->dataType == SFS::Entity::SFSDataType::SFSDATATYPE_STRING_ARRAY;
 	this->setItem(key, item);
 	item->release();
 }

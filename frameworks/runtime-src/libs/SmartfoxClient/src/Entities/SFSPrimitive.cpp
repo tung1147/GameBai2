@@ -59,6 +59,7 @@ void SFSPrimitive::writeToJSON(std::ostringstream& stream){
 }
 
 void SFSPrimitive::writeToBuffer(StreamWriter* writer){
+	writer->WriteByte(dataType);
 	switch (dataType)
 	{
 		case SFSDATATYPE_BOOL:{
@@ -236,6 +237,7 @@ void SFSString::writeToJSON(std::ostringstream& stream){
 }
 
 void SFSString::writeToBuffer(StreamWriter* writer){
+	writer->WriteByte(SFSDataType::SFSDATATYPE_STRING);
 	writer->WriteString(mData);
 }
 
