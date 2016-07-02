@@ -32,7 +32,7 @@ void SFSPrimitive::writeToJSON(std::ostringstream& stream){
 		break;
 	}
 	case SFSDATATYPE_BYTE:{
-		stream << mData.byteValue;
+		stream << (int)mData.byteValue;
 		break;
 	}
 	case SFSDATATYPE_SHORT:{
