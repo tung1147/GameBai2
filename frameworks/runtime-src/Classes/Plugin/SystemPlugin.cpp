@@ -299,6 +299,9 @@ void SystemPlugin::android_onWindowsVisibleChange(int bottom ,int left, int top,
 	/* convert to gl */
 	Point p1(left * _window_ratioX, bottom * _window_ratioY);
 	Point left_bottom = Director::getInstance()->convertToGL(p1);
+	if(left_bottom.y > 700.0f){
+		return;
+	}
 	if(left_bottom.y > 100.0f){
 		//show
 		Size winSize = Director::getInstance()->getWinSize();
