@@ -301,15 +301,18 @@ void SystemPlugin::android_onWindowsVisibleChange(int bottom ,int left, int top,
 	Point left_bottom = Director::getInstance()->convertToGL(p1);
 	if(left_bottom.y > 100.0f){
 		//show
-		for(int i=0;i<_keyboardDelegate.size();i++){
-			_keyboardDelegate[i]->onSoftKeyboardShow(left_bottom.y);
-		}
+		Size winSize = Director::getInstance()->getWinSize();
+		IMEKeyboardNotificationInfo info;
+		info.begin.setRect(0,0, winSize.width, winSize.height);
+		info.end.setRect(0,0,winSize.width, left_bottom.y);
+		info.duration = 0.25f;
+		IMEDispatcher::sharedDispatcher()->dispatchKeyboardWillShow(info);
 	}
 	else{
 		//hide
-		for(int i=0;i<_keyboardDelegate.size();i++){
-			_keyboardDelegate[i]->onSoftKeyboardHide();
-		}
+		IMEKeyboardNotificationInfo info;
+		info.duration = 0.0f;
+		IMEDispatcher::sharedDispatcher()->dispatchKeyboardWillHide(info);
 	}
 }
 #endif

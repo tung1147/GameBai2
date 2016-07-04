@@ -2,6 +2,7 @@
 #include "scripting/js-bindings/manual/cocos2d_specifics.hpp"
 #include "NewTableView.h"
 #include "NewTextInput.h"
+#include "NewTextField.h"
 
 template<class T>
 static bool dummy_constructor(JSContext *cx, uint32_t argc, jsval *vp)
@@ -703,6 +704,7 @@ void register_all_quyetnd_newui(JSContext* cx, JS::HandleObject obj) {
 
     js_register_quyetnd_newui_TableView(cx, ns);
 	js_register_quyetnd_newui_EditBox(cx, ns);
+	js_register_quyetnd_newui_TextField(cx, ns);	
 }
 
 /****/
@@ -834,4 +836,432 @@ void js_register_quyetnd_newui_EditBox(JSContext *cx, JS::HandleObject global) {
 	// add the proto and JSClass to the type->js info hash table
 	jsb_register_class<quyetnd::EditBox>(cx, jsb_quyetnd_EditBox_class, proto, parent_proto);
 	anonEvaluate(cx, global, "(function () { newui.EditBox.extend = cc.Class.extend; })()");
+}
+
+/****/
+
+JSClass  *jsb_quyetnd_TextField_class;
+JSObject *jsb_quyetnd_TextField_prototype;
+
+bool js_quyetnd_newui_TextField_setPasswordEnable(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+	bool ok = true;
+	JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	quyetnd::TextField* cobj = (quyetnd::TextField *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2(cobj, cx, false, "js_quyetnd_newui_TextField_setPasswordEnable : Invalid Native Object");
+	if (argc == 1) {
+		bool arg0;
+		arg0 = JS::ToBoolean(args.get(0));
+		JSB_PRECONDITION2(ok, cx, false, "js_quyetnd_newui_TextField_setPasswordEnable : Error processing arguments");
+		cobj->setPasswordEnable(arg0);
+		args.rval().setUndefined();
+		return true;
+	}
+
+	JS_ReportError(cx, "js_quyetnd_newui_TextField_setPasswordEnable : wrong number of arguments: %d, was expecting %d", argc, 1);
+	return false;
+}
+bool js_quyetnd_newui_TextField_setText(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+	bool ok = true;
+	JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	quyetnd::TextField* cobj = (quyetnd::TextField *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2(cobj, cx, false, "js_quyetnd_newui_TextField_setText : Invalid Native Object");
+	if (argc == 1) {
+		std::string arg0;
+		ok &= jsval_to_std_string(cx, args.get(0), &arg0);
+		JSB_PRECONDITION2(ok, cx, false, "js_quyetnd_newui_TextField_setText : Error processing arguments");
+		cobj->setText(arg0);
+		args.rval().setUndefined();
+		return true;
+	}
+
+	JS_ReportError(cx, "js_quyetnd_newui_TextField_setText : wrong number of arguments: %d, was expecting %d", argc, 1);
+	return false;
+}
+bool js_quyetnd_newui_TextField_setReturnCallback(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+	bool ok = true;
+	JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	quyetnd::TextField* cobj = (quyetnd::TextField *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2(cobj, cx, false, "js_quyetnd_newui_TextField_setReturnCallback : Invalid Native Object");
+	if (argc == 1) {
+		std::function<bool(quyetnd::TextField *)> arg0;
+		do {
+			if (JS_TypeOfValue(cx, args.get(0)) == JSTYPE_FUNCTION)
+			{
+				JS::RootedObject jstarget(cx, args.thisv().toObjectOrNull());
+				std::shared_ptr<JSFunctionWrapper> func(new JSFunctionWrapper(cx, jstarget, args.get(0), args.thisv()));
+				auto lambda = [=](quyetnd::TextField* larg0) -> bool {
+					JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
+						jsval largv[1];
+					if (larg0) {
+						largv[0] = OBJECT_TO_JSVAL(js_get_or_create_jsobject<quyetnd::TextField>(cx, (quyetnd::TextField*)larg0));
+					}
+					else {
+						largv[0] = JSVAL_NULL;
+					};
+					JS::RootedValue rval(cx);
+					bool succeed = func->invoke(1, &largv[0], &rval);
+					if (!succeed && JS_IsExceptionPending(cx)) {
+						JS_ReportPendingException(cx);
+					}
+					
+					if (rval.isNullOrUndefined()){
+						return false;
+					}
+					else{
+						bool ret;
+						ret = JS::ToBoolean(rval);
+						return ret;
+					}
+					return false;
+				};
+				arg0 = lambda;
+			}
+			else
+			{
+				arg0 = nullptr;
+			}
+		} while (0)
+			;
+		JSB_PRECONDITION2(ok, cx, false, "js_quyetnd_newui_TextField_setReturnCallback : Error processing arguments");
+		cobj->setReturnCallback(arg0);
+		args.rval().setUndefined();
+		return true;
+	}
+
+	JS_ReportError(cx, "js_quyetnd_newui_TextField_setReturnCallback : wrong number of arguments: %d, was expecting %d", argc, 1);
+	return false;
+}
+bool js_quyetnd_newui_TextField_getText(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+	JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	quyetnd::TextField* cobj = (quyetnd::TextField *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2(cobj, cx, false, "js_quyetnd_newui_TextField_getText : Invalid Native Object");
+	if (argc == 0) {
+		const std::string& ret = cobj->getText();
+		jsval jsret = JSVAL_NULL;
+		jsret = std_string_to_jsval(cx, ret);
+		args.rval().set(jsret);
+		return true;
+	}
+
+	JS_ReportError(cx, "js_quyetnd_newui_TextField_getText : wrong number of arguments: %d, was expecting %d", argc, 0);
+	return false;
+}
+bool js_quyetnd_newui_TextField_initWithBMFont(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+	bool ok = true;
+	JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	quyetnd::TextField* cobj = (quyetnd::TextField *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2(cobj, cx, false, "js_quyetnd_newui_TextField_initWithBMFont : Invalid Native Object");
+	if (argc == 2) {
+		cocos2d::Size arg0;
+		std::string arg1;
+		ok &= jsval_to_ccsize(cx, args.get(0), &arg0);
+		ok &= jsval_to_std_string(cx, args.get(1), &arg1);
+		JSB_PRECONDITION2(ok, cx, false, "js_quyetnd_newui_TextField_initWithBMFont : Error processing arguments");
+		cobj->initWithBMFont(arg0, arg1);
+		args.rval().setUndefined();
+		return true;
+	}
+	if (argc == 3) {
+		cocos2d::Size arg0;
+		std::string arg1;
+		std::string arg2;
+		ok &= jsval_to_ccsize(cx, args.get(0), &arg0);
+		ok &= jsval_to_std_string(cx, args.get(1), &arg1);
+		ok &= jsval_to_std_string(cx, args.get(2), &arg2);
+		JSB_PRECONDITION2(ok, cx, false, "js_quyetnd_newui_TextField_initWithBMFont : Error processing arguments");
+		cobj->initWithBMFont(arg0, arg1, arg2);
+		args.rval().setUndefined();
+		return true;
+	}
+
+	JS_ReportError(cx, "js_quyetnd_newui_TextField_initWithBMFont : wrong number of arguments: %d, was expecting %d", argc, 2);
+	return false;
+}
+bool js_quyetnd_newui_TextField_setMaxLength(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+	bool ok = true;
+	JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	quyetnd::TextField* cobj = (quyetnd::TextField *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2(cobj, cx, false, "js_quyetnd_newui_TextField_setMaxLength : Invalid Native Object");
+	if (argc == 1) {
+		int arg0 = 0;
+		ok &= jsval_to_int32(cx, args.get(0), (int32_t *)&arg0);
+		JSB_PRECONDITION2(ok, cx, false, "js_quyetnd_newui_TextField_setMaxLength : Error processing arguments");
+		cobj->setMaxLength(arg0);
+		args.rval().setUndefined();
+		return true;
+	}
+
+	JS_ReportError(cx, "js_quyetnd_newui_TextField_setMaxLength : wrong number of arguments: %d, was expecting %d", argc, 1);
+	return false;
+}
+bool js_quyetnd_newui_TextField_setPlaceHolder(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+	bool ok = true;
+	JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	quyetnd::TextField* cobj = (quyetnd::TextField *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2(cobj, cx, false, "js_quyetnd_newui_TextField_setPlaceHolder : Invalid Native Object");
+	if (argc == 1) {
+		std::string arg0;
+		ok &= jsval_to_std_string(cx, args.get(0), &arg0);
+		JSB_PRECONDITION2(ok, cx, false, "js_quyetnd_newui_TextField_setPlaceHolder : Error processing arguments");
+		cobj->setPlaceHolder(arg0);
+		args.rval().setUndefined();
+		return true;
+	}
+
+	JS_ReportError(cx, "js_quyetnd_newui_TextField_setPlaceHolder : wrong number of arguments: %d, was expecting %d", argc, 1);
+	return false;
+}
+bool js_quyetnd_newui_TextField_initWithTTFFont(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+	bool ok = true;
+	JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	quyetnd::TextField* cobj = (quyetnd::TextField *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2(cobj, cx, false, "js_quyetnd_newui_TextField_initWithTTFFont : Invalid Native Object");
+	if (argc == 3) {
+		cocos2d::Size arg0;
+		std::string arg1;
+		double arg2 = 0;
+		ok &= jsval_to_ccsize(cx, args.get(0), &arg0);
+		ok &= jsval_to_std_string(cx, args.get(1), &arg1);
+		ok &= JS::ToNumber(cx, args.get(2), &arg2) && !std::isnan(arg2);
+		JSB_PRECONDITION2(ok, cx, false, "js_quyetnd_newui_TextField_initWithTTFFont : Error processing arguments");
+		cobj->initWithTTFFont(arg0, arg1, arg2);
+		args.rval().setUndefined();
+		return true;
+	}
+	if (argc == 4) {
+		cocos2d::Size arg0;
+		std::string arg1;
+		double arg2 = 0;
+		std::string arg3;
+		ok &= jsval_to_ccsize(cx, args.get(0), &arg0);
+		ok &= jsval_to_std_string(cx, args.get(1), &arg1);
+		ok &= JS::ToNumber(cx, args.get(2), &arg2) && !std::isnan(arg2);
+		ok &= jsval_to_std_string(cx, args.get(3), &arg3);
+		JSB_PRECONDITION2(ok, cx, false, "js_quyetnd_newui_TextField_initWithTTFFont : Error processing arguments");
+		cobj->initWithTTFFont(arg0, arg1, arg2, arg3);
+		args.rval().setUndefined();
+		return true;
+	}
+	if (argc == 5) {
+		cocos2d::Size arg0;
+		std::string arg1;
+		double arg2 = 0;
+		std::string arg3;
+		double arg4 = 0;
+		ok &= jsval_to_ccsize(cx, args.get(0), &arg0);
+		ok &= jsval_to_std_string(cx, args.get(1), &arg1);
+		ok &= JS::ToNumber(cx, args.get(2), &arg2) && !std::isnan(arg2);
+		ok &= jsval_to_std_string(cx, args.get(3), &arg3);
+		ok &= JS::ToNumber(cx, args.get(4), &arg4) && !std::isnan(arg4);
+		JSB_PRECONDITION2(ok, cx, false, "js_quyetnd_newui_TextField_initWithTTFFont : Error processing arguments");
+		cobj->initWithTTFFont(arg0, arg1, arg2, arg3, arg4);
+		args.rval().setUndefined();
+		return true;
+	}
+
+	JS_ReportError(cx, "js_quyetnd_newui_TextField_initWithTTFFont : wrong number of arguments: %d, was expecting %d", argc, 3);
+	return false;
+}
+bool js_quyetnd_newui_TextField_initWithSize(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+	bool ok = true;
+	JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	quyetnd::TextField* cobj = (quyetnd::TextField *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2(cobj, cx, false, "js_quyetnd_newui_TextField_initWithSize : Invalid Native Object");
+	if (argc == 1) {
+		cocos2d::Size arg0;
+		ok &= jsval_to_ccsize(cx, args.get(0), &arg0);
+		JSB_PRECONDITION2(ok, cx, false, "js_quyetnd_newui_TextField_initWithSize : Error processing arguments");
+		cobj->initWithSize(arg0);
+		args.rval().setUndefined();
+		return true;
+	}
+
+	JS_ReportError(cx, "js_quyetnd_newui_TextField_initWithSize : wrong number of arguments: %d, was expecting %d", argc, 1);
+	return false;
+}
+bool js_quyetnd_newui_TextField_setPlaceHolderColor(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	bool ok = true;
+	quyetnd::TextField* cobj = nullptr;
+
+	JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+	JS::RootedObject obj(cx);
+	obj.set(args.thisv().toObjectOrNull());
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cobj = (quyetnd::TextField *)(proxy ? proxy->ptr : nullptr);
+	JSB_PRECONDITION2(cobj, cx, false, "js_quyetnd_newui_TextField_setPlaceHolderColor : Invalid Native Object");
+	do {
+		if (argc == 1) {
+			cocos2d::Color4B arg0;
+			ok &= jsval_to_cccolor4b(cx, args.get(0), &arg0);
+			if (!ok) { ok = true; break; }
+			cobj->setPlaceHolderColor(arg0);
+			args.rval().setUndefined();
+			return true;
+		}
+	} while (0);
+
+	do {
+		if (argc == 1) {
+			cocos2d::Color3B arg0;
+			ok &= jsval_to_cccolor3b(cx, args.get(0), &arg0);
+			if (!ok) { ok = true; break; }
+			cobj->setPlaceHolderColor(arg0);
+			args.rval().setUndefined();
+			return true;
+		}
+	} while (0);
+
+	JS_ReportError(cx, "js_quyetnd_newui_TextField_setPlaceHolderColor : wrong number of arguments");
+	return false;
+}
+bool js_quyetnd_newui_TextField_setTextColor(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	bool ok = true;
+	quyetnd::TextField* cobj = nullptr;
+
+	JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+	JS::RootedObject obj(cx);
+	obj.set(args.thisv().toObjectOrNull());
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cobj = (quyetnd::TextField *)(proxy ? proxy->ptr : nullptr);
+	JSB_PRECONDITION2(cobj, cx, false, "js_quyetnd_newui_TextField_setTextColor : Invalid Native Object");
+	do {
+		if (argc == 1) {
+			cocos2d::Color4B arg0;
+			ok &= jsval_to_cccolor4b(cx, args.get(0), &arg0);
+			if (!ok) { ok = true; break; }
+			cobj->setTextColor(arg0);
+			args.rval().setUndefined();
+			return true;
+		}
+	} while (0);
+
+	do {
+		if (argc == 1) {
+			cocos2d::Color3B arg0;
+			ok &= jsval_to_cccolor3b(cx, args.get(0), &arg0);
+			if (!ok) { ok = true; break; }
+			cobj->setTextColor(arg0);
+			args.rval().setUndefined();
+			return true;
+		}
+	} while (0);
+
+	JS_ReportError(cx, "js_quyetnd_newui_TextField_setTextColor : wrong number of arguments");
+	return false;
+}
+bool js_quyetnd_newui_TextField_constructor(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+	bool ok = true;
+	quyetnd::TextField* cobj = new (std::nothrow) quyetnd::TextField();
+
+	js_type_class_t *typeClass = js_get_type_from_native<quyetnd::TextField>(cobj);
+
+	// link the native object with the javascript object
+	JS::RootedObject jsobj(cx, jsb_ref_create_jsobject(cx, cobj, typeClass, "quyetnd::TextField"));
+	args.rval().set(OBJECT_TO_JSVAL(jsobj));
+	if (JS_HasProperty(cx, jsobj, "_ctor", &ok) && ok)
+		ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(jsobj), "_ctor", args);
+	return true;
+}
+static bool js_quyetnd_newui_TextField_ctor(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+	JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
+	quyetnd::TextField *nobj = new (std::nothrow) quyetnd::TextField();
+	auto newproxy = jsb_new_proxy(nobj, obj);
+	jsb_ref_init(cx, &newproxy->obj, nobj, "quyetnd::TextField");
+	bool isFound = false;
+	if (JS_HasProperty(cx, obj, "_ctor", &isFound) && isFound)
+		ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", args);
+	args.rval().setUndefined();
+	return true;
+}
+
+
+extern JSObject *jsb_cocos2d_Node_prototype;
+
+
+void js_register_quyetnd_newui_TextField(JSContext *cx, JS::HandleObject global) {
+	jsb_quyetnd_TextField_class = (JSClass *)calloc(1, sizeof(JSClass));
+	jsb_quyetnd_TextField_class->name = "TextField";
+	jsb_quyetnd_TextField_class->addProperty = JS_PropertyStub;
+	jsb_quyetnd_TextField_class->delProperty = JS_DeletePropertyStub;
+	jsb_quyetnd_TextField_class->getProperty = JS_PropertyStub;
+	jsb_quyetnd_TextField_class->setProperty = JS_StrictPropertyStub;
+	jsb_quyetnd_TextField_class->enumerate = JS_EnumerateStub;
+	jsb_quyetnd_TextField_class->resolve = JS_ResolveStub;
+	jsb_quyetnd_TextField_class->convert = JS_ConvertStub;
+	jsb_quyetnd_TextField_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
+
+	static JSPropertySpec properties[] = {
+		JS_PS_END
+	};
+
+	static JSFunctionSpec funcs[] = {
+		JS_FN("setPasswordEnable", js_quyetnd_newui_TextField_setPasswordEnable, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("setText", js_quyetnd_newui_TextField_setText, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("setReturnCallback", js_quyetnd_newui_TextField_setReturnCallback, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("getText", js_quyetnd_newui_TextField_getText, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("initWithBMFont", js_quyetnd_newui_TextField_initWithBMFont, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("setMaxLength", js_quyetnd_newui_TextField_setMaxLength, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("setPlaceHolder", js_quyetnd_newui_TextField_setPlaceHolder, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("initWithTTFFont", js_quyetnd_newui_TextField_initWithTTFFont, 3, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("initWithSize", js_quyetnd_newui_TextField_initWithSize, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("setPlaceHolderColor", js_quyetnd_newui_TextField_setPlaceHolderColor, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("setTextColor", js_quyetnd_newui_TextField_setTextColor, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("ctor", js_quyetnd_newui_TextField_ctor, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FS_END
+	};
+
+	JSFunctionSpec *st_funcs = NULL;
+
+	JS::RootedObject parent_proto(cx, jsb_cocos2d_Node_prototype);
+	jsb_quyetnd_TextField_prototype = JS_InitClass(
+		cx, global,
+		parent_proto,
+		jsb_quyetnd_TextField_class,
+		js_quyetnd_newui_TextField_constructor, 0, // constructor
+		properties,
+		funcs,
+		NULL, // no static properties
+		st_funcs);
+
+	JS::RootedObject proto(cx, jsb_quyetnd_TextField_prototype);
+	JS::RootedValue className(cx, std_string_to_jsval(cx, "TextField"));
+	JS_SetProperty(cx, proto, "_className", className);
+	JS_SetProperty(cx, proto, "__nativeObj", JS::TrueHandleValue);
+	JS_SetProperty(cx, proto, "__is_ref", JS::TrueHandleValue);
+	// add the proto and JSClass to the type->js info hash table
+	jsb_register_class<quyetnd::TextField>(cx, jsb_quyetnd_TextField_class, proto, parent_proto);
+	anonEvaluate(cx, global, "(function () { newui.TextField.extend = cc.Class.extend; })()");
 }

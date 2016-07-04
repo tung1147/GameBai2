@@ -39,3 +39,32 @@ newui.EditBox.InputFlag.SENSITIVE = 1;
 newui.EditBox.InputFlag.INITIAL_CAPS_WORD = 2;
 newui.EditBox.InputFlag.INITIAL_CAPS_SENTENCE = 3;
 newui.EditBox.InputFlag.INITIAL_CAPS_ALL_CHARACTERS = 4;
+
+
+newui.TextField.prototype._ctor = function () {
+    if(arguments.length == 2){ //bm font
+        this.initWithBMFont(arguments[0], arguments[1]);
+        return;
+    }
+    else if(arguments.length == 3){
+        if(typeof arguments[1] === 'string'){
+            if(arguments[1].endsWith(".fnt")){
+                this.initWithBMFont(arguments[0], arguments[1], arguments[2]);
+                return;
+            }
+            else{
+                this.initWithTTFFont(arguments[0], arguments[1], arguments[2]);
+                return;
+            }
+        }
+    }
+    else if(arguments.length == 4){
+        this.initWithTTFFont(arguments[0], arguments[1], arguments[2], arguments[3]);
+        return;
+    }
+    else if(arguments.length == 5){
+        this.initWithTTFFont(arguments[0], arguments[1], arguments[2], arguments[3], arguments[4]);
+    }
+
+    cc.Node.prototype.init.call(this)
+};
