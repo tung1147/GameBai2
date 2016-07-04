@@ -23,6 +23,7 @@ TextField::TextField(){
 
 	_callback = nullptr;
 	_TextFieldTTF = false;
+	_autoDetachWithIME = true;
 }
 
 TextField::~TextField(){
@@ -175,14 +176,21 @@ void TextField::initWithSize(const Size& size){
 			auto p = this->convertToNodeSpace(t->getLocation());
 			if (_touchRect.containsPoint(p)){
 				if (!isAttachWithIME){
-					this->attachWithIME();
-					return true;
+					if (this->attachWithIME()){
+						_autoDetachWithIME = false;
+						return true;
+					}
 				}			
 			}
 			else{
 				if (isAttachWithIME){
-					this->detachWithIME();
-					return true;
+					_autoDetachWithIME = true;
+					if (this->detachWithIME()){
+						return true;
+					}
+					else{
+						_autoDetachWithIME = false;
+					}
 				}
 			}
 			return false;
@@ -318,6 +326,10 @@ void TextField::onExit(){
 			scene->setPositionY(0.0f);
 		}
 	}
+	if (isAttachWithIME){
+		_autoDetachWithIME = true;
+		this->detachWithIME();
+	}
 }
 
 bool TextField::canAttachWithIME(){
@@ -325,7 +337,7 @@ bool TextField::canAttachWithIME(){
 }
 
 bool TextField::canDetachWithIME(){
-	return true;
+	return _autoDetachWithIME;
 }
 
 void TextField::didAttachWithIME(){
