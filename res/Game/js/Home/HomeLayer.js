@@ -55,8 +55,6 @@ var LoginDialog = cc.Node.extend({
         this.passwordText.setPosition(passwordBg.getPosition());
         this.layerBg.addChild(this.passwordText);
 
-
-
         var margin = 100.0;
         var mTouch = cc.rect(margin, margin, this.layerBg.getContentSize().width - margin * 2, this.layerBg.getContentSize().height - margin * 2);
         //touch
@@ -67,7 +65,7 @@ var LoginDialog = cc.Node.extend({
             onTouchBegan : function (touch, event) {
                 if(thiz.visible){
                     var pTouch = touch.getLocation();
-                    var p = this.layerBg.convertToNodeSpace(pTouch);
+                    var p = thiz.layerBg.convertToNodeSpace(pTouch);
                     if(!cc.rectContainsPoint(mTouch, p)){
                         thiz.visible = false;
                     }
