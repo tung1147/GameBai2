@@ -34,20 +34,17 @@ var LoginDialog = cc.Node.extend({
         this.userText.setPlaceHolder("Tài khoản");
         this.userText.setTextColor(cc.color(255,255,255));
         this.userText.setPlaceHolderColor(cc.color(144, 144, 144));
-        this.userText.setMaxLength(30);
+        this.userText.setMaxLength(32);
         this.userText.setPosition(userNameBg.getPosition());
         this.layerBg.addChild(this.userText);
 
-        this.passwordText = new newui.EditBox(cc.size(470, 70));
+        this.passwordText = new newui.TextField(cc.size(470, 70), cc.res.font.Roboto_Condensed_25);
+        this.passwordText.setPasswordEnable(true);
+        this.passwordText.setText("password")
         this.passwordText.setPlaceHolder("Mật khẩu");
-        this.passwordText.setFont(cc.res.font.Roboto_Condensed, 24);
-        this.passwordText.setFontColor(cc.color(255,255,255,255));
-        this.passwordText.setPlaceholderFont(cc.res.font.Roboto_Condensed, 24);
-        this.passwordText.setPlaceholderFontColor(cc.color(144, 144, 144, 255));
+        this.passwordText.setTextColor(cc.color(255,255,255));
+        this.passwordText.setPlaceHolderColor(cc.color(144, 144, 144));
         this.passwordText.setMaxLength(30);
-        this.passwordText.setInputMode(newui.EditBox.InputMode.SINGLE_LINE);
-        this.passwordText.setReturnType(newui.EditBox.ReturnType.DONE);
-        this.passwordText.setInputFlag(newui.EditBox.InputFlag.PASSWORD);
         this.passwordText.setPosition(passwordBg.getPosition());
         this.layerBg.addChild(this.passwordText);
 

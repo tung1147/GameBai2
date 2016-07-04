@@ -20,6 +20,7 @@ typedef std::function<bool(TextField*)> TextFieldReturnCallback;
 class TextField : public Node, public IMEDelegate{
 	bool _keyboardMe;
 	bool _keyboardShowMe;
+	bool _autoDetachWithIME;
 	bool _TextFieldTTF;
 	int maxLength;
 
