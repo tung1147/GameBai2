@@ -12,8 +12,15 @@ var HomeScene = IScene.extend({
         bg.y = cc.winSize.height/2;
         this.sceneLayer.addChild(bg);
 
-        this.homeLayer = new HomeLayer();
-        this.sceneLayer.addChild(this.homeLayer);
+       // this.homeLayer = new HomeLayer();
+        //this.sceneLayer.addChild(this.homeLayer);
+
+        this.topBar = new LobbyTopBar();
+        this.sceneLayer.addChild(this.topBar);
+
+        this.userInfo = new LobbyBottomBar();
+        this.sceneLayer.addChild(this.userInfo);
     }
+
 
 });
