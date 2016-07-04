@@ -22,6 +22,7 @@ TextField::TextField(){
 	maxLength = 0;
 
 	_callback = nullptr;
+	_TextFieldTTF = false;
 }
 
 TextField::~TextField(){
@@ -221,6 +222,8 @@ void TextField::initWithTTFFont(const Size& size, const std::string& textFont, f
 	_cursorSprite->setVisible(false);
 	this->addChild(_cursorSprite);
 
+	_TextFieldTTF = true;
+
 	this->updateText();
 }
 
@@ -232,10 +235,10 @@ void TextField::initWithBMFont(const Size& size, const std::string& textFont, co
 	clippingNode->addChild(_textLabel);
 
 	if (placeHolderFont == ""){
-		_textLabel = Label::createWithBMFont(textFont, "", TextHAlignment::CENTER);
+		_placeHolderLabel = Label::createWithBMFont(textFont, "", TextHAlignment::CENTER);
 	}
 	else{
-		_textLabel = Label::createWithBMFont(placeHolderFont, "", TextHAlignment::CENTER);
+		_placeHolderLabel = Label::createWithBMFont(placeHolderFont, "", TextHAlignment::CENTER);
 	}
 	_placeHolderLabel->setPosition(this->getContentSize().width / 2, this->getContentSize().height / 2);
 	clippingNode->addChild(_placeHolderLabel);
@@ -277,11 +280,21 @@ void TextField::setPlaceHolderColor(const Color3B& color){
 }
 
 void TextField::setTextColor(const Color4B& color){
-	_textLabel->setTextColor(color);
+	if (_TextFieldTTF){
+		_textLabel->setTextColor(color);
+	}
+	else{
+		this->setTextColor(Color3B(color));
+	}
 }
 
 void TextField::setPlaceHolderColor(const Color4B& color){
-	_placeHolderLabel->setTextColor(color);
+	if (_TextFieldTTF){
+		_placeHolderLabel->setTextColor(color);
+	}
+	else{
+		this->setPlaceHolderColor(Color3B(color));
+	}
 }
 
 void TextField::setPasswordEnable(bool isPassword){

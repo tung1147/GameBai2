@@ -30,15 +30,11 @@ var LoginDialog = cc.Node.extend({
         passwordBg.setPosition(cc.p(this.layerBg.getContentSize().width/2, 350));
         this.layerBg.addChild(passwordBg);
 
-        this.userText = new newui.EditBox(cc.size(470, 70));
+        this.userText = new newui.TextField(cc.size(470, 70), cc.res.font.Roboto_Condensed_25);
         this.userText.setPlaceHolder("Tài khoản");
-        this.userText.setFont(cc.res.font.Roboto_Condensed, 24);
-        this.userText.setFontColor(cc.color(255,255,255,255));
-        this.userText.setPlaceholderFont(cc.res.font.Roboto_Condensed, 24);
-        this.userText.setPlaceholderFontColor(cc.color(144, 144, 144, 255));
-        this.userText.setMaxLength(32);
-        this.userText.setInputMode(newui.EditBox.InputMode.SINGLE_LINE);
-        this.userText.setReturnType(newui.EditBox.ReturnType.DONE);
+        this.userText.setTextColor(cc.color(255,255,255));
+        this.userText.setPlaceHolderColor(cc.color(144, 144, 144));
+        this.userText.setMaxLength(30);
         this.userText.setPosition(userNameBg.getPosition());
         this.layerBg.addChild(this.userText);
 

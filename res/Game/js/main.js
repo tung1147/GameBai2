@@ -94,9 +94,9 @@ cc.game.onStart = function(){
     cc.res.font.Roboto_CondensedBold_30 = "res/fonts/RobotoBoldCondensed_30.fnt";
     cc.res.font.UTM_AvoBold_30 = "res/fonts/UTMAvoBold_30.fnt";
 
-    cc.res.font.Roboto_Condensed_30 = "res/fonts/RobotoCondensed_25.fnt";
-    cc.res.font.Roboto_CondensedBold_30 = "res/fonts/RobotoBoldCondensed_25.fnt";
-    cc.res.font.UTM_AvoBold_30 = "res/fonts/UTMAvoBold_25.fnt";
+    cc.res.font.Roboto_Condensed_25 = "res/fonts/RobotoCondensed_25.fnt";
+    cc.res.font.Roboto_CondensedBold_25 = "res/fonts/RobotoBoldCondensed_25.fnt";
+    cc.res.font.UTM_AvoBold_25 = "res/fonts/UTMAvoBold_25.fnt";
 
     cc.director.replaceScene(new HomeScene());
 };
