@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Phom_String</key>
+	<array>
+		<string>NHÓM BÀI</string>
+		<string>Nổ hũ thưởng</string>
+		<string>Thùng phá sảnh</string>
+		<string>Tứ quý</string>
+		<string>Củ lũ</string>
+		<string>Thùng</string>
+		<string>Sảnh</string>
+		<string>Sám</string>
+		<string>Hai đôi</string>
+		<string>Đôi J trở lên</string>
+	</array>
+	<key>PhanThuong</key>
+	<array>
+		<string>PHẦN THƯỞNG</string>
+		<string>Quỹ Thưởng</string>
+		<string>x 1000 tiền cược</string>
+		<string>x 150 tiền cược</string>
+		<string>x 50 tiền cược</string>
+		<string>x 20 tiền cược</string>
+		<string>x 13 tiền cược</string>
+		<string>x 8 tiền cược</string>
+		<string>x 5 tiền cược</string>
+		<string>x 2,5 tiền cược</string>
+	</array>
+	<key>PokerMini1</key>
+	<string>B1 : Chọn mức cược
+B2 : Click “ QUAY “. Người chơi có thể chọn “quay tự động“ để hệ thống tự động quay và thông báo kết quả. Khi người chơi bỏ nút tick “quay tự động” thì sẽ dừng lại.
+- click biểu tượng “?“ để xem hướng dẫn chơi.
+- click biểu tượng “ cúp “ để xem lịch sử và bảng xếp hạng.
+ĐẶC BIỆT : 10-J-Q-K-A rô sẽ nổ hũ thưởng.
+Cách tính tiền theo mức cược như sau :
+    </string>
+	<key>PokerMini2</key>
+	<string>
+Hũ thưởng : hệ thống sẽ bỏ ra hũ thưởng khác nhau với từng mức cược : 1k, 10k, 100k, mỗi lần thắng sẽ trích 1% tiền cược vào hũ.
+Lịch sử :
+- Lịch sử chơi của mình trong 20 lần gần nhất.
+- Lịch sử những người nổ hũ thưởng.
+- Những người chơi thắng được nhiều tiền nhất trong game.
+    </string>
+	<key>ChanLe</key>
+	<string>B1 : Chọn cửa muốn đặt : chẵn/lẻ.
+B2 : Chọn mức cược muốn đặt : có 5 mức cược ( 1000, 10.000, 100.000, 1M, 10M).
+B3 : Theo dõi kết quả sau khi nhà cái mở bát để biết Thắng / Thua.
+
+Cách chơi game:
+- Tham gia dự đoán phiên chơi về chẵn / lẻ.
+- Người chơi dự đoán dựa theo các mức cược có sẵn.
+- Người chơi sẽ không dự đoán cả chẵn và lẻ trong một ván được (*).
+- Tỉ lệ thắng sẽ dựa trên tỉ lệ số lượng vàng đặt vào cửa chẵn và cửa lẻ.
+
+Trả thưởng khi có kết quả
+- Hệ thống sẽ cắt 5% phế số tiền thắng
+- Bạn có thể xem danh sách các người chơi kiếm tiền nhiều nhất từ chẵn lẽ ở mục Bảng Xếp Hạng</string>
+	<key>CaoThap</key>
+	<string>B1 : Chọn mức cược.
+B2 : Click “ Bốc Bài“ để tham gia chơi hệ thống sẽ ngẫu nhiên xuất hiện một lá bài, để người chơi đưa ra lựa chọn của mình.
+B3 : Dự đoán lá bài tiếp thep cao hay thấp hơn so với lá bài trước đó. Mỗi lượt dự đoán có tối đa 2 phút, hết thời gian mà chưa dự đoán thì lượt chơi sẽ dừng lại. Tiền từ bank sẽ trở về tài khoản của bạn.
+B4 : Theo dõi kết quả thắng hay thua.
+Trường hợp người chơi bốc lại được đúng con vừa xuấn hiện trước đó, thì số tiền cược của người chơi sẽ bị trích 10% tiền đang có ở trong bank cho vào hũ thưởng, và có thể tiếp tục quay tiếp.
+- Nếu người chơi lúc này chọn chơi lượt mới, hệ thống sẽ trả luôn tiền trong bank về cho người chơi.
+- Nếu người chơi chọn cao hay thấp, hệ thống sẽ tiếp tục trả 1 con random cho người chơi.
+- Nếu trong thời gian 2 phút mà người chơi không chọn cao hay thấp, thì hệ thống sẽ trả tiền bank cho người chơi.
+Mỗi lần bốc bài, hệ thống tự động trích 1% tiền cược  ban đầu cho vào hũ thưởng. Tuy nhiên tiền người chơi vẫn giữ nguyên.
+Quy tắc nổ hũ thưởng : Khi người chơi quay được vào con 3K bất kỳ chất gì trong 1 lượt chơi thì hũ thưởng sẽ nổ. Người chơi được 50% số tiền trong hũ và 50% còn lại sẽ đẩy về hệ thống.
+
+Bảng thành tích
+- Danh sách những người chơi nổ hũ thưởng.
+- Những người chơi đạt được số tiền cao nhất trong 1 lượt chơi.
+- Lịch sử vãn chơi của người dùng.</string>
+</dict>
+</plist>
