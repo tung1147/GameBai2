@@ -51,4 +51,24 @@ bool js_quyetnd_newui_EditBox_initWithSize(JSContext *cx, uint32_t argc, jsval *
 bool js_quyetnd_newui_EditBox_setBackgoundMargin(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_quyetnd_newui_EditBox_EditBox(JSContext *cx, uint32_t argc, jsval *vp);
 
+/**/
+extern JSClass  *jsb_quyetnd_TextField_class;
+extern JSObject *jsb_quyetnd_TextField_prototype;
+
+bool js_quyetnd_newui_TextField_constructor(JSContext *cx, uint32_t argc, jsval *vp);
+void js_quyetnd_newui_TextField_finalize(JSContext *cx, JSObject *obj);
+void js_register_quyetnd_newui_TextField(JSContext *cx, JS::HandleObject global);
+bool js_quyetnd_newui_TextField_setPasswordEnable(JSContext *cx, uint32_t argc, jsval *vp);
+bool js_quyetnd_newui_TextField_setText(JSContext *cx, uint32_t argc, jsval *vp);
+bool js_quyetnd_newui_TextField_setReturnCallback(JSContext *cx, uint32_t argc, jsval *vp);
+bool js_quyetnd_newui_TextField_getText(JSContext *cx, uint32_t argc, jsval *vp);
+bool js_quyetnd_newui_TextField_initWithBMFont(JSContext *cx, uint32_t argc, jsval *vp);
+bool js_quyetnd_newui_TextField_setMaxLength(JSContext *cx, uint32_t argc, jsval *vp);
+bool js_quyetnd_newui_TextField_setPlaceHolder(JSContext *cx, uint32_t argc, jsval *vp);
+bool js_quyetnd_newui_TextField_initWithTTFFont(JSContext *cx, uint32_t argc, jsval *vp);
+bool js_quyetnd_newui_TextField_initWithSize(JSContext *cx, uint32_t argc, jsval *vp);
+bool js_quyetnd_newui_TextField_setPlaceHolderColor(JSContext *cx, uint32_t argc, jsval *vp);
+bool js_quyetnd_newui_TextField_setTextColor(JSContext *cx, uint32_t argc, jsval *vp);
+bool js_quyetnd_newui_TextField_TextField(JSContext *cx, uint32_t argc, jsval *vp);
+
 #endif // __quyetnd_newui_h__
