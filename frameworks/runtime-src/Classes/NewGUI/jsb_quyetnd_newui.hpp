@@ -69,6 +69,8 @@ bool js_quyetnd_newui_TextField_initWithTTFFont(JSContext *cx, uint32_t argc, js
 bool js_quyetnd_newui_TextField_initWithSize(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_quyetnd_newui_TextField_setPlaceHolderColor(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_quyetnd_newui_TextField_setTextColor(JSContext *cx, uint32_t argc, jsval *vp);
+bool js_quyetnd_newui_TextField_showKeyboard(JSContext *cx, uint32_t argc, jsval *vp);
+bool js_quyetnd_newui_TextField_hideKeyboard(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_quyetnd_newui_TextField_TextField(JSContext *cx, uint32_t argc, jsval *vp);
 
 #endif // __quyetnd_newui_h__

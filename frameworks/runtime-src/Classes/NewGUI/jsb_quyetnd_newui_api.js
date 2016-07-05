@@ -631,6 +631,22 @@ color3b
 },
 
 /**
+ * @method showKeyboard
+ *
+ */
+showKeyboard : function(){
+
+},
+
+/**
+ * @method hideKeyboard
+ *
+ */
+hideKeyboard : function(){
+
+},
+
+/**
  * @method TextField
  * @constructor
  */
