@@ -15,6 +15,15 @@ var HomeScene = IScene.extend({
        // this.homeLayer = new HomeLayer();
         //this.sceneLayer.addChild(this.homeLayer);
 
+        this.gameList = new cc.Node();
+        this.sceneLayer.addChild(this.gameList);
+
+        this.gameLayer = new GameLayer();
+        this.gameList.addChild(this.gameLayer);
+
+        this.miniGameLayer = new MiniGameLayer();
+        this.gameList.addChild(this.miniGameLayer);
+
         this.topBar = new LobbyTopBar();
         this.sceneLayer.addChild(this.topBar);
 

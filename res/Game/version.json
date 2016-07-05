@@ -1,0 +1,326 @@
+{
+    "files": [
+        {
+            "file": "js/app.js",
+            "hash": "e8b7f4750ff44238438c5a5c7d124cc8"
+        },
+        {
+            "file": "js/Home/HomeLayer.js",
+            "hash": "28ceda5e8139dcf7bdb89ef66b509aff"
+        },
+        {
+            "file": "js/Home/HomeScene.js",
+            "hash": "e6d41db62205ce97bb937798c0dc172d"
+        },
+        {
+            "file": "js/Home/LobbyBottomBar.js",
+            "hash": "6ba9e5e5c76808f31fe3ebe0d6b9db31"
+        },
+        {
+            "file": "js/Home/LobbyTopBar.js",
+            "hash": "2e9c4faac985c502c4030c6a1f60766f"
+        },
+        {
+            "file": "js/IScene.js",
+            "hash": "7dec4a222c66b2124880f05b87d44101"
+        },
+        {
+            "file": "js/LobbyClient.js",
+            "hash": "834d2ea0d415d14c95a15616a2e2c638"
+        },
+        {
+            "file": "js/main.js",
+            "hash": "4bc197926988a7fb4ac3b934d3b977b4"
+        },
+        {
+            "file": "js/NewAction.js",
+            "hash": "e6efda0380013f188f077fc2abec0aa0"
+        },
+        {
+            "file": "js/SmartfoxClient.js",
+            "hash": "b30642066ecf0a6e368c0018d843032b"
+        },
+        {
+            "file": "res/avatar.plist",
+            "hash": "9aec4195378eef62381d650e1c412d61"
+        },
+        {
+            "file": "res/bg-minigame-1.png",
+            "hash": "9e592e24e594822d85a07a1e072359aa"
+        },
+        {
+            "file": "res/bg_xocdia.png",
+            "hash": "ab9c1e254ea3759c493b1219b0461ec9"
+        },
+        {
+            "file": "res/bigsmall_bg.png",
+            "hash": "6800d502193a76c913e68e8e3692b3ad"
+        },
+        {
+            "file": "res/Card.plist",
+            "hash": "faa7b6bda0a44c8fc6485814374c39a7"
+        },
+        {
+            "file": "res/Card.png",
+            "hash": "39c6798c58742bbd568f45e6362f39ad"
+        },
+        {
+            "file": "res/dialog.plist",
+            "hash": "93d9ab4325bbe0e5261c0a9db60267a7"
+        },
+        {
+            "file": "res/dialog.png",
+            "hash": "8c72161f3942910efe4810256334612a"
+        },
+        {
+            "file": "res/effectMini.plist",
+            "hash": "efc31bbc5bb847d34f04651b091df499"
+        },
+        {
+            "file": "res/effectMini.png",
+            "hash": "5a760d693561ed358fb35b8c9a03bb91"
+        },
+        {
+            "file": "res/fonts/bigsmall_number_font.fnt",
+            "hash": "213c0eaf9d72974dc1e2c2cf6336175e"
+        },
+        {
+            "file": "res/fonts/bigsmall_number_font.png",
+            "hash": "1d744fd3e6e7320a4ee4a0a541570bda"
+        },
+        {
+            "file": "res/fonts/font-number-1.fnt",
+            "hash": "f44cc7110c0d1e2b2a2bacb07e674cd2"
+        },
+        {
+            "file": "res/fonts/font-number-1.png",
+            "hash": "f5db33125966b0ca0e1e445d88be08a3"
+        },
+        {
+            "file": "res/fonts/lobby-number-font.fnt",
+            "hash": "61485fcba254b674ad62a8092ab4886c"
+        },
+        {
+            "file": "res/fonts/lobby-number-font.png",
+            "hash": "c8f8507c20e6830495c1c28f5ff6ffad"
+        },
+        {
+            "file": "res/fonts/minigame-number-1.fnt",
+            "hash": "c3153ef00ccd68a7ba4eac9dbe42987f"
+        },
+        {
+            "file": "res/fonts/minigame-number-1.png",
+            "hash": "ca08ac09c1fabef53020d57c152ca4e9"
+        },
+        {
+            "file": "res/fonts/Roboto-BoldCondensed.ttf",
+            "hash": "2f89fa2a028410aaf54e593bd87ad991"
+        },
+        {
+            "file": "res/fonts/Roboto-Condensed.ttf",
+            "hash": "8f7b8dc753ec34b0c7c3d748a835c38c"
+        },
+        {
+            "file": "res/fonts/RobotoBoldCondensed_25.fnt",
+            "hash": "a118eabdb36566878b544eb4ae755e9e"
+        },
+        {
+            "file": "res/fonts/RobotoBoldCondensed_25.png",
+            "hash": "3585c339a13999207af9277774bb6567"
+        },
+        {
+            "file": "res/fonts/RobotoBoldCondensed_30.fnt",
+            "hash": "19dc4f4ed9e8a56f3b742a69f41b6ce2"
+        },
+        {
+            "file": "res/fonts/RobotoBoldCondensed_30.png",
+            "hash": "74dd41fcbae4508cddb92217c3366360"
+        },
+        {
+            "file": "res/fonts/RobotoBoldCondensed_40.fnt",
+            "hash": "73c00aedcd8cc50e384e0adb55d6ae24"
+        },
+        {
+            "file": "res/fonts/RobotoBoldCondensed_40.png",
+            "hash": "5353c6b02c57ed0510468068decc7e8d"
+        },
+        {
+            "file": "res/fonts/RobotoCondensed_25.fnt",
+            "hash": "0396d6cb71335ce5fc654e220f77553a"
+        },
+        {
+            "file": "res/fonts/RobotoCondensed_25.png",
+            "hash": "de33000b395f8a58e9761872ae40f6ec"
+        },
+        {
+            "file": "res/fonts/RobotoCondensed_30.fnt",
+            "hash": "bd0c5347113683cb32e5049189ca2578"
+        },
+        {
+            "file": "res/fonts/RobotoCondensed_30.png",
+            "hash": "791e36d59c48c9ebeb61d8279418b555"
+        },
+        {
+            "file": "res/fonts/UTM-AvoBold.ttf",
+            "hash": "a48e217ef162e22291801b6cb8d40002"
+        },
+        {
+            "file": "res/fonts/UTMAvoBold_25.fnt",
+            "hash": "5493a4b1be064cf82cbbb8a560555d3e"
+        },
+        {
+            "file": "res/fonts/UTMAvoBold_25.png",
+            "hash": "39f52f39e5c8216a9e1862fb67a67d41"
+        },
+        {
+            "file": "res/fonts/UTMAvoBold_30.fnt",
+            "hash": "b65d4ca28e14944816efea1226d17184"
+        },
+        {
+            "file": "res/fonts/UTMAvoBold_30.png",
+            "hash": "bbb3eccbec3d321269f46b398ba37059"
+        },
+        {
+            "file": "res/fonts/UTMAvoBold_40.fnt",
+            "hash": "325a5875b946c8dac87b8a76c7d71d24"
+        },
+        {
+            "file": "res/fonts/UTMAvoBold_40.png",
+            "hash": "aa09a23b9146c31a8c12bf012589950f"
+        },
+        {
+            "file": "res/game-bg.jpg",
+            "hash": "3021d08b4c27186f07c6feb9198811b9"
+        },
+        {
+            "file": "res/GameList.plist",
+            "hash": "ad56ab7c74617fc38e21ca7d4c4d8449"
+        },
+        {
+            "file": "res/GameList.png",
+            "hash": "a90a13d97d383cb2926e4b45037da2ee"
+        },
+        {
+            "file": "res/gamemini.plist",
+            "hash": "da9d96c67f5a6d3f1095958d777689b9"
+        },
+        {
+            "file": "res/gamemini.png",
+            "hash": "544560c85f07f7a4c3805eeda4049615"
+        },
+        {
+            "file": "res/GamePlay.plist",
+            "hash": "d4be815d0873c56029345f1904ba2d11"
+        },
+        {
+            "file": "res/GamePlay.png",
+            "hash": "a30c81e5547ca6ef8ed7ed2a79880413"
+        },
+        {
+            "file": "res/gold-icon.png",
+            "hash": "ef648372dfd422598ab0ca6ddb249dff"
+        },
+        {
+            "file": "res/gp_table.png",
+            "hash": "5f5d187f223818e654e2ae559b1ace00"
+        },
+        {
+            "file": "res/HDList.plist",
+            "hash": "32b7715c80c54c7ea6e425d8524b5771"
+        },
+        {
+            "file": "res/hilo_bg.png",
+            "hash": "decd1e52aa8509bbdb0a834ba4634c04"
+        },
+        {
+            "file": "res/home.plist",
+            "hash": "69d0bd5dcce06e2e086f707a19c8d51e"
+        },
+        {
+            "file": "res/home.png",
+            "hash": "6f067b3dc2f2c8c4a17b612716bac695"
+        },
+        {
+            "file": "res/lobby.plist",
+            "hash": "de9cf521c959458ee056253b72f7213e"
+        },
+        {
+            "file": "res/lobby.png",
+            "hash": "d02123c0ae31a5434f3698e7c5251bea"
+        },
+        {
+            "file": "res/mnpk_bg.png",
+            "hash": "67a1e75d2af14400f9e0007e911f5cd8"
+        },
+        {
+            "file": "res/Sound/bellopen.mp3",
+            "hash": "de71523953ed5fed20a1f8df6756df99"
+        },
+        {
+            "file": "res/Sound/call2.mp3",
+            "hash": "f16b31092dcf704e334e8287749e0c00"
+        },
+        {
+            "file": "res/Sound/chia_bai.mp3",
+            "hash": "19382a400b15e88aea76745ee940ddab"
+        },
+        {
+            "file": "res/Sound/chuyen_view.mp3",
+            "hash": "44505b0388ac713b877f75bccce6e219"
+        },
+        {
+            "file": "res/Sound/danh_bai.mp3",
+            "hash": "211c5948ec4b6f7ba0147aeaea423433"
+        },
+        {
+            "file": "res/Sound/end_vongquay.mp3",
+            "hash": "cb05c94d3e987b02e7654e5a05c9ba40"
+        },
+        {
+            "file": "res/Sound/join_room.mp3",
+            "hash": "99b8a252a48a0f1c6f86478ab9e46359"
+        },
+        {
+            "file": "res/Sound/losing.mp3",
+            "hash": "b6b773a2f746bb07eedb4bead5a9ea51"
+        },
+        {
+            "file": "res/Sound/lucky_wheel.mp3",
+            "hash": "c7738c6f29836893bd22fce1cbff0dcf"
+        },
+        {
+            "file": "res/Sound/multichip.mp3",
+            "hash": "d10fdfaf73cfb1a6b6269eb03a448f57"
+        },
+        {
+            "file": "res/Sound/open_card.mp3",
+            "hash": "0ac81c6a3b3c0db295103b44a21f9224"
+        },
+        {
+            "file": "res/Sound/singlechip.mp3",
+            "hash": "c11ce350125e7f1d93740ead6b42a798"
+        },
+        {
+            "file": "res/Sound/winning.mp3",
+            "hash": "739cb46edc4934d1774819b91bde94a0"
+        },
+        {
+            "file": "res/VongQuay.plist",
+            "hash": "af63ec26fbb7d2d0626d45487f20efaa"
+        },
+        {
+            "file": "res/VongQuay.png",
+            "hash": "0d4d6cf3ebd364a024d0f679fe40f415"
+        },
+        {
+            "file": "resources.json",
+            "hash": "fb166e5ec45e49375654569222cafdde"
+        },
+        {
+            "file": "script.json",
+            "hash": "cde5708c3923588feb73622d0f2a4fd3"
+        }
+    ],
+    "versionName": "1.0.1",
+    "versionCode": 1
+}

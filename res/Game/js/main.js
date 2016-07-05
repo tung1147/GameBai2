@@ -55,12 +55,16 @@
 require("js/NewAction.js");
 require("js/LobbyClient.js");
 require("js/SmartfoxClient.js");
+require("js/Core/ToggleNodeGroup.js");
 require("js/app.js");
 require("js/IScene.js");
 require("js/Home/LobbyTopBar.js");
 require("js/Home/LobbyBottomBar.js");
 require("js/Home/HomeLayer.js");
 require("js/Home/HomeScene.js");
+require("js/Home/GameLayer.js");
+require("js/Home/MiniGameLayer.js");
+require("js/Home/LobbyLayer.js");
 
 cc.game.onStart = function(){
   //  if(!cc.sys.isNative && document.getElementById("cocosLoading")) //If referenced loading.js, please remove it
