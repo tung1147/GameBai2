@@ -1106,6 +1106,41 @@ bool js_quyetnd_newui_TextField_initWithSize(JSContext *cx, uint32_t argc, jsval
 	JS_ReportError(cx, "js_quyetnd_newui_TextField_initWithSize : wrong number of arguments: %d, was expecting %d", argc, 1);
 	return false;
 }
+
+bool js_quyetnd_newui_TextField_showKeyboard(JSContext *cx, uint32_t argc, jsval *vp){
+	JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+	bool ok = true;
+	JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	quyetnd::TextField* cobj = (quyetnd::TextField *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2(cobj, cx, false, "js_quyetnd_newui_TextField_showKeyboard : Invalid Native Object");
+	if (argc == 0) {
+		cobj->showKeyboard();
+		args.rval().setUndefined();
+		return true;
+	}
+
+	JS_ReportError(cx, "js_quyetnd_newui_TextField_showKeyboard : wrong number of arguments: %d, was expecting %d", argc, 1);
+	return false;
+}
+
+bool js_quyetnd_newui_TextField_hideKeyboard(JSContext *cx, uint32_t argc, jsval *vp){
+	JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+	bool ok = true;
+	JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	quyetnd::TextField* cobj = (quyetnd::TextField *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2(cobj, cx, false, "js_quyetnd_newui_TextField_hideKeyboard : Invalid Native Object");
+	if (argc == 0) {
+		cobj->hideKeyboard();
+		args.rval().setUndefined();
+		return true;
+	}
+
+	JS_ReportError(cx, "js_quyetnd_newui_TextField_hideKeyboard : wrong number of arguments: %d, was expecting %d", argc, 1);
+	return false;
+}
+
 bool js_quyetnd_newui_TextField_setPlaceHolderColor(JSContext *cx, uint32_t argc, jsval *vp)
 {
 	bool ok = true;
@@ -1142,6 +1177,7 @@ bool js_quyetnd_newui_TextField_setPlaceHolderColor(JSContext *cx, uint32_t argc
 	JS_ReportError(cx, "js_quyetnd_newui_TextField_setPlaceHolderColor : wrong number of arguments");
 	return false;
 }
+
 bool js_quyetnd_newui_TextField_setTextColor(JSContext *cx, uint32_t argc, jsval *vp)
 {
 	bool ok = true;
@@ -1239,6 +1275,8 @@ void js_register_quyetnd_newui_TextField(JSContext *cx, JS::HandleObject global)
 		JS_FN("initWithSize", js_quyetnd_newui_TextField_initWithSize, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("setPlaceHolderColor", js_quyetnd_newui_TextField_setPlaceHolderColor, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("setTextColor", js_quyetnd_newui_TextField_setTextColor, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("showKeyboard", js_quyetnd_newui_TextField_showKeyboard, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("hideKeyboard", js_quyetnd_newui_TextField_hideKeyboard, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("ctor", js_quyetnd_newui_TextField_ctor, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};

@@ -399,7 +399,8 @@ void TextField::insertText(const char * text, size_t len){
 		return;
 	}
 	// if callback hasn't processed, detach from IME by default
-	detachWithIME();
+	_autoDetachWithIME = true;
+	this->detachWithIME();
 }
 
 void TextField::deleteBackward(){
@@ -508,6 +509,23 @@ bool TextField::detachWithIME(){
 
 void TextField::setReturnCallback(const TextFieldReturnCallback& callback){
 	this->_callback = callback;
+}
+
+void TextField::showKeyboard(){
+	if (!isAttachWithIME){
+		this->attachWithIME();
+	}
+}
+
+void TextField::hideKeyboard(){
+	if (isAttachWithIME){
+		auto flag = _autoDetachWithIME;
+		_autoDetachWithIME = true;
+		if (this->detachWithIME()){
+			_autoDetachWithIME = false;
+		}
+		_autoDetachWithIME = flag;
+	}
 }
 
 } /* namespace quyetnd */

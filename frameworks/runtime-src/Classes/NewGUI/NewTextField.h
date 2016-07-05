@@ -76,6 +76,9 @@ public:
 
 	void setReturnCallback(const TextFieldReturnCallback& callback);
 
+	void showKeyboard();
+	void hideKeyboard();
+
 	void onEnter();
 	void onExit();
 
