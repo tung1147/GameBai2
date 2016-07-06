@@ -21,13 +21,13 @@ var LobbyLayer = cc.Node.extend({
         sendButton.setScale(cc.winSize.screenScale);
         this.addChild(sendButton);
 
-        var chatText = new newui.TextField(cc.size(190, 55), cc.res.font.Roboto_Condensed, 20);
+        var chatText = new newui.TextField(cc.size(190 * cc.winSize.screenScale, 55), cc.res.font.Roboto_Condensed, 20 * cc.winSize.screenScale);
         chatText.setAlignment(newui.TextField.ALIGNMENT_LEFT);
         chatText.setPlaceHolder("Nhập nội dung");
         chatText.setPlaceHolderColor(cc.color(34,110,155));
         chatText.setTextColor(cc.color(255,255,255));
         chatText.setPosition(chatBar.getPosition());
-        chatText.setScale(cc.winSize.screenScale);
+        //chatText.setScale(cc.winSize.screenScale);
         this.addChild(chatText,1);
 
         var _top = 580.0;
@@ -42,13 +42,13 @@ var LobbyLayer = cc.Node.extend({
         this.addChild(chatBg);
 
         var chatList = new ccui.ListView();
-        chatList.setContentSize(cc.size(_right - _left + 4.0, 384));
+        chatList.setContentSize(cc.size(_right - _left, 384));
         chatList.setDirection(ccui.ScrollView.DIR_VERTICAL);
-       // chatList.setGravity(ccui.ListView.GRAVITY_CENTER_VERTICAL);
+        chatList.setScrollBarEnabled(false);
         chatList.setTouchEnabled(true);
         chatList.setBounceEnabled(true);
         chatList.setAnchorPoint(cc.p(1.0,0));
-        chatList.setPosition(cc.p(_right, _bottom));
+        chatList.setPosition(cc.p(_right - 2, _bottom));
         this.addChild(chatList, 1);
 
         var thiz = this;
@@ -63,16 +63,15 @@ var LobbyLayer = cc.Node.extend({
             return true;
         });
 
-        for(var i=0;i<10;i++){
-            this.addChatMessage("Me", "test noi dung rich text test noi dung rich text test noi dung rich text text test noi dung rich text text test noi dung rich text text test noi dung rich text text test noi dung rich text text test noi dung rich text text test noi dung rich text");
-        }
+        // for(var i =0; i< 20; i++){
+        //     this.addChatMessage("Me", "test noi dung chat test noi dung chat test noi dung chat test noi dung chat test noi dung chat test noi dung chat test noi dung chat");
+        // }
     },
     
     sendChatHandler : function () {
         var message = this.chatText.getText();
         this.chatText.setText("");
-
-
+        
         this.addChatMessage("Me", message);
     },
     
@@ -80,21 +79,21 @@ var LobbyLayer = cc.Node.extend({
       //  cc.log(username + ": "+message);
         var textMesasge = new ccui.RichText();
         textMesasge.ignoreContentAdaptWithSize(false);
-        textMesasge.width = 280;
-        //textMesasge.height = 100;
-        textMesasge.setScale(cc.winSize.screenScale);
+        textMesasge.width = this.chatList.getContentSize().width;
 
-        var userText = new ccui.RichElementText(0, cc.color(39,197,255), 255, username +": ", cc.res.font.Roboto_CondensedBold, 20);
-        var messageText = new ccui.RichElementText(1, cc.color(255,255,255), 255, message, cc.res.font.Roboto_Condensed, 20);
+        var userText = new ccui.RichElementText(0, cc.color(39,197,255), 255, username +": ", cc.res.font.Roboto_CondensedBold, 20 * cc.winSize.screenScale);
+        var messageText = new ccui.RichElementText(1, cc.color(255,255,255), 255, message, cc.res.font.Roboto_Condensed, 20 * cc.winSize.screenScale);
 
         textMesasge.pushBackElement(userText);
         textMesasge.pushBackElement(messageText);
         textMesasge.formatText();
 
-        //textMesasge.ignoreContentAdaptWithSize (true);
-
         var size = textMesasge.getContentSize();
-        cc.log("" + size.width + " : "+ size.height);
         this.chatList.pushBackCustomItem(textMesasge);
+        this.chatList.scrollToBottom(0.5, true);
+
+        var padding = new ccui.Widget();
+        padding.setContentSize(cc.size(textMesasge.width, 8.0));
+        this.chatList.pushBackCustomItem(padding);
     }
 });
