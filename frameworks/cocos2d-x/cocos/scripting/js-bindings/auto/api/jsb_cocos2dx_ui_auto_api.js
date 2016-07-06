@@ -2175,7 +2175,7 @@ int
 
 /**
  * @method getNumberOfRadioButtons
- * @return {long}
+ * @return {int}
  */
 getNumberOfRadioButtons : function (
 )
@@ -2521,7 +2521,7 @@ size
 
 /**
  * @method getStringLength
- * @return {long}
+ * @return {int}
  */
 getStringLength : function (
 )
@@ -2695,7 +2695,7 @@ ccui.TextAtlas = {
 
 /**
  * @method getStringLength
- * @return {long}
+ * @return {int}
  */
 getStringLength : function (
 )
@@ -3535,7 +3535,7 @@ getCenterItemInCurrentView : function (
 
 /**
  * @method getCurSelectedIndex
- * @return {long}
+ * @return {int}
  */
 getCurSelectedIndex : function (
 )
@@ -3555,12 +3555,12 @@ getItemsMargin : function (
 
 /**
  * @method jumpToItem
- * @param {long} arg0
+ * @param {int} arg0
  * @param {vec2_object} arg1
  * @param {vec2_object} arg2
  */
 jumpToItem : function (
-long, 
+int, 
 vec2, 
 vec2 
 )
@@ -3580,7 +3580,7 @@ magnetictype
 /**
  * @method getIndex
  * @param {ccui.Widget} arg0
- * @return {long}
+ * @return {int}
  */
 getIndex : function (
 widget 
@@ -3601,10 +3601,10 @@ widget
 
 /**
  * @method insertDefaultItem
- * @param {long} arg0
+ * @param {int} arg0
  */
 insertDefaultItem : function (
-long 
+int 
 )
 {
 },
@@ -3707,11 +3707,11 @@ getMagneticType : function (
 
 /**
  * @method getItem
- * @param {long} arg0
+ * @param {int} arg0
  * @return {ccui.Widget}
  */
 getItem : function (
-long 
+int 
 )
 {
     return ccui.Widget;
@@ -3719,23 +3719,23 @@ long
 
 /**
  * @method removeItem
- * @param {long} arg0
+ * @param {int} arg0
  */
 removeItem : function (
-long 
+int 
 )
 {
 },
 
 /**
  * @method scrollToItem
-* @param {long|long} long
+* @param {int|int} int
 * @param {vec2_object|vec2_object} vec2
 * @param {vec2_object|vec2_object} vec2
 * @param {float} float
 */
 scrollToItem : function(
-long,
+int,
 vec2,
 vec2,
 float 
@@ -3812,11 +3812,11 @@ widget
 /**
  * @method insertCustomItem
  * @param {ccui.Widget} arg0
- * @param {long} arg1
+ * @param {int} arg1
  */
 insertCustomItem : function (
 widget, 
-long 
+int 
 )
 {
 },
@@ -4201,13 +4201,13 @@ getAttachWithIME : function (
  * @method onTextFieldDeleteBackward
  * @param {cc.TextFieldTTF} arg0
  * @param {char} arg1
- * @param {unsigned long} arg2
+ * @param {unsigned int} arg2
  * @return {bool}
  */
 onTextFieldDeleteBackward : function (
 textfieldttf, 
 char, 
-long 
+int 
 )
 {
     return false;
@@ -4253,7 +4253,7 @@ getDetachWithIME : function (
 
 /**
  * @method getCharCount
- * @return {unsigned long}
+ * @return {unsigned int}
  */
 getCharCount : function (
 )
@@ -4302,11 +4302,11 @@ isPasswordEnabled : function (
 /**
  * @method insertText
  * @param {char} arg0
- * @param {unsigned long} arg1
+ * @param {unsigned int} arg1
  */
 insertText : function (
 char, 
-long 
+int 
 )
 {
 },
@@ -4325,13 +4325,13 @@ str
  * @method onTextFieldInsertText
  * @param {cc.TextFieldTTF} arg0
  * @param {char} arg1
- * @param {unsigned long} arg2
+ * @param {unsigned int} arg2
  * @return {bool}
  */
 onTextFieldInsertText : function (
 textfieldttf, 
 char, 
-long 
+int 
 )
 {
     return false;
@@ -4707,10 +4707,10 @@ bool
 
 /**
  * @method setCursorPosition
- * @param {unsigned long} arg0
+ * @param {unsigned int} arg0
  */
 setCursorPosition : function (
-long 
+int 
 )
 {
 },
@@ -4921,7 +4921,7 @@ ccui.TextBMFont = {
 
 /**
  * @method getStringLength
- * @return {long}
+ * @return {int}
  */
 getStringLength : function (
 )
@@ -5081,7 +5081,7 @@ int
 
 /**
  * @method getCurrentPageIndex
- * @return {long}
+ * @return {int}
  */
 getCurrentPageIndex : function (
 )
@@ -5111,10 +5111,10 @@ func
 
 /**
  * @method setCurrentPageIndex
- * @param {long} arg0
+ * @param {int} arg0
  */
 setCurrentPageIndex : function (
-long 
+int 
 )
 {
 },
@@ -5131,10 +5131,10 @@ getIndicatorEnabled : function (
 
 /**
  * @method scrollToPage
- * @param {long} arg0
+ * @param {int} arg0
  */
 scrollToPage : function (
-long 
+int 
 )
 {
 },
@@ -5151,10 +5151,10 @@ vec2
 
 /**
  * @method scrollToItem
- * @param {long} arg0
+ * @param {int} arg0
  */
 scrollToItem : function (
-long 
+int 
 )
 {
 },
@@ -5199,10 +5199,10 @@ removeAllPages : function (
 
 /**
  * @method removePageAtIndex
- * @param {long} arg0
+ * @param {int} arg0
  */
 removePageAtIndex : function (
-long 
+int 
 )
 {
 },
@@ -5236,14 +5236,14 @@ ccui.Helper = {
 /**
  * @method getSubStringOfUTF8String
  * @param {String} arg0
- * @param {unsigned long} arg1
- * @param {unsigned long} arg2
+ * @param {unsigned int} arg1
+ * @param {unsigned int} arg2
  * @return {String}
  */
 getSubStringOfUTF8String : function (
 str, 
-long, 
-long 
+int, 
+int 
 )
 {
     return ;
@@ -7167,7 +7167,7 @@ int
 
 /**
  * @method getTabCount
- * @return {unsigned long}
+ * @return {unsigned int}
  */
 getTabCount : function (
 )

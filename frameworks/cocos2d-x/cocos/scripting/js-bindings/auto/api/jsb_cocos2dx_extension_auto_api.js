@@ -1081,16 +1081,6 @@ getValue : function (
 },
 
 /**
- * @method getPreviousLocation
- * @return {vec2_object}
- */
-getPreviousLocation : function (
-)
-{
-    return cc.Vec2;
-},
-
-/**
  * @method distanceBetweenPointAndPoint
  * @param {vec2_object} arg0
  * @param {vec2_object} arg1
@@ -1112,6 +1102,16 @@ potentiometerEnded : function (
 vec2 
 )
 {
+},
+
+/**
+ * @method getPreviousLocation
+ * @return {vec2_object}
+ */
+getPreviousLocation : function (
+)
+{
+    return cc.Vec2;
 },
 
 /**
@@ -1201,16 +1201,6 @@ ControlPotentiometer : function (
  * @class ControlSlider
  */
 cc.ControlSlider = {
-
-/**
- * @method setBackgroundSprite
- * @param {cc.Sprite} arg0
- */
-setBackgroundSprite : function (
-sprite 
-)
-{
-},
 
 /**
  * @method getMaximumAllowedValue
@@ -1397,6 +1387,16 @@ getProgressSprite : function (
  * @param {cc.Sprite} arg0
  */
 setSelectedThumbSprite : function (
+sprite 
+)
+{
+},
+
+/**
+ * @method setBackgroundSprite
+ * @param {cc.Sprite} arg0
+ */
+setBackgroundSprite : function (
 sprite 
 )
 {
@@ -2154,7 +2154,7 @@ reset : function (
 
 /**
  * @method getIdx
- * @return {long}
+ * @return {int}
  */
 getIdx : function (
 )
@@ -2164,10 +2164,10 @@ getIdx : function (
 
 /**
  * @method setIdx
- * @param {long} arg0
+ * @param {int} arg0
  */
 setIdx : function (
-long 
+int 
 )
 {
 },
@@ -2200,10 +2200,10 @@ cc.TableView = {
 
 /**
  * @method updateCellAtIndex
- * @param {long} arg0
+ * @param {int} arg0
  */
 updateCellAtIndex : function (
-long 
+int 
 )
 {
 },
@@ -2214,16 +2214,6 @@ long
  */
 setVerticalFillOrder : function (
 verticalfillorder 
-)
-{
-},
-
-/**
- * @method scrollViewDidZoom
- * @param {cc.ScrollView} arg0
- */
-scrollViewDidZoom : function (
-scrollview 
 )
 {
 },
@@ -2248,10 +2238,10 @@ getVerticalFillOrder : function (
 
 /**
  * @method removeCellAtIndex
- * @param {long} arg0
+ * @param {int} arg0
  */
 removeCellAtIndex : function (
-long 
+int 
 )
 {
 },
@@ -2289,22 +2279,32 @@ reloadData : function (
 },
 
 /**
+ * @method scrollViewDidZoom
+ * @param {cc.ScrollView} arg0
+ */
+scrollViewDidZoom : function (
+scrollview 
+)
+{
+},
+
+/**
  * @method insertCellAtIndex
- * @param {long} arg0
+ * @param {int} arg0
  */
 insertCellAtIndex : function (
-long 
+int 
 )
 {
 },
 
 /**
  * @method cellAtIndex
- * @param {long} arg0
+ * @param {int} arg0
  * @return {cc.TableViewCell}
  */
 cellAtIndex : function (
-long 
+int 
 )
 {
     return cc.TableViewCell;
