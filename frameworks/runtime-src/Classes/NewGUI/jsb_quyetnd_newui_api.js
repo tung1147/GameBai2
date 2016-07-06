@@ -647,6 +647,14 @@ hideKeyboard : function(){
 },
 
 /**
+ * @method setAlignment
+ *
+ */
+setAlignment : function(){
+
+},
+
+/**
  * @method TextField
  * @constructor
  */
@@ -654,5 +662,41 @@ TextField : function (
 )
 {
 },
+
+};
+
+/**
+ * @class Widget
+ */
+newui.Widget = {
+
+    /**
+     * @method setVirtualRendererSize
+     * @param {size_object} arg0
+     */
+    setVirtualRendererSize : function (
+        size
+    )
+    {
+    },
+
+    /**
+     * @method getVirtualRendererSize
+     * @return {size_object}
+     */
+    getVirtualRendererSize : function (
+    )
+    {
+        return cc.Size;
+    },
+
+    /**
+     * @method Widget
+     * @constructor
+     */
+    Widget : function (
+    )
+    {
+    },
 
 };

@@ -14,6 +14,11 @@ USING_NS_CC;
 //TextFieldTTF
 
 namespace quyetnd {
+enum TextFieldAlignment{
+	CENTER = 0,
+	LEFT = 1
+};
+
 class TextField;
 typedef std::function<bool(TextField*)> TextFieldReturnCallback;
 
@@ -22,6 +27,7 @@ class TextField : public Node, public IMEDelegate{
 	bool _keyboardShowMe;
 	bool _autoDetachWithIME;
 	bool _TextFieldTTF;
+	int _alignment;
 	int maxLength;
 
 	TextFieldReturnCallback _callback;
@@ -53,6 +59,8 @@ protected:
 
 	virtual void updateText();
 	virtual void updateTextSize();
+	virtual void updateTextSizeCenter();
+	virtual void updateTextSizeLeft();
 	bool checkVisible();
 public:
 	TextField();
@@ -75,6 +83,7 @@ public:
 	void setMaxLength(int maxLength);
 
 	void setReturnCallback(const TextFieldReturnCallback& callback);
+	void setAlignment(int alignment);
 
 	void showKeyboard();
 	void hideKeyboard();

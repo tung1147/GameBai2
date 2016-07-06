@@ -71,6 +71,18 @@ bool js_quyetnd_newui_TextField_setPlaceHolderColor(JSContext *cx, uint32_t argc
 bool js_quyetnd_newui_TextField_setTextColor(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_quyetnd_newui_TextField_showKeyboard(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_quyetnd_newui_TextField_hideKeyboard(JSContext *cx, uint32_t argc, jsval *vp);
+bool js_quyetnd_newui_TextField_setAlignment(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_quyetnd_newui_TextField_TextField(JSContext *cx, uint32_t argc, jsval *vp);
+
+/****/
+extern JSClass  *jsb_quyetnd_Widget_class;
+extern JSObject *jsb_quyetnd_Widget_prototype;
+
+bool js_quyetnd_newui_Widget_constructor(JSContext *cx, uint32_t argc, jsval *vp);
+void js_quyetnd_newui_Widget_finalize(JSContext *cx, JSObject *obj);
+void js_register_quyetnd_newui_Widget(JSContext *cx, JS::HandleObject global);
+bool js_quyetnd_newui_Widget_setVirtualRendererSize(JSContext *cx, uint32_t argc, jsval *vp);
+bool js_quyetnd_newui_Widget_getVirtualRendererSize(JSContext *cx, uint32_t argc, jsval *vp);
+bool js_quyetnd_newui_Widget_Widget(JSContext *cx, uint32_t argc, jsval *vp);
 
 #endif // __quyetnd_newui_h__

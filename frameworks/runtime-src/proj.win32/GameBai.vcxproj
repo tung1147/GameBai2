@@ -190,6 +190,7 @@ copy "$(ProjectDir)..\..\..\project.json" "$(OutDir)\" /Y</Command>
     <ClCompile Include="..\Classes\NewGUI\NewTableView.cpp" />
     <ClCompile Include="..\Classes\NewGUI\NewTextField.cpp" />
     <ClCompile Include="..\Classes\NewGUI\NewTextInput.cpp" />
+    <ClCompile Include="..\Classes\NewGUI\NewWidget.cpp" />
     <ClCompile Include="..\Classes\Plugin\base64.cpp" />
     <ClCompile Include="..\Classes\Plugin\CRC32.cpp" />
     <ClCompile Include="..\Classes\Plugin\crypt_aes.cpp" />
@@ -220,6 +221,7 @@ copy "$(ProjectDir)..\..\..\project.json" "$(OutDir)\" /Y</Command>
     <ClInclude Include="..\Classes\NewGUI\NewTableView.h" />
     <ClInclude Include="..\Classes\NewGUI\NewTextField.h" />
     <ClInclude Include="..\Classes\NewGUI\NewTextInput.h" />
+    <ClInclude Include="..\Classes\NewGUI\NewWidget.h" />
     <ClInclude Include="..\Classes\Plugin\base64.h" />
     <ClInclude Include="..\Classes\Plugin\CRC32.h" />
     <ClInclude Include="..\Classes\Plugin\crypt_aes.h" />
