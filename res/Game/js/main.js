@@ -51,19 +51,28 @@
  }
  *
  */
- (function(){
-    require("js/NewAction.js");
-    require("js/LobbyClient.js");
-    require("js/SmartfoxClient.js");
-    require("js/app.js");
- })();
- 
+
+require("js/NewAction.js");
+require("js/LobbyClient.js");
+require("js/SmartfoxClient.js");
+require("js/Core/ToggleNodeGroup.js");
+require("js/Global.js");
+require("js/app.js");
+require("js/IScene.js");
+require("js/Home/LobbyTopBar.js");
+require("js/Home/LobbyBottomBar.js");
+require("js/Home/HomeLayer.js");
+require("js/Home/HomeScene.js");
+require("js/Home/GameLayer.js");
+require("js/Home/LobbyLayer.js");
+require("js/Home/MiniGameLayer.js");
+
 cc.game.onStart = function(){
   //  if(!cc.sys.isNative && document.getElementById("cocosLoading")) //If referenced loading.js, please remove it
       //  document.body.removeChild(document.getElementById("cocosLoading"));
 
     // Pass true to enable retina display, on Android disabled by default to improve performance
-    cc.view.enableRetina(cc.sys.os === cc.sys.OS_IOS ? true : false);
+   // cc.view.enableRetina(cc.sys.os === cc.sys.OS_IOS ? true : false);
     // Adjust viewport meta
     cc.view.adjustViewPort(true);
     // Setup the resolution policy and design resolution size
@@ -74,6 +83,7 @@ cc.game.onStart = function(){
     // The game will be resized when browser size change
     //cc.view.resizeWithBrowserSize(true);
     //load resources
-    cc.director.replaceScene(new HelloWorldScene());
+
+    cc.director.replaceScene(new HomeScene());
 };
 cc.game.run();

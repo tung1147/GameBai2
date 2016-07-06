@@ -1,0 +1,113 @@
+{
+    "fonts": [
+        {
+            "img": "res/fonts/bigsmall_number_font.png",
+            "fnt": "res/fonts/bigsmall_number_font.fnt"
+        },
+        {
+            "img": "res/fonts/font-number-1.png",
+            "fnt": "res/fonts/font-number-1.fnt"
+        },
+        {
+            "img": "res/fonts/lobby-number-font.png",
+            "fnt": "res/fonts/lobby-number-font.fnt"
+        },
+        {
+            "img": "res/fonts/minigame-number-1.png",
+            "fnt": "res/fonts/minigame-number-1.fnt"
+        },
+        {
+            "img": "res/fonts/RobotoBoldCondensed_25.png",
+            "fnt": "res/fonts/RobotoBoldCondensed_25.fnt"
+        },
+        {
+            "img": "res/fonts/RobotoBoldCondensed_30.png",
+            "fnt": "res/fonts/RobotoBoldCondensed_30.fnt"
+        },
+        {
+            "img": "res/fonts/RobotoBoldCondensed_40.png",
+            "fnt": "res/fonts/RobotoBoldCondensed_40.fnt"
+        },
+        {
+            "img": "res/fonts/RobotoCondensed_25.png",
+            "fnt": "res/fonts/RobotoCondensed_25.fnt"
+        },
+        {
+            "img": "res/fonts/RobotoCondensed_30.png",
+            "fnt": "res/fonts/RobotoCondensed_30.fnt"
+        },
+        {
+            "img": "res/fonts/UTMAvoBold_25.png",
+            "fnt": "res/fonts/UTMAvoBold_25.fnt"
+        },
+        {
+            "img": "res/fonts/UTMAvoBold_30.png",
+            "fnt": "res/fonts/UTMAvoBold_30.fnt"
+        },
+        {
+            "img": "res/fonts/UTMAvoBold_40.png",
+            "fnt": "res/fonts/UTMAvoBold_40.fnt"
+        }
+    ],
+    "texture": [
+        {"img": "res/bg-minigame-1.png"},
+        {"img": "res/bg_xocdia.png"},
+        {"img": "res/bigsmall_bg.png"},
+        {
+            "img": "res/Card.png",
+            "plist": "res/Card.plist"
+        },
+        {
+            "img": "res/dialog.png",
+            "plist": "res/dialog.plist"
+        },
+        {
+            "img": "res/effectMini.png",
+            "plist": "res/effectMini.plist"
+        },
+        {"img": "res/game-bg.jpg"},
+        {
+            "img": "res/GameList.png",
+            "plist": "res/GameList.plist"
+        },
+        {
+            "img": "res/gamemini.png",
+            "plist": "res/gamemini.plist"
+        },
+        {
+            "img": "res/GamePlay.png",
+            "plist": "res/GamePlay.plist"
+        },
+        {"img": "res/gold-icon.png"},
+        {"img": "res/gp_table.png"},
+        {"img": "res/hilo_bg.png"},
+        {
+            "img": "res/home.png",
+            "plist": "res/home.plist"
+        },
+        {
+            "img": "res/lobby.png",
+            "plist": "res/lobby.plist"
+        },
+        {"img": "res/mnpk_bg.png"},
+        {
+            "img": "res/VongQuay.png",
+            "plist": "res/VongQuay.plist"
+        }
+    ],
+    "Sound": [
+        "res/Sound/bellopen.mp3",
+        "res/Sound/call2.mp3",
+        "res/Sound/chia_bai.mp3",
+        "res/Sound/chuyen_view.mp3",
+        "res/Sound/danh_bai.mp3",
+        "res/Sound/end_vongquay.mp3",
+        "res/Sound/join_room.mp3",
+        "res/Sound/losing.mp3",
+        "res/Sound/lucky_wheel.mp3",
+        "res/Sound/multichip.mp3",
+        "res/Sound/open_card.mp3",
+        "res/Sound/singlechip.mp3",
+        "res/Sound/winning.mp3"
+    ]
+}

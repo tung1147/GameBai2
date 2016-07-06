@@ -1,0 +1,12 @@
+[
+    "js/app.js",
+    "js/Home/HomeLayer.js",
+    "js/Home/HomeScene.js",
+    "js/Home/LobbyBottomBar.js",
+    "js/Home/LobbyTopBar.js",
+    "js/IScene.js",
+    "js/LobbyClient.js",
+    "js/main.js",
+    "js/NewAction.js",
+    "js/SmartfoxClient.js"
+]
