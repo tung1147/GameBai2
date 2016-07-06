@@ -12,23 +12,23 @@ var HomeScene = IScene.extend({
         bg.y = cc.winSize.height/2;
         this.sceneLayer.addChild(bg);
 
-       // this.homeLayer = new HomeLayer();
-        //this.sceneLayer.addChild(this.homeLayer);
+        this.homeLayer = new HomeLayer();
+        this.sceneLayer.addChild(this.homeLayer);
 
-        this.gameList = new cc.Node();
-        this.sceneLayer.addChild(this.gameList);
-
-        this.gameLayer = new GameLayer();
-        this.gameList.addChild(this.gameLayer);
-
-        this.miniGameLayer = new MiniGameLayer();
-        this.gameList.addChild(this.miniGameLayer);
+        // this.gameList = new cc.Node();
+        // this.sceneLayer.addChild(this.gameList);
+        //
+        // this.gameLayer = new GameLayer();
+        // this.gameList.addChild(this.gameLayer);
+        //
+        // this.miniGame = new MiniGameLayer();
+        // this.sceneLayer.addChild(this.miniGame);
 
         this.topBar = new LobbyTopBar();
         this.sceneLayer.addChild(this.topBar);
 
-        this.userInfo = new LobbyBottomBar();
-        this.sceneLayer.addChild(this.userInfo);
+        // this.userInfo = new LobbyBottomBar();
+        // this.sceneLayer.addChild(this.userInfo);
     }
 
 

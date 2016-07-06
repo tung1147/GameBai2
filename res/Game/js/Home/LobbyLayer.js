@@ -4,5 +4,6 @@
 var LobbyLayer = cc.Node.extend({
     ctor : function () {
         this._super();
+
     }
 });

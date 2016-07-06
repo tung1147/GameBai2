@@ -112,6 +112,9 @@
     <ClCompile Include="..\Classes\NewGUI\NewTextField.cpp">
       <Filter>Classes\NewGUI</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\NewGUI\NewWidget.cpp">
+      <Filter>Classes\NewGUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h">
@@ -197,6 +200,9 @@
       <Filter>Classes\Action</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\NewGUI\NewTextField.h">
+      <Filter>Classes\NewGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\NewGUI\NewWidget.h">
       <Filter>Classes\NewGUI</Filter>
     </ClInclude>
   </ItemGroup>

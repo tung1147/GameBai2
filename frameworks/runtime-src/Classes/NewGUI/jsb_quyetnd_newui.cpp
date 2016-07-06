@@ -3,6 +3,7 @@
 #include "NewTableView.h"
 #include "NewTextInput.h"
 #include "NewTextField.h"
+#include "NewWidget.h"
 
 template<class T>
 static bool dummy_constructor(JSContext *cx, uint32_t argc, jsval *vp)
@@ -705,6 +706,7 @@ void register_all_quyetnd_newui(JSContext* cx, JS::HandleObject obj) {
     js_register_quyetnd_newui_TableView(cx, ns);
 	js_register_quyetnd_newui_EditBox(cx, ns);
 	js_register_quyetnd_newui_TextField(cx, ns);	
+	js_register_quyetnd_newui_Widget(cx, ns);
 }
 
 /****/
@@ -1141,6 +1143,26 @@ bool js_quyetnd_newui_TextField_hideKeyboard(JSContext *cx, uint32_t argc, jsval
 	return false;
 }
 
+bool js_quyetnd_newui_TextField_setAlignment(JSContext *cx, uint32_t argc, jsval *vp){
+	JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+	bool ok = true;
+	JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	quyetnd::TextField* cobj = (quyetnd::TextField *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2(cobj, cx, false, "js_quyetnd_newui_TextField_hideKeyboard : Invalid Native Object");
+	if (argc == 1) {
+		int32_t arg0;
+		ok &= jsval_to_int32 (cx, args.get(0), &arg0);
+		JSB_PRECONDITION2(ok, cx, false, "js_quyetnd_newui_TextField_initWithSize : Error processing arguments");
+		cobj->setAlignment(arg0);
+		args.rval().setUndefined();
+		return true;
+	}
+
+	JS_ReportError(cx, "js_quyetnd_newui_TextField_hideKeyboard : wrong number of arguments: %d, was expecting %d", argc, 1);
+	return false;
+}
+
 bool js_quyetnd_newui_TextField_setPlaceHolderColor(JSContext *cx, uint32_t argc, jsval *vp)
 {
 	bool ok = true;
@@ -1277,6 +1299,7 @@ void js_register_quyetnd_newui_TextField(JSContext *cx, JS::HandleObject global)
 		JS_FN("setTextColor", js_quyetnd_newui_TextField_setTextColor, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("showKeyboard", js_quyetnd_newui_TextField_showKeyboard, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("hideKeyboard", js_quyetnd_newui_TextField_hideKeyboard, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("setAlignment", js_quyetnd_newui_TextField_setAlignment, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("ctor", js_quyetnd_newui_TextField_ctor, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
@@ -1302,4 +1325,126 @@ void js_register_quyetnd_newui_TextField(JSContext *cx, JS::HandleObject global)
 	// add the proto and JSClass to the type->js info hash table
 	jsb_register_class<quyetnd::TextField>(cx, jsb_quyetnd_TextField_class, proto, parent_proto);
 	anonEvaluate(cx, global, "(function () { newui.TextField.extend = cc.Class.extend; })()");
+}
+
+/*****/
+
+JSClass  *jsb_quyetnd_Widget_class;
+JSObject *jsb_quyetnd_Widget_prototype;
+
+bool js_quyetnd_newui_Widget_setVirtualRendererSize(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+	bool ok = true;
+	JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	quyetnd::Widget* cobj = (quyetnd::Widget *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2(cobj, cx, false, "js_quyetnd_newui_Widget_setVirtualRendererSize : Invalid Native Object");
+	if (argc == 1) {
+		cocos2d::Size arg0;
+		ok &= jsval_to_ccsize(cx, args.get(0), &arg0);
+		JSB_PRECONDITION2(ok, cx, false, "js_quyetnd_newui_Widget_setVirtualRendererSize : Error processing arguments");
+		cobj->setVirtualRendererSize(arg0);
+		args.rval().setUndefined();
+		return true;
+	}
+
+	JS_ReportError(cx, "js_quyetnd_newui_Widget_setVirtualRendererSize : wrong number of arguments: %d, was expecting %d", argc, 1);
+	return false;
+}
+bool js_quyetnd_newui_Widget_getVirtualRendererSize(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+	JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	quyetnd::Widget* cobj = (quyetnd::Widget *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2(cobj, cx, false, "js_quyetnd_newui_Widget_getVirtualRendererSize : Invalid Native Object");
+	if (argc == 0) {
+		cocos2d::Size ret = cobj->getVirtualRendererSize();
+		jsval jsret = JSVAL_NULL;
+		jsret = ccsize_to_jsval(cx, ret);
+		args.rval().set(jsret);
+		return true;
+	}
+
+	JS_ReportError(cx, "js_quyetnd_newui_Widget_getVirtualRendererSize : wrong number of arguments: %d, was expecting %d", argc, 0);
+	return false;
+}
+bool js_quyetnd_newui_Widget_constructor(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+	bool ok = true;
+	quyetnd::Widget* cobj = new (std::nothrow) quyetnd::Widget();
+
+	js_type_class_t *typeClass = js_get_type_from_native<quyetnd::Widget>(cobj);
+
+	// link the native object with the javascript object
+	JS::RootedObject jsobj(cx, jsb_ref_create_jsobject(cx, cobj, typeClass, "quyetnd::Widget"));
+	args.rval().set(OBJECT_TO_JSVAL(jsobj));
+	if (JS_HasProperty(cx, jsobj, "_ctor", &ok) && ok)
+		ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(jsobj), "_ctor", args);
+	return true;
+}
+static bool js_quyetnd_newui_Widget_ctor(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+	JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
+	quyetnd::Widget *nobj = new (std::nothrow) quyetnd::Widget();
+	auto newproxy = jsb_new_proxy(nobj, obj);
+	jsb_ref_init(cx, &newproxy->obj, nobj, "quyetnd::Widget");
+	bool isFound = false;
+	if (JS_HasProperty(cx, obj, "_ctor", &isFound) && isFound)
+		ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", args);
+	args.rval().setUndefined();
+	return true;
+}
+
+
+extern JSObject *jsb_cocos2d_ui_Widget_prototype;
+
+
+void js_register_quyetnd_newui_Widget(JSContext *cx, JS::HandleObject global) {
+	jsb_quyetnd_Widget_class = (JSClass *)calloc(1, sizeof(JSClass));
+	jsb_quyetnd_Widget_class->name = "Widget";
+	jsb_quyetnd_Widget_class->addProperty = JS_PropertyStub;
+	jsb_quyetnd_Widget_class->delProperty = JS_DeletePropertyStub;
+	jsb_quyetnd_Widget_class->getProperty = JS_PropertyStub;
+	jsb_quyetnd_Widget_class->setProperty = JS_StrictPropertyStub;
+	jsb_quyetnd_Widget_class->enumerate = JS_EnumerateStub;
+	jsb_quyetnd_Widget_class->resolve = JS_ResolveStub;
+	jsb_quyetnd_Widget_class->convert = JS_ConvertStub;
+	jsb_quyetnd_Widget_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
+
+	static JSPropertySpec properties[] = {
+		JS_PS_END
+	};
+
+	static JSFunctionSpec funcs[] = {
+		JS_FN("setVirtualRendererSize", js_quyetnd_newui_Widget_setVirtualRendererSize, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("getVirtualRendererSize", js_quyetnd_newui_Widget_getVirtualRendererSize, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("ctor", js_quyetnd_newui_Widget_ctor, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FS_END
+	};
+
+	JSFunctionSpec *st_funcs = NULL;
+
+	JS::RootedObject parent_proto(cx, jsb_cocos2d_ui_Widget_prototype);
+	jsb_quyetnd_Widget_prototype = JS_InitClass(
+		cx, global,
+		parent_proto,
+		jsb_quyetnd_Widget_class,
+		js_quyetnd_newui_Widget_constructor, 0, // constructor
+		properties,
+		funcs,
+		NULL, // no static properties
+		st_funcs);
+
+	JS::RootedObject proto(cx, jsb_quyetnd_Widget_prototype);
+	JS::RootedValue className(cx, std_string_to_jsval(cx, "Widget"));
+	JS_SetProperty(cx, proto, "_className", className);
+	JS_SetProperty(cx, proto, "__nativeObj", JS::TrueHandleValue);
+	JS_SetProperty(cx, proto, "__is_ref", JS::TrueHandleValue);
+	// add the proto and JSClass to the type->js info hash table
+	jsb_register_class<quyetnd::Widget>(cx, jsb_quyetnd_Widget_class, proto, parent_proto);
+	anonEvaluate(cx, global, "(function () { newui.Widget.extend = cc.Class.extend; })()");
 }

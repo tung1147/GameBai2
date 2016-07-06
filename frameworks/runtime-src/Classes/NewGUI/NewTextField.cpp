@@ -24,6 +24,8 @@ TextField::TextField(){
 	_callback = nullptr;
 	_TextFieldTTF = false;
 	_autoDetachWithIME = true;
+
+	_alignment = TextFieldAlignment::CENTER;
 }
 
 TextField::~TextField(){
@@ -126,18 +128,27 @@ void TextField::updateText(){
 }
 
 void TextField::updateTextSize(){
+	if (_alignment == TextFieldAlignment::CENTER){
+		updateTextSizeCenter();
+	}
+	else if (_alignment == TextFieldAlignment::LEFT){
+		updateTextSizeLeft();
+	}
+}
+
+void TextField::updateTextSizeCenter(){
 	if (isAttachWithIME){
 		float textMargin = 0.0f;
 		if (_cursorSprite){
 			textMargin = _cursorSprite->getContentSize().width + 2.0f;
 		}
-		
+
 		float w = _textLabel->getContentSize().width + textMargin;
 		if (w > this->getContentSize().width){
 			float _x = this->getContentSize().width - textMargin - _textLabel->getContentSize().width / 2;
 			_textLabel->setPositionX(_x);
 		}
-		else{	
+		else{
 			_textLabel->setPositionX(this->getContentSize().width / 2);
 		}
 
@@ -148,12 +159,38 @@ void TextField::updateTextSize(){
 	}
 	else{
 		if (_textLabel->getContentSize().width > this->getContentSize().width){
-			_textLabel->setPositionX(_textLabel->getContentSize().width/2);
+			_textLabel->setPositionX(_textLabel->getContentSize().width / 2);
 		}
 		else{
-			
+
 			_textLabel->setPositionX(this->getContentSize().width / 2);
 		}
+	}
+}
+
+void TextField::updateTextSizeLeft(){
+	if (isAttachWithIME){
+		float textMargin = 0.0f;
+		if (_cursorSprite){
+			textMargin = _cursorSprite->getContentSize().width + 2.0f;
+		}
+
+		float w = _textLabel->getContentSize().width + textMargin;
+		if (w > this->getContentSize().width){
+			float _x = this->getContentSize().width - textMargin - _textLabel->getContentSize().width;
+			_textLabel->setPositionX(_x);
+		}
+		else{
+			_textLabel->setPositionX(0.0f);
+		}
+
+		if (_cursorSprite){
+			float _x = _textLabel->getPositionX() + _textLabel->getContentSize().width + _cursorSprite->getContentSize().width / 2;
+			_cursorSprite->setPositionX(_x);
+		}
+	}
+	else{
+		_textLabel->setPositionX(0.0f);
 	}
 }
 
@@ -232,6 +269,7 @@ void TextField::initWithTTFFont(const Size& size, const std::string& textFont, f
 
 	_TextFieldTTF = true;
 
+	setAlignment(_alignment);
 	this->updateText();
 }
 
@@ -256,6 +294,7 @@ void TextField::initWithBMFont(const Size& size, const std::string& textFont, co
 	_cursorSprite->setVisible(false);
 	this->addChild(_cursorSprite);
 
+	setAlignment(_alignment);
 	this->updateText();
 }
 
@@ -509,6 +548,21 @@ bool TextField::detachWithIME(){
 
 void TextField::setReturnCallback(const TextFieldReturnCallback& callback){
 	this->_callback = callback;
+}
+
+void TextField::setAlignment(int alignment){
+	_alignment = alignment;
+	if (_alignment == TextFieldAlignment::CENTER){
+		_textLabel->setAnchorPoint(Point(0.5f, 0.5f));
+		_placeHolderLabel->setAnchorPoint(Point(0.5f, 0.5f));
+		_placeHolderLabel->setPositionX(this->getContentSize().width / 2);
+	}
+	else if (_alignment == TextFieldAlignment::LEFT){
+		_textLabel->setAnchorPoint(Point(0.0f, 0.5f));
+		_placeHolderLabel->setAnchorPoint(Point(0.0f, 0.5f));
+		_placeHolderLabel->setPositionX(0.0f);
+	}
+	this->updateTextSize();
 }
 
 void TextField::showKeyboard(){

@@ -40,6 +40,8 @@ newui.EditBox.InputFlag.INITIAL_CAPS_WORD = 2;
 newui.EditBox.InputFlag.INITIAL_CAPS_SENTENCE = 3;
 newui.EditBox.InputFlag.INITIAL_CAPS_ALL_CHARACTERS = 4;
 
+newui.TextField.ALIGNMENT_CENTER = 0;
+newui.TextField.ALIGNMENT_LEFT = 0;
 
 newui.TextField.prototype._ctor = function () {
     if(arguments.length == 2){ //bm font
@@ -67,4 +69,11 @@ newui.TextField.prototype._ctor = function () {
     }
 
     cc.Node.prototype.init.call(this)
+};
+
+newui.Widget.prototype._ctor = function () {
+    ccui.Widget.prototype.init.call(this);
+    if(arguments.length == 1){
+        this.setVirtualRendererSize(arguments[0]);
+    }
 };

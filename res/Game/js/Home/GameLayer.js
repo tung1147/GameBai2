@@ -2,57 +2,14 @@
  * Created by Quyet Nguyen on 7/5/2016.
  */
 
-var GameType = GameType || {};
-GameType.GAME_MauBinh = 0;
-GameType.GAME_TienLenMN = 1;
-GameType.GAME_Phom = 2;
-GameType.GAME_Sam = 3;
-GameType.GAME_BaCay = 4;
-GameType.GAME_XocDia = 5;
-GameType.GAME_TaiXiu = 6;
-GameType.GAME_VongQuayMayMan = 7;
-GameType.GAME_TLMN_Solo = 8;
-GameType.GAME_Sam_Solo = 9;
-GameType.GAME_Lieng = 10;
-GameType.GAME_BaCayChuong = 11;
-GameType.MiniGame_ChanLe = 12;
-GameType.MiniGame_CaoThap = 13;
-GameType.MiniGame_Pocker = 14;
-
-var s_game_id = [
-    [
-        GameType.GAME_TLMN_Solo, GameType.GAME_TienLenMN,
-        GameType.MiniGame_CaoThap, GameType.MiniGame_Pocker,
-        GameType.GAME_XocDia, GameType.GAME_TaiXiu,
-        GameType.GAME_Sam_Solo, GameType.GAME_Sam,
-        GameType.GAME_Phom, GameType.GAME_BaCay,
-        GameType.GAME_VongQuayMayMan, GameType.MiniGame_ChanLe,
-        GameType.GAME_MauBinh
-    ],
-    [
-        GameType.GAME_TLMN_Solo, GameType.GAME_TienLenMN,
-        GameType.GAME_Sam_Solo, GameType.GAME_Sam,
-        GameType.GAME_Phom, GameType.GAME_BaCay,
-        GameType.GAME_MauBinh
-    ],
-    [
-        GameType.MiniGame_CaoThap, GameType.MiniGame_Pocker,
-        GameType.MiniGame_ChanLe
-    ],
-    [
-        GameType.GAME_VongQuayMayMan
-    ],
-    [
-        GameType.GAME_TLMN_Solo, GameType.GAME_TienLenMN,
-        GameType.MiniGame_CaoThap, GameType.MiniGame_Pocker
-    ]
-];
-
 var GameLayer = cc.Node.extend({
     allLayer : [],
     ctor : function () {
         this._super();
+        this.initGame();
+    },
 
+    initGame : function () {
         var x = 422.0 * cc.winSize.screenScale;
         var y = 180.0;
         var dx = 186.0 * cc.winSize.screenScale;
@@ -89,7 +46,7 @@ var GameLayer = cc.Node.extend({
             listGame.setScrollBarEnabled(false);
             listGame.setPosition(left, 220.0);
 
-            this.addChild(listGame);
+            this.addChild(listGame,1);
             this.allLayer.push(listGame);
 
             var toggleItem = new ToggleNodeItem(icon2.getContentSize());
@@ -114,12 +71,8 @@ var GameLayer = cc.Node.extend({
             x += dx;
         }
         this.mToggle = mToggle;
-        this.initGame();
-    },
 
-    initGame : function () {
         for(var i=0;i<this.allLayer.length;i++){
-            log("initGame: " + i);
             for(var j =0;j<s_game_id[i].length;j++){
                 this.addGameToList(s_game_id[i][j], this.allLayer[i]);
             }
@@ -127,7 +80,6 @@ var GameLayer = cc.Node.extend({
     },
 
     addGameToList : function (gameId, listGame) {
-        log("addGameToList: " + gameId);
         var gameButton = new ccui.Button("lobby-game"+ gameId +".png", "", "", ccui.Widget.PLIST_TEXTURE);
         listGame.pushItem(gameButton);
     },

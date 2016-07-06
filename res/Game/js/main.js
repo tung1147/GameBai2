@@ -56,6 +56,7 @@ require("js/NewAction.js");
 require("js/LobbyClient.js");
 require("js/SmartfoxClient.js");
 require("js/Core/ToggleNodeGroup.js");
+require("js/Global.js");
 require("js/app.js");
 require("js/IScene.js");
 require("js/Home/LobbyTopBar.js");
@@ -63,8 +64,8 @@ require("js/Home/LobbyBottomBar.js");
 require("js/Home/HomeLayer.js");
 require("js/Home/HomeScene.js");
 require("js/Home/GameLayer.js");
-require("js/Home/MiniGameLayer.js");
 require("js/Home/LobbyLayer.js");
+require("js/Home/MiniGameLayer.js");
 
 cc.game.onStart = function(){
   //  if(!cc.sys.isNative && document.getElementById("cocosLoading")) //If referenced loading.js, please remove it
@@ -82,25 +83,6 @@ cc.game.onStart = function(){
     // The game will be resized when browser size change
     //cc.view.resizeWithBrowserSize(true);
     //load resources
-
-    cc.winSize.screenScale = cc.winSize.width / 1280.0;
-    cc.res = cc.res || {};
-    cc.res.font = cc.res.font || {};
-    cc.res.font.Roboto_Condensed = "res/fonts/Roboto-Condensed.ttf";
-    cc.res.font.Roboto_CondensedBold = "res/fonts/Roboto-BoldCondensed.ttf";
-    cc.res.font.UTM_AvoBold = "res/fonts/UTM-AvoBold.ttf";
-
-    cc.res.font.Roboto_Condensed_40 = "res/fonts/RobotoCondensed_40.fnt";
-    cc.res.font.Roboto_CondensedBold_40 = "res/fonts/RobotoBoldCondensed_40.fnt";
-    cc.res.font.UTM_AvoBold_40 = "res/fonts/UTMAvoBold_40.fnt";
-
-    cc.res.font.Roboto_Condensed_30 = "res/fonts/RobotoCondensed_30.fnt";
-    cc.res.font.Roboto_CondensedBold_30 = "res/fonts/RobotoBoldCondensed_30.fnt";
-    cc.res.font.UTM_AvoBold_30 = "res/fonts/UTMAvoBold_30.fnt";
-
-    cc.res.font.Roboto_Condensed_25 = "res/fonts/RobotoCondensed_25.fnt";
-    cc.res.font.Roboto_CondensedBold_25 = "res/fonts/RobotoBoldCondensed_25.fnt";
-    cc.res.font.UTM_AvoBold_25 = "res/fonts/UTMAvoBold_25.fnt";
 
     cc.director.replaceScene(new HomeScene());
 };
