@@ -1151,8 +1151,8 @@ bool js_quyetnd_newui_TextField_setAlignment(JSContext *cx, uint32_t argc, jsval
 	quyetnd::TextField* cobj = (quyetnd::TextField *)(proxy ? proxy->ptr : NULL);
 	JSB_PRECONDITION2(cobj, cx, false, "js_quyetnd_newui_TextField_hideKeyboard : Invalid Native Object");
 	if (argc == 1) {
-		int32_t arg0;
-		ok &= jsval_to_int32 (cx, args.get(0), &arg0);
+        int arg0 = 0;
+        ok &= jsval_to_int32(cx, args.get(0), (int32_t *)&arg0);
 		JSB_PRECONDITION2(ok, cx, false, "js_quyetnd_newui_TextField_initWithSize : Error processing arguments");
 		cobj->setAlignment(arg0);
 		args.rval().setUndefined();

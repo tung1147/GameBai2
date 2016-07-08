@@ -48,12 +48,12 @@
 #include "cocos/scripting/js-bindings/manual/platform/ios/JavaScriptObjCBridge.h"
 #endif
 
-#include "Action/jsb_quyetnd_action.hpp"
-#include "NewGUI/jsb_quyetnd_newui.hpp"
-#include "Socket/jsb_quyetnd_lobbysocket.hpp"
-#include "Socket/jsb_quyetnd_sfssocket.hpp"
-#include "Plugin/jsb_quyetnd_systemplugin.hpp"
-#include "Plugin/jsb_quyetnd_facebook_plugin.hpp"
+#include "../Action/jsb_quyetnd_action.hpp"
+#include "../NewGUI/jsb_quyetnd_newui.hpp"
+#include "../Socket/jsb_quyetnd_lobbysocket.hpp"
+#include "../Socket/jsb_quyetnd_sfssocket.hpp"
+#include "../Plugin/jsb_quyetnd_systemplugin.hpp"
+#include "../Plugin/jsb_quyetnd_facebook_plugin.hpp"
 #include "GameLaucher.h"
 #include "json/rapidjson.h"
 #include "json/document.h"

@@ -976,7 +976,7 @@ void RichText::formarRenderers()
             maxHeights[i] = maxHeight;
             newContentSizeHeight += maxHeights[i];
         }
-        
+		_customSize.height = newContentSizeHeight;
         float nextPosY = _customSize.height;
         for (size_t i=0; i<_elementRenders.size(); i++)
         {
