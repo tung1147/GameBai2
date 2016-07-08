@@ -9,7 +9,7 @@
 #include "NewTextInput.h"
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
-#include "ui/UIEditBox/UIEditBoxImpl-ios.h"
+#include "ui/UIEditBox/UIEditBoxImpl.h"
 #elif CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
 #include "ui/UIEditBox/UIEditBoxImpl-android.h"
 #elif CC_TARGET_PLATFORM == CC_PLATFORM_WINRT
@@ -17,7 +17,7 @@
 #elif CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 #include "ui/UIEditBox/UIEditBoxImpl-win32.h"
 #elif CC_TARGET_PLATFORM == CC_PLATFORM_MAC
-#include "ui/UIEditBox/UIEditBoxImpl-mac.h"
+#include "ui/UIEditBox/UIEditBoxImpl.h"
 #elif CC_TARGET_PLATFORM == CC_PLATFORM_LINUX
 #include "ui/UIEditBox/UIEditBoxImpl-linux.h"
 #elif CC_TARGET_PLATFORM == CC_PLATFORM_TIZEN
@@ -45,7 +45,7 @@ namespace quyetnd {
 	bool EditBox::initWithSize(const Size& size){
 	if (ui::Widget::init()){				
 #if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
-		_editBoxImpl = new ui::EditBoxImplIOS(this);
+        _editBoxImpl = ui::__createSystemEditBox(this);//new ui::EditBoxImplIOS(this);
 #elif CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
 		_editBoxImpl = new ui::EditBoxImplAndroid(this);
 #elif CC_TARGET_PLATFORM == CC_PLATFORM_WINRT
@@ -53,7 +53,8 @@ namespace quyetnd {
 #elif CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 		_editBoxImpl = new (std::nothrow) ui::EditBoxImplWin(this);
 #elif CC_TARGET_PLATFORM == CC_PLATFORM_MAC
-		_editBoxImpl = new ui::EditBoxImplMac(this);
+		//_editBoxImpl = new ui::EditBoxImplMac(this);
+        _editBoxImpl = ui::__createSystemEditBox(this);
 #elif CC_TARGET_PLATFORM == CC_PLATFORM_LINUX
 		_editBoxImpl = new ui::EditBoxImplLinux(this);
 #elif CC_TARGET_PLATFORM == CC_PLATFORM_TIZEN

@@ -3,6 +3,7 @@
 #define _QUYETND_CRC32_H
 
 #include <stdint.h>
+#include <cstdlib>
 
 namespace quyetnd{
 namespace hash{
