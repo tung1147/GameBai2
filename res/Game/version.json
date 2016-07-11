@@ -5,20 +5,40 @@
             "hash": "e8b7f4750ff44238438c5a5c7d124cc8"
         },
         {
+            "file": "js/Core/ToggleNodeGroup.js",
+            "hash": "8af06f59acb800ccbf217d99470bbfa2"
+        },
+        {
+            "file": "js/Global.js",
+            "hash": "1adcaf6ae2bf9b00441166831afa98aa"
+        },
+        {
+            "file": "js/Home/GameLayer.js",
+            "hash": "ee3e0c05a6b4be5a2fb653756f97542c"
+        },
+        {
             "file": "js/Home/HomeLayer.js",
             "hash": "28ceda5e8139dcf7bdb89ef66b509aff"
         },
         {
             "file": "js/Home/HomeScene.js",
-            "hash": "e6d41db62205ce97bb937798c0dc172d"
+            "hash": "a2e3aab8fe5a811b36f63d65982bfa93"
         },
         {
             "file": "js/Home/LobbyBottomBar.js",
             "hash": "6ba9e5e5c76808f31fe3ebe0d6b9db31"
         },
         {
+            "file": "js/Home/LobbyLayer.js",
+            "hash": "99574b800602d4657924b02e940d0d35"
+        },
+        {
             "file": "js/Home/LobbyTopBar.js",
             "hash": "2e9c4faac985c502c4030c6a1f60766f"
+        },
+        {
+            "file": "js/Home/MiniGameLayer.js",
+            "hash": "1da0c417249a5b86c4817ef5cbc7473e"
         },
         {
             "file": "js/IScene.js",
@@ -30,7 +50,7 @@
         },
         {
             "file": "js/main.js",
-            "hash": "4bc197926988a7fb4ac3b934d3b977b4"
+            "hash": "3a3793b27da841a8a6dbfd9797d1788c"
         },
         {
             "file": "js/NewAction.js",
@@ -234,11 +254,11 @@
         },
         {
             "file": "res/home.plist",
-            "hash": "69d0bd5dcce06e2e086f707a19c8d51e"
+            "hash": "27e3fad8ecec5f8d1c3a1943fecde617"
         },
         {
             "file": "res/home.png",
-            "hash": "6f067b3dc2f2c8c4a17b612716bac695"
+            "hash": "70e4676c0502c0381a2e81d199fc821d"
         },
         {
             "file": "res/lobby.plist",
@@ -318,7 +338,7 @@
         },
         {
             "file": "script.json",
-            "hash": "cde5708c3923588feb73622d0f2a4fd3"
+            "hash": "24181443bdea80d4137bc2163d1accb0"
         }
     ],
     "versionName": "1.0.1",
