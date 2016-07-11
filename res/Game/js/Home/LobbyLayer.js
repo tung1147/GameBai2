@@ -159,5 +159,14 @@ var LobbyLayer = cc.Node.extend({
         goldLabel.setPosition(container.getContentSize().width/2, 30);
         goldLabel.setColor(cc.color(255,222,0));
         container.addChild(goldLabel);
+    },
+    
+    startGame : function (gameId) {
+        this.gameList.removeAllItems();
+        this.chatList.removeAllItems();
+        this.chatText.setText("");
+        if(gameId >= 0){
+            this.gameTitle.setString(s_games_display_name[gameId]);
+        }
     }
 });
