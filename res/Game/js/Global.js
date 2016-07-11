@@ -2,6 +2,28 @@
  * Created by Quyet Nguyen on 7/6/2016.
  */
 
+String.prototype.insertAt=function(index, string) {
+    return this.substr(0, index) + string + this.substr(index);
+}
+
+cc.Global = cc.Global || {};
+cc.Global.NumberFormat1 = function (number) {
+    var pret = Math.abs(number).toString();
+    if(pret.length > 3){
+        for(var i=pret.length-3; i>0;i-=3){
+            pret = pret.insertAt(i,".");
+        }
+    }
+    if(number < 0){
+        return "-"+pret;
+    }
+    return pret;
+};
+
+cc.Global.NumberFormat2 = function (number) {
+    return number.toString();
+};
+
 cc.winSize.screenScale = cc.winSize.width / 1280.0;
 cc.res = cc.res || {};
 cc.res.font = cc.res.font || {};
@@ -68,16 +90,15 @@ var s_game_id = [
 ];
 
 var s_mini_game_id = [GameType.MiniGame_CaoThap, GameType.MiniGame_Pocker, GameType.MiniGame_ChanLe];
-
-// var s_games_display_name = {};
-// s_games_display_name[GameType.GAME_TLMN_Solo] = "TIẾN LÊN MIỀN NAM ĐẾM LÁ SOLO";
-// s_games_display_name[GameType.GAME_TienLenMN] = "TIẾN LÊN MIỀN NAM";
-// s_games_display_name[GameType.GAME_Sam] = "SÂM LỐC";
-// s_games_display_name[GameType.GAME_Sam_Solo] = "SÂM SOLO";
-// s_games_display_name[GameType.GAME_XocDia] = "XÓC ĐĨA";
-// s_games_display_name[GameType.GAME_TaiXiu] = "TÀI XỈU";
-// s_games_display_name[GameType.GAME_MauBinh] = "MẬU BINH";
-// s_games_display_name[GameType.GAME_Phom] = "PHỎM";
-// s_games_display_name[GameType.GAME_BaCay] = "BA CÂY NHẤT ĂN TẤT";
-// s_games_display_name[GameType.GAME_Lieng] = "LIÊNG";
-// s_games_display_name[GameType.GAME_BaCayChuong] = "BA CÂY CHƯƠNG";
+var s_games_display_name = [];
+s_games_display_name[GameType.GAME_TLMN_Solo] = "TIẾN LÊN MIỀN NAM ĐẾM LÁ SOLO";
+s_games_display_name[GameType.GAME_TienLenMN] = "TIẾN LÊN MIỀN NAM";
+s_games_display_name[GameType.GAME_Sam] = "SÂM LỐC";
+s_games_display_name[GameType.GAME_Sam_Solo] = "SÂM SOLO";
+s_games_display_name[GameType.GAME_XocDia] = "XÓC ĐĨA";
+s_games_display_name[GameType.GAME_TaiXiu] = "TÀI XỈU";
+s_games_display_name[GameType.GAME_MauBinh] = "MẬU BINH";
+s_games_display_name[GameType.GAME_Phom] = "PHỎM";
+s_games_display_name[GameType.GAME_BaCay] = "BA CÂY NHẤT ĂN TẤT";
+s_games_display_name[GameType.GAME_Lieng] = "LIÊNG";
+s_games_display_name[GameType.GAME_BaCayChuong] = "BA CÂY CHƯƠNG";

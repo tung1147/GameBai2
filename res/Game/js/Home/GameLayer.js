@@ -80,8 +80,8 @@ var GameLayer = cc.Node.extend({
     },
 
     addGameToList : function (gameId, listGame) {
-        var gameButton = new ccui.Button("lobby-game"+ gameId +".png", "", "", ccui.Widget.PLIST_TEXTURE);
-        listGame.pushItem(gameButton);
+        // var gameButton = new ccui.Button("lobby-game"+ gameId +".png", "", "", ccui.Widget.PLIST_TEXTURE);
+        // listGame.pushItem(gameButton);
     },
 
     onEnter : function () {

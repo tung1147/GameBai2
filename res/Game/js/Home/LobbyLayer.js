@@ -12,12 +12,12 @@ var LobbyLayer = cc.Node.extend({
         this.addChild(chatBar);
 
         var chatIcon = new cc.Sprite("#lobby-chat-icon.png");
-        chatIcon.setPosition(chatBar.x - 118 * cc.winSize.screenScale, chatBar.y);
+        chatIcon.setPosition(chatBar.x - (118 * cc.winSize.screenScale), chatBar.y);
         this.addChild(chatIcon);
         chatIcon.setScale(cc.winSize.screenScale);
 
         var sendButton = new ccui.Button("lobby-send-icon.png","","", ccui.Widget.PLIST_TEXTURE);
-        sendButton.setPosition(chatBar.x + 118 * cc.winSize.screenScale, chatBar.y);
+        sendButton.setPosition(chatBar.x + (118 * cc.winSize.screenScale), chatBar.y);
         sendButton.setScale(cc.winSize.screenScale);
         this.addChild(sendButton);
 
@@ -59,20 +59,57 @@ var LobbyLayer = cc.Node.extend({
             thiz.sendChatHandler();
         });
         chatText.setReturnCallback(function () {
-            thiz.sendChatHandler();
-            return true;
+            var message = thiz.chatText.getText();
+            if(message && message.length != 0){
+                thiz.sendChatHandler();
+                return true;
+            }
+            return false;
         });
 
-        // for(var i =0; i< 20; i++){
-        //     this.addChatMessage("Me", "test noi dung chat test noi dung chat test noi dung chat test noi dung chat test noi dung chat test noi dung chat test noi dung chat");
-        // }
+        //
+        this.initListGame();
     },
-    
+
+    initListGame : function () {
+        var gameTitle = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, "Game name");
+        gameTitle.setPosition(cc.winSize.width/2, 540);
+        gameTitle.setColor(cc.color(255, 222, 0));
+        this.addChild(gameTitle,1);
+        this.gameTitle = gameTitle;
+
+        var label1 = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Chọn mức cược");
+        label1.setPosition(cc.winSize.width/2, 486);
+        this.addChild(label1,1);
+
+        var left = 310.0 * cc.winSize.screenScale;
+        var right = cc.winSize.width -  (310.0 * cc.winSize.screenScale);
+        var top = 460.0;
+        var bottom = 160.0;
+        var itemHeight = 96.0 * cc.winSize.screenScale;
+        var padding = (top - bottom - itemHeight*2)/3;
+
+        var gameList = new newui.TableView(cc.size(right - left, top - bottom), 4);
+        gameList.setPadding(padding);
+        gameList.setMargin(padding,padding,0,0);
+        gameList.setScrollBarEnabled(false);
+        gameList.setDirection(ccui.ScrollView.DIR_VERTICAL);
+        gameList.setPosition(left, bottom);
+
+        this.addChild(gameList);
+
+        this.gameList = gameList;
+        for(var i=0;i<8;i++){
+            this.addCell(i, 1000, 10000);
+        }
+    },
+
     sendChatHandler : function () {
         var message = this.chatText.getText();
-        this.chatText.setText("");
-        
-        this.addChatMessage("Me", message);
+        if(message && message.length != 0){
+            this.chatText.setText("");
+            this.addChatMessage("Me", message);
+        }
     },
     
     addChatMessage : function (username, message) {
@@ -95,5 +132,32 @@ var LobbyLayer = cc.Node.extend({
         var padding = new ccui.Widget();
         padding.setContentSize(cc.size(textMesasge.width, 8.0));
         this.chatList.pushBackCustomItem(padding);
+    },
+    
+    addCell : function (cellId, gold, minGold) {
+        var cellBg = new cc.Sprite("#lobby-room-select-cell.png");
+        cellBg.setPosition(cc.p(0,0));
+        cellBg.setAnchorPoint(cc.p(0,0));
+
+        var container = new ccui.Widget();
+        container.setContentSize(cellBg.getContentSize());
+        container.addChild(cellBg);
+        container.setScale(cc.winSize.screenScale);
+        this.gameList.pushItem(container);
+
+
+        var iconId = Math.floor(cellId/3) + 1;
+        if(iconId > 3){
+            iconId = 3;
+        }
+        var goldIcon = new cc.Sprite("#lobby-gold-icon"+iconId+".png");
+        goldIcon.setPosition(cc.p(0,0));
+        goldIcon.setAnchorPoint(cc.p(0,0));
+        container.addChild(goldIcon);
+
+        var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, cc.Global.NumberFormat1(gold) + " V");
+        goldLabel.setPosition(container.getContentSize().width/2, 30);
+        goldLabel.setColor(cc.color(255,222,0));
+        container.addChild(goldLabel);
     }
 });
