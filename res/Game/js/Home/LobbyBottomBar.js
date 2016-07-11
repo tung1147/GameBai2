@@ -94,5 +94,10 @@ var LobbyBottomBar = cc.Node.extend({
         newBg.addChild(newLabel);
 
         this.setScale(cc.winSize.screenScale);
+
+        this.paymentBt = paymentBt;
+        this.rewardBt = rewardBt;
+        this.newsBt = newsBt;
+        this.newBg = newBg;
     }
 });

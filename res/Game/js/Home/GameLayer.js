@@ -105,5 +105,10 @@ var GameLayer = cc.Node.extend({
     onEnter : function () {
         this._super();
         this.mToggle.selectItem(0);
+    },
+    
+    startAnimation : function () {
+        this.mToggle.selectItem(0);
+        this.allLayer[0].runMoveEffect(3000,0.1,0.0);
     }
 });

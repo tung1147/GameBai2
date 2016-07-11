@@ -59,6 +59,7 @@ require("js/Core/ToggleNodeGroup.js");
 require("js/Global.js");
 require("js/app.js");
 require("js/IScene.js");
+require("js/Home/LobbySubLayer.js");
 require("js/Home/LobbyTopBar.js");
 require("js/Home/LobbyBottomBar.js");
 require("js/Home/HomeLayer.js");
@@ -66,6 +67,19 @@ require("js/Home/HomeScene.js");
 require("js/Home/GameLayer.js");
 require("js/Home/LobbyLayer.js");
 require("js/Home/MiniGameLayer.js");
+require("js/Home/NewsLayer.js");
+require("js/Home/PaymentLayer.js");
+require("js/Home/RankLayer.js");
+require("js/Home/RewardLayer.js");
+require("js/Dialog/Dialog.js");
+require("js/Dialog/InviteDialog.js");
+require("js/Dialog/LoadingDialog.js");
+require("js/Dialog/MessageNode.js");
+require("js/Dialog/ResultDialog.js");
+require("js/Dialog/SettingDialog.js");
+require("js/Dialog/UserDialog.js");
+require("js/Dialog/UserinfoDialog.js");
+require("js/Dialog/UserListDialog.js");
 
 cc.game.onStart = function(){
   //  if(!cc.sys.isNative && document.getElementById("cocosLoading")) //If referenced loading.js, please remove it

@@ -5,6 +5,8 @@
 var HomeScene = IScene.extend({
     homeLayer:null,
     homeLocation:0,
+    subLayer:null,
+    mainLayer:null,
     ctor : function () {
         this._super();
 
@@ -13,24 +15,27 @@ var HomeScene = IScene.extend({
         bg.y = cc.winSize.height/2;
         this.sceneLayer.addChild(bg);
 
+        this.mainLayer = new cc.Node();
+        this.sceneLayer.addChild(this.mainLayer);
+
         this.topBar = new LobbyTopBar();
-        this.sceneLayer.addChild(this.topBar);
+        this.mainLayer.addChild(this.topBar);
 
         this.userInfo = new LobbyBottomBar();
-        this.sceneLayer.addChild(this.userInfo);
+        this.mainLayer.addChild(this.userInfo);
 
         this.homeLayer = new HomeLayer();
-        this.sceneLayer.addChild(this.homeLayer);
+        this.mainLayer.addChild(this.homeLayer);
 
         this.gameLayer = new GameLayer();
-        this.sceneLayer.addChild(this.gameLayer);
+        this.mainLayer.addChild(this.gameLayer);
 
         this.lobbyLayer = new LobbyLayer();
-        this.sceneLayer.addChild(this.lobbyLayer);
+        this.mainLayer.addChild(this.lobbyLayer);
 
         this.miniGame = new MiniGameLayer();
-        this.sceneLayer.addChild(this.miniGame);
-        
+        this.mainLayer.addChild(this.miniGame);
+
         //this.startHome();
         this.startGame();
         //this.startLobby();
@@ -38,7 +43,28 @@ var HomeScene = IScene.extend({
         var thiz = this;
         this.topBar.backBt.addClickEventListener(function () {
             thiz.backButtonHandler();
-        })
+        });
+        this.topBar.newsBt.addClickEventListener(function () {
+            thiz.newsButtonhandler();
+        });
+        this.topBar.rankBt.addClickEventListener(function () {
+            thiz.rankButtonHandler();
+        });
+        this.topBar.callBt.addClickEventListener(function () {
+            thiz.callButtonHandler();
+        });
+        this.topBar.settingBt.addClickEventListener(function () {
+            thiz.settingButtonHandler();
+        });
+        this.userInfo.newsBt.addClickEventListener(function () {
+            thiz.newsMesasgeButtonHandler();
+        });
+        this.userInfo.paymentBt.addClickEventListener(function () {
+            thiz.paymentButtonHandler();
+        });
+        this.userInfo.rewardBt.addClickEventListener(function () {
+            thiz.rewardButtonHandler();
+        });
     },
 
     startHome : function () {
@@ -47,6 +73,10 @@ var HomeScene = IScene.extend({
         this.gameLayer.visible = true;
         this.lobbyLayer.visible = false;
         this.userInfo.visible = false;
+        if(arguments.length == 1) {
+            this.miniGame.startAnimation();
+            this.gameLayer.startAnimation();
+        }
     },
 
     startGame : function () {
@@ -55,6 +85,10 @@ var HomeScene = IScene.extend({
         this.gameLayer.visible = true;
         this.lobbyLayer.visible = false;
         this.userInfo.visible = true;
+        if(arguments.length == 1) {
+            this.miniGame.startAnimation();
+            this.gameLayer.startAnimation();
+        }
     },
 
     startLobby : function(){
@@ -71,7 +105,25 @@ var HomeScene = IScene.extend({
         }
     },
 
+    startGameWithAnimation : function () {
+        this.startGame();
+    },
+
     backButtonHandler : function () {
+        if(this.subLayer){
+            this.subLayer.removeFromParent(true);
+            this.subLayer = 0;
+            this.mainLayer.visible = true;
+            if(homeLocation == 2){
+                this.miniGame.startAnimation();
+                this.gameLayer.startAnimation();
+            }
+            if(homeLocation == 3){
+                this.lobbyLayer.startAnimation();
+                this.miniGame.startAnimation();
+            }
+            return;
+        }
         if(homeLocation == 1){
             //exit app
         }
@@ -82,10 +134,53 @@ var HomeScene = IScene.extend({
         else if(homeLocation == 3){
             //to game
             this.startGame();
+            this.gameLayer.startAnimation();
         }
     },
 
-    startGameWithAnimation : function () {
-        this.startGame();
+    addSubLayer : function (subLayer) {
+        var thiz = this;
+        subLayer.backBt.addClickEventListener(function () {
+            thiz.backButtonHandler();
+        });
+        subLayer.settingBt.addClickEventListener(function () {
+            thiz.settingButtonHandler();
+        });
+
+        this.subLayer = subLayer;
+        this.addChild(subLayer);
+        this.mainLayer.visible = false;
     },
+
+    newsButtonhandler : function () {
+        this.addSubLayer(new NewsLayer());
+    },
+    
+    rankButtonHandler : function () {
+        this.addSubLayer(new RankLayer());
+    },
+
+    settingButtonHandler : function () {
+
+    },
+
+    callButtonHandler : function () {
+
+    },
+
+    newsMesasgeButtonHandler : function () {
+        this.addSubLayer(new MessageLayer());
+    },
+    
+    rewardButtonHandler : function () {
+        this.addSubLayer(new RewardLayer());
+    },
+    
+    paymentButtonHandler : function () {
+        this.addSubLayer(new PaymentLayer());
+    },
+    
+    userInfoButtonHandler : function () {
+        
+    }
 });

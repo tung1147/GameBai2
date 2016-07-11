@@ -96,6 +96,15 @@ var MiniGameLayer = cc.Node.extend({
             }
         }
 
+        // this.allMiniLayer[0].setAnimationHandler(function (action, item) {
+        //     if(action == 1){ //start
+        //
+        //     }
+        //     else if(action == 2){
+        //
+        //     }
+        // });
+
         var thiz = this;
         miniGameToggle.addEventListener(function () {
             var index = miniGameToggle.getCurrentPageIndex();
@@ -135,6 +144,11 @@ var MiniGameLayer = cc.Node.extend({
         this._super();;
         this.miniGameToggle.setCurrentPageIndex(0);
         this.selectTab(0);
-    }
+    },
 
+    startAnimation : function () {
+        this.miniGameToggle.setCurrentPageIndex(0);
+        this.selectTab(0);
+        this.allMiniLayer[0].runMoveEffect(-2000, 0.1, 0.1);
+    }
 });

@@ -168,5 +168,9 @@ var LobbyLayer = cc.Node.extend({
         if(gameId >= 0){
             this.gameTitle.setString(s_games_display_name[gameId]);
         }
+    },
+
+    startAnimation : function () {
+
     }
 });
