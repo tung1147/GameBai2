@@ -2,44 +2,34 @@
  * Created by Quyet Nguyen on 7/5/2016.
  */
 
-var TOGGLE_SELECT = 1;
-var TOGGLE_UNSELECT = 2;
-
 var ToggleNodeItem = ccui.Widget.extend({
-    callback :null,
     ctor : function (size) {
         this._super();
         this.setContentSize(size);
         this.setTouchEnabled(true);
+        this.onSelect = null;
+        this.onUnSelect = null;
     },
-    setCallback : function (callback) {
-        this.callback = callback;
+    select : function (isForce) {
+        if(this.onSelect){
+            this.onSelect(isForce);
+        }
+        this.setTouchEnabled(false);
     },
-    select : function () {
-        if(this.callback){
-            this.callback(this, TOGGLE_SELECT, false);
+
+    unSelect : function (isForce) {
+        if(this.onUnSelect){
+            this.onUnSelect(isForce);
         }
-    },
-    
-    unSelect : function () {
-        if(arguments.length == 0){
-            if(this.callback){
-                this.callback(this, TOGGLE_UNSELECT, false);
-            }
-        }
-        else{
-            if(this.callback){
-                this.callback(this, TOGGLE_UNSELECT, arguments[0]);
-            }
-        }
+        this.setTouchEnabled(true);
     }
 });
 
 var ToggleNodeGroup = cc.Node.extend({
-    mItem : [],
-    itemClicked : null,
     ctor : function () {
         this._super();
+        this.mItem = [];
+        this.itemClicked = null;
     },
     
     addItem : function (item) {
@@ -53,20 +43,26 @@ var ToggleNodeGroup = cc.Node.extend({
 
     onClickedItem : function (item) {
         if(this.itemClicked){
-            this.itemClicked.unSelect();
+            this.itemClicked.unSelect(false);
             this.itemClicked = null;
         }
         this.itemClicked = item;
-        this.itemClicked.select();
+        this.itemClicked.select(false);
     },
     
     selectItem : function (index) {
-        this.onClickedItem(this.mItem[index]);
+        var item = this.mItem[index]
+        if(this.itemClicked){
+            this.itemClicked.unSelect(true);
+            this.itemClicked = null;
+        }
+        this.itemClicked = item;
+        this.itemClicked.select(true);
     },
 
     onEnter : function () {
         this._super();
-        itemClicked = null;
+        this.itemClicked = null;
         for(var i=0; i<this.mItem.length; i++){
             this.mItem[i].unSelect(true);
         }

@@ -3,9 +3,9 @@
  */
 
 var GameLayer = cc.Node.extend({
-    allLayer : [],
     ctor : function () {
         this._super();
+        this.allLayer = [];
         this.initGame();
     },
 
@@ -54,19 +54,16 @@ var GameLayer = cc.Node.extend({
             toggleItem.icon2 = icon2;
             toggleItem.listGame = listGame;
             toggleItem.setPosition(x,y);
-            toggleItem.setCallback(function (target, select, force) {
-                //cc.log("unSelect: " + i);
-                if(select == TOGGLE_SELECT){
-                    this.icon1.visible = false;
-                    this.icon2.visible = true;
-                    this.listGame.visible = true;
-                }
-                else{
-                    this.icon1.visible = true;
-                    this.icon2.visible = false;
-                    this.listGame.visible = false;
-                }
-            });
+            toggleItem.onSelect = function () {
+                this.icon1.visible = false;
+                this.icon2.visible = true;
+                this.listGame.visible = true;
+            };
+            toggleItem.onUnSelect = function () {
+                this.icon1.visible = true;
+                this.icon2.visible = false;
+                this.listGame.visible = false;
+            };
             mToggle.addItem(toggleItem);
             x += dx;
         }

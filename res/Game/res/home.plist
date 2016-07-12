@@ -46,7 +46,7 @@
             <key>home-button.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{742,372},{28,28}}</string>
+                <string>{{776,374},{28,28}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -85,7 +85,7 @@
             <key>home-checkCross.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1798,334},{40,28}}</string>
+                <string>{{146,378},{40,28}}</string>
                 <key>offset</key>
                 <string>{-1,0}</string>
                 <key>rotated</key>
@@ -163,7 +163,7 @@
             <key>home-game-tab3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1616,334},{112,62}}</string>
+                <string>{{1715,334},{112,62}}</string>
                 <key>offset</key>
                 <string>{0,2}</string>
                 <key>rotated</key>
@@ -202,7 +202,7 @@
             <key>home-game-tab5-2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1374,295},{124,102}}</string>
+                <string>{{1473,295},{124,102}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -241,7 +241,7 @@
             <key>home-gold-icon.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1730,334},{66,66}}</string>
+                <string>{{1829,334},{66,66}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -358,7 +358,7 @@
             <key>home-minigamebar-1-1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1500,358},{64,23}}</string>
+                <string>{{80,378},{64,23}}</string>
                 <key>offset</key>
                 <string>{-1,0}</string>
                 <key>rotated</key>
@@ -397,7 +397,7 @@
             <key>home-minigamebar-2-2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1500,295},{114,61}}</string>
+                <string>{{1599,334},{114,61}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -631,7 +631,7 @@
             <key>home-text-bg-select.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1500,383},{32,32}}</string>
+                <string>{{742,372},{32,32}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -644,7 +644,7 @@
             <key>home-text-bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1534,383},{32,32}}</string>
+                <string>{{1432,374},{32,32}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -680,10 +680,23 @@
                 <key>sourceSize</key>
                 <string>{184,20}</string>
             </dict>
+            <key>lobby-avt.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1374,275},{97,97}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{97,97}}</string>
+                <key>sourceSize</key>
+                <string>{97,97}</string>
+            </dict>
             <key>lobby-chat-icon.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{138,378},{27,25}}</string>
+                <string>{{1434,247},{27,25}}</string>
                 <key>offset</key>
                 <string>{0,-2}</string>
                 <key>rotated</key>
@@ -709,7 +722,7 @@
             <key>lobby-gold-icon2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{80,378},{56,36}}</string>
+                <string>{{1374,374},{56,36}}</string>
                 <key>offset</key>
                 <string>{0,18}</string>
                 <key>rotated</key>
@@ -748,7 +761,7 @@
             <key>lobby-send-icon.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1434,247},{23,22}}</string>
+                <string>{{1599,295},{23,22}}</string>
                 <key>offset</key>
                 <string>{-1,1}</string>
                 <key>rotated</key>
@@ -807,7 +820,7 @@
             <key>size</key>
             <string>{2040,417}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:8d44e92ef18ae8187fe2be8872f07ef3:488768456e244fa3a3581e074b956ce9:10101cf27d0f1c17e861425c0e9b5b27$</string>
+            <string>$TexturePacker:SmartUpdate:bd28f6c0ed26c369b5e7db41d1be5a03:e6ace46177e9c70174d4162200d44cbd:10101cf27d0f1c17e861425c0e9b5b27$</string>
             <key>textureFileName</key>
             <string>home.png</string>
         </dict>

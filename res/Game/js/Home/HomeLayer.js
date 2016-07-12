@@ -3,7 +3,6 @@
  */
 
 var LoginDialog = cc.Node.extend({
-   // mTouch:null,
     ctor : function () {
         this._super();
 

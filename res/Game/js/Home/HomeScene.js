@@ -3,12 +3,9 @@
  */
 
 var HomeScene = IScene.extend({
-    homeLayer:null,
-    homeLocation:0,
-    subLayer:null,
-    mainLayer:null,
     ctor : function () {
         this._super();
+        this.homeLocation = 0;
 
         var bg = new cc.Sprite("res/game-bg.jpg");
         bg.x = cc.winSize.width/2;

@@ -4,7 +4,6 @@
 
 var SmartfoxClient = (function() {
     var instance = null;
-
     var Clazz = cc.Class.extend({
         lobbySocket: null,
 

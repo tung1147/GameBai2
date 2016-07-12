@@ -3,11 +3,11 @@
  */
 
 var MiniGameCell = ccui.Widget.extend({
-    miniGameTab : [],
-    allMiniLayer : [],
     ctor : function (size, gameId, gameName) {
         this._super();
         this.setContentSize(size);
+        this.miniGameTab = [];
+        this.allMiniLayer = [];
 
         var gameIcon = new cc.Sprite("#lobby-minigame"+ (gameId) +".png");
         gameIcon.setPosition(46, this.getContentSize().height/2);
