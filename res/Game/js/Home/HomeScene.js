@@ -65,7 +65,7 @@ var HomeScene = IScene.extend({
     },
 
     startHome : function () {
-        homeLocation = 1;
+        this.homeLocation = 1;
         this.homeLayer.visible = true;
         this.gameLayer.visible = true;
         this.lobbyLayer.visible = false;
@@ -77,7 +77,7 @@ var HomeScene = IScene.extend({
     },
 
     startGame : function () {
-        homeLocation = 2;
+        this.homeLocation = 2;
         this.homeLayer.visible = false;
         this.gameLayer.visible = true;
         this.lobbyLayer.visible = false;
@@ -89,7 +89,7 @@ var HomeScene = IScene.extend({
     },
 
     startLobby : function(){
-        homeLocation = 3;
+        this.homeLocation = 3;
         this.homeLayer.visible = false;
         this.gameLayer.visible = false;
         this.lobbyLayer.visible = true;
@@ -111,24 +111,24 @@ var HomeScene = IScene.extend({
             this.subLayer.removeFromParent(true);
             this.subLayer = 0;
             this.mainLayer.visible = true;
-            if(homeLocation == 2){
+            if(this.homeLocation == 2){
                 this.miniGame.startAnimation();
                 this.gameLayer.startAnimation();
             }
-            if(homeLocation == 3){
+            if(this.homeLocation == 3){
                 this.lobbyLayer.startAnimation();
                 this.miniGame.startAnimation();
             }
             return;
         }
-        if(homeLocation == 1){
+        if(this.homeLocation == 1){
             //exit app
         }
-        else if(homeLocation == 2){
+        else if(this.homeLocation == 2){
             //logout
             //to home
         }
-        else if(homeLocation == 3){
+        else if(this.homeLocation == 3){
             //to game
             this.startGame();
             this.gameLayer.startAnimation();

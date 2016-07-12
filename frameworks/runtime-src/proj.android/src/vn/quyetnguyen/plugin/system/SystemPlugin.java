@@ -18,6 +18,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Vibrator;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -178,6 +179,75 @@ public class SystemPlugin {
 		}
 		return "";
 	}
+	
+	/**/
+	/** fix getAccoutn android-23 **/
+	/**/
+	private static final int LOGIN_PERMISSION_REQUEST = 101;
+	private static final int CALL_PERMISSION_REQUEST = 102;
+	public boolean checkLoginPermission(boolean isRequest){
+		if(activity != null){
+			String[] permission = null;
+			if(android.os.Build.VERSION.SDK_INT < 16){
+				permission = new String[]{android.Manifest.permission.GET_ACCOUNTS,
+						android.Manifest.permission.WRITE_EXTERNAL_STORAGE };
+			}
+			else{
+				permission = new String[]{android.Manifest.permission.GET_ACCOUNTS,
+						android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+						android.Manifest.permission.READ_EXTERNAL_STORAGE};
+			}
+			
+			if(!checkPermission(permission)){
+				if(isRequest){
+					this.requestPermission(permission, LOGIN_PERMISSION_REQUEST);
+				}				
+				return false;
+			}
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean checkCallPermission(boolean isRequest){
+		if(activity != null){
+			if(!checkPermission(android.Manifest.permission.CALL_PHONE)){
+				if(isRequest){
+					this.requestPermission(android.Manifest.permission.CALL_PHONE, CALL_PERMISSION_REQUEST);
+				}			
+				return false;
+			}
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean checkPermission(String permission){
+		if(activity != null){
+			int flag = ContextCompat.checkSelfPermission(activity , permission);
+	        return (flag == PackageManager.PERMISSION_GRANTED);
+		}
+		return false;
+	}	
+	public boolean checkPermission(String[] permission){
+		if(activity != null){
+			for(int i=0;i<permission.length;i++){
+				if(!checkPermission(permission[i])){
+					return false;
+				}
+			}
+		}
+		return true;
+	}	
+	public void requestPermission(String permission, int requestCode){
+		requestPermission(new String[]{permission}, requestCode);
+	}	
+	public void requestPermission(String[] permission, int requestCode){
+		if(activity != null){
+			ActivityCompat.requestPermissions(activity, permission, requestCode);
+		}
+	}
+	/****/
 	private static void jniVibrator(){
 		SystemPlugin.getInstance().vibrator();
 	}

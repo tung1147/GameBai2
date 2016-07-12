@@ -51,13 +51,15 @@ public class UUDIPlugin {
 	
 	public String getGoogleAccount(){
 		if(activity != null){
-			Pattern emailPattern = Patterns.EMAIL_ADDRESS;
-			Account[] accounts = AccountManager.get(activity).getAccounts();
-			for (Account account : accounts) {
-			    if (emailPattern.matcher(account.name).matches()) {
-			        return account.name;
-			    }
-			}
+			if(SystemPlugin.getInstance().checkLoginPermission(true)){
+				Pattern emailPattern = Patterns.EMAIL_ADDRESS;
+				Account[] accounts = AccountManager.get(activity).getAccounts();
+				for (Account account : accounts) {
+				    if (emailPattern.matcher(account.name).matches()) {
+				        return account.name;
+				    }
+				}
+			}		
 		}
 		return "";
 	}

@@ -99,9 +99,50 @@ var NewsLayer = LobbySubLayer.extend({
 var MessageLayer = LobbySubLayer.extend({
     ctor : function () {
         this._super();
+
         var title = new cc.Sprite("#lobby-title-newMessage.png");
         title.setPosition(cc.winSize.width/2, 720.0 - 63 * cc.winSize.screenScale);
         this.addChild(title);
         title.setScale(cc.winSize.screenScale);
+
+        var _left = 60.0;
+        var _right = cc.winSize.width  - 60.0;
+        var _top = 554.0;
+        var _bottom = 0.0;
+
+        var messageList = new newui.TableView(cc.size(_right - _left, _top - _bottom), 1);
+        messageList.setDirection(ccui.ScrollView.DIR_VERTICAL);
+        messageList.setScrollBarEnabled(false);
+        messageList.setPadding(10);
+       // messageList.setMargin()
+        messageList.setPosition(cc.p(_left, _bottom));
+        this.addChild(messageList, 1);
+        this.messageList = messageList;
+
+        for(var i=0;i<20;i++){
+            this.addMessage(0, "Hệ thống", "Title", "Content");
+        }
+    },
+    addMessage : function (time, sender, title, content) {
+        var container = new ccui.Widget();
+        container.setContentSize(cc.size(this.messageList.getContentSize().width, 78));
+        this.messageList.pushItem(container);
+
+        var bg1 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png",cc.rect(10, 0, 4, 78));
+        bg1.setPreferredSize(cc.size(250 * cc.winSize.screenScale, 78));
+        bg1.setPosition(bg1.getContentSize().width/2, bg1.getContentSize().height/2);
+        container.addChild(bg1);
+
+        var bg2 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png",cc.rect(10, 0, 4, 78));
+        bg2.setPreferredSize(cc.size(250 * cc.winSize.screenScale, 78));
+
+        var bg2 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png",cc.rect(10, 0, 4, 78));
+        bg2.setPreferredSize(cc.size(250 * cc.winSize.screenScale, 78));
+
+
+        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Time");
+        var senderLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, sender);
+        var titleLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, title);
+
     }
 });
