@@ -70,7 +70,7 @@ var MiniGameLayer = cc.Node.extend({
         for(var i=0;i<3;i++){
             var listGame = new newui.TableView(cc.size(miniGame_right - miniGame_left, minigameBg.getContentSize().height - 4), 1);
             listGame.setDirection(ccui.ScrollView.DIR_VERTICAL);
-            listGame.setPosition(miniGame_left, miniGame_bottom + 2);
+            listGame.setPosition(miniGame_left + 2, miniGame_bottom + 2);
             listGame.setBounceEnabled(true);
             listGame.setScrollBarEnabled(false);
             listGame.setVisible(false);

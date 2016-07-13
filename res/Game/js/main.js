@@ -71,6 +71,7 @@ require("js/Home/NewsLayer.js");
 require("js/Home/PaymentLayer.js");
 require("js/Home/RankLayer.js");
 require("js/Home/RewardLayer.js");
+require("js/Home/InboxLayer.js");
 require("js/Dialog/Dialog.js");
 require("js/Dialog/InviteDialog.js");
 require("js/Dialog/LoadingDialog.js");
@@ -86,11 +87,21 @@ cc.game.onStart = function(){
       //  document.body.removeChild(document.getElementById("cocosLoading"));
 
     // Pass true to enable retina display, on Android disabled by default to improve performance
-   // cc.view.enableRetina(cc.sys.os === cc.sys.OS_IOS ? true : false);
+    cc.view.enableRetina(cc.sys.os === cc.sys.OS_IOS ? true : false);
     // Adjust viewport meta
     cc.view.adjustViewPort(true);
+    var frameSize = cc.view.getFrameSize();
+    var designHeight = 720.0;
+    var designWidth = frameSize.width * designHeight / frameSize.height;
+    if (designWidth < 960.0){
+        designWidth = 960.0;
+    }
+    if (designWidth > 1280.0){
+        designWidth = 1280.0;
+    }
     // Setup the resolution policy and design resolution size
-    //cc.view.setDesignResolutionSize(960, 640, cc.ResolutionPolicy.SHOW_ALL);
+    cc.view.setDesignResolutionSize(designWidth, designHeight, cc.ResolutionPolicy.SHOW_ALL);
+    cc.winSize.screenScale = designWidth / 1280.0;
     // Instead of set design resolution, you can also set the real pixel resolution size
     // Uncomment the following line and delete the previous line.
     // cc.view.setRealPixelResolution(960, 640, cc.ResolutionPolicy.SHOW_ALL);

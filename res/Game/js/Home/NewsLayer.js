@@ -1,12 +1,163 @@
 /**
  * Created by Quyet Nguyen on 7/11/2016.
  */
+
+var NewsSubLayer = cc.Node.extend({
+    ctor : function () {
+        this._super();
+        var _top = 554.0;
+        var _bottom = 126.0;
+
+        var itemList = new newui.TableView(cc.size(cc.winSize.width, _top - _bottom), 1);
+        itemList.setDirection(ccui.ScrollView.DIR_VERTICAL);
+        itemList.setScrollBarEnabled(false);
+        itemList.setPadding(10);
+        itemList.setMargin(10,10,0,0);
+        itemList.setPosition(cc.p(0, _bottom));
+        this.addChild(itemList, 1);
+        this.itemList = itemList;
+    }
+});
+
+var NewsNotificationLayer = NewsSubLayer.extend({
+    ctor : function () {
+        this._super();
+        var titleLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "THÔNG BÁO");
+        titleLabel.setPosition(489.0 * cc.winSize.screenScale, 576);
+        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "THỜI GIAN");
+        timeLabel.setPosition(1070.0 * cc.winSize.screenScale, 576);
+        titleLabel.setOpacity(0.2 * 255);
+        timeLabel.setOpacity(0.2 * 255);
+        this.addChild(titleLabel);
+        this.addChild(timeLabel);
+        this.titleLabel = titleLabel;
+
+        for(var i=0;i<10;i++){
+            this.addMessage("title", "time", "content");
+        }
+    },
+
+    addMessage : function (title, time, content) {
+        var container = new ccui.Widget();
+        container.setContentSize(cc.size(this.itemList.getContentSize().width, 78));
+        this.itemList.pushItem(container);
+
+        var bg1 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png",cc.rect(10, 0, 4, 78));
+        bg1.setPreferredSize(cc.size(858 * cc.winSize.screenScale, 78));
+        bg1.setPosition(489.0 * cc.winSize.screenScale, bg1.getContentSize().height/2);
+        container.addChild(bg1);
+
+        var bg2 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png",cc.rect(10, 0, 4, 78));
+        bg2.setPreferredSize(cc.size(300 * cc.winSize.screenScale, 78));
+        bg2.setPosition(1070.0 * cc.winSize.screenScale, bg1.y);
+        container.addChild(bg2);
+
+        var titleLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, title);
+        titleLabel.setPosition(bg1.getPosition());
+        container.addChild(titleLabel);
+        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, time);
+        timeLabel.setPosition(bg2.getPosition());
+        container.addChild(timeLabel);
+    }
+});
+
+var NewsTutorialLayer = NewsNotificationLayer.extend({
+    ctor : function () {
+        this._super();
+        this.titleLabel.setString("HƯỚNG DẪN");
+    }
+});
+
+var NewsLevelLayer = NewsSubLayer.extend({
+
+    ctor : function () {
+        this._super();
+
+        var _left = 60.0 * cc.winSize.screenScale;
+        var _padding = 2.0;
+        this.width1 = 80.0;
+        this.width2 = 180.0;
+        this.width3 = cc.winSize.width - this.width1 - this.width2 - _padding*2 - _left*2;
+
+        var levelLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "CẤP");
+        levelLabel.setPosition(_left + this.width1/2, 576);
+        levelLabel.setOpacity(0.2 * 255);
+        this.addChild(levelLabel);
+        this.levelLabel = levelLabel;
+
+        var scoreLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "ĐIỂM");
+        scoreLabel.setPosition(_left + this.width1 + this.width2/2 + _padding, 576);
+        scoreLabel.setOpacity(0.2 * 255);
+        this.addChild(scoreLabel);
+        this.scoreLabel = scoreLabel;
+
+        var contentLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "NỘI DUNG");
+        contentLabel.setPosition(_left + this.width1 + this.width2 + this.width3/2 + _padding * 2, 576);
+        contentLabel.setOpacity(0.2 * 255);
+        this.addChild(contentLabel);
+        this.contentLabel = contentLabel;
+
+        for(var i=0;i<10;i++){
+            this.addItem(100+i, 1000000000 + i, "content\n asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd");
+        }
+    },
+
+    addItem : function (level,score,content) {
+        var contentlabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, content, cc.TEXT_ALIGNMENT_CENTER, this.width3 - 10.0);
+        var container = new ccui.Widget();
+        this.itemList.pushItem(container);
+        container.setContentSize(cc.size(this.itemList.getContentSize().width, contentlabel.getContentSize().height));
+        if(contentlabel.getContentSize().height > 70){
+            container.setContentSize(cc.size(this.itemList.getContentSize().width, contentlabel.getContentSize().height + 8));
+        }
+
+        var bg1 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png",cc.rect(10, 0, 4, 78));
+        bg1.setPreferredSize(cc.size(this.width1, container.getContentSize().height));
+
+        var bg2 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png",cc.rect(10, 0, 4, 78));
+        bg2.setPreferredSize(cc.size(this.width2, container.getContentSize().height));
+
+        var bg3 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png",cc.rect(10, 0, 4, 78));
+        bg3.setPreferredSize(cc.size(this.width3 , container.getContentSize().height));
+
+        bg1.setPosition(this.levelLabel.x, bg1.getContentSize().height/2);
+        container.addChild(bg1);
+        bg2.setPosition(this.scoreLabel.x, bg1.y);
+        container.addChild(bg2);
+        bg3.setPosition(this.contentLabel.x, bg1.y);
+        container.addChild(bg3);
+
+        var levelLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, level.toString());
+        levelLabel.setPosition(bg1.getPosition());
+        container.addChild(levelLabel);
+
+        var scoreLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, cc.Global.NumberFormat1(score));
+        scoreLabel.setPosition(bg2.getPosition());
+        container.addChild(scoreLabel);
+
+        contentlabel.setPosition(bg3.getPosition());
+        container.addChild(contentlabel);
+    }
+});
+
+var NewsVipLayer = NewsLevelLayer.extend({
+    ctor : function () {
+        this._super();
+        this.levelLabel.setString("VIP");
+    }
+});
+
 var NewsLayer = LobbySubLayer.extend({
     ctor : function () {
         var icon_img1 = ["#lobby-clubs-1.png", "#lobby-hearts-1.png", "#lobby-diamonds-1.png", "#lobby-spades-1.png"];
         var icon_img2 = ["#lobby-clubs-2.png", "#lobby-hearts-2.png", "#lobby-diamonds-2.png", "#lobby-spades-2.png"];
-
         this._super();
+
+        this.allLayer = [new NewsNotificationLayer(), new NewsLevelLayer(), new NewsVipLayer(),new NewsTutorialLayer()];
+        for(var i=0;i<this.allLayer.length;i++){
+            this.addChild(this.allLayer[i], 1);
+        }
+
         var title = new cc.Sprite("#lobby-title-news.png");
         title.setPosition(cc.winSize.width/2, 720.0 - 63 * cc.winSize.screenScale);
         this.addChild(title);
@@ -59,6 +210,7 @@ var NewsLayer = LobbySubLayer.extend({
             toggleItem.icon2 = icon2;
             toggleItem.text1 = text1;
             toggleItem.text2 = text2;
+            toggleItem.layer = this.allLayer[i];
             toggleItem.setPosition(x, tabBg.y);
             toggleItem.onSelect = function (isForce) {
                 if(isForce){
@@ -76,12 +228,14 @@ var NewsLayer = LobbySubLayer.extend({
                 this.icon2.visible = true;
                 this.text1.visible = false;
                 this.text2.visible = true;
+                this.layer.visible = true;
             };
             toggleItem.onUnSelect = function () {
                 this.icon1.visible = true;
                 this.icon2.visible = false;
                 this.text1.visible = true;
                 this.text2.visible = false;
+                this.layer.visible = false;
             };
             x += dx;
             mToggle.addItem(toggleItem);
@@ -93,56 +247,5 @@ var NewsLayer = LobbySubLayer.extend({
     onEnter : function () {
         this._super();
         this.mToggle.selectItem(0);
-    }
-});
-
-var MessageLayer = LobbySubLayer.extend({
-    ctor : function () {
-        this._super();
-
-        var title = new cc.Sprite("#lobby-title-newMessage.png");
-        title.setPosition(cc.winSize.width/2, 720.0 - 63 * cc.winSize.screenScale);
-        this.addChild(title);
-        title.setScale(cc.winSize.screenScale);
-
-        var _left = 60.0;
-        var _right = cc.winSize.width  - 60.0;
-        var _top = 554.0;
-        var _bottom = 0.0;
-
-        var messageList = new newui.TableView(cc.size(_right - _left, _top - _bottom), 1);
-        messageList.setDirection(ccui.ScrollView.DIR_VERTICAL);
-        messageList.setScrollBarEnabled(false);
-        messageList.setPadding(10);
-       // messageList.setMargin()
-        messageList.setPosition(cc.p(_left, _bottom));
-        this.addChild(messageList, 1);
-        this.messageList = messageList;
-
-        for(var i=0;i<20;i++){
-            this.addMessage(0, "Hệ thống", "Title", "Content");
-        }
-    },
-    addMessage : function (time, sender, title, content) {
-        var container = new ccui.Widget();
-        container.setContentSize(cc.size(this.messageList.getContentSize().width, 78));
-        this.messageList.pushItem(container);
-
-        var bg1 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png",cc.rect(10, 0, 4, 78));
-        bg1.setPreferredSize(cc.size(250 * cc.winSize.screenScale, 78));
-        bg1.setPosition(bg1.getContentSize().width/2, bg1.getContentSize().height/2);
-        container.addChild(bg1);
-
-        var bg2 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png",cc.rect(10, 0, 4, 78));
-        bg2.setPreferredSize(cc.size(250 * cc.winSize.screenScale, 78));
-
-        var bg2 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png",cc.rect(10, 0, 4, 78));
-        bg2.setPreferredSize(cc.size(250 * cc.winSize.screenScale, 78));
-
-
-        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Time");
-        var senderLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, sender);
-        var titleLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, title);
-
     }
 });

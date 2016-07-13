@@ -166,7 +166,7 @@ var HomeScene = IScene.extend({
     },
 
     newsMesasgeButtonHandler : function () {
-        this.addSubLayer(new MessageLayer());
+        this.addSubLayer(new InboxLayer());
     },
     
     rewardButtonHandler : function () {

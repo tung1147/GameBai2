@@ -20,7 +20,6 @@ var LobbySubLayer = cc.Node.extend({
 
         this.backBt = new ccui.Button("home-backBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
         this.backBt.setPosition(65, 653);
-        this.backBt.setScale(cc.winSize.screenScale);
         topBar.addChild(this.backBt);
 
         this.settingBt = new ccui.Button("home-settingBt.png", "", "", ccui.Widget.PLIST_TEXTURE);

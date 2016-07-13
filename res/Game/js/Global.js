@@ -24,7 +24,7 @@ cc.Global.NumberFormat2 = function (number) {
     return number.toString();
 };
 
-cc.winSize.screenScale = cc.winSize.width / 1280.0;
+//cc.winSize.screenScale = cc.winSize.width / 1280.0;
 cc.res = cc.res || {};
 cc.res.font = cc.res.font || {};
 cc.res.font.Roboto_Condensed = "res/fonts/Roboto-Condensed.ttf";
