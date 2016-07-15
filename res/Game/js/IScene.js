@@ -4,6 +4,7 @@
 
 var IScene = cc.Scene.extend({
     sceneLayer:null,
+    popupLayer:null,
     winSize:null,
     screenScale:null,
     ctor : function () {
@@ -11,7 +12,10 @@ var IScene = cc.Scene.extend({
         this.winSize = cc.winSize;
         this.screenScale = this.winSize.width / 1280.0;
 
-        this.sceneLayer = new cc.Layer();
+        this.sceneLayer = new cc.Node();
         this.addChild(this.sceneLayer);
+
+        this.popupLayer = new cc.Node();
+        this.addChild(this.popupLayer);
     }
 })

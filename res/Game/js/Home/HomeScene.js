@@ -62,6 +62,7 @@ var HomeScene = IScene.extend({
         this.userInfo.rewardBt.addClickEventListener(function () {
             thiz.rewardButtonHandler();
         });
+
     },
 
     startHome : function () {
@@ -162,7 +163,9 @@ var HomeScene = IScene.extend({
     },
 
     callButtonHandler : function () {
-
+        var dialog = new Dialog();
+        dialog.initWithSize(cc.size(700,300));
+        dialog.show();
     },
 
     newsMesasgeButtonHandler : function () {
