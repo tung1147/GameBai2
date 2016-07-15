@@ -39,16 +39,16 @@ var NewsNotificationLayer = NewsSubLayer.extend({
 
     addMessage : function (title, time, content) {
         var container = new ccui.Widget();
-        container.setContentSize(cc.size(this.itemList.getContentSize().width, 78));
+        container.setContentSize(cc.size(this.itemList.getContentSize().width, 80));
         this.itemList.pushItem(container);
 
-        var bg1 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png",cc.rect(10, 0, 4, 78));
-        bg1.setPreferredSize(cc.size(858 * cc.winSize.screenScale, 78));
+        var bg1 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png",cc.rect(10, 0, 4, 80));
+        bg1.setPreferredSize(cc.size(858 * cc.winSize.screenScale, 80));
         bg1.setPosition(489.0 * cc.winSize.screenScale, bg1.getContentSize().height/2);
         container.addChild(bg1);
 
-        var bg2 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png",cc.rect(10, 0, 4, 78));
-        bg2.setPreferredSize(cc.size(300 * cc.winSize.screenScale, 78));
+        var bg2 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png",cc.rect(10, 0, 4, 80));
+        bg2.setPreferredSize(cc.size(300 * cc.winSize.screenScale, 80));
         bg2.setPosition(1070.0 * cc.winSize.screenScale, bg1.y);
         container.addChild(bg2);
 
@@ -106,18 +106,19 @@ var NewsLevelLayer = NewsSubLayer.extend({
         var contentlabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, content, cc.TEXT_ALIGNMENT_CENTER, this.width3 - 10.0);
         var container = new ccui.Widget();
         this.itemList.pushItem(container);
-        container.setContentSize(cc.size(this.itemList.getContentSize().width, contentlabel.getContentSize().height));
-        if(contentlabel.getContentSize().height > 70){
-            container.setContentSize(cc.size(this.itemList.getContentSize().width, contentlabel.getContentSize().height + 8));
+        var containerHeight = contentlabel.getContentSize().height + 10;
+        if(containerHeight < 80.0){
+            containerHeight = 80.0;
         }
+        container.setContentSize(cc.size(this.itemList.getContentSize().width, containerHeight));
 
-        var bg1 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png",cc.rect(10, 0, 4, 78));
+        var bg1 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png",cc.rect(10, 0, 4, 80));
         bg1.setPreferredSize(cc.size(this.width1, container.getContentSize().height));
 
-        var bg2 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png",cc.rect(10, 0, 4, 78));
+        var bg2 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png",cc.rect(10, 0, 4, 80));
         bg2.setPreferredSize(cc.size(this.width2, container.getContentSize().height));
 
-        var bg3 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png",cc.rect(10, 0, 4, 78));
+        var bg3 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png",cc.rect(10, 0, 4, 80));
         bg3.setPreferredSize(cc.size(this.width3 , container.getContentSize().height));
 
         bg1.setPosition(this.levelLabel.x, bg1.getContentSize().height/2);
@@ -167,8 +168,8 @@ var NewsLayer = LobbySubLayer.extend({
         this.addChild(bottomBar);
         bottomBar.setScale(cc.winSize.screenScale);
 
-        var tabBg = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-tab-bg.png", cc.rect(10,0,4,82));
-        tabBg.setPreferredSize(cc.size(1000, 82));
+        var tabBg = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-tab-bg.png", cc.rect(10,0,4,86));
+        tabBg.setPreferredSize(cc.size(1000, 86));
         tabBg.setPosition(1280.0/2, tabBg.getContentSize().height/2);
         bottomBar.addChild(tabBg);
 

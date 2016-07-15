@@ -114,7 +114,7 @@ var PaymentCardLayer = cc.Node.extend({
         this.serialThe.setPlaceHolder(this.cardSelected.serialThe);
     },
     initTiGia : function () {
-        var bg = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png",cc.rect(10, 0, 4, 78));
+        var bg = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png",cc.rect(10, 0, 4, 80));
         bg.setPreferredSize(cc.size(420, 260));
         bg.setAnchorPoint(cc.p(0.5, 0.5));
         bg.setPosition(370 * cc.winSize.screenScale, 290);
@@ -167,11 +167,11 @@ var PaymentInAppLayer = cc.Node.extend({
         this.listItem= listItem;
 
         for(var i =0;i<10;i++){
-            this.addItem(i%3 + 1,1000000, 0.99, "bundleID");
+            this.addItem(i%3 + 1,1000000, 20000);
         }
     },
 
-    addItem : function (logoId, gold, price, bundleId) {
+    addItem : function (logoId, gold, price) {
         var bg = new cc.Sprite("#payment-inapp-bg.png");
         var container = new ccui.Widget();
         container.setContentSize(cc.size(bg.getContentSize().width, bg.getContentSize().height + 56));
@@ -194,13 +194,27 @@ var PaymentInAppLayer = cc.Node.extend({
         goldIcon.setPosition(goldLabel.x - goldLabel.getContentSize().width/2 - goldIcon.getContentSize().width/2, goldLabel.y);
         container.addChild(goldIcon);
 
-        var priceLabel = ccui.RichText.createWithXML("<font face='"+cc.res.font.Roboto_Condensed+"' size='25'><font color='#ffde00'>$</font>"+price+"</font>");
+        var priceLabel = null;
+        if(Number.isInteger(price)){ //sms
+            priceLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, cc.Global.NumberFormat1(price) + " VNĐ");
+        }
+        else{
+            priceLabel = ccui.RichText.createWithXML("<font face='"+cc.res.font.Roboto_Condensed+"' size='25'><font color='#ffde00'>$</font>"+price+"</font>");
+        }
         priceLabel.setPosition(bg2.getPosition());
         container.addChild(priceLabel,1);
 
         this.listItem.pushItem(container);
+        return container;
     }
 });
+
+var PaymentSMSLayer = PaymentInAppLayer.extend({
+    ctor : function () {
+        this._super();
+    }
+});
+
 
 var PaymentGiftcode = cc.Node.extend({
     ctor : function () {
@@ -232,14 +246,148 @@ var PaymentGiftcode = cc.Node.extend({
     }
 });
 
+var PaymentHistoryLayer = cc.Node.extend({
+    ctor : function () {
+        this._super();
+        var margin = 60.0 * cc.winSize.screenScale;
+        var padding = 2.0;
+        this.width1 = 173.0 * cc.winSize.screenScale;
+        this.width2 = 213.0 * cc.winSize.screenScale;
+        this.width4 = 173.0 * cc.winSize.screenScale;
+        this.width5 = 173.0 * cc.winSize.screenScale;
+        this.width3 = cc.winSize.width - this.width1 - this.width2 - this.width4 - this.width5 - margin*2 - padding*4;
+        this.x1 = margin + this.width1/2;
+        this.x2 = this.x1 + this.width1/2 + this.width2/2 + padding;
+        this.x3 = this.x2 + this.width2/2 + this.width3/2 + padding;
+        this.x4 = this.x3 + this.width3/2 + this.width4/2 + padding;
+        this.x5 = this.x4 + this.width4/2 + this.width5/2 + padding;
+
+        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "THỜI GIAN");
+        timeLabel.setPosition(this.x1, 576);
+        timeLabel.setOpacity(0.2 * 255);
+        this.addChild(timeLabel, 1);
+
+        var typeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "LOẠI");
+        typeLabel.setPosition(this.x2, 576);
+        typeLabel.setOpacity(0.2 * 255);
+        this.addChild(typeLabel, 1);
+
+        var infoLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "THÔNG TIN");
+        infoLabel.setPosition(this.x3, 576);
+        infoLabel.setOpacity(0.2 * 255);
+        this.addChild(infoLabel, 1);
+
+        var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "VÀNG");
+        goldLabel.setPosition(this.x4, 576);
+        goldLabel.setOpacity(0.2 * 255);
+        this.addChild(goldLabel, 1);
+
+        var statusLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "TRẠNG THÁI");
+        statusLabel.setPosition(this.x5, 576);
+        statusLabel.setOpacity(0.2 * 255);
+        this.addChild(statusLabel, 1);
+
+        var _top = 554.0;
+        var _bottom = 126.0;
+        var itemList = new newui.TableView(cc.size(cc.winSize.width, _top - _bottom), 1);
+        itemList.setDirection(ccui.ScrollView.DIR_VERTICAL);
+        itemList.setScrollBarEnabled(false);
+        itemList.setPadding(10);
+        itemList.setMargin(10,10,0,0);
+        itemList.setPosition(cc.p(0, _bottom));
+        this.addChild(itemList, 1);
+        this.itemList = itemList;
+
+        for(var i =0;i<20;i++){
+            this.addItem("10:54:35\n24/10/2016", "Tín dụng 1200K", "Seri thẻ: 009129197386\nMã thẻ: 091979617362", 1200000, 1);
+        }
+    },
+    
+    addItem : function (time, type, info, gold,status) {
+        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, time);
+        var typeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, type);
+        var infoLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, info);
+        var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, cc.Global.NumberFormat1(gold));
+        var statusLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Thành công");
+        var height = 80.0;
+        if(timeLabel.getContentSize().height > height){
+            height = timeLabel.getContentSize().height;
+        }
+        if(typeLabel.getContentSize().height > height){
+            height = typeLabel.getContentSize().height;
+        }
+        if(infoLabel.getContentSize().height > height){
+            height = infoLabel.getContentSize().height;
+        }
+        var container = new ccui.Widget();
+        container.setContentSize(cc.size(this.itemList.getContentSize().width, height));
+        this.itemList.pushItem(container);
+
+        var bg1 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png",cc.rect(10, 0, 4, 80));
+        bg1.setPreferredSize(cc.size(this.width1, container.getContentSize().height));
+        bg1.setPosition(this.x1, container.getContentSize().height/2);
+        container.addChild(bg1);
+
+        var bg2 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png",cc.rect(10, 0, 4, 80));
+        bg2.setPreferredSize(cc.size(this.width2, container.getContentSize().height));
+        bg2.setPosition(this.x2, container.getContentSize().height/2);
+        container.addChild(bg2);
+
+        var bg3 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png",cc.rect(10, 0, 4, 80));
+        bg3.setPreferredSize(cc.size(this.width3, container.getContentSize().height));
+        bg3.setPosition(this.x3, container.getContentSize().height/2);
+        container.addChild(bg3);
+
+        var bg4 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png",cc.rect(10, 0, 4, 80));
+        bg4.setPreferredSize(cc.size(this.width4, container.getContentSize().height));
+        bg4.setPosition(this.x4, container.getContentSize().height/2);
+        container.addChild(bg4);
+
+        var bg5 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png",cc.rect(10, 0, 4, 80));
+        bg5.setPreferredSize(cc.size(this.width5, container.getContentSize().height));
+        bg5.setPosition(this.x5, container.getContentSize().height/2);
+        container.addChild(bg5);
+
+
+        timeLabel.setScale(20.0/25.0);
+        timeLabel.setPosition(bg1.getPosition());
+        container.addChild(timeLabel);
+
+
+        typeLabel.setPosition(bg2.getPosition());
+        typeLabel.setScale(20.0/25.0);
+        container.addChild(typeLabel);
+
+        infoLabel.setPosition(bg3.getPosition());
+        infoLabel.setScale(20.0/25.0);
+        container.addChild(infoLabel);
+
+        goldLabel.setPosition(bg4.getPosition());
+        goldLabel.setColor(cc.color("#ffde00"));
+        goldLabel.setScale(20.0/25.0);
+        container.addChild(goldLabel);
+
+        if(status == 0){
+            statusLabel.setString("Thành công");
+            statusLabel.setColor(cc.color("#ffde00"));
+        }
+        else{
+            statusLabel.setString("Thất bại");
+            statusLabel.setColor(cc.color("#9e9e9e"));
+        }
+        statusLabel.setPosition(bg5.getPosition());
+        statusLabel.setScale(20.0/25.0);
+        container.addChild(statusLabel);
+    }
+});
 
 var PaymentLayer = LobbySubLayer.extend({
     ctor : function () {
         this._super();
-
-        var layer = new PaymentInAppLayer();
-        this.addChild(layer);
-
+        var allLayer = [new PaymentCardLayer(), new PaymentInAppLayer(), new PaymentGiftcode(), new PaymentSMSLayer(), new PaymentHistoryLayer()];
+        for(var i=0;i<allLayer.length;i++){
+            this.addChild(allLayer[i]);
+        }
         var title = new cc.Sprite("#lobby-title-payment.png");
         title.setPosition(cc.winSize.width/2, 720.0 - 63 * cc.winSize.screenScale);
         this.addChild(title);
@@ -247,13 +395,12 @@ var PaymentLayer = LobbySubLayer.extend({
 
         var icon_img1 = ["#lobby-start-1.png", "#lobby-hearts-1.png", "#lobby-clubs-1.png", "#lobby-spades-1.png", "#lobby-diamonds-1.png"];
         var icon_img2 = ["#lobby-start-2.png", "#lobby-hearts-2.png", "#lobby-clubs-2.png", "#lobby-spades-2.png", "#lobby-diamonds-2.png"];
-
         var bottomBar = new cc.Node();
         this.addChild(bottomBar);
         bottomBar.setScale(cc.winSize.screenScale);
 
-        var tabBg = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-tab-bg.png", cc.rect(10,0,4,82));
-        tabBg.setPreferredSize(cc.size(1100, 82));
+        var tabBg = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-tab-bg.png", cc.rect(10,0,4,86));
+        tabBg.setPreferredSize(cc.size(1100, 86));
         tabBg.setPosition(1280.0/2, tabBg.getContentSize().height/2);
         bottomBar.addChild(tabBg);
 
@@ -295,6 +442,7 @@ var PaymentLayer = LobbySubLayer.extend({
             toggleItem.icon2 = icon2;
             toggleItem.text1 = text1;
             toggleItem.text2 = text2;
+            toggleItem.layer = allLayer[i];
             toggleItem.setPosition(x, tabBg.y);
             toggleItem.onSelect = function (isForce) {
                 if(isForce){
@@ -312,12 +460,14 @@ var PaymentLayer = LobbySubLayer.extend({
                 this.icon2.visible = true;
                 this.text1.visible = false;
                 this.text2.visible = true;
+                this.layer.visible = true;
             };
             toggleItem.onUnSelect = function () {
                 this.icon1.visible = true;
                 this.icon2.visible = false;
                 this.text1.visible = true;
                 this.text2.visible = false;
+                this.layer.visible = false;
             };
             x += dx;
             mToggle.addItem(toggleItem);

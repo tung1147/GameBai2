@@ -122,6 +122,7 @@ var MiniGameLayer = cc.Node.extend({
     addMiniGame : function (gameId, listGame) {
         var size = cc.size(280.0, 92.0);
         var cell = new MiniGameCell(size, gameId, "Hũ thưởng");
+        cell.setScale(cc.winSize.screenScale);
         listGame.pushItem(cell);
     },
 

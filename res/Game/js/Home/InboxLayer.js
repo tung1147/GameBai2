@@ -41,21 +41,21 @@ var InboxLayer = LobbySubLayer.extend({
     },
     addMessage : function (time, sender, title, content) {
         var container = new ccui.Widget();
-        container.setContentSize(cc.size(this.messageList.getContentSize().width, 78));
+        container.setContentSize(cc.size(this.messageList.getContentSize().width, 80));
         this.messageList.pushItem(container);
 
-        var bg1 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png",cc.rect(10, 0, 4, 78));
-        bg1.setPreferredSize(cc.size(250 * cc.winSize.screenScale, 78));
+        var bg1 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png",cc.rect(10, 0, 4, 80));
+        bg1.setPreferredSize(cc.size(250 * cc.winSize.screenScale, 80));
         bg1.setPosition(185.0 * cc.winSize.screenScale, bg1.getContentSize().height/2);
         container.addChild(bg1);
 
-        var bg2 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png",cc.rect(10, 0, 4, 78));
-        bg2.setPreferredSize(cc.size(250 * cc.winSize.screenScale, 78));
+        var bg2 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png",cc.rect(10, 0, 4, 80));
+        bg2.setPreferredSize(cc.size(250 * cc.winSize.screenScale, 80));
         bg2.setPosition(437.0 * cc.winSize.screenScale, bg1.y);
         container.addChild(bg2);
 
-        var bg3 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png",cc.rect(10, 0, 4, 78));
-        bg3.setPreferredSize(cc.size(656 * cc.winSize.screenScale, 78));
+        var bg3 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png",cc.rect(10, 0, 4, 80));
+        bg3.setPreferredSize(cc.size(656 * cc.winSize.screenScale, 80));
         bg3.setPosition(892.0 * cc.winSize.screenScale, bg1.y);
         container.addChild(bg3);
 

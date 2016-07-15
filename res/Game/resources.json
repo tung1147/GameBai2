@@ -5,14 +5,6 @@
             "fnt": "res/fonts/bigsmall_number_font.fnt"
         },
         {
-            "img": "res/fonts/font-number-1.png",
-            "fnt": "res/fonts/font-number-1.fnt"
-        },
-        {
-            "img": "res/fonts/lobby-number-font.png",
-            "fnt": "res/fonts/lobby-number-font.fnt"
-        },
-        {
             "img": "res/fonts/minigame-number-1.png",
             "fnt": "res/fonts/minigame-number-1.fnt"
         },

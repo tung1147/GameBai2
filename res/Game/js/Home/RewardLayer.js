@@ -1,9 +1,135 @@
 /**
  * Created by Quyet Nguyen on 7/11/2016.
  */
+
+var s_card_type = s_card_type || {};
+s_card_type.CARD_VIETTEL = 1;
+s_card_type.CARD_VINA = 2;
+s_card_type.CARD_MOBI = 3;
+
+var RewardSublayer = cc.Node.extend({
+    ctor : function () {
+        this._super();
+        var _top = 600.0;
+        var _bottom = 126.0;
+
+        var itemList = new newui.TableView(cc.size(cc.winSize.width, _top - _bottom), 4);
+        itemList.setDirection(ccui.ScrollView.DIR_VERTICAL);
+        itemList.setScrollBarEnabled(false);
+        itemList.setPadding(60);
+        itemList.setMargin(10,10,0,0);
+        itemList.setPosition(cc.p(0, _bottom));
+        this.addChild(itemList, 1);
+        this.itemList = itemList;
+    }
+});
+
+var s_card_money = s_card_money || ["50k", "100k", "200k", "500k"];
+var RewardCardLayer = RewardSublayer.extend({
+    ctor : function () {
+        this._super();
+        for(var i=0; i<20;i++){
+            this.addCard(s_card_type.CARD_MOBI, i%4, 550000);
+        }
+    },
+    
+    addCard : function (cardType, cardId, gold) {
+        var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, cc.Global.NumberFormat1(gold));
+        var goldBgWidth = goldLabel.getContentSize().width + 60.0;
+        if(goldBgWidth < 170.0){
+            goldBgWidth = 170.0;
+        }
+        var goldBg = ccui.Scale9Sprite.createWithSpriteFrameName("reward-gold-bg.png",cc.rect(50,0,4,44));
+        goldBg.setPreferredSize(cc.size(goldBgWidth, 44));
+
+        var cardImg = null;
+        var cardMoney = null;
+        if(cardType == s_card_type.CARD_VIETTEL){
+            cardImg = new cc.Sprite("#reward-card-viettel.png");
+            cardMoney = new cc.Sprite("#reward-viettel-" + s_card_money[cardId] +".png");
+        }
+        else if(cardType == s_card_type.CARD_VINA){
+            cardImg = new cc.Sprite("#reward-card-vina.png");
+            cardMoney = new cc.Sprite("#reward-vina-" + s_card_money[cardId] +".png");
+        }
+        else{
+            cardImg = new cc.Sprite("#reward-card-mobi.png");
+            cardMoney = new cc.Sprite("#reward-mobi-" + s_card_money[cardId] +".png");
+        }
+
+        var contaner = new ccui.Widget();
+        contaner.setContentSize(cc.size(cardImg.getContentSize().width, cardImg.getContentSize().height + 60.0));
+        this.itemList.pushItem(contaner);
+
+        cardImg.setPosition(contaner.getContentSize().width/2, contaner.getContentSize().height - cardImg.getContentSize().height/2);
+        contaner.addChild(cardImg);
+        cardMoney.setPosition(cardImg.getPosition());
+        contaner.addChild(cardMoney);
+
+        goldBg.setPosition(cardImg.x , goldBg.getContentSize().height/2);
+        contaner.addChild(goldBg);
+
+        goldLabel.setPosition(goldBg.x + 20.0, goldBg.y);
+        goldLabel.setColor(cc.color("#ffde00"));
+        contaner.addChild(goldLabel);
+    }
+});
+
+var RewardItemLayer = RewardSublayer.extend({
+    ctor : function () {
+        this._super();
+
+        for(var i=0; i<20;i++){
+            this.addItem("itemImg", "iPhone6 32GB", 12000000, 550000);
+        }
+    },
+    
+    addItem : function (itemImg, itemName, itemMoney, gold) {
+        var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, cc.Global.NumberFormat1(gold));
+        var goldBgWidth = goldLabel.getContentSize().width + 60.0;
+        if(goldBgWidth < 170.0){
+            goldBgWidth = 170.0;
+        }
+        var goldBg = ccui.Scale9Sprite.createWithSpriteFrameName("reward-gold-bg.png",cc.rect(50,0,4,44));
+        goldBg.setPreferredSize(cc.size(goldBgWidth, 44));
+
+        var itemBg = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png",cc.rect(10, 0, 4, 80));
+        itemBg.setPreferredSize(cc.size(210, 276));
+        var itemBgPadding = new cc.Sprite("#reward-item-bg-2.png");
+
+        var contaner = new ccui.Widget();
+        contaner.setContentSize(cc.size(itemBg.getContentSize().width, itemBg.getContentSize().height + 60.0));
+        this.itemList.pushItem(contaner);
+
+        itemBg.setPosition(contaner.getContentSize().width/2, contaner.getContentSize().height - itemBg.getContentSize().height/2);
+        contaner.addChild(itemBg);
+        itemBgPadding.setPosition(itemBg.x, itemBg.y - 69);
+        contaner.addChild(itemBgPadding);
+
+        goldBg.setPosition(itemBg.x , goldBg.getContentSize().height/2);
+        contaner.addChild(goldBg);
+
+        goldLabel.setPosition(itemBg.x + 20.0, goldBg.y);
+        goldLabel.setColor(cc.color("#ffde00"));
+        contaner.addChild(goldLabel);
+    }
+});
+
+var RewardHistoryLayer = RewardSublayer.extend({
+    ctor : function () {
+        this._super();
+    }
+});
+
 var RewardLayer = LobbySubLayer.extend({
     ctor : function () {
         this._super();
+
+        var allLayer = [new RewardCardLayer(), new RewardItemLayer(), new RewardHistoryLayer()];
+        for(var i=0;i<allLayer.length;i++){
+            this.addChild(allLayer[i]);
+        }
+
         var title = new cc.Sprite("#lobby-title-reward.png");
         title.setPosition(cc.winSize.width/2, 720.0 - 63 * cc.winSize.screenScale);
         this.addChild(title);
@@ -16,8 +142,8 @@ var RewardLayer = LobbySubLayer.extend({
         this.addChild(bottomBar);
         bottomBar.setScale(cc.winSize.screenScale);
 
-        var tabBg = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-tab-bg.png", cc.rect(10,0,4,82));
-        tabBg.setPreferredSize(cc.size(960, 82));
+        var tabBg = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-tab-bg.png", cc.rect(10,0,4,86));
+        tabBg.setPreferredSize(cc.size(960, 86));
         tabBg.setPosition(1280.0/2, tabBg.getContentSize().height/2);
         bottomBar.addChild(tabBg);
 
@@ -59,6 +185,7 @@ var RewardLayer = LobbySubLayer.extend({
             toggleItem.icon2 = icon2;
             toggleItem.text1 = text1;
             toggleItem.text2 = text2;
+            toggleItem.layer = allLayer[i];
             toggleItem.setPosition(x, tabBg.y);
             toggleItem.onSelect = function (isForce) {
                 if(isForce){
@@ -76,12 +203,14 @@ var RewardLayer = LobbySubLayer.extend({
                 this.icon2.visible = true;
                 this.text1.visible = false;
                 this.text2.visible = true;
+                this.layer.visible = true;
             };
             toggleItem.onUnSelect = function () {
                 this.icon1.visible = true;
                 this.icon2.visible = false;
                 this.text1.visible = true;
                 this.text2.visible = false;
+                this.layer.visible = false;
             };
             x += dx;
             mToggle.addItem(toggleItem);
