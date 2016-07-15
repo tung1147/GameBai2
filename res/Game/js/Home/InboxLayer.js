@@ -35,9 +35,9 @@ var InboxLayer = LobbySubLayer.extend({
         this.addChild(messageList, 1);
         this.messageList = messageList;
 
-        // for(var i=0;i<20;i++){
-        //     this.addMessage(0, "Hệ thống", "Title", "Content");
-        // }
+        for(var i=0;i<20;i++){
+            this.addMessage(0, "Hệ thống", "Title", "Content");
+        }
     },
     addMessage : function (time, sender, title, content) {
         var container = new ccui.Widget();

@@ -123,6 +123,125 @@ var RewardItemLayer = RewardSublayer.extend({
 var RewardHistoryLayer = RewardSublayer.extend({
     ctor : function () {
         this._super();
+
+        var margin = 60.0 * cc.winSize.screenScale;
+        var padding = 2.0;
+        this.width1 = 200.0 * cc.winSize.screenScale;
+        this.width2 = 230.0 * cc.winSize.screenScale;
+        this.width4 = 210.0 * cc.winSize.screenScale;
+        this.width3 = cc.winSize.width - this.width1 - this.width2 - this.width4 - margin*2 - padding*3;
+        this.x1 = margin + this.width1/2;
+        this.x2 = this.x1 + this.width1/2 + this.width2/2 + padding;
+        this.x3 = this.x2 + this.width2/2 + this.width3/2 + padding;
+        this.x4 = this.x3 + this.width3/2 + this.width4/2 + padding;
+
+        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "THỜI GIAN");
+        timeLabel.setPosition(this.x1, 576);
+        timeLabel.setOpacity(0.2 * 255);
+        this.addChild(timeLabel, 1);
+
+        var typeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "LOẠI");
+        typeLabel.setPosition(this.x2, 576);
+        typeLabel.setOpacity(0.2 * 255);
+        this.addChild(typeLabel, 1);
+
+        var infoLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "THÔNG TIN");
+        infoLabel.setPosition(this.x3, 576);
+        infoLabel.setOpacity(0.2 * 255);
+        this.addChild(infoLabel, 1);
+
+        var statusLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "TRẠNG THÁI");
+        statusLabel.setPosition(this.x4, 576);
+        statusLabel.setOpacity(0.2 * 255);
+        this.addChild(statusLabel, 1);
+
+        var _top = 554.0;
+        var _bottom = 126.0;
+        var itemList = new newui.TableView(cc.size(cc.winSize.width, _top - _bottom), 1);
+        itemList.setDirection(ccui.ScrollView.DIR_VERTICAL);
+        itemList.setScrollBarEnabled(false);
+        itemList.setPadding(10);
+        itemList.setMargin(10,10,0,0);
+        itemList.setPosition(cc.p(0, _bottom));
+        this.addChild(itemList, 1);
+        this.itemList = itemList;
+
+        for(var i =0;i<20;i++){
+            this.addItem("10:54:35\n24/10/2016", "Tín dụng 1200K", "Seri thẻ: 009129197386\nMã thẻ: 091979617362", 1);
+        }
+    },
+
+    addItem : function (time, type, info,status) {
+        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, time);
+        var typeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, type);
+        var infoLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, info);
+        var statusLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Thành công");
+        var height = 80.0;
+        if(timeLabel.getContentSize().height > height){
+            height = timeLabel.getContentSize().height;
+        }
+        if(typeLabel.getContentSize().height > height){
+            height = typeLabel.getContentSize().height;
+        }
+        if(infoLabel.getContentSize().height > height){
+            height = infoLabel.getContentSize().height;
+        }
+        var container = new ccui.Widget();
+        container.setContentSize(cc.size(this.itemList.getContentSize().width, height));
+        this.itemList.pushItem(container);
+
+        var bg1 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png",cc.rect(10, 0, 4, 80));
+        bg1.setPreferredSize(cc.size(this.width1, container.getContentSize().height));
+        bg1.setPosition(this.x1, container.getContentSize().height/2);
+        container.addChild(bg1);
+
+        var bg2 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png",cc.rect(10, 0, 4, 80));
+        bg2.setPreferredSize(cc.size(this.width2, container.getContentSize().height));
+        bg2.setPosition(this.x2, container.getContentSize().height/2);
+        container.addChild(bg2);
+
+        var bg3 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png",cc.rect(10, 0, 4, 80));
+        bg3.setPreferredSize(cc.size(this.width3, container.getContentSize().height));
+        bg3.setPosition(this.x3, container.getContentSize().height/2);
+        container.addChild(bg3);
+
+        var bg4 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png",cc.rect(10, 0, 4, 80));
+        bg4.setPreferredSize(cc.size(this.width4, container.getContentSize().height));
+        bg4.setPosition(this.x4, container.getContentSize().height/2);
+        container.addChild(bg4);
+
+       // timeLabel.setScale(22.0/25.0);
+        timeLabel.setPosition(bg1.getPosition());
+        container.addChild(timeLabel,1);
+
+        typeLabel.setPosition(bg2.getPosition());
+        //typeLabel.setScale(22.0/25.0);
+        container.addChild(typeLabel,1);
+
+        infoLabel.setPosition(bg3.getPosition());
+        //infoLabel.setScale(22.0/25.0);
+        container.addChild(infoLabel,1);
+
+        statusLabel.setPosition(bg4.getPosition());
+        //statusLabel.setScale(22.0/25.0);
+        container.addChild(statusLabel,1);
+        if(status == 0){ //thanh cong
+            statusLabel.setString("Đã trả");
+            statusLabel.setColor(cc.color("#ffde00"));
+
+            var successIcon = new cc.Sprite("#reward-success-icon.png");
+            container.addChild(successIcon);
+            statusLabel.setPositionX(bg4.x - 30);
+            successIcon.setPosition(statusLabel.x + statusLabel.getContentSize().width/2 + successIcon.getContentSize().width/2, statusLabel.y);
+        }
+        else if(status == -1){
+            statusLabel.setString("Chờ duyệt");
+            statusLabel.setColor(cc.color("#9e9e9e"));
+        }
+        else{
+            statusLabel.setString("Đã hủy");
+            statusLabel.setColor(cc.color("#ff0000"));
+        }
     }
 });
 
