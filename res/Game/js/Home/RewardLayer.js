@@ -97,6 +97,8 @@ var RewardItemLayer = RewardSublayer.extend({
         itemBg.setPreferredSize(cc.size(210, 276));
         var itemBgPadding = new cc.Sprite("#reward-item-bg-2.png");
 
+        var itemIcon = new cc.Sprite("#reward-card-viettel.png");
+
         var contaner = new ccui.Widget();
         contaner.setContentSize(cc.size(itemBg.getContentSize().width, itemBg.getContentSize().height + 60.0));
         this.itemList.pushItem(contaner);
@@ -105,6 +107,9 @@ var RewardItemLayer = RewardSublayer.extend({
         contaner.addChild(itemBg);
         itemBgPadding.setPosition(itemBg.x, itemBg.y - 69);
         contaner.addChild(itemBgPadding);
+
+        itemIcon.setPosition(itemBg.x, itemBg.y + 36);
+        contaner.addChild(itemIcon);
 
         goldBg.setPosition(itemBg.x , goldBg.getContentSize().height/2);
         contaner.addChild(goldBg);
