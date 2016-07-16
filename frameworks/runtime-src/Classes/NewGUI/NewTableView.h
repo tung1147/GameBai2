@@ -39,6 +39,10 @@ protected:
 	std::vector<Node*> _items;
 
 	bool _checkParentPageView;
+	bool _parentIsPageView;
+	bool _moveThis;
+	bool _moveParent;
+	Point _startPoint;
 	
 	void refreshViewVertical();
 	void refreshViewHorizontal();	
@@ -99,6 +103,9 @@ public:
 	virtual void jumpToRight();
 
 	virtual bool onTouchBegan(Touch *touch, Event *unusedEvent) override;
+	virtual void onTouchMoved(Touch *touch, Event *unusedEvent) override;
+	virtual void onTouchEnded(Touch *touch, Event *unusedEvent) override;
+	virtual void onTouchCancelled(Touch *touch, Event *unusedEvent) override;
 
 	static TableView* create(const Size& size, int columnOrRow);
 };
