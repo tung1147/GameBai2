@@ -37,6 +37,8 @@ protected:
     
     ItemAnimationHandler _handler;
 	std::vector<Node*> _items;
+
+	bool _checkParentPageView;
 	
 	void refreshViewVertical();
 	void refreshViewHorizontal();	
@@ -95,6 +97,8 @@ public:
 	virtual void jumpToTop();
 	virtual void jumpToLeft();
 	virtual void jumpToRight();
+
+	virtual bool onTouchBegan(Touch *touch, Event *unusedEvent) override;
 
 	static TableView* create(const Size& size, int columnOrRow);
 };

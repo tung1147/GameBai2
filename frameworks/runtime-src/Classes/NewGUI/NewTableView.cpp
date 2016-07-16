@@ -27,6 +27,7 @@ TableView::TableView() {
 
 	_runningEffect = false;
 	_updateEffect = false;
+	_checkParentPageView = false;
 
 	effectMoveSpeed = 4000.0f;
 	effectTimeDelayPerColumn = 0.05f;
@@ -569,6 +570,19 @@ void TableView::jumpToLeft(){
 void TableView::jumpToRight(){
 	_autoScrolling = false;
 	ui::ScrollView::jumpToRight();
+}
+
+bool TableView::onTouchBegan(Touch *touch, Event *unusedEvent){
+	bool bret = ui::ScrollView::onTouchBegan(touch, unusedEvent);
+	if (bret && !_checkParentPageView){
+		auto parent = this->getWidgetParent();
+		if (dynamic_cast<ui::PageView*>(parent)){
+			_propagateTouchEvents = true;
+		}
+		_checkParentPageView = true;
+	}
+
+	return bret;
 }
 
 }

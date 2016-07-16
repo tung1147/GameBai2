@@ -14,9 +14,10 @@ var LobbyBottomBar = cc.Node.extend({
         this.setContentSize(bg.getContentSize());
         this.setAnchorPoint(cc.p(0,0));
 
-        var avt =  cc.Sprite("#lobby-avt.png");//Sprite::createWithSpriteFrameName("lobby-avt.png");
+        var avt =  UserAvatar.createMe();
         avt.setPosition(56, 50);
         this.addChild(avt, 0);
+        this.avatar = avt;
 
         var nameLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, "Name2221231312313213212312312332132");
         nameLabel.setDimensions(190.0, nameLabel.getLineHeight());

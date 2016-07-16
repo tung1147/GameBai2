@@ -52,12 +52,14 @@
  *
  */
 
+require("js/Global/UserAvatar.js");
 require("js/NewAction.js");
 require("js/LobbyClient.js");
 require("js/SmartfoxClient.js");
 require("js/Core/ToggleNodeGroup.js");
 require("js/Global.js");
 require("js/Dialog/Dialog.js");
+require("js/Dialog/MessageDialog.js");
 require("js/Dialog/InviteDialog.js");
 require("js/Dialog/LoadingDialog.js");
 require("js/Dialog/MessageNode.js");

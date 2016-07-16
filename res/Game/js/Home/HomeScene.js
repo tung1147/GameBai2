@@ -168,7 +168,10 @@ var HomeScene = IScene.extend({
         // dialog.show();
 
        // LoadingDialog.getInstance().show();
-        MessageNode.getInstance().show("Test message node");
+        //MessageNode.getInstance().show("Test message node");
+        var dialog = new UserinfoDialog();
+       // dialog.setMessage("dialog dialog dialog dialog dialog dialog dialog dialog dialog dialog dialog dialog dialog dialog dialog dialog dialog dialog dialog dialog dialog dialog");
+        dialog.show();
     },
 
     newsMesasgeButtonHandler : function () {
