@@ -7,7 +7,7 @@
             <key>dialog-bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{244,308}}</string>
+                <string>{{2,94},{244,308}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -20,7 +20,7 @@
             <key>dialog-button-1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{32,312},{24,24}}</string>
+                <string>{{248,276},{24,24}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -33,7 +33,7 @@
             <key>dialog-button-2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{58,312},{24,24}}</string>
+                <string>{{248,302},{24,24}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -46,7 +46,7 @@
             <key>dialog-button-close.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,312},{28,26}}</string>
+                <string>{{248,248},{28,26}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -56,6 +56,32 @@
                 <key>sourceSize</key>
                 <string>{50,50}</string>
             </dict>
+            <key>dialog-loading-spin.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{248,94},{152,152}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{152,152}}</string>
+                <key>sourceSize</key>
+                <string>{152,152}</string>
+            </dict>
+            <key>dialog-message-bg.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,2},{778,90}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{778,90}}</string>
+                <key>sourceSize</key>
+                <string>{778,90}</string>
+            </dict>
         </dict>
         <key>metadata</key>
         <dict>
@@ -64,9 +90,9 @@
             <key>realTextureFileName</key>
             <string>dialog.png</string>
             <key>size</key>
-            <string>{248,340}</string>
+            <string>{782,404}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:31e0149828ea787df3247441138a44ad:8d148ecf417351912e59ee9678df1ba0:c11b6a542e58cbf6e51c9f5d8ff887d2$</string>
+            <string>$TexturePacker:SmartUpdate:1b245803759f9a8bfe5f8ff40491ca5e:ecb27564b4c2048da595ee177046e279:c11b6a542e58cbf6e51c9f5d8ff887d2$</string>
             <key>textureFileName</key>
             <string>dialog.png</string>
         </dict>

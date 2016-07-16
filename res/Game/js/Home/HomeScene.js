@@ -163,9 +163,12 @@ var HomeScene = IScene.extend({
     },
 
     callButtonHandler : function () {
-        var dialog = new Dialog();
-        dialog.initWithSize(cc.size(700,300));
-        dialog.show();
+        // var dialog = new Dialog();
+        // dialog.initWithSize(cc.size(700,300));
+        // dialog.show();
+
+       // LoadingDialog.getInstance().show();
+        MessageNode.getInstance().show("Test message node");
     },
 
     newsMesasgeButtonHandler : function () {

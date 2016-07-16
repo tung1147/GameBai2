@@ -10,7 +10,7 @@ var Dialog = cc.Node.extend({
         this._marginTop = 98.0;
         this._marginBottom = 98.0;
 
-        var colorLayer = new cc.LayerColor(cc.color(0,0,0,125), cc.winSize.width, cc.winSize.height);
+        var colorLayer = new cc.LayerColor(cc.color(0,0,0,180), cc.winSize.width, cc.winSize.height);
         this.addChild(colorLayer);
 
         var dialogNode = new cc.Node();
@@ -33,7 +33,7 @@ var Dialog = cc.Node.extend({
         okButton.setContentSize(182, 60);
         dialogNode.addChild(okButton);
 
-        var okTitle = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "OK BUTTON");
+        var okTitle = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Ok");
         okTitle.setPosition(okButton.getContentSize().width/2, okButton.getContentSize().height/2);
         okButton.getRendererNormal().addChild(okTitle);
 
@@ -42,7 +42,7 @@ var Dialog = cc.Node.extend({
         cancelButton.setContentSize(182, 60);
         dialogNode.addChild(cancelButton);
 
-        var cancelTitle = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "OK BUTTON");
+        var cancelTitle = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Cancel");
         cancelTitle.setPosition(cancelButton.getContentSize().width/2, cancelButton.getContentSize().height/2);
         cancelButton.getRendererNormal().addChild(cancelTitle);
 
