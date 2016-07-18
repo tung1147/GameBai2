@@ -30,6 +30,10 @@ SmartfoxClient::~SmartfoxClient() {
 }
 
 void SmartfoxClient::onRecvMessage(SFS::SocketData* data){
+	if (data->messageType == SFS::MessageType::PingPong){
+		_waitingPing = false;
+	}
+
 	js_proxy_t* p = jsb_get_native_proxy(this);
 	if (!p){
 		//error
@@ -60,25 +64,31 @@ void SmartfoxClient::onRecvStatus(const SFS::SocketStatusData& data){
 	}
 }
 
-//void SmartfoxClient::sendJSMessage(const std::string& messageName, const std::string& value){
-//	js_proxy_t* p = jsb_get_native_proxy(this);
-//	if (!p){
-//		//error
-//		return;
-//	}
-//	ScriptingCore* sc = ScriptingCore::getInstance();
-//	if (sc){
-//		jsval dataVal[] = {
-//			dataVal[0] = std_string_to_jsval(sc->getGlobalContext(), messageName),
-//			dataVal[1] = std_string_to_jsval(sc->getGlobalContext(), value)
-//		};
-//		sc->executeFunctionWithOwner(OBJECT_TO_JSVAL(p->obj), "onEvent", 2, dataVal);
-//	}
-//}
-
 void SmartfoxClient::update(float dt){
 	if (client){
 		client->processMessage();
+		if (client->getStatus() == SFS::SocketStatusType::Connected){
+			this->updatePing(dt);
+		}
+	}
+}
+
+void SmartfoxClient::updatePing(float dt){
+	if (_pingTime <= 0.0f){
+		if (_waitingPing){
+			client->closeSocket(); 
+		}
+		else{
+			//send ping
+			SFS::BaseMessage* baseMesage = new SFS::BaseMessage();
+			baseMesage->messageType = SFS::MessageType::PingPong;
+
+			_pingTime = 15.0f;
+			_waitingPing = true;
+		}
+	}
+	else{
+		_pingTime -= dt;
 	}
 }
 
@@ -86,6 +96,8 @@ void SmartfoxClient::connect(const std::string& host, int port){
 	if (client){
 		//client->closeClient();
 		client->connectTo(host, port);
+		_waitingPing = false;
+		_pingTime = 0.0f;
 	}
 }
 

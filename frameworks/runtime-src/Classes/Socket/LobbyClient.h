@@ -27,6 +27,10 @@ class LobbyClient {
 	void onRecvStatus(const quyetnd::net::SocketStatusData& data);
 	void sendMessage(quyetnd::data::Value* message);
 	void sendJSMessage(const std::string& messageName, const std::string& value);
+	
+	bool _waitingPing;
+	float _pingTime;
+	void updatePing(float dt);
 public:
 	LobbyClient();
 	virtual ~LobbyClient();
