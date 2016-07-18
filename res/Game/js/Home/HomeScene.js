@@ -62,7 +62,9 @@ var HomeScene = IScene.extend({
         this.userInfo.rewardBt.addClickEventListener(function () {
             thiz.rewardButtonHandler();
         });
-
+        this.userInfo.userinfoBt.addClickEventListener(function () {
+            thiz.userInfoButtonHandler();
+        });
     },
 
     startHome : function () {
@@ -83,6 +85,7 @@ var HomeScene = IScene.extend({
         this.gameLayer.visible = true;
         this.lobbyLayer.visible = false;
         this.userInfo.visible = true;
+        this.userInfo.refreshView();
         if(arguments.length == 1) {
             this.miniGame.startAnimation();
             this.gameLayer.startAnimation();
@@ -95,6 +98,7 @@ var HomeScene = IScene.extend({
         this.gameLayer.visible = false;
         this.lobbyLayer.visible = true;
         this.userInfo.visible = true;
+        this.userInfo.refreshView();
         if(arguments.length == 1){
             this.lobbyLayer.startGame(arguments[0]);
         }
@@ -169,9 +173,6 @@ var HomeScene = IScene.extend({
 
        // LoadingDialog.getInstance().show();
         //MessageNode.getInstance().show("Test message node");
-        var dialog = new UserinfoDialog();
-       // dialog.setMessage("dialog dialog dialog dialog dialog dialog dialog dialog dialog dialog dialog dialog dialog dialog dialog dialog dialog dialog dialog dialog dialog dialog");
-        dialog.show();
     },
 
     newsMesasgeButtonHandler : function () {
@@ -187,6 +188,7 @@ var HomeScene = IScene.extend({
     },
     
     userInfoButtonHandler : function () {
-        
+        var dialog = new UserinfoDialog();
+        dialog.show();
     }
 });

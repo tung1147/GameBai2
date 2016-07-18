@@ -35,17 +35,8 @@ var LobbyClient = (function() {
                         cc.eventManager.dispatchEvent(event);
                     }
                 };
-
-             //   cc.director.getScheduler().scheduleUpdateForTarget(this,0, false);
             }
         },
-
-        // update : function (dt) {
-        //     // if(this.lobbySocket.getStatus() == socket.LobbyClient.Connected){
-        //     //     cc.log("update ping");
-        //     // }
-        // },
-
         send: function(message) {
             if(this.lobbySocket){
                 this.lobbySocket.send(JSON.stringify(message));

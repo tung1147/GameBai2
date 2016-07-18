@@ -102,3 +102,13 @@ s_games_display_name[GameType.GAME_Phom] = "PHỎM";
 s_games_display_name[GameType.GAME_BaCay] = "BA CÂY NHẤT ĂN TẤT";
 s_games_display_name[GameType.GAME_Lieng] = "LIÊNG";
 s_games_display_name[GameType.GAME_BaCayChuong] = "BA CÂY CHƯƠNG";
+
+var PlayerMe = PlayerMe || {};
+PlayerMe.username = "quyetnd";
+PlayerMe.password = "1234567";
+PlayerMe.verify = true;
+PlayerMe.phoneNumber = "0123456789";
+PlayerMe.gold = 1000;
+PlayerMe.exp = 1000;
+PlayerMe.vipExp = 1000;
+PlayerMe.messageCount = 100;
