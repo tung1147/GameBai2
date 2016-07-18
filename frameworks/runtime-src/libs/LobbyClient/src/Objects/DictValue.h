@@ -33,7 +33,7 @@ public:
 	double getDouble(const std::string& key, double defaultValue = 0);
 	int64_t getInt(const std::string& key, int64_t defaultValue = 0);
 	uint64_t getUInt(const std::string& key, uint64_t defaultValue = 0);
-	std::string getString(const std::string& key, const std::string& defaultValue = "");
+	const std::string& getString(const std::string& key, const std::string& defaultValue = "");
 	DictValue* getDict(const std::string& key, DictValue* defaultValue = 0);
 	ArrayValue* getArray(const std::string& key, ArrayValue* defaultValue = 0);
 

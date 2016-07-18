@@ -20,6 +20,10 @@ class SmartfoxClient {
 
 	void onRecvMessage(SFS::SocketData* data);
 	void onRecvStatus(const SFS::SocketStatusData& data);
+
+	bool _waitingPing;
+	float _pingTime;
+	void updatePing(float dt);
 public:
 	SmartfoxClient();
 	virtual ~SmartfoxClient();

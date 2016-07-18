@@ -147,7 +147,7 @@ uint64_t DictValue::getUInt(const std::string& key, uint64_t defaultValue){
 	return defaultValue;
 }
 
-std::string DictValue::getString(const std::string& key, const std::string& defaultValue){
+const std::string& DictValue::getString(const std::string& key, const std::string& defaultValue){
 	auto item = this->getItem(key);
 	if (item){
 		return ((StringValue*)item)->getString();

@@ -9,6 +9,8 @@
 #include "cocos2d.h"
 USING_NS_CC;
 
+#define PING_TIME_STEP 15.0f
+
 namespace quyetnd {
 
 LobbyClient::LobbyClient() {
@@ -57,6 +59,31 @@ void LobbyClient::initClientWithType(int type){
 void LobbyClient::update(float dt){
 	if (mClient){
 		mClient->processMessage();
+		if (mClient->getStatus() == quyetnd::net::SocketStatusType::Connected){
+			this->updatePing(dt);
+		}
+	}
+}
+
+void LobbyClient::updatePing(float dt){
+	if (_pingTime <= 0.0f){
+		if (_waitingPing){
+			mClient->closeSocket();
+		}
+		else{		
+			//send ping
+			quyetnd::data::DictValue* pingRequest = new quyetnd::data::DictValue();
+			pingRequest->setString("command", "ping");
+			pingRequest->setInt("time", time(0));
+			this->sendMessage(pingRequest);
+			pingRequest->release();
+
+			_pingTime = PING_TIME_STEP;
+			_waitingPing = true;
+		}
+	}
+	else{
+		_pingTime -= 0.0f;
 	}
 }
 
@@ -68,6 +95,8 @@ void LobbyClient::sendMessage(quyetnd::data::Value* message){
 
 void LobbyClient::connect(const std::string& host, int port){
 	if (mClient){	
+		_waitingPing = false;
+		_pingTime = 0.0f;
 		mClient->connectTo(host, port);
 	}
 }
@@ -85,6 +114,11 @@ void LobbyClient::close(){
 }
 
 void LobbyClient::onRecvMessage(quyetnd::net::SocketData* data){
+	quyetnd::data::DictValue* msg = (quyetnd::data::DictValue*)data;
+	auto command = msg->getString("command");
+	if (command == "ping"){
+		_waitingPing = false;
+	}
 	this->sendJSMessage("message", data->toJSON());
 }
 

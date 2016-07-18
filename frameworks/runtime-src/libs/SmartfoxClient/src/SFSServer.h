@@ -13,5 +13,6 @@
 #include "Entities/SFSEntity.h"
 #include "Entities/SFSObject.h"
 #include "Entities/SFSPrimitive.h"
+#include "Entities/MessageType.h"
 
 #endif /* SFSCLIENT_SFSSERVER_H_ */
