@@ -112,6 +112,10 @@ var HomeScene = IScene.extend({
     },
 
     backButtonHandler : function () {
+        if(this.popupLayer.getChildren().length > 0){
+            this.popupLayer.removeAllChildren();
+            return;
+        }
         if(this.subLayer){
             this.subLayer.removeFromParent(true);
             this.subLayer = 0;
@@ -128,10 +132,20 @@ var HomeScene = IScene.extend({
         }
         if(this.homeLocation == 1){
             //exit app
+            SystemPlugin.getInstance().exitApp();
         }
         else if(this.homeLocation == 2){
             //logout
             //to home
+            var dialog = new MessageConfirmDialog();
+            dialog.setMessage("Bạn muốn thoát game ?");
+            dialog.okButtonHandler = function () {
+                SystemPlugin.getInstance().exitApp();
+            };
+            dialog.cancelButtonHandler = function () {
+                dialog.hide();
+            };
+            dialog.show();
         }
         else if(this.homeLocation == 3){
             //to game
@@ -173,6 +187,8 @@ var HomeScene = IScene.extend({
 
        // LoadingDialog.getInstance().show();
         //MessageNode.getInstance().show("Test message node");
+
+
     },
 
     newsMesasgeButtonHandler : function () {
@@ -190,5 +206,21 @@ var HomeScene = IScene.extend({
     userInfoButtonHandler : function () {
         var dialog = new UserinfoDialog();
         dialog.show();
+    },
+
+    onEnter : function () {
+        this._super();
+        var thiz = this;
+        cc.eventManager.addListener({
+            event: cc.EventListener.KEYBOARD,
+            // onKeyPressed:  function(keyCode, event){
+            //     cc.log("Key " + parseKeyCode(keyCode) + " was pressed!");
+            // },
+            onKeyReleased: function(keyCode, event){
+                if(parseKeyCode(keyCode) == cc.KEY.back){
+                    thiz.backButtonHandler();
+                }
+            }
+        }, this);
     }
 });

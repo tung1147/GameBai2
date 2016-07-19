@@ -26,6 +26,14 @@ bool jsb_quyetnd_systemplugin_getVersionName(JSContext *cx, uint32_t argc, jsval
 	return false;
 }
 
+bool jsb_quyetnd_systemplugin_exitApp(JSContext *cx, uint32_t argc, jsval *vp){
+	if (argc == 0){
+		quyetnd::SystemPlugin::getInstance()->exitApp();
+		return true;
+	}
+	return false;
+}
+
 bool jsb_quyetnd_systemplugin_getPackageName(JSContext *cx, uint32_t argc, jsval *vp){
 	if (argc == 0){
 		JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
@@ -154,6 +162,7 @@ void js_register_quyetnd_systemplugin(JSContext *cx, JS::HandleObject global) {
 		JS_FN("buyIAPItem", jsb_quyetnd_systemplugin_buyIAPItem, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("iOSInitStore", jsb_quyetnd_systemplugin_IOS_InitStore, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("setTarget", jsb_quyetnd_systemplugin_setJSTarget, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("exitApp", jsb_quyetnd_systemplugin_exitApp, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FS_END
     };
 	
