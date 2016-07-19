@@ -69,5 +69,12 @@ var InboxLayer = LobbySubLayer.extend({
         titleLabel.setPosition(bg3.getPosition());
         container.addChild(titleLabel);
 
+        container.setTouchEnabled(true);
+        container.addClickEventListener(function () {
+            var dialog = new MessageDialog();
+            dialog.title.setString("Tin nhắn");
+            dialog.setMessage(content);
+            dialog.showWithAnimationScale();
+        });
     }
 });

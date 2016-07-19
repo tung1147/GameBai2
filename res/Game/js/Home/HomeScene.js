@@ -164,7 +164,7 @@ var HomeScene = IScene.extend({
         });
 
         this.subLayer = subLayer;
-        this.addChild(subLayer);
+        this.sceneLayer.addChild(subLayer);
         this.mainLayer.visible = false;
     },
 
@@ -177,7 +177,8 @@ var HomeScene = IScene.extend({
     },
 
     settingButtonHandler : function () {
-
+        var dialog = new SettingDialog();
+        dialog.showWithAnimationMove();
     },
 
     callButtonHandler : function () {

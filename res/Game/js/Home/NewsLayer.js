@@ -22,6 +22,7 @@ var NewsSubLayer = cc.Node.extend({
 var NewsNotificationLayer = NewsSubLayer.extend({
     ctor : function () {
         this._super();
+        this.dialogTitle = "Thông báo";
         var titleLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "THÔNG BÁO");
         titleLabel.setPosition(489.0 * cc.winSize.screenScale, 576);
         var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "THỜI GIAN");
@@ -58,12 +59,22 @@ var NewsNotificationLayer = NewsSubLayer.extend({
         var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, time);
         timeLabel.setPosition(bg2.getPosition());
         container.addChild(timeLabel);
+
+        container.setTouchEnabled(true);
+        var thiz = this;
+        container.addClickEventListener(function () {
+            var dialog = new MessageDialog();
+            dialog.title.setString(thiz.dialogTitle);
+            dialog.setMessage(content);
+            dialog.showWithAnimationScale();
+        });
     }
 });
 
 var NewsTutorialLayer = NewsNotificationLayer.extend({
     ctor : function () {
         this._super();
+        this.dialogTitle = "Hướng dẫn";
         this.titleLabel.setString("HƯỚNG DẪN");
     }
 });

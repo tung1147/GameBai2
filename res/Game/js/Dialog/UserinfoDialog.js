@@ -366,7 +366,7 @@ var UserinfoDialog = IDialog.extend({
     initAllLayer : function () {
         var allLayer = [new UserinfoPasswordLayer(), new UserinfoVerifyLayer()];
         for(var i=0;i<allLayer.length;i++){
-            this.addChild(allLayer[i],1);
+            this.dialogNode.addChild(allLayer[i],1);
             allLayer[i].visible = false;
         }
         this.allLayer = allLayer;
@@ -379,15 +379,15 @@ var UserinfoDialog = IDialog.extend({
 
         var mToggle = new ToggleNodeGroup();
         this.mToggle = mToggle;
-        this.addChild(mToggle);
+        this.dialogNode.addChild(mToggle);
         for(var i=0;i<img1.length;i++){
             var icon1 = new cc.Sprite(img1[i]);
             icon1.setPosition(x,y);
-            this.addChild(icon1);
+            this.dialogNode.addChild(icon1);
 
             var icon2 = new cc.Sprite(img2[i]);
             icon2.setPosition(x,y);
-            this.addChild(icon2);
+            this.dialogNode.addChild(icon2);
             if(i==1){
                 var subicon1 = new cc.Sprite("#userinfo-tab5.png");
                 subicon1.setPosition(icon1.getContentSize().width/2,icon1.getContentSize().height/2);
