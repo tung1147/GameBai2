@@ -22,7 +22,7 @@ var HomeScene = IScene.extend({
         this.mainLayer.addChild(this.userInfo);
 
         this.homeLayer = new HomeLayer();
-        this.mainLayer.addChild(this.homeLayer);
+        this.mainLayer.addChild(this.homeLayer,1);
 
         this.gameLayer = new GameLayer();
         this.mainLayer.addChild(this.gameLayer);
@@ -32,10 +32,6 @@ var HomeScene = IScene.extend({
 
         this.miniGame = new MiniGameLayer();
         this.mainLayer.addChild(this.miniGame);
-
-        //this.startHome();
-        this.startGame();
-        //this.startLobby();
 
         var thiz = this;
         this.topBar.backBt.addClickEventListener(function () {
@@ -65,6 +61,8 @@ var HomeScene = IScene.extend({
         this.userInfo.userinfoBt.addClickEventListener(function () {
             thiz.userInfoButtonHandler();
         });
+
+        this.startHome();
     },
 
     startHome : function () {
@@ -169,10 +167,18 @@ var HomeScene = IScene.extend({
     },
 
     newsButtonhandler : function () {
+        if(this.homeLocation == 1){
+            MessageNode.getInstance().show("Bạn phải đăng nhập trước");
+            return;
+        }
         this.addSubLayer(new NewsLayer());
     },
     
     rankButtonHandler : function () {
+        if(this.homeLocation == 1){
+            MessageNode.getInstance().show("Bạn phải đăng nhập trước");
+            return;
+        }
         this.addSubLayer(new RankLayer());
     },
 
@@ -195,6 +201,10 @@ var HomeScene = IScene.extend({
     },
 
     newsMesasgeButtonHandler : function () {
+        if(this.homeLocation == 1){
+            MessageNode.getInstance().show("Bạn phải đăng nhập trước");
+            return;
+        }
         this.addSubLayer(new InboxLayer());
     },
     

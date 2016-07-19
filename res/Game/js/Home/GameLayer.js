@@ -80,6 +80,12 @@ var GameLayer = cc.Node.extend({
         var gameButton = new ccui.Button("lobby-game"+ gameId +".png", "", "", ccui.Widget.PLIST_TEXTURE);
         listGame.pushItem(gameButton);
         gameButton.addClickEventListener(function () {
+            var homeScene = cc.director.getRunningScene();
+            if(homeScene.homeLocation == 1){
+                MessageNode.getInstance().show("Bạn phải đăng nhập trước");
+                return;
+            }
+
             if(gameId == GameType.MiniGame_CaoThap){
 
             }
@@ -93,7 +99,6 @@ var GameLayer = cc.Node.extend({
 
             }
             else{
-                var homeScene = cc.director.getRunningScene();
                 homeScene.startLobby(gameId);
             }
         });

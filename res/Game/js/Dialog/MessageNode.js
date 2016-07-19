@@ -7,8 +7,8 @@ var MessageNode = (function() {
     var MessageNodeClass = cc.Node.extend({
         ctor : function () {
             this._super();
-            var colorLayer = new cc.LayerColor(cc.color(0,0,0,180), cc.winSize.width, cc.winSize.height);
-            this.addChild(colorLayer);
+            // var colorLayer = new cc.LayerColor(cc.color(0,0,0,180), cc.winSize.width, cc.winSize.height);
+            // this.addChild(colorLayer);
 
             var bg = new cc.Sprite("#dialog-message-bg.png");
             bg.setPosition(cc.winSize.width/2, cc.winSize.height/2);
