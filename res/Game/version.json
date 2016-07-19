@@ -5,12 +5,16 @@
             "hash": "e8b7f4750ff44238438c5a5c7d124cc8"
         },
         {
+            "file": "js/Core/NewAction.js",
+            "hash": "e6efda0380013f188f077fc2abec0aa0"
+        },
+        {
             "file": "js/Core/ToggleNodeGroup.js",
             "hash": "6c2e04855546bdc301f82655f468e36c"
         },
         {
             "file": "js/Dialog/Dialog.js",
-            "hash": "727c884760ff4af1a4ae3de403383392"
+            "hash": "723260dd560a13f52d967f7e39c4022e"
         },
         {
             "file": "js/Dialog/InviteDialog.js",
@@ -18,15 +22,23 @@
         },
         {
             "file": "js/Dialog/LoadingDialog.js",
-            "hash": "727c884760ff4af1a4ae3de403383392"
+            "hash": "a3675c17416869fea7ae2c3e34c4a3a1"
+        },
+        {
+            "file": "js/Dialog/MessageDialog.js",
+            "hash": "a5ba151bc385932a2cf0977336e032e3"
         },
         {
             "file": "js/Dialog/MessageNode.js",
-            "hash": "727c884760ff4af1a4ae3de403383392"
+            "hash": "2672d91aa0eaa89728d78f246ac62841"
         },
         {
             "file": "js/Dialog/ResultDialog.js",
             "hash": "727c884760ff4af1a4ae3de403383392"
+        },
+        {
+            "file": "js/Dialog/RewardDialog.js",
+            "hash": "7a917f1749c53858574f47fabf35a9b8"
         },
         {
             "file": "js/Dialog/SettingDialog.js",
@@ -38,15 +50,19 @@
         },
         {
             "file": "js/Dialog/UserinfoDialog.js",
-            "hash": "727c884760ff4af1a4ae3de403383392"
+            "hash": "58a569b8cef7961d2b43331280774e1a"
         },
         {
             "file": "js/Dialog/UserListDialog.js",
             "hash": "727c884760ff4af1a4ae3de403383392"
         },
         {
+            "file": "js/Global/UserAvatar.js",
+            "hash": "b653ecab10d3c479335452053192e0ab"
+        },
+        {
             "file": "js/Global.js",
-            "hash": "2c534cfca5e2254f6ee3a0caada9e76e"
+            "hash": "e902834c01001a3aca576f179a00147e"
         },
         {
             "file": "js/Home/GameLayer.js",
@@ -58,15 +74,15 @@
         },
         {
             "file": "js/Home/HomeScene.js",
-            "hash": "f3a7b917b8d03f72a48925a8502b87a9"
+            "hash": "505ff004ae3f021e7c24be03c29e3a62"
         },
         {
             "file": "js/Home/InboxLayer.js",
-            "hash": "1025bb879726501a9e8b672a5fda7350"
+            "hash": "82b732b0d8ad3a68d45644d087682eb3"
         },
         {
             "file": "js/Home/LobbyBottomBar.js",
-            "hash": "4203f0ea06ec87f170ec790aa5fe7fe4"
+            "hash": "dcb36007034b7c9f8163bcd4d38b677e"
         },
         {
             "file": "js/Home/LobbyLayer.js",
@@ -82,42 +98,38 @@
         },
         {
             "file": "js/Home/MiniGameLayer.js",
-            "hash": "ae3cb09d660fee51cea5494ccba6f016"
+            "hash": "90f2eac96dc063112bb374ac9b2965a1"
         },
         {
             "file": "js/Home/NewsLayer.js",
-            "hash": "723b0ceabe8c5cd562b9199d49d9e0d8"
+            "hash": "175c5c312867254d144cda94538abdf4"
         },
         {
             "file": "js/Home/PaymentLayer.js",
-            "hash": "b14138dcf7e8b598f37889aec20f5186"
+            "hash": "c0a82697683f5dd00c2ad87ebaa00de8"
         },
         {
             "file": "js/Home/RankLayer.js",
-            "hash": "e2925b1cce288426281fb5dbf796de14"
+            "hash": "cb2e5b742aa9c39c9b71fbbfbf080cd5"
         },
         {
             "file": "js/Home/RewardLayer.js",
-            "hash": "bf0ba4369972f255b256d1145f57e0c6"
+            "hash": "07ef9bac818cd13916c98ab6abcf8222"
         },
         {
             "file": "js/IScene.js",
-            "hash": "7dec4a222c66b2124880f05b87d44101"
-        },
-        {
-            "file": "js/LobbyClient.js",
-            "hash": "834d2ea0d415d14c95a15616a2e2c638"
+            "hash": "6d75c3c778014bc68c9afb6571dea72e"
         },
         {
             "file": "js/main.js",
-            "hash": "c11c266da89d07bd65af9e4b25c134f5"
+            "hash": "aa70d9ec4acfbfa9ac1dc1e4f00e6d3e"
         },
         {
-            "file": "js/NewAction.js",
-            "hash": "e6efda0380013f188f077fc2abec0aa0"
+            "file": "js/Socket/LobbyClient.js",
+            "hash": "438dd023bbcf5950ea4c1b3ca8c01335"
         },
         {
-            "file": "js/SmartfoxClient.js",
+            "file": "js/Socket/SmartfoxClient.js",
             "hash": "b173d53569d09d9149ad2515cc9952bf"
         },
         {
@@ -146,11 +158,11 @@
         },
         {
             "file": "res/dialog.plist",
-            "hash": "93d9ab4325bbe0e5261c0a9db60267a7"
+            "hash": "22d4bfb87a2db0417b133d30dac4fc02"
         },
         {
             "file": "res/dialog.png",
-            "hash": "8c72161f3942910efe4810256334612a"
+            "hash": "c24746fe5dab9161458030e9f0a10986"
         },
         {
             "file": "res/effectMini.plist",
@@ -298,19 +310,19 @@
         },
         {
             "file": "res/home.plist",
-            "hash": "4ee4bd46dba64ed0a02f43e851c393f7"
+            "hash": "f93373a220ecf75afba478ac5b07de18"
         },
         {
             "file": "res/home.png",
-            "hash": "f2f1a8da1f6c9a80370cd44db254d062"
+            "hash": "940e58c3422174893e5cfcd4ec6cd071"
         },
         {
             "file": "res/lobby.plist",
-            "hash": "9fb1c91bfe0524a219240239f4c8afed"
+            "hash": "9af57e09e160a76a8bc56c3520ed3502"
         },
         {
             "file": "res/lobby.png",
-            "hash": "fd62fe1f66b62158095283bad2b01fac"
+            "hash": "c651c70017f375853f389d167d9de99d"
         },
         {
             "file": "res/mnpk_bg.png",
@@ -382,7 +394,7 @@
         },
         {
             "file": "script.json",
-            "hash": "c62604493b94b2b34113e9ba46d95453"
+            "hash": "f8099e27c4bafa6ae701ddce759b5042"
         }
     ],
     "versionName": "1.0.1",

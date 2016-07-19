@@ -52,11 +52,18 @@ var IDialog = cc.Node.extend({
             }
         }
     },
-    showWithAnimationScane : function () {
-
+    showWithAnimationScale : function () {
+        Dialog.prototype.show.apply(this, arguments);
+        var scale = this.dialogNode.getScale();
+        this.dialogNode.setScale(0.0);
+        var scaleAction = new cc.EaseElasticOut(new cc.ScaleTo(0.7, scale));
+        this.dialogNode.runAction(scaleAction);
     },
     showWithAnimationMove : function () {
-
+        Dialog.prototype.show.apply(this, arguments);
+        this.dialogNode.y = cc.winSize.height + this.dialogNode.getContentSize().height/2;
+        var moveAction = new cc.EaseBounceOut(new cc.MoveTo(0.7, cc.p(cc.winSize.width/2, cc.winSize.height/2)));
+        this.dialogNode.runAction(moveAction);
     },
     hide : function () {
         var parent = this.getParent();

@@ -188,7 +188,9 @@ var HomeScene = IScene.extend({
        // LoadingDialog.getInstance().show();
         //MessageNode.getInstance().show("Test message node");
 
-
+        var dialog = new RewardDialog();
+        dialog.setItem("Apple iPhone 10S 128GB", 1000000);
+        dialog.showWithAnimationScale();
     },
 
     newsMesasgeButtonHandler : function () {
@@ -205,7 +207,7 @@ var HomeScene = IScene.extend({
     
     userInfoButtonHandler : function () {
         var dialog = new UserinfoDialog();
-        dialog.show();
+        dialog.showWithAnimationMove();
     },
 
     onEnter : function () {

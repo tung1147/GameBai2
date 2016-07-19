@@ -52,10 +52,10 @@
  *
  */
 require("js/Global.js");
-require("js/NewAction.js");
-require("js/LobbyClient.js");
-require("js/SmartfoxClient.js");
+require("js/Core/NewAction.js");
 require("js/Core/ToggleNodeGroup.js");
+require("js/Socket/LobbyClient.js");
+require("js/Socket/SmartfoxClient.js");
 require("js/Global/UserAvatar.js");
 require("js/Dialog/Dialog.js");
 require("js/Dialog/MessageDialog.js");
@@ -67,6 +67,7 @@ require("js/Dialog/SettingDialog.js");
 require("js/Dialog/UserDialog.js");
 require("js/Dialog/UserinfoDialog.js");
 require("js/Dialog/UserListDialog.js");
+require("js/Dialog/RewardDialog.js");
 require("js/app.js");
 require("js/IScene.js");
 require("js/Home/LobbySubLayer.js");
