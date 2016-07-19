@@ -431,6 +431,14 @@ var UserinfoDialog = IDialog.extend({
             this.subicon1.visible = true;
             this.subicon2.visible = true;
         }
+
+        var level = cc.Global.GetLevelMe();
+        this.levelLabel.setString("Level " + level.level);
+        this.levelBar.setPercentage(level.expPer);
+
+        var vip = cc.Global.GetVipMe();
+        this.vipLabel.setString("VIP " + vip.level);
+        this.vipBar.setPercentage(vip.expPer);
     },
 
     onEnter : function () {

@@ -133,5 +133,13 @@ var LobbyBottomBar = cc.Node.extend({
                 this.newLabel.setString(PlayerMe.messageCount.toString());
             }
         }
+
+        var level = cc.Global.GetLevelMe();
+        this.levelLabel.setString("Level " + level.level);
+        this.levelBar.setPercentage(level.expPer);
+
+        var vip = cc.Global.GetVipMe();
+        this.vipLabel.setString("VIP " + vip.level);
+        this.vipBar.setPercentage(vip.expPer);
     }
 });

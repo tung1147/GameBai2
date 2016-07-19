@@ -80,7 +80,6 @@ var NewsTutorialLayer = NewsNotificationLayer.extend({
 });
 
 var NewsLevelLayer = NewsSubLayer.extend({
-
     ctor : function () {
         this._super();
 
@@ -108,9 +107,7 @@ var NewsLevelLayer = NewsSubLayer.extend({
         this.addChild(contentLabel);
         this.contentLabel = contentLabel;
 
-        for(var i=0;i<10;i++){
-            this.addItem(100+i, 1000000000 + i, "content\n asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd");
-        }
+        this.initData();
     },
 
     addItem : function (level,score,content) {
@@ -149,6 +146,11 @@ var NewsLevelLayer = NewsSubLayer.extend({
 
         contentlabel.setPosition(bg3.getPosition());
         container.addChild(contentlabel);
+    },
+    initData : function () {
+        for(var i=0;i<LevelData.length ;i++){
+            this.addItem(i,LevelData[i].exp, LevelData[i].content);
+        }
     }
 });
 
@@ -156,6 +158,11 @@ var NewsVipLayer = NewsLevelLayer.extend({
     ctor : function () {
         this._super();
         this.levelLabel.setString("VIP");
+    },
+    initData : function () {
+        for(var i=0;i<VipData.length ;i++){
+            this.addItem(i,VipData[i].exp, VipData[i].content);
+        }
     }
 });
 

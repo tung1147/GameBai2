@@ -1,0 +1,50 @@
+[
+  {
+    "exp": 0,
+    "content": "Chưa đổi thưởng"
+  },
+  {
+    "exp": 1000,
+    "content": "test"
+  },
+  {
+    "exp": 2000,
+    "content": "test content"
+  },
+  {
+    "exp": 3000,
+    "content": "test content"
+  },
+  {
+    "exp": 4000,
+    "content": "test content"
+  },
+  {
+    "exp": 5000,
+    "content": "test content"
+  },
+  {
+    "exp": 6000,
+    "content": "test content"
+  },
+  {
+    "exp": 7000,
+    "content": "test content"
+  },
+  {
+    "exp": 8000,
+    "content": "test content"
+  },
+  {
+    "exp": 9000,
+    "content": "test content"
+  },
+  {
+    "exp": 10000,
+    "content": "test content"
+  },
+  {
+    "exp": 11000,
+    "content": "max level"
+  }
+]

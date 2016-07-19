@@ -109,6 +109,56 @@ PlayerMe.password = "1234567";
 PlayerMe.verify = true;
 PlayerMe.phoneNumber = "0123456789";
 PlayerMe.gold = 1000;
-PlayerMe.exp = 1000;
+PlayerMe.exp = 11000;
 PlayerMe.vipExp = 1000;
 PlayerMe.messageCount = 100;
+
+var LevelData = JSON.parse(jsb.fileUtils.getStringFromFile("res/data/LevelData.json"));
+var VipData = JSON.parse(jsb.fileUtils.getStringFromFile("res/data/VipData.json"));
+cc.Global.GetLevel = function (exp) {
+    var preLevel = LevelData[0];
+    for(var i=1;i<LevelData.length;i++){
+        var obj = LevelData[i];
+        if(exp >= preLevel.exp && exp < obj.exp){
+            var expPer = 100.0 * (exp - preLevel.exp) / (obj.exp - preLevel.exp);
+            return {
+                level : i-1,
+                expPer : expPer,
+                content : preLevel.content
+            };
+        }
+        preLevel = obj;
+    }
+    return {
+        level : LevelData.length-1,
+        expPer : 100.0,
+        content : preLevel.content
+    };
+};
+cc.Global.GetVip = function (exp) {
+    var preLevel = VipData[0];
+    for(var i=1;i<VipData.length;i++){
+        var obj = VipData[i];
+        if(exp >= preLevel.exp && exp < obj.exp){
+            var expPer = 100.0 * (exp - preLevel.exp) / (obj.exp - preLevel.exp);
+            return {
+                level : i-1,
+                expPer : expPer,
+                content : preLevel.content
+            };
+        }
+        preLevel = obj;
+    }
+    return {
+        level : VipData.length-1,
+        expPer : 100.0,
+        content : preLevel.content
+    };
+};
+
+cc.Global.GetLevelMe = function () {
+    return cc.Global.GetLevel(PlayerMe.exp);
+};
+cc.Global.GetVipMe = function () {
+    return cc.Global.GetVip(PlayerMe.vipExp);
+};

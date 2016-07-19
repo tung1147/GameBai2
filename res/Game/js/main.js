@@ -51,7 +51,7 @@
  }
  *
  */
-require("js/Global.js");
+require("js/Global/Global.js");
 require("js/Core/NewAction.js");
 require("js/Core/ToggleNodeGroup.js");
 require("js/Socket/LobbyClient.js");
