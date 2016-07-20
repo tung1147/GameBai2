@@ -377,6 +377,9 @@ var UserinfoDialog = IDialog.extend({
         var y = 419.0;
         var dy = 86.0;
 
+        var selectSprite = new cc.Sprite("#userinfo-tab-selected.png");
+        this.dialogNode.addChild(selectSprite,1);
+
         var mToggle = new ToggleNodeGroup();
         this.mToggle = mToggle;
         this.dialogNode.addChild(mToggle);
@@ -410,6 +413,7 @@ var UserinfoDialog = IDialog.extend({
                 this.icon1.visible = false;
                 this.icon2.visible = true;
                 this.layer.setVisible(true);
+                selectSprite.setPosition(this.getPosition());
             };
             toggleItem.onUnSelect = function () {
                 this.icon1.visible = true;

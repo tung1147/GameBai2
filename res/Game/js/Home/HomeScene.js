@@ -62,7 +62,7 @@ var HomeScene = IScene.extend({
             thiz.userInfoButtonHandler();
         });
 
-        this.startHome();
+        this.startGame();
     },
 
     startHome : function () {

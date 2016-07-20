@@ -113,6 +113,10 @@ PlayerMe.exp = 11000;
 PlayerMe.vipExp = 1000;
 PlayerMe.messageCount = 100;
 
+var GameConfig = GameConfig || {};
+GameConfig.email = "gamebaivip@gmail.com";
+GameConfig.hotline = "0123456789";
+
 var LevelData = JSON.parse(jsb.fileUtils.getStringFromFile("res/data/LevelData.json"));
 var VipData = JSON.parse(jsb.fileUtils.getStringFromFile("res/data/VipData.json"));
 cc.Global.GetLevel = function (exp) {
@@ -161,4 +165,15 @@ cc.Global.GetLevelMe = function () {
 };
 cc.Global.GetVipMe = function () {
     return cc.Global.GetVip(PlayerMe.vipExp);
+};
+
+cc.Global.GetSetting = function (setting, defaultValue) {
+    var value = cc.sys.localStorage.getItem(JSON.stringify(setting));
+    if(value){
+        return JSON.parse(value);
+    }
+    return defaultValue;
+};
+cc.Global.SetSetting = function (setting, value) {
+    cc.sys.localStorage.setItem(JSON.stringify(setting), JSON.stringify(value));
 };
