@@ -10,6 +10,7 @@
 #include <cstdio>
 #include "../Logger/SFSLogger.h"
 #include "../Entities/SFSObject.h"
+#include "zlib.h"
 
 namespace SFS{
 //#define PRINT_DEBUG 1
@@ -122,17 +123,67 @@ void TcpSocketReceiver::updateRecvHeader(){
 		headerByte = recvBuffer.at(0);
 		recvBuffer.erase(recvBuffer.begin());
 
+		headerByte = recvBuffer.at(0);
+		binary = headerByte & 0x80;
+		encrypted = headerByte & 0x40;
+		compressed = headerByte & 0x20;
+		blueBoxed = headerByte & 0x10;
+		bigSized = headerByte & 0x08;
+		if (!binary){
+#ifdef SFS_PRINT_DEBUG
+			SFS::log("data is not binary");
+#endif
+			setRunning(false);
+			return;
+		}
+		if (encrypted){
+#ifdef SFS_PRINT_DEBUG
+			SFS::log("data encrypted");
+#endif      
+			setRunning(false);
+			return;
+		}
+
+		if (compressed){
+#ifdef SFS_PRINT_DEBUG
+			SFS::log("data compressed");
+#endif
+		}
+		if (blueBoxed){
+#ifdef SFS_PRINT_DEBUG
+			SFS::log("data blueBoxed");
+#endif
+			setRunning(false);
+			return;
+		}
+
+		dataSizeLength = 2;
+		if (bigSized){
+#ifdef SFS_PRINT_DEBUG
+			SFS::log("data bigSized");
+#endif
+			dataSizeLength = 4;
+		}
+
 		recvState = SFS::TcpSocketReceiver::RECV_STATE_READ_DATA_SIZE;
 		updateRecvBuffer();
 	}
 }
 
 void TcpSocketReceiver::updateRecvDataSize(){
-	if (recvBuffer.size() >= 2){
-		memcpy(&dataSize, recvBuffer.data(), 2);
-		dataSize = htons(dataSize);
+	if (recvBuffer.size() >= dataSizeLength){
+		if (bigSized){
+			memcpy(&dataSize, recvBuffer.data(), dataSizeLength);
+			dataSize = htons(dataSize);
+		}
+		else{
+			short _size;
+			memcpy(&_size, recvBuffer.data(), dataSizeLength);
+			_size = htons(_size);
+			dataSize = (unsigned int)_size;
+		}
 
-		recvBuffer.erase(recvBuffer.begin(), recvBuffer.begin() + 2);
+		recvBuffer.erase(recvBuffer.begin(), recvBuffer.begin() + dataSizeLength);
 		recvState = SFS::TcpSocketReceiver::RECV_STATE_READ_DATA;
 		updateRecvBuffer();
 	}
@@ -140,7 +191,55 @@ void TcpSocketReceiver::updateRecvDataSize(){
 
 void TcpSocketReceiver::updateRecvData(){
 	if (recvBuffer.size() >= dataSize){
-		auto sfsObject = (SFS::Entity::SFSObject*)SFS::Entity::SFSEntity::createEntityWithData(recvBuffer.data(), dataSize);
+		SFS::Entity::SFSEntity* sfsEntity = 0;
+		if (compressed){
+			//uncompress
+			unsigned long uncompressSize = dataSize * 2;
+			unsigned char* uncompressBuffer = 0;
+			do{
+				if (uncompressBuffer){
+					delete[] uncompressBuffer;
+					uncompressBuffer = 0;
+				}
+				uncompressBuffer = new unsigned char[uncompressSize];
+				memset(uncompressBuffer, 0x00, uncompressSize);
+
+				long int result = uncompress(uncompressBuffer, &uncompressSize, (unsigned char*)recvBuffer.data(), (unsigned long)dataSize);
+
+				if (result == Z_BUF_ERROR){
+					uncompressSize += dataSize;
+					continue;
+				}
+				break;
+
+			} while (true);
+
+			sfsEntity = SFS::Entity::SFSEntity::createEntityWithData((char*)uncompressBuffer, uncompressSize);
+
+			if (uncompressBuffer){
+				delete[] uncompressBuffer;
+				uncompressBuffer = 0;
+			}
+		}
+		else{
+			sfsEntity = SFS::Entity::SFSEntity::createEntityWithData(recvBuffer.data(), dataSize);
+		}
+		if (!sfsEntity){
+#ifdef SFS_PRINT_DEBUG
+			SFS::log("parse SFSEntity = NULL");
+#endif	
+			this->setRunning(false);
+			return;
+		}
+		if (sfsEntity->dataType != SFS::Entity::SFSDataType::SFSDATATYPE_SFS_OBJECT){
+#ifdef SFS_PRINT_DEBUG
+			SFS::log("SFSEntity is not SFSObject");
+#endif	
+			this->setRunning(false);
+			return;
+		}
+
+		auto sfsObject = (SFS::Entity::SFSObject*)sfsEntity;
 		if (sfsObject){
 			int targetController = sfsObject->getByte(SFS_CONTROLLER_ID);
 			int messageType = sfsObject->getShort(SFS_ACTION_ID);

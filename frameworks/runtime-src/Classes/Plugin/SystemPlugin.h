@@ -48,6 +48,8 @@ public:
 	void onBuyItemFinished(int returnCode, const std::string& recept);
     void onRegisterNotificationSuccess(const std::string& uid, const std::string& token);
 
+	void exitApp();
+
 	static SystemPlugin* getInstance();
 };
 

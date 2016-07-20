@@ -50,6 +50,9 @@ var SystemPlugin = (function() {
 
         onRegisterNotificationSuccess : function (deviceId, token) {
             cc.log("onRegisterNotificationSuccess: "+deviceId + " - " + token);
+        },
+        exitApp : function () {
+            this.plugin.exitApp();
         }
     });
 

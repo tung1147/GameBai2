@@ -328,6 +328,13 @@ void SystemPlugin::removeSoftKeyboardDelegate(SoftKeyboardDelegate* delegate){
 	_keyboardDelegate.erase(std::remove(_keyboardDelegate.begin(), _keyboardDelegate.end(), delegate));
 }
 
+void SystemPlugin::exitApp(){
+	Director::getInstance()->end();
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+	exit(0);
+#endif
+}
+
 /****/
 SoftKeyboardDelegate::SoftKeyboardDelegate(){
 #if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
