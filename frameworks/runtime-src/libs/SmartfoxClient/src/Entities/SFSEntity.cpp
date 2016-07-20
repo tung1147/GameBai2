@@ -19,6 +19,7 @@ namespace Entity{
 SFSEntity::SFSEntity() {
 	// TODO Auto-generated constructor stub
 	dataType = SFSDataType::SFSDATATYPE_NULL;
+	jsonData = "";
 }
 
 SFSEntity::~SFSEntity() {
@@ -41,11 +42,11 @@ void SFSEntity::printDebug(std::ostringstream& os, int padding){
 
 }
 
-std::string SFSEntity::toJSON(){
+void SFSEntity::toJSON(){
 	std::ostringstream stringStream;
 	//stringStream << std::setprecision(17);
 	this->writeToJSON(stringStream);
-	return stringStream.str();
+	jsonData = stringStream.str();
 }
 
 SFSEntity* SFSEntity::createSFSEntityWithReader(StreamReader* reader){

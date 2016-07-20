@@ -22,6 +22,7 @@ namespace data{
 Value::Value() {
 	// TODO Auto-generated constructor stub
 	valueType = ValueType::TypeNULL;
+	jsonData = "";
 }
 
 Value::~Value() {
@@ -67,11 +68,11 @@ void Value::printPadding(std::ostringstream& outStream, int padding){
 	}
 }
 
-std::string Value::toJSON(){
+void Value::toJSON(){
 	std::ostringstream stringStream;
 	stringStream << std::setprecision(17);
 	this->writeJson(stringStream);
-	return stringStream.str();
+	jsonData = stringStream.str();
 }
 
 //

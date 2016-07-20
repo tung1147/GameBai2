@@ -43,6 +43,7 @@ protected:
 	virtual void printPadding(std::ostringstream& outStream, int padding);
 public:
 	int valueType;
+	std::string jsonData;
 public:
 	Value();
 	virtual ~Value();
@@ -50,7 +51,7 @@ public:
 	virtual void writeJson(std::ostringstream& str);
 	virtual void printDebug();
 
-	virtual std::string toJSON();
+	virtual void toJSON();
 	static Value* createFromJSON(const char* json, int size);
 	static Value* createFromJSON(const std::string& json);
 };

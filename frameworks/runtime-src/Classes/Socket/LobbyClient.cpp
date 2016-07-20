@@ -119,7 +119,7 @@ void LobbyClient::onRecvMessage(quyetnd::net::SocketData* data){
 	if (command == "ping"){
 		_waitingPing = false;
 	}
-	this->sendJSMessage("message", data->toJSON());
+	this->sendJSMessage("message", data->jsonData);
 }
 
 void LobbyClient::onRecvStatus(const quyetnd::net::SocketStatusData& data){

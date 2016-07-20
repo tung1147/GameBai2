@@ -240,6 +240,7 @@ void TcpSocketReceiver::updateRecvData(){
 		}
 
 		auto sfsObject = (SFS::Entity::SFSObject*)sfsEntity;
+		sfsObject->toJSON();
 		if (sfsObject){
 			int targetController = sfsObject->getByte(SFS_CONTROLLER_ID);
 			int messageType = sfsObject->getShort(SFS_ACTION_ID);
