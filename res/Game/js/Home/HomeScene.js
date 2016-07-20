@@ -7,6 +7,9 @@ var HomeScene = IScene.extend({
         this._super();
         this.homeLocation = 0;
 
+        LobbyClient.getInstance().addListener("login", this.onLoginHandler, this);
+        LobbyClient.getInstance().addListener("LobbyStatus", this.onLobbyStatusHandler, this);
+
         var bg = new cc.Sprite("res/game-bg.jpg");
         bg.x = cc.winSize.width/2;
         bg.y = cc.winSize.height/2;
@@ -62,9 +65,16 @@ var HomeScene = IScene.extend({
             thiz.userInfoButtonHandler();
         });
 
-        this.startGame();
+        this.startHome();
     },
-
+    onLoginHandler : function (command, data) {
+        if(data.status == 0){
+            this.startHome();
+        }
+    },
+    onLobbyStatusHandler : function () {
+        cc.log("onLobbyStatusHandler");
+    },
     startHome : function () {
         this.homeLocation = 1;
         this.homeLayer.visible = true;
@@ -76,7 +86,6 @@ var HomeScene = IScene.extend({
             this.gameLayer.startAnimation();
         }
     },
-
     startGame : function () {
         this.homeLocation = 2;
         this.homeLayer.visible = false;
@@ -235,5 +244,10 @@ var HomeScene = IScene.extend({
                 }
             }
         }, this);
+    },
+
+    onExit : function () {
+        this._super();
+        LobbyClient.getInstance().removeListener(this);
     }
 });

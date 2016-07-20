@@ -46,6 +46,9 @@ var LoginDialog = cc.Node.extend({
         this.passwordText.setPosition(passwordBg.getPosition());
         this.layerBg.addChild(this.passwordText,1);
 
+        this.userText.setText(cc.Global.GetSetting("username", ""));
+        this.passwordText.setText(cc.Global.GetSetting("password", ""));
+
         var label1 = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, "Lưu mật khẩu");
         label1.setAnchorPoint(1.0, 0.5);
         label1.setColor(cc.color.WHITE);
@@ -57,6 +60,10 @@ var LoginDialog = cc.Node.extend({
         this.checkBox.loadTextureFrontCross("home-checkCross.png", ccui.Widget.PLIST_TEXTURE);
         this.checkBox.setPosition(label1.x - label1.getContentSize().width - 30 , label1.y);
         this.layerBg.addChild( this.checkBox);
+        this.checkBox.setSelected(cc.Global.GetSetting("savePassword", true));
+        this.checkBox.addEventListener(function (target,event) {
+            cc.Global.SetSetting("savePassword", event == ccui.CheckBox.EVENT_SELECTED);
+        });
 
         var padding = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, "|");
         padding.setColor(cc.color.WHITE);
@@ -95,6 +102,21 @@ var LoginDialog = cc.Node.extend({
                 }
             }
         }, this);
+
+        loginBt.addClickEventListener(function () {
+            var username = thiz.userText.getText();
+            var password = thiz.passwordText.getText();
+            if(!username && username.length == 0){
+                MessageNode.getInstance().show("Bạn phải nhập tên tài khoản");
+                return;
+            }
+            if(!password && password.length == 0){
+                MessageNode.getInstance().show("Bạn phải nhập mật khẩu");
+                return;
+            }
+            LoadingDialog.getInstance().show("Đang đăng nhập");
+            LobbyClient.getInstance().login(username, password);
+        });
     }
 });
 

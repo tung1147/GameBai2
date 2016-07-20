@@ -56,6 +56,7 @@ require("js/Core/NewAction.js");
 require("js/Core/ToggleNodeGroup.js");
 require("js/Core/ButtonToggle.js");
 require("js/Socket/LobbyClient.js");
+require("js/Socket/LobbyError.js");
 require("js/Socket/SmartfoxClient.js");
 require("js/Global/UserAvatar.js");
 require("js/Dialog/Dialog.js");

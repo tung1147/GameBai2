@@ -344,6 +344,7 @@ void SocketReceiver::onRecvMessage(quyetnd::data::Value* value){
 	value->printDebug();
 	quyetnd::log_to_console("\n-------------------\n");
 #endif		
+	value->toJSON();
 	this->pushMessage(value);
 	value->release();
 }

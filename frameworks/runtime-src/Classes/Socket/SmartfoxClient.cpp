@@ -43,7 +43,7 @@ void SmartfoxClient::onRecvMessage(SFS::SocketData* data){
 	if (sc){
 		jsval dataVal[] = {
 			dataVal[0] = INT_TO_JSVAL(data->messageType),
-			dataVal[1] = std_string_to_jsval(sc->getGlobalContext(), data->getContents()->toJSON()),
+			dataVal[1] = std_string_to_jsval(sc->getGlobalContext(), data->getContents()->jsonData),
 		};
 		sc->executeFunctionWithOwner(OBJECT_TO_JSVAL(p->obj), "onMessage", 2, dataVal);
 	}

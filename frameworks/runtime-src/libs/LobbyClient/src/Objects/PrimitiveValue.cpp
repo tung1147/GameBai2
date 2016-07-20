@@ -6,9 +6,34 @@
  */
 
 #include "PrimitiveValue.h"
+#include <iomanip>
 
 namespace quyetnd {
 namespace data{
+
+inline std::string _value_escape_json(const std::string &s) {
+	std::ostringstream o;
+	for (auto c = s.cbegin(); c != s.cend(); c++) {
+		switch (*c) {
+		case '"': o << "\\\""; break;
+		case '\\': o << "\\\\"; break;
+		case '\b': o << "\\b"; break;
+		case '\f': o << "\\f"; break;
+		case '\n': o << "\\n"; break;
+		case '\r': o << "\\r"; break;
+		case '\t': o << "\\t"; break;
+		default:
+			if ('\x00' <= *c && *c <= '\x1f') {
+				o << "\\u"
+					<< std::hex << std::setw(4) << std::setfill('0') << (int)*c;
+			}
+			else {
+				o << *c;
+			}
+		}
+	}
+	return o.str();
+}
 
 PrimitiveValue::PrimitiveValue() {
 	// TODO Auto-generated constructor stub
@@ -163,7 +188,7 @@ void StringValue::writeToBuffer(quyetnd::data::ValueWriter* writer){
 }
 
 void StringValue::writeJson(std::ostringstream& str){
-	str << "\"" << data << "\"";
+	str << "\"" << _value_escape_json(data) << "\"";
 }
 
 void StringValue::printToOutStream(std::ostringstream& outStream, int padding){

@@ -49,14 +49,25 @@ var SettingDialog = Dialog.extend({
         var soundOnOff = new newui.ButtonToggle("#setting-on.png","#setting-off.png");
         soundOnOff.setPosition(550, soundLabel.y);
         soundOnOff.onSelect = function (target,selected) {
-            if(selected){
-
-            }
-            else{
-
-            }
+            cc.Global.SetSetting("sound",selected);
         };
         this.dialogNode.addChild(soundOnOff);
         soundOnOff.select(cc.Global.GetSetting("sound",true));
+
+        var vibratorOnOff = new newui.ButtonToggle("#setting-on.png","#setting-off.png");
+        vibratorOnOff.setPosition(soundOnOff.x, vibratorLabel.y);
+        vibratorOnOff.onSelect = function (target,selected) {
+            cc.Global.SetSetting("vibrator",selected);
+        };
+        this.dialogNode.addChild(vibratorOnOff);
+        vibratorOnOff.select(cc.Global.GetSetting("vibrator",true));
+
+        var inviteOnOff = new newui.ButtonToggle("#setting-on.png","#setting-off.png");
+        inviteOnOff.setPosition(soundOnOff.x, inviteLabel.y);
+        inviteOnOff.onSelect = function (target,selected) {
+            cc.Global.SetSetting("invite",selected);
+        };
+        this.dialogNode.addChild(inviteOnOff);
+        inviteOnOff.select(cc.Global.GetSetting("invite",true));
     }
 });
