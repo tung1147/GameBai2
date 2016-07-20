@@ -34,8 +34,15 @@ namespace SFS{
 		};
 		SSocket mSocket;
 
+		bool binary;
+		bool encrypted;
+		bool compressed;
+		bool blueBoxed;
+		bool bigSized;
+		int dataSizeLength;
+
 		char headerByte;
-		short dataSize;
+		int dataSize;
 		RecvState recvState;
 
 		std::vector<char> recvBuffer;

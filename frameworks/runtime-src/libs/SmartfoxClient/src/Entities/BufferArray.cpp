@@ -191,7 +191,7 @@ void StreamWriter::WriteHeader(){
 	WriteHeader((char*)&dataSize, 2);
 
 	//write header
-	WriteHeader(0x00);
+	WriteHeader(0x80);
 }
 
 void StreamWriter::Reserve(int size){
