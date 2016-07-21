@@ -77,5 +77,8 @@ var LobbyTopBar = cc.Node.extend({
             messageText.x = messageBoxWidth;
         }));
         this.messageText.runAction(new cc.RepeatForever(action));
-    }
+    },
+    refreshView : function () {
+        this.setMessage(GameConfig.broadcastMessage);
+    },
 });

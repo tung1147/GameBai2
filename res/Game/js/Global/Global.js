@@ -60,7 +60,7 @@ GameType.MiniGame_ChanLe = 12;
 GameType.MiniGame_CaoThap = 13;
 GameType.MiniGame_Pocker = 14;
 
-var s_game_id = [
+var s_game_id = s_game_id || [
     [
         GameType.GAME_TLMN_Solo, GameType.GAME_TienLenMN,
         GameType.MiniGame_CaoThap, GameType.MiniGame_Pocker,
@@ -90,7 +90,7 @@ var s_game_id = [
 ];
 
 var s_mini_game_id = [GameType.MiniGame_CaoThap, GameType.MiniGame_Pocker, GameType.MiniGame_ChanLe];
-var s_games_display_name = [];
+var s_games_display_name = s_games_display_name || [];
 s_games_display_name[GameType.GAME_TLMN_Solo] = "TIẾN LÊN MIỀN NAM ĐẾM LÁ SOLO";
 s_games_display_name[GameType.GAME_TienLenMN] = "TIẾN LÊN MIỀN NAM";
 s_games_display_name[GameType.GAME_Sam] = "SÂM LỐC";
@@ -103,6 +103,19 @@ s_games_display_name[GameType.GAME_BaCay] = "BA CÂY NHẤT ĂN TẤT";
 s_games_display_name[GameType.GAME_Lieng] = "LIÊNG";
 s_games_display_name[GameType.GAME_BaCayChuong] = "BA CÂY CHƯƠNG";
 
+var s_games_chanel = s_games_chanel || [];
+s_games_chanel[GameType.GAME_TLMN_Solo] = "";
+s_games_chanel[GameType.GAME_TienLenMN] = "tlmn_tudo";
+s_games_chanel[GameType.GAME_Sam] = "";
+s_games_chanel[GameType.GAME_Sam_Solo] = "";
+s_games_chanel[GameType.GAME_XocDia] = "";
+s_games_chanel[GameType.GAME_TaiXiu] = "";
+s_games_chanel[GameType.GAME_MauBinh] = "";
+s_games_chanel[GameType.GAME_Phom] = "";
+s_games_chanel[GameType.GAME_BaCay] = "";
+s_games_chanel[GameType.GAME_Lieng] = "";
+s_games_chanel[GameType.GAME_BaCayChuong] = "";
+
 var PlayerMe = PlayerMe || {};
 PlayerMe.username = "quyetnd";
 PlayerMe.password = "1234567";
@@ -111,11 +124,13 @@ PlayerMe.phoneNumber = "0123456789";
 PlayerMe.gold = 1000;
 PlayerMe.exp = 11000;
 PlayerMe.vipExp = 1000;
+PlayerMe.spin = 0;
 PlayerMe.messageCount = 100;
 
 var GameConfig = GameConfig || {};
 GameConfig.email = "gamebaivip@gmail.com";
 GameConfig.hotline = "0123456789";
+GameConfig.broadcastMessage = "Thông báo";
 
 var LevelData = JSON.parse(jsb.fileUtils.getStringFromFile("res/data/LevelData.json"));
 var VipData = JSON.parse(jsb.fileUtils.getStringFromFile("res/data/VipData.json"));
@@ -177,3 +192,25 @@ cc.Global.GetSetting = function (setting, defaultValue) {
 cc.Global.SetSetting = function (setting, value) {
     cc.sys.localStorage.setItem(JSON.stringify(setting), JSON.stringify(value));
 };
+
+var ApplicationConfig = ApplicationConfig || {};
+ApplicationConfig.VERSION = "1.0.0";
+ApplicationConfig.BUNBLE = "com.gamebai.vip";
+(function () {
+    if(cc.sys.os === cc.sys.OS_IOS){
+        ApplicationConfig.PLATFORM = 1;
+    }
+    else if(cc.sys.os === cc.sys.OS_ANDROID){
+        ApplicationConfig.PLATFORM = 2;
+    }
+    else if(cc.sys.os === cc.sys.OS_WINRT){
+        ApplicationConfig.PLATFORM = 3;
+    }
+    else if(cc.sys.os === cc.sys.OS_WINDOWS){
+        ApplicationConfig.PLATFORM = 3;
+    }
+    else{
+        ApplicationConfig.PLATFORM = 3;
+    }
+})();
+

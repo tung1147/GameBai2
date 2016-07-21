@@ -60,8 +60,24 @@ var MessageNode = (function() {
                this.showWithTime(arguments[1]);
             }
         },
+        showWithParent : function (message, parent) {
+            var _parent = this.getParent();
+            if(_parent == parent){
+                this.setMessage(message);
+                this.showWithTime(3.0);
+                return;
+            }
+            if(_parent ){
+                _parent.removeChild(this);
+            }
+
+            this.setMessage(message);
+            this.showWithTime(3.0);
+            parent.addChild(this, 1);
+        },
         showWithTime : function (time) {
             var thiz = this;
+            this.stopAllActions();
             this.runAction(new cc.Sequence(new cc.DelayTime(time), new cc.CallFunc(function () {
                 thiz.hide();
             })));

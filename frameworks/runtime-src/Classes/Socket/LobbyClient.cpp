@@ -68,6 +68,7 @@ void LobbyClient::update(float dt){
 void LobbyClient::updatePing(float dt){
 	if (_pingTime <= 0.0f){
 		if (_waitingPing){
+			CCLOG("lobby lost ping");
 			mClient->closeSocket();
 		}
 		else{		

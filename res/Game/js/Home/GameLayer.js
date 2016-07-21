@@ -81,26 +81,7 @@ var GameLayer = cc.Node.extend({
         listGame.pushItem(gameButton);
         gameButton.addClickEventListener(function () {
             var homeScene = cc.director.getRunningScene();
-            if(homeScene.homeLocation == 1){
-                MessageNode.getInstance().show("Bạn phải đăng nhập trước");
-                return;
-            }
-
-            if(gameId == GameType.MiniGame_CaoThap){
-
-            }
-            else if(gameId == GameType.MiniGame_ChanLe){
-
-            }
-            else if(gameId == GameType.MiniGame_Pocker){
-
-            }
-            else if(gameId == GameType.GAME_VongQuayMayMan){
-
-            }
-            else{
-                homeScene.startLobby(gameId);
-            }
+            homeScene.onTouchGame(gameId);
         });
     },
 

@@ -9,6 +9,7 @@ var IScene = cc.Scene.extend({
     screenScale:null,
     ctor : function () {
         this._super();
+        this.type = "IScene";
         this.winSize = cc.winSize;
         this.screenScale = this.winSize.width / 1280.0;
 

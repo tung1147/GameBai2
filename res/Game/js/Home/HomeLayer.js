@@ -5,7 +5,6 @@
 var LoginDialog = cc.Node.extend({
     ctor : function () {
         this._super();
-
         var blackLayer = new cc.LayerColor(cc.color(0,0,0,0.8 * 255), cc.winSize.width, cc.winSize.height);
         this.addChild(blackLayer);
 
@@ -115,7 +114,7 @@ var LoginDialog = cc.Node.extend({
                 return;
             }
             LoadingDialog.getInstance().show("Đang đăng nhập");
-            LobbyClient.getInstance().login(username, password);
+            LobbyClient.getInstance().loginNormal(username, password, thiz.checkBox.isSelected());
         });
     }
 });
@@ -191,6 +190,21 @@ var SignupDialog = cc.Node.extend({
                 }
             }
         }, this);
+
+        signupBt.addClickEventListener(function () {
+            var username = thiz.userText.getText();
+            var password = thiz.passwordText.getText();
+            if(!username && username.length == 0){
+                MessageNode.getInstance().show("Bạn phải nhập tên tài khoản");
+                return;
+            }
+            if(!password && password.length == 0){
+                MessageNode.getInstance().show("Bạn phải nhập mật khẩu");
+                return;
+            }
+            LoadingDialog.getInstance().show("Đang đăng ký");
+            LobbyClient.getInstance().signup(username, password);
+        });
     },
     
 });
@@ -222,18 +236,18 @@ var HomeLayer = cc.Node.extend({
         this.signupBt.setPosition(cc.p(440.0, this.fbButton.y));
         homeBar.addChild(this.signupBt);
         
-        var thiz = this;
-        this.loginBt.addClickEventListener(function () {
-            var loginDialog  = new LoginDialog();
-            thiz.addChild(loginDialog);
-        });
-
-        this.signupBt.addClickEventListener(function () {
-            var signupDialog = new SignupDialog();
-            thiz.addChild(signupDialog);
-        });
-        this.fbButton.addClickEventListener(function () {
-            FacebookPlugin.getInstance().showLogin();
-        });
+        // var thiz = this;
+        // this.loginBt.addClickEventListener(function () {
+        //     var loginDialog  = new LoginDialog();
+        //     thiz.popupLayer.addChild(loginDialog);
+        // });
+        //
+        // this.signupBt.addClickEventListener(function () {
+        //     var signupDialog = new SignupDialog();
+        //     thiz.popupLayer.addChild(signupDialog);
+        // });
+        // this.fbButton.addClickEventListener(function () {
+        //     FacebookPlugin.getInstance().showLogin();
+        // });
     }
 });

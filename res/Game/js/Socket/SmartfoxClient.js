@@ -14,22 +14,23 @@ var SmartfoxClient = (function() {
                 this.lobbySocket = new socket.SmartfoxClient();
                 var thiz = this;
                 this.lobbySocket.onEvent = function (eventName) {
+                    cc.log("sfs: "+eventName);
                     thiz.onEvent(eventName);
-                    var messageData = JSON.parse(data);
-                    var event = new cc.EventCustom("sfsStatus");
-                    event.setUserData({
-                        data : eventName
-                    });
+                    // var messageData = JSON.parse(data);
+                    // var event = new cc.EventCustom("sfsStatus");
+                    // event.setUserData({
+                    //     data : eventName
+                    // });
                 };
                 this.lobbySocket.onMessage = function (messageType, data) {
                     thiz.onMessage(messageType, data);
-                    var messageData = JSON.parse(data);
-                    var event = new cc.EventCustom("sfsMessage");
-                    event.setUserData({
-                        messageType : messageType,
-                        data : data
-                    });
-                    cc.eventManager.dispatchEvent(event);
+                    // var messageData = JSON.parse(data);
+                    // var event = new cc.EventCustom("sfsMessage");
+                    // event.setUserData({
+                    //     messageType : messageType,
+                    //     data : data
+                    // });
+                    // cc.eventManager.dispatchEvent(event);
                 }
             }
         },

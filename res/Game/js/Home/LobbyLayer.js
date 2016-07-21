@@ -4,6 +4,7 @@
 var LobbyLayer = cc.Node.extend({
     ctor : function () {
         this._super();
+        LobbyClient.getInstance().addListener("updateAll", this.onUpdateAll, this);
 
         var chatBar = new cc.Sprite("#home-minigame-bar.png");
         chatBar.setPosition(cc.winSize.width - 162.0 * cc.winSize.screenScale, 170.0);
@@ -168,8 +169,24 @@ var LobbyLayer = cc.Node.extend({
             this.gameTitle.setString(s_games_display_name[gameId]);
         }
     },
-
     startAnimation : function () {
 
-    }
+    },
+    onUpdateAll : function (cmd, event) {
+        var data = event.data;
+        var gameType = LobbyClient.getInstance().gameChannel;
+        if(gameType === data.gameType){
+            cc.log("update all");
+            this.gameList.removeAllItems();
+            var betting = data.betting;
+            for(var i=0;i<betting.length;i++){
+                this.addCell(i, betting[i], betting[i]);
+            }
+            this.gameList.runMoveEffect(3000,0.1,0.1);
+        }
+    },
+    onExit : function () {
+        this._super();
+        LobbyClient.getInstance().removeListener(this);
+    },
 });

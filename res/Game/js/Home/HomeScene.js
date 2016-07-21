@@ -5,6 +5,7 @@
 var HomeScene = IScene.extend({
     ctor : function () {
         this._super();
+        this.type = "HomeScene";
         this.homeLocation = 0;
 
         LobbyClient.getInstance().addListener("login", this.onLoginHandler, this);
@@ -65,42 +66,81 @@ var HomeScene = IScene.extend({
             thiz.userInfoButtonHandler();
         });
 
+        this.homeLayer.loginBt.addClickEventListener(function () {
+            var loginDialog  = new LoginDialog();
+            thiz.popupLayer.addChild(loginDialog);
+        });
+
+        this.homeLayer.signupBt.addClickEventListener(function () {
+            var signupDialog = new SignupDialog();
+            thiz.popupLayer.addChild(signupDialog);
+        });
+        this.homeLayer.fbButton.addClickEventListener(function () {
+            FacebookPlugin.getInstance().showLogin();
+        });
+
         this.startHome();
     },
     onLoginHandler : function (command, data) {
+      //  cc.log("onLoginHandler");
         if(data.status == 0){
-            this.startHome();
+            LoadingDialog.getInstance().hide();
+            if(this.homeLocation == 1){
+                this.userInfo.y = -100.0;
+                this.userInfo.stopAllActions();
+                this.userInfo.runAction(new cc.MoveTo(0.2, cc.p(0,0)));
+                this.startGame();
+            }
+            else{
+                this.userInfo.refreshView();
+                this.topBar.refreshView();
+            }
         }
     },
     onLobbyStatusHandler : function () {
-        cc.log("onLobbyStatusHandler");
+      //  cc.log("onLobbyStatusHandler");
     },
     startHome : function () {
-        this.homeLocation = 1;
+        this.popupLayer.removeAllChildren();
         this.homeLayer.visible = true;
         this.gameLayer.visible = true;
         this.lobbyLayer.visible = false;
         this.userInfo.visible = false;
-        if(arguments.length == 1) {
-            this.miniGame.startAnimation();
+        if(this.homeLocation == 0 || this.homeLocation == 3) {
             this.gameLayer.startAnimation();
         }
+        if(this.homeLocation == 0){
+            this.miniGame.startAnimation();
+        }
+        this.homeLayer.y = -100.0;
+        this.homeLayer.stopAllActions();
+        this.homeLayer.runAction(new cc.EaseSineOut(new cc.MoveTo(0.3, cc.p(0,0))));
+        this.homeLocation = 1;
     },
     startGame : function () {
-        this.homeLocation = 2;
+        this.popupLayer.removeAllChildren();
+        if(this.homeLocation == 0 || this.homeLocation == 1){
+            this.userInfo.y = -100.0;
+            this.userInfo.stopAllActions();
+            this.userInfo.runAction(new cc.EaseSineOut(new cc.MoveTo(0.3, cc.p(0,0))));
+        }
         this.homeLayer.visible = false;
         this.gameLayer.visible = true;
         this.lobbyLayer.visible = false;
         this.userInfo.visible = true;
         this.userInfo.refreshView();
-        if(arguments.length == 1) {
-            this.miniGame.startAnimation();
+        this.topBar.refreshView();
+        if(this.homeLocation == 0 || this.homeLocation == 3) {
             this.gameLayer.startAnimation();
         }
+        if(this.homeLocation == 0){
+            this.miniGame.startAnimation();
+        }
+        this.homeLocation = 2;
     },
 
     startLobby : function(){
-        this.homeLocation = 3;
+        this.popupLayer.removeAllChildren();
         this.homeLayer.visible = false;
         this.gameLayer.visible = false;
         this.lobbyLayer.visible = true;
@@ -112,13 +152,38 @@ var HomeScene = IScene.extend({
         else{
             this.lobbyLayer.startGame(-1);
         }
+        this.homeLocation = 3;
     },
+    onTouchGame : function (gameId) {
+        if(this.homeLocation == 1){
+            MessageNode.getInstance().show("Bạn phải đăng nhập trước");
+            return;
+        }
+        if(gameId == GameType.MiniGame_CaoThap){
+
+        }
+        else if(gameId == GameType.MiniGame_ChanLe){
+
+        }
+        else if(gameId == GameType.MiniGame_Pocker){
+
+        }
+        else if(gameId == GameType.GAME_VongQuayMayMan){
+
+        }
+        else{
+            this.startLobby(gameId);
+            LobbyClient.getInstance().subscribe(gameId);
+        }
+    },
+
 
     startGameWithAnimation : function () {
         this.startGame();
     },
 
     backButtonHandler : function () {
+        var thiz = this;
         if(this.popupLayer.getChildren().length > 0){
             this.popupLayer.removeAllChildren();
             return;
@@ -147,7 +212,8 @@ var HomeScene = IScene.extend({
             var dialog = new MessageConfirmDialog();
             dialog.setMessage("Bạn muốn thoát game ?");
             dialog.okButtonHandler = function () {
-                SystemPlugin.getInstance().exitApp();
+               // SystemPlugin.getInstance().exitApp();
+                thiz.startHome();
             };
             dialog.cancelButtonHandler = function () {
                 dialog.hide();
@@ -156,8 +222,8 @@ var HomeScene = IScene.extend({
         }
         else if(this.homeLocation == 3){
             //to game
+            LobbyClient.getInstance().unSubscribe();
             this.startGame();
-            this.gameLayer.startAnimation();
         }
     },
 
