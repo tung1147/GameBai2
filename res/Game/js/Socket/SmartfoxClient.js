@@ -72,7 +72,6 @@ var SmartfoxClient = (function() {
             content.sp = false; //asSpectator
             this.send(socket.SmartfoxClient.JoinRoom, content);
         },
-
         sendLeaveRoom : function (roomId) {
             var content = {
                 r : roomId

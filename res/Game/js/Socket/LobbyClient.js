@@ -117,6 +117,12 @@ var LobbyClient = (function() {
                         }
                     }
                 }
+                else if (command === "register"){
+                    if(this.loginSuccessHandler){
+                        this.loginSuccessHandler();
+                        this.loginSuccessHandler = null;
+                    }
+                }
                 else if(command === "getGameServer"){
                     var data = event.data;
                     if(this.betting == data.betting){
@@ -183,6 +189,17 @@ var LobbyClient = (function() {
             }
         },
         /*****/
+        checkIMEI : function () {
+            if(!PlayerMe.IMEI){
+                PlayerMe.IMEI = SystemPlugin.getInstance().getDeviceUUIDWithKey(PlayerMe.DeviceIDKey);
+                if(!PlayerMe.IMEI){
+                    MessageNode.getInstance().show("Bạn phải đăng nhập tài khoản Google");
+                    LoadingDialog.getInstance().hide();
+                    return false;
+                }
+            }
+            return true;
+        },
         login : function (username, password,redirectFromSignup) {
             var thiz = this;
             this.loginHandler = function () {
@@ -191,7 +208,7 @@ var LobbyClient = (function() {
                     platformId : ApplicationConfig.PLATFORM,
                     bundleId : ApplicationConfig.BUNBLE,
                     version : ApplicationConfig.VERSION,
-                    imei : "imei",
+                    imei : PlayerMe.IMEI,
                     type : "normal",
                     username : username,
                     password : password
@@ -207,6 +224,10 @@ var LobbyClient = (function() {
             }
         },
         loginNormal : function (username, password,isSave) {
+            if(!this.checkIMEI()){
+                return;
+            }
+
             this.loginSuccessHandler = function () {
                 if(isSave){
                     cc.Global.SetSetting("username", username);
@@ -220,29 +241,38 @@ var LobbyClient = (function() {
             this.login(username, password);
         },
         quickLogin : function () {
+            if(!this.checkIMEI()){
+                return;
+            }
             this.loginSuccessHandler = null;
         },
         loginFacebook : function () {
+            if(!this.checkIMEI()){
+                return;
+            }
             this.loginSuccessHandler = null;
         },
         signup : function (username, password) {
+            if(!this.checkIMEI()){
+                return;
+            }
             this.loginSuccessHandler = null;
             var thiz = this;
             this.loginHandler = function () {
-                thiz.loginHandler = function () {
-                    var loginRequest = {
-                        command : "login",
-                        platformId : ApplicationConfig.PLATFORM,
-                        bundleId : ApplicationConfig.BUNBLE,
-                        version : ApplicationConfig.VERSION,
-                        imei : "imei",
-                        type : "normal",
-                        username : username,
-                        password : password
-                    };
-                    thiz.send(loginRequest);
+                thiz.loginSuccessHandler = function () {
+                    cc.log("loginSuccessHandler");
+                    thiz.login(username, password, true);
                 };
-                thiz.login(username, password, true);
+                var loginRequest = {
+                    command : "register",
+                    platformId : ApplicationConfig.PLATFORM,
+                    bundleId : ApplicationConfig.BUNBLE,
+                    version : ApplicationConfig.VERSION,
+                    imei : PlayerMe.IMEI,
+                    username : username,
+                    password : password
+                };
+                thiz.send(loginRequest);
             };
             cc.log("signup");
             this.connect();

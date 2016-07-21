@@ -132,6 +132,7 @@ var GameConfig = GameConfig || {};
 GameConfig.email = "gamebaivip@gmail.com";
 GameConfig.hotline = "0123456789";
 GameConfig.broadcastMessage = "Thông báo";
+GameConfig.DeviceIDKey = "";
 
 var LevelData = JSON.parse(jsb.fileUtils.getStringFromFile("res/data/LevelData.json"));
 var VipData = JSON.parse(jsb.fileUtils.getStringFromFile("res/data/VipData.json"));
