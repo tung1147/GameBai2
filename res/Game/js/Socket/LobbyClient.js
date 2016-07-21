@@ -228,6 +228,7 @@ var LobbyClient = (function() {
                 return;
             }
 
+            var thiz = this;
             this.loginSuccessHandler = function () {
                 if(isSave){
                     cc.Global.SetSetting("username", username);
@@ -260,8 +261,12 @@ var LobbyClient = (function() {
             var thiz = this;
             this.loginHandler = function () {
                 thiz.loginSuccessHandler = function () {
-                    cc.log("loginSuccessHandler");
+                   // cc.log("loginSuccessHandler");
                     thiz.login(username, password, true);
+                    if(cc.Global.GetSetting("savePassword", true)){
+                        cc.Global.SetSetting("username", username);
+                        cc.Global.SetSetting("password", password);
+                    }
                 };
                 var loginRequest = {
                     command : "register",
