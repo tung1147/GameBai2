@@ -117,6 +117,14 @@ var LobbyClient = (function() {
                         }
                     }
                 }
+                else if(command === "getGameServer"){
+                    var data = event.data;
+                    if(this.betting == data.betting){
+                        PlayerMe.SFS.betting = data.betting;
+                        PlayerMe.SFS.gameType = data.gameType;
+                        SmartfoxClient.getInstance().connect(data.host, data.port);
+                    };
+                }
             }
         },
         onLoginEvent : function (event) {
@@ -130,6 +138,8 @@ var LobbyClient = (function() {
             PlayerMe.vipExp = data.userAssets.vipExp;
             PlayerMe.spin = data.userAssets.spin;
             PlayerMe.verify = data.isVerified;
+            PlayerMe.SFS.info = data.info;
+            PlayerMe.SFS.signature = event.signature;
 
             var userinfo = JSON.parse(data.info);
             PlayerMe.username = userinfo.username;
@@ -292,6 +302,15 @@ var LobbyClient = (function() {
             var request = {
                 command : "unsubscribeChannel",
                 gameType : this.gameChannel
+            };
+            this.send(request);
+        },
+        requestGetServer : function (betting) {
+            this.betting = betting;
+            var request = {
+                command : "getGameServer",
+                gameType : this.gameChannel,
+                betting : betting
             };
             this.send(request);
         }

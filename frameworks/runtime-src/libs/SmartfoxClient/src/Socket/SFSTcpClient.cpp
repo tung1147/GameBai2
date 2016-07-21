@@ -62,7 +62,7 @@ void TcpSocketSender::update(){
 					else{
 #ifdef SFS_PRINT_DEBUG	
 						SFS::log("---------------------");
-						SFS::log("SEND =>");
+						SFS::log("[SFS]SEND =>");
 						sendData->printDebug();
 						SFS::log("---------------------");
 #endif
@@ -124,7 +124,6 @@ void TcpSocketReceiver::updateRecvHeader(){
 		headerByte = recvBuffer.at(0);
 		recvBuffer.erase(recvBuffer.begin());
 
-		headerByte = recvBuffer.at(0);
 		binary = headerByte & 0x80;
 		encrypted = headerByte & 0x40;
 		compressed = headerByte & 0x20;
@@ -253,7 +252,7 @@ void TcpSocketReceiver::updateRecvData(){
 			message->setContents(contents);
 #ifdef SFS_PRINT_DEBUG
 			SFS::log("---------------------");
-			SFS::log("RECV <=");
+			SFS::log("[SFS]RECV <=");
 			message->printDebug();
 			SFS::log("---------------------");
 #endif	

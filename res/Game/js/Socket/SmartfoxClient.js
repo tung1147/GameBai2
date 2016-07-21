@@ -5,60 +5,55 @@
 var SmartfoxClient = (function() {
     var instance = null;
     var Clazz = cc.Class.extend({
-        lobbySocket: null,
+        sfsSocket: null,
 
         ctor: function() {
             if (instance) {
                 throw "Cannot create new instance for Singleton Class";
             } else {
-                this.lobbySocket = new socket.SmartfoxClient();
+                this.sfsSocket = new socket.SmartfoxClient();
                 var thiz = this;
-                this.lobbySocket.onEvent = function (eventName) {
+                this.sfsSocket.onEvent = function (eventName) {
                     cc.log("sfs: "+eventName);
                     thiz.onEvent(eventName);
-                    // var messageData = JSON.parse(data);
-                    // var event = new cc.EventCustom("sfsStatus");
-                    // event.setUserData({
-                    //     data : eventName
-                    // });
                 };
-                this.lobbySocket.onMessage = function (messageType, data) {
+                this.sfsSocket.onMessage = function (messageType, data) {
                     thiz.onMessage(messageType, data);
-                    // var messageData = JSON.parse(data);
-                    // var event = new cc.EventCustom("sfsMessage");
-                    // event.setUserData({
-                    //     messageType : messageType,
-                    //     data : data
-                    // });
-                    // cc.eventManager.dispatchEvent(event);
                 }
             }
         },
 
         sendHandShake : function () {
             var content = {
-                api : "C++ API",
-                cl : "1.6.3",
+                cl : "C++ API",
+                api : "1.6.3",
                 bin : true,
                // rt : "reconnectionToken"
             };
             this.send(socket.SmartfoxClient.Handshake, content);
         },
-
-        sendLogin : function(zoneName, username, password, params){
+        sendLogin : function(){
             var content = {
-                zn : zoneName,
-                un : username,
-                pw : password,
-              //  p : params
+                zn : "GBVCity",
+                un : "",
+                pw : "",
+                p : {
+                    info : PlayerMe.SFS.info,
+                    signature : PlayerMe.SFS.signature
+                }
             };
             this.send(socket.SmartfoxClient.Login, content);
         },
-
+        sendFindAndJoinRoom : function () {
+            var params = {
+                gameType : PlayerMe.SFS.gameType,
+                betting : PlayerMe.SFS.betting
+            };
+            this.sendExtensionRequest(-1, "findAndJoinGame",params);
+        },
         sendLogout : function () {
             this.send(socket.SmartfoxClient.Logout, null);
         },
-
         sendJoinRoom : function (room) {
             var content = {};
             if(room.isString()){
@@ -97,25 +92,25 @@ var SmartfoxClient = (function() {
         },
 
         send: function(messageType, message) {
-            if(this.lobbySocket){
+            if(this.sfsSocket){
                 if(message){
-                    this.lobbySocket.send(messageType, JSON.stringify(message));
+                    this.sfsSocket.send(messageType, JSON.stringify(message));
                 }
                 else{
-                    this.lobbySocket.send(messageType, "");
+                    this.sfsSocket.send(messageType, "");
                 }
             }
         },
 
         close: function() {
-            if(this.lobbySocket){
-                this.lobbySocket.close();
+            if(this.sfsSocket){
+                this.sfsSocket.close();
             }
         },
 
         connect : function (host, port) {
-            if(this.lobbySocket){
-                this.lobbySocket.connect(host, port);
+            if(this.sfsSocket){
+                this.sfsSocket.connect(host, port);
             }
         },
 
@@ -124,14 +119,31 @@ var SmartfoxClient = (function() {
                 //send handshake
                 this.sendHandShake();
             }
-            cc.log("onEvent: "+eventName);
+            else if(eventName === "ConnectFailure"){
+
+            }
+            else if(eventName === "LostConnection"){
+
+            }
+            cc.log("[SFS]onEvent: "+eventName);
         },
 
         onMessage : function (messageType, data) {
             var content = JSON.parse(data);
-            cc.log("onMessage");
-            cc.log("messageType: "+messageType);
-            cc.log("data:" + data);
+            if(messageType === socket.SmartfoxClient.Handshake){
+                if(content.tk && content.tk.length > 0){
+                    this.sendLogin();
+                }
+            }
+            else if(messageType === socket.SmartfoxClient.Login){
+                if(content.ec){ //login error
+
+                }
+                else{
+                    this.sfsUserId = content.id;
+                    this.sendFindAndJoinRoom();
+                }
+            }
         }
     });
 

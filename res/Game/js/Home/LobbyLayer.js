@@ -145,7 +145,6 @@ var LobbyLayer = cc.Node.extend({
         container.setScale(cc.winSize.screenScale);
         this.gameList.pushItem(container);
 
-
         var iconId = Math.floor(cellId/3) + 1;
         if(iconId > 3){
             iconId = 3;
@@ -159,8 +158,12 @@ var LobbyLayer = cc.Node.extend({
         goldLabel.setPosition(container.getContentSize().width/2, 30);
         goldLabel.setColor(cc.color(255,222,0));
         container.addChild(goldLabel);
+
+        container.setTouchEnabled(true);
+        container.addClickEventListener(function () {
+            LobbyClient.getInstance().requestGetServer(gold);
+        });
     },
-    
     startGame : function (gameId) {
         this.gameList.removeAllItems();
         this.chatList.removeAllItems();
@@ -176,7 +179,6 @@ var LobbyLayer = cc.Node.extend({
         var data = event.data;
         var gameType = LobbyClient.getInstance().gameChannel;
         if(gameType === data.gameType){
-            cc.log("update all");
             this.gameList.removeAllItems();
             var betting = data.betting;
             for(var i=0;i<betting.length;i++){

@@ -126,6 +126,7 @@ PlayerMe.exp = 11000;
 PlayerMe.vipExp = 1000;
 PlayerMe.spin = 0;
 PlayerMe.messageCount = 100;
+PlayerMe.SFS = PlayerMe.SFS || {};
 
 var GameConfig = GameConfig || {};
 GameConfig.email = "gamebaivip@gmail.com";

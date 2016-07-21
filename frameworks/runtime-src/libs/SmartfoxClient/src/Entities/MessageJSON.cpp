@@ -33,8 +33,8 @@ void MessageJSON::printDebug(){
 	BaseMessage::printDebug();
 }
 
-void MessageJSON::setContents(Entity::SFSObject* c){
-	BaseMessage::setContents(contents);
+void MessageJSON::setContents(Entity::SFSObject* _contents){
+	BaseMessage::setContents(_contents);
 	if (jsonContent == ""){
 		jsonContent = contents->toJSON();
 	}
