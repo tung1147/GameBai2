@@ -427,9 +427,7 @@ void ValueReader::onFinishedReadObject(Value* object){
 		if (_delegate){
 			_delegate->onRecvMessage(object);
 		}
-		else{
-			object->release();
-		}
+		object->release();
 	}
 	else{
 		auto item = mStack.top();

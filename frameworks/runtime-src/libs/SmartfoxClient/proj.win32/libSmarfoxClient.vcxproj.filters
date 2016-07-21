@@ -66,6 +66,9 @@
     <ClCompile Include="..\src\Entities\MessageType.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Entities\MessageJSON.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Entities\SFSArray.h">
@@ -193,6 +196,9 @@
       <Filter>Entities</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Entities\MessageType.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Entities\MessageJSON.h">
       <Filter>Entities</Filter>
     </ClInclude>
   </ItemGroup>

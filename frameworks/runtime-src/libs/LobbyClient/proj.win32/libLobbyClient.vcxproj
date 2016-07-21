@@ -46,6 +46,7 @@
     <ClInclude Include="..\src\Objects\rapidjson\stringbuffer.h" />
     <ClInclude Include="..\src\Objects\rapidjson\writer.h" />
     <ClInclude Include="..\src\Objects\Value.h" />
+    <ClInclude Include="..\src\Objects\ValueJson.h" />
     <ClInclude Include="..\src\Objects\ValueReader.h" />
     <ClInclude Include="..\src\Objects\ValueWriter.h" />
     <ClInclude Include="..\src\Socket\NetworkCore.h" />
@@ -61,6 +62,7 @@
     <ClCompile Include="..\src\Objects\LobbyRef.cpp" />
     <ClCompile Include="..\src\Objects\PrimitiveValue.cpp" />
     <ClCompile Include="..\src\Objects\Value.cpp" />
+    <ClCompile Include="..\src\Objects\ValueJson.cpp" />
     <ClCompile Include="..\src\Objects\ValueReader.cpp" />
     <ClCompile Include="..\src\Objects\ValueWriter.cpp" />
     <ClCompile Include="..\src\Socket\NetworkCore.cpp" />

@@ -10,6 +10,7 @@
 #include <chrono>
 #include "../Logger/Logger.h"
 #include "../Objects/Value.h"
+#include "../Objects/ValueJson.h"
 #include "../Objects/DictValue.h"
 
 namespace quyetnd{
@@ -280,9 +281,6 @@ void SocketReceiver::recvData(const char* data, int size){
 		return;
 	}
 	reader->addData(data, size);
-
-	//dataBuffer.insert(dataBuffer.end(), data, data + size);
-	//this->onRecvData();
 }
 
 void SocketReceiver::onRecvData(){
@@ -344,9 +342,7 @@ void SocketReceiver::onRecvMessage(quyetnd::data::Value* value){
 	value->printDebug();
 	quyetnd::log_to_console("\n-------------------\n");
 #endif		
-	value->toJSON();
-	this->pushMessage(value);
-	value->release();
+	this->pushMessage(quyetnd::data::ValueJson::create(value));
 }
 
 /**/

@@ -148,6 +148,9 @@
     <ClInclude Include="..\src\Objects\rapidjson\prettywriter.h">
       <Filter>Objects\rapidjson</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\Objects\ValueJson.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Logger\Logger.cpp">
@@ -187,6 +190,9 @@
       <Filter>Objects</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Objects\ValueWriter.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Objects\ValueJson.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
   </ItemGroup>

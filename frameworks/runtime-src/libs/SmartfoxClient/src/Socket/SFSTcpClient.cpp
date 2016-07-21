@@ -10,6 +10,7 @@
 #include <cstdio>
 #include "../Logger/SFSLogger.h"
 #include "../Entities/SFSObject.h"
+#include "../Entities/MessageJSON.h"
 #include "zlib.h"
 
 namespace SFS{
@@ -246,7 +247,7 @@ void TcpSocketReceiver::updateRecvData(){
 			int messageType = sfsObject->getShort(SFS_ACTION_ID);
 			SFS::Entity::SFSObject* contents = sfsObject->getSFSObject(SFS_PARAM_ID);
 
-			auto message = new BaseMessage();
+			auto message = new MessageJSON();
 			message->targetControler = targetController;
 			message->messageType = messageType;
 			message->setContents(contents);
@@ -360,11 +361,11 @@ void TcpSocketClient::closeSocket(){
 	std::unique_lock<std::mutex> lk(socketMutex);
 	if (mSocket != SYS_SOCKET_INVALID){
 #ifdef USE_WINSOCK_2
-		//closesocket(mSocket);
-		shutdown(mSocket, SD_BOTH);
+		closesocket(mSocket);
+		//shutdown(mSocket, SD_BOTH);
 #else
-		//close(mSocket);
-		shutdown(mSocket, SHUT_RDWR);
+		close(mSocket);
+		//shutdown(mSocket, SHUT_RDWR);
 #endif
 		mSocket = SYS_SOCKET_INVALID;
 	}
