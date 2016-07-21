@@ -10,6 +10,7 @@
 #include "Objects/ArrayValue.h"
 #include "Objects/PrimitiveValue.h"
 #include "Objects/DictValue.h"
+#include "Objects/ValueJson.h"
 #include "Objects/ValueReader.h"
 #include "Socket/TCPClient.h"
 #include "Socket/UDTClient.h"

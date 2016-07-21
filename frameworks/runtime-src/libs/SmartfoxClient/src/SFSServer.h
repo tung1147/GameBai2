@@ -14,5 +14,6 @@
 #include "Entities/SFSObject.h"
 #include "Entities/SFSPrimitive.h"
 #include "Entities/MessageType.h"
+#include "Entities/MessageJSON.h"
 
 #endif /* SFSCLIENT_SFSSERVER_H_ */

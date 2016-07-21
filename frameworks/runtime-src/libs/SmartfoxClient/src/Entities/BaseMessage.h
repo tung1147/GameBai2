@@ -7,9 +7,9 @@
 
 #ifndef SFSCLIENT_CORE_BASEMESSAGE_H_
 #define SFSCLIENT_CORE_BASEMESSAGE_H_
-#include "../Entities/SFSEntity.h"
-#include "../Entities/SFSObject.h"
-#include "../Entities/SFSArray.h"
+#include "SFSEntity.h"
+#include "SFSObject.h"
+#include "SFSArray.h"
 
 #define SFS_CONTROLLER_ID "c"
 #define SFS_ACTION_ID "a"
@@ -26,11 +26,11 @@ public:
 public:
 	BaseMessage();
 	virtual ~BaseMessage();
-	void writeToBuffer(SFS::StreamWriter* writer);
+	virtual void writeToBuffer(SFS::StreamWriter* writer);
 	virtual void printDebug();
 
-	void setContents(Entity::SFSObject* contents);
-	Entity::SFSObject* getContents();	
+	virtual void setContents(Entity::SFSObject* contents);
+	virtual Entity::SFSObject* getContents();	
 };
 
 } /* namespace SFS */

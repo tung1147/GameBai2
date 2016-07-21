@@ -10,6 +10,7 @@
 #include <cstdio>
 #include "../Logger/SFSLogger.h"
 #include "../Entities/SFSObject.h"
+#include "../Entities/MessageJSON.h"
 #include "zlib.h"
 
 namespace SFS{
@@ -61,7 +62,7 @@ void TcpSocketSender::update(){
 					else{
 #ifdef SFS_PRINT_DEBUG	
 						SFS::log("---------------------");
-						SFS::log("SEND =>");
+						SFS::log("[SFS]SEND =>");
 						sendData->printDebug();
 						SFS::log("---------------------");
 #endif
@@ -123,7 +124,6 @@ void TcpSocketReceiver::updateRecvHeader(){
 		headerByte = recvBuffer.at(0);
 		recvBuffer.erase(recvBuffer.begin());
 
-		headerByte = recvBuffer.at(0);
 		binary = headerByte & 0x80;
 		encrypted = headerByte & 0x40;
 		compressed = headerByte & 0x20;
@@ -246,13 +246,13 @@ void TcpSocketReceiver::updateRecvData(){
 			int messageType = sfsObject->getShort(SFS_ACTION_ID);
 			SFS::Entity::SFSObject* contents = sfsObject->getSFSObject(SFS_PARAM_ID);
 
-			auto message = new BaseMessage();
+			auto message = new MessageJSON();
 			message->targetControler = targetController;
 			message->messageType = messageType;
 			message->setContents(contents);
 #ifdef SFS_PRINT_DEBUG
 			SFS::log("---------------------");
-			SFS::log("RECV <=");
+			SFS::log("[SFS]RECV <=");
 			message->printDebug();
 			SFS::log("---------------------");
 #endif	
@@ -360,11 +360,11 @@ void TcpSocketClient::closeSocket(){
 	std::unique_lock<std::mutex> lk(socketMutex);
 	if (mSocket != SYS_SOCKET_INVALID){
 #ifdef USE_WINSOCK_2
-		//closesocket(mSocket);
-		shutdown(mSocket, SD_BOTH);
+		closesocket(mSocket);
+		//shutdown(mSocket, SD_BOTH);
 #else
-		//close(mSocket);
-		shutdown(mSocket, SHUT_RDWR);
+		close(mSocket);
+		//shutdown(mSocket, SHUT_RDWR);
 #endif
 		mSocket = SYS_SOCKET_INVALID;
 	}

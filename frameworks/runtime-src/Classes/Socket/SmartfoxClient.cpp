@@ -30,6 +30,7 @@ SmartfoxClient::~SmartfoxClient() {
 }
 
 void SmartfoxClient::onRecvMessage(SFS::SocketData* data){
+	SFS::MessageJSON* message = (SFS::MessageJSON*)data;
 	if (data->messageType == SFS::MessageType::PingPong){
 		_waitingPing = false;
 	}
@@ -43,7 +44,7 @@ void SmartfoxClient::onRecvMessage(SFS::SocketData* data){
 	if (sc){
 		jsval dataVal[] = {
 			dataVal[0] = INT_TO_JSVAL(data->messageType),
-			dataVal[1] = std_string_to_jsval(sc->getGlobalContext(), data->getContents()->jsonData),
+			dataVal[1] = std_string_to_jsval(sc->getGlobalContext(), message->getContentJSON()),
 		};
 		sc->executeFunctionWithOwner(OBJECT_TO_JSVAL(p->obj), "onMessage", 2, dataVal);
 	}
@@ -109,17 +110,19 @@ void SmartfoxClient::close(){
 
 void SmartfoxClient::send(int messageType, const std::string& contensJSON){	
 	if (client){
-		auto message = new SFS::BaseMessage();
+		auto message = new SFS::MessageJSON();
 		message->messageType = messageType;
 		if (contensJSON != ""){
-			auto contents = (SFS::Entity::SFSObject*)SFS::Entity::SFSEntity::createFromJSON(contensJSON);
+			message->setContentJSON(contensJSON);
+
+			/*auto contents = (SFS::Entity::SFSObject*)SFS::Entity::SFSEntity::createFromJSON(contensJSON);
 			if (contents){
 				message->setContents(contents);
 				contents->release();
 			}
 			else{
 				log("json error [format invalid]");
-			}		
+			}		*/
 		}
 
 		client->sendMessage(message);		

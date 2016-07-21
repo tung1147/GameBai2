@@ -68,6 +68,7 @@ void LobbyClient::update(float dt){
 void LobbyClient::updatePing(float dt){
 	if (_pingTime <= 0.0f){
 		if (_waitingPing){
+			CCLOG("lobby lost ping");
 			mClient->closeSocket();
 		}
 		else{		
@@ -83,7 +84,7 @@ void LobbyClient::updatePing(float dt){
 		}
 	}
 	else{
-		_pingTime -= 0.0f;
+		_pingTime -= dt;
 	}
 }
 
@@ -102,9 +103,8 @@ void LobbyClient::connect(const std::string& host, int port){
 }
 
 void LobbyClient::send(const std::string& json){
-	auto message = quyetnd::data::Value::createFromJSON(json);
+	auto message = quyetnd::data::ValueJson::create(json);
 	this->sendMessage(message);
-	message->release();
 }
 
 void LobbyClient::close(){
@@ -114,12 +114,13 @@ void LobbyClient::close(){
 }
 
 void LobbyClient::onRecvMessage(quyetnd::net::SocketData* data){
-	quyetnd::data::DictValue* msg = (quyetnd::data::DictValue*)data;
+	quyetnd::data::ValueJson* json = (quyetnd::data::ValueJson*)data;
+	quyetnd::data::DictValue* msg = json->getValue();
 	auto command = msg->getString("command");
 	if (command == "ping"){
 		_waitingPing = false;
 	}
-	this->sendJSMessage("message", data->jsonData);
+	this->sendJSMessage("message", json->getJSON());
 }
 
 void LobbyClient::onRecvStatus(const quyetnd::net::SocketStatusData& data){

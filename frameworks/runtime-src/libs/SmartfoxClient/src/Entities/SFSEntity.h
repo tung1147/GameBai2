@@ -45,7 +45,6 @@ protected:
 	static SFSEntity* createSFSEntityWithReader(StreamReader* reader);
 public:
 	int dataType;
-	std::string jsonData;
 public:
 	SFSEntity();
 	virtual ~SFSEntity();
@@ -55,7 +54,7 @@ public:
 	virtual void initWithReader(StreamReader* reader);	
 	virtual void printDebug(std::ostringstream& os, int padding = 0);
 
-	virtual void toJSON();
+	virtual std::string toJSON();
 
 	static SFSEntity* createEntityWithData(const char* buffer, int size);
 	static SFSEntity* createFromJSON(const std::string& json);
