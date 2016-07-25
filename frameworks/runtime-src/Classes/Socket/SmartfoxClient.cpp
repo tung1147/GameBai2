@@ -77,12 +77,15 @@ void SmartfoxClient::update(float dt){
 void SmartfoxClient::updatePing(float dt){
 	if (_pingTime <= 0.0f){
 		if (_waitingPing){
+			CCLOG("SFS lost ping");
 			client->closeSocket(); 
 		}
 		else{
 			//send ping
-			SFS::BaseMessage* baseMesage = new SFS::BaseMessage();
-			baseMesage->messageType = SFS::MessageType::PingPong;
+			SFS::BaseMessage* pingMessage = new SFS::BaseMessage();
+			pingMessage->messageType = SFS::MessageType::PingPong;
+			client->sendMessage(pingMessage);
+			pingMessage->release();
 
 			_pingTime = 15.0f;
 			_waitingPing = true;

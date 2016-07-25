@@ -148,6 +148,7 @@ var HomeScene = IScene.extend({
         this.userInfo.refreshView();
         if(arguments.length == 1){
             this.lobbyLayer.startGame(arguments[0]);
+            LobbyClient.getInstance().subscribe(arguments[0]);
         }
         else{
             this.lobbyLayer.startGame(-1);
@@ -173,11 +174,9 @@ var HomeScene = IScene.extend({
         }
         else{
             this.startLobby(gameId);
-            LobbyClient.getInstance().subscribe(gameId);
         }
     },
-
-
+    
     startGameWithAnimation : function () {
         this.startGame();
     },

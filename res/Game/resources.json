@@ -67,8 +67,8 @@
             "plist": "res/gamemini.plist"
         },
         {
-            "img": "res/GamePlay.png",
-            "plist": "res/GamePlay.plist"
+            "img": "res/GameScene.png",
+            "plist": "res/GameScene.plist"
         },
         {"img": "res/gold-icon.png"},
         {"img": "res/gp_table.png"},

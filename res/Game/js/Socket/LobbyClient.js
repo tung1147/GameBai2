@@ -10,6 +10,7 @@ var LobbyClient = (function() {
     var Clazz = cc.Class.extend({
         lobbySocket: null,
         ctor: function() {
+          //  cc.log("LobbyClient");
             if (instance) {
                 throw "Cannot create new instance for Singleton Class";
             } else {
@@ -65,25 +66,6 @@ var LobbyClient = (function() {
                 }
 
                 this.postEvent(messageData.command, messageData);
-            }
-        },
-        postEvent : function (command, event) {
-            this.prePostEvent(command, event);
-            var arr = this.allListener[command];
-            if(arr){
-                this.isBlocked = true;
-                for(var i=0;i<arr.length;){
-                    var target = arr[i];
-                    if(target.alive){
-                        target.listener.apply(target.target, [command, event]);
-                    }
-                    else{
-                        arr.slice(i,1);
-                        continue;
-                    }
-                    i++;
-                }
-                this.isBlocked = false;
             }
         },
         prePostEvent : function (command, event) {
@@ -159,28 +141,53 @@ var LobbyClient = (function() {
 
             LoadingDialog.getInstance().hide();
         },
+        postEvent : function (command, event) {
+            this.prePostEvent(command, event);
+            var arr = this.allListener[command];
+            if(arr){
+                cc.log("postEvent: "+command + " -- "+arr.length);
+                this.isBlocked = true;
+                for(var i=0;i<arr.length;){
+                    var target = arr[i];
+                    if(target){
+                        target.listener.apply(target.target, [command, event]);
+                    }
+                    else{
+                        arr.splice(i,1);
+                        continue;
+                    }
+                    i++;
+                }
+                this.isBlocked = false;
+            }
+        },
         addListener : function (command, _listener, _target) {
             var arr = this.allListener[command];
             if(!arr){
                 arr = [];
                 this.allListener[command] = arr;
             }
+            for(var i=0;i<arr.length;i++){
+                if(arr[i].target == _target){
+                    return;
+                }
+            }
             arr.push({
                 listener : _listener,
-                target : _target,
-                alive : true
+                target : _target
             });
         },
         removeListener : function (target) {
-            for (var arr in this.allListener) {
-                if(!this.allListener.hasOwnProperty(arr)) continue;
+            for (var key in this.allListener) {
+                if(!this.allListener.hasOwnProperty(key)) continue;
+                var arr = this.allListener[key];
                 for(var i=0;i<arr.length;){
                     if(arr[i].target == target){
                         if(this.isBlocked){
-                            arr[i].alive = false;
+                            arr[i] = null;
                         }
                         else{
-                            arr.slice(i,1);
+                            arr.splice(i,1);
                             continue;
                         }
                     }
@@ -287,6 +294,7 @@ var LobbyClient = (function() {
             if(runningScene.type == "HomeScene"){
                 if(runningScene.homeLocation == 1){
                     if(LoadingDialog.getInstance().isShow()){
+                        LoadingDialog.getInstance().hide();
                         MessageNode.getInstance().show("Mất kết nối máy chủ");
                         LobbyClient.getInstance().close();
                         SmartfoxClient.getInstance().close();

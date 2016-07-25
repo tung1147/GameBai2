@@ -155,11 +155,17 @@ void SFSPrimitive::initWithReader(StreamReader* reader){
 void SFSPrimitive::printDebug(std::ostringstream& os, int padding){
 	switch (dataType){
 		case SFSDATATYPE_BOOL:{
-			os << "(bool) " << mData.boolValue;
+			if (mData.boolValue){
+				os << "(bool) TRUE";
+			}
+			else{
+				os << "(bool) FALSE";
+			}
+			
 			break;
 		}
 		case SFSDATATYPE_BYTE:{
-			os << "(byte) " << mData.byteValue;
+			os << "(byte) " << (int)mData.byteValue;
 			break;
 		}
 		case SFSDATATYPE_SHORT:{

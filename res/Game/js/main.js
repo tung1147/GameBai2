@@ -85,6 +85,15 @@ require("js/Home/PaymentLayer.js");
 require("js/Home/RankLayer.js");
 require("js/Home/RewardLayer.js");
 require("js/Home/InboxLayer.js");
+require("js/Game/GameScene.js");
+require("js/Game/TienLen.js");
+require("js/Game/BaCay.js");
+require("js/Game/BaCayChuong.js");
+require("js/Game/MauBinh.js");
+require("js/Game/Phom.js");
+require("js/Game/Sam.js");
+require("js/Game/TaiXiu.js");
+require("js/Game/XocDia.js");
 
 cc.game.onStart = function(){
   //  if(!cc.sys.isNative && document.getElementById("cocosLoading")) //If referenced loading.js, please remove it
@@ -103,6 +112,7 @@ cc.game.onStart = function(){
     if (designWidth > 1280.0){
         designWidth = 1280.0;
     }
+
     // Setup the resolution policy and design resolution size
     cc.view.setDesignResolutionSize(designWidth, designHeight, cc.ResolutionPolicy.SHOW_ALL);
     cc.winSize.screenScale = designWidth / 1280.0;

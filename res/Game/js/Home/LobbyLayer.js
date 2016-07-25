@@ -99,6 +99,7 @@ var LobbyLayer = cc.Node.extend({
         this.addChild(gameList);
 
         this.gameList = gameList;
+        cc.log("init lobby");
         for(var i=0;i<8;i++){
             this.addCell(i, 1000, 10000);
         }
@@ -161,6 +162,7 @@ var LobbyLayer = cc.Node.extend({
 
         container.setTouchEnabled(true);
         container.addClickEventListener(function () {
+            LoadingDialog.getInstance().show("Đang tìm phòng chơi");
             LobbyClient.getInstance().requestGetServer(gold);
         });
     },

@@ -116,6 +116,19 @@ s_games_chanel[GameType.GAME_BaCay] = "";
 s_games_chanel[GameType.GAME_Lieng] = "";
 s_games_chanel[GameType.GAME_BaCayChuong] = "";
 
+var s_games_chanel_id = s_games_chanel_id || {};
+s_games_chanel_id["1"] = GameType.GAME_TLMN_Solo;
+s_games_chanel_id["tlmn_tudo"] = GameType.GAME_TienLenMN;
+s_games_chanel_id["2"] = GameType.GAME_Sam;
+s_games_chanel_id["3"] = GameType.GAME_Sam_Solo;
+s_games_chanel_id["4"] = GameType.GAME_XocDia;
+s_games_chanel_id["5"] = GameType.GAME_TaiXiu;
+s_games_chanel_id["6"] = GameType.GAME_MauBinh;
+s_games_chanel_id["7"] = GameType.GAME_Phom;
+s_games_chanel_id["8"] = GameType.GAME_BaCay;
+s_games_chanel_id["9"] = GameType.GAME_Lieng;
+s_games_chanel_id["10"] = GameType.GAME_BaCayChuong;
+
 var PlayerMe = PlayerMe || {};
 PlayerMe.username = "quyetnd";
 PlayerMe.password = "1234567";

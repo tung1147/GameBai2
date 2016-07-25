@@ -33,11 +33,11 @@ var MiniGameCell = ccui.Widget.extend({
     }
 });
 
-
 var MiniGameLayer = cc.Node.extend({
-    miniGameTab : [],
-    allMiniLayer : [],
     ctor : function () {
+        this.miniGameTab = [];
+        this.allMiniLayer = [];
+
         this._super();
         this.initMiniGame();
     },

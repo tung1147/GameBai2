@@ -5,6 +5,10 @@
             "hash": "e8b7f4750ff44238438c5a5c7d124cc8"
         },
         {
+            "file": "js/Core/ButtonToggle.js",
+            "hash": "22f82347993a575a326827e0d9a2380f"
+        },
+        {
             "file": "js/Core/NewAction.js",
             "hash": "e6efda0380013f188f077fc2abec0aa0"
         },
@@ -30,7 +34,7 @@
         },
         {
             "file": "js/Dialog/MessageNode.js",
-            "hash": "2672d91aa0eaa89728d78f246ac62841"
+            "hash": "3c7b15258a39f1b30a94d27fa9e233e3"
         },
         {
             "file": "js/Dialog/ResultDialog.js",
@@ -42,7 +46,7 @@
         },
         {
             "file": "js/Dialog/SettingDialog.js",
-            "hash": "b60f513e7bb3e7ce9b0349ded96e9afa"
+            "hash": "69f2a7ae4ccce369244dff33d65cd5ff"
         },
         {
             "file": "js/Dialog/UserDialog.js",
@@ -50,15 +54,51 @@
         },
         {
             "file": "js/Dialog/UserinfoDialog.js",
-            "hash": "c3b37af1aab461abe2d8c28c84aa1246"
+            "hash": "3d8813346073b6d10e180d4bbbfe06df"
         },
         {
             "file": "js/Dialog/UserListDialog.js",
             "hash": "727c884760ff4af1a4ae3de403383392"
         },
         {
+            "file": "js/Game/BaCay.js",
+            "hash": "f1e4ed83237227ebb698a429906e5974"
+        },
+        {
+            "file": "js/Game/BaCayChuong.js",
+            "hash": "f1e4ed83237227ebb698a429906e5974"
+        },
+        {
+            "file": "js/Game/GameScene.js",
+            "hash": "46c623754ae962589e7d169ae951c9e2"
+        },
+        {
+            "file": "js/Game/MauBinh.js",
+            "hash": "f1e4ed83237227ebb698a429906e5974"
+        },
+        {
+            "file": "js/Game/Phom.js",
+            "hash": "f1e4ed83237227ebb698a429906e5974"
+        },
+        {
+            "file": "js/Game/Sam.js",
+            "hash": "f1e4ed83237227ebb698a429906e5974"
+        },
+        {
+            "file": "js/Game/TaiXiu.js",
+            "hash": "f1e4ed83237227ebb698a429906e5974"
+        },
+        {
+            "file": "js/Game/TienLen.js",
+            "hash": "af47fa43e7fc66cc7b333c3f9da7a888"
+        },
+        {
+            "file": "js/Game/XocDia.js",
+            "hash": "f1e4ed83237227ebb698a429906e5974"
+        },
+        {
             "file": "js/Global/Global.js",
-            "hash": "970e39f14e340520a910413c7df50bfd"
+            "hash": "f22a0960b487a50f3e8a44ebc9dc5232"
         },
         {
             "file": "js/Global/UserAvatar.js",
@@ -66,15 +106,15 @@
         },
         {
             "file": "js/Home/GameLayer.js",
-            "hash": "eca727a9f704a98f70d9b10b473cf0dc"
+            "hash": "217da8438333e5c837f0f4ada7f320cc"
         },
         {
             "file": "js/Home/HomeLayer.js",
-            "hash": "3d5daf78e0cb42fe289314dd129ac0b4"
+            "hash": "42cf887cb995e6ed862b1a500bf437a0"
         },
         {
             "file": "js/Home/HomeScene.js",
-            "hash": "68e44c72f52dabc43f913a30a62e7384"
+            "hash": "1d07caa1053994259774aa1ffb9481d5"
         },
         {
             "file": "js/Home/InboxLayer.js",
@@ -86,7 +126,7 @@
         },
         {
             "file": "js/Home/LobbyLayer.js",
-            "hash": "80878accaf7afd1a72c35c6ea61dea70"
+            "hash": "bf55a9383c70f507309adc00111abe6b"
         },
         {
             "file": "js/Home/LobbySubLayer.js",
@@ -94,7 +134,7 @@
         },
         {
             "file": "js/Home/LobbyTopBar.js",
-            "hash": "2e9c4faac985c502c4030c6a1f60766f"
+            "hash": "20f6ab6b94cacb11d0bf2b99ffb5580d"
         },
         {
             "file": "js/Home/MiniGameLayer.js",
@@ -118,19 +158,23 @@
         },
         {
             "file": "js/IScene.js",
-            "hash": "6d75c3c778014bc68c9afb6571dea72e"
+            "hash": "e7d5ef12beadc9b9c2bfeb7d2faf14fa"
         },
         {
             "file": "js/main.js",
-            "hash": "1e4d138c24d4bac7c7984ce5866543b1"
+            "hash": "793501a59ce1031016b4caf3d9347b14"
         },
         {
             "file": "js/Socket/LobbyClient.js",
-            "hash": "438dd023bbcf5950ea4c1b3ca8c01335"
+            "hash": "d2c65890a4602f202193cd4fe6980fe0"
+        },
+        {
+            "file": "js/Socket/LobbyError.js",
+            "hash": "cf3bc4c030d707716cba58156cca922e"
         },
         {
             "file": "js/Socket/SmartfoxClient.js",
-            "hash": "b173d53569d09d9149ad2515cc9952bf"
+            "hash": "149f082a80e7b69c2dde493544f8afce"
         },
         {
             "file": "res/avatar.plist",
@@ -158,19 +202,19 @@
         },
         {
             "file": "res/data/LevelData.json",
-            "hash": "7064d0e1993e0849e7a9b8b4f7dc077e"
+            "hash": "24c8b21671fc63201a12159b6861cebc"
         },
         {
             "file": "res/data/VipData.json",
-            "hash": "b806a05ba1e32a2e8b21f9ea1d154722"
+            "hash": "ca56dc8a3708f5dcdc866f14f27d98e1"
         },
         {
             "file": "res/dialog.plist",
-            "hash": "22d4bfb87a2db0417b133d30dac4fc02"
+            "hash": "e3147bdf9e92b961fdbb0c75da5d7f11"
         },
         {
             "file": "res/dialog.png",
-            "hash": "c24746fe5dab9161458030e9f0a10986"
+            "hash": "edc6bc5ecbc56788d1586476250cf453"
         },
         {
             "file": "res/effectMini.plist",
@@ -293,12 +337,12 @@
             "hash": "544560c85f07f7a4c3805eeda4049615"
         },
         {
-            "file": "res/GamePlay.plist",
-            "hash": "d4be815d0873c56029345f1904ba2d11"
+            "file": "res/GameScene.plist",
+            "hash": "b6d719b6d5b951903e29dbd551e6055a"
         },
         {
-            "file": "res/GamePlay.png",
-            "hash": "a30c81e5547ca6ef8ed7ed2a79880413"
+            "file": "res/GameScene.png",
+            "hash": "c5c4778917fa0d3fdb1493c8ac521416"
         },
         {
             "file": "res/gold-icon.png",
@@ -398,11 +442,11 @@
         },
         {
             "file": "resources.json",
-            "hash": "0da8863145c6b585cf963958f8e8a400"
+            "hash": "0becf320be89476a96ffaa964b970ad4"
         },
         {
             "file": "script.json",
-            "hash": "a667dafe538fad228743895b047fcb8c"
+            "hash": "be486308e0e7c0ed819f11d63ab7f9f3"
         }
     ],
     "versionName": "1.0.1",

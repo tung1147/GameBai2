@@ -1,5 +1,6 @@
 [
     "js/app.js",
+    "js/Core/ButtonToggle.js",
     "js/Core/NewAction.js",
     "js/Core/ToggleNodeGroup.js",
     "js/Dialog/Dialog.js",
@@ -13,6 +14,15 @@
     "js/Dialog/UserDialog.js",
     "js/Dialog/UserinfoDialog.js",
     "js/Dialog/UserListDialog.js",
+    "js/Game/BaCay.js",
+    "js/Game/BaCayChuong.js",
+    "js/Game/GameScene.js",
+    "js/Game/MauBinh.js",
+    "js/Game/Phom.js",
+    "js/Game/Sam.js",
+    "js/Game/TaiXiu.js",
+    "js/Game/TienLen.js",
+    "js/Game/XocDia.js",
     "js/Global/Global.js",
     "js/Global/UserAvatar.js",
     "js/Home/GameLayer.js",
@@ -31,5 +41,6 @@
     "js/IScene.js",
     "js/main.js",
     "js/Socket/LobbyClient.js",
+    "js/Socket/LobbyError.js",
     "js/Socket/SmartfoxClient.js"
 ]
