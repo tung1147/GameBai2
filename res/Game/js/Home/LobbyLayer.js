@@ -135,7 +135,7 @@ var LobbyLayer = cc.Node.extend({
         this.chatList.pushBackCustomItem(padding);
     },
     
-    addCell : function (cellId, gold, minGold) {
+    addCell : function (cellId, betting, minGold) {
         var cellBg = new cc.Sprite("#lobby-room-select-cell.png");
         cellBg.setPosition(cc.p(0,0));
         cellBg.setAnchorPoint(cc.p(0,0));
@@ -155,7 +155,7 @@ var LobbyLayer = cc.Node.extend({
         goldIcon.setAnchorPoint(cc.p(0,0));
         container.addChild(goldIcon);
 
-        var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, cc.Global.NumberFormat1(gold) + " V");
+        var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, cc.Global.NumberFormat1(betting) + " V");
         goldLabel.setPosition(container.getContentSize().width/2, 30);
         goldLabel.setColor(cc.color(255,222,0));
         container.addChild(goldLabel);
@@ -163,7 +163,7 @@ var LobbyLayer = cc.Node.extend({
         container.setTouchEnabled(true);
         container.addClickEventListener(function () {
             LoadingDialog.getInstance().show("Đang tìm phòng chơi");
-            LobbyClient.getInstance().requestGetServer(gold);
+            LobbyClient.getInstance().requestGetServer(betting);
         });
     },
     startGame : function (gameId) {

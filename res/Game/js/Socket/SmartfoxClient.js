@@ -113,7 +113,6 @@ var SmartfoxClient = (function() {
         },
 
         onEvent : function (eventName) {
-            cc.log("[SFS]onEvent: "+eventName);
             if(eventName == "Connected"){
                 //send handshake
                 this.sendHandShake();
@@ -190,7 +189,10 @@ var SmartfoxClient = (function() {
                 }
                 else {
                     PlayerMe.SFS.userId = contents.id;
-                    this.sendFindAndJoinRoom();
+                    var isReconnect = contents.p.isReconnect;
+                    if(isReconnect == false){
+                        this.sendFindAndJoinRoom();
+                    }
                 }
             }
             else if(messageType === socket.SmartfoxClient.JoinRoom){

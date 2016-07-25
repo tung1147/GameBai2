@@ -10,7 +10,6 @@ var LobbyClient = (function() {
     var Clazz = cc.Class.extend({
         lobbySocket: null,
         ctor: function() {
-          //  cc.log("LobbyClient");
             if (instance) {
                 throw "Cannot create new instance for Singleton Class";
             } else {
@@ -116,7 +115,6 @@ var LobbyClient = (function() {
             }
         },
         onLoginEvent : function (event) {
-            cc.log("Login OK");
             var data = event.data;
             GameConfig.broadcastMessage = event.data.broadcast;
             LevelData = data.config.levelData;
@@ -145,7 +143,6 @@ var LobbyClient = (function() {
             this.prePostEvent(command, event);
             var arr = this.allListener[command];
             if(arr){
-                cc.log("postEvent: "+command + " -- "+arr.length);
                 this.isBlocked = true;
                 for(var i=0;i<arr.length;){
                     var target = arr[i];
@@ -268,7 +265,6 @@ var LobbyClient = (function() {
             var thiz = this;
             this.loginHandler = function () {
                 thiz.loginSuccessHandler = function () {
-                   // cc.log("loginSuccessHandler");
                     thiz.login(username, password, true);
                     if(cc.Global.GetSetting("savePassword", true)){
                         cc.Global.SetSetting("username", username);
@@ -286,7 +282,6 @@ var LobbyClient = (function() {
                 };
                 thiz.send(loginRequest);
             };
-            cc.log("signup");
             this.connect();
         },
         reconnect : function () {
