@@ -77,3 +77,5 @@ socket.SmartfoxClient.UserExitRoom = 1004;
 socket.SmartfoxClient.ClientDisconnection = 1005;
 socket.SmartfoxClient.ReconnectionFailure = 1006;
 socket.SmartfoxClient.SetMMOItemVariables = 1007;
+
+socket.SmartfoxClient.SocketStatus = 3000;
