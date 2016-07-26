@@ -10,10 +10,12 @@ CardSuit.Spades = "b";
 
 var Card = cc.Sprite.extend({
     ctor : function (rank, suit) {
+        this.canTouch = true;
         this.rank = rank;
         this.suit = suit;
         this._super("#"+rank + suit +".png");
         this.touchRect = cc.rect(0,0,this.getContentSize().width, this.getContentSize().height);
+        this.cardDistance = this.getContentSize().width;
 
         this.origin = cc.p();
         this.isTouched = false;
@@ -46,10 +48,6 @@ var Card = cc.Sprite.extend({
             this.runAction(new cc.Sequence(beforeMove,move,afterMove));
         }
     },
-    moveToOriginPositionNoOrder : function () {
-        var move = new cc.MoveTo(0.1, cc.p(this.origin.x, this.origin.y));
-        this.runAction(move);
-    },
     setSelected : function (selected) {
         if(selected){
             this.y = this.origin.y + 50;
@@ -62,7 +60,7 @@ var Card = cc.Sprite.extend({
         return (this.x > this.origin.y);
     },
     onTouchBegan : function (touch, event) {
-        if(!this.isTouched){
+        if(this.canTouch && !this.isTouched){
             var p = this.convertToNodeSpace(touch.getLocation());
            // var rect = this.getBoundingBox();
             if(cc.rectContainsPoint(this.touchRect, p)){
@@ -106,28 +104,21 @@ var Card = cc.Sprite.extend({
         this.y += p.y - this.preTouchPoint.y;
         this.preTouchPoint = p;
 
-        var card = this.getParent().containsWithCard(this);
-        if(card){
-            //swap
-            var _origin = this.origin;
-            var _cardIndex = this.cardIndex;
-
-            this.origin = card.origin;
-            this.cardIndex = card.cardIndex;
-
-            card.origin = _origin;
-            card.cardIndex = _cardIndex;
-
-            card.getParent().reorderChild(card, card.cardIndex);
-            card.moveToOriginPosition();
+        var dx = this.x - this.origin.x;
+        if(Math.abs(dx) > this.cardDistance){
+            if(dx > 0){
+                this.getParent().swapCardRight(this.cardIndex);
+            }
+            else{
+                this.getParent().swapCardLeft(this.cardIndex);
+            }
         }
     }
 });
 
 var CardList = cc.Node.extend({
     ctor : function (size) {
-        this.canSelectCard = true;
-        this.canMoveCard = true;
+        this.canTouch = true;
 
         this._super();
         this.cardList = [];
@@ -147,11 +138,16 @@ var CardList = cc.Node.extend({
                 var card = this.cardList[i];
                 card.origin = cc.p(x, y);
                 card.cardIndex = i;
+                card.cardDistance = dx;
                 this.reorderChild(card, i);
                 card.moveToOriginPosition();
                 x += dx;
             }
         }
+    },
+    onEnter : function () {
+        this._super();
+        this.deckPoint = this.convertToNodeSpace(cc.p(cc.winSize.width/2, cc.winSize.height/2));
     },
     addCard : function (card) {
         if(!this.cardSize){
@@ -159,13 +155,21 @@ var CardList = cc.Node.extend({
         }
         card.cardIndex = this.cardList.length;
         card.origin = cc.p(0, 0);
+        card.canTouch = this.canTouch;
         this.addChild(card, this.cardList.length);
         this.cardList.push(card);
     },
+    setTouchEnable : function (touch) {
+        this.canTouch = touch;
+        for(var i=0;i<this.cardList.length;i++) {
+            this.cardList[i].canTouch = this.canTouch;
+        }
+    },
     dealCards : function (cards) {
+        this.removeAll();
         for(var i=0;i<cards.length;i++){
             var card = new Card(cards[i].rank, cards[i].suit);
-            card.setPosition(100,100);
+            card.setPosition(this.deckPoint);
             this.addCard(card);
         }
 
@@ -180,28 +184,59 @@ var CardList = cc.Node.extend({
             this.reorderChild(this.cardList[i], i);
             var card = this.cardList[i];
             card.origin = cc.p(x, y);
-            card.stopAllActions();
+            card.cardDistance = dx;
+            card.visible = false;
             var delayAction = new cc.DelayTime(0.02 * i);
+            var beforeAction = new cc.CallFunc(function (target) {
+                target.visible = true;
+            }, card);
             var moveAction = new cc.MoveTo(0.2, cc.p(x, y));
-            card.runAction(new cc.Sequence(delayAction, moveAction));
+            card.runAction(new cc.Sequence(delayAction, beforeAction, moveAction));
             x += dx;
         }
     },
     containsWithCard : function (card) {
-        var p1 = card.getParent().convertToWorldSpace(card.origin);
-        var p2 = card.getParent().convertToWorldSpace(card.getPosition());
-        var localOriginCard = this.convertToNodeSpace(p1);
-        var localPosCard = this.convertToNodeSpace(p2);
+        var cardRect = card.getCardBounding();
 
         for(var i=0;i<this.cardList.length;i++){
             if(this.cardList[i] != card){
-                var rect = this.cardList[i].getBoundingBox();
-                if(cc.rectContainsPoint(rect, localPosCard) && !cc.rectContainsPoint(rect, localOriginCard)){
+                var rect = this.cardList[i].getCardBounding();
+                if(cc.rectIntersectsRect(cardRect, rect)){
                     return this.cardList[i];
                 }
             }
         }
         return null;
+    },
+    swapCardLeft : function (index) {
+        if(index > 0){
+            var cardMove = this.cardList[index];
+            var cardSwap = this.cardList[index-1];
+            this.swapCard(cardMove, cardSwap);
+        }
+    },
+    swapCardRight : function (index) {
+        if(index < this.cardList.length - 1){
+            var cardMove = this.cardList[index];
+            var cardSwap = this.cardList[index+1];
+            this.swapCard(cardMove, cardSwap);
+        }
+    },
+    swapCard : function (card1, card2) {
+        var _origin = card1.origin;
+        var _cardIndex = card1.cardIndex;
+
+        card1.origin = card2.origin;
+        card1.cardIndex = card2.cardIndex;
+
+        card2.origin = _origin;
+        card2.cardIndex = _cardIndex;
+
+        card1.moveToOriginPosition();
+        card2.moveToOriginPosition();
+
+        this.cardList[card1.cardIndex] = card1;
+        this.cardList[card2.cardIndex] = card2;
     },
     removeCard : function (card) {
         for(var i=0;i<cards.length;i++){
