@@ -86,6 +86,16 @@
             "hash": "f1e4ed83237227ebb698a429906e5974"
         },
         {
+            "file": "js/Game/Card.js",
+            "size": 9127,
+            "hash": "82cae1fca71d1fb5c6df8e431f4bfb69"
+        },
+        {
+            "file": "js/Game/GamePlayer.js",
+            "size": 3216,
+            "hash": "2045886e111d864317a302ae816af282"
+        },
+        {
             "file": "js/Game/GameScene.js",
             "size": 2239,
             "hash": "156b09c2f7ffdfb16ef4048ceb2f7ffb"
@@ -112,8 +122,8 @@
         },
         {
             "file": "js/Game/TienLen.js",
-            "size": 149,
-            "hash": "af47fa43e7fc66cc7b333c3f9da7a888"
+            "size": 971,
+            "hash": "d53ac9bf4c730a09fcb231f834995e80"
         },
         {
             "file": "js/Game/XocDia.js",
@@ -202,13 +212,13 @@
         },
         {
             "file": "js/main.js",
-            "size": 5657,
-            "hash": "638b9e885f11da5a9cad9325dec716f9"
+            "size": 5769,
+            "hash": "9e390e51e23da322049cd8f56761666a"
         },
         {
             "file": "js/Socket/LobbyClient.js",
-            "size": 13655,
-            "hash": "7fa34da6d341e8baa1c6ec8167c5fc9a"
+            "size": 13431,
+            "hash": "8ffdeaa95e81adf2efa14dcebdd210e2"
         },
         {
             "file": "js/Socket/LobbyError.js",
@@ -217,8 +227,8 @@
         },
         {
             "file": "js/Socket/SmartfoxClient.js",
-            "size": 8734,
-            "hash": "8353236c23fc5098c7094336d6efe452"
+            "size": 8685,
+            "hash": "f8a224d17c9066d6570f5d21a06130bf"
         },
         {
             "file": "res/avatar.plist",
@@ -289,6 +299,26 @@
             "file": "res/fonts/bigsmall_number_font.png",
             "size": 1531,
             "hash": "1d744fd3e6e7320a4ee4a0a541570bda"
+        },
+        {
+            "file": "res/fonts/game-result-font1.fnt",
+            "size": 1868,
+            "hash": "7184cf87e29565f307a6c8f86d74eec7"
+        },
+        {
+            "file": "res/fonts/game-result-font1.png",
+            "size": 27136,
+            "hash": "f97a711bfc5b55755d3c725d088ce70d"
+        },
+        {
+            "file": "res/fonts/game-result-font2.fnt",
+            "size": 1868,
+            "hash": "66a705c908e6bfbca0fcee20920a81d6"
+        },
+        {
+            "file": "res/fonts/game-result-font2.png",
+            "size": 24971,
+            "hash": "978ca62ddf411b61ac4d3aa5f0406fc7"
         },
         {
             "file": "res/fonts/minigame-number-1.fnt",
@@ -422,13 +452,13 @@
         },
         {
             "file": "res/GameScene.plist",
-            "size": 3658,
-            "hash": "b6d719b6d5b951903e29dbd551e6055a"
+            "size": 4592,
+            "hash": "fc5f662278351d89b7933ffcf982d0b2"
         },
         {
             "file": "res/GameScene.png",
-            "size": 45306,
-            "hash": "c5c4778917fa0d3fdb1493c8ac521416"
+            "size": 45193,
+            "hash": "506941dd3e0032921c3888c5a066f41e"
         },
         {
             "file": "res/gold-icon.png",
@@ -437,8 +467,8 @@
         },
         {
             "file": "res/gp_table.png",
-            "size": 557245,
-            "hash": "5f5d187f223818e654e2ae559b1ace00"
+            "size": 119683,
+            "hash": "356c104acebc8c7f947adcdefe3116c2"
         },
         {
             "file": "res/HDList.plist",
@@ -552,13 +582,13 @@
         },
         {
             "file": "resources.json",
-            "size": 3015,
-            "hash": "0becf320be89476a96ffaa964b970ad4"
+            "size": 3271,
+            "hash": "ab3ae28025b4f6a3a8bfe53ae411930f"
         },
         {
             "file": "script.json",
-            "size": 1282,
-            "hash": "be486308e0e7c0ed819f11d63ab7f9f3"
+            "size": 1334,
+            "hash": "3df692fb4df9c21305c668d6ce5a6dab"
         }
     ],
     "versionName": "1.0.1",

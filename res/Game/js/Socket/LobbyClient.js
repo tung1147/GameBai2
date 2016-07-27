@@ -16,6 +16,7 @@ var LobbyClient = (function() {
                 this.allListener = {};
                 this.host = "10.0.1.106";
                 this.port = 9999;
+                this.isKicked = false;
                 this.lobbySocket = new socket.LobbyClient(socket.LobbyClient.TCP);
                 this.loginHandler = null;
                 this.isReconnected = false;
@@ -51,6 +52,7 @@ var LobbyClient = (function() {
         },
         connect : function () {
             if(this.lobbySocket){
+                this.isKicked = false;
                 this.lobbySocket.connect(this.host, this.port);
             }
         },
@@ -85,33 +87,53 @@ var LobbyClient = (function() {
                     }
                 }
                 else if(event === "LostConnection"){
-                    this.reconnect();
-                }
-            }
-            else{
-                if(command === "login"){
-                    if(event.status == 0){
-                        this.onLoginEvent(event);
-                        if(this.loginSuccessHandler){
-                            this.loginSuccessHandler();
-                            this.loginSuccessHandler = null;
-                        }
+                    if(!this.isKicked){
+                        this.reconnect();
                     }
                 }
-                else if (command === "register"){
+            }
+            else if(command === "kicked"){
+                this.isKicked = true;
+                var runningScene = cc.director.getRunningScene();
+                LoadingDialog.getInstance().hide();
+                var message = "Bạn bị sút khỏi máy chủ";
+                if(event.code == 1){
+                    message = "Tài khoản đăng nhập tại thiết bị khác";
+                }
+                if(runningScene.type == "HomeScene"){
+                    runningScene.startHome();
+                    MessageNode.getInstance().show(message);
+                }
+                else{
+                    var homeScene = new HomeScene();
+                    homeScene.startHome()();
+                    MessageNode.getInstance().showWithParent(message, homeScene.popupLayer);
+                }
+                LobbyClient.getInstance().close();
+                SmartfoxClient.getInstance().close();
+            }
+            else if(command === "login"){
+                if(event.status == 0){
+                    this.onLoginEvent(event);
                     if(this.loginSuccessHandler){
                         this.loginSuccessHandler();
                         this.loginSuccessHandler = null;
                     }
                 }
-                else if(command === "getGameServer"){
-                    var data = event.data;
-                    if(this.betting == data.betting){
-                        PlayerMe.SFS.betting = data.betting;
-                        PlayerMe.SFS.gameType = data.gameType;
-                        SmartfoxClient.getInstance().connect(data.host, data.port);
-                    };
+            }
+            else if (command === "register"){
+                if(this.loginSuccessHandler){
+                    this.loginSuccessHandler();
+                    this.loginSuccessHandler = null;
                 }
+            }
+            else if(command === "getGameServer"){
+                var data = event.data;
+                if(this.betting == data.betting){
+                    PlayerMe.SFS.betting = data.betting;
+                    PlayerMe.SFS.gameType = data.gameType;
+                    SmartfoxClient.getInstance().findAndJoinRoom(data.host, data.port);
+                };
             }
         },
         onLoginEvent : function (event) {

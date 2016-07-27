@@ -5,6 +5,14 @@
             "fnt": "res/fonts/bigsmall_number_font.fnt"
         },
         {
+            "img": "res/fonts/game-result-font1.png",
+            "fnt": "res/fonts/game-result-font1.fnt"
+        },
+        {
+            "img": "res/fonts/game-result-font2.png",
+            "fnt": "res/fonts/game-result-font2.fnt"
+        },
+        {
             "img": "res/fonts/minigame-number-1.png",
             "fnt": "res/fonts/minigame-number-1.fnt"
         },

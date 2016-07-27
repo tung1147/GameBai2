@@ -4,10 +4,62 @@
     <dict>
         <key>frames</key>
         <dict>
+            <key>game-boluotBt.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{111,2},{180,68}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{2,2},{180,68}}</string>
+                <key>sourceSize</key>
+                <string>{184,72}</string>
+            </dict>
+            <key>game-danhbaiBt.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{293,2},{180,68}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{2,2},{180,68}}</string>
+                <key>sourceSize</key>
+                <string>{184,72}</string>
+            </dict>
+            <key>game-startBt.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{74,72},{180,68}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{2,2},{180,68}}</string>
+                <key>sourceSize</key>
+                <string>{184,72}</string>
+            </dict>
+            <key>game-xepbaiBt.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{256,72},{180,68}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{2,2},{180,68}}</string>
+                <key>sourceSize</key>
+                <string>{184,72}</string>
+            </dict>
             <key>ingame-backBt.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{100,100}}</string>
+                <string>{{157,142},{100,100}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -20,7 +72,7 @@
             <key>ingame-chatBt.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{104,104},{70,70}}</string>
+                <string>{{2,66},{70,70}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -30,10 +82,23 @@
                 <key>sourceSize</key>
                 <string>{88,88}</string>
             </dict>
+            <key>ingame-goldIcon.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{47,2},{62,62}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{62,62}}</string>
+                <key>sourceSize</key>
+                <string>{62,62}</string>
+            </dict>
             <key>ingame-historyBt.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{104,176},{70,70}}</string>
+                <string>{{438,72},{70,70}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -46,7 +111,7 @@
             <key>ingame-playerBt.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{176,104},{70,70}}</string>
+                <string>{{2,138},{70,70}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -59,7 +124,7 @@
             <key>ingame-settingBt.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,104},{100,100}}</string>
+                <string>{{259,142},{100,100}}</string>
                 <key>offset</key>
                 <string>{0,1}</string>
                 <key>rotated</key>
@@ -72,7 +137,7 @@
             <key>ingame-tutorialBt.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{104,2},{100,100}}</string>
+                <string>{{361,144},{100,100}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -82,6 +147,32 @@
                 <key>sourceSize</key>
                 <string>{132,134}</string>
             </dict>
+            <key>ingame_inviteBt.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{74,142},{81,80}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{81,80}}</string>
+                <key>sourceSize</key>
+                <string>{81,80}</string>
+            </dict>
+            <key>tlmn_card_remain.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,2},{43,55}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{43,55}}</string>
+                <key>sourceSize</key>
+                <string>{43,55}</string>
+            </dict>
         </dict>
         <key>metadata</key>
         <dict>
@@ -90,9 +181,9 @@
             <key>realTextureFileName</key>
             <string>GameScene.png</string>
             <key>size</key>
-            <string>{248,248}</string>
+            <string>{510,246}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:4672cf5475c70a42437d417292daa582:e75e76157e5d15b9c46ab08b8485b149:865db70d33f6fd1c3bd18ff13c48b0ed$</string>
+            <string>$TexturePacker:SmartUpdate:879aadc13481bccc670bfa06b0f42ed6:e31ef3ac331a4c14f14ec36dd049e94f:865db70d33f6fd1c3bd18ff13c48b0ed$</string>
             <key>textureFileName</key>
             <string>GameScene.png</string>
         </dict>

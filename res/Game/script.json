@@ -16,6 +16,8 @@
     "js/Dialog/UserListDialog.js",
     "js/Game/BaCay.js",
     "js/Game/BaCayChuong.js",
+    "js/Game/Card.js",
+    "js/Game/GamePlayer.js",
     "js/Game/GameScene.js",
     "js/Game/MauBinh.js",
     "js/Game/Phom.js",

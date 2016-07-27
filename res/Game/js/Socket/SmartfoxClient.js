@@ -105,9 +105,29 @@ var SmartfoxClient = (function() {
                 this.sfsSocket.close();
             }
         },
+        findAndJoinRoom : function (host, port) {
+            if(this.sfsSocket.getStatus() == socket.SmartfoxClient.Connected){
+                if(this.currentHost == host && this.currentPort == port){
+                    this.sendFindAndJoinRoom();
+                    cc.log("1");
+                }
+                else{
+                    cc.log("2");
+                    this.sfsSocket.close();
+                    this.connect(host, port);
+                }
+            }
+            else{
+                cc.log("3");
+                this.connect(host, port);
+            }
 
+            this.connect(host, port);
+        },
         connect : function (host, port) {
             if(this.sfsSocket){
+                this.currentHost = host;
+                this.currentPort = port;
                 this.sfsSocket.connect(host, port);
             }
         },
@@ -185,7 +205,14 @@ var SmartfoxClient = (function() {
             }
             else if(messageType === socket.SmartfoxClient.Login) {
                 if (contents.ec) { //login error
-
+                    LoadingDialog.getInstance().hide();
+                    var scene = cc.director.getRunningScene();
+                    if(scene.type == "GameScene"){
+                        //return home
+                    }
+                    else{
+                        MessageNode.getInstance().show("Lỗi đăng nhập máy chủ");
+                    }
                 }
                 else {
                     PlayerMe.SFS.userId = contents.id;
@@ -207,11 +234,12 @@ var SmartfoxClient = (function() {
                 if(contents.c == "1"){ //startgame
                     var scene = cc.director.getRunningScene();
                     if(scene.type == "GameScene"){
+                        cc.log("return");
                         return false;
                     }
                     var gameInfo = contents.p;
-                    var gameName = gameInfo["10"];
-                    var gameType = gameInfo["11"];
+                    var gameName = gameInfo["r"];
+                    var gameType = gameInfo["g"];
                     var gameScene = null;
                     if(gameType == "tlmn_tudo"){
                         gameScene = new TienLen();
@@ -227,8 +255,8 @@ var SmartfoxClient = (function() {
                         return false;
                     }
                     var gameInfo = contents.p["1"];
-                    var gameName = gameInfo["10"];
-                    var gameType = gameInfo["11"];
+                    var gameName = gameInfo["r"];
+                    var gameType = gameInfo["g"];
 
                     var gameScene = null;
                     if(gameType == "tlmn_tudo"){

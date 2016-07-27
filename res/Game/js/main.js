@@ -86,6 +86,7 @@ require("js/Home/RankLayer.js");
 require("js/Home/RewardLayer.js");
 require("js/Home/InboxLayer.js");
 require("js/Game/Card.js");
+require("js/Game/GamePlayer.js");
 require("js/Game/GameScene.js");
 require("js/Game/TienLen.js");
 require("js/Game/BaCay.js");
@@ -125,7 +126,7 @@ cc.game.onStart = function(){
     //load resources
     LobbyClient.getInstance();
 
-    //cc.director.replaceScene(new HomeScene());
-    cc.director.replaceScene(new TienLen());
+    cc.director.replaceScene(new HomeScene());
+    //cc.director.replaceScene(new TienLen());
 };
 cc.game.run();
