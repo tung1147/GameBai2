@@ -106,7 +106,8 @@ var LobbyClient = (function() {
                 }
                 else{
                     var homeScene = new HomeScene();
-                    homeScene.startHome()();
+                    homeScene.startHome();
+                    cc.director.replaceScene(homeScene);
                     MessageNode.getInstance().showWithParent(message, homeScene.popupLayer);
                 }
                 LobbyClient.getInstance().close();
