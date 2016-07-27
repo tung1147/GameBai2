@@ -493,7 +493,6 @@ void SocketClient::processSocketError(){
 }
 
 void SocketClient::processMessage(){
-	processEvent();
 	if (this->getStatus() == SocketStatusType::Connected){
 		if (mSender && mReceiver){
 			processRecvMessage();
@@ -506,6 +505,8 @@ void SocketClient::processMessage(){
 			}
 		}
 	}
+
+	processEvent();
 
 	if (!releasePool){
 		releasePool = quyetnd::data::AutoReleasePool::getInstance()->getPool();

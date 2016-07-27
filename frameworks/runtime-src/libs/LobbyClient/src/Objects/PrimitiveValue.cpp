@@ -201,7 +201,9 @@ void StringValue::setString(const std::string& str){
 
 void StringValue::setData(const char* buffer, int size){
 	//data = std::string(buffer, size);
-	data.assign(buffer, buffer + size);
+	if (size > 0){
+		data.assign(buffer, buffer + size);
+	}
 }
 
 const std::string& StringValue::getString(){
