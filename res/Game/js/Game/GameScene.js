@@ -48,6 +48,7 @@ var IGameScene = IScene.extend({
     ctor : function () {
         this._super();
         this.type = "GameScene";
+        this.isOwnerMe = false;
         SmartfoxClient.getInstance().addListener(socket.SmartfoxClient.CallExtension, this.onSFSExtension, this);
 
         var bg = new cc.Sprite("res/game-bg.jpg");
@@ -67,7 +68,10 @@ var IGameScene = IScene.extend({
         SmartfoxClient.getInstance().removeListener(this);
     },
     onSFSExtension : function (messageType, content) {
-        if(content.c == "1"){ //startGame
+        if(content.c == "ping"){
+            SmartfoxClient.getInstance().sendExtensionRequestCurrentRoom("ping", null);
+        }
+        else if(content.c == "1"){ //startGame
             this.processPlayerPosition(content);
         }
         else if (content.c == "2"){ //user joinRoom
@@ -81,7 +85,7 @@ var IGameScene = IScene.extend({
         }
     },
     processPlayerPosition : function (content) {
-        if(content.c == "1"){ //startGame
+         if(content.c == "1"){ //startGame
             var userList = content.p["5"];
             this.setPlayerWithPosition(userList);
 
@@ -135,6 +139,12 @@ var IGameScene = IScene.extend({
         for(var i=0;i<players.length;i++){
             if(players[i].u == PlayerMe.username){
                 idx = players[i]["4"];
+                if(players[i]["1"] == true){
+                    this.isOwnerMe = true;
+                }
+                else{
+                    this.isOwnerMe = false;
+                }
                 break;
             }
         }

@@ -7,7 +7,7 @@
             <key>game-boluotBt.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{111,2},{180,68}}</string>
+                <string>{{811,2},{180,68}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -20,7 +20,7 @@
             <key>game-danhbaiBt.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{293,2},{180,68}}</string>
+                <string>{{993,2},{180,68}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -33,7 +33,7 @@
             <key>game-startBt.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{74,72},{180,68}}</string>
+                <string>{{1175,2},{180,68}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -46,7 +46,7 @@
             <key>game-xepbaiBt.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{256,72},{180,68}}</string>
+                <string>{{1357,2},{180,68}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -59,7 +59,7 @@
             <key>ingame-backBt.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{157,142},{100,100}}</string>
+                <string>{{122,2},{100,100}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -72,7 +72,7 @@
             <key>ingame-chatBt.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,66},{70,70}}</string>
+                <string>{{595,2},{70,70}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -85,7 +85,7 @@
             <key>ingame-goldIcon.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{47,2},{62,62}}</string>
+                <string>{{1539,2},{62,62}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -98,7 +98,7 @@
             <key>ingame-historyBt.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{438,72},{70,70}}</string>
+                <string>{{667,2},{70,70}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -111,7 +111,7 @@
             <key>ingame-playerBt.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,138},{70,70}}</string>
+                <string>{{739,2},{70,70}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -124,7 +124,7 @@
             <key>ingame-settingBt.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{259,142},{100,100}}</string>
+                <string>{{224,2},{100,100}}</string>
                 <key>offset</key>
                 <string>{0,1}</string>
                 <key>rotated</key>
@@ -137,7 +137,7 @@
             <key>ingame-tutorialBt.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{361,144},{100,100}}</string>
+                <string>{{326,2},{100,100}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -150,7 +150,7 @@
             <key>ingame_inviteBt.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{74,142},{81,80}}</string>
+                <string>{{512,2},{81,80}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -160,10 +160,36 @@
                 <key>sourceSize</key>
                 <string>{81,80}</string>
             </dict>
+            <key>player-progress-1.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,2},{118,118}}</string>
+                <key>offset</key>
+                <string>{0,1}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{16,15},{118,118}}</string>
+                <key>sourceSize</key>
+                <string>{150,150}</string>
+            </dict>
+            <key>player-progress-2.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{428,2},{82,82}}</string>
+                <key>offset</key>
+                <string>{1,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{35,34},{82,82}}</string>
+                <key>sourceSize</key>
+                <string>{150,150}</string>
+            </dict>
             <key>tlmn_card_remain.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{43,55}}</string>
+                <string>{{1539,66},{43,55}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -181,9 +207,9 @@
             <key>realTextureFileName</key>
             <string>GameScene.png</string>
             <key>size</key>
-            <string>{510,246}</string>
+            <string>{1603,123}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:879aadc13481bccc670bfa06b0f42ed6:e31ef3ac331a4c14f14ec36dd049e94f:865db70d33f6fd1c3bd18ff13c48b0ed$</string>
+            <string>$TexturePacker:SmartUpdate:8ff1835890e4c7c8a82bc0e08b3ff223:9d40c2b74fb16795f4fc3265130fa7f6:865db70d33f6fd1c3bd18ff13c48b0ed$</string>
             <key>textureFileName</key>
             <string>GameScene.png</string>
         </dict>

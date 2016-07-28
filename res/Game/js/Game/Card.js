@@ -3,17 +3,23 @@
  */
 
 var CardSuit = CardSuit || {};
-CardSuit.Hearts = "c";
-CardSuit.Diamonds = "r";
-CardSuit.Clubs = "t";
-CardSuit.Spades = "b";
+CardSuit.Spades = 0;
+CardSuit.Clubs = 1;
+CardSuit.Diamonds = 2;
+CardSuit.Hearts = 3;
+
+var s_card_suit = s_card_suit || [];
+s_card_suit[CardSuit.Hearts] = "c";
+s_card_suit[CardSuit.Diamonds] = "r";
+s_card_suit[CardSuit.Clubs] = "t";
+s_card_suit[CardSuit.Spades] = "b";
 
 var Card = cc.Sprite.extend({
     ctor : function (rank, suit) {
         this.canTouch = true;
         this.rank = rank;
         this.suit = suit;
-        this._super("#"+rank + suit +".png");
+        this._super("#"+rank + s_card_suit[suit] +".png");
         this.touchRect = cc.rect(0,0,this.getContentSize().width, this.getContentSize().height);
         this.cardDistance = this.getContentSize().width;
 

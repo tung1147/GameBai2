@@ -68,9 +68,9 @@ void SmartfoxClient::onRecvStatus(const SFS::SocketStatusData& data){
 void SmartfoxClient::update(float dt){
 	if (client){
 		client->processMessage();
-		if (client->getStatus() == SFS::SocketStatusType::Connected){
-			this->updatePing(dt);
-		}
+		//if (client->getStatus() == SFS::SocketStatusType::Connected){
+		//	this->updatePing(dt);
+		//}
 	}
 }
 

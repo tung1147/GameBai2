@@ -7,6 +7,7 @@ var GamePlayer = cc.Node.extend({
         this.setContentSize(cc.size(158,184));
         this.setAnchorPoint(cc.p(0.5, 0.5));
         this.isMe = false;
+        this.username = "";
 
         this.infoLayer = new cc.Node();
         this.addChild(this.infoLayer);
@@ -14,6 +15,21 @@ var GamePlayer = cc.Node.extend({
         var avt = UserAvatar.createAvatar();
         avt.setPosition(this.getContentSize().width/2, 110);
         this.infoLayer.addChild(avt);
+
+        var timer = new cc.ProgressTimer(new cc.Sprite("#player-progress-2.png"));
+        timer.setType(cc.ProgressTimer.TYPE_RADIAL);
+        timer.setPosition(avt.getPosition());
+        timer.setPercentage(100.0);
+        this.infoLayer.addChild(timer);
+        this.timer = timer;
+
+        var timer2 = new cc.ProgressTimer(new cc.Sprite("#player-progress-1.png"));
+        timer2.setType(cc.ProgressTimer.TYPE_RADIAL);
+        timer2.setReverseDirection(true);
+        timer2.setPosition(avt.getPosition());
+        timer2.setPercentage(0.0);
+        this.infoLayer.addChild(timer2);
+        this.timer2 = timer2;
 
         var inviteBt = new ccui.Button("ingame_inviteBt.png","","", ccui.Widget.PLIST_TEXTURE);
         inviteBt.setPosition(avt.getPosition());
@@ -46,7 +62,6 @@ var GamePlayer = cc.Node.extend({
         infoBt.addClickEventListener(function () {
             thiz.showInfoDialog();
         });
-
         this.setEnable(true);
     },
     showChatMessage : function (message) {
@@ -56,6 +71,7 @@ var GamePlayer = cc.Node.extend({
         this.goldLabel.setString(cc.Global.NumberFormat1(gold));
     },
     setUsername : function (name) {
+        this.username = name;
         this.userLabel.setString(name);
     },
     setEnable : function (enable) {
@@ -64,6 +80,7 @@ var GamePlayer = cc.Node.extend({
             this.inviteBt.visible = false;
         }
         else{
+            this.username = "";
             this.infoLayer.visible = false;
             this.inviteBt.visible = true;
         }
@@ -74,6 +91,29 @@ var GamePlayer = cc.Node.extend({
     showInfoDialog : function () {
        // cc.log("showInfoDialog");
     },
+    showTimeRemain : function (currentTime, maxTime) {
+        var startValue = 100.0 * (currentTime / maxTime);
+       // var deltaValue = 100.0 - startValue;
+        this.setProgressPercentage(startValue);
+        var thiz = this;
+        var action = new quyetnd.ActionTimer(currentTime, function (dt) {
+            thiz.setProgressPercentage((1.0 - dt) * startValue);
+        });
+        if(this.timer){
+            this.timer.stopAllActions();
+            this.timer.runAction(action);
+        }
+    },
+    setProgressPercentage : function (percentage) {
+        this.timer.setPercentage(100.0 - percentage);
+        this.timer2.setPercentage(percentage);
+    },
+    stopTimeRemain : function () {
+        if(this.timer){
+            this.timer.stopAllActions();
+            this.setProgressPercentage(0.0);
+        }
+    }
 });
 
 var GamePlayerMe = GamePlayer.extend({
@@ -109,6 +149,9 @@ var GamePlayerMe = GamePlayer.extend({
         this.goldLabel = goldLabel;
     },
     setEnable : function (enable) {
+
+    },
+    setProgressPercentage : function (percentage) {
 
     }
 });

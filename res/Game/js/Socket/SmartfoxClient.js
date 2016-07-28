@@ -88,6 +88,9 @@ var SmartfoxClient = (function() {
             }
             this.send(socket.SmartfoxClient.CallExtension, content);
         },
+        sendExtensionRequestCurrentRoom : function (command, params) {
+            this.sendExtensionRequest(PlayerMe.SFS.roomId, command, params);
+        },
 
         send: function(messageType, message) {
             if(this.sfsSocket){
@@ -109,20 +112,15 @@ var SmartfoxClient = (function() {
             if(this.sfsSocket.getStatus() == socket.SmartfoxClient.Connected){
                 if(this.currentHost == host && this.currentPort == port){
                     this.sendFindAndJoinRoom();
-                    cc.log("1");
                 }
                 else{
-                    cc.log("2");
                     this.sfsSocket.close();
                     this.connect(host, port);
                 }
             }
             else{
-                cc.log("3");
                 this.connect(host, port);
             }
-
-            this.connect(host, port);
         },
         connect : function (host, port) {
             if(this.sfsSocket){
@@ -136,6 +134,14 @@ var SmartfoxClient = (function() {
             if(eventName == "Connected"){
                 //send handshake
                 this.sendHandShake();
+            }
+            else if(eventName == "ConnectFailure"){
+                LoadingDialog.getInstance().hide();
+                MessageNode.getInstance().show("Lỗi kết nối máy chủ");
+            }
+            else if(eventName == "LostConnection"){
+                LoadingDialog.getInstance().hide();
+                MessageNode.getInstance().show("Mất kết nối máy chủ");
             }
             this.postEvent(socket.SmartfoxClient.SocketStatus, eventName);
         },

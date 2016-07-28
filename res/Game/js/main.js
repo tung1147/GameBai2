@@ -127,6 +127,6 @@ cc.game.onStart = function(){
     LobbyClient.getInstance();
 
     cc.director.replaceScene(new HomeScene());
-    //cc.director.replaceScene(new TienLen());
+  //  cc.director.replaceScene(new TienLen());
 };
 cc.game.run();

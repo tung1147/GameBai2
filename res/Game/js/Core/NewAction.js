@@ -5,10 +5,11 @@
 //Point()|cc.p()|
 var quyetnd = quyetnd || {};
 quyetnd.ActionShake2D = cc.CustomAction.extend({
-    _strength : null,
-    _originPosition : null,
-    _target : null,
     ctor : function (duration, strength) {
+        this._strength = null;
+        this._originPosition = null;
+        this._target = null;
+
         this._super();
         this.initWithDuration(duration);
         this._strength = strength;
@@ -29,9 +30,16 @@ quyetnd.ActionShake2D = cc.CustomAction.extend({
     }
 });
 
-// quyetnd.ActionNumber = cc.CustomAction.extend({
-//     ctor : function () {
-//
-//     }
-//
-// });
+quyetnd.ActionTimer = cc.CustomAction.extend({
+    ctor : function (duration, callback) {
+        this._super();
+        this.callback = callback;
+        this.initWithDuration(duration);
+    },
+
+    onUpdate : function (dt) {
+        if(this.callback){
+            this.callback(dt);
+        }
+    }
+});
