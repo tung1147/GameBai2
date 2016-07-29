@@ -43,6 +43,7 @@ public:
     std::string getVersionName();
     std::string getPackageName();
     void callSupport(const std::string& numberSupport);
+	void enableMipmapTexture(const std::string& textureName);
 
 	void onBuyItemFinished(int returnCode, const std::string& signature, const std::string& json);
 	void onBuyItemFinished(int returnCode, const std::string& recept);

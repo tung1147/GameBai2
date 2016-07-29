@@ -26,6 +26,22 @@ bool jsb_quyetnd_systemplugin_getVersionName(JSContext *cx, uint32_t argc, jsval
 	return false;
 }
 
+bool jsb_quyetnd_systemplugin_enableMipmapTexture(JSContext *cx, uint32_t argc, jsval *vp){
+	if (argc == 1){
+		JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+		std::string textureName;
+		bool ok = true;
+		ok = jsval_to_std_string(cx, args.get(0), &textureName);
+		JSB_PRECONDITION2(ok, cx, false, "jsb_quyetnd_systemplugin_enableMipmapTexture : Error processing arguments");
+		if (ok){
+			quyetnd::SystemPlugin::getInstance()->enableMipmapTexture(textureName);
+		}	
+		args.rval().setUndefined();
+		return true;
+	}
+	return false;
+}
+
 bool jsb_quyetnd_systemplugin_exitApp(JSContext *cx, uint32_t argc, jsval *vp){
 	if (argc == 0){
 		quyetnd::SystemPlugin::getInstance()->exitApp();
@@ -162,7 +178,8 @@ void js_register_quyetnd_systemplugin(JSContext *cx, JS::HandleObject global) {
 		JS_FN("buyIAPItem", jsb_quyetnd_systemplugin_buyIAPItem, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("iOSInitStore", jsb_quyetnd_systemplugin_IOS_InitStore, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("setTarget", jsb_quyetnd_systemplugin_setJSTarget, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
-		JS_FN("exitApp", jsb_quyetnd_systemplugin_exitApp, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("enableMipmapTexture", jsb_quyetnd_systemplugin_enableMipmapTexture, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("exitApp", jsb_quyetnd_systemplugin_exitApp, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),	
         JS_FS_END
     };
 	

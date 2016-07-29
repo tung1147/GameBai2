@@ -68,9 +68,9 @@ void SmartfoxClient::onRecvStatus(const SFS::SocketStatusData& data){
 void SmartfoxClient::update(float dt){
 	if (client){
 		client->processMessage();
-		if (client->getStatus() == SFS::SocketStatusType::Connected){
-			this->updatePing(dt);
-		}
+		//if (client->getStatus() == SFS::SocketStatusType::Connected){
+		//	this->updatePing(dt);
+		//}
 	}
 }
 
@@ -117,15 +117,6 @@ void SmartfoxClient::send(int messageType, const std::string& contensJSON){
 		message->messageType = messageType;
 		if (contensJSON != ""){
 			message->setContentJSON(contensJSON);
-
-			/*auto contents = (SFS::Entity::SFSObject*)SFS::Entity::SFSEntity::createFromJSON(contensJSON);
-			if (contents){
-				message->setContents(contents);
-				contents->release();
-			}
-			else{
-				log("json error [format invalid]");
-			}		*/
 		}
 
 		client->sendMessage(message);		

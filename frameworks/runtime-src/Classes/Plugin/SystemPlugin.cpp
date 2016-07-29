@@ -230,18 +230,27 @@ std::string SystemPlugin::getPackageName(){
 }
     
 void SystemPlugin::callSupport(const std::string& numberSupport)
-    {
+{
 #if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
-        jniCallSupport(numberSupport);
+    jniCallSupport(numberSupport);
 #elif CC_TARGET_PLATFORM == CC_PLATFORM_IOS
-        c_to_objCCallSupport(numberSupport.c_str());
+    c_to_objCCallSupport(numberSupport.c_str());
         
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
         
 #else
        
 #endif
-    }
+}
+
+void SystemPlugin::enableMipmapTexture(const std::string& textureName){
+	Texture2D* texture = Director::getInstance()->getTextureCache()->getTextureForKey(textureName);
+	if (texture){
+		texture->generateMipmap();
+		texture->setAntiAliasTexParameters();
+		texture->setTexParameters({ GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE });
+	}
+}
     
 std::string SystemPlugin::getDeviceUUID(std::string nameKeyChain){
 #if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
