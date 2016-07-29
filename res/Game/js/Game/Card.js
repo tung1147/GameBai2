@@ -63,7 +63,7 @@ var Card = cc.Sprite.extend({
         }
     },
     isSelected : function () {
-        return (this.x > this.origin.y);
+        return (this.y > this.origin.y);
     },
     onTouchBegan : function (touch, event) {
         if(this.canTouch && !this.isTouched){
@@ -244,21 +244,23 @@ var CardList = cc.Node.extend({
         this.cardList[card1.cardIndex] = card1;
         this.cardList[card2.cardIndex] = card2;
     },
-    removeCard : function (card) {
+    removeCard : function (cards) {
+        var arrCard = [];
         for(var i=0;i<cards.length;i++){
-            if(this.cardList[i] == card){
-                this.removeCardAtIndex(i);
-                return;
+            var rank  = cards[i].rank;
+            var suit = cards[i].suit;
+            for(var j=0;j<this.cardList.length;j++){
+                var card = this.cardList[j];
+                if(card.rank == rank && card.suit == suit){
+                    card.retain();
+                    card.removeFromParent(true);
+                    arrCard.push(card);
+                    this.cardList.splice(j, 1);
+                    break;
+                }
             }
         }
-    },
-    removeCardAtIndex : function (index) {
-        var card = this.cardList[index];
-        this.removeChild(card);
-        this.cardList.splice(index, 1);
-    },
-    removeCardWithRank : function (rank,suit) {
-        
+        return arrCard;
     },
     removeAll : function () {
         this.removeAllChildren(true);
@@ -278,5 +280,70 @@ var CardList = cc.Node.extend({
             }
         }
         return cardSelected;
+    }
+});
+
+var CardOnTable = cc.Node.extend({
+    ctor : function () {
+        this._super();
+        this.cardList = [];
+        this.cardSize = null;
+        this.cardScale = 0.5;
+        this.cardPosition = cc.p(cc.winSize.width/2, cc.winSize.height/2);
+    },
+    moveOldCard : function () {
+        if(this.cardList.length == 2){
+            var arr = this.cardList[0];
+            for(var i=0;i<arr.length;i++){
+                arr[i].removeFromParent(true);
+            }
+            this.cardList.splice(0,1);
+        }
+        if(this.cardList.length == 1){
+            var arr = this.cardList[0];
+            for(var i=0;i<arr.length;i++){
+                arr[i].y += 40.0;
+                arr[i].setColor(cc.color(100,100,100));
+            }
+        }
+    },
+    addNewCardList : function (cards,startPosition) {
+        //add
+        var arrCard = [];
+        for(var i=0;i<cards.length;i++){
+            var card = new cc.Sprite("#"+cards[i].rank + s_card_suit[cards[i].suit] +".png");
+            card.setPosition(startPosition);
+            arrCard.push(card);
+        }
+        this.addCard(arrCard);
+        return arrCard;
+    },
+    addCard : function (cards) {
+        var animationDuration = 0.3;
+        if(!this.cardSize){
+            this.cardSize = cards[0].getContentSize();
+        }
+        this.cardList.push(cards);
+
+        var dx = this.cardSize.width * this.cardScale;
+        var width = cards.length * dx;
+        var x = this.cardPosition.x - width/2 +  dx/2;
+
+        for(var i=0;i<cards.length;i++){
+            var card = cards[i];
+            var moveAction = new cc.MoveTo(animationDuration, cc.p(x, this.cardPosition.y));
+            var scaleAction = new cc.ScaleTo(animationDuration, 0.5);
+            card.runAction(new cc.EaseBackIn(new cc.Spawn(moveAction, scaleAction)));
+            card.setScale(this.cardScale);
+            var rotate = 20.0 - Math.random() * 40.0;
+            card.setRotation(rotate);
+            this.addChild(card,0);
+            x += dx;
+        }
+    },
+
+    removeAll : function () {
+        this.cardList = [];
+        this.removeAllChildrenWithCleanup();
     }
 });

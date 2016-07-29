@@ -133,6 +133,14 @@ var IGameScene = IScene.extend({
             }
         }
     },
+    getSlotByUsername : function (username) {
+        for(var i=0;i<this.allSlot.length;i++){
+            if(this.allSlot[i].username == username){
+                return this.allSlot[i];
+            }
+        }
+        return null;
+    },
     setPlayerWithPosition : function (players) {
         //find me
         var idx = 0;

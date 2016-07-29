@@ -194,10 +194,10 @@ SFSEntity* __SFS_createArrayFromJSON(rapidjson::Value& value){
 		else if (value[i].IsDouble()){ //float array
 			_flag = _flag & _is_float;
 		}
-		else if (value.IsNumber()){ //int array
+		else if (value[i].IsNumber()){ //int array
 			_flag = _flag & _is_int;
 		}
-		else if (value.IsString()){ //string array
+		else if (value[i].IsString()){ //string array
 			_flag = _flag & _is_string;
 		}
 	}
@@ -210,19 +210,19 @@ SFSEntity* __SFS_createArrayFromJSON(rapidjson::Value& value){
 	}
 	
 	if (!_flag){
-		arr->dataType == SFS::Entity::SFSDataType::SFSDATATYPE_SFS_ARRAY;
+		arr->dataType = SFS::Entity::SFSDataType::SFSDATATYPE_SFS_ARRAY;
 	}
 	else if (_flag & _is_bool){
-		arr->dataType == SFS::Entity::SFSDataType::SFSDATATYPE_BOOL_ARRAY;
+		arr->dataType = SFS::Entity::SFSDataType::SFSDATATYPE_BOOL_ARRAY;
 	}
 	else if (_flag & _is_int){
-		arr->dataType == SFS::Entity::SFSDataType::SFSDATATYPE_INT_ARRAY;
+		arr->dataType = SFS::Entity::SFSDataType::SFSDATATYPE_INT_ARRAY;
 	}
 	else if (_flag & _is_float){
-		arr->dataType == SFS::Entity::SFSDataType::SFSDATATYPE_FLOAT_ARRAY;
+		arr->dataType = SFS::Entity::SFSDataType::SFSDATATYPE_FLOAT_ARRAY;
 	}
 	else if (_flag & _is_string){
-		arr->dataType == SFS::Entity::SFSDataType::SFSDATATYPE_STRING_ARRAY;
+		arr->dataType = SFS::Entity::SFSDataType::SFSDATATYPE_STRING_ARRAY;
 	}
 
 	return arr;

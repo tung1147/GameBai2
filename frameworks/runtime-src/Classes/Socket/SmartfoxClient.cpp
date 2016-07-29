@@ -117,15 +117,6 @@ void SmartfoxClient::send(int messageType, const std::string& contensJSON){
 		message->messageType = messageType;
 		if (contensJSON != ""){
 			message->setContentJSON(contensJSON);
-
-			/*auto contents = (SFS::Entity::SFSObject*)SFS::Entity::SFSEntity::createFromJSON(contensJSON);
-			if (contents){
-				message->setContents(contents);
-				contents->release();
-			}
-			else{
-				log("json error [format invalid]");
-			}		*/
 		}
 
 		client->sendMessage(message);		

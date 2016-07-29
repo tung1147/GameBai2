@@ -125,8 +125,9 @@ cc.game.onStart = function(){
     //cc.view.resizeWithBrowserSize(true);
     //load resources
     LobbyClient.getInstance();
+    SystemPlugin.getInstance().enableMipmapTexture("res/Card.png");
 
     cc.director.replaceScene(new HomeScene());
-  //  cc.director.replaceScene(new TienLen());
+    //cc.director.replaceScene(new TienLen());
 };
 cc.game.run();

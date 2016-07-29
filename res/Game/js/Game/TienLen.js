@@ -20,6 +20,13 @@ var TienLen = IGameScene.extend({
         cardList.setPosition(cc.winSize.width/2, 100.0);
         this.sceneLayer.addChild(cardList);
         this.cardList = cardList;
+
+        var cardOnTable = new CardOnTable();
+        cardOnTable.setPosition(cc.p(0,0));
+        this.sceneLayer.addChild(cardOnTable);
+        this.cardOnTable = cardOnTable;
+
+        //test
     },
     initButton : function () {
         var danhbaiBt = ccui.Button("game-danhbaiBt.png","","",ccui.Widget.PLIST_TEXTURE);
@@ -45,8 +52,11 @@ var TienLen = IGameScene.extend({
         boluotBt.addClickEventListener(function () {
             thiz.sendBoluotRequest();
         });
+        danhbaiBt.addClickEventListener(function () {
+            thiz.sendDanhBai();
+        });
 
-        danhbaiBt.visible = false;
+        //danhbaiBt.visible = false;
         xepBaiBt.visible = false;
         boluotBt.visible = false;
         startBt.visible = false;
@@ -84,6 +94,13 @@ var TienLen = IGameScene.extend({
             rank : rankCard,
             suit : Math.floor(cardId/13)
         };
+    },
+    getCardIdWithRank : function (rank, suit) {
+        var rankCard = rank - 3;
+        if(rankCard < 0){
+            rankCard = 13 + rankCard;
+        }
+        return ((suit*13) + rankCard);
     },
     onSFSExtension : function (messageType, content) {
         this._super(messageType, content);
@@ -151,15 +168,25 @@ var TienLen = IGameScene.extend({
         }
     },
     onDanhBaiThanhCong : function (param) {
-        for(var i=0;i<this.allSlot.length;i++){
-            if(this.allSlot[i].username == param.u){
-                if(this.allSlot[i].isMe){
-                    cc.log("danh bai ME");
+        var slot = this.getSlotByUsername(param.u);
+        if(slot){
+            var cards = [];
+            var cardData = param["2"];
+            for(var i=0;i<cardData.length;i++){
+                cards.push(this.getCardWithId(cardData[i]));
+            }
+            if(slot.isMe){
+                var arr = this.cardList.removeCard(cards);
+                this.cardOnTable.moveOldCard();
+                this.cardOnTable.addCard(arr);
+                this.cardList.reOrder();
+                for(var i=0;i<arr.length;i++){
+                    arr[i].release();
                 }
-                else{
-                    cc.log("danh bai OTHER");
-                }
-                return;
+            }
+            else{
+                this.cardOnTable.moveOldCard();
+                this.cardOnTable.addNewCardList(cards, slot.getPosition());
             }
         }
     },
@@ -190,9 +217,73 @@ var TienLen = IGameScene.extend({
         SmartfoxClient.getInstance().sendExtensionRequestCurrentRoom("3", null);
     },
     sendBoluotRequest : function () {
+        // var cards = [
+        //     {
+        //         rank : 1,
+        //         suit : CardSuit.Hearts
+        //     },
+        //     {
+        //         rank : 2,
+        //         suit : CardSuit.Hearts
+        //     },
+        //     {
+        //         rank : 3,
+        //         suit : CardSuit.Hearts
+        //     }
+        // ]
+        // this.cardOnTable.addCard(cards);
         SmartfoxClient.getInstance().sendExtensionRequestCurrentRoom("5", null);
     },
     sendDanhBai : function () {
+        // if(!this.start){
+        //     var cards = [
+        //         {
+        //             rank : 1,
+        //             suit : CardSuit.Hearts
+        //         },
+        //         {
+        //             rank : 2,
+        //             suit : CardSuit.Hearts
+        //         },
+        //         {
+        //             rank : 3,
+        //             suit : CardSuit.Hearts
+        //         },
+        //         {
+        //             rank : 4,
+        //             suit : CardSuit.Hearts
+        //         },
+        //         {
+        //             rank : 5,
+        //             suit : CardSuit.Hearts
+        //         },
+        //         {
+        //             rank : 6,
+        //             suit : CardSuit.Hearts
+        //         },
+        //         {
+        //             rank : 7,
+        //             suit : CardSuit.Hearts
+        //         }
+        //     ];
+        //     this.cardList.dealCards(cards);
+        //     this.start = true;
+        //     return;
+        // }
 
+        var cards = this.cardList.getCardSelected();
+        if(cards.length > 0){
+            var cardId = [];
+            for(var i=0;i<cards.length;i++){
+                cardId.push(this.getCardIdWithRank(cards[i].rank, cards[i].suit));
+            }
+            var param = {
+                2 : cardId
+            };
+            SmartfoxClient.getInstance().sendExtensionRequestCurrentRoom("4", param);
+        }
+        else{
+            MessageNode.getInstance().show("Bạn phải chọn quân bài");
+        }
     }
 });

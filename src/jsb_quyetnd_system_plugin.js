@@ -53,6 +53,9 @@ var SystemPlugin = (function() {
         },
         exitApp : function () {
             this.plugin.exitApp();
+        },
+        enableMipmapTexture : function (texture) {
+            this.plugin.enableMipmapTexture(texture);
         }
     });
 
