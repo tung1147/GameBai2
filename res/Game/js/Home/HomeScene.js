@@ -102,6 +102,11 @@ var HomeScene = IScene.extend({
     },
     startHome : function () {
         this.popupLayer.removeAllChildren();
+        if(this.subLayer){
+            this.subLayer.removeFromParent(true);
+            this.subLayer = 0;
+            this.mainLayer.visible = true;
+        }
         this.homeLayer.visible = true;
         this.gameLayer.visible = true;
         this.lobbyLayer.visible = false;
@@ -211,8 +216,7 @@ var HomeScene = IScene.extend({
             var dialog = new MessageConfirmDialog();
             dialog.setMessage("Bạn muốn thoát game ?");
             dialog.okButtonHandler = function () {
-               // SystemPlugin.getInstance().exitApp();
-                thiz.startHome();
+                SystemPlugin.getInstance().exitApp();
             };
             dialog.cancelButtonHandler = function () {
                 dialog.hide();

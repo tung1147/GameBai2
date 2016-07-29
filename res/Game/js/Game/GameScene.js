@@ -8,10 +8,10 @@ var GameTopBar = cc.Node.extend({
         SmartfoxClient.getInstance().addListener(socket.SmartfoxClient.UserExitRoom, this.onUserExitRoom, this);
         SmartfoxClient.getInstance().addListener(socket.SmartfoxClient.CallExtension, this.onExtensionCommand, this);
 
-        var bg = new cc.Sprite("#home-top-bar.png");
-        bg.setAnchorPoint(0.0, 1.0);
-        bg.setPosition(0.0, cc.winSize.height);
-        this.addChild(bg);
+        // var bg = new cc.Sprite("#home-top-bar.png");
+        // bg.setAnchorPoint(0.0, 1.0);
+        // bg.setPosition(0.0, cc.winSize.height);
+        // this.addChild(bg);
 
         this.backBt = new ccui.Button("ingame-backBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
         this.backBt.setPosition(65, 653);

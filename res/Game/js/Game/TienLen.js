@@ -137,7 +137,15 @@ var TienLen = IGameScene.extend({
         for(var i=0;i<cardData.length;i++){
             cards.push(this.getCardWithId(cardData[i]));
         }
-        this.cardList.dealCards(cards);
+        this.cardList.dealCards(cards, true);
+    },
+    onReconnect : function (param) {
+        var cards = [];
+        var cardData = params["1"];
+        for(var i=0;i<cardData.length;i++){
+            cards.push(this.getCardWithId(cardData[i]));
+        }
+        this.cardList.dealCards(cards, true);
     },
     onGameStatus : function (status) {
         if(status == 0){ //waiting
@@ -145,12 +153,14 @@ var TienLen = IGameScene.extend({
             this.xepBaiBt.visible = false;
             this.boluotBt.visible = false;
             this.startBt.visible = false;
+            this.cardList.removeAll();
         }
         else if(status == 1){ //ready
             this.danhbaiBt.visible = false;
             this.xepBaiBt.visible = false;
             this.boluotBt.visible = false;
             this.startBt.visible = false;
+            this.cardList.removeAll();
             if(this.isOwnerMe){
                 this.startBt.visible = true;
             }
@@ -211,66 +221,14 @@ var TienLen = IGameScene.extend({
             }
         }
     },
-
     /* send request */
     sendStartRequest : function () {
         SmartfoxClient.getInstance().sendExtensionRequestCurrentRoom("3", null);
     },
     sendBoluotRequest : function () {
-        // var cards = [
-        //     {
-        //         rank : 1,
-        //         suit : CardSuit.Hearts
-        //     },
-        //     {
-        //         rank : 2,
-        //         suit : CardSuit.Hearts
-        //     },
-        //     {
-        //         rank : 3,
-        //         suit : CardSuit.Hearts
-        //     }
-        // ]
-        // this.cardOnTable.addCard(cards);
         SmartfoxClient.getInstance().sendExtensionRequestCurrentRoom("5", null);
     },
     sendDanhBai : function () {
-        // if(!this.start){
-        //     var cards = [
-        //         {
-        //             rank : 1,
-        //             suit : CardSuit.Hearts
-        //         },
-        //         {
-        //             rank : 2,
-        //             suit : CardSuit.Hearts
-        //         },
-        //         {
-        //             rank : 3,
-        //             suit : CardSuit.Hearts
-        //         },
-        //         {
-        //             rank : 4,
-        //             suit : CardSuit.Hearts
-        //         },
-        //         {
-        //             rank : 5,
-        //             suit : CardSuit.Hearts
-        //         },
-        //         {
-        //             rank : 6,
-        //             suit : CardSuit.Hearts
-        //         },
-        //         {
-        //             rank : 7,
-        //             suit : CardSuit.Hearts
-        //         }
-        //     ];
-        //     this.cardList.dealCards(cards);
-        //     this.start = true;
-        //     return;
-        // }
-
         var cards = this.cardList.getCardSelected();
         if(cards.length > 0){
             var cardId = [];

@@ -356,6 +356,25 @@ var UserinfoDialog = IDialog.extend({
             thiz.hide();
         });
 
+        var logoutBt = new ccui.Button("userinfo-logout-1.png", "userinfo-logout-2.png", "", ccui.Widget.PLIST_TEXTURE);
+        logoutBt.setPosition(230 , 170);
+        this.dialogNode.addChild(logoutBt);
+        logoutBt.addClickEventListener(function () {
+            var scene = cc.director.getRunningScene();
+            if(scene.type == "HomeScene"){
+                scene.startHome();
+                LobbyClient.getInstance().close();
+                SmartfoxClient.getInstance().close();
+            }
+            else{
+                var homeScene = new HomeScene();
+                homeScene.startHome();
+                LobbyClient.getInstance().close();
+                SmartfoxClient.getInstance().close();
+                cc.director.replaceScene(homeScene);
+            }
+        });
+
         var touchSize = cc.size(this.dialogNode.getContentSize().width - 200.0, this.dialogNode.getContentSize().height - 200.0);
         this.mTouch = cc.rect(cc.winSize.width/2 - touchSize.width/2, cc.winSize.height/2- touchSize.height/2, touchSize.width, touchSize.height);
 

@@ -171,7 +171,7 @@ var CardList = cc.Node.extend({
             this.cardList[i].canTouch = this.canTouch;
         }
     },
-    dealCards : function (cards) {
+    dealCards : function (cards, animation) {
         this.removeAll();
         for(var i=0;i<cards.length;i++){
             var card = new Card(cards[i].rank, cards[i].suit);
@@ -191,13 +191,19 @@ var CardList = cc.Node.extend({
             var card = this.cardList[i];
             card.origin = cc.p(x, y);
             card.cardDistance = dx;
-            card.visible = false;
-            var delayAction = new cc.DelayTime(0.02 * i);
-            var beforeAction = new cc.CallFunc(function (target) {
-                target.visible = true;
-            }, card);
-            var moveAction = new cc.MoveTo(0.2, cc.p(x, y));
-            card.runAction(new cc.Sequence(delayAction, beforeAction, moveAction));
+            if(animation){
+                card.visible = false;
+                var delayAction = new cc.DelayTime(0.02 * i);
+                var beforeAction = new cc.CallFunc(function (target) {
+                    target.visible = true;
+                }, card);
+                var moveAction = new cc.MoveTo(0.2, cc.p(x, y));
+                card.runAction(new cc.Sequence(delayAction, beforeAction, moveAction));
+            }
+            else{
+                card.setPosition(x,y);
+            }
+
             x += dx;
         }
     },
