@@ -233,6 +233,16 @@ char
 },
 
 /**
+ * @method getStudioVersionNumber
+ * @return {int}
+ */
+getStudioVersionNumber : function (
+)
+{
+    return 0;
+},
+
+/**
  * @method initWithBinary
  * @param {char} arg0
  * @param {cc.Ref} arg1
@@ -405,7 +415,7 @@ str
 
 /**
  * @method getMovementCount
- * @return {int}
+ * @return {long}
  */
 getMovementCount : function (
 )
@@ -1776,7 +1786,7 @@ bool
 
 /**
  * @method getMovementCount
- * @return {int}
+ * @return {long}
  */
 getMovementCount : function (
 )
@@ -1835,6 +1845,16 @@ ArmatureAnimation : function (
  * @class ArmatureDataManager
  */
 ccs.ArmatureDataManager = {
+
+/**
+ * @method getAnimationDatas
+ * @return {map_object}
+ */
+getAnimationDatas : function (
+)
+{
+    return map_object;
+},
 
 /**
  * @method removeAnimationData
@@ -1986,16 +2006,6 @@ texturedata,
 str 
 )
 {
-},
-
-/**
- * @method getAnimationDatas
- * @return {map_object}
- */
-getAnimationDatas : function (
-)
-{
-    return map_object;
 },
 
 /**

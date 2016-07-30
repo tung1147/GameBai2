@@ -28,7 +28,7 @@
 
 #include "jsapi.h"
 #include "jsfriendapi.h"
-#include "cocos2d.h"
+
 #include "ui/CocosGUI.h"
 #include "scripting/js-bindings/manual/js_bindings_config.h"
 #include "scripting/js-bindings/manual/js_bindings_core.h"
@@ -40,7 +40,7 @@
 #include <assert.h>
 #include <memory>
 
-#define ENGINE_VERSION "Cocos2d-JS v3.11"
+#define ENGINE_VERSION "Cocos2d-JS v3.12"
 
 void js_log(const char *format, ...);
 
@@ -289,7 +289,7 @@ public:
      @param path @~english The script file path
      @return @~english Script object
      */
-    JSScript* getScript(const char *path);
+    JS::PersistentRootedScript* getScript(const char *path);
     
     /**@~english
      * Compile the specified js file
@@ -297,7 +297,7 @@ public:
      * @param global    @~english The js global object
      * @param cx        @~english The js context
      */
-    void compileScript(const char *path, JS::HandleObject global, JSContext* cx = NULL);
+    JS::PersistentRootedScript* compileScript(const char *path, JS::HandleObject global, JSContext* cx = NULL);
     
     /**@~english
      * Run the specified js file
@@ -345,7 +345,7 @@ public:
      * Gets the cached script objects for all executed js file
      * @return @~english The cached script object map
      */
-    std::unordered_map<std::string, JSScript*> &getFileScript();
+    std::unordered_map<std::string, JS::PersistentRootedScript*>& getFileScript();
     /**@~english
      * Clean all script objects
      */
@@ -548,7 +548,7 @@ public:
     bool handleMouseEvent(void* nativeObj, cocos2d::EventMouse::MouseEventType eventType, cocos2d::Event* event);
     bool handleMouseEvent(void* nativeObj, cocos2d::EventMouse::MouseEventType eventType, cocos2d::Event* event, JS::MutableHandleValue jsvalRet);
 
-    bool handleKeybardEvent(void* nativeObj, cocos2d::EventKeyboard::KeyCode keyCode, bool isPressed, cocos2d::Event* event);
+    bool handleKeyboardEvent(void* nativeObj, cocos2d::EventKeyboard::KeyCode keyCode, bool isPressed, cocos2d::Event* event);
     bool handleFocusEvent(void* nativeObj, cocos2d::ui::Widget* widgetLoseFocus, cocos2d::ui::Widget* widgetGetFocus);
 
     void restartVM();

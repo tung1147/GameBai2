@@ -1,0 +1,41 @@
+{
+    "files": [
+        {
+            "file": "js/app.js",
+            "size": 1441,
+            "hash": "09e95ca1250b03ea833248cc6dcf458f"
+        },
+        {
+            "file": "js/LobbyClient.js",
+            "size": 2867,
+            "hash": "1e15b7ff1b4f2e3d240d29456f5a55e3"
+        },
+        {
+            "file": "js/main.js",
+            "size": 3831,
+            "hash": "5a968ec75a059bdc57f710ab97db3a55"
+        },
+        {
+            "file": "js/NewAction.js",
+            "size": 953,
+            "hash": "203d5d1d60bf692a0bd26a7d65190e9b"
+        },
+        {
+            "file": "js/SmartfoxClient.js",
+            "size": 4307,
+            "hash": "be9eb889e2ec04cd5d3e311b91520777"
+        },
+        {
+            "file": "resources.json",
+            "size": 55,
+            "hash": "d55f3b69ca7dfd955cb20ba8788d4c0b"
+        },
+        {
+            "file": "script.json",
+            "size": 113,
+            "hash": "2cdc2e5c7614c97bfaf97248b1c9500b"
+        }
+    ],
+    "versionName": "1.0.0",
+    "versionCode": 1
+}

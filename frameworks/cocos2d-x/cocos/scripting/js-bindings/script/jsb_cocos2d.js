@@ -26,7 +26,7 @@
 
 // CCConfig.js
 //
-cc.ENGINE_VERSION = "Cocos2d-JS v3.11";
+cc.ENGINE_VERSION = "Cocos2d-JS v3.12";
 
 cc.FIX_ARTIFACTS_BY_STRECHING_TEXEL = 0;
 cc.DIRECTOR_STATS_POSITION = {x: 0, y: 0};
@@ -2625,6 +2625,26 @@ _p.setDisabledSpriteFrame = function(frame) {
 
 cc.MenuItemToggle.prototype.selectedItem = cc.MenuItemToggle.prototype.getSelectedItem;
 
+
+// playMusic searchPaths
+if (cc.sys.os === cc.sys.OS_ANDROID && cc.audioEngine) {
+    cc.audioEngine._playMusic = cc.audioEngine.playMusic;
+    cc.audioEngine.playMusic = function () {
+        var args = arguments;
+        var searchPaths = jsb.fileUtils.getSearchPaths();
+        var path = args[0];
+        searchPaths.some(function (item) {
+            var temp = item + '/' + path;
+            var exists = jsb.fileUtils.isFileExist(temp);
+            if (exists) {
+                path = temp;
+                return true;
+            }
+        });
+        args[0] = path;
+        cc.audioEngine._playMusic.apply(cc.audioEngine, args);
+    };
+}
 
 //
 // LabelTTF API wrappers

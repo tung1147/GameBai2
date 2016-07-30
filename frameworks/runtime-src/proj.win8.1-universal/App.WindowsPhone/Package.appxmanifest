@@ -3,7 +3,7 @@
   <Identity Name="A6C07E44-59B3-477C-829D-18B4E183B079" Publisher="CN=dalestam" Version="1.0.0.5" />
   <mp:PhoneIdentity PhoneProductId="cc03f9ac-ca18-456f-aa00-f9919d6b2389" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>GameBai.WindowsPhone</DisplayName>
+    <DisplayName>GameBai2.WindowsPhone</DisplayName>
     <PublisherDisplayName>dalestam</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -16,7 +16,7 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="cocos2d_WindowsPhone.App">
-      <m3:VisualElements DisplayName="GameBai.WindowsPhone" Square150x150Logo="Assets\Logo.png" Square44x44Logo="Assets\SmallLogo.png" Description="GameBai.WindowsPhone" ForegroundText="light" BackgroundColor="transparent">
+      <m3:VisualElements DisplayName="GameBai2.WindowsPhone" Square150x150Logo="Assets\Logo.png" Square44x44Logo="Assets\SmallLogo.png" Description="GameBai2.WindowsPhone" ForegroundText="light" BackgroundColor="transparent">
         <m3:DefaultTile Wide310x150Logo="Assets\WideLogo.png" Square71x71Logo="Assets\Square71x71Logo.png">
         </m3:DefaultTile>
         <m3:SplashScreen Image="Assets\SplashScreen.png" />

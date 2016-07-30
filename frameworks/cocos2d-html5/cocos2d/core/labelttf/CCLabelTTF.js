@@ -135,6 +135,11 @@ cc.LabelTTF = cc.Sprite.extend(/** @lends cc.LabelTTF# */{
         this._renderCmd._setColorsString();
         this._renderCmd._updateTexture();
         this._setUpdateTextureDirty();
+
+        // Needed for high dpi text.
+        // In order to render it crisp, we request devicePixelRatio times the
+        // font size and scale it down 1/devicePixelRatio.
+        this._scaleX = this._scaleY = 1 / cc.view.getDevicePixelRatio();
         return true;
     },
 
@@ -578,6 +583,87 @@ cc.LabelTTF = cc.Sprite.extend(/** @lends cc.LabelTTF# */{
         return texDef;
     },
 
+    /*
+     * BEGIN SCALE METHODS
+     *
+     * In order to make the value of scaleX and scaleY consistent across
+     * screens, we provide patched versions that return the same values as if
+     * the screen was not HiDPI.
+     */
+
+    /**
+     * Returns the scale factor of the node.
+     * @warning: Assertion will fail when _scaleX != _scaleY.
+     * @function
+     * @return {Number} The scale factor
+     */
+    getScale: function () {
+        if (this._scaleX !== this._scaleY)
+            cc.log(cc._LogInfos.Node_getScale);
+        return this._scaleX * cc.view.getDevicePixelRatio();
+    },
+
+    /**
+     * Sets the scale factor of the node. 1.0 is the default scale factor. This function can modify the X and Y scale at the same time.
+     * @function
+     * @param {Number} scale or scaleX value
+     * @param {Number} [scaleY=]
+     */
+    setScale: function (scale, scaleY) {
+        this._scaleX = scale / cc.view.getDevicePixelRatio();
+        this._scaleY = ((scaleY || scaleY === 0) ? scaleY : scale) /
+            cc.view.getDevicePixelRatio();
+        this._renderCmd.setDirtyFlag(cc.Node._dirtyFlags.transformDirty);
+    },
+
+    /**
+     * Returns the scale factor on X axis of this node
+     * @function
+     * @return {Number} The scale factor on X axis.
+     */
+    getScaleX: function () {
+        return this._scaleX * cc.view.getDevicePixelRatio();
+    },
+
+    /**
+     * <p>
+     *     Changes the scale factor on X axis of this node                                   <br/>
+     *     The default value is 1.0 if you haven't changed it before
+     * </p>
+     * @function
+     * @param {Number} newScaleX The scale factor on X axis.
+     */
+    setScaleX: function (newScaleX) {
+        this._scaleX = newScaleX / cc.view.getDevicePixelRatio();
+        this._renderCmd.setDirtyFlag(cc.Node._dirtyFlags.transformDirty);
+    },
+
+    /**
+     * Returns the scale factor on Y axis of this node
+     * @function
+     * @return {Number} The scale factor on Y axis.
+     */
+    getScaleY: function () {
+        return this._scaleY * cc.view.getDevicePixelRatio();
+    },
+
+    /**
+     * <p>
+     *     Changes the scale factor on Y axis of this node                                            <br/>
+     *     The Default value is 1.0 if you haven't changed it before.
+     * </p>
+     * @function
+     * @param {Number} newScaleY The scale factor on Y axis.
+     */
+    setScaleY: function (newScaleY) {
+        this._scaleY = newScaleY / cc.view.getDevicePixelRatio();
+        this._renderCmd.setDirtyFlag(cc.Node._dirtyFlags.transformDirty);
+    },
+
+    /*
+     * END SCALE METHODS
+     */
+
     /**
      * Changes the text content of the label
      * @warning Changing the string is as expensive as creating a new cc.LabelTTF. To obtain better performance use cc.LabelAtlas
@@ -720,18 +806,18 @@ cc.LabelTTF = cc.Sprite.extend(/** @lends cc.LabelTTF# */{
     getContentSize: function () {
         if (this._needUpdateTexture)
             this._renderCmd._updateTTF();
-        return cc.Sprite.prototype.getContentSize.call(this);
+        return cc.size(this._contentSize);
     },
 
     _getWidth: function () {
         if (this._needUpdateTexture)
             this._renderCmd._updateTTF();
-        return cc.Sprite.prototype._getWidth.call(this);
+        return this._contentSize.width;
     },
     _getHeight: function () {
         if (this._needUpdateTexture)
             this._renderCmd._updateTTF();
-        return cc.Sprite.prototype._getHeight.call(this);
+        return this._contentSize.height;
     },
 
     setTextureRect: function (rect, rotated, untrimmedSize) {
@@ -813,11 +899,6 @@ cc.LabelTTF.create = function (text, fontName, fontSize, dimensions, hAlignment,
  */
 cc.LabelTTF.createWithFontDefinition = cc.LabelTTF.create;
 
-if (cc.USE_LA88_LABELS)
-    cc.LabelTTF._SHADER_PROGRAM = cc.SHADER_POSITION_TEXTURECOLOR;
-else
-    cc.LabelTTF._SHADER_PROGRAM = cc.SHADER_POSITION_TEXTUREA8COLOR;
-
 cc.LabelTTF.__labelHeightDiv = document.createElement("div");
 cc.LabelTTF.__labelHeightDiv.style.fontFamily = "Arial";
 cc.LabelTTF.__labelHeightDiv.style.position = "absolute";
@@ -832,14 +913,22 @@ document.body ?
         document.body.appendChild(cc.LabelTTF.__labelHeightDiv);
     }, false);
 
+/**
+ * Returns the height of text with an specified font family and font size, in
+ * device independent pixels.
+ *
+ * @param {string|cc.FontDefinition} fontName
+ * @param {number} fontSize
+ * @returns {number}
+ * @private
+ */
 cc.LabelTTF.__getFontHeightByDiv = function (fontName, fontSize) {
-
+    var clientHeight, labelDiv = cc.LabelTTF.__labelHeightDiv;
     if(fontName instanceof cc.FontDefinition){
         /** @type cc.FontDefinition */
         var fontDef = fontName;
-        var clientHeight = cc.LabelTTF.__fontHeightCache[fontDef._getCanvasFontStr()];
+        clientHeight = cc.LabelTTF.__fontHeightCache[fontDef._getCanvasFontStr()];
         if (clientHeight > 0) return clientHeight;
-        var labelDiv = cc.LabelTTF.__labelHeightDiv;
         labelDiv.innerHTML = "ajghl~!";
         labelDiv.style.fontFamily = fontDef.fontName;
         labelDiv.style.fontSize = fontDef.fontSize + "px";
@@ -849,19 +938,18 @@ cc.LabelTTF.__getFontHeightByDiv = function (fontName, fontSize) {
         clientHeight = labelDiv.clientHeight;
         cc.LabelTTF.__fontHeightCache[fontDef._getCanvasFontStr()] = clientHeight;
         labelDiv.innerHTML = "";
-        return clientHeight;
     }
-
-    //Default
-    var clientHeight = cc.LabelTTF.__fontHeightCache[fontName + "." + fontSize];
-    if (clientHeight > 0) return clientHeight;
-    var labelDiv = cc.LabelTTF.__labelHeightDiv;
-    labelDiv.innerHTML = "ajghl~!";
-    labelDiv.style.fontFamily = fontName;
-    labelDiv.style.fontSize = fontSize + "px";
-    clientHeight = labelDiv.clientHeight;
-    cc.LabelTTF.__fontHeightCache[fontName + "." + fontSize] = clientHeight;
-    labelDiv.innerHTML = "";
+    else {
+        //Default
+        clientHeight = cc.LabelTTF.__fontHeightCache[fontName + "." + fontSize];
+        if (clientHeight > 0) return clientHeight;
+        labelDiv.innerHTML = "ajghl~!";
+        labelDiv.style.fontFamily = fontName;
+        labelDiv.style.fontSize = fontSize + "px";
+        clientHeight = labelDiv.clientHeight;
+        cc.LabelTTF.__fontHeightCache[fontName + "." + fontSize] = clientHeight;
+        labelDiv.innerHTML = "";
+    }
     return clientHeight;
 
 };

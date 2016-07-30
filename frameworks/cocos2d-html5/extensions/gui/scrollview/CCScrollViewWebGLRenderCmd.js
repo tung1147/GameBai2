@@ -69,7 +69,7 @@
         }
     };
 
-    proto.visit = function(parendCmd){
+    proto.visit = function(parentCmd){
         var node = this._node;
         if (!node._visible) return;
 
@@ -77,7 +77,7 @@
 
         cc.kmGLPushMatrix();
 
-        this.transform(parendCmd);
+        this._syncStatus(parentCmd);
 
         if (node._clippingToBounds) {
             cc.renderer.pushRenderCommand(this.startCmd);

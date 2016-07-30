@@ -56,7 +56,7 @@
 
     proto.transform = function(parentCmd, recursive){
         var node = this._node;
-        cc.Node.WebGLRenderCmd.prototype.transform.call(this, parentCmd, recursive);
+        this.originTransform(parentCmd, recursive);
         if(node._stencil) {
             node._stencil._renderCmd.transform(this, recursive);
         }
@@ -74,13 +74,13 @@
         // if stencil buffer disabled
         if (cc.stencilBits < 1) {
             // draw everything, as if there were no stencil
-            cc.Node.WebGLRenderCmd.prototype.visit.call(this, parentCmd);
+            this.originVisit(parentCmd);
             return;
         }
 
         if (!node._stencil || !node._stencil.visible) {
             if (node.inverted)
-                cc.Node.WebGLRenderCmd.prototype.visit.call(this, parentCmd);   // draw everything
+                this.originVisit(parentCmd);   // draw everything
             return;
         }
 
@@ -90,8 +90,8 @@
                 cc.log("Nesting more than " + cc.stencilBits + "stencils is not supported. Everything will be drawn without stencil for this node and its children.");
                 cc.ClippingNode.WebGLRenderCmd._visit_once = false;
             }
-            // draw everything, as if there where no stencil
-            cc.Node.WebGLRenderCmd.prototype.visit.call(this, parentCmd);
+            // draw everything, as if there were no stencil
+            this.originVisit(parentCmd);
             return;
         }
 
@@ -155,7 +155,6 @@
 
         gl.depthMask(false);
 
-        gl.clear(gl.STENCIL_BUFFER_BIT);
         gl.stencilFunc(gl.NEVER, mask_layer, mask_layer);
         gl.stencilOp(gl.REPLACE, gl.KEEP, gl.KEEP);
 
@@ -184,17 +183,15 @@
 
         cc.ClippingNode.WebGLRenderCmd._layer--;
 
-        if (this._currentStencilEnabled)
-        {
-            var mask_layer = 0x1 << ccui.Layout.WebGLRenderCmd._layer;
+        if (this._currentStencilEnabled) {
+            var mask_layer = 0x1 << cc.ClippingNode.WebGLRenderCmd._layer;
             var mask_layer_l = mask_layer - 1;
             var mask_layer_le = mask_layer | mask_layer_l;
 
             gl.stencilMask(mask_layer);
             gl.stencilFunc(gl.EQUAL, mask_layer_le, mask_layer_le);
         }
-        else
-        {
+        else {
             gl.disable(gl.STENCIL_TEST);
 
         }
