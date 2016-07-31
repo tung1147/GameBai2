@@ -2,7 +2,7 @@
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest">
   <Identity Name="94EDFFBA-AE09-45A4-BDB4-14086CCB30FA" Publisher="CN=stamm" Version="1.0.0.6" />
   <Properties>
-    <DisplayName>GameBai.Windows</DisplayName>
+    <DisplayName>GameBai2.Windows</DisplayName>
     <PublisherDisplayName>dalestam</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -15,7 +15,7 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="cocos2d_Windows.App">
-      <m2:VisualElements DisplayName="GameBai.Windows" Square150x150Logo="Assets\Logo.png" Square30x30Logo="Assets\SmallLogo.png" Description="GameBai.Windows" ForegroundText="light" BackgroundColor="#464646">
+      <m2:VisualElements DisplayName="GameBai2.Windows" Square150x150Logo="Assets\Logo.png" Square30x30Logo="Assets\SmallLogo.png" Description="GameBai2.Windows" ForegroundText="light" BackgroundColor="#464646">
         <m2:SplashScreen Image="Assets\SplashScreen.png" />
         <m2:InitialRotationPreference>
           <m2:Rotation Preference="landscape" />

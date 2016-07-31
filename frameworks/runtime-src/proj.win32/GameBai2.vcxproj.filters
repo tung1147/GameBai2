@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="resource">
+      <UniqueIdentifier>{ca9c9e15-d942-43a1-aa7a-5f0b74ca1afd}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;jpg;jpeg;jpe;png;manifest</Extensions>
+    </Filter>
+    <Filter Include="win32">
+      <UniqueIdentifier>{ccb2323b-1cfa-41ea-bcf4-ba5f07309396}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes">
+      <UniqueIdentifier>{e93a77e1-af1e-4400-87d3-504b62ebdbb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Action">
+      <UniqueIdentifier>{080f9e85-26f1-4d1d-bad5-1cf3f29b527a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\GameLaucher">
+      <UniqueIdentifier>{14ff58dd-35f7-4d2d-8809-39d88c2e0cca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Plugin">
+      <UniqueIdentifier>{31348208-6b42-4078-a5bd-15c8675cd35d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Socket">
+      <UniqueIdentifier>{56659269-4e6d-4b52-a816-057c52aa77e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\NewGUI">
+      <UniqueIdentifier>{d0a5b490-fe13-4635-a0e1-173c024ba85b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AppDelegate.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Action\ActionNumber.cpp">
+      <Filter>Classes\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Action\ActionShake2D.cpp">
+      <Filter>Classes\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Action\CustomAction.cpp">
+      <Filter>Classes\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Action\jsb_quyetnd_action.cpp">
+      <Filter>Classes\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameLaucher\GameLaucher.cpp">
+      <Filter>Classes\GameLaucher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameLaucher\GameResource.cpp">
+      <Filter>Classes\GameLaucher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameLaucher\LoadingScene.cpp">
+      <Filter>Classes\GameLaucher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameLaucher\ResourceLoader.cpp">
+      <Filter>Classes\GameLaucher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\NewGUI\jsb_quyetnd_newui.cpp">
+      <Filter>Classes\NewGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\NewGUI\NewTableView.cpp">
+      <Filter>Classes\NewGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\NewGUI\NewTextField.cpp">
+      <Filter>Classes\NewGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\NewGUI\NewTextInput.cpp">
+      <Filter>Classes\NewGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\NewGUI\NewWidget.cpp">
+      <Filter>Classes\NewGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Socket\jsb_quyetnd_lobbysocket.cpp">
+      <Filter>Classes\Socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Socket\jsb_quyetnd_sfssocket.cpp">
+      <Filter>Classes\Socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Socket\LobbyClient.cpp">
+      <Filter>Classes\Socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Socket\SmartfoxClient.cpp">
+      <Filter>Classes\Socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plugin\base64.cpp">
+      <Filter>Classes\Plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plugin\CRC32.cpp">
+      <Filter>Classes\Plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plugin\crypt_aes.cpp">
+      <Filter>Classes\Plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plugin\FacebookPlugin.cpp">
+      <Filter>Classes\Plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plugin\jsb_quyetnd_facebook_plugin.cpp">
+      <Filter>Classes\Plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plugin\jsb_quyetnd_systemplugin.cpp">
+      <Filter>Classes\Plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plugin\MD5.cpp">
+      <Filter>Classes\Plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plugin\sha1.cpp">
+      <Filter>Classes\Plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plugin\SystemPlugin.cpp">
+      <Filter>Classes\Plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plugin\UUIDEncrypt.cpp">
+      <Filter>Classes\Plugin</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Classes\AppDelegate.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>win32</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="..\Classes\Action\jsb_quyetnd_action.hpp">
+      <Filter>Classes\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Action\ActionNumber.h">
+      <Filter>Classes\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Action\ActionShake2D.h">
+      <Filter>Classes\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Action\CustomAction.h">
+      <Filter>Classes\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameLaucher\GameLaucher.h">
+      <Filter>Classes\GameLaucher</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameLaucher\GameResource.h">
+      <Filter>Classes\GameLaucher</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameLaucher\LoadingScene.h">
+      <Filter>Classes\GameLaucher</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameLaucher\ResourceLoader.h">
+      <Filter>Classes\GameLaucher</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\NewGUI\jsb_quyetnd_newui.hpp">
+      <Filter>Classes\NewGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\NewGUI\NewTableView.h">
+      <Filter>Classes\NewGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\NewGUI\NewTextField.h">
+      <Filter>Classes\NewGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\NewGUI\NewTextInput.h">
+      <Filter>Classes\NewGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\NewGUI\NewWidget.h">
+      <Filter>Classes\NewGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Socket\jsb_quyetnd_lobbysocket.hpp">
+      <Filter>Classes\Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Socket\jsb_quyetnd_sfssocket.hpp">
+      <Filter>Classes\Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Socket\LobbyClient.h">
+      <Filter>Classes\Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Socket\SmartfoxClient.h">
+      <Filter>Classes\Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plugin\base64.h">
+      <Filter>Classes\Plugin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plugin\CRC32.h">
+      <Filter>Classes\Plugin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plugin\crypt_aes.h">
+      <Filter>Classes\Plugin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plugin\FacebookPlugin.h">
+      <Filter>Classes\Plugin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plugin\jsb_quyetnd_facebook_plugin.hpp">
+      <Filter>Classes\Plugin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plugin\jsb_quyetnd_systemplugin.hpp">
+      <Filter>Classes\Plugin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plugin\MD5.h">
+      <Filter>Classes\Plugin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plugin\sha1.h">
+      <Filter>Classes\Plugin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plugin\SystemPlugin.h">
+      <Filter>Classes\Plugin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plugin\UUIDEncrypt.h">
+      <Filter>Classes\Plugin</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="game.rc">
+      <Filter>resource</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\game.ico">
+      <Filter>resource</Filter>
+    </Image>
+  </ItemGroup>
+</Project>

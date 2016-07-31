@@ -249,6 +249,7 @@ cc.AsyncPool = function(srcObj, limit, iterator, onEnd, target){
     self._onEnd = onEnd;
     self._onEndTarget = target;
     self._results = srcObj instanceof Array ? [] : {};
+    self._errors = srcObj instanceof Array ? [] : {};
 
     cc.each(srcObj, function(value, index){
         self._pool.push({index : index, value : value});
@@ -279,16 +280,22 @@ cc.AsyncPool = function(srcObj, limit, iterator, onEnd, target){
         var value = item.value, index = item.index;
         self._workingSize++;
         self._iterator.call(self._iteratorTarget, value, index,
-            function(err) {
+            function(err, result) {
 
                 self.finishedSize++;
                 self._workingSize--;
 
-                var arr = Array.prototype.slice.call(arguments, 1);
-                self._results[this.index] = arr[0];
+                if (err) {
+                    self._errors[this.index] = err;
+                }
+                else {
+                    self._results[this.index] = result;
+                }
                 if (self.finishedSize === self.size) {
-                    if (self._onEnd)
-                        self._onEnd.call(self._onEndTarget, null, self._results);
+                    if (self._onEnd) {
+                        var errors = self._errors.length === 0 ? null : self._errors;
+                        self._onEnd.call(self._onEndTarget, errors, self._results);
+                    }
                     return;
                 }
                 self._handleItem();
@@ -305,7 +312,7 @@ cc.AsyncPool = function(srcObj, limit, iterator, onEnd, target){
         }
         for(var i = 0; i < self._limit; i++)
             self._handleItem();
-    }
+    };
 };
 
 /**
@@ -915,7 +922,7 @@ cc.loader = (function () {
 
                 var queue = _queue[url];
                 if (queue) {
-                    callbacks = queue.callbacks;
+                    var callbacks = queue.callbacks;
                     for (var i = 0; i < callbacks.length; ++i) {
                         var cb = callbacks[i];
                         if (cb) {
@@ -938,7 +945,7 @@ cc.loader = (function () {
                 } else {
                     var queue = _queue[url];
                     if (queue) {
-                        callbacks = queue.callbacks;
+                        var callbacks = queue.callbacks;
                         for (var i = 0; i < callbacks.length; ++i) {
                             var cb = callbacks[i];
                             if (cb) {
@@ -1857,17 +1864,25 @@ var _initSys = function () {
             }
 
             if (_supportWebGL && sys.os === sys.OS_ANDROID) {
+                var browserVer = parseFloat(sys.browserVersion);
                 switch (sys.browserType) {
                 case sys.BROWSER_TYPE_MOBILE_QQ:
                 case sys.BROWSER_TYPE_BAIDU:
                 case sys.BROWSER_TYPE_BAIDU_APP:
                     // QQ & Baidu Brwoser 6.2+ (using blink kernel)
-                    var browserVer = parseFloat(sys.browserVersion);
                     if (browserVer >= 6.2) {
                         _supportWebGL = true;
                     }
                     else {
                         _supportWebGL = false;
+                    }
+                    break;
+                case sys.BROWSER_TYPE_CHROME:
+                    // Chrome on android supports WebGL from v.30
+                    if(browserVer >= 30.0) {
+                      _supportWebGL = true;
+                    } else {
+                      _supportWebGL = false;
                     }
                     break;
                 case sys.BROWSER_TYPE_ANDROID:
@@ -2143,7 +2158,7 @@ cc.initEngine = function (config, cb) {
  *
  */
 cc.game = /** @lends cc.game# */{
-    /** 
+    /**
      * Debug mode: No debugging. {@static}
      * @const {Number}
      * @static
@@ -2323,7 +2338,10 @@ cc.game = /** @lends cc.game# */{
         if (this._paused) return;
         this._paused = true;
         // Pause audio engine
-        cc.audioEngine && cc.audioEngine._pausePlaying();
+        if (cc.audioEngine) {
+            cc.audioEngine.stopAllEffects();
+            cc.audioEngine.pauseMusic();
+        }
         // Pause main loop
         if (this._intervalId)
             window.cancelAnimationFrame(this._intervalId);
@@ -2337,7 +2355,9 @@ cc.game = /** @lends cc.game# */{
         if (!this._paused) return;
         this._paused = false;
         // Resume audio engine
-        cc.audioEngine && cc.audioEngine._resumePlaying();
+        if (cc.audioEngine) {
+            cc.audioEngine.resumeMusic();
+        }
         // Resume main loop
         this._runMainLoop();
     },
@@ -2638,15 +2658,6 @@ cc.game = /** @lends cc.game# */{
         localCanvas.setAttribute("width", width || 480);
         localCanvas.setAttribute("height", height || 320);
         localCanvas.setAttribute("tabindex", 99);
-        localCanvas.style.outline = "none";
-        localConStyle = localContainer.style;
-        localConStyle.width = (width || 480) + "px";
-        localConStyle.height = (height || 320) + "px";
-        localConStyle.margin = "0 auto";
-
-        localConStyle.position = 'relative';
-        localConStyle.overflow = 'hidden';
-        localContainer.top = '100%';
 
         if (cc._renderType === cc.game.RENDER_TYPE_WEBGL) {
             this._renderContext = cc._renderContext = cc.webglContext
@@ -2666,9 +2677,10 @@ cc.game = /** @lends cc.game# */{
             cc._drawingUtil = new cc.DrawingPrimitiveWebGL(this._renderContext);
             cc.textureCache._initializingRenderer();
             cc.glExt = {};
-            cc.glExt.instanced_arrays = gl.getExtension("ANGLE_instanced_arrays");
-            cc.glExt.element_uint = gl.getExtension("OES_element_index_uint");
+            cc.glExt.instanced_arrays = win.gl.getExtension("ANGLE_instanced_arrays");
+            cc.glExt.element_uint = win.gl.getExtension("OES_element_index_uint");
         } else {
+            cc._renderType = cc.game.RENDER_TYPE_CANVAS;
             cc.renderer = cc.rendererCanvas;
             this._renderContext = cc._renderContext = new cc.CanvasContextWrapper(localCanvas.getContext("2d"));
             cc._drawingUtil = cc.DrawingPrimitiveCanvas ? new cc.DrawingPrimitiveCanvas(this._renderContext) : null;
