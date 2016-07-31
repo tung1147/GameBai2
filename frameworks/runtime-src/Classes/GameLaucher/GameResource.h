@@ -19,6 +19,7 @@ public:
 	std::string fileName;
 	std::string filePath;
 	std::string md5Digest;
+	int fileSize;
 public:
 	GameFile();
 	virtual ~GameFile();

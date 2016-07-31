@@ -29,6 +29,8 @@ class LoadingScene : public Scene{
 
 	void onResourcesLoaderFinished();
 	void onResourcesLoaderProcess(int current, int max);
+	void onCheckVersionStatus(quyetnd::GameLaucherStatus status);
+	void onResourceDownloadProcress(int _current, int _max);
 public:
 	LoadingScene();
 	virtual ~LoadingScene();

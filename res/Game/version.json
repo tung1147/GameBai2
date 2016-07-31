@@ -2,238 +2,238 @@
     "files": [
         {
             "file": "js/app.js",
-            "size": 1492,
-            "hash": "e8b7f4750ff44238438c5a5c7d124cc8"
+            "size": 1441,
+            "hash": "09e95ca1250b03ea833248cc6dcf458f"
         },
         {
             "file": "js/Core/ButtonToggle.js",
-            "size": 1455,
-            "hash": "22f82347993a575a326827e0d9a2380f"
+            "size": 1408,
+            "hash": "991ea17cd7839e985792ea54020a49b9"
         },
         {
             "file": "js/Core/NewAction.js",
-            "size": 989,
-            "hash": "e6efda0380013f188f077fc2abec0aa0"
+            "size": 1185,
+            "hash": "edeadc42b49b07f67ce6e73fd9c73c20"
         },
         {
             "file": "js/Core/ToggleNodeGroup.js",
-            "size": 1763,
-            "hash": "6c2e04855546bdc301f82655f468e36c"
+            "size": 1694,
+            "hash": "58e0109bac0c8bea1436ce27b6709141"
         },
         {
             "file": "js/Dialog/Dialog.js",
-            "size": 6288,
-            "hash": "58a52c879a45c8b7c031752583967bba"
+            "size": 6124,
+            "hash": "abfe0bd947fa33834b5e04863e1a84b4"
         },
         {
             "file": "js/Dialog/InviteDialog.js",
-            "size": 52,
-            "hash": "727c884760ff4af1a4ae3de403383392"
+            "size": 49,
+            "hash": "824eda237bc538b5972bfe163f9f0655"
         },
         {
             "file": "js/Dialog/LoadingDialog.js",
-            "size": 2745,
-            "hash": "a3675c17416869fea7ae2c3e34c4a3a1"
+            "size": 2659,
+            "hash": "93609273dd5225693c55d15eb3f597a3"
         },
         {
             "file": "js/Dialog/MessageDialog.js",
-            "size": 3303,
-            "hash": "a5ba151bc385932a2cf0977336e032e3"
+            "size": 3220,
+            "hash": "e29034bbf1e8be8048284d6f1d4ca7be"
         },
         {
             "file": "js/Dialog/MessageNode.js",
-            "size": 3603,
-            "hash": "3c7b15258a39f1b30a94d27fa9e233e3"
+            "size": 3492,
+            "hash": "d318876f9332e4fcb1ac3934d3a073fe"
         },
         {
             "file": "js/Dialog/ResultDialog.js",
-            "size": 52,
-            "hash": "727c884760ff4af1a4ae3de403383392"
+            "size": 49,
+            "hash": "824eda237bc538b5972bfe163f9f0655"
         },
         {
             "file": "js/Dialog/RewardDialog.js",
-            "size": 2224,
-            "hash": "f093a7ae473a065d095bac9c9a93e7c7"
+            "size": 2180,
+            "hash": "a8d7ca26b7e6513787dff386a5d0ad58"
         },
         {
             "file": "js/Dialog/SettingDialog.js",
-            "size": 3393,
-            "hash": "69f2a7ae4ccce369244dff33d65cd5ff"
+            "size": 3321,
+            "hash": "6841546a74a26476ee4f1adefd604d62"
         },
         {
             "file": "js/Dialog/UserDialog.js",
-            "size": 52,
-            "hash": "727c884760ff4af1a4ae3de403383392"
+            "size": 49,
+            "hash": "824eda237bc538b5972bfe163f9f0655"
         },
         {
             "file": "js/Dialog/UserinfoDialog.js",
-            "size": 18314,
-            "hash": "3d8813346073b6d10e180d4bbbfe06df"
+            "size": 18665,
+            "hash": "a4f2f811c9dc864583d3abe02566fd5c"
         },
         {
             "file": "js/Dialog/UserListDialog.js",
-            "size": 52,
-            "hash": "727c884760ff4af1a4ae3de403383392"
+            "size": 49,
+            "hash": "824eda237bc538b5972bfe163f9f0655"
         },
         {
             "file": "js/Game/BaCay.js",
-            "size": 52,
-            "hash": "f1e4ed83237227ebb698a429906e5974"
+            "size": 49,
+            "hash": "6533b39d6961864c166d7244ad52301a"
         },
         {
             "file": "js/Game/BaCayChuong.js",
-            "size": 52,
-            "hash": "f1e4ed83237227ebb698a429906e5974"
+            "size": 49,
+            "hash": "6533b39d6961864c166d7244ad52301a"
         },
         {
             "file": "js/Game/Card.js",
-            "size": 9127,
-            "hash": "82cae1fca71d1fb5c6df8e431f4bfb69"
+            "size": 11492,
+            "hash": "99b9241f1ddb4121689e09118a655ae6"
         },
         {
             "file": "js/Game/GamePlayer.js",
-            "size": 3216,
-            "hash": "2045886e111d864317a302ae816af282"
+            "size": 5433,
+            "hash": "f065aba37d576cb5f5c121b52c0f24fc"
         },
         {
             "file": "js/Game/GameScene.js",
-            "size": 2239,
-            "hash": "156b09c2f7ffdfb16ef4048ceb2f7ffb"
+            "size": 5898,
+            "hash": "c340bdda7037079ba111cfd65f0321b2"
         },
         {
             "file": "js/Game/MauBinh.js",
-            "size": 52,
-            "hash": "f1e4ed83237227ebb698a429906e5974"
+            "size": 49,
+            "hash": "6533b39d6961864c166d7244ad52301a"
         },
         {
             "file": "js/Game/Phom.js",
-            "size": 52,
-            "hash": "f1e4ed83237227ebb698a429906e5974"
+            "size": 49,
+            "hash": "6533b39d6961864c166d7244ad52301a"
         },
         {
             "file": "js/Game/Sam.js",
-            "size": 52,
-            "hash": "f1e4ed83237227ebb698a429906e5974"
+            "size": 49,
+            "hash": "6533b39d6961864c166d7244ad52301a"
         },
         {
             "file": "js/Game/TaiXiu.js",
-            "size": 52,
-            "hash": "f1e4ed83237227ebb698a429906e5974"
+            "size": 49,
+            "hash": "6533b39d6961864c166d7244ad52301a"
         },
         {
             "file": "js/Game/TienLen.js",
-            "size": 971,
-            "hash": "d53ac9bf4c730a09fcb231f834995e80"
+            "size": 8520,
+            "hash": "5eff8757ee71a85ea99e600e73deb8b5"
         },
         {
             "file": "js/Game/XocDia.js",
-            "size": 52,
-            "hash": "f1e4ed83237227ebb698a429906e5974"
+            "size": 49,
+            "hash": "6533b39d6961864c166d7244ad52301a"
         },
         {
             "file": "js/Global/Global.js",
-            "size": 7955,
-            "hash": "f713a6e4652d5d0ef00fb3e713f4e7fe"
+            "size": 7724,
+            "hash": "d6079ea54bc3b5e2c05ceed9b257ac91"
         },
         {
             "file": "js/Global/UserAvatar.js",
-            "size": 835,
-            "hash": "b653ecab10d3c479335452053192e0ab"
+            "size": 804,
+            "hash": "e7426595e9bcc34eaef49f35d105eda9"
         },
         {
             "file": "js/Home/GameLayer.js",
-            "size": 3316,
-            "hash": "217da8438333e5c837f0f4ada7f320cc"
+            "size": 3220,
+            "hash": "999ca94c3d5dd5e56385820f7df9b26e"
         },
         {
             "file": "js/Home/HomeLayer.js",
-            "size": 11770,
-            "hash": "42cf887cb995e6ed862b1a500bf437a0"
+            "size": 11518,
+            "hash": "1a41113555dc006cf30d0247c863b379"
         },
         {
             "file": "js/Home/HomeScene.js",
-            "size": 10432,
-            "hash": "9ffb7838dff829e90a95cef8fed350a9"
+            "size": 10240,
+            "hash": "fd1b8f13cd0d5f19694a12b913fa80d9"
         },
         {
             "file": "js/Home/InboxLayer.js",
-            "size": 3721,
-            "hash": "b8407acaf999830271a43b3968955d18"
+            "size": 3642,
+            "hash": "2d405f4daa6b7a88f554a06d742c4786"
         },
         {
             "file": "js/Home/LobbyBottomBar.js",
-            "size": 5770,
-            "hash": "97ca87d36664d812a1849741c1d1f15a"
+            "size": 5626,
+            "hash": "9fc4db7c461ec1df724659fd0e649cf0"
         },
         {
             "file": "js/Home/LobbyLayer.js",
-            "size": 7906,
-            "hash": "32c7ad63f2d93556b33222703302c591"
+            "size": 7711,
+            "hash": "5b2ec36169b1c39d155f96ea20e699da"
         },
         {
             "file": "js/Home/LobbySubLayer.js",
-            "size": 977,
-            "hash": "75b4428ed4e4c02ae443426f92866aa2"
+            "size": 949,
+            "hash": "3bbd14a20e9e2d97f379f6d9333b033c"
         },
         {
             "file": "js/Home/LobbyTopBar.js",
-            "size": 3359,
-            "hash": "20f6ab6b94cacb11d0bf2b99ffb5580d"
+            "size": 3276,
+            "hash": "f9b9909e39380281e5bb6d30a6e0b58f"
         },
         {
             "file": "js/Home/MiniGameLayer.js",
-            "size": 6110,
-            "hash": "99bb03dc0e5b08a52394a85230f33db2"
+            "size": 5953,
+            "hash": "4542d5816a2bf662495ed5f2b5b3d8e3"
         },
         {
             "file": "js/Home/NewsLayer.js",
-            "size": 11105,
-            "hash": "7ccdd8681d0beaa666bf82df61a96ad9"
+            "size": 10835,
+            "hash": "8719990620c4c6aa424a11a060b27328"
         },
         {
             "file": "js/Home/PaymentLayer.js",
-            "size": 22110,
-            "hash": "c0a82697683f5dd00c2ad87ebaa00de8"
+            "size": 21629,
+            "hash": "08c104c7c21de4d76efebabd98e7b899"
         },
         {
             "file": "js/Home/RankLayer.js",
-            "size": 8404,
-            "hash": "cb2e5b742aa9c39c9b71fbbfbf080cd5"
+            "size": 8193,
+            "hash": "a9505cb698a47fde81371bb79c293a95"
         },
         {
             "file": "js/Home/RewardLayer.js",
-            "size": 14792,
-            "hash": "07ef9bac818cd13916c98ab6abcf8222"
+            "size": 14444,
+            "hash": "f05fde354b67341a0c4c748a7d1a3650"
         },
         {
             "file": "js/IScene.js",
-            "size": 525,
-            "hash": "e7d5ef12beadc9b9c2bfeb7d2faf14fa"
+            "size": 504,
+            "hash": "d69bc232e160cdfe55a039af69b0faee"
         },
         {
             "file": "js/main.js",
-            "size": 5769,
-            "hash": "9e390e51e23da322049cd8f56761666a"
+            "size": 5706,
+            "hash": "646909b95db643763ab57a6bccbdeb56"
         },
         {
             "file": "js/Socket/LobbyClient.js",
-            "size": 13431,
-            "hash": "8ffdeaa95e81adf2efa14dcebdd210e2"
+            "size": 14090,
+            "hash": "77b339c365fa5aef0ba83050219dd910"
         },
         {
             "file": "js/Socket/LobbyError.js",
-            "size": 1698,
-            "hash": "cf3bc4c030d707716cba58156cca922e"
+            "size": 1638,
+            "hash": "7df109249014714841d1695d24e20e37"
         },
         {
             "file": "js/Socket/SmartfoxClient.js",
-            "size": 8685,
-            "hash": "f8a224d17c9066d6570f5d21a06130bf"
+            "size": 9971,
+            "hash": "fa914cc897e9b2560969c7e87759b9b8"
         },
         {
             "file": "res/avatar.plist",
-            "size": 5583,
-            "hash": "9aec4195378eef62381d650e1c412d61"
+            "size": 5431,
+            "hash": "b20254d80a8a9f4fe78ff2522ab48c35"
         },
         {
             "file": "res/bg-minigame-1.png",
@@ -252,8 +252,8 @@
         },
         {
             "file": "res/Card.plist",
-            "size": 30331,
-            "hash": "faa7b6bda0a44c8fc6485814374c39a7"
+            "size": 29503,
+            "hash": "3638affb9f5d87175aae914625701f20"
         },
         {
             "file": "res/Card.png",
@@ -262,18 +262,18 @@
         },
         {
             "file": "res/data/LevelData.json",
-            "size": 721,
-            "hash": "24c8b21671fc63201a12159b6861cebc"
+            "size": 672,
+            "hash": "7064d0e1993e0849e7a9b8b4f7dc077e"
         },
         {
             "file": "res/data/VipData.json",
-            "size": 706,
-            "hash": "ca56dc8a3708f5dcdc866f14f27d98e1"
+            "size": 657,
+            "hash": "b806a05ba1e32a2e8b21f9ea1d154722"
         },
         {
             "file": "res/dialog.plist",
-            "size": 14485,
-            "hash": "e3147bdf9e92b961fdbb0c75da5d7f11"
+            "size": 14099,
+            "hash": "9bd97ae79ac83fc2fcf8c22891379ece"
         },
         {
             "file": "res/dialog.png",
@@ -282,8 +282,8 @@
         },
         {
             "file": "res/effectMini.plist",
-            "size": 3219,
-            "hash": "efc31bbc5bb847d34f04651b091df499"
+            "size": 3133,
+            "hash": "cfbcd78731765f7402bb48f1ef6383ae"
         },
         {
             "file": "res/effectMini.png",
@@ -292,8 +292,8 @@
         },
         {
             "file": "res/fonts/bigsmall_number_font.fnt",
-            "size": 2587,
-            "hash": "213c0eaf9d72974dc1e2c2cf6336175e"
+            "size": 2554,
+            "hash": "862e5806b97a80e4e45c0ace150bca0a"
         },
         {
             "file": "res/fonts/bigsmall_number_font.png",
@@ -322,8 +322,8 @@
         },
         {
             "file": "res/fonts/minigame-number-1.fnt",
-            "size": 2079,
-            "hash": "c3153ef00ccd68a7ba4eac9dbe42987f"
+            "size": 2055,
+            "hash": "00fabf81f5b1f11a383e1f57db3af13f"
         },
         {
             "file": "res/fonts/minigame-number-1.png",
@@ -342,8 +342,8 @@
         },
         {
             "file": "res/fonts/RobotoBoldCondensed_25.fnt",
-            "size": 43875,
-            "hash": "a118eabdb36566878b544eb4ae755e9e"
+            "size": 43261,
+            "hash": "3034b562cdd41cb4087a02775feae0f8"
         },
         {
             "file": "res/fonts/RobotoBoldCondensed_25.png",
@@ -352,8 +352,8 @@
         },
         {
             "file": "res/fonts/RobotoBoldCondensed_30.fnt",
-            "size": 44342,
-            "hash": "19dc4f4ed9e8a56f3b742a69f41b6ce2"
+            "size": 43716,
+            "hash": "871c046350caa6edb862fdf0477c0bdd"
         },
         {
             "file": "res/fonts/RobotoBoldCondensed_30.png",
@@ -362,8 +362,8 @@
         },
         {
             "file": "res/fonts/RobotoBoldCondensed_40.fnt",
-            "size": 49972,
-            "hash": "73c00aedcd8cc50e384e0adb55d6ae24"
+            "size": 49201,
+            "hash": "5a9d5834eb833f4bb26829b84f311e33"
         },
         {
             "file": "res/fonts/RobotoBoldCondensed_40.png",
@@ -372,8 +372,8 @@
         },
         {
             "file": "res/fonts/RobotoCondensed_25.fnt",
-            "size": 43871,
-            "hash": "0396d6cb71335ce5fc654e220f77553a"
+            "size": 43257,
+            "hash": "d2cae588daa57dae4956b24232a2fb03"
         },
         {
             "file": "res/fonts/RobotoCondensed_25.png",
@@ -382,8 +382,8 @@
         },
         {
             "file": "res/fonts/RobotoCondensed_30.fnt",
-            "size": 44338,
-            "hash": "bd0c5347113683cb32e5049189ca2578"
+            "size": 43712,
+            "hash": "e6dc4721ddbf68b6b54e417e4e5bd8cb"
         },
         {
             "file": "res/fonts/RobotoCondensed_30.png",
@@ -397,8 +397,8 @@
         },
         {
             "file": "res/fonts/UTMAvoBold_25.fnt",
-            "size": 35671,
-            "hash": "5493a4b1be064cf82cbbb8a560555d3e"
+            "size": 35267,
+            "hash": "010dadc6be0bd6b1f09960fc7a86f0fa"
         },
         {
             "file": "res/fonts/UTMAvoBold_25.png",
@@ -407,8 +407,8 @@
         },
         {
             "file": "res/fonts/UTMAvoBold_30.fnt",
-            "size": 39066,
-            "hash": "b65d4ca28e14944816efea1226d17184"
+            "size": 38574,
+            "hash": "058b5f895673d69deae71e76fe1e5493"
         },
         {
             "file": "res/fonts/UTMAvoBold_30.png",
@@ -417,8 +417,8 @@
         },
         {
             "file": "res/fonts/UTMAvoBold_40.fnt",
-            "size": 39066,
-            "hash": "325a5875b946c8dac87b8a76c7d71d24"
+            "size": 38574,
+            "hash": "1e51f6c7ca6e3a6070ffd7791e8b2715"
         },
         {
             "file": "res/fonts/UTMAvoBold_40.png",
@@ -432,8 +432,8 @@
         },
         {
             "file": "res/GameList.plist",
-            "size": 8606,
-            "hash": "ad56ab7c74617fc38e21ca7d4c4d8449"
+            "size": 8376,
+            "hash": "eb87b3582827d9f3b78adb7a35c5521c"
         },
         {
             "file": "res/GameList.png",
@@ -442,8 +442,8 @@
         },
         {
             "file": "res/gamemini.plist",
-            "size": 13249,
-            "hash": "da9d96c67f5a6d3f1095958d777689b9"
+            "size": 12893,
+            "hash": "863adbf49e829755c5fc100138a5d168"
         },
         {
             "file": "res/gamemini.png",
@@ -452,13 +452,13 @@
         },
         {
             "file": "res/GameScene.plist",
-            "size": 4592,
-            "hash": "fc5f662278351d89b7933ffcf982d0b2"
+            "size": 7909,
+            "hash": "4abf90b9bd148227a020b5f80d11e2e7"
         },
         {
             "file": "res/GameScene.png",
-            "size": 45193,
-            "hash": "506941dd3e0032921c3888c5a066f41e"
+            "size": 97061,
+            "hash": "95fe11780a36592988e0fff272ceab58"
         },
         {
             "file": "res/gold-icon.png",
@@ -472,8 +472,8 @@
         },
         {
             "file": "res/HDList.plist",
-            "size": 4684,
-            "hash": "32b7715c80c54c7ea6e425d8524b5771"
+            "size": 4606,
+            "hash": "10b13954d5b6260855bbf1e44d8f741a"
         },
         {
             "file": "res/hilo_bg.png",
@@ -482,8 +482,8 @@
         },
         {
             "file": "res/home.plist",
-            "size": 31115,
-            "hash": "f93373a220ecf75afba478ac5b07de18"
+            "size": 30287,
+            "hash": "c49e23b963e1d914b1cbcbc250603130"
         },
         {
             "file": "res/home.png",
@@ -492,8 +492,8 @@
         },
         {
             "file": "res/lobby.plist",
-            "size": 44138,
-            "hash": "9af57e09e160a76a8bc56c3520ed3502"
+            "size": 42972,
+            "hash": "d8a4eba2dee79381dd551fa00b7c52b0"
         },
         {
             "file": "res/lobby.png",
@@ -572,8 +572,8 @@
         },
         {
             "file": "res/VongQuay.plist",
-            "size": 3777,
-            "hash": "af63ec26fbb7d2d0626d45487f20efaa"
+            "size": 3677,
+            "hash": "f913fe3979fc38dda02b8a0cf6429fb7"
         },
         {
             "file": "res/VongQuay.png",

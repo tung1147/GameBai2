@@ -244,40 +244,24 @@ void LoadingScene::initScene(){
 	this->addChild(statusLabel);
 
 	gameLaucher = quyetnd::GameLaucher::getInstance();
+	gameLaucher->statusCallback = CC_CALLBACK_1(LoadingScene::onCheckVersionStatus, this);
+	gameLaucher->downloadCallback = CC_CALLBACK_2(LoadingScene::onResourceDownloadProcress, this);
 }
 
 
 static char stringBuffer[512];
 void LoadingScene::update(float dt){
+	gameLaucher->update(dt);
 	switch (status)
 	{
-	case 0:{ //update	
-		if (gameLaucher->getStatus() == quyetnd::GameLaucherStatus::GameLaucherStatus_Updating){
-			int current = 0;
-			int max = 0;
-			gameLaucher->getDownloadStatus(current, max);
-			sprintf(stringBuffer, "Đang cập nhật [%d/%d]", current, max);
-			statusLabel->setString(stringBuffer);
-		}
-		else if (gameLaucher->getStatus() == quyetnd::GameLaucherStatus::GameLaucherStatus_Finished){
-			//load resource
-			startLoadResources();
-			currentStep = 0;
-			maxStep = resourceLoader.getMaxStep();
-			statusLabel->setString("Đang tải tài nguyên");
-			status = 1;
-		}	
-		else if (gameLaucher->getStatus() == quyetnd::GameLaucherStatus::GameLaucherStatus_UpdateFailure){
-			statusLabel->setString("Cập nhật thất bại, vui lòng kiểm tra lại kết nối mạng");
-			status = -1;
-		}
+	case 0:{ //check version
 		break;
 	}
 
-	case 1:{
-		float per = 100.0f * currentStep / maxStep;
-		sprintf(stringBuffer, "Đang tải tài nguyên [%d%]", (int)per);
-		statusLabel->setString(stringBuffer);
+	case 1:{ //load resource
+		if(currentStep >= maxStep){
+			status = 2;
+		}
 		break;
 	}
 	case 2:{ //next scene
@@ -288,12 +272,38 @@ void LoadingScene::update(float dt){
 }
 
 void LoadingScene::onResourcesLoaderFinished(){
-	status = 2;
+
 }
 
 void LoadingScene::onResourcesLoaderProcess(int current, int max){
 	this->currentStep = current;
 	this->maxStep = max;
+
+	float per = 100.0f * currentStep / maxStep;
+	//log("load resource: %f", per);
+	sprintf(stringBuffer, "Đang tải tài nguyên %d", (int)per);
+	statusLabel->setString(stringBuffer);
+}
+
+void LoadingScene::onCheckVersionStatus(quyetnd::GameLaucherStatus gameLaucherStatus){
+	if(gameLaucherStatus == quyetnd::GameLaucherStatus::GameLaucherStatus_Finished){
+		currentStep = 0;
+		maxStep = resourceLoader.getMaxStep();
+		statusLabel->setString("Đang tải tài nguyên");
+		status = 1;
+		startLoadResources();
+	}
+	else if(gameLaucherStatus == quyetnd::GameLaucherStatus::GameLaucherStatus_UpdateFailure){
+		statusLabel->setString("Cập nhật thất bại, vui lòng kiểm tra lại kết nối mạng");
+		status = -1;
+	}
+	else if(gameLaucherStatus == quyetnd::GameLaucherStatus::GameLaucherStatus_Updating){
+		statusLabel->setString("Dang cap nhat phien ban");
+	}
+}
+
+void LoadingScene::onResourceDownloadProcress(int _current, int _max){
+	sprintf(stringBuffer, "Đang cập nhật [%d/%d]", _current, _max);
 }
 
 void LoadingScene::onEnter(){
