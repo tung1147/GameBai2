@@ -12,6 +12,7 @@
 #include <vector>
 #include <map>
 #include <mutex>
+#include <functional>
 #include "GameResource.h"
 
 namespace quyetnd {
@@ -24,6 +25,10 @@ enum GameLaucherStatus{
 };
 
 class GameLaucher {
+	typedef std::function<void()> EventCallback;
+	std::vector<EventCallback> events;
+	std::mutex event_mutex;
+
 	std::string resourceHost;
 
 	std::string versionFile;
@@ -32,20 +37,24 @@ class GameLaucher {
 	bool checkFileExist(const std::string& file);
 
 	int status;
-	int cDownload;
-	int maxDownload;
-	std::mutex status_mutex;
+	int downloadCurrentValue;
+	int downloadMaxValue;
 
 	void checkFiles();
 public:
-
+	std::function<void(GameLaucherStatus)> statusCallback;
+	std::function<void(int currentValue, int maxValue)> downloadCallback;
 public:
 	GameLaucher();
 	virtual ~GameLaucher();
 
 	bool startFromFile(const std::string& versionFile);
-	int getStatus();
-	void getDownloadStatus(int &current, int& max);
+	//int getStatus();
+	//void getDownloadStatus(int &current, int& max);
+
+	void update(float dt);
+	void onUpdateDownloadProcess(int size);
+	void onProcessStatus(GameLaucherStatus status);
 
 	GameFile* getFile(const std::string& file);
 

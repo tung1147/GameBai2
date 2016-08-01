@@ -39,6 +39,12 @@
     var proto = ccui.Layout.CanvasRenderCmd.prototype = Object.create(ccui.ProtectedNode.CanvasRenderCmd.prototype);
     proto.constructor = ccui.Layout.CanvasRenderCmd;
 
+    cc.game.addEventListener(cc.game.EVENT_RENDERER_INITED, function () {
+        if (ccui.Widget.CanvasRenderCmd) {
+            ccui.Layout.CanvasRenderCmd.prototype.widgetVisit = ccui.Widget.CanvasRenderCmd.prototype.widgetVisit;
+        }
+    });
+
     proto.visit = function(parentCmd){
         var node = this._node;
         if (!node._visible)
@@ -58,9 +64,11 @@
                     break;
             }
         } else {
-            ccui.Widget.CanvasRenderCmd.prototype.visit.call(this, parentCmd);
+            this.widgetVisit(parentCmd);
         }
     };
+
+    proto.layoutVisit = proto.visit;
 
     proto._onRenderSaveCmd = function(ctx, scaleX, scaleY){
         var wrapper = ctx || cc._renderContext, context = wrapper.getContext();

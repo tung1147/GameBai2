@@ -16,8 +16,8 @@ namespace quyetnd {
 GameLaucher::GameLaucher() {
 	// TODO Auto-generated constructor stub
 	versionFile = "";
-	cDownload = 0;
-	maxDownload = 0;
+	statusCallback = nullptr;
+	downloadCallback = nullptr;
 	resourceHost = "http://10.0.1.106/quyetnd/Game/";
 }
 
@@ -61,52 +61,41 @@ void GameLaucher::checkFiles(){
 		GameFile* resource = new GameFile();
 		resource->fileName = fileData["file"].GetString();
 		resource->md5Digest = fileData["hash"].GetString();
+		resource->fileSize = fileData["size"].GetUint();
 
 		_allResources.insert(std::make_pair(resource->fileName, resource));
 	}
 
-	status_mutex.lock();
-	this->status = GameLaucherStatus_TestHash;
-	status_mutex.unlock();
-
+	this->onProcessStatus(GameLaucherStatus_TestHash);
+	downloadMaxValue = 0;
 	for (auto it = _allResources.begin(); it != _allResources.end(); it++){
 		if (it->second->test()){
 			CCLOG("HASH true: %s", it->second->filePath.c_str());
 		}
 		else{
 			CCLOG("HASH false: %s", it->second->fileName.c_str());
+			downloadMaxValue += it->second->fileSize;
 			_resourceUpdate.push_back(it->second);
 		}	
 	}
 
 	if (_resourceUpdate.size() > 0){
-		status_mutex.lock();
-		cDownload = 0;
-		maxDownload = _resourceUpdate.size();
-		this->status = GameLaucherStatus_Updating;
-		status_mutex.unlock();
-
+		downloadCurrentValue = 0;
+		//downloadMaxValue = _resourceUpdate.size();
+		this->onProcessStatus(GameLaucherStatus_Updating);
 		for (int i = 0; i < _resourceUpdate.size();){
 			auto pret = _resourceUpdate[i]->update(resourceHost + _resourceUpdate[i]->fileName);
-		//	auto pret = _resourceUpdate[i]->update("https://httpsimage.com/img/bg_xocdia.png");
 			if (pret == 0){
 				i++;
-				status_mutex.lock();
-				cDownload = i;
-				status_mutex.unlock();			
+				//this->onUpdateDownloadProcess(1);
 			}
 			else{
-				status_mutex.lock();
-				this->status = GameLaucherStatus_UpdateFailure;
-				status_mutex.unlock();
+				this->onProcessStatus(GameLaucherStatus_UpdateFailure);
 				return;
 			}
 		}
 	}
-	
-	status_mutex.lock();
-	this->status = GameLaucherStatus_Finished;
-	status_mutex.unlock();	
+	this->onProcessStatus(GameLaucherStatus_Finished);
 }
 
 bool GameLaucher::startFromFile(const std::string& versionFile){
@@ -117,15 +106,45 @@ bool GameLaucher::startFromFile(const std::string& versionFile){
 	return true;
 }
 
-int GameLaucher::getStatus(){
-	std::unique_lock<std::mutex> lk(status_mutex);
-	return status;
+//int GameLaucher::getStatus(){
+//	std::unique_lock<std::mutex> lk(status_mutex);
+//	return status;
+//}
+//
+//void GameLaucher::getDownloadStatus(int &current, int& max){
+//	std::unique_lock<std::mutex> lk(status_mutex);
+//	current = this->cDownload;
+//	max = this->maxDownload;
+//}
+
+void GameLaucher::update(float dt){
+	std::unique_lock<std::mutex> lk(event_mutex);
+	for(int i=0;i<events.size();i++){
+		events[i]();
+	}
+	events.clear();
 }
 
-void GameLaucher::getDownloadStatus(int &current, int& max){
-	std::unique_lock<std::mutex> lk(status_mutex);
-	current = this->cDownload;
-	max = this->maxDownload;
+void GameLaucher::onUpdateDownloadProcess(int size){
+	std::unique_lock<std::mutex> lk(event_mutex);
+	downloadCurrentValue += size;
+	auto eventCallback = [=](){
+		if(this->downloadCallback){
+			this->downloadCallback(downloadCurrentValue, downloadMaxValue);
+		}
+	};
+	events.push_back(eventCallback);
+}
+
+void GameLaucher::onProcessStatus(GameLaucherStatus status){
+	std::unique_lock<std::mutex> lk(event_mutex);
+	this->status = status;
+	auto eventCallback = [=](){
+		if(this->statusCallback){
+			this->statusCallback(status);
+		}
+	};
+	events.push_back(eventCallback);
 }
 
 GameFile* GameLaucher::getFile(const std::string& file){

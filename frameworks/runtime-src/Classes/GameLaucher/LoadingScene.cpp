@@ -95,70 +95,75 @@ LoadingScene::~LoadingScene() {
 
 void LoadingScene::startJS(){
 	/****/
-	ScriptingCore* sc = ScriptingCore::getInstance();
-	sc->addRegisterCallback(register_all_cocos2dx);
-	sc->addRegisterCallback(register_cocos2dx_js_core);
-	sc->addRegisterCallback(jsb_register_system);
-
-	// extension can be commented out to reduce the package
-	sc->addRegisterCallback(register_all_cocos2dx_extension);
-	sc->addRegisterCallback(register_all_cocos2dx_extension_manual);
-
-	// chipmunk can be commented out to reduce the package
-	sc->addRegisterCallback(jsb_register_chipmunk);
-	// opengl can be commented out to reduce the package
-	sc->addRegisterCallback(JSB_register_opengl);
-
-	// builder can be commented out to reduce the package
-	sc->addRegisterCallback(register_all_cocos2dx_builder);
-	sc->addRegisterCallback(register_CCBuilderReader);
-
-	// ui can be commented out to reduce the package, attension studio need ui module
-	sc->addRegisterCallback(register_all_cocos2dx_ui);
-	sc->addRegisterCallback(register_all_cocos2dx_ui_manual);
-
-	// studio can be commented out to reduce the package,
-	sc->addRegisterCallback(register_all_cocos2dx_studio);
-	sc->addRegisterCallback(register_all_cocos2dx_studio_manual);
-
-	// spine can be commented out to reduce the package
-	sc->addRegisterCallback(register_all_cocos2dx_spine);
-	sc->addRegisterCallback(register_all_cocos2dx_spine_manual);
-
-	// XmlHttpRequest can be commented out to reduce the package
-	sc->addRegisterCallback(MinXmlHttpRequest::_js_register);
-	// websocket can be commented out to reduce the package
-	sc->addRegisterCallback(register_jsb_websocket);
-	// sokcet io can be commented out to reduce the package
-	sc->addRegisterCallback(register_jsb_socketio);
-
-	// 3d can be commented out to reduce the package
-	sc->addRegisterCallback(register_all_cocos2dx_3d);
-	sc->addRegisterCallback(register_all_cocos2dx_3d_manual);
-
-	// 3d extension can be commented out to reduce the package
-	sc->addRegisterCallback(register_all_cocos2dx_3d_extension);
-
+    ScriptingCore* sc = ScriptingCore::getInstance();
+    sc->addRegisterCallback(register_all_cocos2dx);
+    sc->addRegisterCallback(register_cocos2dx_js_core);
+    sc->addRegisterCallback(jsb_register_system);
+    
+    // extension can be commented out to reduce the package
+    sc->addRegisterCallback(register_all_cocos2dx_extension);
+    sc->addRegisterCallback(register_all_cocos2dx_extension_manual);
+    
+    // chipmunk can be commented out to reduce the package
+    sc->addRegisterCallback(jsb_register_chipmunk);
+    // opengl can be commented out to reduce the package
+    sc->addRegisterCallback(JSB_register_opengl);
+    
+    // builder can be commented out to reduce the package
+    sc->addRegisterCallback(register_all_cocos2dx_builder);
+    sc->addRegisterCallback(register_CCBuilderReader);
+    
+    // ui can be commented out to reduce the package, attension studio need ui module
+    sc->addRegisterCallback(register_all_cocos2dx_ui);
+    sc->addRegisterCallback(register_all_cocos2dx_ui_manual);
+    
+    // studio can be commented out to reduce the package,
+    sc->addRegisterCallback(register_all_cocos2dx_studio);
+    sc->addRegisterCallback(register_all_cocos2dx_studio_manual);
+    
+    // spine can be commented out to reduce the package
+    sc->addRegisterCallback(register_all_cocos2dx_spine);
+    sc->addRegisterCallback(register_all_cocos2dx_spine_manual);
+    
+    // XmlHttpRequest can be commented out to reduce the package
+    sc->addRegisterCallback(MinXmlHttpRequest::_js_register);
+    // websocket can be commented out to reduce the package
+    sc->addRegisterCallback(register_jsb_websocket);
+    // sokcet io can be commented out to reduce the package
+    sc->addRegisterCallback(register_jsb_socketio);
+    
+    // 3d can be commented out to reduce the package
+    sc->addRegisterCallback(register_all_cocos2dx_3d);
+    sc->addRegisterCallback(register_all_cocos2dx_3d_manual);
+    
+    // 3d extension can be commented out to reduce the package
+    sc->addRegisterCallback(register_all_cocos2dx_3d_extension);
+    
 #if CC_USE_3D_PHYSICS && CC_ENABLE_BULLET_INTEGRATION
-	// Physics 3d can be commented out to reduce the package
-	sc->addRegisterCallback(register_all_cocos2dx_physics3d);
-	sc->addRegisterCallback(register_all_cocos2dx_physics3d_manual);
+    // Physics 3d can be commented out to reduce the package
+    sc->addRegisterCallback(register_all_cocos2dx_physics3d);
+    sc->addRegisterCallback(register_all_cocos2dx_physics3d_manual);
 #endif
-
+    
 #if CC_USE_NAVMESH
-	sc->addRegisterCallback(register_all_cocos2dx_navmesh);
-	sc->addRegisterCallback(register_all_cocos2dx_navmesh_manual);
+    sc->addRegisterCallback(register_all_cocos2dx_navmesh);
+    sc->addRegisterCallback(register_all_cocos2dx_navmesh_manual);
 #endif
-
+    
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	sc->addRegisterCallback(register_all_cocos2dx_experimental_video);
-	sc->addRegisterCallback(register_all_cocos2dx_experimental_video_manual);
-	sc->addRegisterCallback(register_all_cocos2dx_experimental_webView);
-	sc->addRegisterCallback(register_all_cocos2dx_experimental_webView_manual);
+    sc->addRegisterCallback(register_all_cocos2dx_experimental_video);
+    sc->addRegisterCallback(register_all_cocos2dx_experimental_video_manual);
+    sc->addRegisterCallback(register_all_cocos2dx_experimental_webView);
+    sc->addRegisterCallback(register_all_cocos2dx_experimental_webView_manual);
 #endif
-
+    
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT || CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_MAC || CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-	sc->addRegisterCallback(register_all_cocos2dx_audioengine);
+    sc->addRegisterCallback(register_all_cocos2dx_audioengine);
+#endif
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+    sc->addRegisterCallback(JavascriptJavaBridge::_js_register);
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+    sc->addRegisterCallback(JavaScriptObjCBridge::_js_register);
 #endif
 
 	//custom
@@ -170,17 +175,13 @@ void LoadingScene::startJS(){
 	sc->addRegisterCallback(register_all_quyetnd_facebook_plugin);
 	sc->addRegisterCallback(jsb_quyetnd_register_load_script);
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	sc->addRegisterCallback(JavascriptJavaBridge::_js_register);
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
-	sc->addRegisterCallback(JavaScriptObjCBridge::_js_register);
-#endif
-	sc->start();
-	sc->runScript("script/jsb_boot.js");
-	//sc->runScript("src/jsb_boot.js");
+    sc->start();
+    sc->runScript("script/jsb_boot.js");
+    //sc->runScript("src/jsb_boot.js");
 #if defined(COCOS2D_DEBUG) && (COCOS2D_DEBUG > 0)
-	sc->enableDebugger();
+    sc->enableDebugger();
 #endif
+
 	ScriptEngineProtocol *engine = ScriptingCore::getInstance();
 	ScriptEngineManager::getInstance()->setScriptEngine(engine);
 	GameFile* mainJs = gameLaucher->getFile("js/main.js");
@@ -243,40 +244,24 @@ void LoadingScene::initScene(){
 	this->addChild(statusLabel);
 
 	gameLaucher = quyetnd::GameLaucher::getInstance();
+	gameLaucher->statusCallback = CC_CALLBACK_1(LoadingScene::onCheckVersionStatus, this);
+	gameLaucher->downloadCallback = CC_CALLBACK_2(LoadingScene::onResourceDownloadProcress, this);
 }
 
 
 static char stringBuffer[512];
 void LoadingScene::update(float dt){
+	gameLaucher->update(dt);
 	switch (status)
 	{
-	case 0:{ //update	
-		if (gameLaucher->getStatus() == quyetnd::GameLaucherStatus::GameLaucherStatus_Updating){
-			int current = 0;
-			int max = 0;
-			gameLaucher->getDownloadStatus(current, max);
-			sprintf(stringBuffer, "Đang cập nhật [%d/%d]", current, max);
-			statusLabel->setString(stringBuffer);
-		}
-		else if (gameLaucher->getStatus() == quyetnd::GameLaucherStatus::GameLaucherStatus_Finished){
-			//load resource
-			startLoadResources();
-			currentStep = 0;
-			maxStep = resourceLoader.getMaxStep();
-			statusLabel->setString("Đang tải tài nguyên");
-			status = 1;
-		}	
-		else if (gameLaucher->getStatus() == quyetnd::GameLaucherStatus::GameLaucherStatus_UpdateFailure){
-			statusLabel->setString("Cập nhật thất bại, vui lòng kiểm tra lại kết nối mạng");
-			status = -1;
-		}
+	case 0:{ //check version
 		break;
 	}
 
-	case 1:{
-		float per = 100.0f * currentStep / maxStep;
-		sprintf(stringBuffer, "Đang tải tài nguyên [%d%]", (int)per);
-		statusLabel->setString(stringBuffer);
+	case 1:{ //load resource
+		if(currentStep >= maxStep){
+			status = 2;
+		}
 		break;
 	}
 	case 2:{ //next scene
@@ -287,12 +272,38 @@ void LoadingScene::update(float dt){
 }
 
 void LoadingScene::onResourcesLoaderFinished(){
-	status = 2;
+
 }
 
 void LoadingScene::onResourcesLoaderProcess(int current, int max){
 	this->currentStep = current;
 	this->maxStep = max;
+
+	float per = 100.0f * currentStep / maxStep;
+	//log("load resource: %f", per);
+	sprintf(stringBuffer, "Đang tải tài nguyên %d", (int)per);
+	statusLabel->setString(stringBuffer);
+}
+
+void LoadingScene::onCheckVersionStatus(quyetnd::GameLaucherStatus gameLaucherStatus){
+	if(gameLaucherStatus == quyetnd::GameLaucherStatus::GameLaucherStatus_Finished){
+		currentStep = 0;
+		maxStep = resourceLoader.getMaxStep();
+		statusLabel->setString("Đang tải tài nguyên");
+		status = 1;
+		startLoadResources();
+	}
+	else if(gameLaucherStatus == quyetnd::GameLaucherStatus::GameLaucherStatus_UpdateFailure){
+		statusLabel->setString("Cập nhật thất bại, vui lòng kiểm tra lại kết nối mạng");
+		status = -1;
+	}
+	else if(gameLaucherStatus == quyetnd::GameLaucherStatus::GameLaucherStatus_Updating){
+		statusLabel->setString("Dang cap nhat phien ban");
+	}
+}
+
+void LoadingScene::onResourceDownloadProcress(int _current, int _max){
+	sprintf(stringBuffer, "Đang cập nhật [%d/%d]", _current, _max);
 }
 
 void LoadingScene::onEnter(){

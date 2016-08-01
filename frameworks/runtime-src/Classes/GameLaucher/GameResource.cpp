@@ -20,6 +20,7 @@
 #include "../Plugin/MD5.h"
 USING_NS_CC;
 #include "network/HttpClient.h"
+#include "GameLaucher.h"
 
 namespace quyetnd {
 
@@ -107,6 +108,7 @@ bool GameFile::test(){
 
 size_t _GameFile_write_data(void *ptr, size_t size, size_t nmemb, FILE *stream) {
 	size_t written = fwrite(ptr, size, nmemb, stream);
+	GameLaucher::getInstance()->onUpdateDownloadProcess((int)(nmemb * size));
 	return written;
 }
 

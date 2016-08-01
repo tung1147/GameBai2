@@ -914,10 +914,14 @@ cc._tmp.WebGLTextureCache = function () {
 
         tex = locTexs[url] = new cc.Texture2D();
         tex.url = url;
-        var loadFunc = cc.loader._checkIsImageURL(url) ? cc.loader.load : cc.loader.loadImg;
-        loadFunc.call(cc.loader, url, function (err, img) {
+        var basePath = cc.loader.getBasePath ? cc.loader.getBasePath() : cc.loader.resPath;
+        cc.loader.loadImg(cc.path.join(basePath || "", url), function (err, img) {
             if (err)
                 return cb && cb.call(target, err);
+
+            if (!cc.loader.cache[url]) {
+                cc.loader.cache[url] = img;
+            }
             cc.textureCache.handleLoadedTexture(url);
 
             var texResult = locTexs[url];

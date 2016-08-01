@@ -85,7 +85,6 @@ cc.s_globalOrderOfArrival = 1;
  * -# The node will be rotated (rotation) <br/>
  * -# The node will be scaled (scale) <br/>
  * -# The grid will capture the screen <br/>
- * -# The node will be moved according to the camera values (camera) <br/>
  * -# The grid will render the captured screen <br/></P>
  *
  * @class
@@ -186,8 +185,6 @@ cc.Node = cc.Class.extend(/** @lends cc.Node# */{
     _cascadeOpacityEnabled: false,
 
     _renderCmd:null,
-
-    _camera: null,
 
     /**
      * Constructor function, override it to extend the construction behavior, remember to call "this._super()" in the extended "ctor" function.
@@ -945,6 +942,7 @@ cc.Node = cc.Class.extend(/** @lends cc.Node# */{
      */
     setParent: function (parent) {
         this._parent = parent;
+        this._renderCmd.setDirtyFlag(cc.Node._dirtyFlags.transformDirty);
     },
 
     /**
@@ -1888,7 +1886,7 @@ cc.Node = cc.Class.extend(/** @lends cc.Node# */{
      * @return {cc.AffineTransform}
      */
     getParentToNodeTransform: function () {
-       this._renderCmd.getParentToNodeTransform();
+       return this._renderCmd.getParentToNodeTransform();
     },
 
     /**
@@ -1905,10 +1903,9 @@ cc.Node = cc.Class.extend(/** @lends cc.Node# */{
      * @return {cc.AffineTransform}
      */
     getNodeToWorldTransform: function () {
-        //TODO renderCmd has a WorldTransform
-        var t = this.getNodeToParentTransform();
-        for (var p = this._parent; p !== null; p = p.parent)
-            t = cc.affineTransformConcat(t, p.getNodeToParentTransform());
+        var t = this.getNodeToParentTransform();        
+        for (var p = this._parent; p !== null; p = p.parent)      
+            t = cc.affineTransformConcat(t, p.getNodeToParentTransform());        
         return t;
     },
 
@@ -2164,19 +2161,13 @@ cc.Node = cc.Class.extend(/** @lends cc.Node# */{
     },
 
     /**
-     * Returns a camera object that lets you move the node using a gluLookAt
+     * Returns null
      * @function
-     * @return {cc.Camera} A CCCamera object that lets you move the node using a gluLookAt
+     * @return {null}
      * @deprecated since v3.0, no alternative function
-     * @example
-     * var camera = node.getCamera();
-     * camera.setEye(0, 0, 415/2);
-     * camera.setCenter(0, 0, 0);
      */
     getCamera: function () {
-        if (!this._camera)
-            this._camera = new cc.Camera();
-        return this._camera;
+        return null;
     },
 
     /**

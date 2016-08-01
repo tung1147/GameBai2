@@ -5,7 +5,7 @@ android {
     buildToolsVersion "22.0.1"
 
     defaultConfig {
-        applicationId "com.puppet.gamebai"
+        applicationId "com.puppet.gamebai2"
         minSdkVersion 10
         targetSdkVersion 22
         versionCode 1
