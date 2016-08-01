@@ -61,7 +61,7 @@ void GameLaucher::checkFiles(){
 		GameFile* resource = new GameFile();
 		resource->fileName = fileData["file"].GetString();
 		resource->md5Digest = fileData["hash"].GetString();
-		resource->fileSize = fileData["hash"].GetUint();
+		resource->fileSize = fileData["size"].GetUint();
 
 		_allResources.insert(std::make_pair(resource->fileName, resource));
 	}
