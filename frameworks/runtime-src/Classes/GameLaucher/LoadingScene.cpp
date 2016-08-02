@@ -152,8 +152,14 @@ void LoadingScene::startJS(){
 
 	sc->start();
 
-	std::thread loadJS(&LoadingScene::threadLoadJS, this);
-	loadJS.detach(); 
+	sc->runScript("script/jsb_boot.js");
+#if defined(COCOS2D_DEBUG) && (COCOS2D_DEBUG > 0)
+	sc->enableDebugger();
+#endif
+	sc->runScript("js/jsLoader.js");
+	this->status = 3;
+	this->currentStep++;
+	this->updateLoadResource();
 }
 
 void LoadingScene::threadLoadJS(){
@@ -223,7 +229,7 @@ void LoadingScene::initScene(){
 	Scene::init();
 
 	Size winSize = Director::getInstance()->getWinSize();
-	statusLabel = Label::createWithSystemFont("Đang tải dữ liệu", "arial", 30);
+	statusLabel = Label::createWithSystemFont("Ä�ang táº£i dá»¯ liá»‡u", "arial", 30);
 	statusLabel->setPosition(winSize.width / 2, winSize.height / 2);
 	this->addChild(statusLabel);
 
@@ -239,10 +245,7 @@ static char stringBuffer[512];
 void LoadingScene::update(float dt){
 	switch (status)
 	{
-	case 0:{ //check version
-		break;
-	}
-
+	case 0:break; //check version
 	case 1:{ //load resource
 		if(currentStep >= maxStep){
 			status = 2;
@@ -260,13 +263,12 @@ void LoadingScene::update(float dt){
 		break;
 	}
 	}
-
 	uiThread->update(dt);
 }
 
 void  LoadingScene::updateLoadResource(){
 	float per = 100.0f * currentStep / (maxStep + 1);
-	sprintf(stringBuffer, "Đang tải tài nguyên %d", (int)per);
+	sprintf(stringBuffer, "Đang tải tài nguyên [%d]", (int)per);
 	statusLabel->setString(stringBuffer);
 }
 
@@ -292,16 +294,16 @@ void LoadingScene::onCheckVersionStatus(quyetnd::GameLaucherStatus gameLaucherSt
 		startLoadResources();
 	}
 	else if(gameLaucherStatus == quyetnd::GameLaucherStatus::GameLaucherStatus_UpdateFailure){
-		statusLabel->setString("Cập nhật thất bại, vui lòng kiểm tra lại kết nối mạng");
+		statusLabel->setString("Cập nhật thất bại, vui lòng kiểm tra kết nối mạng");
 		status = -1;
 	}
 	else if(gameLaucherStatus == quyetnd::GameLaucherStatus::GameLaucherStatus_Updating){
-		statusLabel->setString("Dang cap nhat phien ban");
+		statusLabel->setString("Đang cập nhật phiên bản");
 	}
 }
 
 void LoadingScene::onResourceDownloadProcress(int _current, int _max){
-	sprintf(stringBuffer, "Đang cập nhật [%d/%d]", _current, _max);
+	sprintf(stringBuffer, "Đang tải cập nhật [%d/%d]", _current, _max);
 }
 
 
@@ -315,8 +317,9 @@ void LoadingScene::onEnter(){
 	Scene::onEnter(); 
 
 	statusLabel->setString("Đang kiểm tra phiên bản");
-	this->scheduleUpdate();
 	gameLaucher->startFromFile("res/Game/version.json");
+	//gameLaucher->startFromFile("version.json");
+	this->scheduleUpdate();
 }
 
 void LoadingScene::onExit(){
