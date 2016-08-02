@@ -31,11 +31,13 @@ var RewardDialog = Dialog.extend({
         var textStr1 = "<font face='"+cc.res.font.Roboto_Condensed+"' size='30'>" + "Bạn muốn đổi" +goldstr + "</font>";
         var textStr2 = "<font face='"+cc.res.font.Roboto_Condensed+"' size='30'>" + "lấy" +itemStr + "</font>";
 
-        var text = ccui.RichText.createWithXML(textStr1);
+        var text = new ccui.RichText();
+        text.initWithXML(textStr1, {});
         text.setPosition(this.dialogNode.getContentSize().width/2, this.dialogNode.getContentSize().height/2 + 80);
         this.dialogNode.addChild(text);
 
-        var text2 = ccui.RichText.createWithXML(textStr2);
+        var text2 = new ccui.RichText();
+        text2.initWithXML(textStr2, {});
         text2.setPosition(text.x, text.y - 40);
         this.dialogNode.addChild(text2);
     },

@@ -10,14 +10,14 @@ s_card_type.CARD_MOBI = 3;
 var RewardSublayer = cc.Node.extend({
     ctor : function () {
         this._super();
-        var _top = 600.0;
-        var _bottom = 126.0;
+        var _top = 720.0 - (120.0 * cc.winSize.screenScale);
+        var _bottom = 86.0 * cc.winSize.screenScale;
 
         var itemList = new newui.TableView(cc.size(cc.winSize.width, _top - _bottom), 4);
         itemList.setDirection(ccui.ScrollView.DIR_VERTICAL);
         itemList.setScrollBarEnabled(false);
         itemList.setPadding(60);
-        itemList.setMargin(10,10,0,0);
+        itemList.setMargin(10,40,0,0);
         itemList.setPosition(cc.p(0, _bottom));
         this.addChild(itemList, 1);
         this.itemList = itemList;
@@ -190,7 +190,7 @@ var RewardHistoryLayer = RewardSublayer.extend({
         this.itemList.removeAllItems();
         var itemList = data.data;
         for(var i=0;i<itemList.length;i++){
-            this.addItem(itemList[i].createdTime, itemList[i].productName, "",itemList[i].status);
+            this.addItem(itemList[i].createdTime, itemList[i].productName, itemList[i].resultContent,itemList[i].status);
         }
     },
     addItem : function (time, type, info,status) {
@@ -232,20 +232,16 @@ var RewardHistoryLayer = RewardSublayer.extend({
         bg4.setPosition(this.x4, container.getContentSize().height/2);
         container.addChild(bg4);
 
-       // timeLabel.setScale(22.0/25.0);
         timeLabel.setPosition(bg1.getPosition());
         container.addChild(timeLabel,1);
 
         typeLabel.setPosition(bg2.getPosition());
-        //typeLabel.setScale(22.0/25.0);
         container.addChild(typeLabel,1);
 
         infoLabel.setPosition(bg3.getPosition());
-        //infoLabel.setScale(22.0/25.0);
         container.addChild(infoLabel,1);
 
         statusLabel.setPosition(bg4.getPosition());
-        //statusLabel.setScale(22.0/25.0);
         container.addChild(statusLabel,1);
         if(status == 0){ //thanh cong
             statusLabel.setString("Đã trả");

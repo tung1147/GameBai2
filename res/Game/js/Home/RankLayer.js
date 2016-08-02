@@ -5,15 +5,14 @@
 var RankSubLayer = cc.Node.extend({
     ctor : function () {
         this._super();
-
         var _top = 554.0;
-        var _bottom = 126.0;
+        var _bottom = 86.0 * cc.winSize.screenScale;
 
         var itemList = new newui.TableView(cc.size(cc.winSize.width, _top - _bottom), 1);
         itemList.setDirection(ccui.ScrollView.DIR_VERTICAL);
         itemList.setScrollBarEnabled(false);
         itemList.setPadding(10);
-        itemList.setMargin(10,10,0,0);
+        itemList.setMargin(10,30,0,0);
         itemList.setPosition(cc.p(0, _bottom));
         this.addChild(itemList, 1);
         this.itemList = itemList;
