@@ -360,11 +360,14 @@ var LobbyClient = (function() {
             this.send(request);
         },
         unSubscribe : function () {
-            var request = {
-                command : "unsubscribeChannel",
-                gameType : this.gameChannel
-            };
-            this.send(request);
+            if(this.gameChannel){
+                var request = {
+                    command : "unsubscribeChannel",
+                    gameType : this.gameChannel
+                };
+                this.send(request);
+                this.gameChannel = null;
+            }
         },
         requestGetServer : function (betting) {
             this.betting = betting;

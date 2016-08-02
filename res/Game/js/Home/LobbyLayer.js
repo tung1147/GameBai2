@@ -191,6 +191,9 @@ var LobbyLayer = cc.Node.extend({
     },
     onExit : function () {
         this._super();
+        if(this.visible == true){
+            LobbyClient.getInstance().unSubscribe();
+        }
         LobbyClient.getInstance().removeListener(this);
     },
 });
