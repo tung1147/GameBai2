@@ -56,7 +56,7 @@ public:
 	static GameLaucher* getInstance();
 };
 
-typedef const std::function<void()> UIThreadRunnable;
+typedef std::function<void()> UIThreadRunnable;
 class UIThread{
 	std::queue<UIThreadRunnable> mQueue;
 	std::mutex _mutex;

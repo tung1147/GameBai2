@@ -41,6 +41,7 @@
     "js/Home/RankLayer.js",
     "js/Home/RewardLayer.js",
     "js/IScene.js",
+    "js/jsLoader.js",
     "js/main.js",
     "js/Socket/LobbyClient.js",
     "js/Socket/LobbyError.js",

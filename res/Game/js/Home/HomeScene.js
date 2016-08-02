@@ -188,6 +188,9 @@ var HomeScene = IScene.extend({
 
     backButtonHandler : function () {
         var thiz = this;
+        if(LoadingDialog.getInstance().isShow()){
+            return;
+        }
         if(this.popupLayer.getChildren().length > 0){
             this.popupLayer.removeAllChildren();
             return;
