@@ -165,10 +165,9 @@ void LoadingScene::threadLoadJS(){
 #if defined(COCOS2D_DEBUG) && (COCOS2D_DEBUG > 0)
 		sc->enableDebugger();
 #endif
-		ScriptEngineProtocol *engine = ScriptingCore::getInstance();
-		ScriptEngineManager::getInstance()->setScriptEngine(engine);
-		GameFile* mainJs = gameLaucher->getFile("js/main.js");
-		ScriptingCore::getInstance()->runScript(mainJs->filePath.c_str());
+		this->status = 3;
+		this->currentStep++;
+		this->updateLoadResource();
 	});
 }
 
@@ -238,7 +237,6 @@ void LoadingScene::initScene(){
 
 static char stringBuffer[512];
 void LoadingScene::update(float dt){
-	uiThread->update(dt);
 	switch (status)
 	{
 	case 0:{ //check version
@@ -248,14 +246,28 @@ void LoadingScene::update(float dt){
 	case 1:{ //load resource
 		if(currentStep >= maxStep){
 			status = 2;
+			this->startJS();
 		}
 		break;
 	}
-	case 2:{ //next scene
+	case 2: break; //load js
+	case 3:{//next scene
 		status = -1;
-		this->startJS();
+		ScriptEngineProtocol *engine = ScriptingCore::getInstance();
+		ScriptEngineManager::getInstance()->setScriptEngine(engine);
+		GameFile* mainJs = gameLaucher->getFile("js/main.js");
+		ScriptingCore::getInstance()->runScript(mainJs->filePath.c_str());
+		break;
 	}
 	}
+
+	uiThread->update(dt);
+}
+
+void  LoadingScene::updateLoadResource(){
+	float per = 100.0f * currentStep / (maxStep + 1);
+	sprintf(stringBuffer, "Đang tải tài nguyên %d", (int)per);
+	statusLabel->setString(stringBuffer);
 }
 
 /**/
@@ -268,11 +280,7 @@ void LoadingScene::onResourcesLoaderFinished(){
 void LoadingScene::onResourcesLoaderProcess(int current, int max){
 	this->currentStep = current;
 	this->maxStep = max;
-
-	float per = 100.0f * currentStep / maxStep;
-	//log("load resource: %f", per);
-	sprintf(stringBuffer, "Đang tải tài nguyên %d", (int)per);
-	statusLabel->setString(stringBuffer);
+	this->updateLoadResource();
 }
 
 void LoadingScene::onCheckVersionStatus(quyetnd::GameLaucherStatus gameLaucherStatus){
