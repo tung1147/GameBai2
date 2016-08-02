@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/Users/swiese/fbandroid-sdk/facebook/src/main/res/values-fi/strings.xml -->
-    <eat-comment/>
-    <string name="com_facebook_device_auth_instructions">Siirry osoitteeseen %@ älypuhelimella tai tietokoneella ja anna seuraava koodi:</string>
+    <string name="com_facebook_device_auth_instructions">Siirry osoitteeseen &lt;b>facebook.com/device&lt;/b>&lt;br /> älypuhelimella tai tietokoneella ja anna seuraava koodi:</string>
     <string name="com_facebook_image_download_unknown_error">Odottamaton virhe kuvan palvelimesta lataamisen aikana.</string>
     <string name="com_facebook_internet_permission_error_message">WebView-kirjautuminen edellyttää INTERNET-käyttöoikeutta</string>
     <string name="com_facebook_internet_permission_error_title">AndroidManifest-virhe</string>
@@ -19,7 +17,5 @@
     <string name="com_facebook_send_button_text">Lähetä</string>
     <string name="com_facebook_share_button_text">Jaa</string>
     <string name="com_facebook_tooltip_default">Uutta! Sinä päätät – valitse, mitä haluat jakaa sovellusten kanssa.</string>
-    <!-- From: file:/Users/swiese/fbandroid-sdk/facebook/src/main/res/values-fi/messenger_button_strings.xml -->
-    <eat-comment/>
     <string name="messenger_send_button_text">Lähetä</string>
 </resources>

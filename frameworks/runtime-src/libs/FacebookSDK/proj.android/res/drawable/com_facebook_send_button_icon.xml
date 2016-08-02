@@ -23,4 +23,3 @@
     <item android:state_focused="true" android:state_enabled="true" android:drawable="@drawable/com_facebook_button_send_icon_blue"/>
     <item android:drawable="@drawable/com_facebook_button_send_icon_white"/>
 </selector>
-<!-- From: file:/Users/swiese/fbandroid-sdk/facebook/src/main/res/drawable/com_facebook_send_button_icon.xml -->
