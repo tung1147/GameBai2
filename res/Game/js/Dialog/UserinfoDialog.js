@@ -5,6 +5,7 @@
 var UserinfoPasswordLayer = cc.Node.extend({
     ctor : function () {
         this._super();
+        LobbyClient.getInstance().addListener("changePassword", this.onRecvChangePassword, this);
 
         var bg1 = ccui.Scale9Sprite.createWithSpriteFrameName("dialog-textinput-bg.png", cc.rect(10,10,4,4));
         bg1.setPreferredSize(cc.size(384, 60));
@@ -52,7 +53,49 @@ var UserinfoPasswordLayer = cc.Node.extend({
         passwordText2.setPasswordEnable(true);
         passwordText2.setPosition(bg3.getPosition());
         this.addChild(passwordText2);
-    }
+
+        okButton.addClickEventListener(function () {
+            var password = passwordText.getText();
+            if(password === ""){
+                MessageNode.getInstance().show("Bạn phải mật khẩu");
+                return;
+            }
+            var newPassword1 = passwordText1.getText();
+            if(newPassword1 === ""){
+                MessageNode.getInstance().show("Bạn phải mật khẩu mới");
+                return;
+            }
+            var newPassword2 = passwordText2.getText();
+            if(newPassword2 === ""){
+                MessageNode.getInstance().show("Bạn phải lại mật khẩu mới");
+                return;
+            }
+            if(newPassword1 != newPassword2){
+                MessageNode.getInstance().show("Mật khẩu không trùng nhau");
+                return;
+            }
+             var request = {
+                 command : "changePassword",
+                 password : password,
+                 newPassword : newPassword1
+            };
+            LobbyClient.getInstance().send(request);
+            LoadingDialog.getInstance().show("Đang đổi mật khẩu");
+        });
+    },
+    onExit : function () {
+        this._super();
+        LobbyClient.getInstance().removeListener(this);
+    },
+    onRecvChangePassword : function (messageName, data) {
+        LoadingDialog.getInstance().hide();
+        if(data.status === 0){
+            MessageNode.getInstance().show("Đổi mật khẩu thành công");
+        }
+        else{
+            MessageNode.getInstance().show("Đổi mật khẩu thất bại");
+        }
+    },
 });
 
 var VerifyPhoneLayer = cc.Node.extend({
@@ -139,6 +182,22 @@ var VerifySendPhoneLayer = cc.Node.extend({
         sendCodeBt.setTextColor(cc.color("#009cff"));
         this.addChild(sendCodeBt,1);
         this.sendCodeBt = sendCodeBt;
+
+        okButton.addClickEventListener(function () {
+            var phone = phoneText.getText();
+            if(phone === ""){
+                MessageNode.getInstance().show("Bạn phải nhập số điện thoại");
+                return;
+            }
+            var password = passwordText.getText();
+            var request = {
+                command : "verifyAccount",
+                telephone : phone,
+                password : password
+            };
+            LobbyClient.getInstance().send(request);
+            LoadingDialog.getInstance().show("Đang gửi yêu cầu");
+        });
     },
     setVisible : function (visible) {
         this._super(visible);
@@ -146,7 +205,7 @@ var VerifySendPhoneLayer = cc.Node.extend({
             this.phoneText.setText("");
             this.passwordText.setText("");
         }
-    }
+    },
 });
 
 var VerifySendCodeLayer = cc.Node.extend({
@@ -197,6 +256,21 @@ var VerifySendCodeLayer = cc.Node.extend({
         backButton.setTextColor(cc.color("#009cff"));
         this.addChild(backButton,1);
         this.backButton = backButton;
+
+        okButton.addClickEventListener(function () {
+            var code = codeText.getText();
+            if(code === ""){
+                MessageNode.getInstance().show("Bạn phải nhập mã xác nhận");
+                return;
+            }
+            var request = {
+                command : "verifyCode",
+                verifyType : 1,
+                code : code
+            };
+            LobbyClient.getInstance().send(request);
+            LoadingDialog.getInstance().show("Đang gửi yêu cầu");
+        });
     },
 
     setVisible : function (visible) {
@@ -214,6 +288,9 @@ var VerifySendCodeLayer = cc.Node.extend({
 var UserinfoVerifyLayer = cc.Node.extend({
     ctor : function () {
         this._super();
+        LobbyClient.getInstance().addListener("verifyAccount", this.onRecvVerifyAccount, this);
+        LobbyClient.getInstance().addListener("verifyCode", this.onRecvVerifyCode, this);
+
         this.phoneLayer = new VerifyPhoneLayer();
         this.addChild(this.phoneLayer);
 
@@ -238,6 +315,31 @@ var UserinfoVerifyLayer = cc.Node.extend({
             thiz.toSendPhoneLayer();
         });
     },
+    onExit : function () {
+        this._super();
+        LobbyClient.getInstance().removeListener(this);
+    },
+    onRecvVerifyAccount : function (messageName, data) {
+        LoadingDialog.getInstance().hide();
+        if(data.status == 0){
+            this.toSendCodeLayer();
+            this.sendCodeLayer.phoneLabel.visible = true;
+            this.sendCodeLayer.phoneLabel.setString(this.sendPhoneLayer.phoneText.getText());
+            this.sendCodeLayer.title.setString("Mã xác nhận đã gửi đến số điện thoại");
+        }
+        else{
+            MessageNode.getInstance().show("Gửi yêu cầu lỗi [" + data.status + "]");
+        }
+    },
+    onRecvVerifyCode : function (messageName, data) {
+        if(data.status == 0){
+           this.refreshView();
+        }
+        else{
+            MessageNode.getInstance().show("Gửi yêu cầu lỗi [" + data.status + "]");
+        }
+        LoadingDialog.getInstance().hide();
+    },
     toSendPhoneLayer : function () {
         this.phoneLayer.setVisible(false);
         this.sendPhoneLayer.setVisible(true);
@@ -255,14 +357,14 @@ var UserinfoVerifyLayer = cc.Node.extend({
         }
     },
     refreshView :function () {
-        if(PlayerMe.verify){
-            this.phoneLayer.setVisible(true);
-            this.sendPhoneLayer.setVisible(false);
+        if(PlayerMe.phoneNumber === ""){
+            this.phoneLayer.setVisible(false);
+            this.sendPhoneLayer.setVisible(true);
             this.sendCodeLayer.setVisible(false);
         }
         else{
-            this.phoneLayer.setVisible(false);
-            this.sendPhoneLayer.setVisible(true);
+            this.phoneLayer.setVisible(true);
+            this.sendPhoneLayer.setVisible(false);
             this.sendCodeLayer.setVisible(false);
         }
     }
@@ -271,6 +373,8 @@ var UserinfoVerifyLayer = cc.Node.extend({
 var UserinfoDialog = IDialog.extend({
     ctor : function () {
         this._super();
+        LobbyClient.getInstance().addListener("verifyCode", this.onRecvVerifyCode, this);
+
         if(cc.winSize.width < 1080.0){
             this.dialogNode.setScale(cc.winSize.width / 1080.0);
         }
@@ -446,13 +550,13 @@ var UserinfoDialog = IDialog.extend({
 
     refreshView : function () {
         this.goldLabel.setString(cc.Global.NumberFormat1(PlayerMe.gold) +" V");
-        if(PlayerMe.verify){
-            this.subicon1.visible = false;
-            this.subicon2.visible = false;
-        }
-        else{
+        if(PlayerMe.phoneNumber === ""){
             this.subicon1.visible = true;
             this.subicon2.visible = true;
+        }
+        else{
+            this.subicon1.visible = false;
+            this.subicon2.visible = false;
         }
 
         var level = cc.Global.GetLevelMe();
@@ -463,9 +567,25 @@ var UserinfoDialog = IDialog.extend({
         this.vipLabel.setString("VIP " + vip.level);
         this.vipBar.setPercentage(vip.expPer);
     },
+    onRecvVerifyCode : function (messageName, data) {
+        if(data.status == 0){
+            if(PlayerMe.phoneNumber === ""){
+                this.subicon1.visible = true;
+                this.subicon2.visible = true;
+            }
+            else{
+                this.subicon1.visible = false;
+                this.subicon2.visible = false;
+            }
+        }
+    },
 
     onEnter : function () {
         this._super();
         this.mToggle.selectItem(this.selectTab);
+    },
+    onExit : function () {
+        this._super();
+        LobbyClient.getInstance().removeListener(this);
     }
 });

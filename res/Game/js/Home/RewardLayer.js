@@ -166,13 +166,35 @@ var RewardHistoryLayer = RewardSublayer.extend({
         this.addChild(itemList, 1);
         this.itemList = itemList;
 
-        for(var i =0;i<20;i++){
-            this.addItem("10:54:35\n24/10/2016", "Tín dụng 1200K", "Seri thẻ: 009129197386\nMã thẻ: 091979617362", 1);
+        // for(var i =0;i<20;i++){
+        //     this.addItem("10:54:35\n24/10/2016", "Tín dụng 1200K", "Seri thẻ: 009129197386\nMã thẻ: 091979617362", 1);
+        // }
+        LobbyClient.getInstance().addListener("fetchOrderedItems", this.onRecvHistory, this);
+    },
+    onExit : function () {
+        this._super();
+        LobbyClient.getInstance().removeListener(this);
+    },
+    setVisible : function (visible) {
+        this._super(visible);
+        if(visible){
+            //request
+            this.itemList.removeAllItems();
+            var request = {
+                command : "fetchOrderedItems"
+            };
+            LobbyClient.getInstance().send(request);
         }
     },
-
+    onRecvHistory : function (cmd, data) {
+        this.itemList.removeAllItems();
+        var itemList = data.data;
+        for(var i=0;i<itemList.length;i++){
+            this.addItem(itemList[i].createdTime, itemList[i].productName, "",itemList[i].status);
+        }
+    },
     addItem : function (time, type, info,status) {
-        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, time);
+        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, time, cc.TEXT_ALIGNMENT_CENTER, this.width1 - 20);
         var typeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, type);
         var infoLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, info);
         var statusLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Thành công");
@@ -234,7 +256,7 @@ var RewardHistoryLayer = RewardSublayer.extend({
             statusLabel.setPositionX(bg4.x - 30);
             successIcon.setPosition(statusLabel.x + statusLabel.getContentSize().width/2 + successIcon.getContentSize().width/2, statusLabel.y);
         }
-        else if(status == -1){
+        else if(status == 1){
             statusLabel.setString("Chờ duyệt");
             statusLabel.setColor(cc.color("#9e9e9e"));
         }
@@ -327,14 +349,14 @@ var RewardLayer = LobbySubLayer.extend({
                 this.icon2.visible = true;
                 this.text1.visible = false;
                 this.text2.visible = true;
-                this.layer.visible = true;
+                this.layer.setVisible(true);
             };
             toggleItem.onUnSelect = function () {
                 this.icon1.visible = true;
                 this.icon2.visible = false;
                 this.text1.visible = true;
                 this.text2.visible = false;
-                this.layer.visible = false;
+                this.layer.setVisible(false);
             };
             x += dx;
             mToggle.addItem(toggleItem);

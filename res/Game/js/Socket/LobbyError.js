@@ -13,7 +13,12 @@ LobbyClient.Error = {
         toHome : false,
     },
     7 : {
-        message : "Sai mật khẩu",
+        message : "Sai mật khẩu", //change password
+        closeSocket : false,
+        toHome : false,
+    },
+    28 : {
+        message : "Sai mật khẩu", //login
         closeSocket : true,
         toHome : false,
     },
@@ -22,6 +27,11 @@ LobbyClient.Error = {
         closeSocket : true,
         toHome : false,
     },
+    15 : {
+        message : "Bạn không thể gửi yêu cầu trong 5 phút",
+        closeSocket : false,
+        toHome : false,
+    }
 };
 
 LobbyClient.ErrorHandle = function (errorCode) {

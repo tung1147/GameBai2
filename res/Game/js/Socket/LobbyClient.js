@@ -136,6 +136,10 @@ var LobbyClient = (function() {
                     SmartfoxClient.getInstance().findAndJoinRoom(data.host, data.port);
                 };
             }
+            else if(command === "verifyCode"){
+                PlayerMe.verify = true;
+                PlayerMe.phoneNumber = event.data.telephone;
+            }
         },
         onLoginEvent : function (event) {
             var data = event.data;
@@ -146,7 +150,7 @@ var LobbyClient = (function() {
             PlayerMe.exp = data.userAssets.exp;
             PlayerMe.vipExp = data.userAssets.vipExp;
             PlayerMe.spin = data.userAssets.spin;
-            PlayerMe.verify = data.isVerified;
+            PlayerMe.phoneNumber = data.telephone;
             PlayerMe.SFS.info = data.info;
             PlayerMe.SFS.signature = event.signature;
 

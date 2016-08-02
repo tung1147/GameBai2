@@ -298,11 +298,19 @@ var PaymentHistoryLayer = cc.Node.extend({
         this.addChild(itemList, 1);
         this.itemList = itemList;
 
-        for(var i =0;i<20;i++){
-            this.addItem("10:54:35\n24/10/2016", "Tín dụng 1200K", "Seri thẻ: 009129197386\nMã thẻ: 091979617362", 1200000, 1);
-        }
+        // for(var i =0;i<20;i++){
+        //     this.addItem("10:54:35\n24/10/2016", "Tín dụng 1200K", "Seri thẻ: 009129197386\nMã thẻ: 091979617362", 1200000, 1);
+        // }
+
+       // LobbyClient.getInstance().addListener("recvhistory", this.onRecvHistory, this);
     },
-    
+    onExit : function () {
+        this._super();
+      //  LobbyClient.getInstance().removeListener(this);
+    },
+    onRecvHistory : function (cmd, data) {
+
+    },
     addItem : function (time, type, info, gold,status) {
         var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, time);
         var typeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, type);
@@ -460,14 +468,14 @@ var PaymentLayer = LobbySubLayer.extend({
                 this.icon2.visible = true;
                 this.text1.visible = false;
                 this.text2.visible = true;
-                this.layer.visible = true;
+                this.layer.setVisible(true);
             };
             toggleItem.onUnSelect = function () {
                 this.icon1.visible = true;
                 this.icon2.visible = false;
                 this.text1.visible = true;
                 this.text2.visible = false;
-                this.layer.visible = false;
+                this.layer.setVisible(false);
             };
             x += dx;
             mToggle.addItem(toggleItem);
