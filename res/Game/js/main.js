@@ -51,13 +51,6 @@
  }
  *
  */
- (function(){
-    require("js/NewAction.js");
-    require("js/LobbyClient.js");
-    require("js/SmartfoxClient.js");
-    require("js/app.js");
- })();
- 
 cc.game.onStart = function(){
   //  if(!cc.sys.isNative && document.getElementById("cocosLoading")) //If referenced loading.js, please remove it
       //  document.body.removeChild(document.getElementById("cocosLoading"));

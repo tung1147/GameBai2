@@ -81,13 +81,11 @@ void GameLaucher::checkFiles(){
 
 	if (_resourceUpdate.size() > 0){
 		downloadCurrentValue = 0;
-		//downloadMaxValue = _resourceUpdate.size();
 		this->onProcessStatus(GameLaucherStatus_Updating);
 		for (int i = 0; i < _resourceUpdate.size();){
 			auto pret = _resourceUpdate[i]->update(resourceHost + _resourceUpdate[i]->fileName);
 			if (pret == 0){
 				i++;
-				//this->onUpdateDownloadProcess(1);
 			}
 			else{
 				this->onProcessStatus(GameLaucherStatus_UpdateFailure);
@@ -106,45 +104,20 @@ bool GameLaucher::startFromFile(const std::string& versionFile){
 	return true;
 }
 
-//int GameLaucher::getStatus(){
-//	std::unique_lock<std::mutex> lk(status_mutex);
-//	return status;
-//}
-//
-//void GameLaucher::getDownloadStatus(int &current, int& max){
-//	std::unique_lock<std::mutex> lk(status_mutex);
-//	current = this->cDownload;
-//	max = this->maxDownload;
-//}
-
-void GameLaucher::update(float dt){
-	std::unique_lock<std::mutex> lk(event_mutex);
-	for(int i=0;i<events.size();i++){
-		events[i]();
-	}
-	events.clear();
-}
-
 void GameLaucher::onUpdateDownloadProcess(int size){
-	std::unique_lock<std::mutex> lk(event_mutex);
-	downloadCurrentValue += size;
-	auto eventCallback = [=](){
-		if(this->downloadCallback){
+	UIThread::getInstance()->runOnUI([=](){
+		if (this->downloadCallback){
 			this->downloadCallback(downloadCurrentValue, downloadMaxValue);
 		}
-	};
-	events.push_back(eventCallback);
+	});
 }
 
 void GameLaucher::onProcessStatus(GameLaucherStatus status){
-	std::unique_lock<std::mutex> lk(event_mutex);
-	this->status = status;
-	auto eventCallback = [=](){
-		if(this->statusCallback){
+	UIThread::getInstance()->runOnUI([=](){
+		if (this->statusCallback){
 			this->statusCallback(status);
 		}
-	};
-	events.push_back(eventCallback);
+	});
 }
 
 GameFile* GameLaucher::getFile(const std::string& file){
@@ -163,5 +136,45 @@ GameLaucher* GameLaucher::getInstance(){
 	}
 	return s_GameLaucher;
 }
+
+/****/
+UIThread::UIThread(){
+
+}
+UIThread::~UIThread(){
+
+}
+
+UIThreadRunnable UIThread::popEvent(){
+	std::unique_lock<std::mutex> lk(_mutex);
+	if (!mQueue.empty()){
+		auto ev = mQueue.front();
+		mQueue.pop();
+		return ev;
+	}
+	return nullptr;
+}
+
+void UIThread::runOnUI(const std::function<void()>& callback){
+	std::unique_lock<std::mutex> lk(_mutex);
+	mQueue.push(callback);
+}
+
+void UIThread::update(float dt){
+	auto ev = this->popEvent();
+	while (ev){
+		ev();
+		ev = this->popEvent();
+	}
+}
+
+static UIThread* s_UIThread = 0;
+UIThread* UIThread::getInstance(){
+	if (!s_UIThread){
+		s_UIThread = new UIThread();
+	}
+	return s_UIThread;
+}
+
 
 } /* namespace quyetnd */
