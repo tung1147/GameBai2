@@ -271,6 +271,9 @@ void LoadingScene::update(float dt){
 	}
 }
 
+/**/
+
+
 void LoadingScene::onResourcesLoaderFinished(){
 
 }
@@ -305,6 +308,11 @@ void LoadingScene::onCheckVersionStatus(quyetnd::GameLaucherStatus gameLaucherSt
 void LoadingScene::onResourceDownloadProcress(int _current, int _max){
 	sprintf(stringBuffer, "Đang cập nhật [%d/%d]", _current, _max);
 }
+
+/*rapidjson::StringBuffer stringBuffer;
+rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(stringBuffer);
+files.Accept(writer);
+cocos2d::log("files: %s", stringBuffer.GetString());*/
 
 void LoadingScene::onEnter(){
 	status = 0;

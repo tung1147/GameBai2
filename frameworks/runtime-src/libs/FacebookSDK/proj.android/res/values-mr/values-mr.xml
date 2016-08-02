@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/Users/swiese/fbandroid-sdk/facebook/src/main/res/values-mr/strings.xml -->
-    <eat-comment/>
-    <string name="com_facebook_device_auth_instructions">आपला स्‍मार्ट फोन किंवा संगणकावर %@ ला भेट द्या आणि हा कोड प्रविष्‍ट करा:</string>
+    <string name="com_facebook_device_auth_instructions">आपला स्‍मार्ट फोन किंवा संगणकावर &lt;b>facebook.com/device&lt;/b>&lt;br /> ला भेट द्या आणि हा कोड प्रविष्‍ट करा:</string>
     <string name="com_facebook_image_download_unknown_error">प्रतिमा डाउनलोड करताना अनपेक्षित त्रुटी.</string>
     <string name="com_facebook_internet_permission_error_message">वेबदृश्य लॉग इन आवश्यकता इंटरनेट परवानगी</string>
     <string name="com_facebook_internet_permission_error_title">AndroidManifest त्रुटी</string>
@@ -19,7 +17,5 @@
     <string name="com_facebook_send_button_text">पाठवा</string>
     <string name="com_facebook_share_button_text">सामायिक करा</string>
     <string name="com_facebook_tooltip_default">नवीन! आपण नियंत्रणात आहात - आपण कोणती माहिती अनुप्रयोगांसह शेअर करू इच्छिता ते निवडा.</string>
-    <!-- From: file:/Users/swiese/fbandroid-sdk/facebook/src/main/res/values-mr/messenger_button_strings.xml -->
-    <eat-comment/>
     <string name="messenger_send_button_text">पाठवा</string>
 </resources>
