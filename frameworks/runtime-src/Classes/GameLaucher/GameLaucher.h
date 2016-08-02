@@ -12,6 +12,7 @@
 #include <vector>
 #include <map>
 #include <mutex>
+#include <queue>
 #include <functional>
 #include "GameResource.h"
 
@@ -26,11 +27,8 @@ enum GameLaucherStatus{
 
 class GameLaucher {
 	typedef std::function<void()> EventCallback;
-	std::vector<EventCallback> events;
-	std::mutex event_mutex;
 
 	std::string resourceHost;
-
 	std::string versionFile;
 	std::map<std::string, GameFile*> _allResources;
 	
@@ -49,16 +47,29 @@ public:
 	virtual ~GameLaucher();
 
 	bool startFromFile(const std::string& versionFile);
-	//int getStatus();
-	//void getDownloadStatus(int &current, int& max);
 
-	void update(float dt);
 	void onUpdateDownloadProcess(int size);
 	void onProcessStatus(GameLaucherStatus status);
 
 	GameFile* getFile(const std::string& file);
 
 	static GameLaucher* getInstance();
+};
+
+typedef const std::function<void()> UIThreadRunnable;
+class UIThread{
+	std::queue<UIThreadRunnable> mQueue;
+	std::mutex _mutex;
+
+	UIThreadRunnable popEvent();
+public:
+	UIThread();
+	virtual ~UIThread();
+	
+	void runOnUI(const UIThreadRunnable& callback);
+	void update(float dt);
+
+	static UIThread* getInstance();
 };
 
 } /* namespace quyetnd */

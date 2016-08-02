@@ -60,30 +60,6 @@
 
 using namespace quyetnd;
 
-bool jsb_quyetnd_load_script(JSContext *cx, uint32_t argc, jsval *vp){
-	return true; 
-}
-
-void jsb_quyetnd_register_load_script(JSContext* cx, JS::HandleObject obj){
-	//auto sc = ScriptingCore::getInstance();
-	//ssize_t fileSize;
-	//char* data = (char*)FileUtils::getInstance()->getFileData("script.json", "rb", &fileSize);
-	//std::vector<char> buffer(data, data + fileSize);
-	//buffer.push_back('\0');
-	//delete[] data;
-
-	//rapidjson::Document doc;
-	//doc.Parse<0>(buffer.data());
-	//for (int i = 0; i < doc.Size(); i++){
-	//	std::string script = doc[i].GetString();
-	//	script = FileUtils::getInstance()->fullPathForFilename(script);
-	//	
-	//	//JS::MutableHandleValue pret;
-	////	sc->requireScript(script.c_str(), pret);
-	//}
-}
-
-
 LoadingScene::LoadingScene() {
 	// TODO Auto-generated constructor stub
 
@@ -173,20 +149,29 @@ void LoadingScene::startJS(){
 	sc->addRegisterCallback(register_all_quyetnd_sfssocket);
 	sc->addRegisterCallback(register_all_quyetnd_systemplugin);
 	sc->addRegisterCallback(register_all_quyetnd_facebook_plugin);
-	sc->addRegisterCallback(jsb_quyetnd_register_load_script);
 
-    sc->start();
-    sc->runScript("script/jsb_boot.js");
-    //sc->runScript("src/jsb_boot.js");
-#if defined(COCOS2D_DEBUG) && (COCOS2D_DEBUG > 0)
-    sc->enableDebugger();
-#endif
+	sc->start();
 
-	ScriptEngineProtocol *engine = ScriptingCore::getInstance();
-	ScriptEngineManager::getInstance()->setScriptEngine(engine);
-	GameFile* mainJs = gameLaucher->getFile("js/main.js");
-	ScriptingCore::getInstance()->runScript(mainJs->filePath.c_str());
+	std::thread loadJS(&LoadingScene::threadLoadJS, this);
+	loadJS.detach(); 
 }
+
+void LoadingScene::threadLoadJS(){
+	ScriptingCore* sc = ScriptingCore::getInstance();
+	sc->runScript("script/jsb_boot.js");
+	sc->runScript("js/jsLoader.js");
+
+	UIThread::getInstance()->runOnUI([=](){
+#if defined(COCOS2D_DEBUG) && (COCOS2D_DEBUG > 0)
+		sc->enableDebugger();
+#endif
+		ScriptEngineProtocol *engine = ScriptingCore::getInstance();
+		ScriptEngineManager::getInstance()->setScriptEngine(engine);
+		GameFile* mainJs = gameLaucher->getFile("js/main.js");
+		ScriptingCore::getInstance()->runScript(mainJs->filePath.c_str());
+	});
+}
+
 
 void LoadingScene::startLoadResources(){
 	std::string externalPath = FileUtils::getInstance()->getWritablePath() + "Game/";
@@ -246,12 +231,14 @@ void LoadingScene::initScene(){
 	gameLaucher = quyetnd::GameLaucher::getInstance();
 	gameLaucher->statusCallback = CC_CALLBACK_1(LoadingScene::onCheckVersionStatus, this);
 	gameLaucher->downloadCallback = CC_CALLBACK_2(LoadingScene::onResourceDownloadProcress, this);
+
+	uiThread = quyetnd::UIThread::getInstance();
 }
 
 
 static char stringBuffer[512];
 void LoadingScene::update(float dt){
-	gameLaucher->update(dt);
+	uiThread->update(dt);
 	switch (status)
 	{
 	case 0:{ //check version
@@ -308,6 +295,7 @@ void LoadingScene::onCheckVersionStatus(quyetnd::GameLaucherStatus gameLaucherSt
 void LoadingScene::onResourceDownloadProcress(int _current, int _max){
 	sprintf(stringBuffer, "Đang cập nhật [%d/%d]", _current, _max);
 }
+
 
 /*rapidjson::StringBuffer stringBuffer;
 rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(stringBuffer);

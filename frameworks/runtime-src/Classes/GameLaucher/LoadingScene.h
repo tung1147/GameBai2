@@ -15,6 +15,7 @@ USING_NS_CC;
 
 class LoadingScene : public Scene{
 	quyetnd::GameLaucher* gameLaucher;
+	quyetnd::UIThread* uiThread;
 
 	quyetnd::ResourceLoader resourceLoader;
 	int currentStep;
@@ -31,6 +32,7 @@ class LoadingScene : public Scene{
 	void onResourcesLoaderProcess(int current, int max);
 	void onCheckVersionStatus(quyetnd::GameLaucherStatus status);
 	void onResourceDownloadProcress(int _current, int _max);
+	void threadLoadJS();
 public:
 	LoadingScene();
 	virtual ~LoadingScene();
