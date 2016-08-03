@@ -21,6 +21,7 @@
 USING_NS_CC;
 #include "network/HttpClient.h"
 #include "GameLaucher.h"
+#include <stdio.h>
 
 namespace quyetnd {
 
@@ -29,10 +30,16 @@ GameFile::GameFile() {
 	fileName = "";
 	filePath = "";
 	md5Digest = "";
+	downloadHash = "";
+	md5 = 0;
 }
 
 GameFile::~GameFile() {
 	// TODO Auto-generated destructor stub
+	if (md5){
+		delete md5;
+		md5 = 0;
+	}
 }
 
 bool GameFile::isExistFile(const std::string& filePath){
@@ -60,7 +67,7 @@ bool GameFile::checkHashFile(){
 		md5.finalize();
 		std::string md5Str = md5.hexdigest();
 		std::transform(md5Str.begin(), md5Str.end(), md5Str.begin(), ::tolower);
-		std::transform(md5Digest.begin(), md5Digest.end(), md5Digest.begin(), ::tolower);
+		//std::transform(md5Digest.begin(), md5Digest.end(), md5Digest.begin(), ::tolower);
 		if (md5Str == md5Digest){
 			pret = true;
 		}
@@ -74,11 +81,24 @@ bool GameFile::checkHashFile(){
 #define GAME_FILE_NOT_HASH 1
 #endif
 
+inline bool string_end_with(const std::string &str, const std::string &strend) {
+	if (str.length() >= strend.length()) {
+		return (0 == str.compare(str.length() - strend.length(), strend.length(), strend));
+	} 
+	return false;
+}
+
 bool GameFile::test(){
 #ifdef GAME_FILE_NOT_HASH
 	filePath = "res/Game/" + fileName;
 	return true;
 #else	
+#if CC_TARGET_PLATFORM != CC_PLATFORM_ANDROID
+	if (string_end_with(fileName, ".jar")){
+		return true;
+	}
+#endif
+
 	filePath = FileUtils::getInstance()->getWritablePath() + "Game/" + fileName;
 //	filePath = FileUtils::getInstance()->fullPathForFilename(filePath);
 	if (!isExistFile(filePath)){
@@ -106,13 +126,7 @@ bool GameFile::test(){
 #endif
 }
 
-size_t _GameFile_write_data(void *ptr, size_t size, size_t nmemb, FILE *stream) {
-	size_t written = fwrite(ptr, size, nmemb, stream);
-	GameLaucher::getInstance()->onUpdateDownloadProcess((int)(nmemb * size));
-	return written;
-}
-
-void _gamefile_create_folder_tree(const std::string& filePath){
+inline void _gamefile_create_folder_tree(const std::string& filePath){
 	//create parent
 	size_t n = filePath.find_last_of("/");
 	std::string parentFolder = filePath.substr(0, n);
@@ -140,7 +154,7 @@ void _gamefile_create_folder_tree(const std::string& filePath){
 #endif
 }
 
-void _gamefile_create_parent_folder(const std::string& filePath){
+inline void _gamefile_create_parent_folder(const std::string& filePath){
 	size_t n = filePath.find_last_of("/");
 	std::string parentFolder = filePath.substr(0, n);
 
@@ -162,6 +176,17 @@ void _gamefile_create_parent_folder(const std::string& filePath){
 	}
 }
 
+size_t _GameFile_write_data(void *ptr, size_t size, size_t nmemb, WriteDataHandler* writer) {
+	return (*writer)(ptr, size, nmemb);
+}
+
+size_t GameFile::writeData(void *ptr, size_t size, size_t nmemb, FILE *fp){
+	size_t written = fwrite(ptr, size, nmemb, fp);
+	GameLaucher::getInstance()->onUpdateDownloadProcess((int)(nmemb * size));
+	md5->update((const char*)ptr, size* nmemb);
+	return written;
+}
+
 int GameFile::update(const std::string& url){
 	//load from url
 	CURL *curl;
@@ -176,6 +201,13 @@ int GameFile::update(const std::string& url){
 		FILE *fp;
 		fp = fopen(filePath.c_str(), "wb");
 		if (fp != NULL) {
+			if (md5){
+				delete md5;
+				md5 = 0;
+			}
+			md5 = new MD5();
+			WriteDataHandler writeFunc = CC_CALLBACK_3(GameFile::writeData, this, fp);
+
 			curl_easy_setopt(curl, CURLOPT_URL, url.c_str());			
 			curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, true);
 			curl_easy_setopt(curl, CURLOPT_AUTOREFERER, true);
@@ -184,17 +216,22 @@ int GameFile::update(const std::string& url){
 			curl_easy_setopt(curl, CURLOPT_TIMEOUT, 120);
 			curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, true);
 			curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, _GameFile_write_data);
-			curl_easy_setopt(curl, CURLOPT_WRITEDATA, fp);
+			curl_easy_setopt(curl, CURLOPT_WRITEDATA, &writeFunc);
 			res = curl_easy_perform(curl);
 			curl_easy_cleanup(curl);
 			if (res == CURLE_OK) {
 				fclose(fp);
-				if (this->checkHashFile()){
+
+				md5->finalize();
+				auto md5Str = md5->hexdigest();
+				std::transform(md5Str.begin(), md5Str.end(), md5Str.begin(), ::tolower);
+				if (md5Str == md5Digest){
 					CCLOG("download file OK : %s", url.c_str());
-					return 0; 
+					return 0;
 				}
 				else{
-					CCLOG("download file invalid hash: %s", url.c_str());
+					CCLOG("download file invalid hash: %s -> delete file", url.c_str());
+					remove(filePath.c_str());
 					return 1;
 				}
 			}

@@ -28,6 +28,7 @@ class LoadingScene : public Scene{
 	void startLoadResources();
 	int status;
 
+	void androidLoadExtension();
 	void onResourcesLoaderFinished();
 	void onResourcesLoaderProcess(int current, int max);
 	void onCheckVersionStatus(quyetnd::GameLaucherStatus status);

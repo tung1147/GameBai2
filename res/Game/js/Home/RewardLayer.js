@@ -10,6 +10,7 @@ s_card_type.CARD_MOBI = 3;
 var RewardSublayer = cc.Node.extend({
     ctor : function () {
         this._super();
+        
         var _top = 720.0 - (120.0 * cc.winSize.screenScale);
         var _bottom = 86.0 * cc.winSize.screenScale;
 

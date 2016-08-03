@@ -1,6 +1,16 @@
 {
     "files": [
         {
+            "file": "jar/extension.json",
+            "size": 99,
+            "hash": "ac67cc279a15898021becc0c059922a8"
+        },
+        {
+            "file": "jar/testextension.jar",
+            "size": 1500,
+            "hash": "6403907e2d73756aa7f67e0d1f003e54"
+        },
+        {
             "file": "js/app.js",
             "size": 1492,
             "hash": "e8b7f4750ff44238438c5a5c7d124cc8"
@@ -52,8 +62,8 @@
         },
         {
             "file": "js/Dialog/RewardDialog.js",
-            "size": 2224,
-            "hash": "f093a7ae473a065d095bac9c9a93e7c7"
+            "size": 2271,
+            "hash": "4d2206419a3d6dc4b2eb47c9fc56d9bc"
         },
         {
             "file": "js/Dialog/SettingDialog.js",
@@ -67,8 +77,8 @@
         },
         {
             "file": "js/Dialog/UserinfoDialog.js",
-            "size": 19135,
-            "hash": "ac70785886c1547678119729728dbbe9"
+            "size": 23858,
+            "hash": "f96a76105e51b3a3818fccb6d89c358b"
         },
         {
             "file": "js/Dialog/UserListDialog.js",
@@ -132,8 +142,8 @@
         },
         {
             "file": "js/Global/Global.js",
-            "size": 7955,
-            "hash": "f713a6e4652d5d0ef00fb3e713f4e7fe"
+            "size": 7930,
+            "hash": "015b5391c7f4867fc9cede3225eeea24"
         },
         {
             "file": "js/Global/UserAvatar.js",
@@ -187,23 +197,23 @@
         },
         {
             "file": "js/Home/NewsLayer.js",
-            "size": 11105,
-            "hash": "7ccdd8681d0beaa666bf82df61a96ad9"
+            "size": 11129,
+            "hash": "e49dc9bf767c88cb085dd04c77a538b7"
         },
         {
             "file": "js/Home/PaymentLayer.js",
-            "size": 22110,
-            "hash": "c0a82697683f5dd00c2ad87ebaa00de8"
+            "size": 22383,
+            "hash": "ae77db28f12dd20d57b5483ae1303c1f"
         },
         {
             "file": "js/Home/RankLayer.js",
-            "size": 8404,
-            "hash": "cb2e5b742aa9c39c9b71fbbfbf080cd5"
+            "size": 8426,
+            "hash": "ac41bf0aed88123339510fffa4d2812b"
         },
         {
             "file": "js/Home/RewardLayer.js",
-            "size": 14792,
-            "hash": "07ef9bac818cd13916c98ab6abcf8222"
+            "size": 15589,
+            "hash": "297012a6c16d4d79b8fad08d799ce55e"
         },
         {
             "file": "js/IScene.js",
@@ -222,13 +232,13 @@
         },
         {
             "file": "js/Socket/LobbyClient.js",
-            "size": 14589,
-            "hash": "b3a7ee3ff06aa0d0f3ad84872caa0ffe"
+            "size": 14759,
+            "hash": "fb80c058fb31f8cf9b75528612c9093a"
         },
         {
             "file": "js/Socket/LobbyError.js",
-            "size": 1698,
-            "hash": "cf3bc4c030d707716cba58156cca922e"
+            "size": 1984,
+            "hash": "b4c0f88304077b6b72d2a44f50bb3e62"
         },
         {
             "file": "js/Socket/SmartfoxClient.js",

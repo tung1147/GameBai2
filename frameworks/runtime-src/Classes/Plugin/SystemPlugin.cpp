@@ -19,6 +19,14 @@ USING_NS_CC;
 #include "jni/JniHelper.h"
 extern "C"{
 
+JNIEXPORT jstring JNICALL Java_vn_quyetnguyen_plugin_system_ExtensionLoader_nativeCallJSFunc(JNIEnv*  env, jobject thiz, jstring methodName, jstring param){
+	std::string _methodName = JniHelper::jstring2string(methodName);
+	std::string _param = JniHelper::jstring2string(param);
+	std::string strRet = quyetnd::SystemPlugin::getInstance()->androidCallJSFunction(_methodName, _param);
+	jstring jstrBuf = env->NewStringUTF(strRet.c_str());
+	return jstrBuf;
+}
+
 JNIEXPORT void JNICALL Java_vn_quyetnguyen_android_billing_AndroidBilling_nativeOnFinished(JNIEnv*  env, jobject thiz, jint returnCode, jstring purchaseSignature, jstring purchaseJson){
 	std::string signature = JniHelper::jstring2string(purchaseSignature);
 	std::string json = JniHelper::jstring2string(purchaseJson);
@@ -81,16 +89,31 @@ std::string jniGetVersionName(){
 
 void jniCallSupport(const std::string& numberPhone){
 	JniMethodInfo method;
-		bool bRet = JniHelper::getStaticMethodInfo(method,"vn/quyetnguyen/plugin/system/SystemPlugin","jniPhoneSupport","(Ljava/lang/String;)V");
-		if(bRet){
-			jstring _numberPhone = method.env->NewStringUTF(numberPhone.data());
+	bool bRet = JniHelper::getStaticMethodInfo(method,"vn/quyetnguyen/plugin/system/SystemPlugin","jniPhoneSupport","(Ljava/lang/String;)V");
+	if(bRet){
+		jstring _numberPhone = method.env->NewStringUTF(numberPhone.data());
 
-			method.env->CallStaticVoidMethod(method.classID, method.methodID, _numberPhone);
+		method.env->CallStaticVoidMethod(method.classID, method.methodID, _numberPhone);
 
-			method.env->DeleteLocalRef(method.classID);
-			method.env->DeleteLocalRef(_numberPhone);
+		method.env->DeleteLocalRef(method.classID);
+		method.env->DeleteLocalRef(_numberPhone);
 
-		}
+	}
+}
+
+void jniLoadExtension(const std::string& jarPath, const std::string& className){
+	JniMethodInfo method;
+	bool bRet = JniHelper::getStaticMethodInfo(method,"vn/quyetnguyen/plugin/system/ExtensionLoader","jniLoadExtension","(Ljava/lang/String;Ljava/lang/String;)V");
+	if(bRet){
+		jstring _jarPath = method.env->NewStringUTF(jarPath.c_str());
+		jstring _className = method.env->NewStringUTF(className.c_str());
+
+		method.env->CallStaticVoidMethod(method.classID, method.methodID, _jarPath, _className);
+
+		method.env->DeleteLocalRef(method.classID);
+		method.env->DeleteLocalRef(_jarPath);
+		method.env->DeleteLocalRef(_className);
+	}
 }
 
 }
@@ -277,6 +300,17 @@ std::string SystemPlugin::getDeviceUUID(std::string nameKeyChain){
 #endif
 }
     
+std::string SystemPlugin::androidCallJSFunction(const std::string& methodName, const std::string& params){
+	return "";
+}
+
+void SystemPlugin::androidLoadExtension(const std::string& jarPath, const std::string& className){	
+#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+	//std::string file = FileUtils::getInstance()->fullPathForFilename(jarPath);
+	jniLoadExtension(jarPath, className);
+#endif
+}
+
 void SystemPlugin::onBuyItemFinished(int returnCode, const std::string& signature, const std::string& json){
 	jsb_quyetnd_onBuyItemFinished_Android(returnCode, signature, json);
 }

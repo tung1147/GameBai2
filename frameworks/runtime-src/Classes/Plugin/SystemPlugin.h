@@ -49,6 +49,9 @@ public:
 	void onBuyItemFinished(int returnCode, const std::string& recept);
     void onRegisterNotificationSuccess(const std::string& uid, const std::string& token);
 
+    std::string androidCallJSFunction(const std::string& methodName, const std::string& params);
+    void androidLoadExtension(const std::string& jarPath, const std::string& className);
+
 	void exitApp();
 
 	static SystemPlugin* getInstance();
