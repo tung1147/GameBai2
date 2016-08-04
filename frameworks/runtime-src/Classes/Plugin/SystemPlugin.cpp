@@ -12,6 +12,12 @@
 #include <iostream>
 #include <fstream>
 #include "jsb_quyetnd_systemplugin.hpp"
+#include "jsapi.h"
+#include "jsfriendapi.h"
+#include "scripting/js-bindings/manual/cocos2d_specifics.hpp"
+#include <locale>
+#include <codecvt>
+
 USING_NS_CC;
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
@@ -22,7 +28,7 @@ extern "C"{
 JNIEXPORT jstring JNICALL Java_vn_quyetnguyen_plugin_system_ExtensionLoader_nativeCallJSFunc(JNIEnv*  env, jobject thiz, jstring methodName, jstring param){
 	std::string _methodName = JniHelper::jstring2string(methodName);
 	std::string _param = JniHelper::jstring2string(param);
-	std::string strRet = quyetnd::SystemPlugin::getInstance()->androidCallJSFunction(_methodName, _param);
+	std::string strRet = quyetnd::SystemPlugin::getInstance()->callJSFunction(_methodName, _param);
 	jstring jstrBuf = env->NewStringUTF(strRet.c_str());
 	return jstrBuf;
 }
@@ -101,18 +107,14 @@ void jniCallSupport(const std::string& numberPhone){
 	}
 }
 
-void jniLoadExtension(const std::string& jarPath, const std::string& className){
+void jniLoadExtension(const std::string& jarPath){
 	JniMethodInfo method;
-	bool bRet = JniHelper::getStaticMethodInfo(method,"vn/quyetnguyen/plugin/system/ExtensionLoader","jniLoadExtension","(Ljava/lang/String;Ljava/lang/String;)V");
+	bool bRet = JniHelper::getStaticMethodInfo(method,"vn/quyetnguyen/plugin/system/ExtensionLoader","jniLoadExtension","(Ljava/lang/String;)V");
 	if(bRet){
 		jstring _jarPath = method.env->NewStringUTF(jarPath.c_str());
-		jstring _className = method.env->NewStringUTF(className.c_str());
-
-		method.env->CallStaticVoidMethod(method.classID, method.methodID, _jarPath, _className);
-
+		method.env->CallStaticVoidMethod(method.classID, method.methodID, _jarPath);
 		method.env->DeleteLocalRef(method.classID);
 		method.env->DeleteLocalRef(_jarPath);
-		method.env->DeleteLocalRef(_className);
 	}
 }
 
@@ -190,6 +192,21 @@ std::string _winrt_getPackageName(){
 }
 
 #endif
+
+std::string _wstring_to_string(const std::wstring & str){
+	std::wstring_convert<std::codecvt_utf8<wchar_t>> myconv;
+	return myconv.to_bytes(str);
+}
+
+std::wstring _string_to_wstring(const std::string & str){
+	std::wstring_convert<std::codecvt_utf8<wchar_t>> myconv;
+	return myconv.from_bytes(str);
+}
+
+bool __stringify_callback(const jschar *buf, uint32_t len, void *data){
+	((std::wstringstream*)data)->write(buf, len);
+	return true;
+}
 
 namespace quyetnd {
 
@@ -299,15 +316,43 @@ std::string SystemPlugin::getDeviceUUID(std::string nameKeyChain){
 	return "imei";
 #endif
 }
-    
-std::string SystemPlugin::androidCallJSFunction(const std::string& methodName, const std::string& params){
+
+std::string SystemPlugin::callJSFunction(const std::string& methodName, const std::string& params){
+	auto sc = ScriptingCore::getInstance();
+	auto cx = sc->getGlobalContext();
+	auto rootObject = sc->getGlobalObject();
+	JSAutoCompartment ac(cx, rootObject);
+
+	std::wstring wstr = _string_to_wstring(params);
+	JS::RootedValue outVal(cx);
+	bool ok = JS_ParseJSON(cx, wstr.c_str(), wstr.size(), &outVal);
+	if (ok){
+		JS::RootedValue rval(cx);
+		auto ret = sc->executeFunctionWithOwner(OBJECT_TO_JSVAL(rootObject), methodName.c_str(), 1, &outVal.get(), &rval);
+		if (ret){
+			std::wstringstream strStream;
+			JS::RootedValue indentVal(cx, JS::UndefinedValue());
+			bool b = JS_Stringify(cx, &rval, JS::NullPtr(), indentVal, &__stringify_callback, &strStream);
+			if (b){
+				return _wstring_to_string(strStream.str());
+			}
+			else{
+				log("callJSFunction:[%s] JS_Stringify error", methodName.c_str());
+			}
+		}
+		else{
+			log("callJSFunction:[%s] error", methodName.c_str());
+		}
+	}
+	else{
+		log("callJSFunction:[%s] [%s] is not json", methodName.c_str(), params.c_str());
+	}
 	return "";
 }
 
-void SystemPlugin::androidLoadExtension(const std::string& jarPath, const std::string& className){	
+void SystemPlugin::androidLoadExtension(const std::string& jarPath){
 #if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
-	//std::string file = FileUtils::getInstance()->fullPathForFilename(jarPath);
-	jniLoadExtension(jarPath, className);
+	jniLoadExtension(jarPath);
 #endif
 }
 

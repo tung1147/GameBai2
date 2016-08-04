@@ -86,3 +86,10 @@ cc.game.onStart = function(){
     //cc.director.replaceScene(new TienLen());
 };
 cc.game.run();
+
+var testJSFunc = function (param) {
+    // var pret = {
+    //     name : "name1234"
+    // };
+    // return pret;
+}

@@ -1,6 +1,1 @@
-[
-	{
-		"extFile" : "testextension.jar",
-		"extClass" : "vn.quyetnguyen.ext.test.TestExtension"
-	}
-]
+[{"extFile": "testextension.dex"}]

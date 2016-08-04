@@ -68,7 +68,7 @@ public class ExtensionLoader {
 			e.printStackTrace();
 		}
 	}
-	public void loadExtension(String jarPath, String className){
+	public void loadExtension(String jarPath){
 		if(!jarPath.startsWith("/")){
 			//file asset -> copy to files
 			this.copyAsset(jarPath);
@@ -79,22 +79,22 @@ public class ExtensionLoader {
 		Log.i(TAG, "Load jar: "+jarPath);
 		try {
 			DexFile dx = DexFile.loadDex(jarPath, File.createTempFile("opt", "dex", activity.getCacheDir()).getPath(), 0);
-			Class<?> extClass = null;
+			
+			List<Class<?>> extClassList = new ArrayList<Class<?>>();
 			for(Enumeration<String> classNames = dx.entries(); classNames.hasMoreElements();) {
 		        String classStr = classNames.nextElement();
 		        Class<?> clazz = dx.loadClass(classStr, activity.getClassLoader());
-		        if(classStr.equals(className)){
-		        	extClass = clazz;
-		        }
+		        if(IExtension.class.isAssignableFrom(clazz)){		        	
+		        	extClassList.add(clazz);
+		        }		     
 		        Log.i(TAG, "Load class: " + classStr);
 		    }
-			if(extClass != null){
-				Log.i(TAG, "Load extension: " + className);
-				IExtension extension = (IExtension)extClass.newInstance();
-			    this.addExtension(extension);
-			}else{
-				Log.e(TAG, "ext: "+jarPath + " not class: "+className);
-			}	    
+			for(int i=0;i<extClassList.size();i++){
+				Class<?> clazz = extClassList.get(i);
+				IExtension extension = (IExtension)clazz.newInstance();
+				this.addExtension(extension);
+				Log.i(TAG, "Load extension: " + clazz.toString());
+			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -108,7 +108,9 @@ public class ExtensionLoader {
 		}
 	}
 	
-	public String callJSFunction(final String jsFunc, final String param){		
+	public String callJSFunction(final String jsFunc, final String param){
+//		Log.d(TAG, "callJSFunction: " +jsFunc);
+//		return "";
 		return nativeCallJSFunc(jsFunc, param);
 	}
 	
@@ -179,8 +181,8 @@ public class ExtensionLoader {
 		}
 	}
 	
-	public static void jniLoadExtension(String jarPath, String className){
-		ExtensionLoader.getInstance().loadExtension(jarPath, className);
+	public static void jniLoadExtension(String jarPath){
+		ExtensionLoader.getInstance().loadExtension(jarPath);
 	}
 	private native String nativeCallJSFunc(final String jsFunc, final String param);
 }

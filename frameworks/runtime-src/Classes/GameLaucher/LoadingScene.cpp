@@ -293,12 +293,11 @@ void LoadingScene::androidLoadExtension(){
 			std::string jarFilePath = doc[i]["extFile"].GetString();
 			auto jarFile = gameLaucher->getFile("jar/" + jarFilePath);
 			if (jarFile){
-				std::string className = doc[i]["extClass"].GetString();
 				if (jarFile->filePath[0] == '/'){
-					SystemPlugin::getInstance()->androidLoadExtension(jarFile->filePath, className);
+					SystemPlugin::getInstance()->androidLoadExtension(jarFile->filePath);
 				}
 				else{
-					SystemPlugin::getInstance()->androidLoadExtension("Game/" + jarFile->fileName, className);
+					SystemPlugin::getInstance()->androidLoadExtension("Game/" + jarFile->fileName);
 				}
 			}
 			else{

@@ -2,13 +2,13 @@
     "files": [
         {
             "file": "jar/extension.json",
-            "size": 99,
-            "hash": "ac67cc279a15898021becc0c059922a8"
+            "size": 34,
+            "hash": "e08b9bd09e57bd62c1ce5dc3932bbda4"
         },
         {
-            "file": "jar/testextension.jar",
-            "size": 1500,
-            "hash": "6403907e2d73756aa7f67e0d1f003e54"
+            "file": "jar/testextension.dex",
+            "size": 2620,
+            "hash": "89247f9ca8a26ba2203ca63bfe771a14"
         },
         {
             "file": "js/app.js",
