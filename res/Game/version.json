@@ -227,8 +227,8 @@
         },
         {
             "file": "js/main.js",
-            "size": 4254,
-            "hash": "a19e2fcfb671b602e49bc032f53cb21e"
+            "size": 4379,
+            "hash": "b22f13045c1863405efd74ea70f56604"
         },
         {
             "file": "js/Socket/LobbyClient.js",

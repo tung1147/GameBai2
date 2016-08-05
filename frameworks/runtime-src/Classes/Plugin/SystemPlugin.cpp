@@ -16,7 +16,7 @@
 #include "jsfriendapi.h"
 #include "scripting/js-bindings/manual/cocos2d_specifics.hpp"
 #include <locale>
-#include <codecvt>
+#include "base/ccUTF8.h"
 
 USING_NS_CC;
 
@@ -25,99 +25,123 @@ USING_NS_CC;
 #include "jni/JniHelper.h"
 extern "C"{
 
-JNIEXPORT jstring JNICALL Java_vn_quyetnguyen_plugin_system_ExtensionLoader_nativeCallJSFunc(JNIEnv*  env, jobject thiz, jstring methodName, jstring param){
-	std::string _methodName = JniHelper::jstring2string(methodName);
-	std::string _param = JniHelper::jstring2string(param);
-	std::string strRet = quyetnd::SystemPlugin::getInstance()->callJSFunction(_methodName, _param);
-	jstring jstrBuf = env->NewStringUTF(strRet.c_str());
-	return jstrBuf;
-}
-
-JNIEXPORT void JNICALL Java_vn_quyetnguyen_android_billing_AndroidBilling_nativeOnFinished(JNIEnv*  env, jobject thiz, jint returnCode, jstring purchaseSignature, jstring purchaseJson){
-	std::string signature = JniHelper::jstring2string(purchaseSignature);
-	std::string json = JniHelper::jstring2string(purchaseJson);
-	quyetnd::SystemPlugin::getInstance()->onBuyItemFinished(returnCode, signature, json);
-}
-
-JNIEXPORT void JNICALL Java_vn_quyetnguyen_plugin_system_SystemPlugin_nativeWindowsVisibleChange(JNIEnv*  env, jobject thiz, jint bottom ,jint left, jint top, jint right) {
-	quyetnd::SystemPlugin::getInstance()->android_onWindowsVisibleChange(bottom,left,top,right);
-}
-
-JNIEXPORT void JNICALL Java_vn_quyetnguyen_plugin_system_SystemPlugin_nativeOnRegisterNotificationSuccess(JNIEnv*  env, jobject thiz, jstring deviceId, jstring token){
-	std::string _deviceId = JniHelper::jstring2string(deviceId);
-	std::string _token = JniHelper::jstring2string(token);
-	quyetnd::SystemPlugin::getInstance()->onRegisterNotificationSuccess(_deviceId, _token);
-}
-
-bool jniRequestBuyItem(const std::string& itemId){
-	JniMethodInfo method;
-	bool bRet = JniHelper::getStaticMethodInfo(method,"vn/quyetnguyen/android/billing/AndroidBilling","jniBuyItem","(Ljava/lang/String;Z)V");
-	if(bRet){
-		jstring _itemId = method.env->NewStringUTF(itemId.data());
-
-		method.env->CallStaticVoidMethod(method.classID, method.methodID, _itemId, JNI_TRUE);
-
-		method.env->DeleteLocalRef(method.classID);
-		method.env->DeleteLocalRef(_itemId);
-
-		return true;
+	JNIEXPORT jstring JNICALL Java_vn_quyetnguyen_plugin_system_ExtensionLoader_nativeCallJSFunc(JNIEnv*  env, jobject thiz, jstring methodName, jstring param){
+		std::string _methodName = JniHelper::jstring2string(methodName);
+		std::string _param = JniHelper::jstring2string(param);
+		std::string strRet = quyetnd::SystemPlugin::getInstance()->callJSFunction(_methodName, _param);
+		jstring jstrBuf = env->NewStringUTF(strRet.c_str());
+		return jstrBuf;
 	}
 
-	return false;
-}
-
-
-std::string _getAndroidPackage(){
-	JniMethodInfo sMethod;
-	bool bRet = JniHelper::getStaticMethodInfo(sMethod,"vn/quyetnguyen/plugin/system/SystemPlugin","jniGetAndroidPackage","()Ljava/lang/String;");
-	if(bRet){
-		jstring jstr = (jstring) sMethod.env->CallStaticObjectMethod(sMethod.classID, sMethod.methodID);
-		std::string pStr = JniHelper::jstring2string(jstr);
-		sMethod.env->DeleteLocalRef(sMethod.classID);
-		sMethod.env->DeleteLocalRef(jstr);
-		return pStr;
+	JNIEXPORT void JNICALL Java_vn_quyetnguyen_android_billing_AndroidBilling_nativeOnFinished(JNIEnv*  env, jobject thiz, jint returnCode, jstring purchaseSignature, jstring purchaseJson){
+		std::string signature = JniHelper::jstring2string(purchaseSignature);
+		std::string json = JniHelper::jstring2string(purchaseJson);
+		quyetnd::SystemPlugin::getInstance()->onBuyItemFinished(returnCode, signature, json);
 	}
-	return "";
-}
 
-std::string jniGetVersionName(){
-	JniMethodInfo sMethod;
-	bool bRet = JniHelper::getStaticMethodInfo(sMethod,"vn/quyetnguyen/plugin/system/SystemPlugin","jniGetVersionName","()Ljava/lang/String;");
-	if(bRet){
-		jstring jstr = (jstring) sMethod.env->CallStaticObjectMethod(sMethod.classID, sMethod.methodID);
-		std::string pStr = JniHelper::jstring2string(jstr);
-		sMethod.env->DeleteLocalRef(sMethod.classID);
-		sMethod.env->DeleteLocalRef(jstr);
-		return pStr;
+	JNIEXPORT void JNICALL Java_vn_quyetnguyen_plugin_system_SystemPlugin_nativeWindowsVisibleChange(JNIEnv*  env, jobject thiz, jint bottom ,jint left, jint top, jint right) {
+		quyetnd::SystemPlugin::getInstance()->android_onWindowsVisibleChange(bottom,left,top,right);
 	}
-	return "";
-}
 
-void jniCallSupport(const std::string& numberPhone){
-	JniMethodInfo method;
-	bool bRet = JniHelper::getStaticMethodInfo(method,"vn/quyetnguyen/plugin/system/SystemPlugin","jniPhoneSupport","(Ljava/lang/String;)V");
-	if(bRet){
-		jstring _numberPhone = method.env->NewStringUTF(numberPhone.data());
-
-		method.env->CallStaticVoidMethod(method.classID, method.methodID, _numberPhone);
-
-		method.env->DeleteLocalRef(method.classID);
-		method.env->DeleteLocalRef(_numberPhone);
-
+	JNIEXPORT void JNICALL Java_vn_quyetnguyen_plugin_system_SystemPlugin_nativeOnRegisterNotificationSuccess(JNIEnv*  env, jobject thiz, jstring deviceId, jstring token){
+		std::string _deviceId = JniHelper::jstring2string(deviceId);
+		std::string _token = JniHelper::jstring2string(token);
+		quyetnd::SystemPlugin::getInstance()->onRegisterNotificationSuccess(_deviceId, _token);
 	}
-}
 
-void jniLoadExtension(const std::string& jarPath){
-	JniMethodInfo method;
-	bool bRet = JniHelper::getStaticMethodInfo(method,"vn/quyetnguyen/plugin/system/ExtensionLoader","jniLoadExtension","(Ljava/lang/String;)V");
-	if(bRet){
-		jstring _jarPath = method.env->NewStringUTF(jarPath.c_str());
-		method.env->CallStaticVoidMethod(method.classID, method.methodID, _jarPath);
-		method.env->DeleteLocalRef(method.classID);
-		method.env->DeleteLocalRef(_jarPath);
+	bool jniRequestBuyItem(const std::string& itemId){
+		JniMethodInfo method;
+		bool bRet = JniHelper::getStaticMethodInfo(method,"vn/quyetnguyen/android/billing/AndroidBilling","jniBuyItem","(Ljava/lang/String;Z)V");
+		if(bRet){
+			jstring _itemId = method.env->NewStringUTF(itemId.data());
+
+			method.env->CallStaticVoidMethod(method.classID, method.methodID, _itemId, JNI_TRUE);
+
+			method.env->DeleteLocalRef(method.classID);
+			method.env->DeleteLocalRef(_itemId);
+
+			return true;
+		}
+
+		return false;
 	}
-}
 
+	std::string _getAndroidPackage(){
+		JniMethodInfo sMethod;
+		bool bRet = JniHelper::getStaticMethodInfo(sMethod,"vn/quyetnguyen/plugin/system/SystemPlugin","jniGetAndroidPackage","()Ljava/lang/String;");
+		if(bRet){
+			jstring jstr = (jstring) sMethod.env->CallStaticObjectMethod(sMethod.classID, sMethod.methodID);
+			std::string pStr = JniHelper::jstring2string(jstr);
+			sMethod.env->DeleteLocalRef(sMethod.classID);
+			sMethod.env->DeleteLocalRef(jstr);
+			return pStr;
+		}
+		return "";
+	}
+
+	std::string jniGetVersionName(){
+		JniMethodInfo sMethod;
+		bool bRet = JniHelper::getStaticMethodInfo(sMethod,"vn/quyetnguyen/plugin/system/SystemPlugin","jniGetVersionName","()Ljava/lang/String;");
+		if(bRet){
+			jstring jstr = (jstring) sMethod.env->CallStaticObjectMethod(sMethod.classID, sMethod.methodID);
+			std::string pStr = JniHelper::jstring2string(jstr);
+			sMethod.env->DeleteLocalRef(sMethod.classID);
+			sMethod.env->DeleteLocalRef(jstr);
+			return pStr;
+		}
+		return "";
+	}
+
+	void jniCallSupport(const std::string& numberPhone){
+		JniMethodInfo method;
+		bool bRet = JniHelper::getStaticMethodInfo(method,"vn/quyetnguyen/plugin/system/SystemPlugin","jniPhoneSupport","(Ljava/lang/String;)V");
+		if(bRet){
+			jstring _numberPhone = method.env->NewStringUTF(numberPhone.data());
+
+			method.env->CallStaticVoidMethod(method.classID, method.methodID, _numberPhone);
+
+			method.env->DeleteLocalRef(method.classID);
+			method.env->DeleteLocalRef(_numberPhone);
+
+		}
+	}
+
+	void jniLoadExtension(const std::string& jarPath){
+		JniMethodInfo method;
+		bool bRet = JniHelper::getStaticMethodInfo(method,"vn/quyetnguyen/plugin/system/ExtensionLoader","jniLoadExtension","(Ljava/lang/String;)V");
+		if(bRet){
+			jstring _jarPath = method.env->NewStringUTF(jarPath.c_str());
+			method.env->CallStaticVoidMethod(method.classID, method.methodID, _jarPath);
+			method.env->DeleteLocalRef(method.classID);
+			method.env->DeleteLocalRef(_jarPath);
+		}
+	}
+
+	void jniCallStaticVoidMethod(const std::string& className, const std::string& methodName, const std::string& params){
+		JniMethodInfo method;
+		bool bRet = JniHelper::getStaticMethodInfo(method, className.c_str(), methodName.c_str(),"(Ljava/lang/String;)V");
+		if(bRet){
+			jstring _params = method.env->NewStringUTF(params.c_str());
+			method.env->CallStaticVoidMethod(method.classID, method.methodID, _params);
+			method.env->DeleteLocalRef(method.classID);
+			method.env->DeleteLocalRef(_params);
+		}
+	}
+
+	std::string jniCallStaticStringMethod(const std::string& className, const std::string& methodName, const std::string& params){
+		JniMethodInfo method;
+		bool bRet = JniHelper::getStaticMethodInfo(method, className.c_str(), methodName.c_str(),"(Ljava/lang/String;)Ljava/lang/String;");
+		if(bRet){
+			jstring _params = method.env->NewStringUTF(params.c_str());
+			jstring strRet = (jstring)method.env->CallStaticObjectMethod(method.classID, method.methodID, _params);
+			method.env->DeleteLocalRef(method.classID);
+			method.env->DeleteLocalRef(_params);
+
+			std::string str = JniHelper::jstring2string(strRet);
+			return str;
+		}
+		return "";
+	}
 }
 
 #endif
@@ -193,18 +217,9 @@ std::string _winrt_getPackageName(){
 
 #endif
 
-std::string _wstring_to_string(const std::wstring & str){
-	std::wstring_convert<std::codecvt_utf8<wchar_t>> myconv;
-	return myconv.to_bytes(str);
-}
-
-std::wstring _string_to_wstring(const std::string & str){
-	std::wstring_convert<std::codecvt_utf8<wchar_t>> myconv;
-	return myconv.from_bytes(str);
-}
-
 bool __stringify_callback(const jschar *buf, uint32_t len, void *data){
-	((std::wstringstream*)data)->write(buf, len);
+	auto buffer = (std::vector<jschar>*)data;
+	buffer->insert(buffer->end(), buf, buf + len);
 	return true;
 }
 
@@ -323,18 +338,24 @@ std::string SystemPlugin::callJSFunction(const std::string& methodName, const st
 	auto rootObject = sc->getGlobalObject();
 	JSAutoCompartment ac(cx, rootObject);
 
-	std::wstring wstr = _string_to_wstring(params);
+    jsval strVal = std_string_to_jsval(cx, params);
+	
+    JS::RootedString jsstr(cx, strVal.toString());
 	JS::RootedValue outVal(cx);
-	bool ok = JS_ParseJSON(cx, wstr.c_str(), wstr.size(), &outVal);
+	bool ok = JS_ParseJSON(cx, jsstr, &outVal);
 	if (ok){
 		JS::RootedValue rval(cx);
 		auto ret = sc->executeFunctionWithOwner(OBJECT_TO_JSVAL(rootObject), methodName.c_str(), 1, &outVal.get(), &rval);
 		if (ret){
-			std::wstringstream strStream;
+			std::vector<jschar> buffer;
+			//std::wstringstream strStream;
 			JS::RootedValue indentVal(cx, JS::UndefinedValue());
-			bool b = JS_Stringify(cx, &rval, JS::NullPtr(), indentVal, &__stringify_callback, &strStream);
-			if (b){
-				return _wstring_to_string(strStream.str());
+			bool b = JS_Stringify(cx, &rval, JS::NullPtr(), indentVal, &__stringify_callback, &buffer);
+			if (b){			
+				std::u16string u16 = std::u16string(buffer.begin(), buffer.end());
+				std::string u8;
+				StringUtils::UTF16ToUTF8(u16, u8);
+				return u8;
 			}
 			else{
 				log("callJSFunction:[%s] JS_Stringify error", methodName.c_str());
@@ -348,6 +369,20 @@ std::string SystemPlugin::callJSFunction(const std::string& methodName, const st
 		log("callJSFunction:[%s] [%s] is not json", methodName.c_str(), params.c_str());
 	}
 	return "";
+}
+
+void SystemPlugin::callStaticVoidMethod(const std::string& className, const std::string& methodName, const std::string& params){
+#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+	jniCallStaticVoidMethod(className, methodName, params);
+#endif
+}
+
+std::string SystemPlugin::callStaticStringMethod(const std::string& className, const std::string& methodName, const std::string& params){
+#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+	return jniCallStaticStringMethod(className, methodName, params);
+#else
+	return "";
+#endif
 }
 
 void SystemPlugin::androidLoadExtension(const std::string& jarPath){

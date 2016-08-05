@@ -264,6 +264,10 @@ void LoadingScene::update(float dt){
 		ScriptEngineManager::getInstance()->setScriptEngine(engine);
 		GameFile* mainJs = gameLaucher->getFile("js/main.js");
 		ScriptingCore::getInstance()->runScript(mainJs->filePath.c_str());
+
+		std::string test = SystemPlugin::getInstance()->callJSFunction("testJSFunc", "{}");
+		log("test: %s", test.c_str()); 
+
 		break;
 	}
 	}
@@ -355,6 +359,14 @@ void LoadingScene::onEnter(){
 	gameLaucher->startFromFile("res/Game/version.json");
 	//gameLaucher->startFromFile("version.json");
 	this->scheduleUpdate();
+	
+	auto keyboard = EventListenerKeyboard::create();
+	keyboard->onKeyPressed = [](EventKeyboard::KeyCode keyCode, Event*){
+		if (keyCode == EventKeyboard::KeyCode::KEY_BACK){
+			Director::getInstance()->end();
+		}
+	};
+	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(keyboard, this);
 }
 
 void LoadingScene::onExit(){

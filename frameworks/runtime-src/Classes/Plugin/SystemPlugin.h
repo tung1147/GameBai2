@@ -50,6 +50,8 @@ public:
     void onRegisterNotificationSuccess(const std::string& uid, const std::string& token);
 
     std::string callJSFunction(const std::string& methodName, const std::string& params);
+	void callStaticVoidMethod(const std::string& className, const std::string& methodName, const std::string& params);
+	std::string callStaticStringMethod(const std::string& className, const std::string& methodName, const std::string& params);
 
     void androidLoadExtension(const std::string& jarPath);
 
