@@ -82,7 +82,9 @@ cc.game.onStart = function(){
     LobbyClient.getInstance();
     SystemPlugin.getInstance().enableMipmapTexture("res/Card.png");
 
-    cc.director.replaceScene(new HomeScene());
+    cc.director.replaceScene(new VongQuayScene());
+
+   // cc.director.replaceScene(new HomeScene());
     //cc.director.replaceScene(new TienLen());
 };
 cc.game.run();

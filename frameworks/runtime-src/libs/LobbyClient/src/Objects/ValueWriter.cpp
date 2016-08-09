@@ -124,7 +124,7 @@ void ValueWriter::writeUint(uint64_t i64){
 }
 
 void ValueWriter::writeInt(int64_t i64){
-	if (i64 > 0){
+	if (i64 >= 0){
 		this->writeUint((uint64_t)i64);
 	}
 	else{

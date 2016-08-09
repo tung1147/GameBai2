@@ -47,3 +47,4 @@ require("js/Game/Phom.js");
 require("js/Game/Sam.js");
 require("js/Game/TaiXiu.js");
 require("js/Game/XocDia.js");
+require("js/Game/VongQuay.js");
