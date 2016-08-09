@@ -5,13 +5,7 @@
 var GameTopBar = cc.Node.extend({
     ctor : function () {
         this._super();
-        SmartfoxClient.getInstance().addListener(socket.SmartfoxClient.UserExitRoom, this.onUserExitRoom, this);
         SmartfoxClient.getInstance().addListener(socket.SmartfoxClient.CallExtension, this.onExtensionCommand, this);
-
-        // var bg = new cc.Sprite("#home-top-bar.png");
-        // bg.setAnchorPoint(0.0, 1.0);
-        // bg.setPosition(0.0, cc.winSize.height);
-        // this.addChild(bg);
 
         this.backBt = new ccui.Button("ingame-backBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
         this.backBt.setPosition(65, 653);
@@ -30,14 +24,6 @@ var GameTopBar = cc.Node.extend({
         this._super();
         SmartfoxClient.getInstance().removeListener(this);
     },
-    onUserExitRoom : function (messageType, contents) {
-        if(PlayerMe.SFS.userId ==  contents.u){
-            var homeScene = new HomeScene();
-            var gameId = s_games_chanel_id[PlayerMe.SFS.gameType]
-            homeScene.startLobby(gameId);
-            cc.director.replaceScene(homeScene);
-        }
-    },
     onExtensionCommand : function (messageType, contents) {
         
     }
@@ -49,6 +35,8 @@ var IGameScene = IScene.extend({
         this._super();
         this.type = "GameScene";
         this.isOwnerMe = false;
+
+        SmartfoxClient.getInstance().addListener(socket.SmartfoxClient.UserExitRoom, this.onUserExitRoom, this);
         SmartfoxClient.getInstance().addListener(socket.SmartfoxClient.CallExtension, this.onSFSExtension, this);
 
         var bg = new cc.Sprite("res/game-bg.jpg");
@@ -58,14 +46,34 @@ var IGameScene = IScene.extend({
 
         var gameTopBar = new GameTopBar();
         this.addChild(gameTopBar);
+
+        var thiz = this;
         gameTopBar.backBt.addClickEventListener(function(){
-           cc.log("gameTopBar addClickEventListener");
-            SmartfoxClient.getInstance().sendExtensionRequest(PlayerMe.SFS.roomId,"quitRoom", null);
+            thiz.backButtonClickHandler();
         });
+    },
+    backButtonClickHandler : function () {
+        SmartfoxClient.getInstance().sendExtensionRequest(PlayerMe.SFS.roomId,"quitRoom", null);
+    },
+    exitToLobby : function () {
+        var homeScene = new HomeScene();
+        var gameId = s_games_chanel_id[PlayerMe.SFS.gameType]
+        homeScene.startLobby(gameId);
+        cc.director.replaceScene(homeScene);
+    },
+    exitToGame : function () {
+        var homeScene = new HomeScene();
+        homeScene.startGame();
+        cc.director.replaceScene(homeScene);
     },
     onExit : function () {
         this._super();
         SmartfoxClient.getInstance().removeListener(this);
+    },
+    onUserExitRoom : function (messageType, contents) {
+        if(PlayerMe.SFS.userId ==  contents.u){
+            this.exitToLobby();
+        }
     },
     onSFSExtension : function (messageType, content) {
         if(content.c == "ping"){

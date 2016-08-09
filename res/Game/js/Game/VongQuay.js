@@ -86,5 +86,8 @@ var VongQuayScene = IGameScene.extend({
         this._super();
         var vongQuay = new VongQuayLayer();
         this.sceneLayer.addChild(vongQuay);
-    }
+    },
+    backButtonClickHandler : function () {
+        this.exitToGame();
+    },
 });

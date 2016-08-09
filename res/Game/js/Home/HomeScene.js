@@ -175,7 +175,8 @@ var HomeScene = IScene.extend({
 
         }
         else if(gameId == GameType.GAME_VongQuayMayMan){
-
+            var vongquay = new VongQuayScene();
+            cc.director.replaceScene(new cc.TransitionFade(0.5, vongquay, cc.color("#000000")));
         }
         else{
             this.startLobby(gameId);
