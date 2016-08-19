@@ -65,6 +65,10 @@
             "img": "res/effectMini.png",
             "plist": "res/effectMini.plist"
         },
+        {
+            "img": "res/FloatButton.png",
+            "plist": "res/FloatButton.plist"
+        },
         {"img": "res/game-bg.jpg"},
         {
             "img": "res/GameList.png",

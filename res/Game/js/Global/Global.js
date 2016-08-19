@@ -228,3 +228,12 @@ ApplicationConfig.BUNBLE = "com.gamebai.vip";
     }
 })();
 
+cc.Global.NodeIsVisible = function (node) {
+    while(node){
+        if(!node.visible){
+            return false;
+        }
+        node = node.getParent();
+    }
+    return true;
+};

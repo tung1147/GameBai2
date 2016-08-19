@@ -86,6 +86,21 @@
             "hash": "727c884760ff4af1a4ae3de403383392"
         },
         {
+            "file": "js/FloatButton/FloatButton.js",
+            "size": 7284,
+            "hash": "0f5bb0747daaa8d26b5dee1d7a739ae3"
+        },
+        {
+            "file": "js/FloatButton/FloatButtonAnimation.js",
+            "size": 1540,
+            "hash": "58a0607631df38ac30f4d77424134b83"
+        },
+        {
+            "file": "js/FloatButton/FloatButtonComponent.js",
+            "size": 2971,
+            "hash": "864341d2a80eff9fb1492b64cddf3110"
+        },
+        {
             "file": "js/Game/BaCay.js",
             "size": 52,
             "hash": "f1e4ed83237227ebb698a429906e5974"
@@ -147,8 +162,8 @@
         },
         {
             "file": "js/Global/Global.js",
-            "size": 7930,
-            "hash": "015b5391c7f4867fc9cede3225eeea24"
+            "size": 8122,
+            "hash": "bfcafc0539f2bbf94dde8166094eff01"
         },
         {
             "file": "js/Global/UserAvatar.js",
@@ -167,8 +182,8 @@
         },
         {
             "file": "js/Home/HomeScene.js",
-            "size": 10789,
-            "hash": "08f602778a43b63a9d48a6bba75635ba"
+            "size": 10850,
+            "hash": "e4822032b6c7db999f6c3d9fd66eba97"
         },
         {
             "file": "js/Home/InboxLayer.js",
@@ -227,8 +242,8 @@
         },
         {
             "file": "js/jsLoader.js",
-            "size": 1668,
-            "hash": "7c6cfbd00bf0bd6c2bdee0233336aa99"
+            "size": 1815,
+            "hash": "92ac357f1a6b8fce8d8ba9804ec605a1"
         },
         {
             "file": "js/main.js",
@@ -314,6 +329,16 @@
             "file": "res/effectMini.png",
             "size": 518202,
             "hash": "5a760d693561ed358fb35b8c9a03bb91"
+        },
+        {
+            "file": "res/FloatButton.plist",
+            "size": 4618,
+            "hash": "e312fb14c38daca7b8023dbb80375c75"
+        },
+        {
+            "file": "res/FloatButton.png",
+            "size": 188596,
+            "hash": "c2013b67a1e42b35b87c9b921f48d593"
         },
         {
             "file": "res/fonts/bigsmall_number_font.fnt",
@@ -607,13 +632,13 @@
         },
         {
             "file": "resources.json",
-            "size": 3271,
-            "hash": "ab3ae28025b4f6a3a8bfe53ae411930f"
+            "size": 3379,
+            "hash": "1879b7c266a9cd637d70f8ebc12b5ae9"
         },
         {
             "file": "script.json",
-            "size": 1411,
-            "hash": "d39a7acc492d9bb93d504e23d5f2b84e"
+            "size": 1540,
+            "hash": "731420dd6b737390532a088e9481b6c9"
         }
     ],
     "versionName": "1.0.1",

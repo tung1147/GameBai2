@@ -80,6 +80,9 @@ var HomeScene = IScene.extend({
         });
 
         this.startHome();
+
+        //
+        FloatButton.getInstance().show(this);
     },
     onLoginHandler : function (command, data) {
       //  cc.log("onLoginHandler");
