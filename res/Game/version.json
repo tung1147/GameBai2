@@ -107,8 +107,8 @@
         },
         {
             "file": "js/Game/GameScene.js",
-            "size": 6066,
-            "hash": "6db1a567826137247f0e811d60071ab9"
+            "size": 6167,
+            "hash": "e271fecd0a7a9a2815e7fd89cd0bb466"
         },
         {
             "file": "js/Game/MauBinh.js",
@@ -134,6 +134,11 @@
             "file": "js/Game/TienLen.js",
             "size": 8766,
             "hash": "f12016e9638cab1c998994144d992b71"
+        },
+        {
+            "file": "js/Game/VongQuay.js",
+            "size": 2938,
+            "hash": "7d4923b514cd5daf91e92ca367d1c976"
         },
         {
             "file": "js/Game/XocDia.js",
@@ -162,8 +167,8 @@
         },
         {
             "file": "js/Home/HomeScene.js",
-            "size": 10644,
-            "hash": "14cfef16c73be555a47dc5e1024b60ee"
+            "size": 10789,
+            "hash": "08f602778a43b63a9d48a6bba75635ba"
         },
         {
             "file": "js/Home/InboxLayer.js",
@@ -222,13 +227,18 @@
         },
         {
             "file": "js/jsLoader.js",
-            "size": 1635,
-            "hash": "2ce3c6115976a0a713b336d2f4fcb166"
+            "size": 1668,
+            "hash": "7c6cfbd00bf0bd6c2bdee0233336aa99"
         },
         {
             "file": "js/main.js",
-            "size": 4379,
-            "hash": "b22f13045c1863405efd74ea70f56604"
+            "size": 4435,
+            "hash": "aebbb9475ffde13da79dad5adbe8b1be"
+        },
+        {
+            "file": "js/SceneNavigator.js",
+            "size": 296,
+            "hash": "27258553f1d7fc7e3a8346ac33e9dd41"
         },
         {
             "file": "js/Socket/LobbyClient.js",
@@ -237,8 +247,8 @@
         },
         {
             "file": "js/Socket/LobbyError.js",
-            "size": 1984,
-            "hash": "b4c0f88304077b6b72d2a44f50bb3e62"
+            "size": 4265,
+            "hash": "41626298b19962c82a568e792f15cc03"
         },
         {
             "file": "js/Socket/SmartfoxClient.js",
@@ -602,8 +612,8 @@
         },
         {
             "file": "script.json",
-            "size": 1356,
-            "hash": "be128276cc1b2ba86b3664fa84945bf1"
+            "size": 1411,
+            "hash": "d39a7acc492d9bb93d504e23d5f2b84e"
         }
     ],
     "versionName": "1.0.1",

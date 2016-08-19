@@ -24,6 +24,7 @@
     "js/Game/Sam.js",
     "js/Game/TaiXiu.js",
     "js/Game/TienLen.js",
+    "js/Game/VongQuay.js",
     "js/Game/XocDia.js",
     "js/Global/Global.js",
     "js/Global/UserAvatar.js",
@@ -43,6 +44,7 @@
     "js/IScene.js",
     "js/jsLoader.js",
     "js/main.js",
+    "js/SceneNavigator.js",
     "js/Socket/LobbyClient.js",
     "js/Socket/LobbyError.js",
     "js/Socket/SmartfoxClient.js"
