@@ -15,7 +15,7 @@ var TienLen = IGameScene.extend({
         this.initButton();
 
         //initCard
-        var cardList = new CardList(cc.size(cc.winSize.width, 100));
+        var cardList = new CardList(cc.winSize.width - 10);
         cardList.setAnchorPoint(cc.p(0.5, 0.0));
         cardList.setPosition(cc.winSize.width/2, 100.0);
         this.sceneLayer.addChild(cardList);
@@ -113,6 +113,7 @@ var TienLen = IGameScene.extend({
             var gameStatus = content.p["1"]["1"];
             this.onGameStatus(gameStatus);
             this.timeTurn = content.p["1"]["7"];
+            this.onReconnect(content.p);
         }
         else if (content.c == "10"){//update status
             var gameStatus = content.p["1"];
@@ -122,10 +123,11 @@ var TienLen = IGameScene.extend({
             this.onStartGame(content.p);
         }
         else if(content.c == "6"){ //new turn
-            this.onUpdateTurn(content.p, true);
+            this.onUpdateTurn(content.p.u, this.timeTurn, true);
+            this.cardOnTable.removeAll();
         }
         else if(content.c == "7"){ //next turn
-            this.onUpdateTurn(content.p, false);
+            this.onUpdateTurn(content.p.u, this.timeTurn, false);
         }
         else if(content.c == "4"){ //danh bai thanh cong
             this.onDanhBaiThanhCong(content.p);
@@ -139,15 +141,36 @@ var TienLen = IGameScene.extend({
         }
         this.cardList.dealCards(cards, true);
     },
-    onReconnect : function (param) {
-        var cards = [];
-        var cardData = params["1"];
-        for(var i=0;i<cardData.length;i++){
-            cards.push(this.getCardWithId(cardData[i]));
+    onReconnect : function (params) {
+        //card on table
+        this.cardOnTable.removeAll();
+        var cardData = params["1"]["12"]["3"];
+        if(cardData.length > 0){
+            var cards = [];
+            for(var i=0;i<cardData.length;i++){
+                cards.push(this.getCardWithId(cardData[i]));
+            }
+            this.cardOnTable.addCardReconnect(cards);
         }
-        this.cardList.dealCards(cards, true);
+
+        //update turn
+        var username = params["1"]["12"]["u"];
+        var currentTime = params["1"]["12"]["2"] / 1000;
+        var newTurn = cardData.length == 0 ? true:false;
+        this.onUpdateTurn(username, currentTime, newTurn);
+
+        //add card me
+        this.cardList.removeAll();
+        var cardsMe = params["3"];
+        for(var i=0;i<cardsMe.length;i++){
+            var cardId = this.getCardWithId(cardsMe[i]);
+            var cardNew = new Card(cardId.rank, cardId.suit);
+            this.cardList.addCard(cardNew);
+        }
+        this.cardList.reOrderWithoutAnimation();
     },
     onGameStatus : function (status) {
+        this.gameStatus = status;
         if(status == 0){ //waiting
             this.danhbaiBt.visible = false;
             this.xepBaiBt.visible = false;
@@ -177,6 +200,12 @@ var TienLen = IGameScene.extend({
             this.cardList.removeAll();
         }
     },
+    updateOwner : function (username) {
+        this._super(username);
+        if(this.gameStatus == 1 && this.isOwnerMe) {
+            this.startBt.visible = true;
+        }
+    },
     onDanhBaiThanhCong : function (param) {
         var slot = this.getSlotByUsername(param.u);
         if(slot){
@@ -200,10 +229,10 @@ var TienLen = IGameScene.extend({
             }
         }
     },
-    onUpdateTurn : function (param,newTurn) {
+    onUpdateTurn : function (username, currentTime, newTurn) {
         for(var i=0;i<this.allSlot.length;i++){
-            if(this.allSlot[i].username == param.u){
-                this.allSlot[i].showTimeRemain(this.timeTurn, this.timeTurn);
+            if(this.allSlot[i].username == username){
+                this.allSlot[i].showTimeRemain(currentTime, this.timeTurn);
                 if(this.allSlot[i].isMe){
                     this.danhbaiBt.visible = true;
                     this.boluotBt.visible = true;
@@ -220,6 +249,9 @@ var TienLen = IGameScene.extend({
                 this.allSlot[i].stopTimeRemain();
             }
         }
+    },
+    onShowResult : function (params) {
+
     },
     /* send request */
     sendStartRequest : function () {

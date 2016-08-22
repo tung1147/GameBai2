@@ -124,6 +124,7 @@ var HomeScene = IScene.extend({
         this.homeLayer.stopAllActions();
         this.homeLayer.runAction(new cc.EaseSineOut(new cc.MoveTo(0.3, cc.p(0,0))));
         this.homeLocation = 1;
+        FloatButton.getInstance().setVisible(false);
     },
     startGame : function () {
         this.popupLayer.removeAllChildren();
@@ -145,6 +146,7 @@ var HomeScene = IScene.extend({
             this.miniGame.startAnimation();
         }
         this.homeLocation = 2;
+        FloatButton.getInstance().setVisible(true);
     },
 
     startLobby : function(){
@@ -162,6 +164,7 @@ var HomeScene = IScene.extend({
             this.lobbyLayer.startGame(-1);
         }
         this.homeLocation = 3;
+        FloatButton.getInstance().setVisible(true);
     },
     onTouchGame : function (gameId) {
         if(this.homeLocation == 1){
@@ -280,9 +283,12 @@ var HomeScene = IScene.extend({
        // LoadingDialog.getInstance().show();
         //MessageNode.getInstance().show("Test message node");
 
-        var dialog = new RewardDialog();
-        dialog.setItem("Apple iPhone 10S 128GB", 1000000);
-        dialog.showWithAnimationScale();
+        // var dialog = new RewardDialog();
+        // dialog.setItem("Apple iPhone 10S 128GB", 1000000);
+        // dialog.showWithAnimationScale();
+
+        var dialog = new ResultDialog();
+        dialog.show();
     },
 
     newsMesasgeButtonHandler : function () {

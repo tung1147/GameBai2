@@ -91,6 +91,26 @@ var IGameScene = IScene.extend({
         else if (content.c == "13"){//reconnect
             this.processPlayerPosition(content);
         }
+        else if(content.c == "11"){ // update owner
+            this.updateOwner(content.p.u);
+        }
+    },
+    updateOwner : function (username) {
+        for(var i=0;i<this.allSlot.length;i++){
+            if(this.allSlot[i].username == username){
+                //show key icon
+            }
+            else{
+
+            }
+        }
+
+        if(PlayerMe.username == username){
+            this.isOwnerMe = true;
+        }
+        else{
+            this.isOwnerMe = false;
+        }
     },
     processPlayerPosition : function (content) {
          if(content.c == "1"){ //startGame
@@ -155,12 +175,6 @@ var IGameScene = IScene.extend({
         for(var i=0;i<players.length;i++){
             if(players[i].u == PlayerMe.username){
                 idx = players[i]["4"];
-                if(players[i]["1"] == true){
-                    this.isOwnerMe = true;
-                }
-                else{
-                    this.isOwnerMe = false;
-                }
                 break;
             }
         }
@@ -173,5 +187,15 @@ var IGameScene = IScene.extend({
             }
         }
         this.allSlot = allSlot;
+
+        //update owner
+        var ownerPlayer = null;
+        for(var i=0;i<players.length;i++){
+            if(players[i]["1"] == true){
+                ownerPlayer = players[i].u;
+                break;
+            }
+        }
+        this.updateOwner(ownerPlayer);
     },
 });

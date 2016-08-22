@@ -123,12 +123,12 @@ var Card = cc.Sprite.extend({
 });
 
 var CardList = cc.Node.extend({
-    ctor : function (size) {
+    ctor : function (width) {
         this.canTouch = true;
 
         this._super();
         this.cardList = [];
-        this.setContentSize(size);
+        this.setContentSize(cc.size(width, 0));
         this.setAnchorPoint(cc.p(0.5,0.5));
     },
     reOrder : function () {
@@ -151,6 +151,27 @@ var CardList = cc.Node.extend({
             }
         }
     },
+    reOrderWithoutAnimation : function () {
+        if(this.cardList.length > 0){
+            var width = this.cardSize.width * this.cardList.length;
+            if(width > this.getContentSize().width){
+                width = this.getContentSize().width;
+            }
+            var dx = width / this.cardList.length;
+            var x = this.getContentSize().width/2 - width/2 + dx/2;
+            var y = this.getContentSize().height/2;
+            for(var i=0;i<this.cardList.length;i++){
+                var card = this.cardList[i];
+                card.origin = cc.p(x, y);
+                card.cardIndex = i;
+                card.cardDistance = dx;
+                this.reorderChild(card, i);
+                //card.moveToOriginPosition();
+                card.setPosition(x,y);
+                x += dx;
+            }
+        }
+    },
     onEnter : function () {
         this._super();
         this.deckPoint = this.convertToNodeSpace(cc.p(cc.winSize.width/2, cc.winSize.height/2));
@@ -158,6 +179,8 @@ var CardList = cc.Node.extend({
     addCard : function (card) {
         if(!this.cardSize){
             this.cardSize = card.getContentSize();
+            var contentSize = cc.size(this.getContentSize().width, this.cardSize.height);
+            this.setContentSize(contentSize);
         }
         card.cardIndex = this.cardList.length;
         card.origin = cc.p(0, 0);
@@ -324,6 +347,15 @@ var CardOnTable = cc.Node.extend({
         this.addCard(arrCard);
         return arrCard;
     },
+    addCardReconnect : function (cards) {
+        var arrCard = [];
+        for(var i=0;i<cards.length;i++){
+            var card = new cc.Sprite("#"+cards[i].rank + s_card_suit[cards[i].suit] +".png");
+            arrCard.push(card);
+        }
+        this.addCardWithoutAnimation(arrCard);
+        return arrCard;
+    },
     addCard : function (cards) {
         var animationDuration = 0.3;
         if(!this.cardSize){
@@ -340,7 +372,27 @@ var CardOnTable = cc.Node.extend({
             var moveAction = new cc.MoveTo(animationDuration, cc.p(x, this.cardPosition.y));
             var scaleAction = new cc.ScaleTo(animationDuration, 0.5);
             card.runAction(new cc.EaseBackIn(new cc.Spawn(moveAction, scaleAction)));
-            card.setScale(this.cardScale);
+            //card.setScale(card.getScale() * this.cardScale);
+            var rotate = 20.0 - Math.random() * 40.0;
+            card.setRotation(rotate);
+            this.addChild(card,0);
+            x += dx;
+        }
+    },
+    addCardWithoutAnimation : function (cards) {
+        if(!this.cardSize){
+            this.cardSize = cards[0].getContentSize();
+        }
+        this.cardList.push(cards);
+
+        var dx = this.cardSize.width * this.cardScale;
+        var width = cards.length * dx;
+        var x = this.cardPosition.x - width/2 +  dx/2;
+
+        for(var i=0;i<cards.length;i++){
+            var card = cards[i];
+            card.setPosition(x, this.cardPosition.y);
+            card.setScale(0.5);
             var rotate = 20.0 - Math.random() * 40.0;
             card.setRotation(rotate);
             this.addChild(card,0);
@@ -350,6 +402,6 @@ var CardOnTable = cc.Node.extend({
 
     removeAll : function () {
         this.cardList = [];
-        this.removeAllChildrenWithCleanup();
+        this.removeAllChildren(true);
     }
 });

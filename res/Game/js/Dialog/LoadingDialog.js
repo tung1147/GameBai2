@@ -48,10 +48,11 @@ var LoadingDialog = (function() {
 
             var mScene = cc.director.getRunningScene();
             if(mScene.popupLayer){
-                mScene.popupLayer.addChild(this,2)
+                //mScene.popupLayer.addChild(this,2);
+                mScene.addChild(this,10);
             }
             else{
-                mScene.addChild(this,2);
+                mScene.addChild(this,10);
             }
             if(arguments.length == 1){
                 this.setMessage(arguments[0]);
