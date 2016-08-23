@@ -29,6 +29,16 @@ var GameTopBar = cc.Node.extend({
     }
 });
 
+var s_sfs_error_msg = s_sfs_error_msg || [];
+/*TLMN*/
+s_sfs_error_msg[1] = "Đánh bài không hợp lệ";
+s_sfs_error_msg[2] = "Bạn không phải chủ phòng";
+s_sfs_error_msg[3] = "Không đủ người chơi để bắt đầu";
+s_sfs_error_msg[4] = "Bạn phải đánh quân bài nhỏ nhất";
+s_sfs_error_msg[5] = "Bạn không thể bỏ lượt";
+s_sfs_error_msg[6] = "Người chơi chưa sẵn sàng";
+s_sfs_error_msg[7] = "Bạn chưa đến lượt";
+s_sfs_error_msg[8] = "Bạn không có 4 đôi thông";
 
 var IGameScene = IScene.extend({
     ctor : function () {
@@ -79,6 +89,9 @@ var IGameScene = IScene.extend({
         if(content.c == "ping"){
             SmartfoxClient.getInstance().sendExtensionRequestCurrentRoom("ping", null);
         }
+        else if(content.c == "0"){ //update gold
+            this.updateGold(content.p.u, content.p["2"]);
+        }
         else if(content.c == "1"){ //startGame
             this.processPlayerPosition(content);
         }
@@ -93,6 +106,19 @@ var IGameScene = IScene.extend({
         }
         else if(content.c == "11"){ // update owner
             this.updateOwner(content.p.u);
+        }
+        else if(content.c == "___err___"){ //error chem
+            this.onError(content.p);
+        }
+    },
+    onError : function (params) {
+        var ec = params.code;
+        var msg = s_sfs_error_msg[ec];
+        if(msg){
+            MessageNode.getInstance().show(msg);
+        }
+        else{
+            MessageNode.getInstance().show("Mã lỗi không xác định[" + ec + "]");
         }
     },
     updateOwner : function (username) {
@@ -112,6 +138,18 @@ var IGameScene = IScene.extend({
             this.isOwnerMe = false;
         }
     },
+    updateGold : function (username, gold) {
+        var goldNumber = gold;
+        if(typeof gold === "string"){
+            goldNumber = parseInt(gold);
+        }
+        for(var i=0;i<this.allSlot.length;i++){
+            if(this.allSlot[i].username == username){
+                this.allSlot[i].setGold(goldNumber);
+                return;
+            }
+        }
+    },
     processPlayerPosition : function (content) {
          if(content.c == "1"){ //startGame
             var userList = content.p["5"];
@@ -125,19 +163,24 @@ var IGameScene = IScene.extend({
                 this.allSlot[idx].setEnable(true);
                 this.allSlot[idx].setUsername(userList[i].u);
                 this.allSlot[idx].setGold(userList[i]["3"]);
+                this.allSlot[idx].stopTimeRemain();
+               // this.updateGold(userList[i].u, userList[i]["3"]);
             }
         }
         else if (content.c == "2"){ //user joinRoom
             var idx = content.p["4"];
             this.allSlot[idx].setEnable(true);
+            this.allSlot[idx].stopTimeRemain();
             this.allSlot[idx].setUsername(content.p.u);
             this.allSlot[idx].setGold(content.p["3"]);
+            // this.updateGold(content.p.u, content.p["3"]);
         }
         else if (content.c == "9"){ //user exit
             if(content.p.u != PlayerMe.username){
                 for(var i=0;i<this.allSlot.length;i++){
                     if(this.allSlot[i].username == content.p.u){
                         this.allSlot[i].setEnable(false);
+                        this.allSlot[i].stopTimeRemain();
                         break;
                     }
                 }
@@ -152,12 +195,15 @@ var IGameScene = IScene.extend({
 
             for(var i=0;i<this.allSlot.length;i++){
                 this.allSlot[i].setEnable(false);
+                this.allSlot[i].stopTimeRemain();
             }
             for(var i=0;i<userList.length;i++){
                 var idx = userList[i]["4"];
                 this.allSlot[idx].setEnable(true);
+                this.allSlot[idx].stopTimeRemain();
                 this.allSlot[idx].setUsername(userList[i].u);
                 this.allSlot[idx].setGold(userList[i]["3"]);
+               // this.updateGold(userList[i].u, userList[i]["3"]);
             }
         }
     },

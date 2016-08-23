@@ -15,7 +15,7 @@ var TienLen = IGameScene.extend({
         this.initButton();
 
         //initCard
-        var cardList = new CardList(cc.winSize.width - 10);
+        var cardList = new CardList(cc.size(cc.winSize.width - 10, 100));
         cardList.setAnchorPoint(cc.p(0.5, 0.0));
         cardList.setPosition(cc.winSize.width/2, 100.0);
         this.sceneLayer.addChild(cardList);
@@ -66,22 +66,22 @@ var TienLen = IGameScene.extend({
         this.boluotBt = boluotBt;
         this.startBt = startBt;
     },
-    initPlayer : function (meIndex) {
+    initPlayer : function () {
         var playerMe = new GamePlayerMe();
         playerMe.setPosition(150, 50.0);
-        this.sceneLayer.addChild(playerMe);
+        this.sceneLayer.addChild(playerMe,1);
 
         var player1 = new GamePlayer();
         player1.setPosition(cc.winSize.width - 120.0 / cc.winSize.screenScale, 360.0);
-        this.sceneLayer.addChild(player1);
+        this.sceneLayer.addChild(player1,1);
 
         var player2 = new GamePlayer();
         player2.setPosition(cc.winSize.width/2, 680.0 * cc.winSize.screenScale);
-        this.sceneLayer.addChild(player2);
+        this.sceneLayer.addChild(player2,1);
 
         var player3 = new GamePlayer();
         player3.setPosition(120.0 / cc.winSize.screenScale, 360.0);
-        this.sceneLayer.addChild(player3);
+        this.sceneLayer.addChild(player3,1);
 
         this.playerView = [playerMe, player1, player2, player3];
     },
@@ -129,8 +129,37 @@ var TienLen = IGameScene.extend({
         else if(content.c == "7"){ //next turn
             this.onUpdateTurn(content.p.u, this.timeTurn, false);
         }
+        else if(content.c == "5"){ //bo luot
+            this.onBoLuot(content.p.u);
+        }
         else if(content.c == "4"){ //danh bai thanh cong
             this.onDanhBaiThanhCong(content.p);
+        }
+        else if(content.c == "8"){ //ket qua
+            this.onGameFinished(content.p);
+        }
+        else if(content.c == "12"){ //chat chem
+            this.onChatChem(content.p);
+        }
+    },
+    onBoLuot : function (username) {
+        if(PlayerMe.username == username){
+            return;
+        }
+        for(var i=0;i<this.allSlot.length;i++){
+            if(this.allSlot[i].username == username){
+                var slot = this.allSlot[i];
+
+                var labelEffect = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, "Bỏ lượt");
+                labelEffect.setColor(cc.color("#ff0000"));
+                labelEffect.setPosition(slot.avt.getPosition());
+                slot.addChild(labelEffect, 10);
+                labelEffect.runAction(new cc.Sequence(new cc.DelayTime(1.0), new cc.CallFunc(function () {
+                    labelEffect.removeFromParent(true);
+                })));
+
+                return;
+            }
         }
     },
     onStartGame : function (params) {
@@ -140,6 +169,75 @@ var TienLen = IGameScene.extend({
             cards.push(this.getCardWithId(cardData[i]));
         }
         this.cardList.dealCards(cards, true);
+    },
+    onGameFinished : function (params) {
+        var winPlayer = params.u;
+        var playerData = params["3"];
+        var winString = "Thắng";
+
+        var dialog = new ResultDialog(playerData.length);
+        for(var i=0;i<playerData.length;i++){
+            dialog.userLabel[i].setString(playerData[i].u);
+            var gold = parseInt(playerData[i]["4"]);
+            var goldStr = cc.Global.NumberFormat1(Math.abs(gold)) +" V";
+            if(gold >= 0){
+                goldStr = "+" + goldStr;
+            }
+            else{
+                goldStr = "-" + goldStr;
+            }
+            dialog.goldLabel[i].setString(goldStr);
+
+            if(gold >=0){
+                dialog.goldLabel[i].setColor(cc.color("#ffde00"));
+            }
+            else{
+                dialog.goldLabel[i].setColor(cc.color("#ff0000"));
+            }
+
+            var cardList = playerData[i]["2"];
+            if(playerData[i].u == winPlayer){
+                dialog.contentLabel[i].setString(winString);
+            }
+            else{
+                dialog.contentLabel[i].setString("Thua " + cardList.length + " lá");
+            }
+
+            for(var j=0;j<cardList.length;j++){
+                var cardData= this.getCardWithId(cardList[j]);
+                var card = new Card(cardData.rank, cardData.suit);
+                dialog.cardList[i].addCard(card);
+            }
+            dialog.cardList[i].reOrderWithoutAnimation();
+
+            //update gold
+            this.updateGold(playerData[i].u, playerData[i]["3"]);
+            //effect
+        }
+        dialog.showWithAnimationMove();
+    },
+    onChatChem : function (params) {
+        var player1 = params["7"];
+        var gold1 = params["3"];
+        var changeGold1 =  params["2"];
+
+        var player2 = params["8"];
+        var gold2 = params["6"];
+        var changeGold2 =  params["5"];
+
+        for(var i=0;i<this.allSlot.length;i++){
+            if(this.allSlot[i].username == player1){
+                this.allSlot[i].runChangeGoldEffect(changeGold1);
+                //+ tien changeGold1
+            }
+            if(this.allSlot[i].username == player2){
+                this.allSlot[i].runChangeGoldEffect("-"+changeGold2);
+                //- tien changeGold2
+            }
+        }
+
+        this.updateGold(player1, gold1);
+        this.updateGold(player2, gold2);
     },
     onReconnect : function (params) {
         //card on table
@@ -177,6 +275,7 @@ var TienLen = IGameScene.extend({
             this.boluotBt.visible = false;
             this.startBt.visible = false;
             this.cardList.removeAll();
+            this.cardOnTable.removeAll();
         }
         else if(status == 1){ //ready
             this.danhbaiBt.visible = false;
@@ -184,6 +283,8 @@ var TienLen = IGameScene.extend({
             this.boluotBt.visible = false;
             this.startBt.visible = false;
             this.cardList.removeAll();
+            this.cardOnTable.removeAll();
+
             if(this.isOwnerMe){
                 this.startBt.visible = true;
             }
@@ -198,6 +299,7 @@ var TienLen = IGameScene.extend({
             this.boluotBt.visible = false;
             this.startBt.visible = false;
             this.cardList.removeAll();
+            this.cardOnTable.removeAll();
         }
     },
     updateOwner : function (username) {

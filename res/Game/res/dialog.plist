@@ -69,6 +69,19 @@
                 <key>sourceSize</key>
                 <string>{50,50}</string>
             </dict>
+            <key>dialog-cardList-bg.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{936,2},{20,20}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{20,20}}</string>
+                <key>sourceSize</key>
+                <string>{20,20}</string>
+            </dict>
             <key>dialog-loading-spin.png</key>
             <dict>
                 <key>frame</key>
@@ -378,7 +391,7 @@
             <key>size</key>
             <string>{959,404}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:c578b2071befbd2dffc4166044f530c4:aaeaddbad7b83e77d6cda4219da4504b:c11b6a542e58cbf6e51c9f5d8ff887d2$</string>
+            <string>$TexturePacker:SmartUpdate:5a1b5e1ff5e8bcee2ee036e63dbdc900:40b651eb7ade49ef9c624a863ae90de8:c11b6a542e58cbf6e51c9f5d8ff887d2$</string>
             <key>textureFileName</key>
             <string>dialog.png</string>
         </dict>

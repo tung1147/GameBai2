@@ -123,12 +123,12 @@ var Card = cc.Sprite.extend({
 });
 
 var CardList = cc.Node.extend({
-    ctor : function (width) {
+    ctor : function (size) {
         this.canTouch = true;
 
         this._super();
         this.cardList = [];
-        this.setContentSize(cc.size(width, 0));
+        this.setContentSize(size);
         this.setAnchorPoint(cc.p(0.5,0.5));
     },
     reOrder : function () {
@@ -176,11 +176,24 @@ var CardList = cc.Node.extend({
         this._super();
         this.deckPoint = this.convertToNodeSpace(cc.p(cc.winSize.width/2, cc.winSize.height/2));
     },
+    addNewCard : function (cardId) {
+        for(var i =0;i<cardId.length;i++){
+            var card = new Card(cardId[i].rank, cardId[i].suit);
+            this.addCard(card);
+        }
+        this.reOrderWithoutAnimation();
+    },
     addCard : function (card) {
         if(!this.cardSize){
             this.cardSize = card.getContentSize();
-            var contentSize = cc.size(this.getContentSize().width, this.cardSize.height);
-            this.setContentSize(contentSize);
+            if(this.cardSize.height > this.getContentSize().height){
+                var ratio = this.getContentSize().height / this.cardSize.height;
+                this.cardSize.width *= ratio;
+                this.cardSize.height *= ratio;
+            }
+        }
+        if(card.getContentSize().height > this.cardSize.height){
+            card.setScale(this.cardSize.height/card.getContentSize().height);
         }
         card.cardIndex = this.cardList.length;
         card.origin = cc.p(0, 0);

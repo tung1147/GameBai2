@@ -49,6 +49,7 @@ var GamePlayer = cc.Node.extend({
         this.userLabel = userLabel;
         this.goldLabel = goldLabel;
         this.inviteBt = inviteBt;
+        this.avt = avt;
 
         var thiz = this;
         inviteBt.addClickEventListener(function () {
@@ -91,6 +92,35 @@ var GamePlayer = cc.Node.extend({
     showInfoDialog : function () {
        // cc.log("showInfoDialog");
     },
+    runChangeGoldEffect : function (gold) {
+        var goldNumber = gold;
+        if(typeof gold === "string"){
+            goldNumber = parseInt(gold);
+        }
+        var strGold = cc.Global.NumberFormat1(Math.abs(goldNumber)) +"V";
+        if(gold >= 0){
+            strGold = "+" + strGold;
+        }
+        else{
+            strGold = "-" + strGold;
+        }
+        var labelEffect = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, strGold);
+        if(gold >=0){
+            labelEffect.setColor(cc.color("#ffde00"));
+        }
+        else{
+            labelEffect.setColor(cc.color("#ff0000"));
+        }
+        labelEffect.setPosition(this.userLabel.getPosition());
+        this.infoLayer.addChild(labelEffect, 10);
+
+        var effectDuration = 2.0;
+        var moveAction = new cc.MoveBy(effectDuration, cc.p(0.0, 100.0));
+        var finishedAction = new cc.CallFunc(function () {
+            labelEffect.removeFromParent(true);
+        });
+        labelEffect.runAction(new cc.Sequence(moveAction, finishedAction));
+    },
     showTimeRemain : function (currentTime, maxTime) {
         var startValue = 100.0 * (currentTime / maxTime);
        // var deltaValue = 100.0 - startValue;
@@ -120,33 +150,36 @@ var GamePlayerMe = GamePlayer.extend({
     ctor : function () {
         cc.Node.prototype.ctor.call(this);
         this.isMe = true;
+        this.infoLayer = new cc.Node();
+        this.addChild(this.infoLayer);
 
         this.setContentSize(cc.size(300, 100));
         this.setAnchorPoint(cc.p(0.5, 0.5));
 
         var avt = UserAvatar.createMe();
         avt.setPosition(60,50);
-        this.addChild(avt);
+        this.infoLayer.addChild(avt);
 
         var userLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, PlayerMe.username, cc.TEXT_ALIGNMENT_LEFT);
         userLabel.setAnchorPoint(cc.p(0.0, 0.5));
         userLabel.setLineBreakWithoutSpace(true);
         userLabel.setDimensions(194, userLabel.getLineHeight());
         userLabel.setPosition(107, 70);
-        this.addChild(userLabel);
+        this.infoLayer.addChild(userLabel);
 
         var goldIcon = new cc.Sprite("#ingame-goldIcon.png");
         goldIcon.setPosition(120, 30);
-        this.addChild(goldIcon);
+        this.infoLayer.addChild(goldIcon);
 
         var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "99.999.999V", cc.TEXT_ALIGNMENT_CENTER);
         goldLabel.setAnchorPoint(cc.p(0.0, 0.5));
         goldLabel.setColor(cc.color("#ffde00"));
         goldLabel.setPosition(140, 30);
-        this.addChild(goldLabel);
+        this.infoLayer.addChild(goldLabel);
 
         this.userLabel = userLabel;
         this.goldLabel = goldLabel;
+        this.avt = avt;
     },
     setEnable : function (enable) {
 
