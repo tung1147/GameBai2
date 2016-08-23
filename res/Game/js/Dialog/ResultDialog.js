@@ -113,6 +113,7 @@ var ResultDialog = Dialog.extend({
             goldLabel.push(label3);
 
             var cards = new CardList(cc.size(400,40));
+            cards.setTouchEnable(false);
            // cards.addNewCard(cardTest);
             cards.setAnchorPoint(cc.p(0.5, 0.5));
             cards.setPosition(x + 70, y - 15);

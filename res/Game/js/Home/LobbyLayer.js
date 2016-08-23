@@ -179,7 +179,7 @@ var LobbyLayer = cc.Node.extend({
     },
     onUpdateAll : function (cmd, event) {
         var data = event.data;
-        var gameType = LobbyClient.getInstance().gameChannel;
+        var gameType = PlayerMe.gameType;
         if(gameType === data.gameType){
             this.gameList.removeAllItems();
             var betting = data.betting;

@@ -67,7 +67,7 @@ var IGameScene = IScene.extend({
     },
     exitToLobby : function () {
         var homeScene = new HomeScene();
-        var gameId = s_games_chanel_id[PlayerMe.SFS.gameType]
+        var gameId = s_games_chanel_id[PlayerMe.gameType]
         homeScene.startLobby(gameId);
         cc.director.replaceScene(homeScene);
     },

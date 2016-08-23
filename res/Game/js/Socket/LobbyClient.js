@@ -132,7 +132,7 @@ var LobbyClient = (function() {
                 var data = event.data;
                 if(this.betting == data.betting){
                     PlayerMe.SFS.betting = data.betting;
-                    PlayerMe.SFS.gameType = data.gameType;
+                    PlayerMe.gameType = data.gameType;
                     SmartfoxClient.getInstance().findAndJoinRoom(data.host, data.port);
                 };
             }
@@ -157,14 +157,22 @@ var LobbyClient = (function() {
             var userinfo = JSON.parse(data.info);
             PlayerMe.username = userinfo.username;
 
-            var runningScene = cc.director.getRunningScene();
-            if(runningScene.type == "HomeScene"){
-                if(runningScene.homeLocation == 1){
-                    return;
+            var lastSessionInfo = data.lastSessionInfo;
+            PlayerMe.gameType = "";
+            PlayerMe.SFS.betting = 0;
+            if(lastSessionInfo.ip && lastSessionInfo.port){ // reconnect
+                LoadingDialog.getInstance().setMessage("Đang vào lại phòng chơi");
+                SmartfoxClient.getInstance().findAndJoinRoom(lastSessionInfo.ip, lastSessionInfo.port);
+            }
+            else{
+                LoadingDialog.getInstance().hide();
+                var runningScene = cc.director.getRunningScene();
+                if(runningScene.type == "HomeScene"){
+                    if(runningScene.homeLocation == 1){
+                        runningScene.startGame();
+                    }
                 }
             }
-
-            LoadingDialog.getInstance().hide();
         },
         postEvent : function (command, event) {
             this.prePostEvent(command, event);
@@ -356,28 +364,25 @@ var LobbyClient = (function() {
             SmartfoxClient.getInstance().close();
         },
         subscribe : function (gameId) {
-            this.gameChannel = s_games_chanel[gameId];
+            PlayerMe.gameType = s_games_chanel[gameId];
             var request = {
                 command : "subscribeChannel",
-                gameType : this.gameChannel
+                gameType : PlayerMe.gameType
             };
             this.send(request);
         },
         unSubscribe : function () {
-            if(this.gameChannel){
-                var request = {
-                    command : "unsubscribeChannel",
-                    gameType : this.gameChannel
-                };
-                this.send(request);
-                this.gameChannel = null;
-            }
+            var request = {
+                command : "unsubscribeChannel",
+                gameType : PlayerMe.gameType
+            };
+            this.send(request);
         },
         requestGetServer : function (betting) {
             this.betting = betting;
             var request = {
                 command : "getGameServer",
-                gameType : this.gameChannel,
+                gameType : PlayerMe.gameType,
                 betting : betting
             };
             this.send(request);

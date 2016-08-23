@@ -87,17 +87,8 @@ var HomeScene = IScene.extend({
     onLoginHandler : function (command, data) {
       //  cc.log("onLoginHandler");
         if(data.status == 0){
-            LoadingDialog.getInstance().hide();
-            if(this.homeLocation == 1){
-                this.userInfo.y = -100.0;
-                this.userInfo.stopAllActions();
-                this.userInfo.runAction(new cc.MoveTo(0.2, cc.p(0,0)));
-                this.startGame();
-            }
-            else{
-                this.userInfo.refreshView();
-                this.topBar.refreshView();
-            }
+            this.userInfo.refreshView();
+            this.topBar.refreshView();
         }
     },
     onLobbyStatusHandler : function () {

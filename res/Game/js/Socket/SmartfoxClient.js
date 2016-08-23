@@ -46,7 +46,7 @@ var SmartfoxClient = (function() {
         },
         sendFindAndJoinRoom : function () {
             var params = {
-                gameType : PlayerMe.SFS.gameType,
+                gameType :  PlayerMe.gameType,//PlayerMe.SFS.gameType,
                 betting : PlayerMe.SFS.betting
             };
             this.sendExtensionRequest(-1, "findAndJoinGame",params);
@@ -271,6 +271,10 @@ var SmartfoxClient = (function() {
                     if(gameScene){
                         cc.director.replaceScene(gameScene);
                     }
+
+                    PlayerMe.gameType = gameType;
+                   // LobbyClient.getInstance().gameChannel = gameType;
+                  //  PlayerMe.SFS.gameType = gameType;
                 }
             }
             return false;

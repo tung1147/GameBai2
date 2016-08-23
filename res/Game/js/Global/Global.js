@@ -133,6 +133,7 @@ var PlayerMe = PlayerMe || {};
 PlayerMe.username = "quyetnd";
 PlayerMe.password = "1234567";
 PlayerMe.phoneNumber = "0123456789";
+PlayerMe.gameType = "";
 PlayerMe.gold = 1000;
 PlayerMe.exp = 11000;
 PlayerMe.vipExp = 1000;
