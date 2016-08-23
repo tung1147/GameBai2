@@ -242,30 +242,39 @@ var TienLen = IGameScene.extend({
     onReconnect : function (params) {
         //card on table
         this.cardOnTable.removeAll();
-        var cardData = params["1"]["12"]["3"];
-        if(cardData.length > 0){
-            var cards = [];
-            for(var i=0;i<cardData.length;i++){
-                cards.push(this.getCardWithId(cardData[i]));
+        var status = params["1"]["1"];
+        if(status == 2){ //playing
+            var cardData = params["1"]["12"]["3"];
+            if(cardData.length > 0){
+                var cards = [];
+                for(var i=0;i<cardData.length;i++){
+                    cards.push(this.getCardWithId(cardData[i]));
+                }
+                this.cardOnTable.addCardReconnect(cards);
             }
-            this.cardOnTable.addCardReconnect(cards);
-        }
 
-        //update turn
-        var username = params["1"]["12"]["u"];
-        var currentTime = params["1"]["12"]["2"] / 1000;
-        var newTurn = cardData.length == 0 ? true:false;
-        this.onUpdateTurn(username, currentTime, newTurn);
+            //update turn
+            var username = params["1"]["12"]["u"];
+            var currentTime = params["1"]["12"]["2"] / 1000;
+            var newTurn = cardData.length == 0 ? true:false;
+            this.onUpdateTurn(username, currentTime, newTurn);
 
-        //add card me
-        this.cardList.removeAll();
-        var cardsMe = params["3"];
-        for(var i=0;i<cardsMe.length;i++){
-            var cardId = this.getCardWithId(cardsMe[i]);
-            var cardNew = new Card(cardId.rank, cardId.suit);
-            this.cardList.addCard(cardNew);
+            //add card me
+            this.cardList.removeAll();
+            var cardsMe = params["3"];
+            for(var i=0;i<cardsMe.length;i++){
+                var cardId = this.getCardWithId(cardsMe[i]);
+                var cardNew = new Card(cardId.rank, cardId.suit);
+                this.cardList.addCard(cardNew);
+            }
+            this.cardList.reOrderWithoutAnimation();
         }
-        this.cardList.reOrderWithoutAnimation();
+        else{
+            this.cardList.removeAll();
+            for(var i=0;i<this.allSlot.length;i++){
+                this.allSlot[i].stopTimeRemain();
+            }
+        }
     },
     onGameStatus : function (status) {
         this.gameStatus = status;
