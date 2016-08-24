@@ -21,61 +21,6 @@ var ResultDialog = Dialog.extend({
         this.initComponent(size);
     },
     initComponent : function (size) {
-        var cardTest = [
-            {
-                rank : 1,
-                suit : CardSuit.Clubs
-            },
-            {
-                rank : 2,
-                suit : CardSuit.Clubs
-            },
-            {
-                rank : 3,
-                suit : CardSuit.Clubs
-            },
-            {
-                rank : 4,
-                suit : CardSuit.Clubs
-            },
-            {
-                rank : 5,
-                suit : CardSuit.Clubs
-            },
-            {
-                rank : 6,
-                suit : CardSuit.Clubs
-            },
-            {
-                rank : 7,
-                suit : CardSuit.Clubs
-            },
-            {
-                rank : 8,
-                suit : CardSuit.Clubs
-            },
-            {
-                rank : 9,
-                suit : CardSuit.Clubs
-            },
-            {
-                rank : 10,
-                suit : CardSuit.Clubs
-            },
-            {
-                rank : 11,
-                suit : CardSuit.Clubs
-            },
-            {
-                rank : 12,
-                suit : CardSuit.Clubs
-            },
-            {
-                rank : 13,
-                suit : CardSuit.Clubs
-            }
-        ];
-
         var padding = this.componentPadding;
         var top = this.dialogBg.getContentSize().height - 178.0 - padding;
 

@@ -91,6 +91,9 @@ var IGameScene = IScene.extend({
         }
         else if(content.c == "0"){ //update gold
             this.updateGold(content.p.u, content.p["2"]);
+            if(content.p.u == PlayerMe.username){
+                PlayerMe.gold = parseInt(content.p["2"]);
+            }
         }
         else if(content.c == "1"){ //startGame
             this.processPlayerPosition(content);

@@ -278,7 +278,15 @@ var HomeScene = IScene.extend({
         // dialog.setItem("Apple iPhone 10S 128GB", 1000000);
         // dialog.showWithAnimationScale();
 
-        var dialog = new ResultDialog(2);
+        // var dialog = new ResultDialog(2);
+        // dialog.show();
+
+        // var dialog = new UserDialog();
+        // dialog.setUsername("QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ");
+        // dialog.setGold(1234567);
+        // dialog.showWithAnimationScale();
+
+        var dialog = new UserListDialog();
         dialog.show();
     },
 

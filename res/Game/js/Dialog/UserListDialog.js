@@ -1,3 +1,60 @@
 /**
  * Created by Quyet Nguyen on 7/11/2016.
  */
+
+var UserListDialog = Dialog.extend({
+    ctor : function () {
+        this._super();
+        this.okButton.visible = false;
+        this.cancelButton.visible = false;
+        this.title.setString("Danh sách người chơi");
+        this.initWithSize(cc.size(680, 450));
+        this.userSelected = [];
+
+        var top = this.dialogNode.getContentSize().height - 178.0;
+        var bottom = 98.0;
+
+        var listItem = new newui.TableView(cc.size(680.0, top - bottom), 2);
+        listItem.setScrollBarEnabled(false);
+        listItem.setMargin(20,20,0,0);
+        listItem.setPadding(20.0);
+        listItem.setAnchorPoint(cc.p(0.5, 0.5));
+        listItem.setPosition(this.dialogNode.getContentSize().width/2, (top + bottom)/2);
+        this.dialogNode.addChild(listItem);
+        this.listItem = listItem;
+
+        for(var i=0;i<30;i++){
+            this.addItem("usernameusernameusernameusernameusernameusernameusername", 1000 + i);
+        }
+    },
+    addItem : function (username, gold) {
+        var bg1 = ccui.Scale9Sprite.createWithSpriteFrameName("dialob-invite-bg1.png", cc.rect(14,14,4,4));
+        bg1.setPreferredSize(cc.size(286, 80));
+        bg1.setPosition(bg1.getContentSize().width/2, bg1.getContentSize().height/2);
+        bg1.visible = true;
+
+        var container = new ccui.Widget();
+        container.setContentSize(bg1.getContentSize());
+        container.addChild(bg1);
+
+        var avt = UserAvatar.createAvatar();
+        avt.setScale(0.7);
+        avt.setPosition(40, container.getContentSize().height/2);
+        container.addChild(avt);
+
+        var userLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, username, cc.TEXT_ALIGNMENT_LEFT);
+        userLabel.setLineBreakWithoutSpace(true);
+        userLabel.setDimensions(200, userLabel.getLineHeight());
+        userLabel.setAnchorPoint(cc.p(0.0, 0.5));
+        userLabel.setPosition(80, container.getContentSize().height/2 + 15);
+        container.addChild(userLabel);
+
+        var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, cc.Global.NumberFormat1(gold) + " V");
+        goldLabel.setColor(cc.color("#ffde00"));
+        goldLabel.setAnchorPoint(cc.p(0.0, 0.5));
+        goldLabel.setPosition(userLabel.x, container.getContentSize().height/2 - 15);
+        container.addChild(goldLabel);
+
+        this.listItem.pushItem(container);
+    }
+});

@@ -8,6 +8,7 @@ var GamePlayer = cc.Node.extend({
         this.setAnchorPoint(cc.p(0.5, 0.5));
         this.isMe = false;
         this.username = "";
+        this.gold = 0;
 
         this.infoLayer = new cc.Node();
         this.addChild(this.infoLayer);
@@ -70,6 +71,7 @@ var GamePlayer = cc.Node.extend({
     },
     setGold : function (gold) {
         this.goldLabel.setString(cc.Global.NumberFormat1(gold));
+        this.gold = gold;
     },
     setUsername : function (name) {
         this.username = name;
@@ -88,9 +90,15 @@ var GamePlayer = cc.Node.extend({
     },
     showInviteDialog : function () {
        // cc.log("showInviteDialog");
+        var dialog = new InviteDialog();
+        dialog.show();
     },
     showInfoDialog : function () {
        // cc.log("showInfoDialog");
+        var dialog = new UserDialog();
+        dialog.setUsername(this.username);
+        dialog.setGold(this.gold);
+        dialog.showWithAnimationScale();
     },
     runChangeGoldEffect : function (gold) {
         var goldNumber = gold;
