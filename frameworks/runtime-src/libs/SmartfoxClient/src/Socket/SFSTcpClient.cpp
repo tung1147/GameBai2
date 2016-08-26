@@ -399,17 +399,6 @@ void TcpSocketClient::startAdapter(){
 }
 
 bool TcpSocketClient::connectThread(){
-//#ifdef USE_WINSOCK_2
-//	WORD wVersionRequested;
-//	WSADATA wsaData;
-//	wVersionRequested = MAKEWORD(2, 2);
-//	//SOCKET_ERROR
-//	if (0 != WSAStartup(wVersionRequested, &wsaData)){
-//		SFS::log("socket startup failure");
-//		return false;
-//	}
-//#endif
-
 	addrinfo hints, *peer;
 
 	memset(&hints, 0, sizeof(struct addrinfo));
