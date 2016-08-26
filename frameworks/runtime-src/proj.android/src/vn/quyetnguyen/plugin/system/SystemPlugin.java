@@ -1,8 +1,11 @@
 package vn.quyetnguyen.plugin.system;
 
+import java.util.Set;
 import java.util.regex.Pattern;
 
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.Manifest;
 import android.accounts.Account;
@@ -17,6 +20,8 @@ import android.graphics.Rect;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.opengl.GLSurfaceView;
+import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -247,6 +252,51 @@ public class SystemPlugin {
 			ActivityCompat.requestPermissions(activity, permission, requestCode);
 		}
 	}
+	public void requestPermissionThreadSafe(final String[] permission, final int requestCode){
+		if(activity != null){
+			activity.runOnUiThread(new Runnable() {
+				
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					ActivityCompat.requestPermissions(activity, permission, requestCode);
+				}
+			});		
+		}
+	}
+	public void onActivityResult(final int requestCode, final int resultCode, Intent data){
+		String jsonData = "";
+		if(data != null){
+			Bundle bundle = data.getExtras();
+			if(bundle != null){
+				JSONObject json = new JSONObject();
+				Set<String> keys = bundle.keySet();
+				for (String key : keys) {
+				    try {
+				        // json.put(key, bundle.get(key)); see edit below
+				    	Object obj = JSONObject.wrap(bundle.get(key));
+				    	if(obj != null){
+				    		json.put(key, obj);
+				    	}			        
+				    } catch(JSONException e) {
+				        //Handle exception here
+				    	jsonData = "";
+				    }
+				}			
+				jsonData = json.toString();
+			}
+		}
+		
+		final String intenJson = jsonData;
+		GLSurfaceView gameView = Cocos2dxGLSurfaceView.getInstance();
+		gameView.queueEvent(new Runnable() {			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				nativeOnActivityResult(requestCode, resultCode, intenJson);
+			}
+		});
+	}
 	/****/
 	private static void jniVibrator(){
 		SystemPlugin.getInstance().vibrator();
@@ -273,6 +323,15 @@ public class SystemPlugin {
 	private static void jniPhoneSupport(String phoneNumber){
 		SystemPlugin.getInstance().callSupport(phoneNumber);
 	}
+	private static boolean jniCheckPermission(String permission){
+		return SystemPlugin.getInstance().checkPermission(permission);
+	}
+	private static void jniRequestPermission(String[] permission, int requestCode){
+		//SystemPlugin.getInstance().requestPermissionThreadSafe(permission, requestCode);
+		for(int i=0;i<permission.length;i++){
+			Log.d(TAG, permission[i]);
+		}
+	}
 	
 	public void onRegisterNotificationSuccess(final String deviceId, final String token){
 		Cocos2dxGLSurfaceView.getInstance().queueEvent(new Runnable() {			
@@ -288,4 +347,5 @@ public class SystemPlugin {
 	
 	private native void nativeWindowsVisibleChange(int bottom ,int left, int top, int right);
 	private native void nativeOnRegisterNotificationSuccess(String deviceId, String token);
+	private native void nativeOnActivityResult(int requestCode, int returnCode, String data);
 }

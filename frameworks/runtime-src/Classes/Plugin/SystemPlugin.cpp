@@ -49,6 +49,11 @@ extern "C"{
 		quyetnd::SystemPlugin::getInstance()->onRegisterNotificationSuccess(_deviceId, _token);
 	}
 
+	JNIEXPORT void JNICALL Java_vn_quyetnguyen_plugin_system_SystemPlugin_nativeOnActivityResult(JNIEnv*  env, jobject thiz, jint requestCode, jint returnCode, jstring jsonData){
+			std::string _jsonData = JniHelper::jstring2string(jsonData);
+			quyetnd::SystemPlugin::getInstance()->androidOnActivityResult((int)requestCode, (int)returnCode, _jsonData);
+	}
+
 	bool jniRequestBuyItem(const std::string& itemId){
 		JniMethodInfo method;
 		bool bRet = JniHelper::getStaticMethodInfo(method,"vn/quyetnguyen/android/billing/AndroidBilling","jniBuyItem","(Ljava/lang/String;Z)V");
@@ -114,6 +119,42 @@ extern "C"{
 			method.env->CallStaticVoidMethod(method.classID, method.methodID, _jarPath);
 			method.env->DeleteLocalRef(method.classID);
 			method.env->DeleteLocalRef(_jarPath);
+		}
+	}
+
+	bool jniCheckPerrmission(const std::string& permission){
+		JniMethodInfo method;
+		bool bRet = JniHelper::getStaticMethodInfo(method,"vn/quyetnguyen/plugin/system/SystemPlugin","jniCheckPermission","(Ljava/lang/String;)Z");
+		if(bRet){
+			jstring _permission = method.env->NewStringUTF(permission.c_str());
+			jboolean b = method.env->CallStaticBooleanMethod(method.classID, method.methodID, _permission);
+			method.env->DeleteLocalRef(method.classID);
+			method.env->DeleteLocalRef(_permission);
+
+			return (b == JNI_TRUE);
+		}
+		return false;
+	}
+
+	void jniRequestPermission(const std::vector<std::string>& permission, int requestCode){
+		JniMethodInfo method;
+		bool bRet = JniHelper::getStaticMethodInfo(method,"vn/quyetnguyen/plugin/system/SystemPlugin","jniRequestPermission","([Ljava/lang/String;I)V");
+		if(bRet){
+			log("jniRequestPermission");
+			//auto env = method.env;
+			log("jniRe1111");
+		//	int size = permission.size();
+			log("jniRe22221111");
+			log("aaaa123");
+//			jobjectArray arr =  env->NewObjectArray(n, env->FindClass("java/lang/String"), env->NewStringUTF(""));
+//			for(int i=0;i<n;i++){
+//				log("permission: %s", permission[i].c_str());
+//				env->SetObjectArrayElement(arr, i, env->NewStringUTF(permission[i].c_str()));
+//			}
+//
+//			env->CallStaticVoidMethod(method.classID, method.methodID, arr, requestCode);
+//			env->DeleteLocalRef(method.classID);
+//			env->DeleteLocalRef(arr);
 		}
 	}
 
@@ -388,6 +429,24 @@ std::string SystemPlugin::callStaticStringMethod(const std::string& className, c
 void SystemPlugin::androidLoadExtension(const std::string& jarPath){
 #if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
 	jniLoadExtension(jarPath);
+#endif
+}
+
+bool SystemPlugin::androidCheckPermission(const std::string& permission){
+#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+	return jniCheckPerrmission(permission);
+#else
+	return false;
+#endif
+}
+
+void SystemPlugin::androidOnActivityResult(int requestCode, int returnCode, const std::string& jsonData){
+	log("%d - %d - %s", requestCode, returnCode, jsonData.c_str());
+}
+
+void SystemPlugin::androidRequestPermission(const std::vector<std::string>& permission, int requestCode){
+#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+	jniRequestPermission(permission, requestCode);
 #endif
 }
 

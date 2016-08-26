@@ -7,7 +7,7 @@ APP_LDFLAGS := -latomic
 USE_ARM_MODE := 1
 
 ifeq ($(NDK_DEBUG),1)
-  APP_ABI := armeabi x86
+  APP_ABI := armeabi-v7a x86
   APP_CPPFLAGS += -DCOCOS2D_DEBUG=1
   APP_CPPFLAGS += -U__SSE__
   APP_OPTIM := debug

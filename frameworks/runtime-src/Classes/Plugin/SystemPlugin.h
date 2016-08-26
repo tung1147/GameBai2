@@ -54,6 +54,9 @@ public:
 	std::string callStaticStringMethod(const std::string& className, const std::string& methodName, const std::string& params);
 
     void androidLoadExtension(const std::string& jarPath);
+	bool androidCheckPermission(const std::string& permission);
+	void androidRequestPermission(const std::vector<std::string>& permission, int requestCode = 1234);
+	void androidOnActivityResult(int requestCode, int returnCode, const std::string& jsonData);
 
 	void exitApp();
 

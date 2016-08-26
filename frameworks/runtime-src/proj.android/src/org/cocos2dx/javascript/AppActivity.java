@@ -128,6 +128,7 @@ public class AppActivity extends Cocos2dxActivity {
 			FacebookPlugin.getInstance().onActivityResult(requestCode, resultCode, data);
 		}	
 		ExtensionLoader.getInstance().onActivityResult(requestCode, resultCode, data);
+		SystemPlugin.getInstance().onActivityResult(requestCode, resultCode, data);
 	}
 	
 	@Override
