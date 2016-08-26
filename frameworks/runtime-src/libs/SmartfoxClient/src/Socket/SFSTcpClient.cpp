@@ -341,11 +341,20 @@ void TcpSocketReceiver::update(){
 TcpSocketClient::TcpSocketClient() {
 	// TODO Auto-generated constructor stub
 	mSocket = SYS_SOCKET_INVALID;
+#ifdef USE_WINSOCK_2
+	WORD wVersionRequested;
+	WSADATA wsaData;
+	wVersionRequested = MAKEWORD(2, 2);
+	WSAStartup(wVersionRequested, &wsaData);
+#endif
 }
 
 TcpSocketClient::~TcpSocketClient() {
 	// TODO Auto-generated destructor stub
 	//Director::getInstance()->getScheduler()->unscheduleAllForTarget(this);
+#ifdef USE_WINSOCK_2
+	WSACleanup();
+#endif
 }
 
 void TcpSocketClient::onApplicationPause(const SocketData& sendData){
@@ -390,17 +399,6 @@ void TcpSocketClient::startAdapter(){
 }
 
 bool TcpSocketClient::connectThread(){
-#ifdef USE_WINSOCK_2
-	WORD wVersionRequested;
-	WSADATA wsaData;
-	wVersionRequested = MAKEWORD(2, 2);
-	//SOCKET_ERROR
-	if (0 != WSAStartup(wVersionRequested, &wsaData)){
-		SFS::log("socket startup failure");
-		return false;
-	}
-#endif
-
 	addrinfo hints, *peer;
 
 	memset(&hints, 0, sizeof(struct addrinfo));

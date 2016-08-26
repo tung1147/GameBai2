@@ -117,17 +117,20 @@ void UDTReceiver::update(){
 UDTClient::UDTClient() {
 	// TODO Auto-generated constructor stub
 	mSocket = SYS_SOCKET_INVALID;
+	UDT::startup();
 }
 
 UDTClient::~UDTClient() {
 	// TODO Auto-generated destructor stub
 	//Director::getInstance()->getScheduler()->unscheduleAllForTarget(this);
+	UDT::cleanup();
 }
 
 void UDTClient::closeSocket(){
 	std::unique_lock<std::mutex> lk(socketMutex);
 	if (mSocket != SYS_SOCKET_INVALID){
 		UDT::close(mSocket);
+		UDT::cleanup();
 		mSocket = SYS_SOCKET_INVALID;
 	}
 }
@@ -153,8 +156,6 @@ void UDTClient::startAdapter(){
 
 
 bool UDTClient::connectThread(){
-	UDT::startup();
-
 	addrinfo hints, *peer;
 	memset(&hints, 0, sizeof(struct addrinfo));
 #ifdef __linux

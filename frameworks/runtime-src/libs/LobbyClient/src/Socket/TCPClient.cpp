@@ -120,11 +120,21 @@ void TCPReceiver::update(){
 TCPClient::TCPClient() {
 	// TODO Auto-generated constructor stub
 	mSocket = SYS_SOCKET_INVALID;
+
+#ifdef USE_WINSOCK_2
+	WORD wVersionRequested;
+	WSADATA wsaData;
+	wVersionRequested = MAKEWORD(2, 2);
+	WSAStartup(wVersionRequested, &wsaData);
+#endif
 }
 
 TCPClient::~TCPClient() {
 	// TODO Auto-generated destructor stub
 	//Director::getInstance()->getScheduler()->unscheduleAllForTarget(this);
+#ifdef USE_WINSOCK_2
+	WSACleanup();
+#endif
 }
 
 void TCPClient::closeSocket(){
@@ -162,16 +172,16 @@ void TCPClient::startAdapter(){
 
 
 bool TCPClient::connectThread(){
-#ifdef USE_WINSOCK_2
-	WORD wVersionRequested;
-	WSADATA wsaData;
-	wVersionRequested = MAKEWORD(2, 2);
-	//SOCKET_ERROR
-	if (0 != WSAStartup(wVersionRequested, &wsaData)){
-		quyetnd::log("socket startup failure");
-		return false;
-	}
-#endif
+//#ifdef USE_WINSOCK_2
+//	WORD wVersionRequested;
+//	WSADATA wsaData;
+//	wVersionRequested = MAKEWORD(2, 2);
+//	//SOCKET_ERROR
+//	if (0 != WSAStartup(wVersionRequested, &wsaData)){
+//		quyetnd::log("socket startup failure");
+//		return false;
+//	}
+//#endif
 
 	addrinfo hints, *peer;
 	memset(&hints, 0, sizeof(struct addrinfo));
