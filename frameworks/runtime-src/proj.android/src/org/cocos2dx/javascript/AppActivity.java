@@ -29,12 +29,15 @@ package org.cocos2dx.javascript;
 import org.cocos2dx.lib.Cocos2dxActivity;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.content.res.Resources.Theme;
 import android.os.Bundle;
 import android.view.WindowManager;
 import quyetnd.plugin.facebook.FacebookPlugin;
 import vn.quyetnd.plugin.gcm.GcmPlugin;
 import vn.quyetnguyen.android.billing.AndroidBilling;
+import vn.quyetnguyen.plugin.system.ExtensionLoader;
 import vn.quyetnguyen.plugin.system.SystemPlugin;
 import vn.quyetnguyen.plugin.system.UUDIPlugin;
 
@@ -45,7 +48,6 @@ public class AppActivity extends Cocos2dxActivity {
         Cocos2dxGLSurfaceView glSurfaceView = new Cocos2dxGLSurfaceView(this);
         // TestCpp should create stencil buffer
         glSurfaceView.setEGLConfigChooser(5, 6, 5, 0, 16, 8);
-
         return glSurfaceView;
     }
 	
@@ -60,24 +62,63 @@ public class AppActivity extends Cocos2dxActivity {
 		FacebookPlugin.getInstance().init(this, Cocos2dxGLSurfaceView.getInstance());		
         AndroidBilling.getInstance().initBilling(this, Cocos2dxGLSurfaceView.getInstance(), PluginConfig.IAP_base64PublicKey);
         GcmPlugin.getInstance().initGcm(this, PluginConfig.GCM_SENDER_ID, PluginConfig.GCM_BUNDLEID, PluginConfig.GCM_URL);
+        ExtensionLoader.getInstance().init(this, Cocos2dxGLSurfaceView.getInstance());
 	}
 	   
     @Override
 	protected void onStart() {	
 		super.onStart();
 		FacebookPlugin.getInstance().onStart();
+		ExtensionLoader.getInstance().onStart();
+	}
+    
+	@Override
+	protected void onPostCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onPostCreate(savedInstanceState);
+		ExtensionLoader.getInstance().onPostCreate(savedInstanceState);
+	}
+
+	@Override
+	protected void onPostResume() {
+		// TODO Auto-generated method stub
+		super.onPostResume();
+		ExtensionLoader.getInstance().onPostResume();
+	}
+
+	@Override
+	protected void onRestart() {
+		// TODO Auto-generated method stub
+		super.onRestart();
+		ExtensionLoader.getInstance().onRestart();
+	}
+
+	@Override
+	protected void onRestoreInstanceState(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onRestoreInstanceState(savedInstanceState);
+		ExtensionLoader.getInstance().onRestoreInstanceState(savedInstanceState);
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		// TODO Auto-generated method stub
+		super.onSaveInstanceState(outState);
+		ExtensionLoader.getInstance().onSaveInstanceState(outState);
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		FacebookPlugin.getInstance().onPause();
+		ExtensionLoader.getInstance().onPause();
+		FacebookPlugin.getInstance().onPause();		
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-		FacebookPlugin.getInstance().onResume();
+		ExtensionLoader.getInstance().onPause();
+		FacebookPlugin.getInstance().onResume();	
 	}
 
 	@Override
@@ -86,18 +127,22 @@ public class AppActivity extends Cocos2dxActivity {
 			super.onActivityResult(requestCode, resultCode, data);
 			FacebookPlugin.getInstance().onActivityResult(requestCode, resultCode, data);
 		}	
+		ExtensionLoader.getInstance().onActivityResult(requestCode, resultCode, data);
+		SystemPlugin.getInstance().onActivityResult(requestCode, resultCode, data);
 	}
 	
 	@Override
 	protected void onDestroy() {		
 		FacebookPlugin.getInstance().onDestroy();
 		AndroidBilling.getInstance().onDestroy();
-		super.onDestroy();
+		ExtensionLoader.getInstance().onDestroy();
+		super.onDestroy();		
 	}
 
 	@Override
 	protected void onStop() {		
 		FacebookPlugin.getInstance().onStop();
+		ExtensionLoader.getInstance().onStop();
 		super.onStop();
 	}
 }

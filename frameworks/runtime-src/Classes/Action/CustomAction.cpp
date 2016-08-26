@@ -84,7 +84,7 @@ void CustomAction::update(float time){
 
 void CustomAction::startWithTarget(Node *target){
 	ActionInterval::startWithTarget(target);
-	log("startWithTarget");
+//	log("startWithTarget");
 	if (_onStartWithTarget){
 		auto sc = ScriptingCore::getInstance();	
 		js_proxy_t * p = jsb_get_native_proxy(this);

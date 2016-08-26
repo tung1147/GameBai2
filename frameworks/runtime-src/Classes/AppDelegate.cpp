@@ -39,8 +39,8 @@ bool AppDelegate::applicationDidFinishLaunching()
     auto glview = director->getOpenGLView();
     if(!glview) {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-		//glview = cocos2d::GLViewImpl::createWithRect("GameBai", Rect(0, 0, 640, 480));
-		glview = cocos2d::GLViewImpl::createWithRect("GameBai", Rect(0, 0, 800, 480));
+		glview = cocos2d::GLViewImpl::createWithRect("GameBai", Rect(0, 0, 640, 480));
+		//glview = cocos2d::GLViewImpl::createWithRect("GameBai", Rect(0, 0, 800, 480));
 		//glview = cocos2d::GLViewImpl::createWithRect("GameBai", Rect(0, 0, 854, 480));
 		//glview = cocos2d::GLViewImpl::createWithRect("GameBai", Rect(0, 0, 720, 480));
 #else	
@@ -76,6 +76,14 @@ void AppDelegate::applicationDidEnterBackground()
     director->getEventDispatcher()->dispatchCustomEvent("game_on_hide");
     SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
     SimpleAudioEngine::getInstance()->pauseAllEffects();
+
+#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+	auto runningScene = Director::getInstance()->getRunningScene();
+	if (dynamic_cast<LoadingScene*>(runningScene)){
+		Director::getInstance()->end();
+		exit(0);
+	}
+#endif
 }
 
 // this function will be called when the app is active again

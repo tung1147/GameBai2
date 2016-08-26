@@ -6,6 +6,8 @@
  */
 
 #include "LoadingScene.h"
+#include "../Plugin/SystemPlugin.h"
+
 #include "scripting/js-bindings/auto/jsb_cocos2dx_3d_auto.hpp"
 #include "scripting/js-bindings/auto/jsb_cocos2dx_3d_extension_auto.hpp"
 #include "scripting/js-bindings/auto/jsb_cocos2dx_auto.hpp"
@@ -160,6 +162,8 @@ void LoadingScene::startJS(){
 	this->status = 3;
 	this->currentStep++;
 	this->updateLoadResource();
+
+	this->androidLoadExtension();
 }
 
 void LoadingScene::threadLoadJS(){
@@ -260,6 +264,10 @@ void LoadingScene::update(float dt){
 		ScriptEngineManager::getInstance()->setScriptEngine(engine);
 		GameFile* mainJs = gameLaucher->getFile("js/main.js");
 		ScriptingCore::getInstance()->runScript(mainJs->filePath.c_str());
+
+		std::string test = SystemPlugin::getInstance()->callJSFunction("testJSFunc", "{}");
+		log("test: %s", test.c_str()); 
+
 		break;
 	}
 	}
@@ -274,6 +282,37 @@ void  LoadingScene::updateLoadResource(){
 
 /**/
 
+void LoadingScene::androidLoadExtension(){
+	auto file = gameLaucher->getFile("jar/extension.json");
+	if (file){
+		ssize_t fileSize;
+		char* data = (char*)FileUtils::getInstance()->getFileData(file->filePath, "rb", &fileSize);
+		std::vector<char> buffer(data, data + fileSize);
+		buffer.push_back('\0');
+		delete[] data;
+
+		rapidjson::Document doc;
+		doc.Parse<0>(buffer.data());
+		for (int i = 0; i < doc.Size(); i++){
+			std::string jarFilePath = doc[i]["extFile"].GetString();
+			auto jarFile = gameLaucher->getFile("jar/" + jarFilePath);
+			if (jarFile){
+				if (jarFile->filePath[0] == '/'){
+					SystemPlugin::getInstance()->androidLoadExtension(jarFile->filePath);
+				}
+				else{
+					SystemPlugin::getInstance()->androidLoadExtension("Game/" + jarFile->fileName);
+				}
+			}
+			else{
+				CCLOG("no JAR: %s", jarFilePath.c_str());
+			}
+		}
+	}
+	else{
+		CCLOG("android no extension");
+	}
+}
 
 void LoadingScene::onResourcesLoaderFinished(){
 
@@ -320,6 +359,14 @@ void LoadingScene::onEnter(){
 	gameLaucher->startFromFile("res/Game/version.json");
 	//gameLaucher->startFromFile("version.json");
 	this->scheduleUpdate();
+	
+	auto keyboard = EventListenerKeyboard::create();
+	keyboard->onKeyPressed = [](EventKeyboard::KeyCode keyCode, Event*){
+		if (keyCode == EventKeyboard::KeyCode::KEY_BACK){
+			Director::getInstance()->end();
+		}
+	};
+	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(keyboard, this);
 }
 
 void LoadingScene::onExit(){

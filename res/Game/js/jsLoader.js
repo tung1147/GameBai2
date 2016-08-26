@@ -47,3 +47,7 @@ require("js/Game/Phom.js");
 require("js/Game/Sam.js");
 require("js/Game/TaiXiu.js");
 require("js/Game/XocDia.js");
+require("js/Game/VongQuay.js");
+require("js/FloatButton/FloatButton.js");
+require("js/FloatButton/FloatButtonAnimation.js");
+require("js/FloatButton/FloatButtonComponent.js");
