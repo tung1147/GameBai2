@@ -140,21 +140,16 @@ extern "C"{
 		JniMethodInfo method;
 		bool bRet = JniHelper::getStaticMethodInfo(method,"vn/quyetnguyen/plugin/system/SystemPlugin","jniRequestPermission","([Ljava/lang/String;I)V");
 		if(bRet){
-			log("jniRequestPermission");
-			//auto env = method.env;
-			log("jniRe1111");
-		//	int size = permission.size();
-			log("jniRe22221111");
-			log("aaaa123");
-//			jobjectArray arr =  env->NewObjectArray(n, env->FindClass("java/lang/String"), env->NewStringUTF(""));
-//			for(int i=0;i<n;i++){
-//				log("permission: %s", permission[i].c_str());
-//				env->SetObjectArrayElement(arr, i, env->NewStringUTF(permission[i].c_str()));
-//			}
-//
-//			env->CallStaticVoidMethod(method.classID, method.methodID, arr, requestCode);
-//			env->DeleteLocalRef(method.classID);
-//			env->DeleteLocalRef(arr);
+			auto env = method.env;
+			int n = permission.size();
+			jobjectArray arr =  env->NewObjectArray(n, env->FindClass("java/lang/String"), env->NewStringUTF(""));
+			for(int i=0;i<n;i++){
+				env->SetObjectArrayElement(arr, i, env->NewStringUTF(permission[i].c_str()));
+			}
+
+			env->CallStaticVoidMethod(method.classID, method.methodID, arr, requestCode);
+			env->DeleteLocalRef(method.classID);
+			env->DeleteLocalRef(arr);
 		}
 	}
 
@@ -379,35 +374,37 @@ std::string SystemPlugin::callJSFunction(const std::string& methodName, const st
 	auto rootObject = sc->getGlobalObject();
 	JSAutoCompartment ac(cx, rootObject);
 
-    jsval strVal = std_string_to_jsval(cx, params);
+    jsval jsStringParams = std_string_to_jsval(cx, params);
 	
-    JS::RootedString jsstr(cx, strVal.toString());
+	JS::RootedString jsstr(cx, jsStringParams.toString());
 	JS::RootedValue outVal(cx);
 	bool ok = JS_ParseJSON(cx, jsstr, &outVal);
+	JS::RootedValue rval(cx);
+	bool callFuncReturn = false;
 	if (ok){
-		JS::RootedValue rval(cx);
-		auto ret = sc->executeFunctionWithOwner(OBJECT_TO_JSVAL(rootObject), methodName.c_str(), 1, &outVal.get(), &rval);
-		if (ret){
-			std::vector<jschar> buffer;
-			//std::wstringstream strStream;
-			JS::RootedValue indentVal(cx, JS::UndefinedValue());
-			bool b = JS_Stringify(cx, &rval, JS::NullPtr(), indentVal, &__stringify_callback, &buffer);
-			if (b){			
-				std::u16string u16 = std::u16string(buffer.begin(), buffer.end());
-				std::string u8;
-				StringUtils::UTF16ToUTF8(u16, u8);
-				return u8;
-			}
-			else{
-				log("callJSFunction:[%s] JS_Stringify error", methodName.c_str());
-			}
+		callFuncReturn = sc->executeFunctionWithOwner(OBJECT_TO_JSVAL(rootObject), methodName.c_str(), 1, &outVal.get(), &rval);
+	}
+	else{
+		jsval jsParams = std_string_to_jsval(cx, params);
+		callFuncReturn = sc->executeFunctionWithOwner(OBJECT_TO_JSVAL(rootObject), methodName.c_str(), 1, &jsParams, &rval);
+	}	
+	if (callFuncReturn){
+		std::vector<jschar> buffer;
+		//std::wstringstream strStream;
+		JS::RootedValue indentVal(cx, JS::UndefinedValue());
+		bool b = JS_Stringify(cx, &rval, JS::NullPtr(), indentVal, &__stringify_callback, &buffer);
+		if (b){			
+			std::u16string u16 = std::u16string(buffer.begin(), buffer.end());
+			std::string u8;
+			StringUtils::UTF16ToUTF8(u16, u8);
+			return u8;
 		}
 		else{
-			log("callJSFunction:[%s] error", methodName.c_str());
+			log("callJSFunction:[%s] JS_Stringify error", methodName.c_str());
 		}
 	}
 	else{
-		log("callJSFunction:[%s] [%s] is not json", methodName.c_str(), params.c_str());
+		log("callJSFunction:[%s] error", methodName.c_str());
 	}
 	return "";
 }

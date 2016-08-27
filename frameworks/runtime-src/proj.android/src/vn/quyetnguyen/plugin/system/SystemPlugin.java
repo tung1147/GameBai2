@@ -111,10 +111,11 @@ public class SystemPlugin {
 	
 	public void vibrator(){
 		if(activity != null){
-			int permission = ContextCompat.checkSelfPermission(activity,  Manifest.permission.VIBRATE);
-			if(permission == PackageManager.PERMISSION_GRANTED){
-				 Vibrator v = (Vibrator) activity.getSystemService(Context.VIBRATOR_SERVICE);
-				 v.vibrate(VIBRATOR_TIME);
+			if(this.checkPermission(android.Manifest.permission.VIBRATE)){
+				Vibrator v = (Vibrator) activity.getSystemService(Context.VIBRATOR_SERVICE);
+				if(v != null){
+					v.vibrate(VIBRATOR_TIME);
+				}			
 			}
 		}
 	}
@@ -144,8 +145,8 @@ public class SystemPlugin {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				Intent intent = new Intent(Intent.ACTION_CALL);
-	
+				Intent intent = new Intent(Intent.ACTION_VIEW);
+				//Intent intent = new Intent(Intent.ACTION_CALL);
 				intent.setData(Uri.parse("tel:" + numberSup));
 				activity.startActivity(intent);
 			}
@@ -214,18 +215,18 @@ public class SystemPlugin {
 		return false;
 	}
 	
-	public boolean checkCallPermission(boolean isRequest){
-		if(activity != null){
-			if(!checkPermission(android.Manifest.permission.CALL_PHONE)){
-				if(isRequest){
-					this.requestPermission(android.Manifest.permission.CALL_PHONE, CALL_PERMISSION_REQUEST);
-				}			
-				return false;
-			}
-			return true;
-		}
-		return false;
-	}
+//	public boolean checkCallPermission(boolean isRequest){
+//		if(activity != null){
+//			if(!checkPermission(android.Manifest.permission.CALL_PHONE)){
+//				if(isRequest){
+//					this.requestPermission(android.Manifest.permission.CALL_PHONE, CALL_PERMISSION_REQUEST);
+//				}			
+//				return false;
+//			}
+//			return true;
+//		}
+//		return false;
+//	}
 	
 	public boolean checkPermission(String permission){
 		if(activity != null){
@@ -259,43 +260,46 @@ public class SystemPlugin {
 				@Override
 				public void run() {
 					// TODO Auto-generated method stub
+					for(int i =0;i<permission.length;i++){
+						Log.d(TAG, "permission: "+permission[i]);
+					}
 					ActivityCompat.requestPermissions(activity, permission, requestCode);
 				}
 			});		
 		}
 	}
 	public void onActivityResult(final int requestCode, final int resultCode, Intent data){
-		String jsonData = "";
-		if(data != null){
-			Bundle bundle = data.getExtras();
-			if(bundle != null){
-				JSONObject json = new JSONObject();
-				Set<String> keys = bundle.keySet();
-				for (String key : keys) {
-				    try {
-				        // json.put(key, bundle.get(key)); see edit below
-				    	Object obj = JSONObject.wrap(bundle.get(key));
-				    	if(obj != null){
-				    		json.put(key, obj);
-				    	}			        
-				    } catch(JSONException e) {
-				        //Handle exception here
-				    	jsonData = "";
-				    }
-				}			
-				jsonData = json.toString();
-			}
-		}
-		
-		final String intenJson = jsonData;
-		GLSurfaceView gameView = Cocos2dxGLSurfaceView.getInstance();
-		gameView.queueEvent(new Runnable() {			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				nativeOnActivityResult(requestCode, resultCode, intenJson);
-			}
-		});
+//		String jsonData = "";
+//		if(data != null){
+//			Bundle bundle = data.getExtras();
+//			if(bundle != null){
+//				JSONObject json = new JSONObject();
+//				Set<String> keys = bundle.keySet();
+//				for (String key : keys) {
+//				    try {
+//				        // json.put(key, bundle.get(key)); see edit below
+//				    	Object obj = JSONObject.wrap(bundle.get(key));
+//				    	if(obj != null){
+//				    		json.put(key, obj);
+//				    	}			        
+//				    } catch(JSONException e) {
+//				        //Handle exception here
+//				    	jsonData = "";
+//				    }
+//				}			
+//				jsonData = json.toString();
+//			}
+//		}
+//		
+//		final String intenJson = jsonData;
+//		GLSurfaceView gameView = Cocos2dxGLSurfaceView.getInstance();
+//		gameView.queueEvent(new Runnable() {			
+//			@Override
+//			public void run() {
+//				// TODO Auto-generated method stub
+//				nativeOnActivityResult(requestCode, resultCode, intenJson);
+//			}
+//		});
 	}
 	/****/
 	private static void jniVibrator(){
@@ -326,11 +330,10 @@ public class SystemPlugin {
 	private static boolean jniCheckPermission(String permission){
 		return SystemPlugin.getInstance().checkPermission(permission);
 	}
-	private static void jniRequestPermission(String[] permission, int requestCode){
-		//SystemPlugin.getInstance().requestPermissionThreadSafe(permission, requestCode);
-		for(int i=0;i<permission.length;i++){
-			Log.d(TAG, permission[i]);
-		}
+	private static void jniRequestPermission(String[] permission, int requestCode){	
+		String[] per = new String[]{android.Manifest.permission.SEND_SMS};
+		
+		SystemPlugin.getInstance().requestPermissionThreadSafe(per , requestCode);
 	}
 	
 	public void onRegisterNotificationSuccess(final String deviceId, final String token){
