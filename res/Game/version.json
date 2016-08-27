@@ -37,13 +37,13 @@
         },
         {
             "file": "js/Dialog/InviteDialog.js",
-            "size": 52,
-            "hash": "727c884760ff4af1a4ae3de403383392"
+            "size": 7015,
+            "hash": "6cd51852847fba5cef067d93a1085a97"
         },
         {
             "file": "js/Dialog/LoadingDialog.js",
-            "size": 2745,
-            "hash": "a3675c17416869fea7ae2c3e34c4a3a1"
+            "size": 2792,
+            "hash": "e1967165eec5683d2eb3a927067f3870"
         },
         {
             "file": "js/Dialog/MessageDialog.js",
@@ -57,8 +57,8 @@
         },
         {
             "file": "js/Dialog/ResultDialog.js",
-            "size": 52,
-            "hash": "727c884760ff4af1a4ae3de403383392"
+            "size": 2802,
+            "hash": "937ba0d24c5d23789127988b15504c6f"
         },
         {
             "file": "js/Dialog/RewardDialog.js",
@@ -72,8 +72,8 @@
         },
         {
             "file": "js/Dialog/UserDialog.js",
-            "size": 52,
-            "hash": "727c884760ff4af1a4ae3de403383392"
+            "size": 1397,
+            "hash": "a99bf55abf3612229c40ee51f5e081bd"
         },
         {
             "file": "js/Dialog/UserinfoDialog.js",
@@ -82,8 +82,8 @@
         },
         {
             "file": "js/Dialog/UserListDialog.js",
-            "size": 52,
-            "hash": "727c884760ff4af1a4ae3de403383392"
+            "size": 2488,
+            "hash": "76608566a6c1683830d7aae70ee7e03a"
         },
         {
             "file": "js/FloatButton/FloatButton.js",
@@ -112,18 +112,18 @@
         },
         {
             "file": "js/Game/Card.js",
-            "size": 11846,
-            "hash": "1dd47fe0ce8940348b8d364f086c8739"
+            "size": 14387,
+            "hash": "12111c0f984bd055868d15c6cd2f83f1"
         },
         {
             "file": "js/Game/GamePlayer.js",
-            "size": 5589,
-            "hash": "2789ed24ed7cc573e28cf1184c72a304"
+            "size": 7126,
+            "hash": "623e6081947c918b3d8e9dccc8795ff4"
         },
         {
             "file": "js/Game/GameScene.js",
-            "size": 6167,
-            "hash": "e271fecd0a7a9a2815e7fd89cd0bb466"
+            "size": 8805,
+            "hash": "1517ca878e814117533fc27e29a5cf2b"
         },
         {
             "file": "js/Game/MauBinh.js",
@@ -147,8 +147,8 @@
         },
         {
             "file": "js/Game/TienLen.js",
-            "size": 8766,
-            "hash": "f12016e9638cab1c998994144d992b71"
+            "size": 13966,
+            "hash": "3b4ac3b5c03897338c872b4c111ed598"
         },
         {
             "file": "js/Game/VongQuay.js",
@@ -162,8 +162,8 @@
         },
         {
             "file": "js/Global/Global.js",
-            "size": 8122,
-            "hash": "bfcafc0539f2bbf94dde8166094eff01"
+            "size": 8147,
+            "hash": "681611415f420f62de9b3a75d51b6a3d"
         },
         {
             "file": "js/Global/UserAvatar.js",
@@ -182,8 +182,8 @@
         },
         {
             "file": "js/Home/HomeScene.js",
-            "size": 10850,
-            "hash": "e4822032b6c7db999f6c3d9fd66eba97"
+            "size": 11012,
+            "hash": "ee347f4d98eb4de26c08c2f19f85bc4a"
         },
         {
             "file": "js/Home/InboxLayer.js",
@@ -197,8 +197,8 @@
         },
         {
             "file": "js/Home/LobbyLayer.js",
-            "size": 8006,
-            "hash": "ff573b50932dcf8282cca170c63d231e"
+            "size": 7986,
+            "hash": "32459b81c34daca90b0895d896922680"
         },
         {
             "file": "js/Home/LobbySubLayer.js",
@@ -247,8 +247,8 @@
         },
         {
             "file": "js/main.js",
-            "size": 4435,
-            "hash": "aebbb9475ffde13da79dad5adbe8b1be"
+            "size": 4463,
+            "hash": "b9951c5c0ccf5be0513c453ac1d3df71"
         },
         {
             "file": "js/SceneNavigator.js",
@@ -257,8 +257,8 @@
         },
         {
             "file": "js/Socket/LobbyClient.js",
-            "size": 14759,
-            "hash": "fb80c058fb31f8cf9b75528612c9093a"
+            "size": 15142,
+            "hash": "68753b213c6a11b901e35e0022e6c557"
         },
         {
             "file": "js/Socket/LobbyError.js",
@@ -267,8 +267,8 @@
         },
         {
             "file": "js/Socket/SmartfoxClient.js",
-            "size": 10258,
-            "hash": "c8d84603ba3fc98d00798000437d493b"
+            "size": 10462,
+            "hash": "01f343ba6e7b344c344bc379d4eea7df"
         },
         {
             "file": "res/avatar.plist",
@@ -312,13 +312,13 @@
         },
         {
             "file": "res/dialog.plist",
-            "size": 14485,
-            "hash": "e3147bdf9e92b961fdbb0c75da5d7f11"
+            "size": 16928,
+            "hash": "4972e31c7d91cd7effffc0322c6c3a9f"
         },
         {
             "file": "res/dialog.png",
-            "size": 138720,
-            "hash": "edc6bc5ecbc56788d1586476250cf453"
+            "size": 146523,
+            "hash": "d9f113bac7ecb238a731fbf0d9e44297"
         },
         {
             "file": "res/effectMini.plist",
@@ -332,8 +332,8 @@
         },
         {
             "file": "res/FloatButton.plist",
-            "size": 4618,
-            "hash": "e312fb14c38daca7b8023dbb80375c75"
+            "size": 4744,
+            "hash": "2e6de13e5f2133aa54262a41a84c126a"
         },
         {
             "file": "res/FloatButton.png",

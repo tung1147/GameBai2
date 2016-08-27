@@ -90,6 +90,7 @@ cc.game.onStart = function(){
 cc.game.run();
 
 var testJSFunc = function (param) {
+	cc.log("params: "+param);
     // var pret = {
     //     name : "name1234"
     // };

@@ -56,6 +56,15 @@ var SystemPlugin = (function() {
         },
         enableMipmapTexture : function (texture) {
             this.plugin.enableMipmapTexture(texture);
+        },
+        showCallPhone : function (phoneNumber) {
+            this.plugin.showCallPhone(phoneNumber);
+        },
+        androidRequestPermission : function (permissions, requestCode) {
+            this.plugin.androidRequestPermission(permissions, requestCode);
+        },
+        androidCheckPermission : function (permission) {
+            return this.plugin.androidCheckPermission(permission);
         }
     });
 

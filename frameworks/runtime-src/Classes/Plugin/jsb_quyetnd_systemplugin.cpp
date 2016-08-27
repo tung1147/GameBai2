@@ -26,6 +26,60 @@ bool jsb_quyetnd_systemplugin_getVersionName(JSContext *cx, uint32_t argc, jsval
 	return false;
 }
 
+bool jsb_quyetnd_systemplugin_androidRequestPermission(JSContext *cx, uint32_t argc, jsval *vp){
+  	if (argc == 2){
+		JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+		std::vector<std::string> permission;
+		int requestCode;
+
+		bool ok = true;
+		ok = jsval_to_std_vector_string(cx, args.get(0), &permission);
+		ok = jsval_to_int(cx, args.get(1), &requestCode);
+		JSB_PRECONDITION2(ok, cx, false, "jsb_quyetnd_systemplugin_androidRequestPermission : Error processing arguments");
+		if (ok){
+			quyetnd::SystemPlugin::getInstance()->androidRequestPermission(permission, requestCode);
+		}
+		args.rval().setUndefined();
+		return true;
+	}
+	return false;
+}
+
+bool jsb_quyetnd_systemplugin_androiCheckPermission(JSContext *cx, uint32_t argc, jsval *vp){
+	if (argc == 1){
+		JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+		std::string permission;
+		bool ok = true;
+		ok = jsval_to_std_string(cx, args.get(0), &permission);
+		JSB_PRECONDITION2(ok, cx, false, "jsb_quyetnd_systemplugin_androiCheckPermission : Error processing arguments");
+		if (ok){
+			bool pret = quyetnd::SystemPlugin::getInstance()->androidCheckPermission(permission);
+			args.rval().setBoolean(pret);
+		}
+		else{
+			args.rval().setBoolean(false);
+		}
+		return true;
+	}
+	return false;
+}
+
+bool jsb_quyetnd_systemplugin_showCallPhone(JSContext *cx, uint32_t argc, jsval *vp){
+	if (argc == 1){
+		JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+		std::string phoneNumber;
+		bool ok = true;
+		ok = jsval_to_std_string(cx, args.get(0), &phoneNumber);
+		JSB_PRECONDITION2(ok, cx, false, "jsb_quyetnd_systemplugin_showCallPhone : Error processing arguments");
+		if (ok){
+			quyetnd::SystemPlugin::getInstance()->callSupport(phoneNumber);			
+		}
+		args.rval().setUndefined();
+		return true;
+	}
+	return false;
+}
+
 bool jsb_quyetnd_systemplugin_enableMipmapTexture(JSContext *cx, uint32_t argc, jsval *vp){
 	if (argc == 1){
 		JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
@@ -179,6 +233,9 @@ void js_register_quyetnd_systemplugin(JSContext *cx, JS::HandleObject global) {
 		JS_FN("iOSInitStore", jsb_quyetnd_systemplugin_IOS_InitStore, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("setTarget", jsb_quyetnd_systemplugin_setJSTarget, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("enableMipmapTexture", jsb_quyetnd_systemplugin_enableMipmapTexture, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("androidRequestPermission", jsb_quyetnd_systemplugin_androidRequestPermission, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("androidCheckPermission", jsb_quyetnd_systemplugin_androiCheckPermission, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("showCallPhone", jsb_quyetnd_systemplugin_showCallPhone, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("exitApp", jsb_quyetnd_systemplugin_exitApp, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),	
         JS_FS_END
     };

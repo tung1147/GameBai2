@@ -286,8 +286,10 @@ var HomeScene = IScene.extend({
         // dialog.setGold(1234567);
         // dialog.showWithAnimationScale();
 
-        var dialog = new UserListDialog();
-        dialog.show();
+        // var dialog = new UserListDialog();
+        // dialog.show();
+
+        SystemPlugin.getInstance().showCallPhone(GameConfig.hotline);
     },
 
     newsMesasgeButtonHandler : function () {
