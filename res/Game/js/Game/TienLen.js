@@ -71,6 +71,14 @@ var TienLen = IGameScene.extend({
         playerMe.setPosition(150, 50.0);
         this.sceneLayer.addChild(playerMe,1);
 
+        var progressTimerMe = new cc.ProgressTimer(new cc.Sprite("#player-progress-3.png"));
+        progressTimerMe.setType(cc.ProgressTimer.TYPE_BAR);
+        progressTimerMe.setMidpoint(cc.p(0.0,0.5));
+        progressTimerMe.setBarChangeRate(cc.p(1.0,0.0));
+        progressTimerMe.setPercentage(50.0);
+        progressTimerMe.setPosition(cc.p(cc.winSize.width/2, 220.0));
+        this.sceneLayer.addChild(progressTimerMe,2);
+
         var player1 = new GamePlayer();
         player1.setPosition(cc.winSize.width - 120.0 / cc.winSize.screenScale, 360.0);
         this.sceneLayer.addChild(player1,1);

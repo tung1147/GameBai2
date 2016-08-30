@@ -186,6 +186,19 @@
                 <key>sourceSize</key>
                 <string>{150,150}</string>
             </dict>
+            <key>player-progress-3.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{428,86},{312,20}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{312,20}}</string>
+                <key>sourceSize</key>
+                <string>{312,20}</string>
+            </dict>
             <key>tlmn_card_remain.png</key>
             <dict>
                 <key>frame</key>
@@ -209,7 +222,7 @@
             <key>size</key>
             <string>{1603,123}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:8ff1835890e4c7c8a82bc0e08b3ff223:9d40c2b74fb16795f4fc3265130fa7f6:865db70d33f6fd1c3bd18ff13c48b0ed$</string>
+            <string>$TexturePacker:SmartUpdate:569421f64b42ec79e8ddb4beeb46ee61:bf0ddc9f9dd839836816cef0fa67c7f6:865db70d33f6fd1c3bd18ff13c48b0ed$</string>
             <key>textureFileName</key>
             <string>GameScene.png</string>
         </dict>

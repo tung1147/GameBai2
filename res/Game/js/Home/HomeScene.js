@@ -267,29 +267,20 @@ var HomeScene = IScene.extend({
     },
 
     callButtonHandler : function () {
-        // var dialog = new Dialog();
-        // dialog.initWithSize(cc.size(700,300));
-        // dialog.show();
+       // SystemPlugin.getInstance().showCallPhone(GameConfig.hotline);
 
-       // LoadingDialog.getInstance().show();
-        //MessageNode.getInstance().show("Test message node");
-
-        // var dialog = new RewardDialog();
-        // dialog.setItem("Apple iPhone 10S 128GB", 1000000);
-        // dialog.showWithAnimationScale();
-
-        // var dialog = new ResultDialog(2);
-        // dialog.show();
-
-        // var dialog = new UserDialog();
-        // dialog.setUsername("QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ");
-        // dialog.setGold(1234567);
-        // dialog.showWithAnimationScale();
-
-        // var dialog = new UserListDialog();
-        // dialog.show();
-
-        SystemPlugin.getInstance().showCallPhone(GameConfig.hotline);
+        // var request = cc.loader.getXMLHttpRequest();
+        // request.open("GET", "google.com");
+        // request.setRequestHeader( "Content-Type","text/plain;charset=UTF-8" );
+        // request.d
+        // request.onreadystatechange = function () {
+        //     if (request.readyState == 4 && ( request.status >= 200 && request.status <= 207 ) ) {
+        //         var httpStatus = request.statusText;
+        //         cc.log( httpStatus );
+        //         cc.log( request.responseText );
+        //     }
+        // };
+        // request.send();
     },
 
     newsMesasgeButtonHandler : function () {
