@@ -94,7 +94,7 @@ bool GameFile::test(){
 	return true;
 #else	
 #if CC_TARGET_PLATFORM != CC_PLATFORM_ANDROID
-	if (string_end_with(fileName, ".jar")){
+	if (string_end_with(fileName, ".dex")){
 		return true;
 	}
 #endif
