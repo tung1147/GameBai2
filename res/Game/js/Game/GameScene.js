@@ -19,13 +19,22 @@ var GameTopBar = cc.Node.extend({
         this.setContentSize(1280.0, 720.0);
         this.setPosition(0.0, 720.0);
         this.setScale(cc.winSize.screenScale);
+
+        var thiz = this;
+        this.settingBt.addClickEventListener(function () {
+            thiz.onSettingButtonHandler();
+        });
     },
     onExit : function () {
         this._super();
         SmartfoxClient.getInstance().removeListener(this);
     },
+    onSettingButtonHandler : function () {
+        var dialog = new SettingDialog();
+        dialog.showWithAnimationMove();
+    },
     onExtensionCommand : function (messageType, contents) {
-        
+
     }
 });
 

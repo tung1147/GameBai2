@@ -84,8 +84,8 @@ cc.game.onStart = function(){
 
    // cc.director.replaceScene(new VongQuayScene());
 
-    cc.director.replaceScene(new HomeScene());
-    //cc.director.replaceScene(new TienLen());
+   // cc.director.replaceScene(new HomeScene());
+    cc.director.replaceScene(new CaoThapScene());
 };
 cc.game.run();
 
