@@ -4,10 +4,23 @@
     <dict>
         <key>frames</key>
         <dict>
+            <key>minigame-bg1.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{410,152},{40,40}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{2,2},{40,40}}</string>
+                <key>sourceSize</key>
+                <string>{44,44}</string>
+            </dict>
             <key>minigame-chip-1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{614,2},{120,120}}</string>
+                <string>{{206,356},{120,120}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -20,7 +33,7 @@
             <key>minigame-chip-2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{736,2},{120,120}}</string>
+                <string>{{328,356},{120,120}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -33,7 +46,7 @@
             <key>minigame-chip-3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{858,2},{120,120}}</string>
+                <string>{{450,355},{120,120}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -59,7 +72,7 @@
             <key>minigame-chipSelected-2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{206,2},{202,202}}</string>
+                <string>{{2,206},{202,202}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -72,7 +85,7 @@
             <key>minigame-chipSelected-3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{410,2},{202,202}}</string>
+                <string>{{206,2},{202,202}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -82,6 +95,58 @@
                 <key>sourceSize</key>
                 <string>{202,202}</string>
             </dict>
+            <key>minigame-highBt.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{206,206},{148,148}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{15,15},{148,148}}</string>
+                <key>sourceSize</key>
+                <string>{178,178}</string>
+            </dict>
+            <key>minigame-kingCard1.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,410},{48,63}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{42,42},{48,63}}</string>
+                <key>sourceSize</key>
+                <string>{132,147}</string>
+            </dict>
+            <key>minigame-kingCard2.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{356,206},{132,147}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{132,147}}</string>
+                <key>sourceSize</key>
+                <string>{132,147}</string>
+            </dict>
+            <key>minigame-lowBt.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{410,2},{148,148}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{15,15},{148,148}}</string>
+                <key>sourceSize</key>
+                <string>{178,178}</string>
+            </dict>
         </dict>
         <key>metadata</key>
         <dict>
@@ -90,9 +155,9 @@
             <key>realTextureFileName</key>
             <string>gamemini.png</string>
             <key>size</key>
-            <string>{980,206}</string>
+            <string>{572,479}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:95e23602843cb038410dd99e34709b35:20863549da61d0f54e4be13e6024d86e:3710e9591dd0391354ae62d7c976e04e$</string>
+            <string>$TexturePacker:SmartUpdate:a2648e193c7300037d350dca1b32ce60:567877f06f2a6e088812e5dc3bf16539:3710e9591dd0391354ae62d7c976e04e$</string>
             <key>textureFileName</key>
             <string>gamemini.png</string>
         </dict>

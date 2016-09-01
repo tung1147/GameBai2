@@ -345,15 +345,15 @@ void LoadingScene::onResourceDownloadProcress(int _current, int _max){
 	sprintf(stringBuffer, "Đang tải cập nhật [%d/%d]", _current, _max);
 }
 
-
 /*rapidjson::StringBuffer stringBuffer;
 rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(stringBuffer);
 files.Accept(writer);
 cocos2d::log("files: %s", stringBuffer.GetString());*/
 
 void LoadingScene::onEnter(){
-	status = 0;
 	Scene::onEnter(); 
+	status = 0;
+	this->requestGetConfig();
 
 	statusLabel->setString("Đang kiểm tra phiên bản");
 	gameLaucher->startFromFile("res/Game/version.json");
@@ -367,11 +367,40 @@ void LoadingScene::onEnter(){
 		}
 	};
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(keyboard, this);
+	
 }
 
 void LoadingScene::onExit(){
 	this->unscheduleUpdate();
 	Scene::onExit();
+}
+
+static unsigned char aes_encrypt_key[16] = { 0x33, 0x5a, 0x35, 0x16, 0x96, 0xff, 0xe8, 0x20, 0xa1, 0x62, 0x16, 0xbe, 0x77, 0x6a, 0x4e, 0xea };
+static unsigned char aes_decrypt_key[16] = { 0x33, 0x5a, 0x35, 0x16, 0x96, 0xff, 0xe8, 0x20, 0xa1, 0x62, 0x16, 0xbe, 0x77, 0x6a, 0x4e, 0xea };
+
+void LoadingScene::requestGetConfig(){
+	/*std::string params = "{\"clientId\": \"87a1da56-27fe-4a39-ab61-f0c23b30a70c\",\"command\" : \"getConfig\",\"platformId\" : \"8e1dd48e-e808-4e9e-8b4d-8bef61f9aa19\",\"signature\" : \"690a8d0ea0c56bb866a3a8ed0cdd4d81\",\"time\" : 1472700703,\"version\" : \"1.0.0\"}";
+	std::string ACS_URL = "10.0.1.87:8000";
+
+	auto encryptParam = quyetnd::SystemPlugin::getInstance()->dataEncryptBase64((const char*)aes_encrypt_key, params);
+	std::string httpString = ACS_URL + "?params=" + quyetnd::SystemPlugin::getInstance()->URLEncode(encryptParam);
+	log("url: %s", httpString.c_str());
+	cocos2d::network::HttpRequest* request = new cocos2d::network::HttpRequest();
+	request->setUrl(httpString.c_str());
+	request->setRequestType(cocos2d::network::HttpRequest::Type::GET);
+	request->setResponseCallback([=](cocos2d::network::HttpClient* client, cocos2d::network::HttpResponse* response){
+		if (response->isSucceed()){
+			std::vector<char>* mData = response->getResponseData();
+			mData->push_back('\0');
+			log("data: %s", mData->data());
+			std::string base64Encrypt(mData->data());
+
+			std::string json = quyetnd::SystemPlugin::getInstance()->dataDecryptBase64((const char*)aes_decrypt_key, base64Encrypt);
+			int a = 0;
+		}
+	});
+	cocos2d::network::HttpClient::getInstance()->send(request);
+	request->release();*/
 }
 
 LoadingScene* LoadingScene::scene(){

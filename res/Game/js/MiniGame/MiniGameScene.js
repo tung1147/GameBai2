@@ -67,7 +67,11 @@ var MiniGameScene = IScene.extend({
         this.chipGroup.selectChipAtIndex(0, true);
     },
     tutorialButtonHandler : function () {
-        
+        var rank = Math.floor(1 +  Math.random() * 12);
+        this.addHistory({
+            rank : rank,
+            suit : CardSuit.Diamonds
+        });
     },
     backButtonHandler : function () {
         

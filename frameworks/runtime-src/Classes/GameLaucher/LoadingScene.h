@@ -34,6 +34,7 @@ class LoadingScene : public Scene{
 	void onCheckVersionStatus(quyetnd::GameLaucherStatus status);
 	void onResourceDownloadProcress(int _current, int _max);
 	void threadLoadJS();
+	void requestGetConfig();
 
 	void updateLoadResource();
 public:
