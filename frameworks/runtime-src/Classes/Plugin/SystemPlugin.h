@@ -60,6 +60,14 @@ public:
 
 	void exitApp();
 
+	/* ecnrypt*/
+	std::vector<char> dataEncrypt(const char* key, const char* data, int dataSize);
+	std::vector<char> dataDecrypt(const char* key, const char* data, int dataSize);
+	std::string dataEncryptBase64(const char* key, const std::string& plainText);
+	std::string dataDecryptBase64(const char* key, const std::string& encryptText);
+	std::string URLEncode(const std::string& data);
+	std::string URLDecode(const std::string& data);
+
 	static SystemPlugin* getInstance();
 };
 

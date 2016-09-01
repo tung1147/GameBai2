@@ -16,9 +16,37 @@
 #include "jsfriendapi.h"
 #include "scripting/js-bindings/manual/cocos2d_specifics.hpp"
 #include <locale>
+#include "crypt_aes.h"
+#include "base64.h"
 #include "base/ccUTF8.h"
 
 USING_NS_CC;
+
+static const char HEX_CHAR[17] = "0123456789ABCDEF";
+inline bool _isxdigit(char c){
+	if ('0' <= c && c <= '9'){
+		return true;
+	}
+	if ('a' <= c && c <= 'f'){
+		return true;
+	}
+	if ('A' <= c && c <= 'F'){
+		return true;
+	}
+
+	return false;
+}
+
+char _charxtoint(char c){
+	if ('0' <= c && c <= '9'){
+		return (c - '0');
+	}
+	if ('a' <= c && c <= 'f'){
+		return (c - 'a' + 10);
+	}
+
+	return (c - 'A' + 10);
+}
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
 #include "UUIDEncrypt.h"
@@ -498,6 +526,134 @@ void SystemPlugin::android_onWindowsVisibleChange(int bottom ,int left, int top,
 	}
 }
 #endif
+
+#define AES_BLOCK_SIZE_BIT 128
+#define AES_BLOCK_SIZE_BYTE 16
+
+std::vector<char> SystemPlugin::dataEncrypt(const char* key, const char* data, int dataSize){
+	std::vector<char> retData;
+
+	//create init vector
+	uint8_t ivBuffer[AES_BLOCK_SIZE_BYTE];
+	for (int i = 0; i<AES_BLOCK_SIZE_BYTE; i++){
+		ivBuffer[i] = (uint8_t)rand();
+		retData.push_back((char)ivBuffer[i]);
+	}
+
+	//add padding
+	std::vector<char> dataBuffer(data, data + dataSize);
+	int padding = dataSize%AES_BLOCK_SIZE_BYTE;
+	if (padding){
+		padding = AES_BLOCK_SIZE_BYTE - padding;
+		for (int i = 0; i<padding; i++){
+			dataBuffer.push_back(padding);
+		}
+	}
+
+	//encrypt
+	aes_ks_t secretKey;
+	aes_setks_encrypt((const uint8_t*)key, AES_BLOCK_SIZE_BIT, &secretKey);
+	int outputSize = dataBuffer.size();
+	int blockSize = outputSize / AES_BLOCK_SIZE_BYTE;
+	uint8_t* outputBuffer = new uint8_t[outputSize];
+	aes_cbc_encrypt((const uint8_t*)dataBuffer.data(), outputBuffer, ivBuffer, blockSize, &secretKey);
+	retData.insert(retData.end(), outputBuffer, outputBuffer + outputSize);
+
+	delete[] outputBuffer;
+	return retData;
+}
+
+std::vector<char> SystemPlugin::dataDecrypt(const char* key, const char* data, int dataSize){
+	std::vector<char> retData;
+
+	//read iv
+	uint8_t ivBuffer[AES_BLOCK_SIZE_BYTE];
+	memcpy(ivBuffer, data, AES_BLOCK_SIZE_BYTE);
+
+	//decrypt
+	int encyrptSize = dataSize - AES_BLOCK_SIZE_BYTE;
+	int blockSize = encyrptSize / AES_BLOCK_SIZE_BYTE;
+	aes_ks_t secretKey;
+	aes_setks_decrypt((const uint8_t*)key, AES_BLOCK_SIZE_BIT, &secretKey);
+	uint8_t* outputBuffer = new uint8_t[encyrptSize];
+	aes_cbc_decrypt((const uint8_t*)(data + AES_BLOCK_SIZE_BYTE), outputBuffer, ivBuffer, blockSize, &secretKey);
+
+	//remove padding
+	uint8_t lastByte = outputBuffer[encyrptSize - 1];
+	int flag = 1;
+	for (int i = encyrptSize - 2; i >= 0; i--){
+		if (outputBuffer[i] == lastByte){
+			flag++;
+		}
+		else{
+			break;
+		}
+	}
+	if (flag == lastByte){
+		encyrptSize -= flag;
+	}
+	
+
+	retData.insert(retData.end(), outputBuffer, outputBuffer + encyrptSize);
+	delete[] outputBuffer;
+	return retData;
+}
+
+std::string SystemPlugin::dataEncryptBase64(const char* key, const std::string& plainText){
+	std::vector<char> buffer = this->dataEncrypt(key, plainText.data(), plainText.size());
+	return base64_encode((const unsigned char*)buffer.data(), (unsigned int)buffer.size());;
+}
+
+std::string SystemPlugin::dataDecryptBase64(const char* key, const std::string& encryptText){
+	std::string bytesData = base64_decode(encryptText);
+	std::vector<char> buffer = this->dataDecrypt(key, bytesData.data(), bytesData.size());
+	return std::string(buffer.data(), buffer.size());
+}
+
+std::string SystemPlugin::URLEncode(const std::string& data){
+	std::string pRet = "";
+
+	for (int i = 0; i<data.size(); i++){
+		if (('0' <= data[i] && data[i] <= '9') ||
+			('a' <= data[i] && data[i] <= 'z') ||
+			('A' <= data[i] && data[i] <= 'Z') ||
+			(data[i] == '-' || data[i] == '_' || data[i] == '.' || data[i] == '~')){
+			pRet.append(&data[i], 1);
+		}
+		else{
+			//to hext
+			pRet.append("%");
+			char dig1 = (data[i] & 0xF0) >> 4;
+			char dig2 = (data[i] & 0x0F);
+			pRet.append(&HEX_CHAR[dig1], 1);
+			pRet.append(&HEX_CHAR[dig2], 1);
+		}
+	}
+
+	return pRet;
+}
+
+std::string SystemPlugin::URLDecode(const std::string& data){
+	std::string pRet = "";
+	char dig1, dig2;
+
+	for (int i = 0; i<data.size();){
+		if (data[i] == '%'){
+			dig1 = data[i + 1];
+			dig2 = data[i + 2];
+			if (_isxdigit(dig1) && _isxdigit(dig2)){
+				dig1 = _charxtoint(dig1);
+				dig2 = _charxtoint(dig2);
+				pRet.append(16 * dig1 + dig2, 1);
+			}
+		}
+		else{
+			i++;
+		}
+	}
+
+	return pRet;
+}
 
 void SystemPlugin::addSoftKeyboardDelegate(SoftKeyboardDelegate* delegate){
 	_keyboardDelegate.push_back(delegate);
