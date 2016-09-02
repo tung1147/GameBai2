@@ -8,6 +8,10 @@
 #include "Plugin/UUIDEncrypt.h"
 #endif
 
+#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+#include "iOS_native_linker.h"
+#endif
+
 USING_NS_CC;
 using namespace CocosDenshion;
 
@@ -63,6 +67,13 @@ bool AppDelegate::applicationDidFinishLaunching()
 
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0 / 60);
+    
+#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+    // set writePath no backup
+    auto writePath = FileUtils::getInstance()->getWritablePath();
+    c_to_objC_set_iClound_no_backup_folder(writePath.c_str());
+#endif
+
 	director->runWithScene(LoadingScene::scene());
 
     return true;

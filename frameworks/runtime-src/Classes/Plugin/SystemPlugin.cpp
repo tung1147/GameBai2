@@ -211,25 +211,19 @@ extern "C"{
 #endif
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
-//#include "IOS_SystemPlugin.h"
-
-#include "cMediate.h"
-
-void obj_to_c(bool a){
-    log("call backk");
+#include "iOS_native_linker.h"
+void objC_to_c_buyInAppSuccess(int returnCode, const char*  token){
+    CCLOG("ios inapp token %s",token);
+    quyetnd::SystemPlugin::getInstance()->onBuyItemFinished(returnCode, std::string(token));
 }
 
-void obj_to_c_buyAppSuccess(int returnCode, std::string recept)
-{
-    log("ios inapp recept %s",recept.c_str());
-   quyetnd::SystemPlugin::getInstance()->onBuyItemFinished(returnCode, recept);
-    
-}
-
-void obj_to_c_registerNotificationSuccess(const char* uid, const char* token){
+void objC_to_c_registedNotificationSuccess(const char* uid, const char* token){
     quyetnd::SystemPlugin::getInstance()->onRegisterNotificationSuccess(uid, token);
 }
+#endif
 
+#if CC_TARGET_PLATFORM == CC_PLATFORM_MAC
+#include "MacOS_native_linker.h"
 #endif
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
@@ -308,14 +302,14 @@ SystemPlugin::~SystemPlugin() {
 
 void SystemPlugin::initStore(const std::vector<std::string>& listProduct){
 #if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
-	c_to_objCinitStore(listProduct);
+	c_to_objC_initStore(listProduct);
 #else
 #endif
 }
 
 void SystemPlugin::buyItem(const std::string& item){
 #if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
-	 c_to_objBuyItem(item);
+	 c_to_objC_buyItem(item);
 #endif
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
@@ -328,7 +322,9 @@ std::string SystemPlugin::getVersionName(){
 #if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
 	return jniGetVersionName();
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    return c_to_obj_getVersion();
+    return c_to_objC_getVersion();
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+    return c_to_objC_getVersion();
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
 	return _winrt_getVersionName();
 #else
@@ -340,7 +336,9 @@ std::string SystemPlugin::getPackageName(){
 #if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
 	return _getAndroidPackage();
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    return c_to_obj_getBundle();
+    return c_to_objC_getBundle();
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+    return c_to_objC_getBundle();
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
 	return _winrt_getPackageName();
 #else
@@ -353,7 +351,7 @@ void SystemPlugin::callSupport(const std::string& numberSupport)
 #if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
     jniCallSupport(numberSupport);
 #elif CC_TARGET_PLATFORM == CC_PLATFORM_IOS
-    c_to_objCCallSupport(numberSupport.c_str());
+    c_to_objC_callSupport(numberSupport.c_str());
         
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
         
@@ -428,11 +426,11 @@ std::string SystemPlugin::callJSFunction(const std::string& methodName, const st
 			return u8;
 		}
 		else{
-			log("callJSFunction:[%s] JS_Stringify error", methodName.c_str());
+			CCLOG("callJSFunction:[%s] JS_Stringify error", methodName.c_str());
 		}
 	}
 	else{
-		log("callJSFunction:[%s] error", methodName.c_str());
+		CCLOG("callJSFunction:[%s] error", methodName.c_str());
 	}
 	return "";
 }
@@ -466,7 +464,7 @@ bool SystemPlugin::androidCheckPermission(const std::string& permission){
 }
 
 void SystemPlugin::androidOnActivityResult(int requestCode, int returnCode, const std::string& jsonData){
-	log("%d - %d - %s", requestCode, returnCode, jsonData.c_str());
+	CCLOG("%d - %d - %s", requestCode, returnCode, jsonData.c_str());
 }
 
 void SystemPlugin::androidRequestPermission(const std::vector<std::string>& permission, int requestCode){
