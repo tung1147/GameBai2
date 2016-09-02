@@ -31,7 +31,7 @@
 #import "RootViewController.h"
 #import "platform/ios/CCEAGLView-ios.h"
 #import "FacebookPlugin_iOS.h"
-#import "cMediate.h"
+#import "iOS_native_linker.h"
 
 
 @implementation AppController
@@ -107,7 +107,7 @@ static AppDelegate s_sharedApplication;
                          stringByReplacingOccurrencesOfString:@">" withString:@""]
                         stringByReplacingOccurrencesOfString: @" " withString: @""];
     NSString* uniqueIdentifier = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
-    obj_to_c_registerNotificationSuccess([token UTF8String], [uniqueIdentifier UTF8String]);
+    objC_to_c_registedNotificationSuccess([token UTF8String], [uniqueIdentifier UTF8String]);
 }
 
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error

@@ -7,7 +7,7 @@
 //
 
 #import "InAppPurchare.h"
-#include "cMediate.h"
+#include "iOS_native_linker.h"
 @interface InAppPurchare()< SKProductsRequestDelegate,SKPaymentTransactionObserver>
 
 
@@ -107,7 +107,7 @@ static InAppPurchare *shareInApp =  nil;
                 
 //              NSString* newStr = [[NSString alloc] initWithData:transaction.transactionReceipt encoding:NSUTF8StringEncoding];
                 const char* cString = [  [transaction.transactionReceipt base64EncodedStringWithOptions:0] UTF8String];
-                obj_to_c_buyAppSuccess(0,cString);
+                objC_to_c_buyInAppSuccess(0,cString);
           
             }
                 break;
@@ -118,7 +118,7 @@ static InAppPurchare *shareInApp =  nil;
                 NSString* newStr = [[NSString alloc] initWithData:transaction.transactionReceipt encoding:NSUTF8StringEncoding];
                 [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
                 const char* cString = [newStr UTF8String];
-                obj_to_c_buyAppSuccess(0,cString);
+                objC_to_c_buyInAppSuccess(0,cString);
             }
                
                 break;
@@ -130,7 +130,7 @@ static InAppPurchare *shareInApp =  nil;
                     //the user cancelled the payment ;(
                 }
                 [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
-                obj_to_c_buyAppSuccess(1,"");
+                objC_to_c_buyInAppSuccess(1,"");
             }
                 break;
             default:

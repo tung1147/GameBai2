@@ -265,8 +265,8 @@ void LoadingScene::update(float dt){
 		GameFile* mainJs = gameLaucher->getFile("js/main.js");
 		ScriptingCore::getInstance()->runScript(mainJs->filePath.c_str());
 
-		std::string test = SystemPlugin::getInstance()->callJSFunction("testJSFunc", "{}");
-		log("test: %s", test.c_str()); 
+		//std::string test = SystemPlugin::getInstance()->callJSFunction("testJSFunc", "{}");
+		//log("test: %s", test.c_str());
 
 		break;
 	}

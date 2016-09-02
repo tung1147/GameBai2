@@ -1,0 +1,56 @@
+{
+    "files": [
+        {
+            "file": "jar/extension.json",
+            "size": 34,
+            "hash": "e08b9bd09e57bd62c1ce5dc3932bbda4"
+        },
+        {
+            "file": "jar/testextension.dex",
+            "size": 2620,
+            "hash": "89247f9ca8a26ba2203ca63bfe771a14"
+        },
+        {
+            "file": "js/app.js",
+            "size": 1441,
+            "hash": "09e95ca1250b03ea833248cc6dcf458f"
+        },
+        {
+            "file": "js/jsLoader.js",
+            "size": 1763,
+            "hash": "f5c2d03c5a71829d38a6aa534f10be22"
+        },
+        {
+            "file": "js/LobbyClient.js",
+            "size": 2867,
+            "hash": "1e15b7ff1b4f2e3d240d29456f5a55e3"
+        },
+        {
+            "file": "js/main.js",
+            "size": 3679,
+            "hash": "f4b5fbbb90e0e67ac3995073e2741086"
+        },
+        {
+            "file": "js/NewAction.js",
+            "size": 953,
+            "hash": "203d5d1d60bf692a0bd26a7d65190e9b"
+        },
+        {
+            "file": "js/SmartfoxClient.js",
+            "size": 4307,
+            "hash": "be9eb889e2ec04cd5d3e311b91520777"
+        },
+        {
+            "file": "resources.json",
+            "size": 55,
+            "hash": "d55f3b69ca7dfd955cb20ba8788d4c0b"
+        },
+        {
+            "file": "script.json",
+            "size": 135,
+            "hash": "66fbed09319e16cd4710129ac9bebf66"
+        }
+    ],
+    "versionName": "1.0.0",
+    "versionCode": 1
+}

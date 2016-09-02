@@ -46,6 +46,8 @@
 		509D4AE717EBB81800697056 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 509D4AE617EBB81800697056 /* OpenGL.framework */; };
 		509D4AE917EBB82000697056 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 509D4AE817EBB82000697056 /* AppKit.framework */; };
 		509D4AEB17EBB82600697056 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 509D4AEA17EBB82600697056 /* IOKit.framework */; };
+		5691C6D51D79C1010030C814 /* iOS_native_linker.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5691C6D41D79C1010030C814 /* iOS_native_linker.mm */; };
+		5691C6DB1D79C2340030C814 /* MacOS_native_linker.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5691C6DA1D79C2340030C814 /* MacOS_native_linker.mm */; };
 		56C5827A1D4D03AE002C7D5E /* ActionNumber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56C5823B1D4D03AD002C7D5E /* ActionNumber.cpp */; };
 		56C5827B1D4D03AE002C7D5E /* ActionNumber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56C5823B1D4D03AD002C7D5E /* ActionNumber.cpp */; };
 		56C5827C1D4D03AE002C7D5E /* ActionShake2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56C5823D1D4D03AD002C7D5E /* ActionShake2D.cpp */; };
@@ -184,7 +186,6 @@
 		56C583EF1D4D03EE002C7D5E /* SFSTcpClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56C583931D4D03ED002C7D5E /* SFSTcpClient.cpp */; };
 		56C583F01D4D03EE002C7D5E /* SocketAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56C583951D4D03ED002C7D5E /* SocketAdapter.cpp */; };
 		56C583F11D4D03EE002C7D5E /* SocketAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56C583951D4D03ED002C7D5E /* SocketAdapter.cpp */; };
-		56C5842B1D4D044F002C7D5E /* cMediate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 56C584261D4D044F002C7D5E /* cMediate.mm */; };
 		56C5842C1D4D044F002C7D5E /* InAppPurchare.mm in Sources */ = {isa = PBXBuildFile; fileRef = 56C584281D4D044F002C7D5E /* InAppPurchare.mm */; };
 		56C5842D1D4D044F002C7D5E /* UICKeyChainStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 56C5842A1D4D044F002C7D5E /* UICKeyChainStore.m */; };
 		56C584431D4D046E002C7D5E /* AccountKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56C5842F1D4D046E002C7D5E /* AccountKit.framework */; };
@@ -341,6 +342,10 @@
 		509D4AE617EBB81800697056 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		509D4AE817EBB82000697056 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		509D4AEA17EBB82600697056 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		5691C6D41D79C1010030C814 /* iOS_native_linker.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = iOS_native_linker.mm; path = ios/iOS_native_linker.mm; sourceTree = SOURCE_ROOT; };
+		5691C6D81D79C1290030C814 /* iOS_native_linker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iOS_native_linker.h; path = ios/iOS_native_linker.h; sourceTree = "<group>"; };
+		5691C6D91D79C21A0030C814 /* MacOS_native_linker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MacOS_native_linker.h; sourceTree = "<group>"; };
+		5691C6DA1D79C2340030C814 /* MacOS_native_linker.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MacOS_native_linker.mm; sourceTree = "<group>"; };
 		56C5823B1D4D03AD002C7D5E /* ActionNumber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ActionNumber.cpp; sourceTree = "<group>"; };
 		56C5823C1D4D03AD002C7D5E /* ActionNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionNumber.h; sourceTree = "<group>"; };
 		56C5823D1D4D03AD002C7D5E /* ActionShake2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ActionShake2D.cpp; sourceTree = "<group>"; };
@@ -483,8 +488,6 @@
 		56C583941D4D03ED002C7D5E /* SFSTcpClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFSTcpClient.h; sourceTree = "<group>"; };
 		56C583951D4D03ED002C7D5E /* SocketAdapter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SocketAdapter.cpp; sourceTree = "<group>"; };
 		56C583961D4D03ED002C7D5E /* SocketAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketAdapter.h; sourceTree = "<group>"; };
-		56C584251D4D044F002C7D5E /* cMediate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cMediate.h; sourceTree = "<group>"; };
-		56C584261D4D044F002C7D5E /* cMediate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = cMediate.mm; sourceTree = "<group>"; };
 		56C584271D4D044F002C7D5E /* InAppPurchare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InAppPurchare.h; sourceTree = "<group>"; };
 		56C584281D4D044F002C7D5E /* InAppPurchare.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = InAppPurchare.mm; sourceTree = "<group>"; };
 		56C584291D4D044F002C7D5E /* UICKeyChainStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICKeyChainStore.h; sourceTree = "<group>"; };
@@ -645,6 +648,8 @@
 				509D4ACB17EBB2BE00697056 /* Icon.icns */,
 				509D4ACC17EBB2BE00697056 /* Info.plist */,
 				509D4ACE17EBB2BE00697056 /* Prefix.pch */,
+				5691C6D91D79C21A0030C814 /* MacOS_native_linker.h */,
+				5691C6DA1D79C2340030C814 /* MacOS_native_linker.mm */,
 			);
 			path = mac;
 			sourceTree = "<group>";
@@ -901,8 +906,6 @@
 		56C584241D4D044F002C7D5E /* Plugin */ = {
 			isa = PBXGroup;
 			children = (
-				56C584251D4D044F002C7D5E /* cMediate.h */,
-				56C584261D4D044F002C7D5E /* cMediate.mm */,
 				56C584271D4D044F002C7D5E /* InAppPurchare.h */,
 				56C584281D4D044F002C7D5E /* InAppPurchare.mm */,
 				56C584291D4D044F002C7D5E /* UICKeyChainStore.h */,
@@ -1027,6 +1030,8 @@
 				509D4AAF17EBB2AB00697056 /* Default@2x.png */,
 				509D4AB717EBB2AB00697056 /* Info.plist */,
 				509D4AB817EBB2AB00697056 /* main.m */,
+				5691C6D81D79C1290030C814 /* iOS_native_linker.h */,
+				5691C6D41D79C1010030C814 /* iOS_native_linker.mm */,
 				509D4AB917EBB2AB00697056 /* Prefix.pch */,
 				509D4ABA17EBB2AB00697056 /* RootViewController.h */,
 				509D4ABB17EBB2AB00697056 /* RootViewController.mm */,
@@ -1270,6 +1275,7 @@
 				56C582AB1D4D03AE002C7D5E /* SystemPlugin.cpp in Sources */,
 				56C582951D4D03AE002C7D5E /* NewTextInput.cpp in Sources */,
 				56C583131D4D03C7002C7D5E /* ValueWriter.cpp in Sources */,
+				5691C6DB1D79C2340030C814 /* MacOS_native_linker.mm in Sources */,
 				56C582891D4D03AE002C7D5E /* LoadingScene.cpp in Sources */,
 				56C5833F1D4D03DA002C7D5E /* cache.cpp in Sources */,
 				56C5827F1D4D03AE002C7D5E /* CustomAction.cpp in Sources */,
@@ -1309,6 +1315,7 @@
 				56C5827C1D4D03AE002C7D5E /* ActionShake2D.cpp in Sources */,
 				56C583441D4D03DA002C7D5E /* common.cpp in Sources */,
 				56C5830C1D4D03C7002C7D5E /* Value.cpp in Sources */,
+				5691C6D51D79C1010030C814 /* iOS_native_linker.mm in Sources */,
 				56C5831C1D4D03C7002C7D5E /* UDTClient.cpp in Sources */,
 				56C582A01D4D03AE002C7D5E /* jsb_quyetnd_facebook_plugin.cpp in Sources */,
 				56C5834E1D4D03DA002C7D5E /* packet.cpp in Sources */,
@@ -1370,7 +1377,6 @@
 				56C5828C1D4D03AE002C7D5E /* jsb_quyetnd_newui.cpp in Sources */,
 				56C583061D4D03C7002C7D5E /* DictValue.cpp in Sources */,
 				56C582961D4D03AE002C7D5E /* NewWidget.cpp in Sources */,
-				56C5842B1D4D044F002C7D5E /* cMediate.mm in Sources */,
 				56C5833E1D4D03DA002C7D5E /* cache.cpp in Sources */,
 				56C583E81D4D03EE002C7D5E /* SFSLogger.cpp in Sources */,
 				56C583E21D4D03EE002C7D5E /* SFSPrimitive.cpp in Sources */,
