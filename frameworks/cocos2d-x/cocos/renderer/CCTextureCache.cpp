@@ -149,14 +149,6 @@ void TextureCache::addImageAsync(const std::string &path, const std::function<vo
         return;
     }
 
-    // lazy init
-    if (_loadingThread == nullptr)
-    {
-        // create a new thread to load images
-        _loadingThread = new (std::nothrow) std::thread(&TextureCache::loadImage, this);
-        _needQuit = false;
-    }
-
     if (0 == _asyncRefCount)
     {
         Director::getInstance()->getScheduler()->schedule(CC_SCHEDULE_SELECTOR(TextureCache::addImageAsyncCallBack), this, 0, false);
@@ -174,6 +166,14 @@ void TextureCache::addImageAsync(const std::string &path, const std::function<vo
     _requestMutex.unlock();
 
     _sleepCondition.notify_one();
+    
+    // lazy init
+    // quyetnd fix create loadingThread after add first request
+    if (_loadingThread == nullptr){
+        // create a new thread to load images
+        _loadingThread = new (std::nothrow) std::thread(&TextureCache::loadImage, this);
+        _needQuit = false;
+    }
 }
 
 void TextureCache::unbindImageAsync(const std::string& filename)
