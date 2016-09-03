@@ -26,7 +26,6 @@ package org.cocos2dx.lib;
 import android.app.Activity;
 import android.content.Context;
 import android.opengl.GLSurfaceView;
-import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
@@ -34,7 +33,6 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 
 public class Cocos2dxGLSurfaceView extends GLSurfaceView {
@@ -55,7 +53,7 @@ public class Cocos2dxGLSurfaceView extends GLSurfaceView {
     private static Handler sHandler;
 
     private static Cocos2dxGLSurfaceView mCocos2dxGLSurfaceView;
-    private static Cocos2dxTextInputWraper sCocos2dxTextInputWraper;
+    private static Cocos2dxTextInputWrapper sCocos2dxTextInputWraper;
 
     private Cocos2dxRenderer mCocos2dxRenderer;
     private Cocos2dxEditBox mCocos2dxEditText;
@@ -92,7 +90,7 @@ public class Cocos2dxGLSurfaceView extends GLSurfaceView {
         this.setFocusableInTouchMode(true);
 
         Cocos2dxGLSurfaceView.mCocos2dxGLSurfaceView = this;
-        Cocos2dxGLSurfaceView.sCocos2dxTextInputWraper = new Cocos2dxTextInputWraper(this);
+        Cocos2dxGLSurfaceView.sCocos2dxTextInputWraper = new Cocos2dxTextInputWrapper(this);
 
         Cocos2dxGLSurfaceView.sHandler = new Handler() {
             @Override
@@ -118,6 +116,8 @@ public class Cocos2dxGLSurfaceView extends GLSurfaceView {
                             final InputMethodManager imm = (InputMethodManager) Cocos2dxGLSurfaceView.mCocos2dxGLSurfaceView.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                             imm.hideSoftInputFromWindow(Cocos2dxGLSurfaceView.this.mCocos2dxEditText.getWindowToken(), 0);
                             Cocos2dxGLSurfaceView.this.requestFocus();
+                            // can take effect after GLSurfaceView has focus
+                            ((Cocos2dxActivity)Cocos2dxGLSurfaceView.mCocos2dxGLSurfaceView.getContext()).hideVirtualButton();
                             Log.d("GLSurfaceView", "HideSoftInput");
                         }
                         break;
@@ -159,15 +159,6 @@ public class Cocos2dxGLSurfaceView extends GLSurfaceView {
 
     public void setCocos2dxEditText(final Cocos2dxEditBox pCocos2dxEditText) {
         this.mCocos2dxEditText = pCocos2dxEditText;
-        /*mob by quyetnd*/
-        int currentImeOption = this.mCocos2dxEditText.getImeOptions();
-        int sdkVersion = Build.VERSION.SDK_INT;
-        if (sdkVersion >= 11) {
-        	this.mCocos2dxEditText.setImeOptions(currentImeOption | EditorInfo.IME_FLAG_NO_EXTRACT_UI | EditorInfo.IME_FLAG_NO_FULLSCREEN );
-        } else {
-            this.mCocos2dxEditText.setImeOptions(currentImeOption | EditorInfo.IME_FLAG_NO_FULLSCREEN);
-        }
-        /**/
         if (null != this.mCocos2dxEditText && null != Cocos2dxGLSurfaceView.sCocos2dxTextInputWraper) {
             this.mCocos2dxEditText.setOnEditorActionListener(Cocos2dxGLSurfaceView.sCocos2dxTextInputWraper);
             this.requestFocus();
