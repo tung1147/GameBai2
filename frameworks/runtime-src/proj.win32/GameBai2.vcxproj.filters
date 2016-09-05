@@ -115,6 +115,9 @@
     <ClCompile Include="..\Classes\Socket\LobbyClient.cpp">
       <Filter>Classes\Socket</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\GameLaucher\FileEncrypt.cpp">
+      <Filter>Classes\GameLaucher</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h">
@@ -204,6 +207,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Socket\LobbyClient.h">
       <Filter>Classes\Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameLaucher\FileEncrypt.h">
+      <Filter>Classes\GameLaucher</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
