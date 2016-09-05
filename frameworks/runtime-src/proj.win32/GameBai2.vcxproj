@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -81,7 +81,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\Classes;$(EngineRoot);$(EngineRoot)cocos;$(EngineRoot)external\spidermonkey\include\win32;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\Classes;$(EngineRoot);$(EngineRoot)cocos;$(EngineRoot)external\spidermonkey\include\win32;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;%(AdditionalIncludeDirectories);$(EngineRoot)external\curl\include\win32;$(ProjectDir)..\libs\LobbyClient\src;$(ProjectDir)..\libs\SmartfoxClient\src</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WINDOWS;STRICT;_DEBUG;XP_WIN;JS_HAVE___INTN;JS_INTPTR_TYPE=int;COCOS2D_DEBUG=1;COCOS2D_JAVASCRIPT=1;CC_ENABLE_CHIPMUNK_INTEGRATION=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_USRJSSTATIC;_USRLIBSIMSTATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -99,7 +99,8 @@
       <AdditionalIncludeDirectories>$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A\include;$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <PreLinkEvent>
-      <Command></Command>
+      <Command>
+      </Command>
     </PreLinkEvent>
     <Link>
       <AdditionalDependencies>libcurl_imp.lib;mozjs-33.lib;ws2_32.lib;sqlite3.lib;websockets.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -109,10 +110,12 @@
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <PreBuildEvent>
-      <Command></Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <PreBuildEvent>
-      <Command></Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup>
@@ -159,7 +162,8 @@ copy "$(ProjectDir)..\..\..\project.json" "$(OutDir)\" /Y</Command>
       <AdditionalIncludeDirectories>$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A\include;$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <PreLinkEvent>
-      <Command></Command>
+      <Command>
+      </Command>
     </PreLinkEvent>
     <Link>
       <AdditionalDependencies>libcurl_imp.lib;mozjs-33.lib;ws2_32.lib;sqlite3.lib;websockets.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -169,14 +173,69 @@ copy "$(ProjectDir)..\..\..\project.json" "$(OutDir)\" /Y</Command>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PreBuildEvent>
-      <Command></Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Classes\Action\ActionNumber.cpp" />
+    <ClCompile Include="..\Classes\Action\ActionShake2D.cpp" />
+    <ClCompile Include="..\Classes\Action\CustomAction.cpp" />
+    <ClCompile Include="..\Classes\Action\jsb_quyetnd_action.cpp" />
+    <ClCompile Include="..\Classes\GameLaucher\GameLaucher.cpp" />
+    <ClCompile Include="..\Classes\GameLaucher\GameResource.cpp" />
+    <ClCompile Include="..\Classes\GameLaucher\LoadingScene.cpp" />
+    <ClCompile Include="..\Classes\GameLaucher\ResourceLoader.cpp" />
+    <ClCompile Include="..\Classes\NewGUI\jsb_quyetnd_newui.cpp" />
+    <ClCompile Include="..\Classes\NewGUI\NewTableView.cpp" />
+    <ClCompile Include="..\Classes\NewGUI\NewTextField.cpp" />
+    <ClCompile Include="..\Classes\NewGUI\NewTextInput.cpp" />
+    <ClCompile Include="..\Classes\NewGUI\NewWidget.cpp" />
+    <ClCompile Include="..\Classes\Plugin\base64.cpp" />
+    <ClCompile Include="..\Classes\Plugin\CRC32.cpp" />
+    <ClCompile Include="..\Classes\Plugin\crypt_aes.cpp" />
+    <ClCompile Include="..\Classes\Plugin\FacebookPlugin.cpp" />
+    <ClCompile Include="..\Classes\Plugin\jsb_quyetnd_facebook_plugin.cpp" />
+    <ClCompile Include="..\Classes\Plugin\jsb_quyetnd_systemplugin.cpp" />
+    <ClCompile Include="..\Classes\Plugin\MD5.cpp" />
+    <ClCompile Include="..\Classes\Plugin\sha1.cpp" />
+    <ClCompile Include="..\Classes\Plugin\SystemPlugin.cpp" />
+    <ClCompile Include="..\Classes\Plugin\UUIDEncrypt.cpp" />
+    <ClCompile Include="..\Classes\Socket\jsb_quyetnd_lobbysocket.cpp" />
+    <ClCompile Include="..\Classes\Socket\jsb_quyetnd_sfssocket.cpp" />
+    <ClCompile Include="..\Classes\Socket\LobbyClient.cpp" />
+    <ClCompile Include="..\Classes\Socket\SmartfoxClient.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Classes\Action\ActionNumber.h" />
+    <ClInclude Include="..\Classes\Action\ActionShake2D.h" />
+    <ClInclude Include="..\Classes\Action\CustomAction.h" />
+    <ClInclude Include="..\Classes\Action\jsb_quyetnd_action.hpp" />
+    <ClInclude Include="..\Classes\GameLaucher\GameLaucher.h" />
+    <ClInclude Include="..\Classes\GameLaucher\GameResource.h" />
+    <ClInclude Include="..\Classes\GameLaucher\LoadingScene.h" />
+    <ClInclude Include="..\Classes\GameLaucher\ResourceLoader.h" />
+    <ClInclude Include="..\Classes\NewGUI\jsb_quyetnd_newui.hpp" />
+    <ClInclude Include="..\Classes\NewGUI\NewTableView.h" />
+    <ClInclude Include="..\Classes\NewGUI\NewTextField.h" />
+    <ClInclude Include="..\Classes\NewGUI\NewTextInput.h" />
+    <ClInclude Include="..\Classes\NewGUI\NewWidget.h" />
+    <ClInclude Include="..\Classes\Plugin\base64.h" />
+    <ClInclude Include="..\Classes\Plugin\CRC32.h" />
+    <ClInclude Include="..\Classes\Plugin\crypt_aes.h" />
+    <ClInclude Include="..\Classes\Plugin\FacebookPlugin.h" />
+    <ClInclude Include="..\Classes\Plugin\jsb_quyetnd_facebook_plugin.hpp" />
+    <ClInclude Include="..\Classes\Plugin\jsb_quyetnd_systemplugin.hpp" />
+    <ClInclude Include="..\Classes\Plugin\MD5.h" />
+    <ClInclude Include="..\Classes\Plugin\sha1.h" />
+    <ClInclude Include="..\Classes\Plugin\SystemPlugin.h" />
+    <ClInclude Include="..\Classes\Plugin\UUIDEncrypt.h" />
+    <ClInclude Include="..\Classes\Socket\jsb_quyetnd_lobbysocket.hpp" />
+    <ClInclude Include="..\Classes\Socket\jsb_quyetnd_sfssocket.hpp" />
+    <ClInclude Include="..\Classes\Socket\LobbyClient.h" />
+    <ClInclude Include="..\Classes\Socket\SmartfoxClient.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="resource.h" />
@@ -190,6 +249,12 @@ copy "$(ProjectDir)..\..\..\project.json" "$(OutDir)\" /Y</Command>
   <ItemGroup>
     <ProjectReference Include="..\..\cocos2d-x\cocos\scripting\js-bindings\proj.win32\libjscocos2d.vcxproj">
       <Project>{39379840-825a-45a0-b363-c09ffef864bd}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\libs\LobbyClient\proj.win32\libLobbyClient.vcxproj">
+      <Project>{580e26bf-755b-4962-bd94-971e8d686efb}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\libs\SmartfoxClient\proj.win32\libSmarfoxClient.vcxproj">
+      <Project>{551319ea-e7c7-437b-b1d7-21528a5a0913}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
