@@ -33,7 +33,6 @@
 #import "FacebookPlugin_iOS.h"
 #import "iOS_native_linker.h"
 
-
 @implementation AppController
 
 #pragma mark -
@@ -90,16 +89,14 @@ static AppDelegate s_sharedApplication;
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
          (UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert)];
     }
-
+    
     // IMPORTANT: Setting the GLView should be done after creating the RootViewController
     cocos2d::GLView *glview = cocos2d::GLViewImpl::createWithEAGLView(eaglView);
     cocos2d::Director::getInstance()->setOpenGLView(glview);
-
+    
     cocos2d::Application::getInstance()->run();
     [[FacebookPlugin_iOS getInstance]initWithView:viewController];
     return [[FacebookPlugin_iOS getInstance] application:application didFinishLaunchingWithOptions:launchOptions];
-    
-   // return YES;
 }
 
 - (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken{
@@ -110,8 +107,7 @@ static AppDelegate s_sharedApplication;
     objC_to_c_registedNotificationSuccess([token UTF8String], [uniqueIdentifier UTF8String]);
 }
 
-- (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
-{
+- (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error{
     NSLog(@"didFailToRegisterForRemoteNotificationsWithError");
 }
 
@@ -156,7 +152,6 @@ static AppDelegate s_sharedApplication;
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     return [[FacebookPlugin_iOS getInstance] application:application openURL:url sourceApplication:sourceApplication annotation:annotation];
 }
-
 
 #pragma mark -
 #pragma mark Memory management

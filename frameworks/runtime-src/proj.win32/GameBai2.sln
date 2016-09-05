@@ -23,11 +23,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libbullet", "..\..\cocos2d-
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "librecast", "..\..\cocos2d-x\external\recast\proj.win32\librecast.vcxproj", "{41E34993-647E-4282-8384-4AB1AE31A452}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libSmarfoxClient", "..\libs\SmartfoxClient\proj.win32\libSmarfoxClient.vcxproj", "{551319EA-E7C7-437B-B1D7-21528A5A0913}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libudt", "..\libs\LobbyClient\libs\udt4\win32\libudt.vcxproj", "{D84D100A-7C21-4CCB-B16E-0FB37137C16C}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libLobbyClient", "..\libs\LobbyClient\proj.win32\libLobbyClient.vcxproj", "{580E26BF-755B-4962-BD94-971E8D686EFB}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libSmarfoxClient", "..\libs\SmartfoxClient\proj.win32\libSmarfoxClient.vcxproj", "{551319EA-E7C7-437B-B1D7-21528A5A0913}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,10 +63,6 @@ Global
 		{41E34993-647E-4282-8384-4AB1AE31A452}.Debug|Win32.Build.0 = Debug|Win32
 		{41E34993-647E-4282-8384-4AB1AE31A452}.Release|Win32.ActiveCfg = Release|Win32
 		{41E34993-647E-4282-8384-4AB1AE31A452}.Release|Win32.Build.0 = Release|Win32
-		{551319EA-E7C7-437B-B1D7-21528A5A0913}.Debug|Win32.ActiveCfg = Debug|Win32
-		{551319EA-E7C7-437B-B1D7-21528A5A0913}.Debug|Win32.Build.0 = Debug|Win32
-		{551319EA-E7C7-437B-B1D7-21528A5A0913}.Release|Win32.ActiveCfg = Release|Win32
-		{551319EA-E7C7-437B-B1D7-21528A5A0913}.Release|Win32.Build.0 = Release|Win32
 		{D84D100A-7C21-4CCB-B16E-0FB37137C16C}.Debug|Win32.ActiveCfg = Debug|Win32
 		{D84D100A-7C21-4CCB-B16E-0FB37137C16C}.Debug|Win32.Build.0 = Debug|Win32
 		{D84D100A-7C21-4CCB-B16E-0FB37137C16C}.Release|Win32.ActiveCfg = Release|Win32
@@ -75,6 +71,10 @@ Global
 		{580E26BF-755B-4962-BD94-971E8D686EFB}.Debug|Win32.Build.0 = Debug|Win32
 		{580E26BF-755B-4962-BD94-971E8D686EFB}.Release|Win32.ActiveCfg = Release|Win32
 		{580E26BF-755B-4962-BD94-971E8D686EFB}.Release|Win32.Build.0 = Release|Win32
+		{551319EA-E7C7-437B-B1D7-21528A5A0913}.Debug|Win32.ActiveCfg = Debug|Win32
+		{551319EA-E7C7-437B-B1D7-21528A5A0913}.Debug|Win32.Build.0 = Debug|Win32
+		{551319EA-E7C7-437B-B1D7-21528A5A0913}.Release|Win32.ActiveCfg = Release|Win32
+		{551319EA-E7C7-437B-B1D7-21528A5A0913}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
