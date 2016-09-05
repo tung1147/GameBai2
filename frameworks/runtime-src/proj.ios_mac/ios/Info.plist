@@ -76,10 +76,6 @@
 		<string>Icon-152</string>
 		<string>Icon-180</string>
 	</array>
-	<key>FacebookAppID</key>
-	<string>1515040885426467</string>
-	<key>FacebookDisplayName</key>
-	<string>Game Bài Vip</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
@@ -136,5 +132,9 @@
 			</array>
 		</dict>
 	</array>
+	<key>FacebookAppID</key>
+	<string>1515040885426467</string>
+	<key>FacebookDisplayName</key>
+	<string>Game Bài Vip</string>
 </dict>
 </plist>

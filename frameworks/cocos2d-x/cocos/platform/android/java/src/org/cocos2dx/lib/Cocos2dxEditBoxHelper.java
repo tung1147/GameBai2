@@ -258,7 +258,7 @@ public class Cocos2dxEditBoxHelper {
                     }else{
                         tf = Typeface.DEFAULT;
                     }
-                    //TODO: The font size is not the same across all the anroid devices...
+                    // TODO: The font size is not the same across all the android devices...
                     if (fontSize >= 0){
                         float density =  mCocos2dxActivity.getResources().getDisplayMetrics().density;
 //                        Log.e("XXX", "density is " + density);
@@ -433,7 +433,6 @@ public class Cocos2dxEditBoxHelper {
             mCocos2dxActivity.getGLSurfaceView().setSoftKeyboardShown(false);
             mCocos2dxActivity.getGLSurfaceView().requestFocus();
             // can take effect after GLSurfaceView has focus
-            Log.e(TAG, "closeKeyboardOnUiThread");
             mCocos2dxActivity.hideVirtualButton();
         }
     }
