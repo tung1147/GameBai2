@@ -53,6 +53,15 @@ int
 )
 {
 },
+/**
+ * @method setPingTimeInterval
+ * @param {float} arg0
+ */
+initClientWithType : function (
+    float
+)
+{
+},
 
 setListener : function (target) {
 
