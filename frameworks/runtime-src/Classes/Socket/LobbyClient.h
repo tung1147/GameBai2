@@ -30,7 +30,6 @@ class LobbyClient {
 	
 	bool _waitingPing;
 	float _pingTime;
-	float _pingTimeInterval;
 	void updatePing(float dt);
 public:
 	LobbyClient();
@@ -40,7 +39,6 @@ public:
 	void update(float dt);
 
 	void connect(const std::string& host, int port);
-	void setPingTimeInterval(float time);
 	void close();
 	void send(const std::string& json);
 

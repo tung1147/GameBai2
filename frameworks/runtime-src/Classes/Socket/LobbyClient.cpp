@@ -9,13 +9,13 @@
 #include "cocos2d.h"
 USING_NS_CC;
 
+#define PING_TIME_STEP 15.0f
 
 namespace quyetnd {
 
 LobbyClient::LobbyClient() {
 	// TODO Auto-generated constructor stub
 	mClient = 0;
-	_pingTimeInterval = 15.0f;
 }
 
 LobbyClient::~LobbyClient() {
@@ -66,7 +66,7 @@ void LobbyClient::update(float dt){
 }
 
 void LobbyClient::updatePing(float dt){
-	if (_pingTime >= _pingTimeInterval){
+	if (_pingTime <= 0.0f){
 		if (_waitingPing){
 			CCLOG("lobby lost ping");
 			mClient->closeSocket();
@@ -79,34 +79,27 @@ void LobbyClient::updatePing(float dt){
 			this->sendMessage(pingRequest);
 			pingRequest->release();
 
-			_pingTime = 0.0f;
+			_pingTime = PING_TIME_STEP;
 			_waitingPing = true;
 		}
 	}
 	else{
-		_pingTime += dt;
+		_pingTime -= dt;
 	}
 }
 
 void LobbyClient::sendMessage(quyetnd::data::Value* message){
 	if (mClient){
 		mClient->sendMessage(message);
-		if (!_waitingPing){
-			_pingTime = 0.0f;
-		}
 	}
 }
 
 void LobbyClient::connect(const std::string& host, int port){
 	if (mClient){	
 		_waitingPing = false;
-		_pingTime = _pingTimeInterval;
+		_pingTime = 0.0f;
 		mClient->connectTo(host, port);
 	}
-}
-
-void LobbyClient::setPingTimeInterval(float time){
-	_pingTimeInterval = time;
 }
 
 void LobbyClient::send(const std::string& json){
@@ -121,12 +114,12 @@ void LobbyClient::close(){
 }
 
 void LobbyClient::onRecvMessage(quyetnd::net::SocketData* data){
-	_pingTime = 0.0f;
-	_waitingPing = false;
-
 	quyetnd::data::ValueJson* json = (quyetnd::data::ValueJson*)data;
 	quyetnd::data::DictValue* msg = json->getValue();
 	auto command = msg->getString("command");
+	if (command == "ping"){
+		_waitingPing = false;
+	}
 	this->sendJSMessage("message", json->getJSON());
 }
 
