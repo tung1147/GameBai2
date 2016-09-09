@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
+    <attr name="adSize" format="string" />
+    <attr name="adSizes" format="string" />
+    <attr name="adUnitId" format="string" />
+    <attr name="imageAspectRatioAdjust">
+        <enum name="adjust_height" value="2" />
+        <enum name="adjust_width" value="1" />
+        <enum name="none" value="0" />
+    </attr>
+    <attr name="imageAspectRatio" format="float" />
+    <attr name="circleCrop" format="boolean" />
+    <attr name="buttonSize" format="reference">
+        <enum name="icon_only" value="2" />
+        <enum name="standard" value="0" />
+        <enum name="wide" value="1" />
+    </attr>
+    <attr name="colorScheme" format="reference">
+        <enum name="auto" value="2" />
+        <enum name="dark" value="0" />
+        <enum name="light" value="1" />
+    </attr>
+    <attr name="scopeUris" format="reference|string" />
+    
+	<color name="common_google_signin_btn_text_dark_default">@android:color/white</color>
+    <color name="common_google_signin_btn_text_dark_disabled">#1f000000</color>
+    <color name="common_google_signin_btn_text_dark_focused">@android:color/black</color>
+    <color name="common_google_signin_btn_text_dark_pressed">@android:color/white</color>
+    <color name="common_google_signin_btn_text_light_default">#90000000</color>
+    <color name="common_google_signin_btn_text_light_disabled">#1f000000</color>
+    <color name="common_google_signin_btn_text_light_focused">#90000000</color>
+    <color name="common_google_signin_btn_text_light_pressed">#de000000</color>
+    <color name="common_plus_signin_btn_text_dark_default">@android:color/white</color>
+    <color name="common_plus_signin_btn_text_dark_disabled">#ffaaaaaa</color>
+    <color name="common_plus_signin_btn_text_dark_focused">@android:color/white</color>
+    <color name="common_plus_signin_btn_text_dark_pressed">@android:color/white</color>
+    <color name="common_plus_signin_btn_text_light_default">#ff737373</color>
+    <color name="common_plus_signin_btn_text_light_disabled">#ffaaaaaa</color>
+    <color name="common_plus_signin_btn_text_light_focused">#ff737373</color>
+    <color name="common_plus_signin_btn_text_light_pressed">#de000000</color>
+      
+	<style name="Theme.IAPTheme" parent="@android:style/Theme">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+</resources>

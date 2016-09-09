@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- client_id -->
+	<string name="default_web_client_id">16840413745-s2t27ha45utjtu205hgiqehlp6j8gm0j.apps.googleusercontent.com</string>	
+	<!-- firebase_url -->
+    <string name="firebase_database_url">https://testnotification-1294.firebaseio.com</string>
+    <!-- project_number -->
+    <string name="gcm_defaultSenderId">16840413745</string>
+    <!-- current_key -->
+    <string name="google_api_key">AIzaSyA436wFuz6PHyPu5lNLTZtiDSjaqLI1DOg</string>
+    <!-- mobilesdk_app_id -->
+    <string name="google_app_id">1:16840413745:android:95126a54d8dedc80</string>
+</resources>
