@@ -5,53 +5,42 @@
  *      Author: QuyetNguyen
  */
 
-#ifndef SOCKET_SOCKETADAPTER_H_
-#define SOCKET_SOCKETADAPTER_H_
+#ifndef SFS_SOCKET_SOCKETADAPTER_H_
+#define SFS_SOCKET_SOCKETADAPTER_H_
 
-#include "NetwordDefine.h"
+#include "NetworkCore.h"
 #include <queue>
 #include <condition_variable>
+#include <ctime>
+#include <string>
+//#include "../Entities/SFSRef.h"
+
+namespace es{
+
+	typedef std::function<void(es::SocketData*)> ReceiverCallback;
+	typedef std::function<void(const es::SocketStatusData& data)> SocketStatusCallback;
 
 class SocketPool{
 protected:
-    std::queue<SocketData*>* mData;
-    std::mutex poolMutex;
+	std::queue<es::SocketData*>* mData;
+	std::mutex poolMutex;
+	std::condition_variable poolCond;
 public:
-    SocketPool();
-    virtual ~SocketPool();
-    
-	virtual void push(SocketData* data);
-    virtual void clear();
-    virtual SocketData* take();
-    virtual void takeAll(std::vector<SocketData*> &arr);
+	SocketPool();
+	virtual ~SocketPool();
+
+	virtual void push(es::SocketData* data);
+	virtual es::SocketData* take();
+	virtual es::SocketData* pop();
+	virtual void clear();
 };
 
-class SocketPoolSender : public SocketPool{
-    std::condition_variable poolCond;
-    char headerBuffer[4];
-public:
-    SocketPoolSender();
-    virtual ~SocketPoolSender();
-    
-    void push(SocketData* data);
-    SocketData* take();
-    void clear();
-};
-
-class SocketPoolReceiver : public SocketPool{
-public:
-    SocketPoolReceiver();
-    virtual ~SocketPoolReceiver();
-    
-	void push(SocketData* data);
-};
-
-class SocketAdapter : public SocketRef{
+class SocketAdapter : public es::SocketRef{
 protected:
 	bool running;
 	std::mutex mMutex;
 
-	SocketPool* mData;
+	es::SocketPool* mData;
 	virtual void update();
 public:
 	SocketAdapter();
@@ -64,50 +53,54 @@ public:
 
 	virtual void start();
 	virtual void stop();
-    
-	virtual void pushSendMessage(SocketData* data);
-	virtual void popAllMessage(std::vector<SocketData*> &arr);
+
+	virtual void pushMessage(es::SocketData* data);
+	virtual es::SocketData* popMessage();
+	//	virtual void popAllMessage(std::vector<SocketData*> &arr);
 };
 
-class SocketSender : public SocketAdapter{
+class SocketSender : public es::SocketAdapter{
 public:
-    SocketSender();
-    virtual ~SocketSender();
+	SocketSender();
+	virtual ~SocketSender();
 };
 
-class SocketReceiver : public SocketAdapter{
+class SocketReceiver : public es::SocketAdapter{
 public:
-    SocketReceiver();
-    virtual ~SocketReceiver();
+	SocketReceiver();
+	virtual ~SocketReceiver();
 };
 
 /**/
-class SocketClient : public SocketRef{
+class SocketClient : public es::SocketRef{
 protected:
+//	es::ReleasePool* releasePool;
+
+	long long connectTime;
 	std::string host;
 	int port;
 
 	std::mutex clientMutex;
 
-	SocketClientStatus _clientStatus;
-	SocketSender* mSender;
-	SocketReceiver* mReceiver;
+	es::SocketClientStatus _clientStatus;
+	es::SocketSender* mSender;
+	es::SocketReceiver* mReceiver;
 
-	ReceiverCallback _recvCallback;
-
-	std::vector<SocketData*> _recvBuffer;
-	std::vector<SocketStatusEvent> _statusBuffer;
+	std::vector<es::SocketStatusData> _statusBuffer;
 
 	virtual void processEvent();
 	virtual void processRecvMessage();
 	virtual void clearAdapter();
 	virtual void resetSocket();
 	virtual void updateConnection();
-	virtual void startAdapter(); 
+	virtual void startAdapter();
 
-    virtual void createAdapter();
-    virtual bool connectThread();
+	virtual void createAdapter();
+	virtual bool connectThread();
 	virtual void processSocketError();
+public:
+	es::ReceiverCallback _recvCallback;
+	es::SocketStatusCallback _statusCallback;
 public:
 	SocketClient();
 	virtual ~SocketClient();
@@ -117,12 +110,13 @@ public:
 	virtual void closeClient();
 	virtual void closeSocket();
 
-	virtual SocketStatus getStatus();
-	virtual void setStatus(SocketStatus status, bool isEvent = true);
+	virtual es::SocketStatusType getStatus();
+	virtual void setStatus(es::SocketStatusType status, bool isEvent = true);
 
-	virtual void sendMessage(SocketData* data);
-	virtual void addCallback(const ReceiverCallback& callback);
+	virtual void sendMessage(es::SocketData* data);
 
 	virtual void processMessage();
 };
-#endif /* SOCKET_SOCKETADAPTER_H_ */
+
+}
+#endif /* SFS_SOCKET_SOCKETADAPTER_H_ */

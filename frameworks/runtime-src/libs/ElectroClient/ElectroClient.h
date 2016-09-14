@@ -7,9 +7,7 @@
 #ifndef __ELECTRO_CLIENT_H__
 #define __ELECTRO_CLIENT_H__
 
-//#include "ElectroLogger.h"
-
-#include "Socket/SystemSocketClient.h"
+#include "Socket/ElectroTcpClient.h"
 #include "Objects/EsUtil.h"
 
 #endif // __ELECTRO_SERVER_H__

@@ -110,9 +110,6 @@ namespace es {
 			PingResponse = 96,
 			IdleTimeoutWarningEvent = 97,
 			MarkGatewayClientLoggedInMessage = 98,
-
-			SocketStatus = 1001,
-			RequestTimeout = 2001,
 		};
 
 		const char* messageTypeName(type::MessageType messageType);

@@ -13,34 +13,46 @@
   <ItemGroup>
     <ClCompile Include="..\ElectroLogger.cpp" />
     <ClCompile Include="..\Objects\BaseMessage.cpp" />
-    <ClCompile Include="..\Objects\ConnectionClosedEvent.cpp" />
-    <ClCompile Include="..\Objects\ConnectionResponse.cpp" />
+    <ClCompile Include="..\Objects\Entity\EsArray.cpp" />
+    <ClCompile Include="..\Objects\Entity\EsEntity.cpp" />
+    <ClCompile Include="..\Objects\Entity\EsMessageStreamer.cpp" />
+    <ClCompile Include="..\Objects\Entity\EsObject.cpp" />
+    <ClCompile Include="..\Objects\Entity\EsPrimitive.cpp" />
     <ClCompile Include="..\Objects\ErrorType.cpp" />
-    <ClCompile Include="..\Objects\EsMessageStreamer.cpp" />
-    <ClCompile Include="..\Objects\EsObject.cpp" />
     <ClCompile Include="..\Objects\EsUtil.cpp" />
-    <ClCompile Include="..\Objects\GatewayKickUserRequest.cpp" />
-    <ClCompile Include="..\Objects\GenericErrorResponse.cpp" />
-    <ClCompile Include="..\Objects\JoinRoomEvent.cpp" />
-    <ClCompile Include="..\Objects\JoinRoomRequest.cpp" />
-    <ClCompile Include="..\Objects\JoinZoneEvent.cpp" />
-    <ClCompile Include="..\Objects\LeaveRoomEvent.cpp" />
-    <ClCompile Include="..\Objects\LeaveRoomRequest.cpp" />
-    <ClCompile Include="..\Objects\LoginRequest.cpp" />
-    <ClCompile Include="..\Objects\LoginResponse.cpp" />
-    <ClCompile Include="..\Objects\LogoutRequest.cpp" />
+    <ClCompile Include="..\Objects\Event\BaseEvent.cpp" />
+    <ClCompile Include="..\Objects\Event\ConnectionClosedEvent.cpp" />
+    <ClCompile Include="..\Objects\Event\ConnectionResponse.cpp" />
+    <ClCompile Include="..\Objects\Event\GenericErrorResponse.cpp" />
+    <ClCompile Include="..\Objects\Event\JoinRoomEvent.cpp" />
+    <ClCompile Include="..\Objects\Event\JoinZoneEvent.cpp" />
+    <ClCompile Include="..\Objects\Event\LeaveRoomEvent.cpp" />
+    <ClCompile Include="..\Objects\Event\LoginResponse.cpp" />
+    <ClCompile Include="..\Objects\Event\PingResponse.cpp" />
+    <ClCompile Include="..\Objects\Event\PluginMessageEvent.cpp" />
+    <ClCompile Include="..\Objects\Event\PrivateMessageEvent.cpp" />
+    <ClCompile Include="..\Objects\Event\PublicMessageEvent.cpp" />
+    <ClCompile Include="..\Objects\Event\RoomListEntry.cpp" />
+    <ClCompile Include="..\Objects\Event\RoomVariable.cpp" />
+    <ClCompile Include="..\Objects\Event\ServerKickUserEvent.cpp" />
+    <ClCompile Include="..\Objects\Event\UserEvictedFromRoomEvent.cpp" />
+    <ClCompile Include="..\Objects\Event\UserListEntry.cpp" />
+    <ClCompile Include="..\Objects\Event\UserUpdateAction.cpp" />
+    <ClCompile Include="..\Objects\Event\UserUpdateEvent.cpp" />
+    <ClCompile Include="..\Objects\Event\UserVariable.cpp" />
+    <ClCompile Include="..\Objects\Event\ZoneUpdateAction.cpp" />
+    <ClCompile Include="..\Objects\Event\ZoneUpdateEvent.cpp" />
     <ClCompile Include="..\Objects\MessageType.cpp" />
-    <ClCompile Include="..\Objects\PingRequest.cpp" />
-    <ClCompile Include="..\Objects\PingResponse.cpp" />
-    <ClCompile Include="..\Objects\PluginMessageEvent.cpp" />
-    <ClCompile Include="..\Objects\PluginRequest.cpp" />
-    <ClCompile Include="..\Objects\PrivateMessageEvent.cpp" />
-    <ClCompile Include="..\Objects\PrivateMessageRequest.cpp" />
-    <ClCompile Include="..\Objects\PublicMessageEvent.cpp" />
-    <ClCompile Include="..\Objects\PublicMessageRequest.cpp" />
-    <ClCompile Include="..\Objects\RoomListEntry.cpp" />
-    <ClCompile Include="..\Objects\RoomVariable.cpp" />
-    <ClCompile Include="..\Objects\ServerKickUserEvent.cpp" />
+    <ClCompile Include="..\Objects\Request\BaseRequest.cpp" />
+    <ClCompile Include="..\Objects\Request\GatewayKickUserRequest.cpp" />
+    <ClCompile Include="..\Objects\Request\JoinRoomRequest.cpp" />
+    <ClCompile Include="..\Objects\Request\LeaveRoomRequest.cpp" />
+    <ClCompile Include="..\Objects\Request\LoginRequest.cpp" />
+    <ClCompile Include="..\Objects\Request\LogoutRequest.cpp" />
+    <ClCompile Include="..\Objects\Request\PingRequest.cpp" />
+    <ClCompile Include="..\Objects\Request\PluginRequest.cpp" />
+    <ClCompile Include="..\Objects\Request\PrivateMessageRequest.cpp" />
+    <ClCompile Include="..\Objects\Request\PublicMessageRequest.cpp" />
     <ClCompile Include="..\Objects\thrift\libs\TBinaryProtocol.cpp" />
     <ClCompile Include="..\Objects\thrift\libs\TBufferTransports.cpp" />
     <ClCompile Include="..\Objects\thrift\libs\TProtocol.cpp" />
@@ -153,50 +165,84 @@
     <ClCompile Include="..\Objects\thrift\ThriftZoneListEntry_types.cpp" />
     <ClCompile Include="..\Objects\thrift\ThriftZoneUpdateAction_types.cpp" />
     <ClCompile Include="..\Objects\thrift\ThriftZoneUpdateEvent_types.cpp" />
-    <ClCompile Include="..\Objects\UserEvictedFromRoomEvent.cpp" />
-    <ClCompile Include="..\Objects\UserListEntry.cpp" />
-    <ClCompile Include="..\Objects\UserUpdateAction.cpp" />
-    <ClCompile Include="..\Objects\UserUpdateEvent.cpp" />
-    <ClCompile Include="..\Objects\UserVariable.cpp" />
-    <ClCompile Include="..\Objects\ZoneUpdateAction.cpp" />
-    <ClCompile Include="..\Objects\ZoneUpdateEvent.cpp" />
-    <ClCompile Include="..\Socket\NetwordDefine.cpp" />
+    <ClCompile Include="..\Socket\ElectroTcpClient.cpp" />
+    <ClCompile Include="..\Socket\NetworkCore.cpp" />
+    <ClCompile Include="..\Socket\NetworkDefine.cpp" />
     <ClCompile Include="..\Socket\SocketAdapter.cpp" />
-    <ClCompile Include="..\Socket\SystemSocketClient.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\ElectroClient.h" />
     <ClInclude Include="..\ElectroLogger.h" />
     <ClInclude Include="..\Objects\BaseMessage.h" />
-    <ClInclude Include="..\Objects\ConnectionClosedEvent.h" />
-    <ClInclude Include="..\Objects\ConnectionResponse.h" />
+    <ClInclude Include="..\Objects\Entity\EsArray.h" />
+    <ClInclude Include="..\Objects\Entity\EsEntity.h" />
+    <ClInclude Include="..\Objects\Entity\EsMessageStreamer.h" />
+    <ClInclude Include="..\Objects\Entity\EsObject.h" />
+    <ClInclude Include="..\Objects\Entity\EsPrimitive.h" />
     <ClInclude Include="..\Objects\ErrorType.h" />
-    <ClInclude Include="..\Objects\EsMessageStreamer.h" />
-    <ClInclude Include="..\Objects\EsObject.h" />
     <ClInclude Include="..\Objects\EsUtil.h" />
-    <ClInclude Include="..\Objects\GatewayKickUserRequest.h" />
-    <ClInclude Include="..\Objects\GenericErrorResponse.h" />
-    <ClInclude Include="..\Objects\JoinRoomEvent.h" />
-    <ClInclude Include="..\Objects\JoinRoomRequest.h" />
-    <ClInclude Include="..\Objects\JoinZoneEvent.h" />
-    <ClInclude Include="..\Objects\LeaveRoomEvent.h" />
-    <ClInclude Include="..\Objects\LeaveRoomRequest.h" />
-    <ClInclude Include="..\Objects\LoginRequest.h" />
-    <ClInclude Include="..\Objects\LoginResponse.h" />
-    <ClInclude Include="..\Objects\LogoutRequest.h" />
+    <ClInclude Include="..\Objects\Event\BaseEvent.h" />
+    <ClInclude Include="..\Objects\Event\ConnectionClosedEvent.h" />
+    <ClInclude Include="..\Objects\Event\ConnectionResponse.h" />
+    <ClInclude Include="..\Objects\Event\GenericErrorResponse.h" />
+    <ClInclude Include="..\Objects\Event\JoinRoomEvent.h" />
+    <ClInclude Include="..\Objects\Event\JoinZoneEvent.h" />
+    <ClInclude Include="..\Objects\Event\LeaveRoomEvent.h" />
+    <ClInclude Include="..\Objects\Event\LoginResponse.h" />
+    <ClInclude Include="..\Objects\Event\PingResponse.h" />
+    <ClInclude Include="..\Objects\Event\PluginMessageEvent.h" />
+    <ClInclude Include="..\Objects\Event\PrivateMessageEvent.h" />
+    <ClInclude Include="..\Objects\Event\ProtocolConfiguration.h" />
+    <ClInclude Include="..\Objects\Event\PublicMessageEvent.h" />
+    <ClInclude Include="..\Objects\Event\RoomListEntry.h" />
+    <ClInclude Include="..\Objects\Event\RoomVariable.h" />
+    <ClInclude Include="..\Objects\Event\ServerKickUserEvent.h" />
+    <ClInclude Include="..\Objects\Event\UserEvictedFromRoomEvent.h" />
+    <ClInclude Include="..\Objects\Event\UserListEntry.h" />
+    <ClInclude Include="..\Objects\Event\UserUpdateAction.h" />
+    <ClInclude Include="..\Objects\Event\UserUpdateEvent.h" />
+    <ClInclude Include="..\Objects\Event\UserVariable.h" />
+    <ClInclude Include="..\Objects\Event\ZoneUpdateAction.h" />
+    <ClInclude Include="..\Objects\Event\ZoneUpdateEvent.h" />
     <ClInclude Include="..\Objects\MessageType.h" />
-    <ClInclude Include="..\Objects\PingRequest.h" />
-    <ClInclude Include="..\Objects\PingResponse.h" />
-    <ClInclude Include="..\Objects\PluginMessageEvent.h" />
-    <ClInclude Include="..\Objects\PluginRequest.h" />
-    <ClInclude Include="..\Objects\PrivateMessageEvent.h" />
-    <ClInclude Include="..\Objects\PrivateMessageRequest.h" />
-    <ClInclude Include="..\Objects\ProtocolConfiguration.h" />
-    <ClInclude Include="..\Objects\PublicMessageEvent.h" />
-    <ClInclude Include="..\Objects\PublicMessageRequest.h" />
-    <ClInclude Include="..\Objects\RoomListEntry.h" />
-    <ClInclude Include="..\Objects\RoomVariable.h" />
-    <ClInclude Include="..\Objects\ServerKickUserEvent.h" />
+    <ClInclude Include="..\Objects\rapidjson\allocators.h" />
+    <ClInclude Include="..\Objects\rapidjson\document.h" />
+    <ClInclude Include="..\Objects\rapidjson\encodedstream.h" />
+    <ClInclude Include="..\Objects\rapidjson\encodings.h" />
+    <ClInclude Include="..\Objects\rapidjson\error\en.h" />
+    <ClInclude Include="..\Objects\rapidjson\error\error.h" />
+    <ClInclude Include="..\Objects\rapidjson\filereadstream.h" />
+    <ClInclude Include="..\Objects\rapidjson\filestream.h" />
+    <ClInclude Include="..\Objects\rapidjson\filewritestream.h" />
+    <ClInclude Include="..\Objects\rapidjson\internal\biginteger.h" />
+    <ClInclude Include="..\Objects\rapidjson\internal\diyfp.h" />
+    <ClInclude Include="..\Objects\rapidjson\internal\dtoa.h" />
+    <ClInclude Include="..\Objects\rapidjson\internal\ieee754.h" />
+    <ClInclude Include="..\Objects\rapidjson\internal\itoa.h" />
+    <ClInclude Include="..\Objects\rapidjson\internal\meta.h" />
+    <ClInclude Include="..\Objects\rapidjson\internal\pow10.h" />
+    <ClInclude Include="..\Objects\rapidjson\internal\stack.h" />
+    <ClInclude Include="..\Objects\rapidjson\internal\strfunc.h" />
+    <ClInclude Include="..\Objects\rapidjson\internal\strtod.h" />
+    <ClInclude Include="..\Objects\rapidjson\memorybuffer.h" />
+    <ClInclude Include="..\Objects\rapidjson\memorystream.h" />
+    <ClInclude Include="..\Objects\rapidjson\msinttypes\inttypes.h" />
+    <ClInclude Include="..\Objects\rapidjson\msinttypes\stdint.h" />
+    <ClInclude Include="..\Objects\rapidjson\prettywriter.h" />
+    <ClInclude Include="..\Objects\rapidjson\rapidjson.h" />
+    <ClInclude Include="..\Objects\rapidjson\reader.h" />
+    <ClInclude Include="..\Objects\rapidjson\stringbuffer.h" />
+    <ClInclude Include="..\Objects\rapidjson\writer.h" />
+    <ClInclude Include="..\Objects\Request\BaseRequest.h" />
+    <ClInclude Include="..\Objects\Request\GatewayKickUserRequest.h" />
+    <ClInclude Include="..\Objects\Request\JoinRoomRequest.h" />
+    <ClInclude Include="..\Objects\Request\LeaveRoomRequest.h" />
+    <ClInclude Include="..\Objects\Request\LoginRequest.h" />
+    <ClInclude Include="..\Objects\Request\LogoutRequest.h" />
+    <ClInclude Include="..\Objects\Request\PingRequest.h" />
+    <ClInclude Include="..\Objects\Request\PluginRequest.h" />
+    <ClInclude Include="..\Objects\Request\PrivateMessageRequest.h" />
+    <ClInclude Include="..\Objects\Request\PublicMessageRequest.h" />
     <ClInclude Include="..\Objects\thrift\libs\TBinaryProtocol.h" />
     <ClInclude Include="..\Objects\thrift\libs\TBufferTransports.h" />
     <ClInclude Include="..\Objects\thrift\libs\Thrift.h" />
@@ -315,19 +361,13 @@
     <ClInclude Include="..\Objects\thrift\ThriftZoneListEntry_types.h" />
     <ClInclude Include="..\Objects\thrift\ThriftZoneUpdateAction_types.h" />
     <ClInclude Include="..\Objects\thrift\ThriftZoneUpdateEvent_types.h" />
-    <ClInclude Include="..\Objects\UserEvictedFromRoomEvent.h" />
-    <ClInclude Include="..\Objects\UserListEntry.h" />
-    <ClInclude Include="..\Objects\UserUpdateAction.h" />
-    <ClInclude Include="..\Objects\UserUpdateEvent.h" />
-    <ClInclude Include="..\Objects\UserVariable.h" />
-    <ClInclude Include="..\Objects\ZoneUpdateAction.h" />
-    <ClInclude Include="..\Objects\ZoneUpdateEvent.h" />
-    <ClInclude Include="..\Socket\NetwordDefine.h" />
+    <ClInclude Include="..\Socket\ElectroTcpClient.h" />
+    <ClInclude Include="..\Socket\NetworkCore.h" />
+    <ClInclude Include="..\Socket\NetworkDefine.h" />
     <ClInclude Include="..\Socket\SocketAdapter.h" />
-    <ClInclude Include="..\Socket\SystemSocketClient.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{43517F04-FA51-474A-8E89-C691D1D638F8}</ProjectGuid>
+    <ProjectGuid>{BC38C5FF-81C9-4E5B-9E9C-054A7306E2FA}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>libElectroClient</RootNamespace>
   </PropertyGroup>
@@ -368,7 +408,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;_LIB;LIBELECTROCLIENT_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;_LIB;LIBELECTROCLIENT_EXPORTS;ES_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>false</SDLCheck>
       <AdditionalIncludeDirectories>../;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
@@ -389,7 +429,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;LIBELECTROCLIENT_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <SDLCheck>false</SDLCheck>
+      <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
