@@ -36,10 +36,11 @@
 #include "MessageType.h"
 #include "ErrorType.h"
 #include "Entity/EsObject.h"
+#include "EsReleasePool.h"
 
 namespace es {
 
-class BaseMessage {
+class BaseMessage : public EsRef{
 public:
 	unsigned char flag;
 	es::type::MessageType messageType;

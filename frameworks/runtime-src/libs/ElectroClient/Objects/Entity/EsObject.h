@@ -15,12 +15,12 @@ namespace es {
 
 class EsObject : public EsEntity{
 	std::map<std::string, EsEntity*> mData;
-
-	EsEntity* getEsEntity(const std::string& key);
-	virtual void setEsEntity(const std::string& key, EsEntity* entity);
 public:
 	EsObject();
 	virtual ~EsObject();
+
+	EsEntity* getEsEntity(const std::string& key);
+	virtual void setEsEntity(const std::string& key, EsEntity* entity);
 
 	virtual void writeToBuffer(EsMessageWriter* writer);
 	virtual void readFromBuffer(EsMessageReader* reader);

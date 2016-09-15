@@ -37,6 +37,24 @@ bool PluginRequest::initWithBytes(const char* bytes, int len){
 	return true;
 }
 
+void PluginRequest::initWithJson(const rapidjson::Value& jsonData){
+	if (jsonData.HasMember("pluginName") && jsonData["pluginName"].IsString()){
+		pluginName = jsonData["pluginName"].GetString();
+	}
+	if (jsonData.HasMember("zoneId") && jsonData["zoneId"].IsNumber()){
+		zoneId = jsonData["zoneId"].GetInt();
+	}
+	if (jsonData.HasMember("roomId") && jsonData["roomId"].IsNumber()){
+		roomId = jsonData["roomId"].GetInt();
+	}
+	if (jsonData.HasMember("sessionKey") && jsonData["sessionKey"].IsNumber()){
+		sessionKey = jsonData["sessionKey"].GetInt();
+	}
+	if (jsonData.HasMember("parameters") && jsonData["parameters"].IsObject()){
+		parameters = (EsObject*)EsEntity::createFromJson(jsonData["parameters"]);
+	}
+}
+
 void PluginRequest::getBytes(std::vector<char> &buffer){
 	BaseMessage::getBytes(buffer);
 

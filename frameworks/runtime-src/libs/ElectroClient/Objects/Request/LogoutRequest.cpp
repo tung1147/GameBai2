@@ -29,6 +29,16 @@ bool LogoutRequest::initWithBytes(const char* bytes, int len){
 	return true;
 }
 
+void LogoutRequest::initWithJson(const rapidjson::Value& jsonData){
+	if (jsonData.HasMember("dropConnection") && jsonData["dropConnection"].IsBool()){
+		dropConnection = jsonData["dropConnection"].GetBool();
+	}
+	if (jsonData.HasMember("dropAllConnections") && jsonData["dropAllConnections"].IsBool()){
+		dropAllConnections = jsonData["dropAllConnections"].GetBool();
+	}
+}
+
+
 void LogoutRequest::getBytes(std::vector<char> &buffer){
 	BaseMessage::getBytes(buffer);
 	

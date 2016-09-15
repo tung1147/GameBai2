@@ -17,7 +17,7 @@
 #include "Entity/EsObject.h"
 #include "Entity/EsArray.h"
 #include "Entity/EsPrimitive.h"
-#include "Request/GatewayKickUserRequest.h"
+#include "Event/GatewayKickUserRequest.h"
 #include "Event/GenericErrorResponse.h"
 #include "Event/JoinRoomEvent.h"
 #include "Request/JoinRoomRequest.h"

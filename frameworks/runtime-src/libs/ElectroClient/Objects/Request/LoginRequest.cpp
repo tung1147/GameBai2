@@ -25,8 +25,9 @@ LoginRequest::LoginRequest() {
 
 //	clientType = "cocos2dx";
 
-	clientType = "CSharpUnity";
+//	clientType = "CSharpUnity";
 	
+	clientType = "QuyetNguyen";
 	clientVersion = "5.4.1";
 }
 
@@ -46,6 +47,50 @@ LoginRequest::~LoginRequest() {
 
 bool LoginRequest::initWithBytes(const char* bytes, int len){
 	return true;
+}
+
+void LoginRequest::initWithJson(const rapidjson::Value& jsonData){
+	if (jsonData.HasMember("userName") && jsonData["userName"].IsString()){
+		userName = jsonData["userName"].GetString();
+	}
+	if (jsonData.HasMember("password") && jsonData["password"].IsString()){
+		password = jsonData["password"].GetString();
+	}
+	if (jsonData.HasMember("sharedSecret") && jsonData["sharedSecret"].IsString()){
+		sharedSecret = jsonData["sharedSecret"].GetString();
+	}
+	if (jsonData.HasMember("protocol") && jsonData["protocol"].IsNumber()){
+		protocol = jsonData["protocol"].GetInt();
+	}
+	if (jsonData.HasMember("hashId") && jsonData["hashId"].IsNumber()){
+		hashId = jsonData["hashId"].GetInt();
+	}
+	if (jsonData.HasMember("clientVersion") && jsonData["clientVersion"].IsString()){
+		clientVersion = jsonData["clientVersion"].GetString();
+	}
+	if (jsonData.HasMember("clientType") && jsonData["clientType"].IsString()){
+		clientType = jsonData["clientType"].GetString();
+	}
+	if (jsonData.HasMember("esObject") && jsonData["esObject"].IsObject()){
+		esObject = (EsObject*)EsEntity::createFromJson(jsonData["esObject"]);
+	}
+	if (jsonData.HasMember("userVariables") && jsonData["userVariables"].IsObject()){
+		const rapidjson::Value& data = jsonData["userVariables"];
+		bool flag = true;
+		for (auto it = data.MemberBegin(); it != data.MemberEnd(); it++){
+			if (!data.IsObject()){
+				flag = false;
+				return;
+			}
+		}
+
+		if (flag){
+			for (auto it = data.MemberBegin(); it != data.MemberEnd(); it++){
+				auto item = (EsObject*)EsEntity::createFromJson(it->value);
+				userVariables.insert(std::make_pair(it->name.GetString(), item));
+			}
+		}	
+	}
 }
 
 void LoginRequest::getBytes(std::vector<char> &buffer){

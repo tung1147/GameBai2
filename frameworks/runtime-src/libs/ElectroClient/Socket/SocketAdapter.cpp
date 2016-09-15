@@ -22,7 +22,7 @@ SocketPool::~SocketPool(){
 		while (!mData->empty()) {
 			SocketData* data = mData->front();
 			if (data){
-	//			data->release();
+				data->release();
 			}
 			mData->pop();
 		}
@@ -37,7 +37,7 @@ void SocketPool::push(SocketData* data){
 	std::unique_lock<std::mutex> lk(poolMutex);
 	if (mData){
 		mData->push(data);
-//		data->retain();
+		data->retain();
 	}
 	poolCond.notify_one();
 }
@@ -47,7 +47,7 @@ void SocketPool::clear(){
 	if (mData){
 		while (!mData->empty()) {
 			SocketData* data = mData->front();
-			//data->release();
+			data->release();
 			mData->pop();
 		}
 	}
@@ -62,6 +62,7 @@ SocketData* SocketPool::take(){
 		if (!mData->empty()){
 			SocketData* data = mData->front();
 			mData->pop();
+			data->autoRelease();
 			return data;
 		}
 
@@ -69,9 +70,8 @@ SocketData* SocketPool::take(){
 
 		if (mData && !mData->empty()){
 			SocketData* data = mData->front();
-			/*data->retain();
-			data->autoRelease();*/
-
+		//	data->retain();
+			data->autoRelease();
 			mData->pop();		
 			return data;
 		}

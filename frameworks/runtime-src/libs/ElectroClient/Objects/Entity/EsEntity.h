@@ -43,6 +43,8 @@ public:
 	virtual void printDebugToBuffer(std::ostringstream &outStream, int padding);
 
 	virtual void toJson(rapidjson::Value& value, rapidjson::Document::AllocatorType &allocator);
+
+	static EsEntity* createFromJson(const rapidjson::Value& value);
 };
 
 } /* namespace es */

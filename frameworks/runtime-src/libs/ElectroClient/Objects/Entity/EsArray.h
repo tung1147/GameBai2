@@ -16,11 +16,13 @@ namespace es {
 class EsArray : public EsEntity {
 	std::vector<EsEntity*> mData;
 
-	EsEntity* getEntity(int index);
-	void addEntity(EsEntity* data);
+	
 public:
 	EsArray();
 	virtual ~EsArray();
+
+	EsEntity* getEntity(int index);
+	void addEntity(EsEntity* data);
 
 	virtual void writeToBuffer(EsMessageWriter* writer);
 	virtual void readFromBuffer(EsMessageReader* reader);

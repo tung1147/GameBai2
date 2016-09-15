@@ -38,6 +38,43 @@ bool JoinRoomRequest::initWithBytes(const char* bytes, int len){
 	return true;
 }
 
+void JoinRoomRequest::initWithJson(const rapidjson::Value& jsonData){
+	if (jsonData.HasMember("zoneName") && jsonData["zoneName"].IsString()){
+		zoneName = jsonData["zoneName"].GetString();
+	}
+	if (jsonData.HasMember("roomName") && jsonData["roomName"].IsString()){
+		roomName = jsonData["roomName"].GetString();
+	}
+	if (jsonData.HasMember("zoneId") && jsonData["zoneId"].IsNumber()){
+		zoneId = jsonData["zoneId"].GetInt();
+	}
+	if (jsonData.HasMember("roomId") && jsonData["roomId"].IsNumber()){
+		roomId = jsonData["roomId"].GetInt();
+	}
+	if (jsonData.HasMember("password") && jsonData["password"].IsString()){
+		password = jsonData["password"].GetString();
+	}
+	if (jsonData.HasMember("receivingRoomListUpdates") && jsonData["receivingRoomListUpdates"].IsBool()){
+		receivingRoomListUpdates = jsonData["receivingRoomListUpdates"].GetBool();
+	}
+	if (jsonData.HasMember("receivingRoomAttributeUpdates") && jsonData["receivingRoomAttributeUpdates"].IsBool()){
+		receivingRoomAttributeUpdates = jsonData["receivingRoomAttributeUpdates"].GetBool();
+	}
+	if (jsonData.HasMember("receivingUserListUpdates") && jsonData["receivingUserListUpdates"].IsBool()){
+		receivingUserListUpdates = jsonData["receivingUserListUpdates"].GetBool();
+	}
+	if (jsonData.HasMember("receivingUserVariableUpdates") && jsonData["receivingUserVariableUpdates"].IsBool()){
+		receivingUserVariableUpdates = jsonData["receivingUserVariableUpdates"].GetBool();
+	}
+	if (jsonData.HasMember("receivingRoomVariableUpdates") && jsonData["receivingRoomVariableUpdates"].IsBool()){
+		receivingRoomVariableUpdates = jsonData["receivingRoomVariableUpdates"].GetBool();
+	}
+	if (jsonData.HasMember("receivingVideoEvents") && jsonData["receivingVideoEvents"].IsBool()){
+		receivingVideoEvents = jsonData["receivingVideoEvents"].GetBool();
+	}
+}
+
+
 void JoinRoomRequest::getBytes(std::vector<char> &buffer){
 	BaseMessage::getBytes(buffer);
 

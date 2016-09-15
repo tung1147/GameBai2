@@ -17,4 +17,12 @@ BaseRequest::~BaseRequest(){
 
 }
 
+bool BaseRequest::initWithBytes(const char* bytes, int len){
+	return true;
+}
+
+void BaseRequest::initWithJson(const rapidjson::Value& jsonData){
+
+}
+
 } /* namespace es */

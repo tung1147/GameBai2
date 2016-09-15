@@ -30,6 +30,15 @@ bool LeaveRoomRequest::initWithBytes(const char* bytes, int len){
 	return true;
 }
 
+void LeaveRoomRequest::initWithJson(const rapidjson::Value& jsonData){
+	if (jsonData.HasMember("zoneId") && jsonData["zoneId"].IsNumber()){
+		zoneId = jsonData["zoneId"].GetInt();
+	}
+	if (jsonData.HasMember("roomId") && jsonData["roomId"].IsNumber()){
+		roomId = jsonData["roomId"].GetInt();
+	}
+}
+
 void LeaveRoomRequest::getBytes(std::vector<char> &buffer){
 	BaseMessage::getBytes(buffer);
 

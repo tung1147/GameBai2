@@ -33,6 +33,37 @@ bool PrivateMessageRequest::initWithBytes(const char* bytes, int len){
 	return false;
 }
 
+void PrivateMessageRequest::initWithJson(const rapidjson::Value& jsonData){
+	/*std::string message;
+	std::vector<std::string>  userNames;
+	EsObject* esObject;*/
+
+	if (jsonData.HasMember("message") && jsonData["message"].IsString()){
+		message = jsonData["message"].GetString();
+	}
+
+	if (jsonData.HasMember("userNames") && jsonData["userNames"].IsArray()){
+		const rapidjson::Value& data = jsonData["userNames"];
+		bool flag = true;
+		for (int i = 0; i < data.Size(); i++){
+			if (!data[i].IsString()){
+				flag = false;
+				break;
+			}
+		}
+		if (flag){
+			for (int i = 0; i < data.Size(); i++){
+				std::string user = data[i].GetString(); 
+				userNames.push_back(user);
+			}
+		}
+	}
+
+	if (jsonData.HasMember("esObject") && jsonData["esObject"].IsObject()){
+		esObject = (EsObject*)EsEntity::createFromJson(jsonData["esObject"]);
+	}
+}
+
 void PrivateMessageRequest::getBytes(std::vector<char> &buffer){
 	BaseMessage::getBytes(buffer);
 

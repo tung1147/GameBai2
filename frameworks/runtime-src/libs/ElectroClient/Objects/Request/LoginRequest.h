@@ -29,6 +29,7 @@ public:
 	virtual ~LoginRequest();
 
 	virtual bool initWithBytes(const char* bytes, int len);
+	virtual void initWithJson(const rapidjson::Value& jsonData);
 	virtual void getBytes(std::vector<char> &buffer);
 
 	virtual void printDebug();

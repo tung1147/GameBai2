@@ -35,6 +35,21 @@ bool PublicMessageRequest::initWithBytes(const char* bytes, int len){
 	return true;
 }
 
+void PublicMessageRequest::initWithJson(const rapidjson::Value& jsonData){
+	if (jsonData.HasMember("zoneId") && jsonData["zoneId"].IsNumber()){
+		zoneId = jsonData["zoneId"].GetInt();
+	}
+	if (jsonData.HasMember("roomId") && jsonData["roomId"].IsNumber()){
+		zoneId = jsonData["roomId"].GetInt();
+	}
+	if (jsonData.HasMember("message") && jsonData["message"].IsString()){
+		message = jsonData["roomId"].GetString();
+	}
+	if (jsonData.HasMember("esObject") && jsonData["esObject"].IsObject()){
+		esObject = (EsObject*)EsEntity::createFromJson(jsonData["esObject"]);
+	}
+}
+
 void PublicMessageRequest::getBytes(std::vector<char> &buffer){
 	BaseMessage::getBytes(buffer);
 

@@ -81,7 +81,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\Classes;$(EngineRoot);$(EngineRoot)cocos;$(EngineRoot)external\spidermonkey\include\win32;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;%(AdditionalIncludeDirectories);$(EngineRoot)external\curl\include\win32;$(ProjectDir)..\libs\LobbyClient\src;$(ProjectDir)..\libs\SmartfoxClient\src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\Classes;$(EngineRoot);$(EngineRoot)cocos;$(EngineRoot)external\spidermonkey\include\win32;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;%(AdditionalIncludeDirectories);$(EngineRoot)external\curl\include\win32;$(ProjectDir)..\libs\LobbyClient\src;$(ProjectDir)..\libs\SmartfoxClient\src;$(ProjectDir)..\libs\ElectroClient</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WINDOWS;STRICT;_DEBUG;XP_WIN;JS_HAVE___INTN;JS_INTPTR_TYPE=int;COCOS2D_DEBUG=1;COCOS2D_JAVASCRIPT=1;CC_ENABLE_CHIPMUNK_INTEGRATION=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_USRJSSTATIC;_USRLIBSIMSTATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -202,6 +202,7 @@ copy "$(ProjectDir)..\..\..\project.json" "$(OutDir)\" /Y</Command>
     <ClCompile Include="..\Classes\Plugin\sha1.cpp" />
     <ClCompile Include="..\Classes\Plugin\SystemPlugin.cpp" />
     <ClCompile Include="..\Classes\Plugin\UUIDEncrypt.cpp" />
+    <ClCompile Include="..\Classes\Socket\ElectroClient.cpp" />
     <ClCompile Include="..\Classes\Socket\jsb_quyetnd_lobbysocket.cpp" />
     <ClCompile Include="..\Classes\Socket\jsb_quyetnd_sfssocket.cpp" />
     <ClCompile Include="..\Classes\Socket\LobbyClient.cpp" />
@@ -234,6 +235,7 @@ copy "$(ProjectDir)..\..\..\project.json" "$(OutDir)\" /Y</Command>
     <ClInclude Include="..\Classes\Plugin\sha1.h" />
     <ClInclude Include="..\Classes\Plugin\SystemPlugin.h" />
     <ClInclude Include="..\Classes\Plugin\UUIDEncrypt.h" />
+    <ClInclude Include="..\Classes\Socket\ElectroClient.h" />
     <ClInclude Include="..\Classes\Socket\jsb_quyetnd_lobbysocket.hpp" />
     <ClInclude Include="..\Classes\Socket\jsb_quyetnd_sfssocket.hpp" />
     <ClInclude Include="..\Classes\Socket\LobbyClient.h" />
@@ -251,6 +253,9 @@ copy "$(ProjectDir)..\..\..\project.json" "$(OutDir)\" /Y</Command>
   <ItemGroup>
     <ProjectReference Include="..\..\cocos2d-x\cocos\scripting\js-bindings\proj.win32\libjscocos2d.vcxproj">
       <Project>{39379840-825a-45a0-b363-c09ffef864bd}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\libs\ElectroClient\proj.win32\libElectroClient.vcxproj">
+      <Project>{bc38c5ff-81c9-4e5b-9e9c-054a7306e2fa}</Project>
     </ProjectReference>
     <ProjectReference Include="..\libs\LobbyClient\proj.win32\libLobbyClient.vcxproj">
       <Project>{580e26bf-755b-4962-bd94-971e8d686efb}</Project>

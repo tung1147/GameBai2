@@ -19,10 +19,12 @@
     <ClCompile Include="..\Objects\Entity\EsObject.cpp" />
     <ClCompile Include="..\Objects\Entity\EsPrimitive.cpp" />
     <ClCompile Include="..\Objects\ErrorType.cpp" />
+    <ClCompile Include="..\Objects\EsReleasePool.cpp" />
     <ClCompile Include="..\Objects\EsUtil.cpp" />
     <ClCompile Include="..\Objects\Event\BaseEvent.cpp" />
     <ClCompile Include="..\Objects\Event\ConnectionClosedEvent.cpp" />
     <ClCompile Include="..\Objects\Event\ConnectionResponse.cpp" />
+    <ClCompile Include="..\Objects\Event\GatewayKickUserRequest.cpp" />
     <ClCompile Include="..\Objects\Event\GenericErrorResponse.cpp" />
     <ClCompile Include="..\Objects\Event\JoinRoomEvent.cpp" />
     <ClCompile Include="..\Objects\Event\JoinZoneEvent.cpp" />
@@ -44,8 +46,8 @@
     <ClCompile Include="..\Objects\Event\ZoneUpdateEvent.cpp" />
     <ClCompile Include="..\Objects\MessageType.cpp" />
     <ClCompile Include="..\Objects\Request\BaseRequest.cpp" />
-    <ClCompile Include="..\Objects\Request\GatewayKickUserRequest.cpp" />
     <ClCompile Include="..\Objects\Request\JoinRoomRequest.cpp" />
+    <ClCompile Include="..\Objects\Request\JsonRequest.cpp" />
     <ClCompile Include="..\Objects\Request\LeaveRoomRequest.cpp" />
     <ClCompile Include="..\Objects\Request\LoginRequest.cpp" />
     <ClCompile Include="..\Objects\Request\LogoutRequest.cpp" />
@@ -171,8 +173,8 @@
     <ClCompile Include="..\Socket\SocketAdapter.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\ElectroClient.h" />
     <ClInclude Include="..\ElectroLogger.h" />
+    <ClInclude Include="..\ElectroServer.h" />
     <ClInclude Include="..\Objects\BaseMessage.h" />
     <ClInclude Include="..\Objects\Entity\EsArray.h" />
     <ClInclude Include="..\Objects\Entity\EsEntity.h" />
@@ -180,10 +182,12 @@
     <ClInclude Include="..\Objects\Entity\EsObject.h" />
     <ClInclude Include="..\Objects\Entity\EsPrimitive.h" />
     <ClInclude Include="..\Objects\ErrorType.h" />
+    <ClInclude Include="..\Objects\EsReleasePool.h" />
     <ClInclude Include="..\Objects\EsUtil.h" />
     <ClInclude Include="..\Objects\Event\BaseEvent.h" />
     <ClInclude Include="..\Objects\Event\ConnectionClosedEvent.h" />
     <ClInclude Include="..\Objects\Event\ConnectionResponse.h" />
+    <ClInclude Include="..\Objects\Event\GatewayKickUserRequest.h" />
     <ClInclude Include="..\Objects\Event\GenericErrorResponse.h" />
     <ClInclude Include="..\Objects\Event\JoinRoomEvent.h" />
     <ClInclude Include="..\Objects\Event\JoinZoneEvent.h" />
@@ -234,8 +238,8 @@
     <ClInclude Include="..\Objects\rapidjson\stringbuffer.h" />
     <ClInclude Include="..\Objects\rapidjson\writer.h" />
     <ClInclude Include="..\Objects\Request\BaseRequest.h" />
-    <ClInclude Include="..\Objects\Request\GatewayKickUserRequest.h" />
     <ClInclude Include="..\Objects\Request\JoinRoomRequest.h" />
+    <ClInclude Include="..\Objects\Request\JsonRequest.h" />
     <ClInclude Include="..\Objects\Request\LeaveRoomRequest.h" />
     <ClInclude Include="..\Objects\Request\LoginRequest.h" />
     <ClInclude Include="..\Objects\Request\LogoutRequest.h" />

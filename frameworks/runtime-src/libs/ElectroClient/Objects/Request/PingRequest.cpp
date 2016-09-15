@@ -35,6 +35,21 @@ bool PingRequest::initWithBytes(const char* bytes, int len){
 	return true;
 }
 
+void PingRequest::initWithJson(const rapidjson::Value& jsonData){
+	if (jsonData.HasMember("globalResponseRequested") && jsonData["globalResponseRequested"].IsBool()){
+		globalResponseRequested = jsonData["globalResponseRequested"].GetBool();
+		globalResponseRequested_set = true;
+	}
+	if (jsonData.HasMember("sessionKey") && jsonData["sessionKey"].IsNumber()){
+		sessionKey = jsonData["sessionKey"].GetInt();
+		sessionKey_set = true;
+	}
+	if (jsonData.HasMember("pingRequestId") && jsonData["pingRequestId"].IsNumber()){
+		pingRequestId = jsonData["pingRequestId"].GetInt();
+		pingRequestId_set = true;
+	}
+}
+
 void PingRequest::getBytes(std::vector<char> &buffer){
 	BaseMessage::getBytes(buffer);
 

@@ -16,6 +16,8 @@ class BaseRequest : public BaseMessage{
 public:
 	BaseRequest();
 	virtual ~BaseRequest();
+	virtual bool initWithBytes(const char* bytes, int len);
+	virtual void initWithJson(const rapidjson::Value& jsonData);
 };
 
 } /* namespace es */

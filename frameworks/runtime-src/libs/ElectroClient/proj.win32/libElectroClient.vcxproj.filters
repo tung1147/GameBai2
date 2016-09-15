@@ -460,9 +460,6 @@
     <ClCompile Include="..\Objects\Request\PublicMessageRequest.cpp">
       <Filter>Objects\Request</Filter>
     </ClCompile>
-    <ClCompile Include="..\Objects\Request\GatewayKickUserRequest.cpp">
-      <Filter>Objects\Request</Filter>
-    </ClCompile>
     <ClCompile Include="..\Objects\Request\JoinRoomRequest.cpp">
       <Filter>Objects\Request</Filter>
     </ClCompile>
@@ -508,10 +505,18 @@
     <ClCompile Include="..\Objects\Entity\EsMessageStreamer.cpp">
       <Filter>Objects\Entity</Filter>
     </ClCompile>
+    <ClCompile Include="..\Objects\Event\GatewayKickUserRequest.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Request\JsonRequest.cpp">
+      <Filter>Objects\Request</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\EsReleasePool.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\ElectroLogger.h" />
-    <ClInclude Include="..\ElectroClient.h" />
     <ClInclude Include="..\Objects\thrift\libs\TBinaryProtocol.h">
       <Filter>Objects\thrift\libs</Filter>
     </ClInclude>
@@ -956,9 +961,6 @@
     <ClInclude Include="..\Objects\Request\PublicMessageRequest.h">
       <Filter>Objects\Request</Filter>
     </ClInclude>
-    <ClInclude Include="..\Objects\Request\GatewayKickUserRequest.h">
-      <Filter>Objects\Request</Filter>
-    </ClInclude>
     <ClInclude Include="..\Objects\Request\JoinRoomRequest.h">
       <Filter>Objects\Request</Filter>
     </ClInclude>
@@ -1087,6 +1089,16 @@
     </ClInclude>
     <ClInclude Include="..\Objects\rapidjson\filereadstream.h">
       <Filter>Objects\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Event\GatewayKickUserRequest.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Request\JsonRequest.h">
+      <Filter>Objects\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ElectroServer.h" />
+    <ClInclude Include="..\Objects\EsReleasePool.h">
+      <Filter>Objects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
