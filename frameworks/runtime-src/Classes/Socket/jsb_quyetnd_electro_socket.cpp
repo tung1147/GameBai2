@@ -77,6 +77,26 @@ bool js_quyetnd_electro_socket_ElectroClient_getStatus(JSContext *cx, uint32_t a
 	return false;
 }
 
+bool js_quyetnd_electro_socket_ElectroClient_setPingTimeInterval(JSContext *cx, uint32_t argc, jsval *vp){
+	JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+	bool ok = true;
+	JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	quyetnd::ElectroClient* cobj = (quyetnd::ElectroClient *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2(cobj, cx, false, "js_quyetnd_electro_socket_ElectroClient_setPingTimeInterval : Invalid Native Object");
+	if (argc == 1) {
+		double arg0 = 0;
+		ok &= JS::ToNumber(cx, args.get(0), &arg0) && !std::isnan(arg0);
+		JSB_PRECONDITION2(ok, cx, false, "js_quyetnd_electro_socket_ElectroClient_setPingTimeInterval : Error processing arguments");
+		cobj->setPingInterval(arg0);
+		args.rval().setUndefined();
+		return true;
+	}
+
+	JS_ReportError(cx, "js_quyetnd_electro_socket_ElectroClient_setPingTimeInterval : wrong number of arguments: %d, was expecting %d", argc, 0);
+	return false;
+}
+
 bool js_quyetnd_electro_socket_ElectroClient_send(JSContext *cx, uint32_t argc, jsval *vp)
 {
     JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
@@ -169,6 +189,7 @@ void js_register_quyetnd_sfssocket_ElectroClient(JSContext *cx, JS::HandleObject
         JS_FN("close", js_quyetnd_electro_socket_ElectroClient_close, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("getStatus", js_quyetnd_electro_socket_ElectroClient_getStatus, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("send", js_quyetnd_electro_socket_ElectroClient_send, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("setPingTimeInterval", js_quyetnd_electro_socket_ElectroClient_setPingTimeInterval, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("ctor", js_quyetnd_electro_socket_ElectroClient_ctor, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FS_END
     };

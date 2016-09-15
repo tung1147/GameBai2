@@ -41,6 +41,9 @@ THE SOFTWARE.
 #endif
 #include <sys/stat.h>
 
+/* mod by quyetnguyen */
+#include "decryptor/Decryptor.h"
+
 NS_CC_BEGIN
 
 // Implement DictMaker
@@ -614,13 +617,33 @@ std::string FileUtils::getStringFromFile(const std::string& filename)
 {
     std::string s;
     getContents(filename, &s);
+	/* mod by quyetnguyen */
+	bool b = decryptor::Decryptor::getInstance()->isDataEncrypted(s.data(), s.size());
+	if (b){
+		//CCLOG("encrypted: %s", filename.c_str());
+		std::vector<char> outBuffer;
+		decryptor::Decryptor::getInstance()->decyrpt(outBuffer, s.data(), s.size());
+		s.assign(outBuffer.begin(), outBuffer.end());
+	}
+	else{
+		//CCLOG("rawFile: %s", filename.c_());
+	}
+	/* mod by quyetnguyen end*/
     return s;
 }
 
 Data FileUtils::getDataFromFile(const std::string& filename)
-{
+{	
     Data d;
     getContents(filename, &d);
+	/* mod by quyetnguyen */
+	bool b = decryptor::Decryptor::getInstance()->isDataEncrypted((char*)d.getBytes(), d.getSize());
+	if (b){
+		std::vector<char> outBuffer;
+		decryptor::Decryptor::getInstance()->decyrpt(outBuffer, (char*)d.getBytes(), d.getSize());
+		d.copy((const unsigned char*)outBuffer.data(), outBuffer.size());
+	}
+	/* mod by quyetnguyen end*/
     return d;
 }
 
@@ -674,7 +697,14 @@ unsigned char* FileUtils::getFileData(const std::string& filename, const char* m
         *size = 0;
         return nullptr;
     }
-
+	/* mod by quyetnguyen */
+	bool b = decryptor::Decryptor::getInstance()->isDataEncrypted((char*)d.getBytes(), d.getSize());
+	if (b){
+		std::vector<char> outBuffer;
+		decryptor::Decryptor::getInstance()->decyrpt(outBuffer, (char*)d.getBytes(), d.getSize());
+		d.copy((const unsigned char*)outBuffer.data(), outBuffer.size());
+	}
+	/* mod by quyetnguyen end*/
     return d.takeBuffer(size);
 }
 

@@ -13,6 +13,7 @@ namespace quyetnd{
 
 ElectroClient::ElectroClient() {
 	// TODO Auto-generated constructor stub
+	_pingTimeInterval = 15.0f;
 	client = 0;
 	client = new es::TcpSocketClient();
 	client->_recvCallback = CC_CALLBACK_1(ElectroClient::onRecvMessage, this);
@@ -51,7 +52,7 @@ void ElectroClient::updatePing(float dt){
 			pingRequest->release();
 
 
-			_pingTime = 15.0f;
+			_pingTime = _pingTimeInterval;
 			_waitingPing = true;
 		}
 	}
@@ -95,12 +96,16 @@ void ElectroClient::onRecvStatus(const es::SocketStatusData& data){
 	}
 }
 
+void ElectroClient::setPingInterval(float time){
+	_pingTimeInterval = time;
+}
+
 void ElectroClient::connect(const std::string& host, int port){
 	if (client){
 		//client->closeClient();
 		client->connectTo(host, port);
 		_waitingPing = false;
-		_pingTime = 0.0f;
+		_pingTime = _pingTimeInterval;
 	}
 }
 

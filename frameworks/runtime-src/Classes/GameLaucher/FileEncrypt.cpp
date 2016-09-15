@@ -20,7 +20,7 @@ FileEncrypt::FileEncrypt(){
 }
 
 FileEncrypt::~FileEncrypt(){
-
+	
 }
 
 void FileEncrypt::initWithFile(){
@@ -42,9 +42,44 @@ void FileEncrypt::setFilePath(const std::string& filePath){
 	this->filePath = filePath;
 }
 
+#include <sstream>
+bool FileEncrypt::isDecrypted(){
+	int dataSize = rawDataEncrypted.size();
+	const char* data = rawDataEncrypted.data();
+
+	if (dataSize <= 16){
+		return false;
+	}
+
+	if (dataSize % 16){
+		return false;
+	}
+
+	MD5* md5 = new MD5();
+	md5->update(data + 16, dataSize - 16);
+	md5->finalize();
+	auto digest = md5->getDigest();
+	std::vector<char> hashBuffer(digest, digest + 16);
+	hashBuffer.insert(hashBuffer.end(), s_EncryptSignature.begin(), s_EncryptSignature.end());
+
+	delete md5;
+	md5 = new MD5();
+	md5->update(hashBuffer.data(), hashBuffer.size());
+	md5->finalize();
+	digest = md5->getDigest();
+	for (int i = 0; i < 16; i++){
+		if (data[i] != digest[i]){
+			delete md5;
+			return false;
+		}
+	}
+	delete md5;
+	return true;
+}
+
 void FileEncrypt::decryptData(){
 	std::string fileSignature(rawDataEncrypted.begin(), rawDataEncrypted.begin() + s_EncryptSignature.size());
-	if (fileSignature == s_EncryptSignature){
+	if (isDecrypted()){
 		CCLOG("file ecnrypted");
 
 		std::vector<char> retData;
@@ -61,12 +96,12 @@ void FileEncrypt::decryptData(){
 		delete md5;
 
 		//decrypt
-		int encyrptSize = rawDataEncrypted.size() - s_EncryptSignature.size();
+		int encyrptSize = rawDataEncrypted.size() - 16;
 		int blockSize = encyrptSize / FILE_AES_KEY_SIZE_BYTE;
 		aes_ks_t secretKey;
 		aes_setks_decrypt((const uint8_t*)mKey.data(), FILE_AES_KEY_SIZE_BIT, &secretKey);
 		uint8_t* outputBuffer = new uint8_t[encyrptSize];
-		aes_cbc_decrypt((const uint8_t*)(rawDataEncrypted.data() + s_EncryptSignature.size()), outputBuffer, ivBuffer, blockSize, &secretKey);
+		aes_cbc_decrypt((const uint8_t*)(rawDataEncrypted.data() + 16), outputBuffer, ivBuffer, blockSize, &secretKey);
 
 		//remove padding
 		uint8_t lastByte = outputBuffer[encyrptSize - 1];
@@ -137,7 +172,7 @@ void FileEncryptUtils::loadFileThread(FileEncrypt* file, const FileLoadFinished 
 }
 
 FileEncryptUtils::FileEncryptUtils(){
-	mKey = { 0x2c, 0x32, 0xc3, 0xfe, 0x2c, 0xd9, 0x37, 0xf0, 0x74, 0x38, 0xe5, 0xda, 0xed, 0xc0, 0x72, 0x99 };
+
 }
 
 FileEncryptUtils::~FileEncryptUtils(){

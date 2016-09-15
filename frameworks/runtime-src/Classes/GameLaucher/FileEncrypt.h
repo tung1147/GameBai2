@@ -19,6 +19,7 @@ protected:
 	std::string filePath;
 
 	virtual void decryptData();
+	bool isDecrypted();
 public:
 	FileEncrypt();
 	virtual ~FileEncrypt();

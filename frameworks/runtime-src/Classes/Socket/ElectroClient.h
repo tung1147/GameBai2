@@ -22,6 +22,7 @@ class ElectroClient {
 
 	bool _waitingPing;
 	float _pingTime;
+	float _pingTimeInterval;
 	virtual void updatePing(float dt);
 public:
 	ElectroClient();
@@ -29,6 +30,7 @@ public:
 
 	void update(float dt);
 
+	void setPingInterval(float time);
 	void connect(const std::string& host, int port);
 	void close();
 	void send(const std::string& contensJSON);
