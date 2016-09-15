@@ -74,7 +74,7 @@ public:
 /**/
 class SocketClient : public es::SocketRef{
 protected:
-//	es::ReleasePool* releasePool;
+	es::ReleasePool* releasePool;
 
 	long long connectTime;
 	std::string host;

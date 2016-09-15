@@ -14,7 +14,7 @@
 namespace es {
 
 class BaseEvent : public BaseMessage{
-protected:
+public:
 	std::string jsonData;
 public:
 	BaseEvent();

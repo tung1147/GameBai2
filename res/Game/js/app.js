@@ -6,10 +6,14 @@ var HelloWorldLayer = cc.Layer.extend({
         this._super();
         var winSize = cc.winSize;
 
-        var label = new cc.LabelTTF("main project", "arial", 30);
+        var label = new ccui.Text("Test Button", "arial", 30);
         label.x = cc.winSize.width/2;
         label.y = cc.winSize.height/2 + 100.0;
         this.addChild(label);
+        label.setTouchEnabled(true);
+        label.addClickEventListener(function () {
+            ElectroClient.getInstance().connect("103.24.244.160", 9899);
+        });
 
         return true;
     },

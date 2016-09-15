@@ -203,6 +203,7 @@ copy "$(ProjectDir)..\..\..\project.json" "$(OutDir)\" /Y</Command>
     <ClCompile Include="..\Classes\Plugin\SystemPlugin.cpp" />
     <ClCompile Include="..\Classes\Plugin\UUIDEncrypt.cpp" />
     <ClCompile Include="..\Classes\Socket\ElectroClient.cpp" />
+    <ClCompile Include="..\Classes\Socket\jsb_quyetnd_electro_socket.cpp" />
     <ClCompile Include="..\Classes\Socket\jsb_quyetnd_lobbysocket.cpp" />
     <ClCompile Include="..\Classes\Socket\jsb_quyetnd_sfssocket.cpp" />
     <ClCompile Include="..\Classes\Socket\LobbyClient.cpp" />
@@ -236,6 +237,7 @@ copy "$(ProjectDir)..\..\..\project.json" "$(OutDir)\" /Y</Command>
     <ClInclude Include="..\Classes\Plugin\SystemPlugin.h" />
     <ClInclude Include="..\Classes\Plugin\UUIDEncrypt.h" />
     <ClInclude Include="..\Classes\Socket\ElectroClient.h" />
+    <ClInclude Include="..\Classes\Socket\jsb_quyetnd_electro_socket.hpp" />
     <ClInclude Include="..\Classes\Socket\jsb_quyetnd_lobbysocket.hpp" />
     <ClInclude Include="..\Classes\Socket\jsb_quyetnd_sfssocket.hpp" />
     <ClInclude Include="..\Classes\Socket\LobbyClient.h" />

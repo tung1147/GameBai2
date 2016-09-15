@@ -12,6 +12,8 @@
 #include "jsfriendapi.h"
 #include "scripting/js-bindings/manual/ScriptingCore.h"
 
+namespace quyetnd{
+
 class ElectroClient {
 	es::TcpSocketClient* client;
 
@@ -32,5 +34,8 @@ public:
 	void send(const std::string& contensJSON);
 	int getStatus();
 };
+
+}
+
 
 #endif /* SOCKET_ELECTROCLIENT_H_ */

@@ -32,9 +32,11 @@ void TcpSocketSender::update(){
 	int sentData;
 	unsigned int dataSize;
 
+	es::ReleasePool* mPool = es::AutoReleasePool::getInstance()->getPool();
 	std::vector<char> senderBuffer(100 * 1024);
 
 	while (true){
+		mPool->releaseAll();
 		std::this_thread::sleep_for(std::chrono::milliseconds(1));
 
 		if (!isRunning()){
@@ -92,19 +94,16 @@ void TcpSocketSender::update(){
 					_exit = true;
 					break;
 				}
-		}
-
-			delete sendData;
+			}
 
 			if (_exit){
 				break;
 			}
-	}
+		}
 		else{
 			break;
 		}
-
-}
+	}
 }
 
 /**/
@@ -211,12 +210,12 @@ void TcpSocketReceiver::processMessage(char *data, int len){
 #ifdef ES_DEBUG
 			es::log("RECV message[%s] not init", es::type::messageTypeName(type));
 #endif
-			delete message;
 		}
 	}else{
 #ifdef ES_DEBUG
 		es::log("RECV message[%s] not handler", es::type::messageTypeName(type));
 #endif
+		message->release();
 	}
 }
 

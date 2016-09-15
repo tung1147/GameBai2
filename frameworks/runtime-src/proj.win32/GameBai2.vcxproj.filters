@@ -121,6 +121,9 @@
     <ClCompile Include="..\Classes\Socket\ElectroClient.cpp">
       <Filter>Classes\Socket</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Socket\jsb_quyetnd_electro_socket.cpp">
+      <Filter>Classes\Socket</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h">
@@ -215,6 +218,9 @@
       <Filter>Classes\GameLaucher</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Socket\ElectroClient.h">
+      <Filter>Classes\Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Socket\jsb_quyetnd_electro_socket.hpp">
       <Filter>Classes\Socket</Filter>
     </ClInclude>
   </ItemGroup>

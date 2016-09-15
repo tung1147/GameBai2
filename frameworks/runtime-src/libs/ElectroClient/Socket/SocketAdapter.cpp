@@ -70,7 +70,6 @@ SocketData* SocketPool::take(){
 
 		if (mData && !mData->empty()){
 			SocketData* data = mData->front();
-		//	data->retain();
 			data->autoRelease();
 			mData->pop();		
 			return data;
@@ -87,8 +86,7 @@ SocketData* SocketPool::pop(){
 	std::unique_lock<std::mutex> lk(poolMutex);
 	if (mData && !mData->empty()){
 		auto data = mData->front();
-		//data->retain();
-		//data->autoRelease();
+		data->autoRelease();
 		mData->pop();
 		return data;
 	}
@@ -113,7 +111,7 @@ SocketAdapter::~SocketAdapter() {
 
 void SocketAdapter::updateThread(){
 	this->update();
-//	es::AutoReleasePool::getInstance()->removePool();
+	es::AutoReleasePool::getInstance()->removePool();
 	this->release();
 }
 
@@ -180,7 +178,7 @@ SocketClient::SocketClient(){
 	_recvCallback = nullptr;
 	_statusCallback = nullptr;
 
-//	releasePool = 0;
+	releasePool = 0;
 
 	port = 0;
 	host = "";
@@ -242,8 +240,8 @@ void SocketClient::updateConnection(){
 		}
 	}
 	
-//	es::AutoReleasePool::getInstance()->removePool();
-	//this->release();
+	es::AutoReleasePool::getInstance()->removePool();
+	this->release();
 }
 
 void SocketClient::startAdapter(){
@@ -339,10 +337,10 @@ void SocketClient::processMessage(){
 
 	processEvent();
 
-	//if (!releasePool){
-	////	releasePool = es::AutoReleasePool::getInstance()->getPool();
-	//}
-	//releasePool->releaseAll();
+	if (!releasePool){
+		releasePool = es::AutoReleasePool::getInstance()->getPool();
+	}
+	releasePool->releaseAll();
 }
 
 }

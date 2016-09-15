@@ -6,14 +6,27 @@
  */
 
 #include "ElectroClient.h"
+#include "cocos2d.h"
+USING_NS_CC;
+
+namespace quyetnd{
 
 ElectroClient::ElectroClient() {
 	// TODO Auto-generated constructor stub
-
+	client = 0;
+	client = new es::TcpSocketClient();
+	client->_recvCallback = CC_CALLBACK_1(ElectroClient::onRecvMessage, this);
+	client->_statusCallback = CC_CALLBACK_1(ElectroClient::onRecvStatus, this);
+	Director::getInstance()->getScheduler()->scheduleUpdateForTarget(this, INT_MAX, false);
 }
 
 ElectroClient::~ElectroClient() {
 	// TODO Auto-generated destructor stub
+	Director::getInstance()->getScheduler()->unscheduleAllForTarget(this);
+	if (client){
+		client->release();
+		client = 0;
+	}
 }
 
 void ElectroClient::update(float dt){
@@ -33,10 +46,10 @@ void ElectroClient::updatePing(float dt){
 		}
 		else{
 			//send ping
-			/*SFS::BaseMessage* pingMessage = new SFS::BaseMessage();
-			pingMessage->messageType = SFS::MessageType::PingPong;
-			client->sendMessage(pingMessage);
-			pingMessage->release();*/
+			es::PingRequest* pingRequest = new es::PingRequest();
+			client->sendMessage(pingRequest);
+			pingRequest->release();
+
 
 			_pingTime = 15.0f;
 			_waitingPing = true;
@@ -44,6 +57,41 @@ void ElectroClient::updatePing(float dt){
 	}
 	else{
 		_pingTime -= dt;
+	}
+}
+
+void ElectroClient::onRecvMessage(es::SocketData* data){
+	es::BaseEvent* message = (es::BaseEvent*)data;
+	if (data->messageType == es::type::MessageType::PingResponse){
+		_waitingPing = false;
+	}
+
+	js_proxy_t* p = jsb_get_native_proxy(this);
+	if (!p){
+		//error
+		return;
+	}
+	ScriptingCore* sc = ScriptingCore::getInstance();
+	if (sc){
+		jsval dataVal[] = {
+			dataVal[0] = std_string_to_jsval(sc->getGlobalContext(), message->jsonData),
+		};
+		sc->executeFunctionWithOwner(OBJECT_TO_JSVAL(p->obj), "onMessage", 1, dataVal);
+	}
+}
+
+void ElectroClient::onRecvStatus(const es::SocketStatusData& data){
+	js_proxy_t* p = jsb_get_native_proxy(this);
+	if (!p){
+		//error
+		return;
+	}
+	ScriptingCore* sc = ScriptingCore::getInstance();
+	if (sc){
+		jsval dataVal[] = {
+			dataVal[0] = std_string_to_jsval(sc->getGlobalContext(), es::SocketStatusName(data.status)),
+		};
+		sc->executeFunctionWithOwner(OBJECT_TO_JSVAL(p->obj), "onEvent", 1, dataVal);
 	}
 }
 
@@ -78,4 +126,6 @@ int ElectroClient::getStatus(){
 		return client->getStatus();
 	}
 	return -1;
+}
+
 }
