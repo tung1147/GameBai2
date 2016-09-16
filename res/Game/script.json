@@ -1,7 +1,6 @@
 [	
-	"js/ElectroClient.js",
-    "js/app.js",
-    "js/LobbyClient.js",
-    "js/NewAction.js",
-    "js/SmartfoxClient.js"
+	"js/Socket/ElectroClient.js",
+	"js/Socket/SmartfoxClient.js",
+	"js/Socket/LobbyClient.js",
+    "js/app.js"
 ]
