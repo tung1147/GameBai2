@@ -11,11 +11,14 @@
 #include "cocos2d.h"
 #include "GameLaucher.h"
 #include "ResourceLoader.h"
+#include "jsapi.h"
+#include "jsfriendapi.h"
 USING_NS_CC;
 
 class LoadingScene : public Scene{
 	quyetnd::GameLaucher* gameLaucher;
 	quyetnd::UIThread* uiThread;
+	std::vector<std::string> jsFiles;
 
 	quyetnd::ResourceLoader resourceLoader;
 	int currentStep;
@@ -33,13 +36,12 @@ class LoadingScene : public Scene{
 	void onResourcesLoaderProcess(int current, int max);
 	void onCheckVersionStatus(quyetnd::GameLaucherStatus status);
 	void onResourceDownloadProcress(int _current, int _max);
-	void threadLoadJS();
-	void requestGetConfig();
-
+	void loadScriptMetaFile();	
 	void updateLoadResource();
 public:
 	LoadingScene();
 	virtual ~LoadingScene();
+	void loadScript(JSContext* cx, JS::HandleObject globalObj);
 
 	virtual void update(float dt);
 

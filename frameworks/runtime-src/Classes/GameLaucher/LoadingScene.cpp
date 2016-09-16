@@ -72,6 +72,11 @@ LoadingScene::~LoadingScene() {
 	// TODO Auto-generated destructor stub
 }
 
+void load_script_file(JSContext* cx, JS::HandleObject globalObj){
+	auto scene = (LoadingScene*)Director::getInstance()->getRunningScene();
+	scene->loadScript(cx, globalObj);
+}
+
 void LoadingScene::startJS(){
 	/****/
     ScriptingCore* sc = ScriptingCore::getInstance();
@@ -153,6 +158,7 @@ void LoadingScene::startJS(){
 	sc->addRegisterCallback(register_all_quyetnd_electro_socket);
 	sc->addRegisterCallback(register_all_quyetnd_systemplugin);
 	sc->addRegisterCallback(register_all_quyetnd_facebook_plugin);
+	sc->addRegisterCallback(load_script_file);
 
 	sc->start();
 
@@ -160,29 +166,12 @@ void LoadingScene::startJS(){
 #if defined(COCOS2D_DEBUG) && (COCOS2D_DEBUG > 0)
 	sc->enableDebugger();
 #endif
-	sc->runScript("js/jsLoader.js");
+
 	this->status = 3;
 	this->currentStep++;
 	this->updateLoadResource();
-
 	this->androidLoadExtension();
 }
-
-void LoadingScene::threadLoadJS(){
-	ScriptingCore* sc = ScriptingCore::getInstance();
-	sc->runScript("script/jsb_boot.js");
-	sc->runScript("js/jsLoader.js");
-
-	UIThread::getInstance()->runOnUI([=](){
-#if defined(COCOS2D_DEBUG) && (COCOS2D_DEBUG > 0)
-		sc->enableDebugger();
-#endif
-		this->status = 3;
-		this->currentStep++;
-		this->updateLoadResource();
-	});
-}
-
 
 void LoadingScene::startLoadResources(){
 	std::string externalPath = FileUtils::getInstance()->getWritablePath() + "Game/";
@@ -266,10 +255,6 @@ void LoadingScene::update(float dt){
 		ScriptEngineManager::getInstance()->setScriptEngine(engine);
 		GameFile* mainJs = gameLaucher->getFile("js/main.js");
 		ScriptingCore::getInstance()->runScript(mainJs->filePath.c_str());
-
-		//std::string test = SystemPlugin::getInstance()->callJSFunction("testJSFunc", "{}");
-		//log("test: %s", test.c_str());
-
 		break;
 	}
 	}
@@ -321,18 +306,20 @@ void LoadingScene::onResourcesLoaderFinished(){
 }
 
 void LoadingScene::onResourcesLoaderProcess(int current, int max){
-	this->currentStep = current;
-	this->maxStep = max;
+	this->currentStep++;
 	this->updateLoadResource();
 }
 
 void LoadingScene::onCheckVersionStatus(quyetnd::GameLaucherStatus gameLaucherStatus){
 	if(gameLaucherStatus == quyetnd::GameLaucherStatus::GameLaucherStatus_Finished){
 		currentStep = 0;
-		maxStep = resourceLoader.getMaxStep();
+		maxStep = resourceLoader.getMaxStep() + 1;
 		statusLabel->setString("Đang tải tài nguyên");
 		status = 1;
 		startLoadResources();
+
+		std::thread loadScriptMeta(&LoadingScene::loadScriptMetaFile, this);
+		loadScriptMeta.detach();
 	}
 	else if(gameLaucherStatus == quyetnd::GameLaucherStatus::GameLaucherStatus_UpdateFailure){
 		statusLabel->setString("Cập nhật thất bại, vui lòng kiểm tra kết nối mạng");
@@ -340,6 +327,35 @@ void LoadingScene::onCheckVersionStatus(quyetnd::GameLaucherStatus gameLaucherSt
 	}
 	else if(gameLaucherStatus == quyetnd::GameLaucherStatus::GameLaucherStatus_Updating){
 		statusLabel->setString("Đang cập nhật phiên bản");
+	}
+}
+
+void LoadingScene::loadScriptMetaFile(){
+	auto scriptMetaFile = GameLaucher::getInstance()->getFile("script.json");
+	Data data = FileUtils::getInstance()->getDataFromFile(scriptMetaFile->filePath);
+	if (data.getSize() > 0){
+		std::string str((char*)data.getBytes(), data.getSize());
+
+		rapidjson::Document doc;
+		bool error = doc.Parse<0>(str.c_str()).HasParseError();
+		if (!error && doc.IsArray()){
+			for (int i = 0; i < doc.Size(); i++){
+				std::string file = doc[i].GetString();
+				jsFiles.push_back(file);
+			}
+		}
+	}
+
+	UIThread::getInstance()->runOnUI([=](){
+		this->currentStep++;
+		this->updateLoadResource();	
+	});
+}
+
+void LoadingScene::loadScript(JSContext* cx, JS::HandleObject globalObj){
+	for (int i = 0; i < jsFiles.size(); i++){
+		JS::RootedValue returnValue(cx);
+		ScriptingCore::getInstance()->requireScript(jsFiles[i].c_str(), globalObj, cx, &returnValue);
 	}
 }
 
@@ -355,7 +371,6 @@ cocos2d::log("files: %s", stringBuffer.GetString());*/
 void LoadingScene::onEnter(){
 	Scene::onEnter(); 
 	status = 0;
-	this->requestGetConfig();
 
 	statusLabel->setString("Đang kiểm tra phiên bản");
 	gameLaucher->startFromFile("res/Game/version.json");
@@ -375,34 +390,6 @@ void LoadingScene::onEnter(){
 void LoadingScene::onExit(){
 	this->unscheduleUpdate();
 	Scene::onExit();
-}
-
-static unsigned char aes_encrypt_key[16] = { 0x33, 0x5a, 0x35, 0x16, 0x96, 0xff, 0xe8, 0x20, 0xa1, 0x62, 0x16, 0xbe, 0x77, 0x6a, 0x4e, 0xea };
-static unsigned char aes_decrypt_key[16] = { 0x33, 0x5a, 0x35, 0x16, 0x96, 0xff, 0xe8, 0x20, 0xa1, 0x62, 0x16, 0xbe, 0x77, 0x6a, 0x4e, 0xea };
-
-void LoadingScene::requestGetConfig(){
-	/*std::string params = "{\"clientId\": \"87a1da56-27fe-4a39-ab61-f0c23b30a70c\",\"command\" : \"getConfig\",\"platformId\" : \"8e1dd48e-e808-4e9e-8b4d-8bef61f9aa19\",\"signature\" : \"690a8d0ea0c56bb866a3a8ed0cdd4d81\",\"time\" : 1472700703,\"version\" : \"1.0.0\"}";
-	std::string ACS_URL = "10.0.1.87:8000";
-
-	auto encryptParam = quyetnd::SystemPlugin::getInstance()->dataEncryptBase64((const char*)aes_encrypt_key, params);
-	std::string httpString = ACS_URL + "?params=" + quyetnd::SystemPlugin::getInstance()->URLEncode(encryptParam);
-	log("url: %s", httpString.c_str());
-	cocos2d::network::HttpRequest* request = new cocos2d::network::HttpRequest();
-	request->setUrl(httpString.c_str());
-	request->setRequestType(cocos2d::network::HttpRequest::Type::GET);
-	request->setResponseCallback([=](cocos2d::network::HttpClient* client, cocos2d::network::HttpResponse* response){
-		if (response->isSucceed()){
-			std::vector<char>* mData = response->getResponseData();
-			mData->push_back('\0');
-			log("data: %s", mData->data());
-			std::string base64Encrypt(mData->data());
-
-			std::string json = quyetnd::SystemPlugin::getInstance()->dataDecryptBase64((const char*)aes_decrypt_key, base64Encrypt);
-			int a = 0;
-		}
-	});
-	cocos2d::network::HttpClient::getInstance()->send(request);
-	request->release();*/
 }
 
 LoadingScene* LoadingScene::scene(){

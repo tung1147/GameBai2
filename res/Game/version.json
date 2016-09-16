@@ -12,33 +12,38 @@
         },
         {
             "file": "js/app.js",
-            "size": 1441,
-            "hash": "09e95ca1250b03ea833248cc6dcf458f"
+            "size": 824,
+            "hash": "6a1e0df49cfc518db4a64b93b6bcc18c"
+        },
+        {
+            "file": "js/ElectroClient.js",
+            "size": 1588,
+            "hash": "325447b443e52e4b4796f38c05af19e2"
         },
         {
             "file": "js/jsLoader.js",
-            "size": 1763,
-            "hash": "f5c2d03c5a71829d38a6aa534f10be22"
+            "size": 107,
+            "hash": "51da5547428546e78958c48a9b1fd9af"
         },
         {
             "file": "js/LobbyClient.js",
-            "size": 2867,
-            "hash": "1e15b7ff1b4f2e3d240d29456f5a55e3"
+            "size": 2957,
+            "hash": "834d2ea0d415d14c95a15616a2e2c638"
         },
         {
             "file": "js/main.js",
-            "size": 3679,
-            "hash": "f4b5fbbb90e0e67ac3995073e2741086"
+            "size": 3750,
+            "hash": "3bb05a2fdbc4eb2623494beac91d054c"
         },
         {
             "file": "js/NewAction.js",
-            "size": 953,
-            "hash": "203d5d1d60bf692a0bd26a7d65190e9b"
+            "size": 989,
+            "hash": "e6efda0380013f188f077fc2abec0aa0"
         },
         {
             "file": "js/SmartfoxClient.js",
-            "size": 4307,
-            "hash": "be9eb889e2ec04cd5d3e311b91520777"
+            "size": 4452,
+            "hash": "b30642066ecf0a6e368c0018d843032b"
         },
         {
             "file": "resources.json",
@@ -47,8 +52,8 @@
         },
         {
             "file": "script.json",
-            "size": 135,
-            "hash": "66fbed09319e16cd4710129ac9bebf66"
+            "size": 100,
+            "hash": "490629c8f509fc0e84ecebdbc87a83ec"
         }
     ],
     "versionName": "1.0.0",

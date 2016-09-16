@@ -1,8 +1,7 @@
-[
+[	
+	"js/ElectroClient.js",
     "js/app.js",
-    "js/jsLoader.js",
     "js/LobbyClient.js",
-    "js/main.js",
     "js/NewAction.js",
     "js/SmartfoxClient.js"
 ]

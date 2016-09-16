@@ -59,19 +59,20 @@ bool GameFile::isExistFile(const std::string& filePath){
 bool GameFile::checkHashFile(){
 	bool pret = false;
 
-	ssize_t fileSize = 0;
-	unsigned char* mData = FileUtils::getInstance()->getFileData(filePath, "rb", &fileSize);
+	Data d;
+	FileUtils::getInstance()->getContents(filePath, &d);
+	char* mData = (char*)d.getBytes();
+	ssize_t fileSize = d.getSize();
+
 	if (mData){
 		MD5 md5;
 		md5.update(mData, fileSize);
 		md5.finalize();
 		std::string md5Str = md5.hexdigest();
 		std::transform(md5Str.begin(), md5Str.end(), md5Str.begin(), ::tolower);
-		//std::transform(md5Digest.begin(), md5Digest.end(), md5Digest.begin(), ::tolower);
 		if (md5Str == md5Digest){
 			pret = true;
 		}
-		delete[] mData;
 		return pret;
 	}
 	return false;

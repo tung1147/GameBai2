@@ -42,12 +42,12 @@ bool GameLaucher::checkFileExist(const std::string& file){
 void GameLaucher::checkFiles(){
 	std::vector<GameFile*> _resourceUpdate;
 
-	ssize_t fileSize;
-	char* data = (char*)FileUtils::getInstance()->getFileData(versionFile, "rb", &fileSize);
+	Data d = FileUtils::getInstance()->getDataFromFile(versionFile);
+	char* data = (char*)d.getBytes();
+	ssize_t fileSize = d.getSize();
 
 	std::vector<char> buffer(data, data + fileSize);
 	buffer.push_back('\0');
-	delete[] data;
 
 	rapidjson::Document doc;
 	doc.Parse<0>(buffer.data());
