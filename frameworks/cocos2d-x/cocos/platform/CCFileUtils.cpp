@@ -626,7 +626,7 @@ std::string FileUtils::getStringFromFile(const std::string& filename)
 		s.assign(outBuffer.begin(), outBuffer.end());
 	}
 	else{
-		//CCLOG("rawFile: %s", filename.c_());
+		//CCLOG("rawFile: %s", filename.c_str());
 	}
 	/* mod by quyetnguyen end*/
     return s;

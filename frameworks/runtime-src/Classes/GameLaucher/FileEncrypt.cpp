@@ -55,25 +55,26 @@ bool FileEncrypt::isDecrypted(){
 		return false;
 	}
 
-	MD5* md5 = new MD5();
-	md5->update(data + 16, dataSize - 16);
-	md5->finalize();
-	auto digest = md5->getDigest();
-	std::vector<char> hashBuffer(digest, digest + 16);
-	hashBuffer.insert(hashBuffer.end(), s_EncryptSignature.begin(), s_EncryptSignature.end());
+	std::vector<unsigned char> salt = { 0x2c, 0x32, 0xc3, 0xfe, 0x2c, 0xd9, 0x37, 0xf0, 0x74, 0x38, 0xe5, 0xda, 0xed, 0xc0, 0x72, 0x99 };
 
-	delete md5;
-	md5 = new MD5();
-	md5->update(hashBuffer.data(), hashBuffer.size());
+	int blockCount = (dataSize - 16) / 16;
+
+	std::vector<char> vectorTemp(salt.begin(), salt.end());
+	vectorTemp.insert(vectorTemp.end(), mKey.begin(), mKey.end());
+	vectorTemp.insert(vectorTemp.end(), (char*)(&blockCount), ((char*)(&blockCount)) + 4);
+	MD5* md5 = new MD5();
+	md5->update(vectorTemp.data(), vectorTemp.size());
 	md5->finalize();
-	digest = md5->getDigest();
+	char signatureBuffer[16];
+	memcpy(signatureBuffer, md5->getDigest(), 16);
+	delete md5;
+
 	for (int i = 0; i < 16; i++){
-		if (data[i] != digest[i]){
-			delete md5;
+		if (data[i] != signatureBuffer[i]){
 			return false;
 		}
 	}
-	delete md5;
+
 	return true;
 }
 
@@ -83,23 +84,43 @@ void FileEncrypt::decryptData(){
 		CCLOG("file ecnrypted");
 
 		std::vector<char> retData;
+		std::vector<char> vectorTemp;
+	
+		//
+		std::vector<unsigned char> salt = { 0x2c, 0x32, 0xc3, 0xfe, 0x2c, 0xd9, 0x37, 0xf0, 0x74, 0x38, 0xe5, 0xda, 0xed, 0xc0, 0x72, 0x99 };
 
-		//read iv
-		std::vector<char> iv_temp(mKey.begin(), mKey.end());
-		iv_temp.insert(iv_temp.end(), s_EncryptSignature.data(), s_EncryptSignature.data() + s_EncryptSignature.size());
+		//read signature
+		std::vector<char> signature(rawDataEncrypted.begin(), rawDataEncrypted.begin() + 16);
+
+		//create iv
+		vectorTemp.clear();
+		vectorTemp.assign(signature.begin(), signature.end());
+		vectorTemp.insert(vectorTemp.end(), salt.begin(), salt.end());
+		vectorTemp.insert(vectorTemp.end(), mKey.begin(), mKey.end());
 		MD5* md5 = new MD5();
-		md5->update(iv_temp.data(), iv_temp.size());
+		md5->update(vectorTemp.data(), vectorTemp.size());
 		md5->finalize();
+		uint8_t ivBuffer[16];
+		memcpy(ivBuffer, md5->getDigest(), 16);
+		delete md5;
 
-		uint8_t ivBuffer[FILE_AES_KEY_SIZE_BYTE];
-		memcpy(ivBuffer, md5->getDigest(), FILE_AES_KEY_SIZE_BYTE);
+		//create aes_key
+		vectorTemp.clear();
+		vectorTemp.insert(vectorTemp.end(), ivBuffer, ivBuffer + 16);
+		vectorTemp.insert(vectorTemp.end(), mKey.begin(), mKey.end());
+		vectorTemp.insert(vectorTemp.end(), salt.begin(), salt.end());	
+		md5 = new MD5();
+		md5->update(vectorTemp.data(), vectorTemp.size());
+		md5->finalize();
+		uint8_t keyBuffer[16];
+		memcpy(keyBuffer, md5->getDigest(), 16);
 		delete md5;
 
 		//decrypt
 		int encyrptSize = rawDataEncrypted.size() - 16;
 		int blockSize = encyrptSize / FILE_AES_KEY_SIZE_BYTE;
 		aes_ks_t secretKey;
-		aes_setks_decrypt((const uint8_t*)mKey.data(), FILE_AES_KEY_SIZE_BIT, &secretKey);
+		aes_setks_decrypt(keyBuffer, FILE_AES_KEY_SIZE_BIT, &secretKey);
 		uint8_t* outputBuffer = new uint8_t[encyrptSize];
 		aes_cbc_decrypt((const uint8_t*)(rawDataEncrypted.data() + 16), outputBuffer, ivBuffer, blockSize, &secretKey);
 
