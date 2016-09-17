@@ -8,6 +8,7 @@
 
 #include "MessageType.h"
 #include <map>
+#include <string>
 
 namespace es{  
 	namespace type{

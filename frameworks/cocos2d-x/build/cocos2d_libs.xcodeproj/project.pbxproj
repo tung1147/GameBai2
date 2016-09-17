@@ -4009,6 +4009,24 @@
 		52B47A301A5349A3004E4C60 /* HttpClient-apple.mm in Sources */ = {isa = PBXBuildFile; fileRef = 52B47A2B1A5349A3004E4C60 /* HttpClient-apple.mm */; };
 		52B47A311A5349A3004E4C60 /* HttpCookie.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52B47A2C1A5349A3004E4C60 /* HttpCookie.cpp */; };
 		52B47A321A5349A3004E4C60 /* HttpCookie.h in Headers */ = {isa = PBXBuildFile; fileRef = 52B47A2D1A5349A3004E4C60 /* HttpCookie.h */; };
+		5691199F1D8CEF760092A3CD /* crypt_aes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119991D8CEF760092A3CD /* crypt_aes.cpp */; };
+		569119A01D8CEF760092A3CD /* crypt_aes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119991D8CEF760092A3CD /* crypt_aes.cpp */; };
+		569119A11D8CEF760092A3CD /* crypt_aes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119991D8CEF760092A3CD /* crypt_aes.cpp */; };
+		569119A21D8CEF760092A3CD /* crypt_aes.h in Headers */ = {isa = PBXBuildFile; fileRef = 5691199A1D8CEF760092A3CD /* crypt_aes.h */; };
+		569119A31D8CEF760092A3CD /* crypt_aes.h in Headers */ = {isa = PBXBuildFile; fileRef = 5691199A1D8CEF760092A3CD /* crypt_aes.h */; };
+		569119A41D8CEF760092A3CD /* crypt_aes.h in Headers */ = {isa = PBXBuildFile; fileRef = 5691199A1D8CEF760092A3CD /* crypt_aes.h */; };
+		569119A51D8CEF760092A3CD /* Decryptor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5691199B1D8CEF760092A3CD /* Decryptor.cpp */; };
+		569119A61D8CEF760092A3CD /* Decryptor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5691199B1D8CEF760092A3CD /* Decryptor.cpp */; };
+		569119A71D8CEF760092A3CD /* Decryptor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5691199B1D8CEF760092A3CD /* Decryptor.cpp */; };
+		569119A81D8CEF760092A3CD /* Decryptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 5691199C1D8CEF760092A3CD /* Decryptor.h */; };
+		569119A91D8CEF760092A3CD /* Decryptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 5691199C1D8CEF760092A3CD /* Decryptor.h */; };
+		569119AA1D8CEF760092A3CD /* Decryptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 5691199C1D8CEF760092A3CD /* Decryptor.h */; };
+		569119AB1D8CEF760092A3CD /* MD5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5691199D1D8CEF760092A3CD /* MD5.cpp */; };
+		569119AC1D8CEF760092A3CD /* MD5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5691199D1D8CEF760092A3CD /* MD5.cpp */; };
+		569119AD1D8CEF760092A3CD /* MD5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5691199D1D8CEF760092A3CD /* MD5.cpp */; };
+		569119AE1D8CEF760092A3CD /* MD5.h in Headers */ = {isa = PBXBuildFile; fileRef = 5691199E1D8CEF760092A3CD /* MD5.h */; };
+		569119AF1D8CEF760092A3CD /* MD5.h in Headers */ = {isa = PBXBuildFile; fileRef = 5691199E1D8CEF760092A3CD /* MD5.h */; };
+		569119B01D8CEF760092A3CD /* MD5.h in Headers */ = {isa = PBXBuildFile; fileRef = 5691199E1D8CEF760092A3CD /* MD5.h */; };
 		5E9F61261A3FFE3D0038DE01 /* CCFrustum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5E9F61221A3FFE3D0038DE01 /* CCFrustum.cpp */; };
 		5E9F61271A3FFE3D0038DE01 /* CCFrustum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5E9F61221A3FFE3D0038DE01 /* CCFrustum.cpp */; };
 		5E9F61281A3FFE3D0038DE01 /* CCFrustum.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E9F61231A3FFE3D0038DE01 /* CCFrustum.h */; };
@@ -6881,6 +6899,12 @@
 		52B47A2B1A5349A3004E4C60 /* HttpClient-apple.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "HttpClient-apple.mm"; sourceTree = "<group>"; };
 		52B47A2C1A5349A3004E4C60 /* HttpCookie.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HttpCookie.cpp; sourceTree = "<group>"; };
 		52B47A2D1A5349A3004E4C60 /* HttpCookie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpCookie.h; sourceTree = "<group>"; };
+		569119991D8CEF760092A3CD /* crypt_aes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = crypt_aes.cpp; sourceTree = "<group>"; };
+		5691199A1D8CEF760092A3CD /* crypt_aes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypt_aes.h; sourceTree = "<group>"; };
+		5691199B1D8CEF760092A3CD /* Decryptor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Decryptor.cpp; sourceTree = "<group>"; };
+		5691199C1D8CEF760092A3CD /* Decryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Decryptor.h; sourceTree = "<group>"; };
+		5691199D1D8CEF760092A3CD /* MD5.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MD5.cpp; sourceTree = "<group>"; };
+		5691199E1D8CEF760092A3CD /* MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MD5.h; sourceTree = "<group>"; };
 		5E9F61221A3FFE3D0038DE01 /* CCFrustum.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCFrustum.cpp; sourceTree = "<group>"; };
 		5E9F61231A3FFE3D0038DE01 /* CCFrustum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCFrustum.h; sourceTree = "<group>"; };
 		5E9F61241A3FFE3D0038DE01 /* CCPlane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCPlane.cpp; sourceTree = "<group>"; };
@@ -9934,6 +9958,7 @@
 		50ABBEDB1926664700A911A9 /* platform */ = {
 			isa = PBXGroup;
 			children = (
+				569119981D8CEF760092A3CD /* decryptor */,
 				503DD8CD1926736A00CD74DD /* ios */,
 				50ABBF2D1926664700A911A9 /* desktop */,
 				50ABBF4E1926664700A911A9 /* mac */,
@@ -10197,6 +10222,19 @@
 				50FCEB8F18C72017004AD434 /* TextReader.h */,
 			);
 			path = TextReader;
+			sourceTree = "<group>";
+		};
+		569119981D8CEF760092A3CD /* decryptor */ = {
+			isa = PBXGroup;
+			children = (
+				569119991D8CEF760092A3CD /* crypt_aes.cpp */,
+				5691199A1D8CEF760092A3CD /* crypt_aes.h */,
+				5691199B1D8CEF760092A3CD /* Decryptor.cpp */,
+				5691199C1D8CEF760092A3CD /* Decryptor.h */,
+				5691199D1D8CEF760092A3CD /* MD5.cpp */,
+				5691199E1D8CEF760092A3CD /* MD5.h */,
+			);
+			path = decryptor;
 			sourceTree = "<group>";
 		};
 		68B39B391B1C5C670084F72C /* clipper */ = {
@@ -11454,6 +11492,7 @@
 				15AE199D19AAD39600C27E9E /* ScrollViewReader.h in Headers */,
 				5020A16B1D49912500E80C72 /* AtlasAttachmentLoader.h in Headers */,
 				B6CAB3471AF9AA1A00B9B856 /* gim_box_set.h in Headers */,
+				569119A81D8CEF760092A3CD /* Decryptor.h in Headers */,
 				DABC9FAB19E7DFA900FA252C /* CCClippingRectangleNode.h in Headers */,
 				5020A2131D49912500E80C72 /* SlotData.h in Headers */,
 				B68778FE1A8CA82E00643ABF /* CCParticle3DEmitter.h in Headers */,
@@ -11825,6 +11864,7 @@
 				15AE190E19AAD35000C27E9E /* CCDisplayManager.h in Headers */,
 				29DA08F51C63351600F4052B /* UIEditBoxImpl-linux.h in Headers */,
 				B6CAB50B1AF9AA1A00B9B856 /* btHashMap.h in Headers */,
+				569119AE1D8CEF760092A3CD /* MD5.h in Headers */,
 				15AE1A6719AAD40300C27E9E /* b2World.h in Headers */,
 				B6CAB3571AF9AA1A00B9B856 /* gim_math.h in Headers */,
 				B677B0D71B18492D006762CB /* CCNavMeshObstacle.h in Headers */,
@@ -12286,6 +12326,7 @@
 				B665E3241AA80A6500DDB1C5 /* CCPUOnCollisionObserver.h in Headers */,
 				B6CAB4C11AF9AA1A00B9B856 /* SpuLibspe2Support.h in Headers */,
 				B6CAB26B1AF9AA1A00B9B856 /* btSphereBoxCollisionAlgorithm.h in Headers */,
+				569119A21D8CEF760092A3CD /* crypt_aes.h in Headers */,
 				50ABBEB91925AB6F00A911A9 /* ccUTF8.h in Headers */,
 				B6CAB3C51AF9AA1A00B9B856 /* btHingeConstraint.h in Headers */,
 				15AE191A19AAD35000C27E9E /* CCSSceneReader.h in Headers */,
@@ -12423,6 +12464,7 @@
 				507B3D281C31BDD30067B53E /* CCPlatformDefine-ios.h in Headers */,
 				507B3D291C31BDD30067B53E /* CocoStudio.h in Headers */,
 				507B3D2A1C31BDD30067B53E /* CCPhysicsShape.h in Headers */,
+				569119A41D8CEF760092A3CD /* crypt_aes.h in Headers */,
 				507B3D2B1C31BDD30067B53E /* CCOBB.h in Headers */,
 				507B3D2C1C31BDD30067B53E /* btActionInterface.h in Headers */,
 				507B3D2D1C31BDD30067B53E /* CCPUOnEventFlagObserver.h in Headers */,
@@ -12716,6 +12758,7 @@
 				507B3E3F1C31BDD30067B53E /* gim_tri_collision.h in Headers */,
 				507B3E401C31BDD30067B53E /* AudioEngine.h in Headers */,
 				507B3E411C31BDD30067B53E /* CCPUMaterialTranslator.h in Headers */,
+				569119B01D8CEF760092A3CD /* MD5.h in Headers */,
 				507B3E421C31BDD30067B53E /* CCGLProgramStateCache.h in Headers */,
 				507B3E431C31BDD30067B53E /* CCBundle3D.h in Headers */,
 				507B3E441C31BDD30067B53E /* CocoLoader.h in Headers */,
@@ -13257,6 +13300,7 @@
 				507B40471C31BDD30067B53E /* CCObjLoader.h in Headers */,
 				507B40481C31BDD30067B53E /* CCNodeLoader.h in Headers */,
 				507B40491C31BDD30067B53E /* CCEventTouch.h in Headers */,
+				569119AA1D8CEF760092A3CD /* Decryptor.h in Headers */,
 				5020A1851D49912500E80C72 /* Bone.h in Headers */,
 				507B404A1C31BDD30067B53E /* CCPUAffectorTranslator.h in Headers */,
 				507B404B1C31BDD30067B53E /* ccRandom.h in Headers */,
@@ -13567,6 +13611,7 @@
 				B257B4511989D5E800D9A687 /* CCPrimitive.h in Headers */,
 				50643BE319BFCF1800EF68ED /* CCPlatformConfig.h in Headers */,
 				B665E27D1AA80A6500DDB1C5 /* CCPUDoScaleEventHandler.h in Headers */,
+				569119AF1D8CEF760092A3CD /* MD5.h in Headers */,
 				B6DD2FE81B04825B00E47F5F /* DetourPathQueue.h in Headers */,
 				B6CAB29E1AF9AA1A00B9B856 /* btConeShape.h in Headers */,
 				B677B0D81B18492D006762CB /* CCNavMeshObstacle.h in Headers */,
@@ -14352,6 +14397,7 @@
 				50ABBD471925AB0000A911A9 /* CCVertex.h in Headers */,
 				B6CAB4D81AF9AA1A00B9B856 /* SpuLocalSupport.h in Headers */,
 				50864CB01C7BC1B000B3BAB1 /* cpGearJoint.h in Headers */,
+				569119A91D8CEF760092A3CD /* Decryptor.h in Headers */,
 				5020A1961D49912500E80C72 /* Cocos2dAttachmentLoader.h in Headers */,
 				B6CAB2921AF9AA1A00B9B856 /* btCollisionShape.h in Headers */,
 				B6CAB2681AF9AA1A00B9B856 /* btSimulationIslandManager.h in Headers */,
@@ -14389,6 +14435,7 @@
 				B665E38D1AA80A6500DDB1C5 /* CCPUPlane.h in Headers */,
 				B6CAB3501AF9AA1A00B9B856 /* gim_geom_types.h in Headers */,
 				B6CAB3941AF9AA1A00B9B856 /* btSimplexSolverInterface.h in Headers */,
+				569119A31D8CEF760092A3CD /* crypt_aes.h in Headers */,
 				15AE1BF819AAE01E00C27E9E /* CCControlStepper.h in Headers */,
 				50ABBE261925AB6F00A911A9 /* base64.h in Headers */,
 				B6CAB4E81AF9AA1A00B9B856 /* SpuSync.h in Headers */,
@@ -14667,6 +14714,7 @@
 				15AE1BE619AAE01E00C27E9E /* CCTableViewCell.cpp in Sources */,
 				50ABBEBB1925AB6F00A911A9 /* ccUtils.cpp in Sources */,
 				15AE186A19AAD31D00C27E9E /* CocosDenshion.m in Sources */,
+				5691199F1D8CEF760092A3CD /* crypt_aes.cpp in Sources */,
 				B6CAB3F71AF9AA1A00B9B856 /* btMultiBody.cpp in Sources */,
 				B665E3C21AA80A6600DDB1C5 /* CCPUScaleAffectorTranslator.cpp in Sources */,
 				B665E34A1AA80A6500DDB1C5 /* CCPUOnPositionObserver.cpp in Sources */,
@@ -14676,6 +14724,7 @@
 				15EFA211198A2BB5000C57D3 /* CCProtectedNode.cpp in Sources */,
 				B6CAB3771AF9AA1A00B9B856 /* btGjkEpaPenetrationDepthSolver.cpp in Sources */,
 				15FB208F1AE7C57D00C31518 /* advancing_front.cc in Sources */,
+				569119AB1D8CEF760092A3CD /* MD5.cpp in Sources */,
 				50ABBEB71925AB6F00A911A9 /* ccUTF8.cpp in Sources */,
 				B665E2621AA80A6500DDB1C5 /* CCPUDoExpireEventHandler.cpp in Sources */,
 				B665E4161AA80A6600DDB1C5 /* CCPUTextureAnimatorTranslator.cpp in Sources */,
@@ -15280,6 +15329,7 @@
 				B6CAB3451AF9AA1A00B9B856 /* gim_box_set.cpp in Sources */,
 				1AAF584F180E40B9000584C8 /* LocalStorage.cpp in Sources */,
 				15AE1BD219AAE01E00C27E9E /* CCControlPotentiometer.cpp in Sources */,
+				569119A51D8CEF760092A3CD /* Decryptor.cpp in Sources */,
 				50ABBEA31925AB6F00A911A9 /* CCScriptSupport.cpp in Sources */,
 				B6CAB2711AF9AA1A00B9B856 /* btSphereTriangleCollisionAlgorithm.cpp in Sources */,
 				38B8E2D519E66581002D7CE7 /* CSLoader.cpp in Sources */,
@@ -15529,6 +15579,7 @@
 				507B3A0C1C31BDD30067B53E /* CCPhysicsBody.cpp in Sources */,
 				507B3A0D1C31BDD30067B53E /* CCControlButton.cpp in Sources */,
 				507B3A0E1C31BDD30067B53E /* CCGLProgramState.cpp in Sources */,
+				569119A11D8CEF760092A3CD /* crypt_aes.cpp in Sources */,
 				507B3A0F1C31BDD30067B53E /* CCPUSimpleSpline.cpp in Sources */,
 				507B3A101C31BDD30067B53E /* btAlignedAllocator.cpp in Sources */,
 				507B3A111C31BDD30067B53E /* CCPrimitive.cpp in Sources */,
@@ -15798,6 +15849,7 @@
 				507B3B171C31BDD30067B53E /* btDbvt.cpp in Sources */,
 				507B3B181C31BDD30067B53E /* UIRadioButton.cpp in Sources */,
 				507B3B191C31BDD30067B53E /* CCBAnimationManager.cpp in Sources */,
+				569119A71D8CEF760092A3CD /* Decryptor.cpp in Sources */,
 				507B3B1A1C31BDD30067B53E /* UIListView.cpp in Sources */,
 				507B3B1B1C31BDD30067B53E /* CCLabelAtlas.cpp in Sources */,
 				507B3B1C1C31BDD30067B53E /* CCAutoPolygon.cpp in Sources */,
@@ -16084,6 +16136,7 @@
 				507B3C351C31BDD30067B53E /* CCTechnique.cpp in Sources */,
 				507B3C361C31BDD30067B53E /* CCMeshVertexIndexData.cpp in Sources */,
 				507B3C371C31BDD30067B53E /* CCEventListener.cpp in Sources */,
+				569119AD1D8CEF760092A3CD /* MD5.cpp in Sources */,
 				507B3C381C31BDD30067B53E /* CCRenderState.cpp in Sources */,
 				507B3C391C31BDD30067B53E /* AssetsManager.cpp in Sources */,
 				507B3C3A1C31BDD30067B53E /* btPersistentManifold.cpp in Sources */,
@@ -16382,6 +16435,7 @@
 				B6CAB39A1AF9AA1A00B9B856 /* btVoronoiSimplexSolver.cpp in Sources */,
 				46A170FC1807CECB005B8026 /* CCPhysicsBody.cpp in Sources */,
 				15AE1BEA19AAE01E00C27E9E /* CCControlButton.cpp in Sources */,
+				569119A01D8CEF760092A3CD /* crypt_aes.cpp in Sources */,
 				50ABBD941925AB4100A911A9 /* CCGLProgramState.cpp in Sources */,
 				B665E3DF1AA80A6600DDB1C5 /* CCPUSimpleSpline.cpp in Sources */,
 				B6CAB4F61AF9AA1A00B9B856 /* btAlignedAllocator.cpp in Sources */,
@@ -16391,6 +16445,7 @@
 				15AE192919AAD35100C27E9E /* TriggerMng.cpp in Sources */,
 				B6CAB21C1AF9AA1A00B9B856 /* btBoxBoxCollisionAlgorithm.cpp in Sources */,
 				B6CAB35A1AF9AA1A00B9B856 /* gim_memory.cpp in Sources */,
+				569119AC1D8CEF760092A3CD /* MD5.cpp in Sources */,
 				15AE185E19AAD31200C27E9E /* CocosDenshion.m in Sources */,
 				B665E2071AA80A6500DDB1C5 /* CCPUBaseCollider.cpp in Sources */,
 				B6DD2FB01B04825B00E47F5F /* RecastDebugDraw.cpp in Sources */,
@@ -16995,6 +17050,7 @@
 				B6CAB4AE1AF9AA1A00B9B856 /* SpuCollisionTaskProcess.cpp in Sources */,
 				B665E3831AA80A6500DDB1C5 /* CCPUPathFollower.cpp in Sources */,
 				15AE1C1519AAE2C700C27E9E /* CCPhysicsDebugNode.cpp in Sources */,
+				569119A61D8CEF760092A3CD /* Decryptor.cpp in Sources */,
 				B6CAB31C1AF9AA1A00B9B856 /* btContactProcessing.cpp in Sources */,
 				B6CAB4141AF9AA1A00B9B856 /* btMultiBodyPoint2Point.cpp in Sources */,
 				50ABBD841925AB4100A911A9 /* CCBatchCommand.cpp in Sources */,
