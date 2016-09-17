@@ -8,7 +8,7 @@
 #ifndef ELECTROCLIENT_OBJECTS_PUBLICMESSAGEREQUEST_H_
 #define ELECTROCLIENT_OBJECTS_PUBLICMESSAGEREQUEST_H_
 
-#include "BaseRequest.h""
+#include "BaseRequest.h"
 
 namespace es {
 
