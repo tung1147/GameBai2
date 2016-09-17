@@ -67,18 +67,15 @@ void EsObject::readFromBuffer(EsMessageReader* reader){
 			case EsObjectType_Long:
 			case EsObjectType_Short:{
 				obj = new EsPrimitive();
-				obj->type == type;
 				break;
 			}
 
 			case EsObjectType_String:{
 				obj = new EsString();
-				obj->type == type;
 				break;
 			}
 			case EsObjectType_EsObject:{
 				obj = new EsObject();
-				obj->type == type;
 				break;
 			}
 		
@@ -92,7 +89,6 @@ void EsObject::readFromBuffer(EsMessageReader* reader){
 			case EsObjectType_LongArray:
 			case EsObjectType_ShortArray:{
 				obj = new EsArray();
-				obj->type == type;
 				break;
 			}
 
@@ -114,6 +110,7 @@ void EsObject::readFromBuffer(EsMessageReader* reader){
 			}
 		}
 		if (obj){
+            obj->type = type;
 			obj->readFromBuffer(reader);
 			mData.insert(std::make_pair(key, obj));
 		}
