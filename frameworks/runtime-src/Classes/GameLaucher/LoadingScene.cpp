@@ -72,11 +72,6 @@ LoadingScene::~LoadingScene() {
 	// TODO Auto-generated destructor stub
 }
 
-void load_script_file(JSContext* cx, JS::HandleObject globalObj){
-	auto scene = (LoadingScene*)Director::getInstance()->getRunningScene();
-	scene->loadScript(cx, globalObj);
-}
-
 void LoadingScene::startJS(){
 	/****/
     ScriptingCore* sc = ScriptingCore::getInstance();
@@ -158,7 +153,6 @@ void LoadingScene::startJS(){
 	sc->addRegisterCallback(register_all_quyetnd_electro_socket);
 	sc->addRegisterCallback(register_all_quyetnd_systemplugin);
 	sc->addRegisterCallback(register_all_quyetnd_facebook_plugin);
-	sc->addRegisterCallback(load_script_file);
 
 	sc->start();
 
@@ -167,6 +161,7 @@ void LoadingScene::startJS(){
 	sc->enableDebugger();
 #endif
 
+	this->loadScript();
 	this->status = 3;
 	this->currentStep++;
 	this->updateLoadResource();
@@ -353,10 +348,16 @@ void LoadingScene::loadScriptMetaFile(){
 	});
 }
 
-void LoadingScene::loadScript(JSContext* cx, JS::HandleObject globalObj){
+void LoadingScene::loadScript(){
+	auto sc = ScriptingCore::getInstance();
+	auto cx = sc->getGlobalContext();
+	auto rootObject = sc->getGlobalObject();
+	JSAutoCompartment ac(cx, rootObject);
+	JS::RootedObject globalObj(cx, rootObject);
+
 	for (int i = 0; i < jsFiles.size(); i++){
 		JS::RootedValue returnValue(cx);
-		ScriptingCore::getInstance()->requireScript(jsFiles[i].c_str(), globalObj, cx, &returnValue);
+		sc->requireScript(jsFiles[i].c_str(), globalObj, cx, &returnValue);
 	}
 }
 

@@ -41,7 +41,7 @@ class LoadingScene : public Scene{
 public:
 	LoadingScene();
 	virtual ~LoadingScene();
-	void loadScript(JSContext* cx, JS::HandleObject globalObj);
+	void loadScript();
 
 	virtual void update(float dt);
 
