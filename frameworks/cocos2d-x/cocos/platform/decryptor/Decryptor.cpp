@@ -27,6 +27,9 @@ void Decryptor::setDecryptKey(const char* key){
 }
 
 bool Decryptor::isDataEncrypted(const char* data, int len){
+	if (len <= 0 || data == 0){
+		return false;
+	}
 	if (len % 16){
 		return false;
 	}

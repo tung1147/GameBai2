@@ -307,6 +307,7 @@ void LoadingScene::onResourcesLoaderFinished(){
 
 void LoadingScene::onResourcesLoaderProcess(int current, int max){
 	this->currentStep++;
+	this->maxStep = max + 1;
 	this->updateLoadResource();
 }
 
