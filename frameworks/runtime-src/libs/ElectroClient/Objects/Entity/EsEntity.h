@@ -24,6 +24,8 @@ class EsObject;
 class EsPrimitive;
 class EsString;
 class EsEntity {
+protected:
+	virtual void printPadding(std::ostream &outStream, int padding);
 public:
 	int type;
 public:

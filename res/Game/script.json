@@ -1,4 +1,5 @@
-[	
+[
+	"js/md5.min.js",
 	"js/Socket/ElectroClient.js",
 	"js/Socket/SmartfoxClient.js",
 	"js/Socket/LobbyClient.js",

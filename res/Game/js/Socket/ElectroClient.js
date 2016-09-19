@@ -107,7 +107,7 @@ var ElectroClient = (function() {
                     var request = {
                         messageType : socket.ElectroClient.LoginRequest,
                         userName : "balua123",
-                        password : "5e381944f88357545e1aacc9890b2c31",
+                        password : md5("tammao123"),
                         userVariables : {
                             zoneInfo : {
                                 104:"df4335448ece82c683165a7e71c6ec35",

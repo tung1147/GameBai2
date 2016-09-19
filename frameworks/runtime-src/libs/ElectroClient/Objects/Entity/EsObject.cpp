@@ -118,31 +118,21 @@ void EsObject::readFromBuffer(EsMessageReader* reader){
 	}
 }
 
-inline void _print_padding(std::ostream &outStream, int padding) {
-	for (int i = 0; i < padding; i++) {
-#if defined(ANDROID)
-		outStream << "  ";
-#else
-		outStream << "\t";
-#endif	
-	}
-}
-
 void EsObject::printDebugToBuffer(std::ostringstream &outStream, int padding){
-	outStream << "\n";
+	//outStream << "\n";
 
-	_print_padding(outStream, padding);
+	//_print_padding(outStream, padding);
 	outStream << "[EsObject]{\n";
 
 	for (auto it = mData.begin(); it != mData.end(); it++){
-		_print_padding(outStream, padding + 1);
+		this->printPadding(outStream, padding + 1);
 		outStream << it->first << ":";
 		it->second->printDebugToBuffer(outStream, padding + 1);
 		outStream << "\n";
 	}
 
-	_print_padding(outStream, padding);
-	outStream << "}\n";
+	this->printPadding(outStream, padding);
+	outStream << "}";//\n";
 }
 
 EsEntity* EsObject::getEsEntity(const std::string& key){

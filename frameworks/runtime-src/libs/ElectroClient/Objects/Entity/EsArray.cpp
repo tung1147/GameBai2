@@ -91,66 +91,77 @@ void EsArray::printDebugToBuffer(std::ostringstream &outStream, int padding){
 	switch (type)
 	{
 		case EsObjectType_IntegerArray:{
-			outStream << "[Int](" << mData.size() << ") ";
+			outStream << "[IntArray](" << mData.size() << ") ";
 			for (int i = 0; i < mData.size(); i++){
 				outStream << ((EsPrimitive*)mData[i])->getInt() << " ";
+				outStream << "\n";
 			}
 			break;
 		}
 		case EsObjectType_DoubleArray:{
-			outStream << "[Double](" << mData.size() << ") ";
+			outStream << "[DoubleArray](" << mData.size() << ") ";
 			for (int i = 0; i < mData.size(); i++){
 				outStream << ((EsPrimitive*)mData[i])->getDouble() << " ";
+				outStream << "\n";
 			}
 			break;
 		}
 		case EsObjectType_FloatArray:{
-			outStream << "[Float](" << mData.size() << ") ";
+			outStream << "[FloatArray](" << mData.size() << ") ";
 			for (int i = 0; i < mData.size(); i++){
 				outStream << ((EsPrimitive*)mData[i])->getFloat() << " ";
+				outStream << "\n";
 			}
 			break;
 		}
 		case EsObjectType_BoolArray:{
-			outStream << "[Bool](" << mData.size() << ") ";
+			outStream << "[BoolArray](" << mData.size() << ") ";
 			for (int i = 0; i < mData.size(); i++){
 				outStream << (((EsPrimitive*)mData[i])->getBool() ? "TRUE":"FALSE") << " ";
+				outStream << "\n";
 			}
 			break;
 		}
 		case EsObjectType_ByteArray:{
-			outStream << "[Byte](" << mData.size() << ") ";
+			outStream << "[ByteArray](" << mData.size() << ") ";
 			for (int i = 0; i < mData.size(); i++){
 				outStream << ((int)((EsPrimitive*)mData[i])->getByte()) << " ";
+				outStream << "\n";
 			}
 			break;
 		}
 		case EsObjectType_LongArray:{
-			outStream << "[Long](" << mData.size() << ") ";
+			outStream << "[LongArray](" << mData.size() << ") ";
 			for (int i = 0; i < mData.size(); i++){
 				outStream << ((EsPrimitive*)mData[i])->getLong() << " ";
+				outStream << "\n";
 			}
 			break;
 		}
 		case EsObjectType_ShortArray:{
-			outStream << "[Short](" << mData.size() << ") ";
+			outStream << "[ShortArray](" << mData.size() << ") ";
 			for (int i = 0; i < mData.size(); i++){
 				outStream << ((EsPrimitive*)mData[i])->getShort() << " ";
+				outStream << "\n";
 			}
 			break;
 		}
 		case EsObjectType_StringArray:{
-			outStream << "[String](" << mData.size() << ") ";
+			outStream << "[StringArray](" << mData.size() << ") ";
 			for (int i = 0; i < mData.size(); i++){
 				outStream << ((EsString*)mData[i])->getString() << " ";
+				outStream << "\n";
 			}
 			break;
 		}
 		case EsObjectType_EsObjectArray:{
-			outStream << "[EsObject](" << mData.size() << ")";
+			outStream << "[EsArray](" << mData.size() << ")[\n";
 			for (int i = 0; i < mData.size(); i++){
 				((EsObject*)mData[i])->printDebugToBuffer(outStream, padding + 1);
+				outStream << "\n";
 			}
+			this->printPadding(outStream, padding);
+			outStream << "]";
 			break;
 		}
 	}

@@ -208,6 +208,16 @@ void EsEntity::writeToFlattenedEsObjectRO(void* obj) {
 	thrift->__isset.encodedEntries = true;
 }
 
+void EsEntity::printPadding(std::ostream &outStream, int padding){
+	for (int i = 0; i < padding; i++) {
+#if defined(ANDROID)
+		outStream << "  ";
+#else
+		outStream << "\t";
+#endif	
+	}
+}
+
 void EsEntity::printDebug(){
 	std::ostringstream outStream;
 	this->printDebugToBuffer(outStream, 0);
