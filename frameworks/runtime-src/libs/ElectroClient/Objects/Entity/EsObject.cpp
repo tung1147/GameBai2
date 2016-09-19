@@ -120,7 +120,11 @@ void EsObject::readFromBuffer(EsMessageReader* reader){
 
 inline void _print_padding(std::ostream &outStream, int padding) {
 	for (int i = 0; i < padding; i++) {
-		outStream << " ";
+#if defined(ANDROID)
+		outStream << "  ";
+#else
+		outStream << "\t";
+#endif	
 	}
 }
 

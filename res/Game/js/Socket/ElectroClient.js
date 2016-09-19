@@ -36,7 +36,6 @@ var ElectroClient = (function() {
                 this.lobbySocket.close();
             }
         },
-
         connect : function (host, port) {
             if(this.lobbySocket){
                 this.lobbySocket.connect(host, port);
@@ -49,7 +48,7 @@ var ElectroClient = (function() {
             this.postEvent("message", message);
         },
 		postEvent : function (messageType, params) {
-           // this.prePostEvent(messageType, params);
+            this.prePostEvent(messageType, params);
             var arr = this.allListener[messageType];
             if(arr){
                 this.isBlocked = true;
@@ -101,6 +100,30 @@ var ElectroClient = (function() {
                 }
             }
         },
+        prePostEvent : function (eventName, params){
+            if(eventName == "message"){
+                if(params.messageType == socket.ElectroClient.ConnectionResponse){
+                    //send login
+                    var request = {
+                        messageType : socket.ElectroClient.LoginRequest,
+                        userName : "balua123",
+                        password : "5e381944f88357545e1aacc9890b2c31",
+                        userVariables : {
+                            zoneInfo : {
+                                104:"df4335448ece82c683165a7e71c6ec35",
+                                77:"10226AC4-611B-4C71-B834-713353C5C751",
+                                78:"IOS",
+                                79:20,
+                                89:"1.2.0",
+                                90:"com.gamebaivip.vipdoithuong",
+                                91:1
+                            }
+                        }
+                    };
+                    this.send(request);
+                }
+            }
+        }
     });
 
     Clazz.getInstance = function() {

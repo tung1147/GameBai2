@@ -653,6 +653,14 @@ std::string SystemPlugin::URLDecode(const std::string& data){
 	return pRet;
 }
 
+std::string SystemPlugin::md5(const std::string& raw){
+	return "";
+}
+
+std::string SystemPlugin::sha1(const std::string& raw){
+	return "";
+}
+
 void SystemPlugin::addSoftKeyboardDelegate(SoftKeyboardDelegate* delegate){
 	_keyboardDelegate.push_back(delegate);
 }

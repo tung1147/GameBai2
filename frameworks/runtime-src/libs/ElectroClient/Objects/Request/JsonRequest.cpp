@@ -39,7 +39,7 @@ namespace es {
 
 
 JsonRequest::JsonRequest(){
-
+	requestType = -1;
 }
 
 JsonRequest::~JsonRequest(){
@@ -56,11 +56,12 @@ void JsonRequest::getBytes(std::vector<char> &buffer){
 		bool error = doc.Parse<0>(_json.c_str()).HasParseError();
 		if (!error && doc.IsObject()){
 			if (doc.HasMember("messageType") && doc["messageType"].IsNumber()){
-				int messageType = doc["messageType"].GetInt();
-				auto request = _get_request(messageType);
+				requestType = doc["messageType"].GetInt();
+				auto request = _get_request(requestType);
 				if (request){
 					request->initWithJson(doc);
 					request->getBytes(buffer);
+					requestSize = buffer.size();
 					return;
 				}
 			}
@@ -68,6 +69,10 @@ void JsonRequest::getBytes(std::vector<char> &buffer){
 	}
 
 	es::log("error parse json");
+}
+
+void JsonRequest::printDebug(){
+	es::log("SEND message[%s] - %d bytes", es::type::messageTypeName(requestType), requestSize);
 }
 
 } /* namespace es */

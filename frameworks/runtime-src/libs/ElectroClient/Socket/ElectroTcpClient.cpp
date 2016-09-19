@@ -71,7 +71,8 @@ void TcpSocketSender::update(){
 					else{
 #ifdef ES_DEBUG
 						es::log("---------------------");
-						es::log("SEND message[%s] - %d bytes", es::type::messageTypeName(sendData->messageType), sentData);
+						//es::log("SEND message[%s] - %d bytes", es::type::messageTypeName(sendData->messageType), sentData);
+						sendData->printDebug();
 						es::log("---------------------");
 #endif
 					}

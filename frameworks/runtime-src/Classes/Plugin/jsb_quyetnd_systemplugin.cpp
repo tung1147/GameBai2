@@ -64,6 +64,46 @@ bool jsb_quyetnd_systemplugin_androiCheckPermission(JSContext *cx, uint32_t argc
 	return false;
 }
 
+bool jsb_quyetnd_systemplugin_md5(JSContext *cx, uint32_t argc, jsval *vp){
+	/*if (argc == 1){
+		JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+		std::string permission;
+		bool ok = true;
+		ok = jsval_to_std_string(cx, args.get(0), &permission);
+		JSB_PRECONDITION2(ok, cx, false, "jsb_quyetnd_systemplugin_androiCheckPermission : Error processing arguments");
+		if (ok){
+			bool pret = quyetnd::SystemPlugin::getInstance()->androidCheckPermission(permission);
+			args.rval().setBoolean(pret);
+		}
+		else{
+			args.rval().setBoolean(false);
+		}
+		return true;
+	}
+	return false;*/
+	return false;
+}
+
+bool jsb_quyetnd_systemplugin_sha1(JSContext *cx, uint32_t argc, jsval *vp){
+	/*if (argc == 1){
+	JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+	std::string permission;
+	bool ok = true;
+	ok = jsval_to_std_string(cx, args.get(0), &permission);
+	JSB_PRECONDITION2(ok, cx, false, "jsb_quyetnd_systemplugin_androiCheckPermission : Error processing arguments");
+	if (ok){
+	bool pret = quyetnd::SystemPlugin::getInstance()->androidCheckPermission(permission);
+	args.rval().setBoolean(pret);
+	}
+	else{
+	args.rval().setBoolean(false);
+	}
+	return true;
+	}
+	return false;*/
+	return false;
+}
+
 bool jsb_quyetnd_systemplugin_showCallPhone(JSContext *cx, uint32_t argc, jsval *vp){
 	if (argc == 1){
 		JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
