@@ -16,6 +16,7 @@ namespace quyetnd {
 GameLaucher::GameLaucher() {
 	// TODO Auto-generated constructor stub
 	versionFile = "";
+	jsMainFile = "js/main.js";
 	statusCallback = nullptr;
 	downloadCallback = nullptr;
 	resourceHost = "http://10.0.1.106/quyetnd/Game/";
@@ -53,7 +54,9 @@ void GameLaucher::checkFiles(){
 	doc.Parse<0>(buffer.data());
 	std::string versionName = doc["versionName"].GetString();
 	uint32_t versionCode = doc["versionCode"].GetInt();
-
+	if (doc.HasMember("main")){
+		jsMainFile = doc["main"].GetString();
+	}
 	const rapidjson::Value& files = doc["files"];
 	for (int i = 0; i < files.Size(); i++){
 		const rapidjson::Value& fileData = files[i];
@@ -127,6 +130,10 @@ GameFile* GameLaucher::getFile(const std::string& file){
 		return it->second;
 	}
 	return 0;
+}
+
+GameFile* GameLaucher::getMainJs(){
+	return this->getFile(jsMainFile);
 }
 
 static GameLaucher* s_GameLaucher = 0;

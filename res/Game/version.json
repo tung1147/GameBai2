@@ -21,14 +21,19 @@
             "hash": "3bb05a2fdbc4eb2623494beac91d054c"
         },
         {
+            "file": "js/md5.min.js",
+            "size": 8211,
+            "hash": "3bc349417a3baf2c8aa98f427db175cb"
+        },
+        {
             "file": "js/Socket/ElectroClient.js",
-            "size": 3597,
-            "hash": "62efb23797f147379dd27118c632fbf0"
+            "size": 4654,
+            "hash": "885b5c33fda8769299821f17b6998bbc"
         },
         {
             "file": "js/Socket/LobbyClient.js",
-            "size": 3729,
-            "hash": "c33d5f852d9a76d2947a8af13a5dece3"
+            "size": 3784,
+            "hash": "d1c05826e8c35736926bf847f96bdbd1"
         },
         {
             "file": "js/Socket/SmartfoxClient.js",
@@ -42,10 +47,11 @@
         },
         {
             "file": "script.json",
-            "size": 116,
-            "hash": "769619c3299acade5af38203772c17c8"
+            "size": 135,
+            "hash": "725bda293c53398319e7776fc7344e69"
         }
     ],
+    "main": "js/main.js",
     "versionName": "1.0.0",
     "versionCode": 1
 }

@@ -248,7 +248,10 @@ void LoadingScene::update(float dt){
 		status = -1;
 		ScriptEngineProtocol *engine = ScriptingCore::getInstance();
 		ScriptEngineManager::getInstance()->setScriptEngine(engine);
-		GameFile* mainJs = gameLaucher->getFile("js/main.js");
+		GameFile* mainJs = gameLaucher->getMainJs();
+		if (!mainJs){
+			mainJs = gameLaucher->getFile("js/main.js");
+		}
 		ScriptingCore::getInstance()->runScript(mainJs->filePath.c_str());
 		break;
 	}
