@@ -60,12 +60,14 @@
 #include "GameLaucher.h"
 #include "json/rapidjson.h"
 #include "json/document.h"
+#include "json/prettywriter.h"
+#include "json/stringbuffer.h"
 
 using namespace quyetnd;
 
 LoadingScene::LoadingScene() {
 	// TODO Auto-generated constructor stub
-
+	gameConfig = "";
 }
 
 LoadingScene::~LoadingScene() {
@@ -368,20 +370,55 @@ void LoadingScene::onResourceDownloadProcress(int _current, int _max){
 	sprintf(stringBuffer, "Đang tải cập nhật [%d/%d]", _current, _max);
 }
 
-/*rapidjson::StringBuffer stringBuffer;
-rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(stringBuffer);
-files.Accept(writer);
-cocos2d::log("files: %s", stringBuffer.GetString());*/
+void LoadingScene::requestGetUpdate(){
+	std::string urlRequest = "http://10.0.1.106/quyetnd/acs.json";
+
+	cocos2d::network::HttpRequest* request = new cocos2d::network::HttpRequest();
+	request->setUrl(urlRequest.c_str());
+	request->setRequestType(cocos2d::network::HttpRequest::Type::GET);
+	request->setResponseCallback([=](cocos2d::network::HttpClient* client, cocos2d::network::HttpResponse* response){
+		if (response->isSucceed()){
+			std::vector<char>* mData = response->getResponseData();
+			std::string data(mData->begin(), mData->end());
+			rapidjson::Document doc;
+			bool error = doc.Parse<0>(data.data()).HasParseError();
+			if (!error){
+				std::string updateHost = doc["UpdateHost"].GetString();
+				versionHash = doc["LastVersionHash"].GetString();
+
+				const rapidjson::Value& configValue = doc["config"];
+				rapidjson::StringBuffer stringBuffer;
+				rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(stringBuffer);
+				configValue.Accept(writer);
+				gameConfig = stringBuffer.GetString();
+
+				cocos2d::log("updateHost: %s", updateHost.c_str());
+				cocos2d::log("hashVersionFile: %s", versionHash.c_str());
+				cocos2d::log("config: %s", gameConfig.c_str());
+
+				gameLaucher->setResourceHost(updateHost);
+				gameLaucher->setVersionHash(versionHash);
+				gameLaucher->run(); 
+				return;
+			}
+		}
+
+		log("loi ket noi mang");	
+		this->requestGetUpdate();
+	});
+
+	cocos2d::network::HttpClient::getInstance()->send(request);
+	request->release();
+}
+
+void LoadingScene::updateVersionFile(){
+
+}
 
 void LoadingScene::onEnter(){
 	Scene::onEnter(); 
 	status = 0;
-
-	statusLabel->setString("Đang kiểm tra phiên bản");
-	gameLaucher->startFromFile("res/Game/version.json");
-	//gameLaucher->startFromFile("version.json");
 	this->scheduleUpdate();
-	
 	auto keyboard = EventListenerKeyboard::create();
 	keyboard->onKeyPressed = [](EventKeyboard::KeyCode keyCode, Event*){
 		if (keyCode == EventKeyboard::KeyCode::KEY_BACK){
@@ -390,6 +427,8 @@ void LoadingScene::onEnter(){
 	};
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(keyboard, this);
 	
+	statusLabel->setString("Đang lấy cấu hình");
+	this->requestGetUpdate();
 }
 
 void LoadingScene::onExit(){

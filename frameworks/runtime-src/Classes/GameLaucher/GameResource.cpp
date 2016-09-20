@@ -79,7 +79,7 @@ bool GameFile::checkHashFile(){
 }
 
 #if defined(COCOS2D_DEBUG) && (COCOS2D_DEBUG > 0)
-#define GAME_FILE_NOT_HASH 1
+//#define GAME_FILE_NOT_HASH 1
 #endif
 
 inline bool string_end_with(const std::string &str, const std::string &strend) {
@@ -177,7 +177,7 @@ inline void _gamefile_create_parent_folder(const std::string& filePath){
 	}
 }
 
-size_t _GameFile_write_data(void *ptr, size_t size, size_t nmemb, WriteDataHandler* writer) {
+size_t _GameFile_write_data_handler(void *ptr, size_t size, size_t nmemb, WriteDataHandler* writer) {
 	return (*writer)(ptr, size, nmemb);
 }
 
@@ -185,6 +185,11 @@ size_t GameFile::writeData(void *ptr, size_t size, size_t nmemb, FILE *fp){
 	size_t written = fwrite(ptr, size, nmemb, fp);
 	GameLaucher::getInstance()->onUpdateDownloadProcess((int)(nmemb * size));
 	md5->update((const char*)ptr, size* nmemb);
+	return written;
+}
+
+size_t _GameFile_write_data(void *ptr, size_t size, size_t nmemb, FILE *fp) {
+	size_t written = fwrite(ptr, size, nmemb, fp);
 	return written;
 }
 
@@ -216,7 +221,7 @@ int GameFile::update(const std::string& url){
 			curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, 120);
 			curl_easy_setopt(curl, CURLOPT_TIMEOUT, 120);
 			curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, true);
-			curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, _GameFile_write_data);
+			curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, _GameFile_write_data_handler);
 			curl_easy_setopt(curl, CURLOPT_WRITEDATA, &writeFunc);
 			res = curl_easy_perform(curl);
 			curl_easy_cleanup(curl);
@@ -242,6 +247,58 @@ int GameFile::update(const std::string& url){
 				return 2;
 			}		
 			
+		}
+		else{
+			CCLOG("download file cannot create file:  %s", url.c_str());
+			return 3;
+		}
+	}
+	return 4;
+}
+
+int GameFile::updateNoHandler(const std::string& url){
+	//load from url
+	CURL *curl;
+	CURLcode res;
+	auto root = FileUtils::getInstance()->getWritablePath();
+	curl = curl_easy_init();
+
+	int pret = 0;
+	if (curl != NULL) {
+		_gamefile_create_parent_folder(filePath);
+
+		FILE *fp;
+		fp = fopen(filePath.c_str(), "wb");
+		if (fp != NULL) {
+			curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
+			curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, true);
+			curl_easy_setopt(curl, CURLOPT_AUTOREFERER, true);
+			curl_easy_setopt(curl, CURLOPT_MAXREDIRS, 10);
+			curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, 120);
+			curl_easy_setopt(curl, CURLOPT_TIMEOUT, 120);
+			curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, true);
+			curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, _GameFile_write_data);
+			curl_easy_setopt(curl, CURLOPT_WRITEDATA, fp);
+			res = curl_easy_perform(curl);
+			curl_easy_cleanup(curl);
+			if (res == CURLE_OK) {
+				fclose(fp);				
+				if (this->test()){ 
+					CCLOG("download file OK : %s", url.c_str());
+					return 0;
+				}
+				else{
+					CCLOG("download file invalid hash: %s -> delete file", url.c_str());
+					remove(filePath.c_str());
+					return 1;
+				}
+			}
+			else{
+				CCLOG("download file network error[%d]: %s", res, url.c_str());
+				fclose(fp);
+				return 2;
+			}
+
 		}
 		else{
 			CCLOG("download file cannot create file:  %s", url.c_str());

@@ -16,6 +16,7 @@ namespace quyetnd {
 GameLaucher::GameLaucher() {
 	// TODO Auto-generated constructor stub
 	versionFile = "";
+	versionHash = "";
 	jsMainFile = "js/main.js";
 	statusCallback = nullptr;
 	downloadCallback = nullptr;
@@ -113,6 +114,50 @@ void GameLaucher::onUpdateDownloadProcess(int size){
 		if (this->downloadCallback){
 			this->downloadCallback(downloadCurrentValue, downloadMaxValue);
 		}
+	});
+}
+
+void GameLaucher::setResourceHost(const std::string& updateHost){
+	resourceHost = updateHost;
+}
+
+void GameLaucher::setVersionHash(const std::string& hash){
+	versionHash = hash;
+}
+
+void GameLaucher::run(){
+	//clear all
+	for (auto it = _allResources.begin(); it != _allResources.end(); it++){
+		delete it->second;
+	}
+	_allResources.clear();
+
+	std::thread checkVersion(&GameLaucher::checkVersionFile, this);
+	checkVersion.detach();
+}
+
+void GameLaucher::checkVersionFile(){
+	GameFile* versionFile = new GameFile();
+	versionFile->fileName = "version.json";
+	versionFile->md5Digest = versionHash;
+	std::transform(versionFile->md5Digest.begin(), versionFile->md5Digest.end(), versionFile->md5Digest.begin(), ::tolower);
+	versionFile->fileSize = 0;
+
+	if (!versionFile->test()){
+		int returnCode = versionFile->updateNoHandler(resourceHost + versionFile->fileName);
+		if (returnCode != 0){
+			delete versionFile;
+			UIThread::getInstance()->runOnUI([=](){			
+				this->onProcessStatus(GameLaucherStatus_UpdateFailure);
+			});
+			return;
+		}
+	}
+
+	std::string filePath = versionFile->filePath;
+	delete versionFile;
+	UIThread::getInstance()->runOnUI([=](){
+		this->startFromFile(filePath);
 	});
 }
 

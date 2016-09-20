@@ -26,6 +26,10 @@ class LoadingScene : public Scene{
 
 	Label* statusLabel;
 
+	std::string gameConfig;
+	std::string updateHost;
+	std::string versionHash;
+
 	void initScene();
 	void startJS();
 	void startLoadResources();
@@ -38,6 +42,9 @@ class LoadingScene : public Scene{
 	void onResourceDownloadProcress(int _current, int _max);
 	void loadScriptMetaFile();	
 	void updateLoadResource();
+
+	void requestGetUpdate();
+	void updateVersionFile();
 public:
 	LoadingScene();
 	virtual ~LoadingScene();
