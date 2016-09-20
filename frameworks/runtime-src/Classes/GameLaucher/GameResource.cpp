@@ -79,7 +79,7 @@ bool GameFile::checkHashFile(){
 }
 
 #if defined(COCOS2D_DEBUG) && (COCOS2D_DEBUG > 0)
-//#define GAME_FILE_NOT_HASH 1
+#define GAME_FILE_NOT_HASH 1
 #endif
 
 inline bool string_end_with(const std::string &str, const std::string &strend) {
