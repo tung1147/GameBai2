@@ -31,6 +31,7 @@ public:
 	virtual ~GameFile();
 	bool test();
 	int update(const std::string& url);
+	int updateNoHandler(const std::string& url);
 };
 
 

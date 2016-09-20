@@ -68,7 +68,7 @@ SocketData* SocketPool::take(){
 			SocketData* data = mData->front();
 			mData->pop();
 
-			data->retain();
+			//data->retain();
 			data->autorelease();
 			return data;
 		}
@@ -79,7 +79,7 @@ SocketData* SocketPool::take(){
 			SocketData* data = mData->front();
 			mData->pop();
 
-			data->retain();
+			//data->retain();
 			data->autorelease();
 			return data;
 		}
@@ -97,7 +97,7 @@ SocketData* SocketPool::pop(){
 		auto data = mData->front();
 		mData->pop();
 
-		data->retain();
+		//data->retain();
 		data->autorelease();
 		return data;
 	}

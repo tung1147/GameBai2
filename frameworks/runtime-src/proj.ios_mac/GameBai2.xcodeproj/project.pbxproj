@@ -209,6 +209,334 @@
 		56835C3A1D7B25DA0021A197 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A92275471517C094001B78AA /* AudioToolbox.framework */; };
 		56835C3D1D7B26210021A197 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56835C3C1D7B26210021A197 /* StoreKit.framework */; };
 		56835C401D7B2C740021A197 /* MacOS_native_linker.mm in Sources */ = {isa = PBXBuildFile; fileRef = 56835C3F1D7B2C740021A197 /* MacOS_native_linker.mm */; };
+		569119B31D8CF2EE0092A3CD /* FileEncrypt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119B11D8CF2EE0092A3CD /* FileEncrypt.cpp */; };
+		569119B41D8CF2EE0092A3CD /* FileEncrypt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119B11D8CF2EE0092A3CD /* FileEncrypt.cpp */; };
+		569119BB1D8CF2FF0092A3CD /* ElectroClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119B71D8CF2FF0092A3CD /* ElectroClient.cpp */; };
+		569119BC1D8CF2FF0092A3CD /* ElectroClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119B71D8CF2FF0092A3CD /* ElectroClient.cpp */; };
+		569119BD1D8CF2FF0092A3CD /* jsb_quyetnd_electro_socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119B91D8CF2FF0092A3CD /* jsb_quyetnd_electro_socket.cpp */; };
+		569119BE1D8CF2FF0092A3CD /* jsb_quyetnd_electro_socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119B91D8CF2FF0092A3CD /* jsb_quyetnd_electro_socket.cpp */; };
+		56911B361D8CF3340092A3CD /* ElectroLogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119C01D8CF3340092A3CD /* ElectroLogger.cpp */; };
+		56911B371D8CF3340092A3CD /* ElectroLogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119C01D8CF3340092A3CD /* ElectroLogger.cpp */; };
+		56911B381D8CF3340092A3CD /* BaseMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119C41D8CF3340092A3CD /* BaseMessage.cpp */; };
+		56911B391D8CF3340092A3CD /* BaseMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119C41D8CF3340092A3CD /* BaseMessage.cpp */; };
+		56911B3A1D8CF3340092A3CD /* EsArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119C71D8CF3340092A3CD /* EsArray.cpp */; };
+		56911B3B1D8CF3340092A3CD /* EsArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119C71D8CF3340092A3CD /* EsArray.cpp */; };
+		56911B3C1D8CF3340092A3CD /* EsEntity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119C91D8CF3340092A3CD /* EsEntity.cpp */; };
+		56911B3D1D8CF3340092A3CD /* EsEntity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119C91D8CF3340092A3CD /* EsEntity.cpp */; };
+		56911B3E1D8CF3340092A3CD /* EsMessageStreamer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119CB1D8CF3340092A3CD /* EsMessageStreamer.cpp */; };
+		56911B3F1D8CF3340092A3CD /* EsMessageStreamer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119CB1D8CF3340092A3CD /* EsMessageStreamer.cpp */; };
+		56911B401D8CF3340092A3CD /* EsObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119CD1D8CF3340092A3CD /* EsObject.cpp */; };
+		56911B411D8CF3340092A3CD /* EsObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119CD1D8CF3340092A3CD /* EsObject.cpp */; };
+		56911B421D8CF3340092A3CD /* EsPrimitive.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119CF1D8CF3340092A3CD /* EsPrimitive.cpp */; };
+		56911B431D8CF3340092A3CD /* EsPrimitive.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119CF1D8CF3340092A3CD /* EsPrimitive.cpp */; };
+		56911B441D8CF3340092A3CD /* ErrorType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119D11D8CF3340092A3CD /* ErrorType.cpp */; };
+		56911B451D8CF3340092A3CD /* ErrorType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119D11D8CF3340092A3CD /* ErrorType.cpp */; };
+		56911B461D8CF3340092A3CD /* EsReleasePool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119D31D8CF3340092A3CD /* EsReleasePool.cpp */; };
+		56911B471D8CF3340092A3CD /* EsReleasePool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119D31D8CF3340092A3CD /* EsReleasePool.cpp */; };
+		56911B481D8CF3340092A3CD /* EsUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119D51D8CF3340092A3CD /* EsUtil.cpp */; };
+		56911B491D8CF3340092A3CD /* EsUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119D51D8CF3340092A3CD /* EsUtil.cpp */; };
+		56911B4A1D8CF3340092A3CD /* BaseEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119D81D8CF3340092A3CD /* BaseEvent.cpp */; };
+		56911B4B1D8CF3340092A3CD /* BaseEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119D81D8CF3340092A3CD /* BaseEvent.cpp */; };
+		56911B4C1D8CF3340092A3CD /* ConnectionClosedEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119DA1D8CF3340092A3CD /* ConnectionClosedEvent.cpp */; };
+		56911B4D1D8CF3340092A3CD /* ConnectionClosedEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119DA1D8CF3340092A3CD /* ConnectionClosedEvent.cpp */; };
+		56911B4E1D8CF3340092A3CD /* ConnectionResponse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119DC1D8CF3340092A3CD /* ConnectionResponse.cpp */; };
+		56911B4F1D8CF3340092A3CD /* ConnectionResponse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119DC1D8CF3340092A3CD /* ConnectionResponse.cpp */; };
+		56911B501D8CF3340092A3CD /* GatewayKickUserRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119DE1D8CF3340092A3CD /* GatewayKickUserRequest.cpp */; };
+		56911B511D8CF3340092A3CD /* GatewayKickUserRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119DE1D8CF3340092A3CD /* GatewayKickUserRequest.cpp */; };
+		56911B521D8CF3340092A3CD /* GenericErrorResponse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119E01D8CF3340092A3CD /* GenericErrorResponse.cpp */; };
+		56911B531D8CF3340092A3CD /* GenericErrorResponse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119E01D8CF3340092A3CD /* GenericErrorResponse.cpp */; };
+		56911B541D8CF3340092A3CD /* JoinRoomEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119E21D8CF3340092A3CD /* JoinRoomEvent.cpp */; };
+		56911B551D8CF3340092A3CD /* JoinRoomEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119E21D8CF3340092A3CD /* JoinRoomEvent.cpp */; };
+		56911B561D8CF3340092A3CD /* JoinZoneEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119E41D8CF3340092A3CD /* JoinZoneEvent.cpp */; };
+		56911B571D8CF3340092A3CD /* JoinZoneEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119E41D8CF3340092A3CD /* JoinZoneEvent.cpp */; };
+		56911B581D8CF3340092A3CD /* LeaveRoomEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119E61D8CF3340092A3CD /* LeaveRoomEvent.cpp */; };
+		56911B591D8CF3340092A3CD /* LeaveRoomEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119E61D8CF3340092A3CD /* LeaveRoomEvent.cpp */; };
+		56911B5A1D8CF3340092A3CD /* LoginResponse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119E81D8CF3340092A3CD /* LoginResponse.cpp */; };
+		56911B5B1D8CF3340092A3CD /* LoginResponse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119E81D8CF3340092A3CD /* LoginResponse.cpp */; };
+		56911B5C1D8CF3340092A3CD /* PingResponse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119EA1D8CF3340092A3CD /* PingResponse.cpp */; };
+		56911B5D1D8CF3340092A3CD /* PingResponse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119EA1D8CF3340092A3CD /* PingResponse.cpp */; };
+		56911B5E1D8CF3340092A3CD /* PluginMessageEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119EC1D8CF3340092A3CD /* PluginMessageEvent.cpp */; };
+		56911B5F1D8CF3340092A3CD /* PluginMessageEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119EC1D8CF3340092A3CD /* PluginMessageEvent.cpp */; };
+		56911B601D8CF3340092A3CD /* PrivateMessageEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119EE1D8CF3340092A3CD /* PrivateMessageEvent.cpp */; };
+		56911B611D8CF3340092A3CD /* PrivateMessageEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119EE1D8CF3340092A3CD /* PrivateMessageEvent.cpp */; };
+		56911B621D8CF3340092A3CD /* PublicMessageEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119F11D8CF3340092A3CD /* PublicMessageEvent.cpp */; };
+		56911B631D8CF3340092A3CD /* PublicMessageEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119F11D8CF3340092A3CD /* PublicMessageEvent.cpp */; };
+		56911B641D8CF3340092A3CD /* RoomListEntry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119F31D8CF3340092A3CD /* RoomListEntry.cpp */; };
+		56911B651D8CF3340092A3CD /* RoomListEntry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119F31D8CF3340092A3CD /* RoomListEntry.cpp */; };
+		56911B661D8CF3340092A3CD /* RoomVariable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119F51D8CF3340092A3CD /* RoomVariable.cpp */; };
+		56911B671D8CF3340092A3CD /* RoomVariable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119F51D8CF3340092A3CD /* RoomVariable.cpp */; };
+		56911B681D8CF3340092A3CD /* ServerKickUserEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119F71D8CF3340092A3CD /* ServerKickUserEvent.cpp */; };
+		56911B691D8CF3340092A3CD /* ServerKickUserEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119F71D8CF3340092A3CD /* ServerKickUserEvent.cpp */; };
+		56911B6A1D8CF3340092A3CD /* UserEvictedFromRoomEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119F91D8CF3340092A3CD /* UserEvictedFromRoomEvent.cpp */; };
+		56911B6B1D8CF3340092A3CD /* UserEvictedFromRoomEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119F91D8CF3340092A3CD /* UserEvictedFromRoomEvent.cpp */; };
+		56911B6C1D8CF3340092A3CD /* UserListEntry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119FB1D8CF3340092A3CD /* UserListEntry.cpp */; };
+		56911B6D1D8CF3340092A3CD /* UserListEntry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119FB1D8CF3340092A3CD /* UserListEntry.cpp */; };
+		56911B6E1D8CF3340092A3CD /* UserUpdateAction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119FD1D8CF3340092A3CD /* UserUpdateAction.cpp */; };
+		56911B6F1D8CF3340092A3CD /* UserUpdateAction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119FD1D8CF3340092A3CD /* UserUpdateAction.cpp */; };
+		56911B701D8CF3340092A3CD /* UserUpdateEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119FF1D8CF3340092A3CD /* UserUpdateEvent.cpp */; };
+		56911B711D8CF3340092A3CD /* UserUpdateEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119FF1D8CF3340092A3CD /* UserUpdateEvent.cpp */; };
+		56911B721D8CF3340092A3CD /* UserVariable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A011D8CF3340092A3CD /* UserVariable.cpp */; };
+		56911B731D8CF3340092A3CD /* UserVariable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A011D8CF3340092A3CD /* UserVariable.cpp */; };
+		56911B741D8CF3340092A3CD /* ZoneUpdateAction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A031D8CF3340092A3CD /* ZoneUpdateAction.cpp */; };
+		56911B751D8CF3340092A3CD /* ZoneUpdateAction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A031D8CF3340092A3CD /* ZoneUpdateAction.cpp */; };
+		56911B761D8CF3340092A3CD /* ZoneUpdateEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A051D8CF3340092A3CD /* ZoneUpdateEvent.cpp */; };
+		56911B771D8CF3340092A3CD /* ZoneUpdateEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A051D8CF3340092A3CD /* ZoneUpdateEvent.cpp */; };
+		56911B781D8CF3340092A3CD /* MessageType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A071D8CF3340092A3CD /* MessageType.cpp */; };
+		56911B791D8CF3340092A3CD /* MessageType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A071D8CF3340092A3CD /* MessageType.cpp */; };
+		56911B7A1D8CF3340092A3CD /* BaseRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A2A1D8CF3340092A3CD /* BaseRequest.cpp */; };
+		56911B7B1D8CF3340092A3CD /* BaseRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A2A1D8CF3340092A3CD /* BaseRequest.cpp */; };
+		56911B7C1D8CF3340092A3CD /* JoinRoomRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A2C1D8CF3340092A3CD /* JoinRoomRequest.cpp */; };
+		56911B7D1D8CF3340092A3CD /* JoinRoomRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A2C1D8CF3340092A3CD /* JoinRoomRequest.cpp */; };
+		56911B7E1D8CF3340092A3CD /* JsonRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A2E1D8CF3340092A3CD /* JsonRequest.cpp */; };
+		56911B7F1D8CF3340092A3CD /* JsonRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A2E1D8CF3340092A3CD /* JsonRequest.cpp */; };
+		56911B801D8CF3340092A3CD /* LeaveRoomRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A301D8CF3340092A3CD /* LeaveRoomRequest.cpp */; };
+		56911B811D8CF3340092A3CD /* LeaveRoomRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A301D8CF3340092A3CD /* LeaveRoomRequest.cpp */; };
+		56911B821D8CF3340092A3CD /* LoginRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A321D8CF3340092A3CD /* LoginRequest.cpp */; };
+		56911B831D8CF3340092A3CD /* LoginRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A321D8CF3340092A3CD /* LoginRequest.cpp */; };
+		56911B841D8CF3340092A3CD /* LogoutRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A341D8CF3340092A3CD /* LogoutRequest.cpp */; };
+		56911B851D8CF3340092A3CD /* LogoutRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A341D8CF3340092A3CD /* LogoutRequest.cpp */; };
+		56911B861D8CF3340092A3CD /* PingRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A361D8CF3340092A3CD /* PingRequest.cpp */; };
+		56911B871D8CF3340092A3CD /* PingRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A361D8CF3340092A3CD /* PingRequest.cpp */; };
+		56911B881D8CF3340092A3CD /* PluginRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A381D8CF3340092A3CD /* PluginRequest.cpp */; };
+		56911B891D8CF3340092A3CD /* PluginRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A381D8CF3340092A3CD /* PluginRequest.cpp */; };
+		56911B8A1D8CF3340092A3CD /* PrivateMessageRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A3A1D8CF3340092A3CD /* PrivateMessageRequest.cpp */; };
+		56911B8B1D8CF3340092A3CD /* PrivateMessageRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A3A1D8CF3340092A3CD /* PrivateMessageRequest.cpp */; };
+		56911B8C1D8CF3340092A3CD /* PublicMessageRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A3C1D8CF3340092A3CD /* PublicMessageRequest.cpp */; };
+		56911B8D1D8CF3340092A3CD /* PublicMessageRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A3C1D8CF3340092A3CD /* PublicMessageRequest.cpp */; };
+		56911B8E1D8CF3340092A3CD /* TBinaryProtocol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A401D8CF3340092A3CD /* TBinaryProtocol.cpp */; };
+		56911B8F1D8CF3340092A3CD /* TBinaryProtocol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A401D8CF3340092A3CD /* TBinaryProtocol.cpp */; };
+		56911B901D8CF3340092A3CD /* TBinaryProtocol.tcc in Sources */ = {isa = PBXBuildFile; fileRef = 56911A421D8CF3340092A3CD /* TBinaryProtocol.tcc */; };
+		56911B911D8CF3340092A3CD /* TBinaryProtocol.tcc in Sources */ = {isa = PBXBuildFile; fileRef = 56911A421D8CF3340092A3CD /* TBinaryProtocol.tcc */; };
+		56911B921D8CF3340092A3CD /* TBufferTransports.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A431D8CF3340092A3CD /* TBufferTransports.cpp */; };
+		56911B931D8CF3340092A3CD /* TBufferTransports.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A431D8CF3340092A3CD /* TBufferTransports.cpp */; };
+		56911B941D8CF3340092A3CD /* TProtocol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A461D8CF3340092A3CD /* TProtocol.cpp */; };
+		56911B951D8CF3340092A3CD /* TProtocol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A461D8CF3340092A3CD /* TProtocol.cpp */; };
+		56911B961D8CF3340092A3CD /* TTransportException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A4B1D8CF3340092A3CD /* TTransportException.cpp */; };
+		56911B971D8CF3340092A3CD /* TTransportException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A4B1D8CF3340092A3CD /* TTransportException.cpp */; };
+		56911B981D8CF3340092A3CD /* ThriftAddBuddiesRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A4F1D8CF3340092A3CD /* ThriftAddBuddiesRequest_types.cpp */; };
+		56911B991D8CF3340092A3CD /* ThriftAddBuddiesRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A4F1D8CF3340092A3CD /* ThriftAddBuddiesRequest_types.cpp */; };
+		56911B9A1D8CF3340092A3CD /* ThriftAddBuddiesResponse_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A511D8CF3340092A3CD /* ThriftAddBuddiesResponse_types.cpp */; };
+		56911B9B1D8CF3340092A3CD /* ThriftAddBuddiesResponse_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A511D8CF3340092A3CD /* ThriftAddBuddiesResponse_types.cpp */; };
+		56911B9C1D8CF3340092A3CD /* ThriftAddRoomOperatorRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A531D8CF3340092A3CD /* ThriftAddRoomOperatorRequest_types.cpp */; };
+		56911B9D1D8CF3340092A3CD /* ThriftAddRoomOperatorRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A531D8CF3340092A3CD /* ThriftAddRoomOperatorRequest_types.cpp */; };
+		56911B9E1D8CF3340092A3CD /* ThriftAggregatePluginMessageEvent_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A551D8CF3340092A3CD /* ThriftAggregatePluginMessageEvent_types.cpp */; };
+		56911B9F1D8CF3340092A3CD /* ThriftAggregatePluginMessageEvent_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A551D8CF3340092A3CD /* ThriftAggregatePluginMessageEvent_types.cpp */; };
+		56911BA01D8CF3340092A3CD /* ThriftAggregatePluginRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A571D8CF3340092A3CD /* ThriftAggregatePluginRequest_types.cpp */; };
+		56911BA11D8CF3340092A3CD /* ThriftAggregatePluginRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A571D8CF3340092A3CD /* ThriftAggregatePluginRequest_types.cpp */; };
+		56911BA21D8CF3340092A3CD /* ThriftBuddyStatusUpdateAction_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A591D8CF3340092A3CD /* ThriftBuddyStatusUpdateAction_types.cpp */; };
+		56911BA31D8CF3340092A3CD /* ThriftBuddyStatusUpdateAction_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A591D8CF3340092A3CD /* ThriftBuddyStatusUpdateAction_types.cpp */; };
+		56911BA41D8CF3340092A3CD /* ThriftBuddyStatusUpdateEvent_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A5B1D8CF3340092A3CD /* ThriftBuddyStatusUpdateEvent_types.cpp */; };
+		56911BA51D8CF3340092A3CD /* ThriftBuddyStatusUpdateEvent_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A5B1D8CF3340092A3CD /* ThriftBuddyStatusUpdateEvent_types.cpp */; };
+		56911BA61D8CF3340092A3CD /* ThriftConnectionAttemptResponse_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A5D1D8CF3340092A3CD /* ThriftConnectionAttemptResponse_types.cpp */; };
+		56911BA71D8CF3340092A3CD /* ThriftConnectionAttemptResponse_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A5D1D8CF3340092A3CD /* ThriftConnectionAttemptResponse_types.cpp */; };
+		56911BA81D8CF3340092A3CD /* ThriftConnectionClosedEvent_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A5F1D8CF3340092A3CD /* ThriftConnectionClosedEvent_types.cpp */; };
+		56911BA91D8CF3340092A3CD /* ThriftConnectionClosedEvent_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A5F1D8CF3340092A3CD /* ThriftConnectionClosedEvent_types.cpp */; };
+		56911BAA1D8CF3340092A3CD /* ThriftConnectionResponse_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A611D8CF3340092A3CD /* ThriftConnectionResponse_types.cpp */; };
+		56911BAB1D8CF3340092A3CD /* ThriftConnectionResponse_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A611D8CF3340092A3CD /* ThriftConnectionResponse_types.cpp */; };
+		56911BAC1D8CF3340092A3CD /* ThriftCreateOrJoinGameResponse_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A631D8CF3340092A3CD /* ThriftCreateOrJoinGameResponse_types.cpp */; };
+		56911BAD1D8CF3340092A3CD /* ThriftCreateOrJoinGameResponse_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A631D8CF3340092A3CD /* ThriftCreateOrJoinGameResponse_types.cpp */; };
+		56911BAE1D8CF3340092A3CD /* ThriftCreateRoomRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A651D8CF3340092A3CD /* ThriftCreateRoomRequest_types.cpp */; };
+		56911BAF1D8CF3340092A3CD /* ThriftCreateRoomRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A651D8CF3340092A3CD /* ThriftCreateRoomRequest_types.cpp */; };
+		56911BB01D8CF3340092A3CD /* ThriftCreateRoomVariableRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A671D8CF3340092A3CD /* ThriftCreateRoomVariableRequest_types.cpp */; };
+		56911BB11D8CF3340092A3CD /* ThriftCreateRoomVariableRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A671D8CF3340092A3CD /* ThriftCreateRoomVariableRequest_types.cpp */; };
+		56911BB21D8CF3340092A3CD /* ThriftCrossDomainPolicyRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A691D8CF3340092A3CD /* ThriftCrossDomainPolicyRequest_types.cpp */; };
+		56911BB31D8CF3340092A3CD /* ThriftCrossDomainPolicyRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A691D8CF3340092A3CD /* ThriftCrossDomainPolicyRequest_types.cpp */; };
+		56911BB41D8CF3340092A3CD /* ThriftCrossDomainPolicyResponse_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A6B1D8CF3340092A3CD /* ThriftCrossDomainPolicyResponse_types.cpp */; };
+		56911BB51D8CF3340092A3CD /* ThriftCrossDomainPolicyResponse_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A6B1D8CF3340092A3CD /* ThriftCrossDomainPolicyResponse_types.cpp */; };
+		56911BB61D8CF3340092A3CD /* ThriftDataType_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A6D1D8CF3340092A3CD /* ThriftDataType_types.cpp */; };
+		56911BB71D8CF3340092A3CD /* ThriftDataType_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A6D1D8CF3340092A3CD /* ThriftDataType_types.cpp */; };
+		56911BB81D8CF3340092A3CD /* ThriftDeleteRoomVariableRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A6F1D8CF3340092A3CD /* ThriftDeleteRoomVariableRequest_types.cpp */; };
+		56911BB91D8CF3340092A3CD /* ThriftDeleteRoomVariableRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A6F1D8CF3340092A3CD /* ThriftDeleteRoomVariableRequest_types.cpp */; };
+		56911BBA1D8CF3340092A3CD /* ThriftDeleteUserVariableRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A711D8CF3340092A3CD /* ThriftDeleteUserVariableRequest_types.cpp */; };
+		56911BBB1D8CF3340092A3CD /* ThriftDeleteUserVariableRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A711D8CF3340092A3CD /* ThriftDeleteUserVariableRequest_types.cpp */; };
+		56911BBC1D8CF3340092A3CD /* ThriftDHInitiateKeyExchangeRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A731D8CF3340092A3CD /* ThriftDHInitiateKeyExchangeRequest_types.cpp */; };
+		56911BBD1D8CF3340092A3CD /* ThriftDHInitiateKeyExchangeRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A731D8CF3340092A3CD /* ThriftDHInitiateKeyExchangeRequest_types.cpp */; };
+		56911BBE1D8CF3340092A3CD /* ThriftDHPublicNumbersResponse_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A751D8CF3340092A3CD /* ThriftDHPublicNumbersResponse_types.cpp */; };
+		56911BBF1D8CF3340092A3CD /* ThriftDHPublicNumbersResponse_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A751D8CF3340092A3CD /* ThriftDHPublicNumbersResponse_types.cpp */; };
+		56911BC01D8CF3350092A3CD /* ThriftDHSharedModulusRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A771D8CF3340092A3CD /* ThriftDHSharedModulusRequest_types.cpp */; };
+		56911BC11D8CF3350092A3CD /* ThriftDHSharedModulusRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A771D8CF3340092A3CD /* ThriftDHSharedModulusRequest_types.cpp */; };
+		56911BC21D8CF3350092A3CD /* ThriftDHSharedModulusResponse_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A791D8CF3340092A3CD /* ThriftDHSharedModulusResponse_types.cpp */; };
+		56911BC31D8CF3350092A3CD /* ThriftDHSharedModulusResponse_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A791D8CF3340092A3CD /* ThriftDHSharedModulusResponse_types.cpp */; };
+		56911BC41D8CF3350092A3CD /* ThriftEncryptionStateChangeEvent_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A7B1D8CF3340092A3CD /* ThriftEncryptionStateChangeEvent_types.cpp */; };
+		56911BC51D8CF3350092A3CD /* ThriftEncryptionStateChangeEvent_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A7B1D8CF3340092A3CD /* ThriftEncryptionStateChangeEvent_types.cpp */; };
+		56911BC61D8CF3350092A3CD /* ThriftErrorType_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A7D1D8CF3340092A3CD /* ThriftErrorType_types.cpp */; };
+		56911BC71D8CF3350092A3CD /* ThriftErrorType_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A7D1D8CF3340092A3CD /* ThriftErrorType_types.cpp */; };
+		56911BC81D8CF3350092A3CD /* ThriftEsNumber_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A7F1D8CF3340092A3CD /* ThriftEsNumber_types.cpp */; };
+		56911BC91D8CF3350092A3CD /* ThriftEsNumber_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A7F1D8CF3340092A3CD /* ThriftEsNumber_types.cpp */; };
+		56911BCA1D8CF3350092A3CD /* ThriftEvictUserFromRoomRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A811D8CF3340092A3CD /* ThriftEvictUserFromRoomRequest_types.cpp */; };
+		56911BCB1D8CF3350092A3CD /* ThriftEvictUserFromRoomRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A811D8CF3340092A3CD /* ThriftEvictUserFromRoomRequest_types.cpp */; };
+		56911BCC1D8CF3350092A3CD /* ThriftFindGamesRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A831D8CF3340092A3CD /* ThriftFindGamesRequest_types.cpp */; };
+		56911BCD1D8CF3350092A3CD /* ThriftFindGamesRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A831D8CF3340092A3CD /* ThriftFindGamesRequest_types.cpp */; };
+		56911BCE1D8CF3350092A3CD /* ThriftFindGamesResponse_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A851D8CF3340092A3CD /* ThriftFindGamesResponse_types.cpp */; };
+		56911BCF1D8CF3350092A3CD /* ThriftFindGamesResponse_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A851D8CF3340092A3CD /* ThriftFindGamesResponse_types.cpp */; };
+		56911BD01D8CF3350092A3CD /* ThriftFindZoneAndRoomByNameRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A871D8CF3340092A3CD /* ThriftFindZoneAndRoomByNameRequest_types.cpp */; };
+		56911BD11D8CF3350092A3CD /* ThriftFindZoneAndRoomByNameRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A871D8CF3340092A3CD /* ThriftFindZoneAndRoomByNameRequest_types.cpp */; };
+		56911BD21D8CF3350092A3CD /* ThriftFindZoneAndRoomByNameResponse_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A891D8CF3340092A3CD /* ThriftFindZoneAndRoomByNameResponse_types.cpp */; };
+		56911BD31D8CF3350092A3CD /* ThriftFindZoneAndRoomByNameResponse_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A891D8CF3340092A3CD /* ThriftFindZoneAndRoomByNameResponse_types.cpp */; };
+		56911BD41D8CF3350092A3CD /* ThriftFlattenedEsObject_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A8B1D8CF3340092A3CD /* ThriftFlattenedEsObject_types.cpp */; };
+		56911BD51D8CF3350092A3CD /* ThriftFlattenedEsObject_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A8B1D8CF3340092A3CD /* ThriftFlattenedEsObject_types.cpp */; };
+		56911BD61D8CF3350092A3CD /* ThriftFlattenedEsObjectRO_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A8D1D8CF3340092A3CD /* ThriftFlattenedEsObjectRO_types.cpp */; };
+		56911BD71D8CF3350092A3CD /* ThriftFlattenedEsObjectRO_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A8D1D8CF3340092A3CD /* ThriftFlattenedEsObjectRO_types.cpp */; };
+		56911BD81D8CF3350092A3CD /* ThriftGatewayKickUserRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A8F1D8CF3340092A3CD /* ThriftGatewayKickUserRequest_types.cpp */; };
+		56911BD91D8CF3350092A3CD /* ThriftGatewayKickUserRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A8F1D8CF3340092A3CD /* ThriftGatewayKickUserRequest_types.cpp */; };
+		56911BDA1D8CF3350092A3CD /* ThriftGatewayStatistics_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A911D8CF3340092A3CD /* ThriftGatewayStatistics_types.cpp */; };
+		56911BDB1D8CF3350092A3CD /* ThriftGatewayStatistics_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A911D8CF3340092A3CD /* ThriftGatewayStatistics_types.cpp */; };
+		56911BDC1D8CF3350092A3CD /* ThriftGenericErrorResponse_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A931D8CF3340092A3CD /* ThriftGenericErrorResponse_types.cpp */; };
+		56911BDD1D8CF3350092A3CD /* ThriftGenericErrorResponse_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A931D8CF3340092A3CD /* ThriftGenericErrorResponse_types.cpp */; };
+		56911BDE1D8CF3350092A3CD /* ThriftGetGameTypesRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A951D8CF3340092A3CD /* ThriftGetGameTypesRequest_types.cpp */; };
+		56911BDF1D8CF3350092A3CD /* ThriftGetGameTypesRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A951D8CF3340092A3CD /* ThriftGetGameTypesRequest_types.cpp */; };
+		56911BE01D8CF3350092A3CD /* ThriftGetGameTypesResponse_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A971D8CF3340092A3CD /* ThriftGetGameTypesResponse_types.cpp */; };
+		56911BE11D8CF3350092A3CD /* ThriftGetGameTypesResponse_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A971D8CF3340092A3CD /* ThriftGetGameTypesResponse_types.cpp */; };
+		56911BE21D8CF3350092A3CD /* ThriftGetRoomsInZoneRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A991D8CF3340092A3CD /* ThriftGetRoomsInZoneRequest_types.cpp */; };
+		56911BE31D8CF3350092A3CD /* ThriftGetRoomsInZoneRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A991D8CF3340092A3CD /* ThriftGetRoomsInZoneRequest_types.cpp */; };
+		56911BE41D8CF3350092A3CD /* ThriftGetRoomsInZoneResponse_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A9B1D8CF3340092A3CD /* ThriftGetRoomsInZoneResponse_types.cpp */; };
+		56911BE51D8CF3350092A3CD /* ThriftGetRoomsInZoneResponse_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A9B1D8CF3340092A3CD /* ThriftGetRoomsInZoneResponse_types.cpp */; };
+		56911BE61D8CF3350092A3CD /* ThriftGetServerLocalTimeRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A9D1D8CF3340092A3CD /* ThriftGetServerLocalTimeRequest_types.cpp */; };
+		56911BE71D8CF3350092A3CD /* ThriftGetServerLocalTimeRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A9D1D8CF3340092A3CD /* ThriftGetServerLocalTimeRequest_types.cpp */; };
+		56911BE81D8CF3350092A3CD /* ThriftGetServerLocalTimeResponse_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A9F1D8CF3340092A3CD /* ThriftGetServerLocalTimeResponse_types.cpp */; };
+		56911BE91D8CF3350092A3CD /* ThriftGetServerLocalTimeResponse_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911A9F1D8CF3340092A3CD /* ThriftGetServerLocalTimeResponse_types.cpp */; };
+		56911BEA1D8CF3350092A3CD /* ThriftGetUserCountRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AA11D8CF3340092A3CD /* ThriftGetUserCountRequest_types.cpp */; };
+		56911BEB1D8CF3350092A3CD /* ThriftGetUserCountRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AA11D8CF3340092A3CD /* ThriftGetUserCountRequest_types.cpp */; };
+		56911BEC1D8CF3350092A3CD /* ThriftGetUserCountResponse_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AA31D8CF3340092A3CD /* ThriftGetUserCountResponse_types.cpp */; };
+		56911BED1D8CF3350092A3CD /* ThriftGetUserCountResponse_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AA31D8CF3340092A3CD /* ThriftGetUserCountResponse_types.cpp */; };
+		56911BEE1D8CF3350092A3CD /* ThriftGetUsersInRoomRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AA51D8CF3340092A3CD /* ThriftGetUsersInRoomRequest_types.cpp */; };
+		56911BEF1D8CF3350092A3CD /* ThriftGetUsersInRoomRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AA51D8CF3340092A3CD /* ThriftGetUsersInRoomRequest_types.cpp */; };
+		56911BF01D8CF3350092A3CD /* ThriftGetUsersInRoomResponse_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AA71D8CF3340092A3CD /* ThriftGetUsersInRoomResponse_types.cpp */; };
+		56911BF11D8CF3350092A3CD /* ThriftGetUsersInRoomResponse_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AA71D8CF3340092A3CD /* ThriftGetUsersInRoomResponse_types.cpp */; };
+		56911BF21D8CF3350092A3CD /* ThriftGetUserVariablesRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AA91D8CF3340092A3CD /* ThriftGetUserVariablesRequest_types.cpp */; };
+		56911BF31D8CF3350092A3CD /* ThriftGetUserVariablesRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AA91D8CF3340092A3CD /* ThriftGetUserVariablesRequest_types.cpp */; };
+		56911BF41D8CF3350092A3CD /* ThriftGetUserVariablesResponse_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AAB1D8CF3340092A3CD /* ThriftGetUserVariablesResponse_types.cpp */; };
+		56911BF51D8CF3350092A3CD /* ThriftGetUserVariablesResponse_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AAB1D8CF3340092A3CD /* ThriftGetUserVariablesResponse_types.cpp */; };
+		56911BF61D8CF3350092A3CD /* ThriftGetZonesRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AAD1D8CF3340092A3CD /* ThriftGetZonesRequest_types.cpp */; };
+		56911BF71D8CF3350092A3CD /* ThriftGetZonesRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AAD1D8CF3340092A3CD /* ThriftGetZonesRequest_types.cpp */; };
+		56911BF81D8CF3350092A3CD /* ThriftGetZonesResponse_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AAF1D8CF3340092A3CD /* ThriftGetZonesResponse_types.cpp */; };
+		56911BF91D8CF3350092A3CD /* ThriftGetZonesResponse_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AAF1D8CF3340092A3CD /* ThriftGetZonesResponse_types.cpp */; };
+		56911BFA1D8CF3350092A3CD /* ThriftIdleTimeoutWarningEvent_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AB11D8CF3340092A3CD /* ThriftIdleTimeoutWarningEvent_types.cpp */; };
+		56911BFB1D8CF3350092A3CD /* ThriftIdleTimeoutWarningEvent_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AB11D8CF3340092A3CD /* ThriftIdleTimeoutWarningEvent_types.cpp */; };
+		56911BFC1D8CF3350092A3CD /* ThriftJoinGameRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AB31D8CF3340092A3CD /* ThriftJoinGameRequest_types.cpp */; };
+		56911BFD1D8CF3350092A3CD /* ThriftJoinGameRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AB31D8CF3340092A3CD /* ThriftJoinGameRequest_types.cpp */; };
+		56911BFE1D8CF3350092A3CD /* ThriftJoinRoomEvent_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AB51D8CF3340092A3CD /* ThriftJoinRoomEvent_types.cpp */; };
+		56911BFF1D8CF3350092A3CD /* ThriftJoinRoomEvent_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AB51D8CF3340092A3CD /* ThriftJoinRoomEvent_types.cpp */; };
+		56911C001D8CF3350092A3CD /* ThriftJoinRoomRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AB71D8CF3340092A3CD /* ThriftJoinRoomRequest_types.cpp */; };
+		56911C011D8CF3350092A3CD /* ThriftJoinRoomRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AB71D8CF3340092A3CD /* ThriftJoinRoomRequest_types.cpp */; };
+		56911C021D8CF3350092A3CD /* ThriftJoinZoneEvent_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AB91D8CF3340092A3CD /* ThriftJoinZoneEvent_types.cpp */; };
+		56911C031D8CF3350092A3CD /* ThriftJoinZoneEvent_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AB91D8CF3340092A3CD /* ThriftJoinZoneEvent_types.cpp */; };
+		56911C041D8CF3350092A3CD /* ThriftLeaveRoomEvent_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911ABB1D8CF3340092A3CD /* ThriftLeaveRoomEvent_types.cpp */; };
+		56911C051D8CF3350092A3CD /* ThriftLeaveRoomEvent_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911ABB1D8CF3340092A3CD /* ThriftLeaveRoomEvent_types.cpp */; };
+		56911C061D8CF3350092A3CD /* ThriftLeaveRoomRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911ABD1D8CF3340092A3CD /* ThriftLeaveRoomRequest_types.cpp */; };
+		56911C071D8CF3350092A3CD /* ThriftLeaveRoomRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911ABD1D8CF3340092A3CD /* ThriftLeaveRoomRequest_types.cpp */; };
+		56911C081D8CF3350092A3CD /* ThriftLeaveZoneEvent_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911ABF1D8CF3340092A3CD /* ThriftLeaveZoneEvent_types.cpp */; };
+		56911C091D8CF3350092A3CD /* ThriftLeaveZoneEvent_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911ABF1D8CF3340092A3CD /* ThriftLeaveZoneEvent_types.cpp */; };
+		56911C0A1D8CF3350092A3CD /* ThriftLoginRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AC11D8CF3340092A3CD /* ThriftLoginRequest_types.cpp */; };
+		56911C0B1D8CF3350092A3CD /* ThriftLoginRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AC11D8CF3340092A3CD /* ThriftLoginRequest_types.cpp */; };
+		56911C0C1D8CF3350092A3CD /* ThriftLoginResponse_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AC31D8CF3340092A3CD /* ThriftLoginResponse_types.cpp */; };
+		56911C0D1D8CF3350092A3CD /* ThriftLoginResponse_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AC31D8CF3340092A3CD /* ThriftLoginResponse_types.cpp */; };
+		56911C0E1D8CF3350092A3CD /* ThriftLogOutRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AC51D8CF3340092A3CD /* ThriftLogOutRequest_types.cpp */; };
+		56911C0F1D8CF3350092A3CD /* ThriftLogOutRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AC51D8CF3340092A3CD /* ThriftLogOutRequest_types.cpp */; };
+		56911C101D8CF3350092A3CD /* ThriftMessageType_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AC71D8CF3340092A3CD /* ThriftMessageType_types.cpp */; };
+		56911C111D8CF3350092A3CD /* ThriftMessageType_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AC71D8CF3340092A3CD /* ThriftMessageType_types.cpp */; };
+		56911C121D8CF3350092A3CD /* ThriftPingRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AC91D8CF3340092A3CD /* ThriftPingRequest_types.cpp */; };
+		56911C131D8CF3350092A3CD /* ThriftPingRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AC91D8CF3340092A3CD /* ThriftPingRequest_types.cpp */; };
+		56911C141D8CF3350092A3CD /* ThriftPingResponse_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911ACB1D8CF3340092A3CD /* ThriftPingResponse_types.cpp */; };
+		56911C151D8CF3350092A3CD /* ThriftPingResponse_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911ACB1D8CF3340092A3CD /* ThriftPingResponse_types.cpp */; };
+		56911C161D8CF3350092A3CD /* ThriftPluginListEntry_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911ACD1D8CF3340092A3CD /* ThriftPluginListEntry_types.cpp */; };
+		56911C171D8CF3350092A3CD /* ThriftPluginListEntry_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911ACD1D8CF3340092A3CD /* ThriftPluginListEntry_types.cpp */; };
+		56911C181D8CF3350092A3CD /* ThriftPluginMessageEvent_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911ACF1D8CF3340092A3CD /* ThriftPluginMessageEvent_types.cpp */; };
+		56911C191D8CF3350092A3CD /* ThriftPluginMessageEvent_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911ACF1D8CF3340092A3CD /* ThriftPluginMessageEvent_types.cpp */; };
+		56911C1A1D8CF3350092A3CD /* ThriftPluginRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AD11D8CF3340092A3CD /* ThriftPluginRequest_types.cpp */; };
+		56911C1B1D8CF3350092A3CD /* ThriftPluginRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AD11D8CF3340092A3CD /* ThriftPluginRequest_types.cpp */; };
+		56911C1C1D8CF3350092A3CD /* ThriftPrivateMessageEvent_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AD31D8CF3340092A3CD /* ThriftPrivateMessageEvent_types.cpp */; };
+		56911C1D1D8CF3350092A3CD /* ThriftPrivateMessageEvent_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AD31D8CF3340092A3CD /* ThriftPrivateMessageEvent_types.cpp */; };
+		56911C1E1D8CF3350092A3CD /* ThriftPrivateMessageRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AD51D8CF3340092A3CD /* ThriftPrivateMessageRequest_types.cpp */; };
+		56911C1F1D8CF3350092A3CD /* ThriftPrivateMessageRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AD51D8CF3340092A3CD /* ThriftPrivateMessageRequest_types.cpp */; };
+		56911C201D8CF3350092A3CD /* ThriftProtocol_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AD71D8CF3340092A3CD /* ThriftProtocol_types.cpp */; };
+		56911C211D8CF3350092A3CD /* ThriftProtocol_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AD71D8CF3340092A3CD /* ThriftProtocol_types.cpp */; };
+		56911C221D8CF3350092A3CD /* ThriftProtocolConfiguration_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AD91D8CF3340092A3CD /* ThriftProtocolConfiguration_types.cpp */; };
+		56911C231D8CF3350092A3CD /* ThriftProtocolConfiguration_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AD91D8CF3340092A3CD /* ThriftProtocolConfiguration_types.cpp */; };
+		56911C241D8CF3350092A3CD /* ThriftPublicMessageEvent_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911ADB1D8CF3340092A3CD /* ThriftPublicMessageEvent_types.cpp */; };
+		56911C251D8CF3350092A3CD /* ThriftPublicMessageEvent_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911ADB1D8CF3340092A3CD /* ThriftPublicMessageEvent_types.cpp */; };
+		56911C261D8CF3350092A3CD /* ThriftPublicMessageRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911ADD1D8CF3340092A3CD /* ThriftPublicMessageRequest_types.cpp */; };
+		56911C271D8CF3350092A3CD /* ThriftPublicMessageRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911ADD1D8CF3340092A3CD /* ThriftPublicMessageRequest_types.cpp */; };
+		56911C281D8CF3350092A3CD /* ThriftQuickJoinGameRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911ADF1D8CF3340092A3CD /* ThriftQuickJoinGameRequest_types.cpp */; };
+		56911C291D8CF3350092A3CD /* ThriftQuickJoinGameRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911ADF1D8CF3340092A3CD /* ThriftQuickJoinGameRequest_types.cpp */; };
+		56911C2A1D8CF3350092A3CD /* ThriftRegisterUDPConnectionRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AE11D8CF3340092A3CD /* ThriftRegisterUDPConnectionRequest_types.cpp */; };
+		56911C2B1D8CF3350092A3CD /* ThriftRegisterUDPConnectionRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AE11D8CF3340092A3CD /* ThriftRegisterUDPConnectionRequest_types.cpp */; };
+		56911C2C1D8CF3350092A3CD /* ThriftRegisterUDPConnectionResponse_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AE31D8CF3340092A3CD /* ThriftRegisterUDPConnectionResponse_types.cpp */; };
+		56911C2D1D8CF3350092A3CD /* ThriftRegisterUDPConnectionResponse_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AE31D8CF3340092A3CD /* ThriftRegisterUDPConnectionResponse_types.cpp */; };
+		56911C2E1D8CF3350092A3CD /* ThriftRegistryConnectToPreferredGatewayRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AE51D8CF3340092A3CD /* ThriftRegistryConnectToPreferredGatewayRequest_types.cpp */; };
+		56911C2F1D8CF3350092A3CD /* ThriftRegistryConnectToPreferredGatewayRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AE51D8CF3340092A3CD /* ThriftRegistryConnectToPreferredGatewayRequest_types.cpp */; };
+		56911C301D8CF3350092A3CD /* ThriftRemoveBuddiesRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AE71D8CF3340092A3CD /* ThriftRemoveBuddiesRequest_types.cpp */; };
+		56911C311D8CF3350092A3CD /* ThriftRemoveBuddiesRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AE71D8CF3340092A3CD /* ThriftRemoveBuddiesRequest_types.cpp */; };
+		56911C321D8CF3350092A3CD /* ThriftRemoveBuddiesResponse_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AE91D8CF3340092A3CD /* ThriftRemoveBuddiesResponse_types.cpp */; };
+		56911C331D8CF3350092A3CD /* ThriftRemoveBuddiesResponse_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AE91D8CF3340092A3CD /* ThriftRemoveBuddiesResponse_types.cpp */; };
+		56911C341D8CF3350092A3CD /* ThriftRemoveRoomOperatorRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AEB1D8CF3340092A3CD /* ThriftRemoveRoomOperatorRequest_types.cpp */; };
+		56911C351D8CF3350092A3CD /* ThriftRemoveRoomOperatorRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AEB1D8CF3340092A3CD /* ThriftRemoveRoomOperatorRequest_types.cpp */; };
+		56911C361D8CF3350092A3CD /* ThriftRemoveUDPConnectionRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AED1D8CF3340092A3CD /* ThriftRemoveUDPConnectionRequest_types.cpp */; };
+		56911C371D8CF3350092A3CD /* ThriftRemoveUDPConnectionRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AED1D8CF3340092A3CD /* ThriftRemoveUDPConnectionRequest_types.cpp */; };
+		56911C381D8CF3350092A3CD /* ThriftRemoveUDPConnectionResponse_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AEF1D8CF3340092A3CD /* ThriftRemoveUDPConnectionResponse_types.cpp */; };
+		56911C391D8CF3350092A3CD /* ThriftRemoveUDPConnectionResponse_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AEF1D8CF3340092A3CD /* ThriftRemoveUDPConnectionResponse_types.cpp */; };
+		56911C3A1D8CF3350092A3CD /* ThriftRequestDetails_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AF11D8CF3340092A3CD /* ThriftRequestDetails_types.cpp */; };
+		56911C3B1D8CF3350092A3CD /* ThriftRequestDetails_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AF11D8CF3340092A3CD /* ThriftRequestDetails_types.cpp */; };
+		56911C3C1D8CF3350092A3CD /* ThriftRoomListEntry_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AF31D8CF3340092A3CD /* ThriftRoomListEntry_types.cpp */; };
+		56911C3D1D8CF3350092A3CD /* ThriftRoomListEntry_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AF31D8CF3340092A3CD /* ThriftRoomListEntry_types.cpp */; };
+		56911C3E1D8CF3350092A3CD /* ThriftRoomVariable_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AF51D8CF3340092A3CD /* ThriftRoomVariable_types.cpp */; };
+		56911C3F1D8CF3350092A3CD /* ThriftRoomVariable_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AF51D8CF3340092A3CD /* ThriftRoomVariable_types.cpp */; };
+		56911C401D8CF3350092A3CD /* ThriftRoomVariableUpdateAction_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AF71D8CF3340092A3CD /* ThriftRoomVariableUpdateAction_types.cpp */; };
+		56911C411D8CF3350092A3CD /* ThriftRoomVariableUpdateAction_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AF71D8CF3340092A3CD /* ThriftRoomVariableUpdateAction_types.cpp */; };
+		56911C421D8CF3350092A3CD /* ThriftRoomVariableUpdateEvent_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AF91D8CF3340092A3CD /* ThriftRoomVariableUpdateEvent_types.cpp */; };
+		56911C431D8CF3350092A3CD /* ThriftRoomVariableUpdateEvent_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AF91D8CF3340092A3CD /* ThriftRoomVariableUpdateEvent_types.cpp */; };
+		56911C441D8CF3350092A3CD /* ThriftSearchCriteria_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AFB1D8CF3340092A3CD /* ThriftSearchCriteria_types.cpp */; };
+		56911C451D8CF3350092A3CD /* ThriftSearchCriteria_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AFB1D8CF3340092A3CD /* ThriftSearchCriteria_types.cpp */; };
+		56911C461D8CF3350092A3CD /* ThriftServerGame_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AFD1D8CF3340092A3CD /* ThriftServerGame_types.cpp */; };
+		56911C471D8CF3350092A3CD /* ThriftServerGame_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AFD1D8CF3340092A3CD /* ThriftServerGame_types.cpp */; };
+		56911C481D8CF3350092A3CD /* ThriftServerKickUserEvent_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AFF1D8CF3340092A3CD /* ThriftServerKickUserEvent_types.cpp */; };
+		56911C491D8CF3350092A3CD /* ThriftServerKickUserEvent_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911AFF1D8CF3340092A3CD /* ThriftServerKickUserEvent_types.cpp */; };
+		56911C4A1D8CF3350092A3CD /* ThriftServerState_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911B011D8CF3340092A3CD /* ThriftServerState_types.cpp */; };
+		56911C4B1D8CF3350092A3CD /* ThriftServerState_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911B011D8CF3340092A3CD /* ThriftServerState_types.cpp */; };
+		56911C4C1D8CF3350092A3CD /* ThriftSessionIdleEvent_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911B031D8CF3340092A3CD /* ThriftSessionIdleEvent_types.cpp */; };
+		56911C4D1D8CF3350092A3CD /* ThriftSessionIdleEvent_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911B031D8CF3340092A3CD /* ThriftSessionIdleEvent_types.cpp */; };
+		56911C4E1D8CF3350092A3CD /* ThriftUpdateRoomDetailsEvent_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911B051D8CF3340092A3CD /* ThriftUpdateRoomDetailsEvent_types.cpp */; };
+		56911C4F1D8CF3350092A3CD /* ThriftUpdateRoomDetailsEvent_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911B051D8CF3340092A3CD /* ThriftUpdateRoomDetailsEvent_types.cpp */; };
+		56911C501D8CF3350092A3CD /* ThriftUpdateRoomDetailsRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911B071D8CF3340092A3CD /* ThriftUpdateRoomDetailsRequest_types.cpp */; };
+		56911C511D8CF3350092A3CD /* ThriftUpdateRoomDetailsRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911B071D8CF3340092A3CD /* ThriftUpdateRoomDetailsRequest_types.cpp */; };
+		56911C521D8CF3350092A3CD /* ThriftUpdateRoomVariableRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911B091D8CF3340092A3CD /* ThriftUpdateRoomVariableRequest_types.cpp */; };
+		56911C531D8CF3350092A3CD /* ThriftUpdateRoomVariableRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911B091D8CF3340092A3CD /* ThriftUpdateRoomVariableRequest_types.cpp */; };
+		56911C541D8CF3350092A3CD /* ThriftUpdateUserVariableRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911B0B1D8CF3340092A3CD /* ThriftUpdateUserVariableRequest_types.cpp */; };
+		56911C551D8CF3350092A3CD /* ThriftUpdateUserVariableRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911B0B1D8CF3340092A3CD /* ThriftUpdateUserVariableRequest_types.cpp */; };
+		56911C561D8CF3350092A3CD /* ThriftUserEvictedFromRoomEvent_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911B0D1D8CF3340092A3CD /* ThriftUserEvictedFromRoomEvent_types.cpp */; };
+		56911C571D8CF3350092A3CD /* ThriftUserEvictedFromRoomEvent_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911B0D1D8CF3340092A3CD /* ThriftUserEvictedFromRoomEvent_types.cpp */; };
+		56911C581D8CF3350092A3CD /* ThriftUserListEntry_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911B0F1D8CF3340092A3CD /* ThriftUserListEntry_types.cpp */; };
+		56911C591D8CF3350092A3CD /* ThriftUserListEntry_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911B0F1D8CF3340092A3CD /* ThriftUserListEntry_types.cpp */; };
+		56911C5A1D8CF3350092A3CD /* ThriftUserServerVariable_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911B111D8CF3340092A3CD /* ThriftUserServerVariable_types.cpp */; };
+		56911C5B1D8CF3350092A3CD /* ThriftUserServerVariable_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911B111D8CF3340092A3CD /* ThriftUserServerVariable_types.cpp */; };
+		56911C5C1D8CF3350092A3CD /* ThriftUserUpdateAction_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911B131D8CF3340092A3CD /* ThriftUserUpdateAction_types.cpp */; };
+		56911C5D1D8CF3350092A3CD /* ThriftUserUpdateAction_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911B131D8CF3340092A3CD /* ThriftUserUpdateAction_types.cpp */; };
+		56911C5E1D8CF3350092A3CD /* ThriftUserUpdateEvent_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911B151D8CF3340092A3CD /* ThriftUserUpdateEvent_types.cpp */; };
+		56911C5F1D8CF3350092A3CD /* ThriftUserUpdateEvent_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911B151D8CF3340092A3CD /* ThriftUserUpdateEvent_types.cpp */; };
+		56911C601D8CF3350092A3CD /* ThriftUserVariable_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911B171D8CF3340092A3CD /* ThriftUserVariable_types.cpp */; };
+		56911C611D8CF3350092A3CD /* ThriftUserVariable_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911B171D8CF3340092A3CD /* ThriftUserVariable_types.cpp */; };
+		56911C621D8CF3350092A3CD /* ThriftUserVariableUpdateAction_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911B191D8CF3340092A3CD /* ThriftUserVariableUpdateAction_types.cpp */; };
+		56911C631D8CF3350092A3CD /* ThriftUserVariableUpdateAction_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911B191D8CF3340092A3CD /* ThriftUserVariableUpdateAction_types.cpp */; };
+		56911C641D8CF3350092A3CD /* ThriftUserVariableUpdateEvent_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911B1B1D8CF3340092A3CD /* ThriftUserVariableUpdateEvent_types.cpp */; };
+		56911C651D8CF3350092A3CD /* ThriftUserVariableUpdateEvent_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911B1B1D8CF3340092A3CD /* ThriftUserVariableUpdateEvent_types.cpp */; };
+		56911C661D8CF3350092A3CD /* ThriftValidateAdditionalLoginRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911B1D1D8CF3340092A3CD /* ThriftValidateAdditionalLoginRequest_types.cpp */; };
+		56911C671D8CF3350092A3CD /* ThriftValidateAdditionalLoginRequest_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911B1D1D8CF3340092A3CD /* ThriftValidateAdditionalLoginRequest_types.cpp */; };
+		56911C681D8CF3350092A3CD /* ThriftValidateAdditionalLoginResponse_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911B1F1D8CF3340092A3CD /* ThriftValidateAdditionalLoginResponse_types.cpp */; };
+		56911C691D8CF3350092A3CD /* ThriftValidateAdditionalLoginResponse_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911B1F1D8CF3340092A3CD /* ThriftValidateAdditionalLoginResponse_types.cpp */; };
+		56911C6A1D8CF3350092A3CD /* ThriftZoneListEntry_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911B211D8CF3340092A3CD /* ThriftZoneListEntry_types.cpp */; };
+		56911C6B1D8CF3350092A3CD /* ThriftZoneListEntry_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911B211D8CF3340092A3CD /* ThriftZoneListEntry_types.cpp */; };
+		56911C6C1D8CF3350092A3CD /* ThriftZoneUpdateAction_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911B231D8CF3340092A3CD /* ThriftZoneUpdateAction_types.cpp */; };
+		56911C6D1D8CF3350092A3CD /* ThriftZoneUpdateAction_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911B231D8CF3340092A3CD /* ThriftZoneUpdateAction_types.cpp */; };
+		56911C6E1D8CF3350092A3CD /* ThriftZoneUpdateEvent_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911B251D8CF3340092A3CD /* ThriftZoneUpdateEvent_types.cpp */; };
+		56911C6F1D8CF3350092A3CD /* ThriftZoneUpdateEvent_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911B251D8CF3340092A3CD /* ThriftZoneUpdateEvent_types.cpp */; };
+		56911C781D8CF3350092A3CD /* ElectroTcpClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911B2E1D8CF3340092A3CD /* ElectroTcpClient.cpp */; };
+		56911C791D8CF3350092A3CD /* ElectroTcpClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911B2E1D8CF3340092A3CD /* ElectroTcpClient.cpp */; };
+		56911C7A1D8CF3350092A3CD /* NetworkCore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911B301D8CF3340092A3CD /* NetworkCore.cpp */; };
+		56911C7B1D8CF3350092A3CD /* NetworkCore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911B301D8CF3340092A3CD /* NetworkCore.cpp */; };
+		56911C7C1D8CF3350092A3CD /* NetworkDefine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911B321D8CF3340092A3CD /* NetworkDefine.cpp */; };
+		56911C7D1D8CF3350092A3CD /* NetworkDefine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911B321D8CF3340092A3CD /* NetworkDefine.cpp */; };
+		56911C7E1D8CF3350092A3CD /* SocketAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911B341D8CF3340092A3CD /* SocketAdapter.cpp */; };
+		56911C7F1D8CF3350092A3CD /* SocketAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56911B341D8CF3340092A3CD /* SocketAdapter.cpp */; };
 		9FA3AE461BE9BBCA00FC9645 /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FA3AE451BE9BBCA00FC9645 /* GameController.framework */; };
 		A92275421517C094001B78AA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A92275411517C094001B78AA /* QuartzCore.framework */; };
 		A92275441517C094001B78AA /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A92275431517C094001B78AA /* OpenGLES.framework */; };
@@ -568,6 +896,367 @@
 		56835C3C1D7B26210021A197 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/StoreKit.framework; sourceTree = DEVELOPER_DIR; };
 		56835C3E1D7B2C740021A197 /* MacOS_native_linker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MacOS_native_linker.h; sourceTree = "<group>"; };
 		56835C3F1D7B2C740021A197 /* MacOS_native_linker.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MacOS_native_linker.mm; sourceTree = "<group>"; };
+		569119B11D8CF2EE0092A3CD /* FileEncrypt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileEncrypt.cpp; sourceTree = "<group>"; };
+		569119B21D8CF2EE0092A3CD /* FileEncrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileEncrypt.h; sourceTree = "<group>"; };
+		569119B71D8CF2FF0092A3CD /* ElectroClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ElectroClient.cpp; sourceTree = "<group>"; };
+		569119B81D8CF2FF0092A3CD /* ElectroClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ElectroClient.h; sourceTree = "<group>"; };
+		569119B91D8CF2FF0092A3CD /* jsb_quyetnd_electro_socket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jsb_quyetnd_electro_socket.cpp; sourceTree = "<group>"; };
+		569119BA1D8CF2FF0092A3CD /* jsb_quyetnd_electro_socket.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = jsb_quyetnd_electro_socket.hpp; sourceTree = "<group>"; };
+		569119C01D8CF3340092A3CD /* ElectroLogger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ElectroLogger.cpp; sourceTree = "<group>"; };
+		569119C11D8CF3340092A3CD /* ElectroLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ElectroLogger.h; sourceTree = "<group>"; };
+		569119C21D8CF3340092A3CD /* ElectroServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ElectroServer.h; sourceTree = "<group>"; };
+		569119C41D8CF3340092A3CD /* BaseMessage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BaseMessage.cpp; sourceTree = "<group>"; };
+		569119C51D8CF3340092A3CD /* BaseMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseMessage.h; sourceTree = "<group>"; };
+		569119C71D8CF3340092A3CD /* EsArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EsArray.cpp; sourceTree = "<group>"; };
+		569119C81D8CF3340092A3CD /* EsArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EsArray.h; sourceTree = "<group>"; };
+		569119C91D8CF3340092A3CD /* EsEntity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EsEntity.cpp; sourceTree = "<group>"; };
+		569119CA1D8CF3340092A3CD /* EsEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EsEntity.h; sourceTree = "<group>"; };
+		569119CB1D8CF3340092A3CD /* EsMessageStreamer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EsMessageStreamer.cpp; sourceTree = "<group>"; };
+		569119CC1D8CF3340092A3CD /* EsMessageStreamer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EsMessageStreamer.h; sourceTree = "<group>"; };
+		569119CD1D8CF3340092A3CD /* EsObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EsObject.cpp; sourceTree = "<group>"; };
+		569119CE1D8CF3340092A3CD /* EsObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EsObject.h; sourceTree = "<group>"; };
+		569119CF1D8CF3340092A3CD /* EsPrimitive.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EsPrimitive.cpp; sourceTree = "<group>"; };
+		569119D01D8CF3340092A3CD /* EsPrimitive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EsPrimitive.h; sourceTree = "<group>"; };
+		569119D11D8CF3340092A3CD /* ErrorType.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ErrorType.cpp; sourceTree = "<group>"; };
+		569119D21D8CF3340092A3CD /* ErrorType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorType.h; sourceTree = "<group>"; };
+		569119D31D8CF3340092A3CD /* EsReleasePool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EsReleasePool.cpp; sourceTree = "<group>"; };
+		569119D41D8CF3340092A3CD /* EsReleasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EsReleasePool.h; sourceTree = "<group>"; };
+		569119D51D8CF3340092A3CD /* EsUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EsUtil.cpp; sourceTree = "<group>"; };
+		569119D61D8CF3340092A3CD /* EsUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EsUtil.h; sourceTree = "<group>"; };
+		569119D81D8CF3340092A3CD /* BaseEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BaseEvent.cpp; sourceTree = "<group>"; };
+		569119D91D8CF3340092A3CD /* BaseEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseEvent.h; sourceTree = "<group>"; };
+		569119DA1D8CF3340092A3CD /* ConnectionClosedEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConnectionClosedEvent.cpp; sourceTree = "<group>"; };
+		569119DB1D8CF3340092A3CD /* ConnectionClosedEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectionClosedEvent.h; sourceTree = "<group>"; };
+		569119DC1D8CF3340092A3CD /* ConnectionResponse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConnectionResponse.cpp; sourceTree = "<group>"; };
+		569119DD1D8CF3340092A3CD /* ConnectionResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectionResponse.h; sourceTree = "<group>"; };
+		569119DE1D8CF3340092A3CD /* GatewayKickUserRequest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GatewayKickUserRequest.cpp; sourceTree = "<group>"; };
+		569119DF1D8CF3340092A3CD /* GatewayKickUserRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GatewayKickUserRequest.h; sourceTree = "<group>"; };
+		569119E01D8CF3340092A3CD /* GenericErrorResponse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GenericErrorResponse.cpp; sourceTree = "<group>"; };
+		569119E11D8CF3340092A3CD /* GenericErrorResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenericErrorResponse.h; sourceTree = "<group>"; };
+		569119E21D8CF3340092A3CD /* JoinRoomEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JoinRoomEvent.cpp; sourceTree = "<group>"; };
+		569119E31D8CF3340092A3CD /* JoinRoomEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JoinRoomEvent.h; sourceTree = "<group>"; };
+		569119E41D8CF3340092A3CD /* JoinZoneEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JoinZoneEvent.cpp; sourceTree = "<group>"; };
+		569119E51D8CF3340092A3CD /* JoinZoneEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JoinZoneEvent.h; sourceTree = "<group>"; };
+		569119E61D8CF3340092A3CD /* LeaveRoomEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LeaveRoomEvent.cpp; sourceTree = "<group>"; };
+		569119E71D8CF3340092A3CD /* LeaveRoomEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaveRoomEvent.h; sourceTree = "<group>"; };
+		569119E81D8CF3340092A3CD /* LoginResponse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LoginResponse.cpp; sourceTree = "<group>"; };
+		569119E91D8CF3340092A3CD /* LoginResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginResponse.h; sourceTree = "<group>"; };
+		569119EA1D8CF3340092A3CD /* PingResponse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PingResponse.cpp; sourceTree = "<group>"; };
+		569119EB1D8CF3340092A3CD /* PingResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PingResponse.h; sourceTree = "<group>"; };
+		569119EC1D8CF3340092A3CD /* PluginMessageEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PluginMessageEvent.cpp; sourceTree = "<group>"; };
+		569119ED1D8CF3340092A3CD /* PluginMessageEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PluginMessageEvent.h; sourceTree = "<group>"; };
+		569119EE1D8CF3340092A3CD /* PrivateMessageEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PrivateMessageEvent.cpp; sourceTree = "<group>"; };
+		569119EF1D8CF3340092A3CD /* PrivateMessageEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrivateMessageEvent.h; sourceTree = "<group>"; };
+		569119F01D8CF3340092A3CD /* ProtocolConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProtocolConfiguration.h; sourceTree = "<group>"; };
+		569119F11D8CF3340092A3CD /* PublicMessageEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PublicMessageEvent.cpp; sourceTree = "<group>"; };
+		569119F21D8CF3340092A3CD /* PublicMessageEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublicMessageEvent.h; sourceTree = "<group>"; };
+		569119F31D8CF3340092A3CD /* RoomListEntry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RoomListEntry.cpp; sourceTree = "<group>"; };
+		569119F41D8CF3340092A3CD /* RoomListEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoomListEntry.h; sourceTree = "<group>"; };
+		569119F51D8CF3340092A3CD /* RoomVariable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RoomVariable.cpp; sourceTree = "<group>"; };
+		569119F61D8CF3340092A3CD /* RoomVariable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoomVariable.h; sourceTree = "<group>"; };
+		569119F71D8CF3340092A3CD /* ServerKickUserEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ServerKickUserEvent.cpp; sourceTree = "<group>"; };
+		569119F81D8CF3340092A3CD /* ServerKickUserEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerKickUserEvent.h; sourceTree = "<group>"; };
+		569119F91D8CF3340092A3CD /* UserEvictedFromRoomEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UserEvictedFromRoomEvent.cpp; sourceTree = "<group>"; };
+		569119FA1D8CF3340092A3CD /* UserEvictedFromRoomEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserEvictedFromRoomEvent.h; sourceTree = "<group>"; };
+		569119FB1D8CF3340092A3CD /* UserListEntry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UserListEntry.cpp; sourceTree = "<group>"; };
+		569119FC1D8CF3340092A3CD /* UserListEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserListEntry.h; sourceTree = "<group>"; };
+		569119FD1D8CF3340092A3CD /* UserUpdateAction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UserUpdateAction.cpp; sourceTree = "<group>"; };
+		569119FE1D8CF3340092A3CD /* UserUpdateAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserUpdateAction.h; sourceTree = "<group>"; };
+		569119FF1D8CF3340092A3CD /* UserUpdateEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UserUpdateEvent.cpp; sourceTree = "<group>"; };
+		56911A001D8CF3340092A3CD /* UserUpdateEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserUpdateEvent.h; sourceTree = "<group>"; };
+		56911A011D8CF3340092A3CD /* UserVariable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UserVariable.cpp; sourceTree = "<group>"; };
+		56911A021D8CF3340092A3CD /* UserVariable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserVariable.h; sourceTree = "<group>"; };
+		56911A031D8CF3340092A3CD /* ZoneUpdateAction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ZoneUpdateAction.cpp; sourceTree = "<group>"; };
+		56911A041D8CF3340092A3CD /* ZoneUpdateAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoneUpdateAction.h; sourceTree = "<group>"; };
+		56911A051D8CF3340092A3CD /* ZoneUpdateEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ZoneUpdateEvent.cpp; sourceTree = "<group>"; };
+		56911A061D8CF3340092A3CD /* ZoneUpdateEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoneUpdateEvent.h; sourceTree = "<group>"; };
+		56911A071D8CF3340092A3CD /* MessageType.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MessageType.cpp; sourceTree = "<group>"; };
+		56911A081D8CF3340092A3CD /* MessageType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageType.h; sourceTree = "<group>"; };
+		56911A0A1D8CF3340092A3CD /* allocators.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = allocators.h; sourceTree = "<group>"; };
+		56911A0B1D8CF3340092A3CD /* document.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = document.h; sourceTree = "<group>"; };
+		56911A0C1D8CF3340092A3CD /* encodedstream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = encodedstream.h; sourceTree = "<group>"; };
+		56911A0D1D8CF3340092A3CD /* encodings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = encodings.h; sourceTree = "<group>"; };
+		56911A0F1D8CF3340092A3CD /* en.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = en.h; sourceTree = "<group>"; };
+		56911A101D8CF3340092A3CD /* error.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = error.h; sourceTree = "<group>"; };
+		56911A111D8CF3340092A3CD /* filereadstream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = filereadstream.h; sourceTree = "<group>"; };
+		56911A121D8CF3340092A3CD /* filestream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = filestream.h; sourceTree = "<group>"; };
+		56911A131D8CF3340092A3CD /* filewritestream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = filewritestream.h; sourceTree = "<group>"; };
+		56911A151D8CF3340092A3CD /* biginteger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = biginteger.h; sourceTree = "<group>"; };
+		56911A161D8CF3340092A3CD /* diyfp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = diyfp.h; sourceTree = "<group>"; };
+		56911A171D8CF3340092A3CD /* dtoa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dtoa.h; sourceTree = "<group>"; };
+		56911A181D8CF3340092A3CD /* ieee754.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ieee754.h; sourceTree = "<group>"; };
+		56911A191D8CF3340092A3CD /* itoa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = itoa.h; sourceTree = "<group>"; };
+		56911A1A1D8CF3340092A3CD /* meta.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = meta.h; sourceTree = "<group>"; };
+		56911A1B1D8CF3340092A3CD /* pow10.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pow10.h; sourceTree = "<group>"; };
+		56911A1C1D8CF3340092A3CD /* stack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stack.h; sourceTree = "<group>"; };
+		56911A1D1D8CF3340092A3CD /* strfunc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = strfunc.h; sourceTree = "<group>"; };
+		56911A1E1D8CF3340092A3CD /* strtod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = strtod.h; sourceTree = "<group>"; };
+		56911A1F1D8CF3340092A3CD /* memorybuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = memorybuffer.h; sourceTree = "<group>"; };
+		56911A201D8CF3340092A3CD /* memorystream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = memorystream.h; sourceTree = "<group>"; };
+		56911A241D8CF3340092A3CD /* prettywriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = prettywriter.h; sourceTree = "<group>"; };
+		56911A251D8CF3340092A3CD /* rapidjson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rapidjson.h; sourceTree = "<group>"; };
+		56911A261D8CF3340092A3CD /* reader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = reader.h; sourceTree = "<group>"; };
+		56911A271D8CF3340092A3CD /* stringbuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stringbuffer.h; sourceTree = "<group>"; };
+		56911A281D8CF3340092A3CD /* writer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = writer.h; sourceTree = "<group>"; };
+		56911A2A1D8CF3340092A3CD /* BaseRequest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BaseRequest.cpp; sourceTree = "<group>"; };
+		56911A2B1D8CF3340092A3CD /* BaseRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseRequest.h; sourceTree = "<group>"; };
+		56911A2C1D8CF3340092A3CD /* JoinRoomRequest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JoinRoomRequest.cpp; sourceTree = "<group>"; };
+		56911A2D1D8CF3340092A3CD /* JoinRoomRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JoinRoomRequest.h; sourceTree = "<group>"; };
+		56911A2E1D8CF3340092A3CD /* JsonRequest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JsonRequest.cpp; sourceTree = "<group>"; };
+		56911A2F1D8CF3340092A3CD /* JsonRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JsonRequest.h; sourceTree = "<group>"; };
+		56911A301D8CF3340092A3CD /* LeaveRoomRequest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LeaveRoomRequest.cpp; sourceTree = "<group>"; };
+		56911A311D8CF3340092A3CD /* LeaveRoomRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaveRoomRequest.h; sourceTree = "<group>"; };
+		56911A321D8CF3340092A3CD /* LoginRequest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LoginRequest.cpp; sourceTree = "<group>"; };
+		56911A331D8CF3340092A3CD /* LoginRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginRequest.h; sourceTree = "<group>"; };
+		56911A341D8CF3340092A3CD /* LogoutRequest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LogoutRequest.cpp; sourceTree = "<group>"; };
+		56911A351D8CF3340092A3CD /* LogoutRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogoutRequest.h; sourceTree = "<group>"; };
+		56911A361D8CF3340092A3CD /* PingRequest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PingRequest.cpp; sourceTree = "<group>"; };
+		56911A371D8CF3340092A3CD /* PingRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PingRequest.h; sourceTree = "<group>"; };
+		56911A381D8CF3340092A3CD /* PluginRequest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PluginRequest.cpp; sourceTree = "<group>"; };
+		56911A391D8CF3340092A3CD /* PluginRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PluginRequest.h; sourceTree = "<group>"; };
+		56911A3A1D8CF3340092A3CD /* PrivateMessageRequest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PrivateMessageRequest.cpp; sourceTree = "<group>"; };
+		56911A3B1D8CF3340092A3CD /* PrivateMessageRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrivateMessageRequest.h; sourceTree = "<group>"; };
+		56911A3C1D8CF3340092A3CD /* PublicMessageRequest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PublicMessageRequest.cpp; sourceTree = "<group>"; };
+		56911A3D1D8CF3340092A3CD /* PublicMessageRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublicMessageRequest.h; sourceTree = "<group>"; };
+		56911A401D8CF3340092A3CD /* TBinaryProtocol.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TBinaryProtocol.cpp; sourceTree = "<group>"; };
+		56911A411D8CF3340092A3CD /* TBinaryProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBinaryProtocol.h; sourceTree = "<group>"; };
+		56911A421D8CF3340092A3CD /* TBinaryProtocol.tcc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TBinaryProtocol.tcc; sourceTree = "<group>"; };
+		56911A431D8CF3340092A3CD /* TBufferTransports.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TBufferTransports.cpp; sourceTree = "<group>"; };
+		56911A441D8CF3340092A3CD /* TBufferTransports.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBufferTransports.h; sourceTree = "<group>"; };
+		56911A451D8CF3340092A3CD /* Thrift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Thrift.h; sourceTree = "<group>"; };
+		56911A461D8CF3340092A3CD /* TProtocol.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TProtocol.cpp; sourceTree = "<group>"; };
+		56911A471D8CF3340092A3CD /* TProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TProtocol.h; sourceTree = "<group>"; };
+		56911A481D8CF3340092A3CD /* TProtocolException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TProtocolException.h; sourceTree = "<group>"; };
+		56911A491D8CF3340092A3CD /* TToString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TToString.h; sourceTree = "<group>"; };
+		56911A4A1D8CF3340092A3CD /* TTransport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTransport.h; sourceTree = "<group>"; };
+		56911A4B1D8CF3340092A3CD /* TTransportException.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTransportException.cpp; sourceTree = "<group>"; };
+		56911A4C1D8CF3340092A3CD /* TTransportException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTransportException.h; sourceTree = "<group>"; };
+		56911A4D1D8CF3340092A3CD /* TVirtualProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVirtualProtocol.h; sourceTree = "<group>"; };
+		56911A4E1D8CF3340092A3CD /* TVirtualTransport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVirtualTransport.h; sourceTree = "<group>"; };
+		56911A4F1D8CF3340092A3CD /* ThriftAddBuddiesRequest_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftAddBuddiesRequest_types.cpp; sourceTree = "<group>"; };
+		56911A501D8CF3340092A3CD /* ThriftAddBuddiesRequest_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftAddBuddiesRequest_types.h; sourceTree = "<group>"; };
+		56911A511D8CF3340092A3CD /* ThriftAddBuddiesResponse_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftAddBuddiesResponse_types.cpp; sourceTree = "<group>"; };
+		56911A521D8CF3340092A3CD /* ThriftAddBuddiesResponse_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftAddBuddiesResponse_types.h; sourceTree = "<group>"; };
+		56911A531D8CF3340092A3CD /* ThriftAddRoomOperatorRequest_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftAddRoomOperatorRequest_types.cpp; sourceTree = "<group>"; };
+		56911A541D8CF3340092A3CD /* ThriftAddRoomOperatorRequest_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftAddRoomOperatorRequest_types.h; sourceTree = "<group>"; };
+		56911A551D8CF3340092A3CD /* ThriftAggregatePluginMessageEvent_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftAggregatePluginMessageEvent_types.cpp; sourceTree = "<group>"; };
+		56911A561D8CF3340092A3CD /* ThriftAggregatePluginMessageEvent_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftAggregatePluginMessageEvent_types.h; sourceTree = "<group>"; };
+		56911A571D8CF3340092A3CD /* ThriftAggregatePluginRequest_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftAggregatePluginRequest_types.cpp; sourceTree = "<group>"; };
+		56911A581D8CF3340092A3CD /* ThriftAggregatePluginRequest_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftAggregatePluginRequest_types.h; sourceTree = "<group>"; };
+		56911A591D8CF3340092A3CD /* ThriftBuddyStatusUpdateAction_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftBuddyStatusUpdateAction_types.cpp; sourceTree = "<group>"; };
+		56911A5A1D8CF3340092A3CD /* ThriftBuddyStatusUpdateAction_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftBuddyStatusUpdateAction_types.h; sourceTree = "<group>"; };
+		56911A5B1D8CF3340092A3CD /* ThriftBuddyStatusUpdateEvent_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftBuddyStatusUpdateEvent_types.cpp; sourceTree = "<group>"; };
+		56911A5C1D8CF3340092A3CD /* ThriftBuddyStatusUpdateEvent_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftBuddyStatusUpdateEvent_types.h; sourceTree = "<group>"; };
+		56911A5D1D8CF3340092A3CD /* ThriftConnectionAttemptResponse_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftConnectionAttemptResponse_types.cpp; sourceTree = "<group>"; };
+		56911A5E1D8CF3340092A3CD /* ThriftConnectionAttemptResponse_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftConnectionAttemptResponse_types.h; sourceTree = "<group>"; };
+		56911A5F1D8CF3340092A3CD /* ThriftConnectionClosedEvent_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftConnectionClosedEvent_types.cpp; sourceTree = "<group>"; };
+		56911A601D8CF3340092A3CD /* ThriftConnectionClosedEvent_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftConnectionClosedEvent_types.h; sourceTree = "<group>"; };
+		56911A611D8CF3340092A3CD /* ThriftConnectionResponse_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftConnectionResponse_types.cpp; sourceTree = "<group>"; };
+		56911A621D8CF3340092A3CD /* ThriftConnectionResponse_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftConnectionResponse_types.h; sourceTree = "<group>"; };
+		56911A631D8CF3340092A3CD /* ThriftCreateOrJoinGameResponse_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftCreateOrJoinGameResponse_types.cpp; sourceTree = "<group>"; };
+		56911A641D8CF3340092A3CD /* ThriftCreateOrJoinGameResponse_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftCreateOrJoinGameResponse_types.h; sourceTree = "<group>"; };
+		56911A651D8CF3340092A3CD /* ThriftCreateRoomRequest_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftCreateRoomRequest_types.cpp; sourceTree = "<group>"; };
+		56911A661D8CF3340092A3CD /* ThriftCreateRoomRequest_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftCreateRoomRequest_types.h; sourceTree = "<group>"; };
+		56911A671D8CF3340092A3CD /* ThriftCreateRoomVariableRequest_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftCreateRoomVariableRequest_types.cpp; sourceTree = "<group>"; };
+		56911A681D8CF3340092A3CD /* ThriftCreateRoomVariableRequest_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftCreateRoomVariableRequest_types.h; sourceTree = "<group>"; };
+		56911A691D8CF3340092A3CD /* ThriftCrossDomainPolicyRequest_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftCrossDomainPolicyRequest_types.cpp; sourceTree = "<group>"; };
+		56911A6A1D8CF3340092A3CD /* ThriftCrossDomainPolicyRequest_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftCrossDomainPolicyRequest_types.h; sourceTree = "<group>"; };
+		56911A6B1D8CF3340092A3CD /* ThriftCrossDomainPolicyResponse_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftCrossDomainPolicyResponse_types.cpp; sourceTree = "<group>"; };
+		56911A6C1D8CF3340092A3CD /* ThriftCrossDomainPolicyResponse_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftCrossDomainPolicyResponse_types.h; sourceTree = "<group>"; };
+		56911A6D1D8CF3340092A3CD /* ThriftDataType_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftDataType_types.cpp; sourceTree = "<group>"; };
+		56911A6E1D8CF3340092A3CD /* ThriftDataType_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftDataType_types.h; sourceTree = "<group>"; };
+		56911A6F1D8CF3340092A3CD /* ThriftDeleteRoomVariableRequest_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftDeleteRoomVariableRequest_types.cpp; sourceTree = "<group>"; };
+		56911A701D8CF3340092A3CD /* ThriftDeleteRoomVariableRequest_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftDeleteRoomVariableRequest_types.h; sourceTree = "<group>"; };
+		56911A711D8CF3340092A3CD /* ThriftDeleteUserVariableRequest_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftDeleteUserVariableRequest_types.cpp; sourceTree = "<group>"; };
+		56911A721D8CF3340092A3CD /* ThriftDeleteUserVariableRequest_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftDeleteUserVariableRequest_types.h; sourceTree = "<group>"; };
+		56911A731D8CF3340092A3CD /* ThriftDHInitiateKeyExchangeRequest_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftDHInitiateKeyExchangeRequest_types.cpp; sourceTree = "<group>"; };
+		56911A741D8CF3340092A3CD /* ThriftDHInitiateKeyExchangeRequest_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftDHInitiateKeyExchangeRequest_types.h; sourceTree = "<group>"; };
+		56911A751D8CF3340092A3CD /* ThriftDHPublicNumbersResponse_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftDHPublicNumbersResponse_types.cpp; sourceTree = "<group>"; };
+		56911A761D8CF3340092A3CD /* ThriftDHPublicNumbersResponse_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftDHPublicNumbersResponse_types.h; sourceTree = "<group>"; };
+		56911A771D8CF3340092A3CD /* ThriftDHSharedModulusRequest_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftDHSharedModulusRequest_types.cpp; sourceTree = "<group>"; };
+		56911A781D8CF3340092A3CD /* ThriftDHSharedModulusRequest_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftDHSharedModulusRequest_types.h; sourceTree = "<group>"; };
+		56911A791D8CF3340092A3CD /* ThriftDHSharedModulusResponse_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftDHSharedModulusResponse_types.cpp; sourceTree = "<group>"; };
+		56911A7A1D8CF3340092A3CD /* ThriftDHSharedModulusResponse_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftDHSharedModulusResponse_types.h; sourceTree = "<group>"; };
+		56911A7B1D8CF3340092A3CD /* ThriftEncryptionStateChangeEvent_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftEncryptionStateChangeEvent_types.cpp; sourceTree = "<group>"; };
+		56911A7C1D8CF3340092A3CD /* ThriftEncryptionStateChangeEvent_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftEncryptionStateChangeEvent_types.h; sourceTree = "<group>"; };
+		56911A7D1D8CF3340092A3CD /* ThriftErrorType_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftErrorType_types.cpp; sourceTree = "<group>"; };
+		56911A7E1D8CF3340092A3CD /* ThriftErrorType_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftErrorType_types.h; sourceTree = "<group>"; };
+		56911A7F1D8CF3340092A3CD /* ThriftEsNumber_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftEsNumber_types.cpp; sourceTree = "<group>"; };
+		56911A801D8CF3340092A3CD /* ThriftEsNumber_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftEsNumber_types.h; sourceTree = "<group>"; };
+		56911A811D8CF3340092A3CD /* ThriftEvictUserFromRoomRequest_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftEvictUserFromRoomRequest_types.cpp; sourceTree = "<group>"; };
+		56911A821D8CF3340092A3CD /* ThriftEvictUserFromRoomRequest_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftEvictUserFromRoomRequest_types.h; sourceTree = "<group>"; };
+		56911A831D8CF3340092A3CD /* ThriftFindGamesRequest_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftFindGamesRequest_types.cpp; sourceTree = "<group>"; };
+		56911A841D8CF3340092A3CD /* ThriftFindGamesRequest_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftFindGamesRequest_types.h; sourceTree = "<group>"; };
+		56911A851D8CF3340092A3CD /* ThriftFindGamesResponse_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftFindGamesResponse_types.cpp; sourceTree = "<group>"; };
+		56911A861D8CF3340092A3CD /* ThriftFindGamesResponse_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftFindGamesResponse_types.h; sourceTree = "<group>"; };
+		56911A871D8CF3340092A3CD /* ThriftFindZoneAndRoomByNameRequest_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftFindZoneAndRoomByNameRequest_types.cpp; sourceTree = "<group>"; };
+		56911A881D8CF3340092A3CD /* ThriftFindZoneAndRoomByNameRequest_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftFindZoneAndRoomByNameRequest_types.h; sourceTree = "<group>"; };
+		56911A891D8CF3340092A3CD /* ThriftFindZoneAndRoomByNameResponse_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftFindZoneAndRoomByNameResponse_types.cpp; sourceTree = "<group>"; };
+		56911A8A1D8CF3340092A3CD /* ThriftFindZoneAndRoomByNameResponse_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftFindZoneAndRoomByNameResponse_types.h; sourceTree = "<group>"; };
+		56911A8B1D8CF3340092A3CD /* ThriftFlattenedEsObject_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftFlattenedEsObject_types.cpp; sourceTree = "<group>"; };
+		56911A8C1D8CF3340092A3CD /* ThriftFlattenedEsObject_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftFlattenedEsObject_types.h; sourceTree = "<group>"; };
+		56911A8D1D8CF3340092A3CD /* ThriftFlattenedEsObjectRO_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftFlattenedEsObjectRO_types.cpp; sourceTree = "<group>"; };
+		56911A8E1D8CF3340092A3CD /* ThriftFlattenedEsObjectRO_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftFlattenedEsObjectRO_types.h; sourceTree = "<group>"; };
+		56911A8F1D8CF3340092A3CD /* ThriftGatewayKickUserRequest_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftGatewayKickUserRequest_types.cpp; sourceTree = "<group>"; };
+		56911A901D8CF3340092A3CD /* ThriftGatewayKickUserRequest_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftGatewayKickUserRequest_types.h; sourceTree = "<group>"; };
+		56911A911D8CF3340092A3CD /* ThriftGatewayStatistics_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftGatewayStatistics_types.cpp; sourceTree = "<group>"; };
+		56911A921D8CF3340092A3CD /* ThriftGatewayStatistics_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftGatewayStatistics_types.h; sourceTree = "<group>"; };
+		56911A931D8CF3340092A3CD /* ThriftGenericErrorResponse_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftGenericErrorResponse_types.cpp; sourceTree = "<group>"; };
+		56911A941D8CF3340092A3CD /* ThriftGenericErrorResponse_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftGenericErrorResponse_types.h; sourceTree = "<group>"; };
+		56911A951D8CF3340092A3CD /* ThriftGetGameTypesRequest_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftGetGameTypesRequest_types.cpp; sourceTree = "<group>"; };
+		56911A961D8CF3340092A3CD /* ThriftGetGameTypesRequest_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftGetGameTypesRequest_types.h; sourceTree = "<group>"; };
+		56911A971D8CF3340092A3CD /* ThriftGetGameTypesResponse_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftGetGameTypesResponse_types.cpp; sourceTree = "<group>"; };
+		56911A981D8CF3340092A3CD /* ThriftGetGameTypesResponse_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftGetGameTypesResponse_types.h; sourceTree = "<group>"; };
+		56911A991D8CF3340092A3CD /* ThriftGetRoomsInZoneRequest_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftGetRoomsInZoneRequest_types.cpp; sourceTree = "<group>"; };
+		56911A9A1D8CF3340092A3CD /* ThriftGetRoomsInZoneRequest_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftGetRoomsInZoneRequest_types.h; sourceTree = "<group>"; };
+		56911A9B1D8CF3340092A3CD /* ThriftGetRoomsInZoneResponse_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftGetRoomsInZoneResponse_types.cpp; sourceTree = "<group>"; };
+		56911A9C1D8CF3340092A3CD /* ThriftGetRoomsInZoneResponse_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftGetRoomsInZoneResponse_types.h; sourceTree = "<group>"; };
+		56911A9D1D8CF3340092A3CD /* ThriftGetServerLocalTimeRequest_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftGetServerLocalTimeRequest_types.cpp; sourceTree = "<group>"; };
+		56911A9E1D8CF3340092A3CD /* ThriftGetServerLocalTimeRequest_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftGetServerLocalTimeRequest_types.h; sourceTree = "<group>"; };
+		56911A9F1D8CF3340092A3CD /* ThriftGetServerLocalTimeResponse_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftGetServerLocalTimeResponse_types.cpp; sourceTree = "<group>"; };
+		56911AA01D8CF3340092A3CD /* ThriftGetServerLocalTimeResponse_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftGetServerLocalTimeResponse_types.h; sourceTree = "<group>"; };
+		56911AA11D8CF3340092A3CD /* ThriftGetUserCountRequest_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftGetUserCountRequest_types.cpp; sourceTree = "<group>"; };
+		56911AA21D8CF3340092A3CD /* ThriftGetUserCountRequest_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftGetUserCountRequest_types.h; sourceTree = "<group>"; };
+		56911AA31D8CF3340092A3CD /* ThriftGetUserCountResponse_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftGetUserCountResponse_types.cpp; sourceTree = "<group>"; };
+		56911AA41D8CF3340092A3CD /* ThriftGetUserCountResponse_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftGetUserCountResponse_types.h; sourceTree = "<group>"; };
+		56911AA51D8CF3340092A3CD /* ThriftGetUsersInRoomRequest_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftGetUsersInRoomRequest_types.cpp; sourceTree = "<group>"; };
+		56911AA61D8CF3340092A3CD /* ThriftGetUsersInRoomRequest_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftGetUsersInRoomRequest_types.h; sourceTree = "<group>"; };
+		56911AA71D8CF3340092A3CD /* ThriftGetUsersInRoomResponse_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftGetUsersInRoomResponse_types.cpp; sourceTree = "<group>"; };
+		56911AA81D8CF3340092A3CD /* ThriftGetUsersInRoomResponse_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftGetUsersInRoomResponse_types.h; sourceTree = "<group>"; };
+		56911AA91D8CF3340092A3CD /* ThriftGetUserVariablesRequest_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftGetUserVariablesRequest_types.cpp; sourceTree = "<group>"; };
+		56911AAA1D8CF3340092A3CD /* ThriftGetUserVariablesRequest_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftGetUserVariablesRequest_types.h; sourceTree = "<group>"; };
+		56911AAB1D8CF3340092A3CD /* ThriftGetUserVariablesResponse_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftGetUserVariablesResponse_types.cpp; sourceTree = "<group>"; };
+		56911AAC1D8CF3340092A3CD /* ThriftGetUserVariablesResponse_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftGetUserVariablesResponse_types.h; sourceTree = "<group>"; };
+		56911AAD1D8CF3340092A3CD /* ThriftGetZonesRequest_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftGetZonesRequest_types.cpp; sourceTree = "<group>"; };
+		56911AAE1D8CF3340092A3CD /* ThriftGetZonesRequest_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftGetZonesRequest_types.h; sourceTree = "<group>"; };
+		56911AAF1D8CF3340092A3CD /* ThriftGetZonesResponse_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftGetZonesResponse_types.cpp; sourceTree = "<group>"; };
+		56911AB01D8CF3340092A3CD /* ThriftGetZonesResponse_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftGetZonesResponse_types.h; sourceTree = "<group>"; };
+		56911AB11D8CF3340092A3CD /* ThriftIdleTimeoutWarningEvent_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftIdleTimeoutWarningEvent_types.cpp; sourceTree = "<group>"; };
+		56911AB21D8CF3340092A3CD /* ThriftIdleTimeoutWarningEvent_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftIdleTimeoutWarningEvent_types.h; sourceTree = "<group>"; };
+		56911AB31D8CF3340092A3CD /* ThriftJoinGameRequest_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftJoinGameRequest_types.cpp; sourceTree = "<group>"; };
+		56911AB41D8CF3340092A3CD /* ThriftJoinGameRequest_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftJoinGameRequest_types.h; sourceTree = "<group>"; };
+		56911AB51D8CF3340092A3CD /* ThriftJoinRoomEvent_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftJoinRoomEvent_types.cpp; sourceTree = "<group>"; };
+		56911AB61D8CF3340092A3CD /* ThriftJoinRoomEvent_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftJoinRoomEvent_types.h; sourceTree = "<group>"; };
+		56911AB71D8CF3340092A3CD /* ThriftJoinRoomRequest_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftJoinRoomRequest_types.cpp; sourceTree = "<group>"; };
+		56911AB81D8CF3340092A3CD /* ThriftJoinRoomRequest_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftJoinRoomRequest_types.h; sourceTree = "<group>"; };
+		56911AB91D8CF3340092A3CD /* ThriftJoinZoneEvent_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftJoinZoneEvent_types.cpp; sourceTree = "<group>"; };
+		56911ABA1D8CF3340092A3CD /* ThriftJoinZoneEvent_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftJoinZoneEvent_types.h; sourceTree = "<group>"; };
+		56911ABB1D8CF3340092A3CD /* ThriftLeaveRoomEvent_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftLeaveRoomEvent_types.cpp; sourceTree = "<group>"; };
+		56911ABC1D8CF3340092A3CD /* ThriftLeaveRoomEvent_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftLeaveRoomEvent_types.h; sourceTree = "<group>"; };
+		56911ABD1D8CF3340092A3CD /* ThriftLeaveRoomRequest_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftLeaveRoomRequest_types.cpp; sourceTree = "<group>"; };
+		56911ABE1D8CF3340092A3CD /* ThriftLeaveRoomRequest_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftLeaveRoomRequest_types.h; sourceTree = "<group>"; };
+		56911ABF1D8CF3340092A3CD /* ThriftLeaveZoneEvent_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftLeaveZoneEvent_types.cpp; sourceTree = "<group>"; };
+		56911AC01D8CF3340092A3CD /* ThriftLeaveZoneEvent_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftLeaveZoneEvent_types.h; sourceTree = "<group>"; };
+		56911AC11D8CF3340092A3CD /* ThriftLoginRequest_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftLoginRequest_types.cpp; sourceTree = "<group>"; };
+		56911AC21D8CF3340092A3CD /* ThriftLoginRequest_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftLoginRequest_types.h; sourceTree = "<group>"; };
+		56911AC31D8CF3340092A3CD /* ThriftLoginResponse_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftLoginResponse_types.cpp; sourceTree = "<group>"; };
+		56911AC41D8CF3340092A3CD /* ThriftLoginResponse_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftLoginResponse_types.h; sourceTree = "<group>"; };
+		56911AC51D8CF3340092A3CD /* ThriftLogOutRequest_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftLogOutRequest_types.cpp; sourceTree = "<group>"; };
+		56911AC61D8CF3340092A3CD /* ThriftLogOutRequest_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftLogOutRequest_types.h; sourceTree = "<group>"; };
+		56911AC71D8CF3340092A3CD /* ThriftMessageType_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftMessageType_types.cpp; sourceTree = "<group>"; };
+		56911AC81D8CF3340092A3CD /* ThriftMessageType_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftMessageType_types.h; sourceTree = "<group>"; };
+		56911AC91D8CF3340092A3CD /* ThriftPingRequest_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftPingRequest_types.cpp; sourceTree = "<group>"; };
+		56911ACA1D8CF3340092A3CD /* ThriftPingRequest_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftPingRequest_types.h; sourceTree = "<group>"; };
+		56911ACB1D8CF3340092A3CD /* ThriftPingResponse_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftPingResponse_types.cpp; sourceTree = "<group>"; };
+		56911ACC1D8CF3340092A3CD /* ThriftPingResponse_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftPingResponse_types.h; sourceTree = "<group>"; };
+		56911ACD1D8CF3340092A3CD /* ThriftPluginListEntry_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftPluginListEntry_types.cpp; sourceTree = "<group>"; };
+		56911ACE1D8CF3340092A3CD /* ThriftPluginListEntry_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftPluginListEntry_types.h; sourceTree = "<group>"; };
+		56911ACF1D8CF3340092A3CD /* ThriftPluginMessageEvent_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftPluginMessageEvent_types.cpp; sourceTree = "<group>"; };
+		56911AD01D8CF3340092A3CD /* ThriftPluginMessageEvent_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftPluginMessageEvent_types.h; sourceTree = "<group>"; };
+		56911AD11D8CF3340092A3CD /* ThriftPluginRequest_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftPluginRequest_types.cpp; sourceTree = "<group>"; };
+		56911AD21D8CF3340092A3CD /* ThriftPluginRequest_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftPluginRequest_types.h; sourceTree = "<group>"; };
+		56911AD31D8CF3340092A3CD /* ThriftPrivateMessageEvent_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftPrivateMessageEvent_types.cpp; sourceTree = "<group>"; };
+		56911AD41D8CF3340092A3CD /* ThriftPrivateMessageEvent_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftPrivateMessageEvent_types.h; sourceTree = "<group>"; };
+		56911AD51D8CF3340092A3CD /* ThriftPrivateMessageRequest_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftPrivateMessageRequest_types.cpp; sourceTree = "<group>"; };
+		56911AD61D8CF3340092A3CD /* ThriftPrivateMessageRequest_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftPrivateMessageRequest_types.h; sourceTree = "<group>"; };
+		56911AD71D8CF3340092A3CD /* ThriftProtocol_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftProtocol_types.cpp; sourceTree = "<group>"; };
+		56911AD81D8CF3340092A3CD /* ThriftProtocol_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftProtocol_types.h; sourceTree = "<group>"; };
+		56911AD91D8CF3340092A3CD /* ThriftProtocolConfiguration_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftProtocolConfiguration_types.cpp; sourceTree = "<group>"; };
+		56911ADA1D8CF3340092A3CD /* ThriftProtocolConfiguration_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftProtocolConfiguration_types.h; sourceTree = "<group>"; };
+		56911ADB1D8CF3340092A3CD /* ThriftPublicMessageEvent_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftPublicMessageEvent_types.cpp; sourceTree = "<group>"; };
+		56911ADC1D8CF3340092A3CD /* ThriftPublicMessageEvent_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftPublicMessageEvent_types.h; sourceTree = "<group>"; };
+		56911ADD1D8CF3340092A3CD /* ThriftPublicMessageRequest_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftPublicMessageRequest_types.cpp; sourceTree = "<group>"; };
+		56911ADE1D8CF3340092A3CD /* ThriftPublicMessageRequest_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftPublicMessageRequest_types.h; sourceTree = "<group>"; };
+		56911ADF1D8CF3340092A3CD /* ThriftQuickJoinGameRequest_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftQuickJoinGameRequest_types.cpp; sourceTree = "<group>"; };
+		56911AE01D8CF3340092A3CD /* ThriftQuickJoinGameRequest_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftQuickJoinGameRequest_types.h; sourceTree = "<group>"; };
+		56911AE11D8CF3340092A3CD /* ThriftRegisterUDPConnectionRequest_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftRegisterUDPConnectionRequest_types.cpp; sourceTree = "<group>"; };
+		56911AE21D8CF3340092A3CD /* ThriftRegisterUDPConnectionRequest_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftRegisterUDPConnectionRequest_types.h; sourceTree = "<group>"; };
+		56911AE31D8CF3340092A3CD /* ThriftRegisterUDPConnectionResponse_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftRegisterUDPConnectionResponse_types.cpp; sourceTree = "<group>"; };
+		56911AE41D8CF3340092A3CD /* ThriftRegisterUDPConnectionResponse_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftRegisterUDPConnectionResponse_types.h; sourceTree = "<group>"; };
+		56911AE51D8CF3340092A3CD /* ThriftRegistryConnectToPreferredGatewayRequest_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftRegistryConnectToPreferredGatewayRequest_types.cpp; sourceTree = "<group>"; };
+		56911AE61D8CF3340092A3CD /* ThriftRegistryConnectToPreferredGatewayRequest_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftRegistryConnectToPreferredGatewayRequest_types.h; sourceTree = "<group>"; };
+		56911AE71D8CF3340092A3CD /* ThriftRemoveBuddiesRequest_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftRemoveBuddiesRequest_types.cpp; sourceTree = "<group>"; };
+		56911AE81D8CF3340092A3CD /* ThriftRemoveBuddiesRequest_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftRemoveBuddiesRequest_types.h; sourceTree = "<group>"; };
+		56911AE91D8CF3340092A3CD /* ThriftRemoveBuddiesResponse_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftRemoveBuddiesResponse_types.cpp; sourceTree = "<group>"; };
+		56911AEA1D8CF3340092A3CD /* ThriftRemoveBuddiesResponse_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftRemoveBuddiesResponse_types.h; sourceTree = "<group>"; };
+		56911AEB1D8CF3340092A3CD /* ThriftRemoveRoomOperatorRequest_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftRemoveRoomOperatorRequest_types.cpp; sourceTree = "<group>"; };
+		56911AEC1D8CF3340092A3CD /* ThriftRemoveRoomOperatorRequest_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftRemoveRoomOperatorRequest_types.h; sourceTree = "<group>"; };
+		56911AED1D8CF3340092A3CD /* ThriftRemoveUDPConnectionRequest_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftRemoveUDPConnectionRequest_types.cpp; sourceTree = "<group>"; };
+		56911AEE1D8CF3340092A3CD /* ThriftRemoveUDPConnectionRequest_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftRemoveUDPConnectionRequest_types.h; sourceTree = "<group>"; };
+		56911AEF1D8CF3340092A3CD /* ThriftRemoveUDPConnectionResponse_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftRemoveUDPConnectionResponse_types.cpp; sourceTree = "<group>"; };
+		56911AF01D8CF3340092A3CD /* ThriftRemoveUDPConnectionResponse_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftRemoveUDPConnectionResponse_types.h; sourceTree = "<group>"; };
+		56911AF11D8CF3340092A3CD /* ThriftRequestDetails_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftRequestDetails_types.cpp; sourceTree = "<group>"; };
+		56911AF21D8CF3340092A3CD /* ThriftRequestDetails_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftRequestDetails_types.h; sourceTree = "<group>"; };
+		56911AF31D8CF3340092A3CD /* ThriftRoomListEntry_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftRoomListEntry_types.cpp; sourceTree = "<group>"; };
+		56911AF41D8CF3340092A3CD /* ThriftRoomListEntry_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftRoomListEntry_types.h; sourceTree = "<group>"; };
+		56911AF51D8CF3340092A3CD /* ThriftRoomVariable_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftRoomVariable_types.cpp; sourceTree = "<group>"; };
+		56911AF61D8CF3340092A3CD /* ThriftRoomVariable_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftRoomVariable_types.h; sourceTree = "<group>"; };
+		56911AF71D8CF3340092A3CD /* ThriftRoomVariableUpdateAction_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftRoomVariableUpdateAction_types.cpp; sourceTree = "<group>"; };
+		56911AF81D8CF3340092A3CD /* ThriftRoomVariableUpdateAction_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftRoomVariableUpdateAction_types.h; sourceTree = "<group>"; };
+		56911AF91D8CF3340092A3CD /* ThriftRoomVariableUpdateEvent_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftRoomVariableUpdateEvent_types.cpp; sourceTree = "<group>"; };
+		56911AFA1D8CF3340092A3CD /* ThriftRoomVariableUpdateEvent_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftRoomVariableUpdateEvent_types.h; sourceTree = "<group>"; };
+		56911AFB1D8CF3340092A3CD /* ThriftSearchCriteria_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftSearchCriteria_types.cpp; sourceTree = "<group>"; };
+		56911AFC1D8CF3340092A3CD /* ThriftSearchCriteria_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftSearchCriteria_types.h; sourceTree = "<group>"; };
+		56911AFD1D8CF3340092A3CD /* ThriftServerGame_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftServerGame_types.cpp; sourceTree = "<group>"; };
+		56911AFE1D8CF3340092A3CD /* ThriftServerGame_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftServerGame_types.h; sourceTree = "<group>"; };
+		56911AFF1D8CF3340092A3CD /* ThriftServerKickUserEvent_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftServerKickUserEvent_types.cpp; sourceTree = "<group>"; };
+		56911B001D8CF3340092A3CD /* ThriftServerKickUserEvent_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftServerKickUserEvent_types.h; sourceTree = "<group>"; };
+		56911B011D8CF3340092A3CD /* ThriftServerState_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftServerState_types.cpp; sourceTree = "<group>"; };
+		56911B021D8CF3340092A3CD /* ThriftServerState_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftServerState_types.h; sourceTree = "<group>"; };
+		56911B031D8CF3340092A3CD /* ThriftSessionIdleEvent_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftSessionIdleEvent_types.cpp; sourceTree = "<group>"; };
+		56911B041D8CF3340092A3CD /* ThriftSessionIdleEvent_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftSessionIdleEvent_types.h; sourceTree = "<group>"; };
+		56911B051D8CF3340092A3CD /* ThriftUpdateRoomDetailsEvent_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftUpdateRoomDetailsEvent_types.cpp; sourceTree = "<group>"; };
+		56911B061D8CF3340092A3CD /* ThriftUpdateRoomDetailsEvent_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftUpdateRoomDetailsEvent_types.h; sourceTree = "<group>"; };
+		56911B071D8CF3340092A3CD /* ThriftUpdateRoomDetailsRequest_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftUpdateRoomDetailsRequest_types.cpp; sourceTree = "<group>"; };
+		56911B081D8CF3340092A3CD /* ThriftUpdateRoomDetailsRequest_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftUpdateRoomDetailsRequest_types.h; sourceTree = "<group>"; };
+		56911B091D8CF3340092A3CD /* ThriftUpdateRoomVariableRequest_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftUpdateRoomVariableRequest_types.cpp; sourceTree = "<group>"; };
+		56911B0A1D8CF3340092A3CD /* ThriftUpdateRoomVariableRequest_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftUpdateRoomVariableRequest_types.h; sourceTree = "<group>"; };
+		56911B0B1D8CF3340092A3CD /* ThriftUpdateUserVariableRequest_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftUpdateUserVariableRequest_types.cpp; sourceTree = "<group>"; };
+		56911B0C1D8CF3340092A3CD /* ThriftUpdateUserVariableRequest_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftUpdateUserVariableRequest_types.h; sourceTree = "<group>"; };
+		56911B0D1D8CF3340092A3CD /* ThriftUserEvictedFromRoomEvent_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftUserEvictedFromRoomEvent_types.cpp; sourceTree = "<group>"; };
+		56911B0E1D8CF3340092A3CD /* ThriftUserEvictedFromRoomEvent_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftUserEvictedFromRoomEvent_types.h; sourceTree = "<group>"; };
+		56911B0F1D8CF3340092A3CD /* ThriftUserListEntry_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftUserListEntry_types.cpp; sourceTree = "<group>"; };
+		56911B101D8CF3340092A3CD /* ThriftUserListEntry_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftUserListEntry_types.h; sourceTree = "<group>"; };
+		56911B111D8CF3340092A3CD /* ThriftUserServerVariable_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftUserServerVariable_types.cpp; sourceTree = "<group>"; };
+		56911B121D8CF3340092A3CD /* ThriftUserServerVariable_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftUserServerVariable_types.h; sourceTree = "<group>"; };
+		56911B131D8CF3340092A3CD /* ThriftUserUpdateAction_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftUserUpdateAction_types.cpp; sourceTree = "<group>"; };
+		56911B141D8CF3340092A3CD /* ThriftUserUpdateAction_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftUserUpdateAction_types.h; sourceTree = "<group>"; };
+		56911B151D8CF3340092A3CD /* ThriftUserUpdateEvent_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftUserUpdateEvent_types.cpp; sourceTree = "<group>"; };
+		56911B161D8CF3340092A3CD /* ThriftUserUpdateEvent_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftUserUpdateEvent_types.h; sourceTree = "<group>"; };
+		56911B171D8CF3340092A3CD /* ThriftUserVariable_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftUserVariable_types.cpp; sourceTree = "<group>"; };
+		56911B181D8CF3340092A3CD /* ThriftUserVariable_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftUserVariable_types.h; sourceTree = "<group>"; };
+		56911B191D8CF3340092A3CD /* ThriftUserVariableUpdateAction_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftUserVariableUpdateAction_types.cpp; sourceTree = "<group>"; };
+		56911B1A1D8CF3340092A3CD /* ThriftUserVariableUpdateAction_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftUserVariableUpdateAction_types.h; sourceTree = "<group>"; };
+		56911B1B1D8CF3340092A3CD /* ThriftUserVariableUpdateEvent_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftUserVariableUpdateEvent_types.cpp; sourceTree = "<group>"; };
+		56911B1C1D8CF3340092A3CD /* ThriftUserVariableUpdateEvent_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftUserVariableUpdateEvent_types.h; sourceTree = "<group>"; };
+		56911B1D1D8CF3340092A3CD /* ThriftValidateAdditionalLoginRequest_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftValidateAdditionalLoginRequest_types.cpp; sourceTree = "<group>"; };
+		56911B1E1D8CF3340092A3CD /* ThriftValidateAdditionalLoginRequest_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftValidateAdditionalLoginRequest_types.h; sourceTree = "<group>"; };
+		56911B1F1D8CF3340092A3CD /* ThriftValidateAdditionalLoginResponse_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftValidateAdditionalLoginResponse_types.cpp; sourceTree = "<group>"; };
+		56911B201D8CF3340092A3CD /* ThriftValidateAdditionalLoginResponse_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftValidateAdditionalLoginResponse_types.h; sourceTree = "<group>"; };
+		56911B211D8CF3340092A3CD /* ThriftZoneListEntry_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftZoneListEntry_types.cpp; sourceTree = "<group>"; };
+		56911B221D8CF3340092A3CD /* ThriftZoneListEntry_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftZoneListEntry_types.h; sourceTree = "<group>"; };
+		56911B231D8CF3340092A3CD /* ThriftZoneUpdateAction_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftZoneUpdateAction_types.cpp; sourceTree = "<group>"; };
+		56911B241D8CF3340092A3CD /* ThriftZoneUpdateAction_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftZoneUpdateAction_types.h; sourceTree = "<group>"; };
+		56911B251D8CF3340092A3CD /* ThriftZoneUpdateEvent_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThriftZoneUpdateEvent_types.cpp; sourceTree = "<group>"; };
+		56911B261D8CF3340092A3CD /* ThriftZoneUpdateEvent_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThriftZoneUpdateEvent_types.h; sourceTree = "<group>"; };
+		56911B2E1D8CF3340092A3CD /* ElectroTcpClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ElectroTcpClient.cpp; sourceTree = "<group>"; };
+		56911B2F1D8CF3340092A3CD /* ElectroTcpClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ElectroTcpClient.h; sourceTree = "<group>"; };
+		56911B301D8CF3340092A3CD /* NetworkCore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetworkCore.cpp; sourceTree = "<group>"; };
+		56911B311D8CF3340092A3CD /* NetworkCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkCore.h; sourceTree = "<group>"; };
+		56911B321D8CF3340092A3CD /* NetworkDefine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetworkDefine.cpp; sourceTree = "<group>"; };
+		56911B331D8CF3340092A3CD /* NetworkDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkDefine.h; sourceTree = "<group>"; };
+		56911B341D8CF3340092A3CD /* SocketAdapter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SocketAdapter.cpp; sourceTree = "<group>"; };
+		56911B351D8CF3340092A3CD /* SocketAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketAdapter.h; sourceTree = "<group>"; };
 		9FA3AE451BE9BBCA00FC9645 /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.0.sdk/System/Library/Frameworks/GameController.framework; sourceTree = DEVELOPER_DIR; };
 		A922753D1517C094001B78AA /* GameBai2-mobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GameBai2-mobile.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A92275411517C094001B78AA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -733,6 +1422,8 @@
 		568359B41D7B20570021A197 /* GameLaucher */ = {
 			isa = PBXGroup;
 			children = (
+				569119B11D8CF2EE0092A3CD /* FileEncrypt.cpp */,
+				569119B21D8CF2EE0092A3CD /* FileEncrypt.h */,
 				568359B51D7B20570021A197 /* GameLaucher.cpp */,
 				568359B61D7B20570021A197 /* GameLaucher.h */,
 				568359B71D7B20570021A197 /* GameResource.cpp */,
@@ -792,6 +1483,10 @@
 		568359DF1D7B20570021A197 /* Socket */ = {
 			isa = PBXGroup;
 			children = (
+				569119B71D8CF2FF0092A3CD /* ElectroClient.cpp */,
+				569119B81D8CF2FF0092A3CD /* ElectroClient.h */,
+				569119B91D8CF2FF0092A3CD /* jsb_quyetnd_electro_socket.cpp */,
+				569119BA1D8CF2FF0092A3CD /* jsb_quyetnd_electro_socket.hpp */,
 				568359E01D7B20580021A197 /* jsb_quyetnd_lobbysocket.cpp */,
 				568359E11D7B20580021A197 /* jsb_quyetnd_lobbysocket.hpp */,
 				568359E31D7B20580021A197 /* jsb_quyetnd_sfssocket.cpp */,
@@ -1108,9 +1803,453 @@
 			path = ../libs/FacebookSDK/proj.ios;
 			sourceTree = "<group>";
 		};
+		569119BF1D8CF3340092A3CD /* ElectroClient */ = {
+			isa = PBXGroup;
+			children = (
+				569119C31D8CF3340092A3CD /* Objects */,
+				56911B2D1D8CF3340092A3CD /* Socket */,
+				569119C01D8CF3340092A3CD /* ElectroLogger.cpp */,
+				569119C11D8CF3340092A3CD /* ElectroLogger.h */,
+				569119C21D8CF3340092A3CD /* ElectroServer.h */,
+			);
+			name = ElectroClient;
+			path = ../libs/ElectroClient;
+			sourceTree = "<group>";
+		};
+		569119C31D8CF3340092A3CD /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				569119C41D8CF3340092A3CD /* BaseMessage.cpp */,
+				569119D11D8CF3340092A3CD /* ErrorType.cpp */,
+				569119D31D8CF3340092A3CD /* EsReleasePool.cpp */,
+				569119D51D8CF3340092A3CD /* EsUtil.cpp */,
+				56911A071D8CF3340092A3CD /* MessageType.cpp */,
+				569119C51D8CF3340092A3CD /* BaseMessage.h */,
+				569119D21D8CF3340092A3CD /* ErrorType.h */,
+				569119D41D8CF3340092A3CD /* EsReleasePool.h */,
+				569119D61D8CF3340092A3CD /* EsUtil.h */,
+				56911A081D8CF3340092A3CD /* MessageType.h */,
+				569119C61D8CF3340092A3CD /* Entity */,
+				569119D71D8CF3340092A3CD /* Event */,
+				56911A091D8CF3340092A3CD /* rapidjson */,
+				56911A291D8CF3340092A3CD /* Request */,
+				56911A3E1D8CF3340092A3CD /* thrift */,
+			);
+			path = Objects;
+			sourceTree = "<group>";
+		};
+		569119C61D8CF3340092A3CD /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				569119C71D8CF3340092A3CD /* EsArray.cpp */,
+				569119C81D8CF3340092A3CD /* EsArray.h */,
+				569119C91D8CF3340092A3CD /* EsEntity.cpp */,
+				569119CA1D8CF3340092A3CD /* EsEntity.h */,
+				569119CB1D8CF3340092A3CD /* EsMessageStreamer.cpp */,
+				569119CC1D8CF3340092A3CD /* EsMessageStreamer.h */,
+				569119CD1D8CF3340092A3CD /* EsObject.cpp */,
+				569119CE1D8CF3340092A3CD /* EsObject.h */,
+				569119CF1D8CF3340092A3CD /* EsPrimitive.cpp */,
+				569119D01D8CF3340092A3CD /* EsPrimitive.h */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		569119D71D8CF3340092A3CD /* Event */ = {
+			isa = PBXGroup;
+			children = (
+				569119D81D8CF3340092A3CD /* BaseEvent.cpp */,
+				569119D91D8CF3340092A3CD /* BaseEvent.h */,
+				569119DA1D8CF3340092A3CD /* ConnectionClosedEvent.cpp */,
+				569119DB1D8CF3340092A3CD /* ConnectionClosedEvent.h */,
+				569119DC1D8CF3340092A3CD /* ConnectionResponse.cpp */,
+				569119DD1D8CF3340092A3CD /* ConnectionResponse.h */,
+				569119DE1D8CF3340092A3CD /* GatewayKickUserRequest.cpp */,
+				569119DF1D8CF3340092A3CD /* GatewayKickUserRequest.h */,
+				569119E01D8CF3340092A3CD /* GenericErrorResponse.cpp */,
+				569119E11D8CF3340092A3CD /* GenericErrorResponse.h */,
+				569119E21D8CF3340092A3CD /* JoinRoomEvent.cpp */,
+				569119E31D8CF3340092A3CD /* JoinRoomEvent.h */,
+				569119E41D8CF3340092A3CD /* JoinZoneEvent.cpp */,
+				569119E51D8CF3340092A3CD /* JoinZoneEvent.h */,
+				569119E61D8CF3340092A3CD /* LeaveRoomEvent.cpp */,
+				569119E71D8CF3340092A3CD /* LeaveRoomEvent.h */,
+				569119E81D8CF3340092A3CD /* LoginResponse.cpp */,
+				569119E91D8CF3340092A3CD /* LoginResponse.h */,
+				569119EA1D8CF3340092A3CD /* PingResponse.cpp */,
+				569119EB1D8CF3340092A3CD /* PingResponse.h */,
+				569119EC1D8CF3340092A3CD /* PluginMessageEvent.cpp */,
+				569119ED1D8CF3340092A3CD /* PluginMessageEvent.h */,
+				569119EE1D8CF3340092A3CD /* PrivateMessageEvent.cpp */,
+				569119EF1D8CF3340092A3CD /* PrivateMessageEvent.h */,
+				569119F01D8CF3340092A3CD /* ProtocolConfiguration.h */,
+				569119F11D8CF3340092A3CD /* PublicMessageEvent.cpp */,
+				569119F21D8CF3340092A3CD /* PublicMessageEvent.h */,
+				569119F31D8CF3340092A3CD /* RoomListEntry.cpp */,
+				569119F41D8CF3340092A3CD /* RoomListEntry.h */,
+				569119F51D8CF3340092A3CD /* RoomVariable.cpp */,
+				569119F61D8CF3340092A3CD /* RoomVariable.h */,
+				569119F71D8CF3340092A3CD /* ServerKickUserEvent.cpp */,
+				569119F81D8CF3340092A3CD /* ServerKickUserEvent.h */,
+				569119F91D8CF3340092A3CD /* UserEvictedFromRoomEvent.cpp */,
+				569119FA1D8CF3340092A3CD /* UserEvictedFromRoomEvent.h */,
+				569119FB1D8CF3340092A3CD /* UserListEntry.cpp */,
+				569119FC1D8CF3340092A3CD /* UserListEntry.h */,
+				569119FD1D8CF3340092A3CD /* UserUpdateAction.cpp */,
+				569119FE1D8CF3340092A3CD /* UserUpdateAction.h */,
+				569119FF1D8CF3340092A3CD /* UserUpdateEvent.cpp */,
+				56911A001D8CF3340092A3CD /* UserUpdateEvent.h */,
+				56911A011D8CF3340092A3CD /* UserVariable.cpp */,
+				56911A021D8CF3340092A3CD /* UserVariable.h */,
+				56911A031D8CF3340092A3CD /* ZoneUpdateAction.cpp */,
+				56911A041D8CF3340092A3CD /* ZoneUpdateAction.h */,
+				56911A051D8CF3340092A3CD /* ZoneUpdateEvent.cpp */,
+				56911A061D8CF3340092A3CD /* ZoneUpdateEvent.h */,
+			);
+			path = Event;
+			sourceTree = "<group>";
+		};
+		56911A091D8CF3340092A3CD /* rapidjson */ = {
+			isa = PBXGroup;
+			children = (
+				56911A0A1D8CF3340092A3CD /* allocators.h */,
+				56911A0B1D8CF3340092A3CD /* document.h */,
+				56911A0C1D8CF3340092A3CD /* encodedstream.h */,
+				56911A0D1D8CF3340092A3CD /* encodings.h */,
+				56911A0E1D8CF3340092A3CD /* error */,
+				56911A111D8CF3340092A3CD /* filereadstream.h */,
+				56911A121D8CF3340092A3CD /* filestream.h */,
+				56911A131D8CF3340092A3CD /* filewritestream.h */,
+				56911A141D8CF3340092A3CD /* internal */,
+				56911A1F1D8CF3340092A3CD /* memorybuffer.h */,
+				56911A201D8CF3340092A3CD /* memorystream.h */,
+				56911A241D8CF3340092A3CD /* prettywriter.h */,
+				56911A251D8CF3340092A3CD /* rapidjson.h */,
+				56911A261D8CF3340092A3CD /* reader.h */,
+				56911A271D8CF3340092A3CD /* stringbuffer.h */,
+				56911A281D8CF3340092A3CD /* writer.h */,
+			);
+			path = rapidjson;
+			sourceTree = "<group>";
+		};
+		56911A0E1D8CF3340092A3CD /* error */ = {
+			isa = PBXGroup;
+			children = (
+				56911A0F1D8CF3340092A3CD /* en.h */,
+				56911A101D8CF3340092A3CD /* error.h */,
+			);
+			path = error;
+			sourceTree = "<group>";
+		};
+		56911A141D8CF3340092A3CD /* internal */ = {
+			isa = PBXGroup;
+			children = (
+				56911A151D8CF3340092A3CD /* biginteger.h */,
+				56911A161D8CF3340092A3CD /* diyfp.h */,
+				56911A171D8CF3340092A3CD /* dtoa.h */,
+				56911A181D8CF3340092A3CD /* ieee754.h */,
+				56911A191D8CF3340092A3CD /* itoa.h */,
+				56911A1A1D8CF3340092A3CD /* meta.h */,
+				56911A1B1D8CF3340092A3CD /* pow10.h */,
+				56911A1C1D8CF3340092A3CD /* stack.h */,
+				56911A1D1D8CF3340092A3CD /* strfunc.h */,
+				56911A1E1D8CF3340092A3CD /* strtod.h */,
+			);
+			path = internal;
+			sourceTree = "<group>";
+		};
+		56911A291D8CF3340092A3CD /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				56911A2A1D8CF3340092A3CD /* BaseRequest.cpp */,
+				56911A2B1D8CF3340092A3CD /* BaseRequest.h */,
+				56911A2C1D8CF3340092A3CD /* JoinRoomRequest.cpp */,
+				56911A2D1D8CF3340092A3CD /* JoinRoomRequest.h */,
+				56911A2E1D8CF3340092A3CD /* JsonRequest.cpp */,
+				56911A2F1D8CF3340092A3CD /* JsonRequest.h */,
+				56911A301D8CF3340092A3CD /* LeaveRoomRequest.cpp */,
+				56911A311D8CF3340092A3CD /* LeaveRoomRequest.h */,
+				56911A321D8CF3340092A3CD /* LoginRequest.cpp */,
+				56911A331D8CF3340092A3CD /* LoginRequest.h */,
+				56911A341D8CF3340092A3CD /* LogoutRequest.cpp */,
+				56911A351D8CF3340092A3CD /* LogoutRequest.h */,
+				56911A361D8CF3340092A3CD /* PingRequest.cpp */,
+				56911A371D8CF3340092A3CD /* PingRequest.h */,
+				56911A381D8CF3340092A3CD /* PluginRequest.cpp */,
+				56911A391D8CF3340092A3CD /* PluginRequest.h */,
+				56911A3A1D8CF3340092A3CD /* PrivateMessageRequest.cpp */,
+				56911A3B1D8CF3340092A3CD /* PrivateMessageRequest.h */,
+				56911A3C1D8CF3340092A3CD /* PublicMessageRequest.cpp */,
+				56911A3D1D8CF3340092A3CD /* PublicMessageRequest.h */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
+		56911A3E1D8CF3340092A3CD /* thrift */ = {
+			isa = PBXGroup;
+			children = (
+				56911A3F1D8CF3340092A3CD /* libs */,
+				56911A4F1D8CF3340092A3CD /* ThriftAddBuddiesRequest_types.cpp */,
+				56911A501D8CF3340092A3CD /* ThriftAddBuddiesRequest_types.h */,
+				56911A511D8CF3340092A3CD /* ThriftAddBuddiesResponse_types.cpp */,
+				56911A521D8CF3340092A3CD /* ThriftAddBuddiesResponse_types.h */,
+				56911A531D8CF3340092A3CD /* ThriftAddRoomOperatorRequest_types.cpp */,
+				56911A541D8CF3340092A3CD /* ThriftAddRoomOperatorRequest_types.h */,
+				56911A551D8CF3340092A3CD /* ThriftAggregatePluginMessageEvent_types.cpp */,
+				56911A561D8CF3340092A3CD /* ThriftAggregatePluginMessageEvent_types.h */,
+				56911A571D8CF3340092A3CD /* ThriftAggregatePluginRequest_types.cpp */,
+				56911A581D8CF3340092A3CD /* ThriftAggregatePluginRequest_types.h */,
+				56911A591D8CF3340092A3CD /* ThriftBuddyStatusUpdateAction_types.cpp */,
+				56911A5A1D8CF3340092A3CD /* ThriftBuddyStatusUpdateAction_types.h */,
+				56911A5B1D8CF3340092A3CD /* ThriftBuddyStatusUpdateEvent_types.cpp */,
+				56911A5C1D8CF3340092A3CD /* ThriftBuddyStatusUpdateEvent_types.h */,
+				56911A5D1D8CF3340092A3CD /* ThriftConnectionAttemptResponse_types.cpp */,
+				56911A5E1D8CF3340092A3CD /* ThriftConnectionAttemptResponse_types.h */,
+				56911A5F1D8CF3340092A3CD /* ThriftConnectionClosedEvent_types.cpp */,
+				56911A601D8CF3340092A3CD /* ThriftConnectionClosedEvent_types.h */,
+				56911A611D8CF3340092A3CD /* ThriftConnectionResponse_types.cpp */,
+				56911A621D8CF3340092A3CD /* ThriftConnectionResponse_types.h */,
+				56911A631D8CF3340092A3CD /* ThriftCreateOrJoinGameResponse_types.cpp */,
+				56911A641D8CF3340092A3CD /* ThriftCreateOrJoinGameResponse_types.h */,
+				56911A651D8CF3340092A3CD /* ThriftCreateRoomRequest_types.cpp */,
+				56911A661D8CF3340092A3CD /* ThriftCreateRoomRequest_types.h */,
+				56911A671D8CF3340092A3CD /* ThriftCreateRoomVariableRequest_types.cpp */,
+				56911A681D8CF3340092A3CD /* ThriftCreateRoomVariableRequest_types.h */,
+				56911A691D8CF3340092A3CD /* ThriftCrossDomainPolicyRequest_types.cpp */,
+				56911A6A1D8CF3340092A3CD /* ThriftCrossDomainPolicyRequest_types.h */,
+				56911A6B1D8CF3340092A3CD /* ThriftCrossDomainPolicyResponse_types.cpp */,
+				56911A6C1D8CF3340092A3CD /* ThriftCrossDomainPolicyResponse_types.h */,
+				56911A6D1D8CF3340092A3CD /* ThriftDataType_types.cpp */,
+				56911A6E1D8CF3340092A3CD /* ThriftDataType_types.h */,
+				56911A6F1D8CF3340092A3CD /* ThriftDeleteRoomVariableRequest_types.cpp */,
+				56911A701D8CF3340092A3CD /* ThriftDeleteRoomVariableRequest_types.h */,
+				56911A711D8CF3340092A3CD /* ThriftDeleteUserVariableRequest_types.cpp */,
+				56911A721D8CF3340092A3CD /* ThriftDeleteUserVariableRequest_types.h */,
+				56911A731D8CF3340092A3CD /* ThriftDHInitiateKeyExchangeRequest_types.cpp */,
+				56911A741D8CF3340092A3CD /* ThriftDHInitiateKeyExchangeRequest_types.h */,
+				56911A751D8CF3340092A3CD /* ThriftDHPublicNumbersResponse_types.cpp */,
+				56911A761D8CF3340092A3CD /* ThriftDHPublicNumbersResponse_types.h */,
+				56911A771D8CF3340092A3CD /* ThriftDHSharedModulusRequest_types.cpp */,
+				56911A781D8CF3340092A3CD /* ThriftDHSharedModulusRequest_types.h */,
+				56911A791D8CF3340092A3CD /* ThriftDHSharedModulusResponse_types.cpp */,
+				56911A7A1D8CF3340092A3CD /* ThriftDHSharedModulusResponse_types.h */,
+				56911A7B1D8CF3340092A3CD /* ThriftEncryptionStateChangeEvent_types.cpp */,
+				56911A7C1D8CF3340092A3CD /* ThriftEncryptionStateChangeEvent_types.h */,
+				56911A7D1D8CF3340092A3CD /* ThriftErrorType_types.cpp */,
+				56911A7E1D8CF3340092A3CD /* ThriftErrorType_types.h */,
+				56911A7F1D8CF3340092A3CD /* ThriftEsNumber_types.cpp */,
+				56911A801D8CF3340092A3CD /* ThriftEsNumber_types.h */,
+				56911A811D8CF3340092A3CD /* ThriftEvictUserFromRoomRequest_types.cpp */,
+				56911A821D8CF3340092A3CD /* ThriftEvictUserFromRoomRequest_types.h */,
+				56911A831D8CF3340092A3CD /* ThriftFindGamesRequest_types.cpp */,
+				56911A841D8CF3340092A3CD /* ThriftFindGamesRequest_types.h */,
+				56911A851D8CF3340092A3CD /* ThriftFindGamesResponse_types.cpp */,
+				56911A861D8CF3340092A3CD /* ThriftFindGamesResponse_types.h */,
+				56911A871D8CF3340092A3CD /* ThriftFindZoneAndRoomByNameRequest_types.cpp */,
+				56911A881D8CF3340092A3CD /* ThriftFindZoneAndRoomByNameRequest_types.h */,
+				56911A891D8CF3340092A3CD /* ThriftFindZoneAndRoomByNameResponse_types.cpp */,
+				56911A8A1D8CF3340092A3CD /* ThriftFindZoneAndRoomByNameResponse_types.h */,
+				56911A8B1D8CF3340092A3CD /* ThriftFlattenedEsObject_types.cpp */,
+				56911A8C1D8CF3340092A3CD /* ThriftFlattenedEsObject_types.h */,
+				56911A8D1D8CF3340092A3CD /* ThriftFlattenedEsObjectRO_types.cpp */,
+				56911A8E1D8CF3340092A3CD /* ThriftFlattenedEsObjectRO_types.h */,
+				56911A8F1D8CF3340092A3CD /* ThriftGatewayKickUserRequest_types.cpp */,
+				56911A901D8CF3340092A3CD /* ThriftGatewayKickUserRequest_types.h */,
+				56911A911D8CF3340092A3CD /* ThriftGatewayStatistics_types.cpp */,
+				56911A921D8CF3340092A3CD /* ThriftGatewayStatistics_types.h */,
+				56911A931D8CF3340092A3CD /* ThriftGenericErrorResponse_types.cpp */,
+				56911A941D8CF3340092A3CD /* ThriftGenericErrorResponse_types.h */,
+				56911A951D8CF3340092A3CD /* ThriftGetGameTypesRequest_types.cpp */,
+				56911A961D8CF3340092A3CD /* ThriftGetGameTypesRequest_types.h */,
+				56911A971D8CF3340092A3CD /* ThriftGetGameTypesResponse_types.cpp */,
+				56911A981D8CF3340092A3CD /* ThriftGetGameTypesResponse_types.h */,
+				56911A991D8CF3340092A3CD /* ThriftGetRoomsInZoneRequest_types.cpp */,
+				56911A9A1D8CF3340092A3CD /* ThriftGetRoomsInZoneRequest_types.h */,
+				56911A9B1D8CF3340092A3CD /* ThriftGetRoomsInZoneResponse_types.cpp */,
+				56911A9C1D8CF3340092A3CD /* ThriftGetRoomsInZoneResponse_types.h */,
+				56911A9D1D8CF3340092A3CD /* ThriftGetServerLocalTimeRequest_types.cpp */,
+				56911A9E1D8CF3340092A3CD /* ThriftGetServerLocalTimeRequest_types.h */,
+				56911A9F1D8CF3340092A3CD /* ThriftGetServerLocalTimeResponse_types.cpp */,
+				56911AA01D8CF3340092A3CD /* ThriftGetServerLocalTimeResponse_types.h */,
+				56911AA11D8CF3340092A3CD /* ThriftGetUserCountRequest_types.cpp */,
+				56911AA21D8CF3340092A3CD /* ThriftGetUserCountRequest_types.h */,
+				56911AA31D8CF3340092A3CD /* ThriftGetUserCountResponse_types.cpp */,
+				56911AA41D8CF3340092A3CD /* ThriftGetUserCountResponse_types.h */,
+				56911AA51D8CF3340092A3CD /* ThriftGetUsersInRoomRequest_types.cpp */,
+				56911AA61D8CF3340092A3CD /* ThriftGetUsersInRoomRequest_types.h */,
+				56911AA71D8CF3340092A3CD /* ThriftGetUsersInRoomResponse_types.cpp */,
+				56911AA81D8CF3340092A3CD /* ThriftGetUsersInRoomResponse_types.h */,
+				56911AA91D8CF3340092A3CD /* ThriftGetUserVariablesRequest_types.cpp */,
+				56911AAA1D8CF3340092A3CD /* ThriftGetUserVariablesRequest_types.h */,
+				56911AAB1D8CF3340092A3CD /* ThriftGetUserVariablesResponse_types.cpp */,
+				56911AAC1D8CF3340092A3CD /* ThriftGetUserVariablesResponse_types.h */,
+				56911AAD1D8CF3340092A3CD /* ThriftGetZonesRequest_types.cpp */,
+				56911AAE1D8CF3340092A3CD /* ThriftGetZonesRequest_types.h */,
+				56911AAF1D8CF3340092A3CD /* ThriftGetZonesResponse_types.cpp */,
+				56911AB01D8CF3340092A3CD /* ThriftGetZonesResponse_types.h */,
+				56911AB11D8CF3340092A3CD /* ThriftIdleTimeoutWarningEvent_types.cpp */,
+				56911AB21D8CF3340092A3CD /* ThriftIdleTimeoutWarningEvent_types.h */,
+				56911AB31D8CF3340092A3CD /* ThriftJoinGameRequest_types.cpp */,
+				56911AB41D8CF3340092A3CD /* ThriftJoinGameRequest_types.h */,
+				56911AB51D8CF3340092A3CD /* ThriftJoinRoomEvent_types.cpp */,
+				56911AB61D8CF3340092A3CD /* ThriftJoinRoomEvent_types.h */,
+				56911AB71D8CF3340092A3CD /* ThriftJoinRoomRequest_types.cpp */,
+				56911AB81D8CF3340092A3CD /* ThriftJoinRoomRequest_types.h */,
+				56911AB91D8CF3340092A3CD /* ThriftJoinZoneEvent_types.cpp */,
+				56911ABA1D8CF3340092A3CD /* ThriftJoinZoneEvent_types.h */,
+				56911ABB1D8CF3340092A3CD /* ThriftLeaveRoomEvent_types.cpp */,
+				56911ABC1D8CF3340092A3CD /* ThriftLeaveRoomEvent_types.h */,
+				56911ABD1D8CF3340092A3CD /* ThriftLeaveRoomRequest_types.cpp */,
+				56911ABE1D8CF3340092A3CD /* ThriftLeaveRoomRequest_types.h */,
+				56911ABF1D8CF3340092A3CD /* ThriftLeaveZoneEvent_types.cpp */,
+				56911AC01D8CF3340092A3CD /* ThriftLeaveZoneEvent_types.h */,
+				56911AC11D8CF3340092A3CD /* ThriftLoginRequest_types.cpp */,
+				56911AC21D8CF3340092A3CD /* ThriftLoginRequest_types.h */,
+				56911AC31D8CF3340092A3CD /* ThriftLoginResponse_types.cpp */,
+				56911AC41D8CF3340092A3CD /* ThriftLoginResponse_types.h */,
+				56911AC51D8CF3340092A3CD /* ThriftLogOutRequest_types.cpp */,
+				56911AC61D8CF3340092A3CD /* ThriftLogOutRequest_types.h */,
+				56911AC71D8CF3340092A3CD /* ThriftMessageType_types.cpp */,
+				56911AC81D8CF3340092A3CD /* ThriftMessageType_types.h */,
+				56911AC91D8CF3340092A3CD /* ThriftPingRequest_types.cpp */,
+				56911ACA1D8CF3340092A3CD /* ThriftPingRequest_types.h */,
+				56911ACB1D8CF3340092A3CD /* ThriftPingResponse_types.cpp */,
+				56911ACC1D8CF3340092A3CD /* ThriftPingResponse_types.h */,
+				56911ACD1D8CF3340092A3CD /* ThriftPluginListEntry_types.cpp */,
+				56911ACE1D8CF3340092A3CD /* ThriftPluginListEntry_types.h */,
+				56911ACF1D8CF3340092A3CD /* ThriftPluginMessageEvent_types.cpp */,
+				56911AD01D8CF3340092A3CD /* ThriftPluginMessageEvent_types.h */,
+				56911AD11D8CF3340092A3CD /* ThriftPluginRequest_types.cpp */,
+				56911AD21D8CF3340092A3CD /* ThriftPluginRequest_types.h */,
+				56911AD31D8CF3340092A3CD /* ThriftPrivateMessageEvent_types.cpp */,
+				56911AD41D8CF3340092A3CD /* ThriftPrivateMessageEvent_types.h */,
+				56911AD51D8CF3340092A3CD /* ThriftPrivateMessageRequest_types.cpp */,
+				56911AD61D8CF3340092A3CD /* ThriftPrivateMessageRequest_types.h */,
+				56911AD71D8CF3340092A3CD /* ThriftProtocol_types.cpp */,
+				56911AD81D8CF3340092A3CD /* ThriftProtocol_types.h */,
+				56911AD91D8CF3340092A3CD /* ThriftProtocolConfiguration_types.cpp */,
+				56911ADA1D8CF3340092A3CD /* ThriftProtocolConfiguration_types.h */,
+				56911ADB1D8CF3340092A3CD /* ThriftPublicMessageEvent_types.cpp */,
+				56911ADC1D8CF3340092A3CD /* ThriftPublicMessageEvent_types.h */,
+				56911ADD1D8CF3340092A3CD /* ThriftPublicMessageRequest_types.cpp */,
+				56911ADE1D8CF3340092A3CD /* ThriftPublicMessageRequest_types.h */,
+				56911ADF1D8CF3340092A3CD /* ThriftQuickJoinGameRequest_types.cpp */,
+				56911AE01D8CF3340092A3CD /* ThriftQuickJoinGameRequest_types.h */,
+				56911AE11D8CF3340092A3CD /* ThriftRegisterUDPConnectionRequest_types.cpp */,
+				56911AE21D8CF3340092A3CD /* ThriftRegisterUDPConnectionRequest_types.h */,
+				56911AE31D8CF3340092A3CD /* ThriftRegisterUDPConnectionResponse_types.cpp */,
+				56911AE41D8CF3340092A3CD /* ThriftRegisterUDPConnectionResponse_types.h */,
+				56911AE51D8CF3340092A3CD /* ThriftRegistryConnectToPreferredGatewayRequest_types.cpp */,
+				56911AE61D8CF3340092A3CD /* ThriftRegistryConnectToPreferredGatewayRequest_types.h */,
+				56911AE71D8CF3340092A3CD /* ThriftRemoveBuddiesRequest_types.cpp */,
+				56911AE81D8CF3340092A3CD /* ThriftRemoveBuddiesRequest_types.h */,
+				56911AE91D8CF3340092A3CD /* ThriftRemoveBuddiesResponse_types.cpp */,
+				56911AEA1D8CF3340092A3CD /* ThriftRemoveBuddiesResponse_types.h */,
+				56911AEB1D8CF3340092A3CD /* ThriftRemoveRoomOperatorRequest_types.cpp */,
+				56911AEC1D8CF3340092A3CD /* ThriftRemoveRoomOperatorRequest_types.h */,
+				56911AED1D8CF3340092A3CD /* ThriftRemoveUDPConnectionRequest_types.cpp */,
+				56911AEE1D8CF3340092A3CD /* ThriftRemoveUDPConnectionRequest_types.h */,
+				56911AEF1D8CF3340092A3CD /* ThriftRemoveUDPConnectionResponse_types.cpp */,
+				56911AF01D8CF3340092A3CD /* ThriftRemoveUDPConnectionResponse_types.h */,
+				56911AF11D8CF3340092A3CD /* ThriftRequestDetails_types.cpp */,
+				56911AF21D8CF3340092A3CD /* ThriftRequestDetails_types.h */,
+				56911AF31D8CF3340092A3CD /* ThriftRoomListEntry_types.cpp */,
+				56911AF41D8CF3340092A3CD /* ThriftRoomListEntry_types.h */,
+				56911AF51D8CF3340092A3CD /* ThriftRoomVariable_types.cpp */,
+				56911AF61D8CF3340092A3CD /* ThriftRoomVariable_types.h */,
+				56911AF71D8CF3340092A3CD /* ThriftRoomVariableUpdateAction_types.cpp */,
+				56911AF81D8CF3340092A3CD /* ThriftRoomVariableUpdateAction_types.h */,
+				56911AF91D8CF3340092A3CD /* ThriftRoomVariableUpdateEvent_types.cpp */,
+				56911AFA1D8CF3340092A3CD /* ThriftRoomVariableUpdateEvent_types.h */,
+				56911AFB1D8CF3340092A3CD /* ThriftSearchCriteria_types.cpp */,
+				56911AFC1D8CF3340092A3CD /* ThriftSearchCriteria_types.h */,
+				56911AFD1D8CF3340092A3CD /* ThriftServerGame_types.cpp */,
+				56911AFE1D8CF3340092A3CD /* ThriftServerGame_types.h */,
+				56911AFF1D8CF3340092A3CD /* ThriftServerKickUserEvent_types.cpp */,
+				56911B001D8CF3340092A3CD /* ThriftServerKickUserEvent_types.h */,
+				56911B011D8CF3340092A3CD /* ThriftServerState_types.cpp */,
+				56911B021D8CF3340092A3CD /* ThriftServerState_types.h */,
+				56911B031D8CF3340092A3CD /* ThriftSessionIdleEvent_types.cpp */,
+				56911B041D8CF3340092A3CD /* ThriftSessionIdleEvent_types.h */,
+				56911B051D8CF3340092A3CD /* ThriftUpdateRoomDetailsEvent_types.cpp */,
+				56911B061D8CF3340092A3CD /* ThriftUpdateRoomDetailsEvent_types.h */,
+				56911B071D8CF3340092A3CD /* ThriftUpdateRoomDetailsRequest_types.cpp */,
+				56911B081D8CF3340092A3CD /* ThriftUpdateRoomDetailsRequest_types.h */,
+				56911B091D8CF3340092A3CD /* ThriftUpdateRoomVariableRequest_types.cpp */,
+				56911B0A1D8CF3340092A3CD /* ThriftUpdateRoomVariableRequest_types.h */,
+				56911B0B1D8CF3340092A3CD /* ThriftUpdateUserVariableRequest_types.cpp */,
+				56911B0C1D8CF3340092A3CD /* ThriftUpdateUserVariableRequest_types.h */,
+				56911B0D1D8CF3340092A3CD /* ThriftUserEvictedFromRoomEvent_types.cpp */,
+				56911B0E1D8CF3340092A3CD /* ThriftUserEvictedFromRoomEvent_types.h */,
+				56911B0F1D8CF3340092A3CD /* ThriftUserListEntry_types.cpp */,
+				56911B101D8CF3340092A3CD /* ThriftUserListEntry_types.h */,
+				56911B111D8CF3340092A3CD /* ThriftUserServerVariable_types.cpp */,
+				56911B121D8CF3340092A3CD /* ThriftUserServerVariable_types.h */,
+				56911B131D8CF3340092A3CD /* ThriftUserUpdateAction_types.cpp */,
+				56911B141D8CF3340092A3CD /* ThriftUserUpdateAction_types.h */,
+				56911B151D8CF3340092A3CD /* ThriftUserUpdateEvent_types.cpp */,
+				56911B161D8CF3340092A3CD /* ThriftUserUpdateEvent_types.h */,
+				56911B171D8CF3340092A3CD /* ThriftUserVariable_types.cpp */,
+				56911B181D8CF3340092A3CD /* ThriftUserVariable_types.h */,
+				56911B191D8CF3340092A3CD /* ThriftUserVariableUpdateAction_types.cpp */,
+				56911B1A1D8CF3340092A3CD /* ThriftUserVariableUpdateAction_types.h */,
+				56911B1B1D8CF3340092A3CD /* ThriftUserVariableUpdateEvent_types.cpp */,
+				56911B1C1D8CF3340092A3CD /* ThriftUserVariableUpdateEvent_types.h */,
+				56911B1D1D8CF3340092A3CD /* ThriftValidateAdditionalLoginRequest_types.cpp */,
+				56911B1E1D8CF3340092A3CD /* ThriftValidateAdditionalLoginRequest_types.h */,
+				56911B1F1D8CF3340092A3CD /* ThriftValidateAdditionalLoginResponse_types.cpp */,
+				56911B201D8CF3340092A3CD /* ThriftValidateAdditionalLoginResponse_types.h */,
+				56911B211D8CF3340092A3CD /* ThriftZoneListEntry_types.cpp */,
+				56911B221D8CF3340092A3CD /* ThriftZoneListEntry_types.h */,
+				56911B231D8CF3340092A3CD /* ThriftZoneUpdateAction_types.cpp */,
+				56911B241D8CF3340092A3CD /* ThriftZoneUpdateAction_types.h */,
+				56911B251D8CF3340092A3CD /* ThriftZoneUpdateEvent_types.cpp */,
+				56911B261D8CF3340092A3CD /* ThriftZoneUpdateEvent_types.h */,
+			);
+			path = thrift;
+			sourceTree = "<group>";
+		};
+		56911A3F1D8CF3340092A3CD /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				56911A401D8CF3340092A3CD /* TBinaryProtocol.cpp */,
+				56911A411D8CF3340092A3CD /* TBinaryProtocol.h */,
+				56911A421D8CF3340092A3CD /* TBinaryProtocol.tcc */,
+				56911A431D8CF3340092A3CD /* TBufferTransports.cpp */,
+				56911A441D8CF3340092A3CD /* TBufferTransports.h */,
+				56911A451D8CF3340092A3CD /* Thrift.h */,
+				56911A461D8CF3340092A3CD /* TProtocol.cpp */,
+				56911A471D8CF3340092A3CD /* TProtocol.h */,
+				56911A481D8CF3340092A3CD /* TProtocolException.h */,
+				56911A491D8CF3340092A3CD /* TToString.h */,
+				56911A4A1D8CF3340092A3CD /* TTransport.h */,
+				56911A4B1D8CF3340092A3CD /* TTransportException.cpp */,
+				56911A4C1D8CF3340092A3CD /* TTransportException.h */,
+				56911A4D1D8CF3340092A3CD /* TVirtualProtocol.h */,
+				56911A4E1D8CF3340092A3CD /* TVirtualTransport.h */,
+			);
+			path = libs;
+			sourceTree = "<group>";
+		};
+		56911B2D1D8CF3340092A3CD /* Socket */ = {
+			isa = PBXGroup;
+			children = (
+				56911B2E1D8CF3340092A3CD /* ElectroTcpClient.cpp */,
+				56911B2F1D8CF3340092A3CD /* ElectroTcpClient.h */,
+				56911B301D8CF3340092A3CD /* NetworkCore.cpp */,
+				56911B311D8CF3340092A3CD /* NetworkCore.h */,
+				56911B321D8CF3340092A3CD /* NetworkDefine.cpp */,
+				56911B331D8CF3340092A3CD /* NetworkDefine.h */,
+				56911B341D8CF3340092A3CD /* SocketAdapter.cpp */,
+				56911B351D8CF3340092A3CD /* SocketAdapter.h */,
+			);
+			path = Socket;
+			sourceTree = "<group>";
+		};
 		A92275321517C094001B78AA = {
 			isa = PBXGroup;
 			children = (
+				569119BF1D8CF3340092A3CD /* ElectroClient */,
 				56835C0B1D7B25360021A197 /* FacebookSDK */,
 				56835BC31D7B24B20021A197 /* UDT4 */,
 				56835B651D7B24960021A197 /* LobbyClient */,
@@ -1389,44 +2528,148 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56911B5D1D8CF3340092A3CD /* PingResponse.cpp in Sources */,
+				56911BAB1D8CF3340092A3CD /* ThriftConnectionResponse_types.cpp in Sources */,
+				56911C171D8CF3350092A3CD /* ThriftPluginListEntry_types.cpp in Sources */,
+				56911C291D8CF3350092A3CD /* ThriftQuickJoinGameRequest_types.cpp in Sources */,
+				56911C571D8CF3350092A3CD /* ThriftUserEvictedFromRoomEvent_types.cpp in Sources */,
+				56911BEF1D8CF3350092A3CD /* ThriftGetUsersInRoomRequest_types.cpp in Sources */,
 				56835A091D7B20580021A197 /* base64.cpp in Sources */,
 				56835BA81D7B24960021A197 /* Logger.cpp in Sources */,
+				56911BCB1D8CF3350092A3CD /* ThriftEvictUserFromRoomRequest_types.cpp in Sources */,
+				56911C411D8CF3350092A3CD /* ThriftRoomVariableUpdateAction_types.cpp in Sources */,
+				56911B9D1D8CF3340092A3CD /* ThriftAddRoomOperatorRequest_types.cpp in Sources */,
+				56911BE51D8CF3350092A3CD /* ThriftGetRoomsInZoneResponse_types.cpp in Sources */,
 				568359F51D7B20580021A197 /* GameLaucher.cpp in Sources */,
+				56911C051D8CF3350092A3CD /* ThriftLeaveRoomEvent_types.cpp in Sources */,
 				56835BEC1D7B24B30021A197 /* core.cpp in Sources */,
+				56911B371D8CF3340092A3CD /* ElectroLogger.cpp in Sources */,
+				56911B4B1D8CF3340092A3CD /* BaseEvent.cpp in Sources */,
 				56835ACC1D7B242C0021A197 /* SFSLogger.cpp in Sources */,
+				56911B911D8CF3340092A3CD /* TBinaryProtocol.tcc in Sources */,
+				56911BE11D8CF3350092A3CD /* ThriftGetGameTypesResponse_types.cpp in Sources */,
+				56911B3F1D8CF3340092A3CD /* EsMessageStreamer.cpp in Sources */,
 				56835BEA1D7B24B30021A197 /* common.cpp in Sources */,
+				56911B791D8CF3340092A3CD /* MessageType.cpp in Sources */,
+				56911BFB1D8CF3350092A3CD /* ThriftIdleTimeoutWarningEvent_types.cpp in Sources */,
+				56911C3D1D8CF3350092A3CD /* ThriftRoomListEntry_types.cpp in Sources */,
+				56911B3B1D8CF3340092A3CD /* EsArray.cpp in Sources */,
+				56911B3D1D8CF3340092A3CD /* EsEntity.cpp in Sources */,
+				56911C131D8CF3350092A3CD /* ThriftPingRequest_types.cpp in Sources */,
+				56911C0F1D8CF3350092A3CD /* ThriftLogOutRequest_types.cpp in Sources */,
+				56911C691D8CF3350092A3CD /* ThriftValidateAdditionalLoginResponse_types.cpp in Sources */,
+				56911B7D1D8CF3340092A3CD /* JoinRoomRequest.cpp in Sources */,
 				56835BBC1D7B24960021A197 /* NetworkDefine.cpp in Sources */,
+				56911B651D8CF3340092A3CD /* RoomListEntry.cpp in Sources */,
+				56911BCF1D8CF3350092A3CD /* ThriftFindGamesResponse_types.cpp in Sources */,
 				56835ABA1D7B242C0021A197 /* BufferArray.cpp in Sources */,
+				56911BF71D8CF3350092A3CD /* ThriftGetZonesRequest_types.cpp in Sources */,
+				56911B931D8CF3340092A3CD /* TBufferTransports.cpp in Sources */,
 				56835A0D1D7B20580021A197 /* crypt_aes.cpp in Sources */,
+				56911B471D8CF3340092A3CD /* EsReleasePool.cpp in Sources */,
 				56835A291D7B20580021A197 /* SmartfoxClient.cpp in Sources */,
+				569119B41D8CF2EE0092A3CD /* FileEncrypt.cpp in Sources */,
+				56911C631D8CF3350092A3CD /* ThriftUserVariableUpdateAction_types.cpp in Sources */,
+				56911C1F1D8CF3350092A3CD /* ThriftPrivateMessageRequest_types.cpp in Sources */,
+				56911B591D8CF3340092A3CD /* LeaveRoomEvent.cpp in Sources */,
+				56911BCD1D8CF3350092A3CD /* ThriftFindGamesRequest_types.cpp in Sources */,
+				56911BB71D8CF3340092A3CD /* ThriftDataType_types.cpp in Sources */,
+				56911BB91D8CF3340092A3CD /* ThriftDeleteRoomVariableRequest_types.cpp in Sources */,
+				56911C151D8CF3350092A3CD /* ThriftPingResponse_types.cpp in Sources */,
+				56911BE71D8CF3350092A3CD /* ThriftGetServerLocalTimeRequest_types.cpp in Sources */,
+				56911C6B1D8CF3350092A3CD /* ThriftZoneListEntry_types.cpp in Sources */,
+				56911B691D8CF3340092A3CD /* ServerKickUserEvent.cpp in Sources */,
+				56911C2B1D8CF3350092A3CD /* ThriftRegisterUDPConnectionRequest_types.cpp in Sources */,
+				56911B8F1D8CF3340092A3CD /* TBinaryProtocol.cpp in Sources */,
+				56911C471D8CF3350092A3CD /* ThriftServerGame_types.cpp in Sources */,
 				56835BF81D7B24B30021A197 /* window.cpp in Sources */,
+				56911B811D8CF3340092A3CD /* LeaveRoomRequest.cpp in Sources */,
+				56911B391D8CF3340092A3CD /* BaseMessage.cpp in Sources */,
+				569119BE1D8CF2FF0092A3CD /* jsb_quyetnd_electro_socket.cpp in Sources */,
+				56911C5D1D8CF3350092A3CD /* ThriftUserUpdateAction_types.cpp in Sources */,
+				56911BEB1D8CF3350092A3CD /* ThriftGetUserCountRequest_types.cpp in Sources */,
 				56835BBA1D7B24960021A197 /* NetworkCore.cpp in Sources */,
+				56911BD51D8CF3350092A3CD /* ThriftFlattenedEsObject_types.cpp in Sources */,
+				56911BA51D8CF3340092A3CD /* ThriftBuddyStatusUpdateEvent_types.cpp in Sources */,
+				56911B451D8CF3340092A3CD /* ErrorType.cpp in Sources */,
 				56835BF61D7B24B30021A197 /* queue.cpp in Sources */,
 				568359F11D7B20580021A197 /* jsb_quyetnd_action.cpp in Sources */,
+				56911B831D8CF3340092A3CD /* LoginRequest.cpp in Sources */,
+				56911BDD1D8CF3350092A3CD /* ThriftGenericErrorResponse_types.cpp in Sources */,
 				56835BC21D7B24960021A197 /* UDTClient.cpp in Sources */,
+				56911B491D8CF3340092A3CD /* EsUtil.cpp in Sources */,
+				56911C391D8CF3350092A3CD /* ThriftRemoveUDPConnectionResponse_types.cpp in Sources */,
+				56911C0D1D8CF3350092A3CD /* ThriftLoginResponse_types.cpp in Sources */,
+				56911BED1D8CF3350092A3CD /* ThriftGetUserCountResponse_types.cpp in Sources */,
 				56835A231D7B20580021A197 /* jsb_quyetnd_sfssocket.cpp in Sources */,
+				56911BAD1D8CF3340092A3CD /* ThriftCreateOrJoinGameResponse_types.cpp in Sources */,
+				56911C011D8CF3350092A3CD /* ThriftJoinRoomRequest_types.cpp in Sources */,
 				56835AD41D7B242C0021A197 /* SocketAdapter.cpp in Sources */,
 				56835A011D7B20580021A197 /* NewTableView.cpp in Sources */,
+				56911B551D8CF3340092A3CD /* JoinRoomEvent.cpp in Sources */,
+				56911BF11D8CF3350092A3CD /* ThriftGetUsersInRoomResponse_types.cpp in Sources */,
 				56835AD01D7B242C0021A197 /* NetworkDefine.cpp in Sources */,
+				56911BC31D8CF3350092A3CD /* ThriftDHSharedModulusResponse_types.cpp in Sources */,
+				56911B4F1D8CF3340092A3CD /* ConnectionResponse.cpp in Sources */,
+				56911C591D8CF3350092A3CD /* ThriftUserListEntry_types.cpp in Sources */,
+				56911C071D8CF3350092A3CD /* ThriftLeaveRoomRequest_types.cpp in Sources */,
 				56835C401D7B2C740021A197 /* MacOS_native_linker.mm in Sources */,
+				56911BE91D8CF3350092A3CD /* ThriftGetServerLocalTimeResponse_types.cpp in Sources */,
+				56911BFF1D8CF3350092A3CD /* ThriftJoinRoomEvent_types.cpp in Sources */,
+				56911BFD1D8CF3350092A3CD /* ThriftJoinGameRequest_types.cpp in Sources */,
+				56911B6F1D8CF3340092A3CD /* UserUpdateAction.cpp in Sources */,
+				56911B731D8CF3340092A3CD /* UserVariable.cpp in Sources */,
+				56911BB51D8CF3340092A3CD /* ThriftCrossDomainPolicyResponse_types.cpp in Sources */,
+				56911C5F1D8CF3350092A3CD /* ThriftUserUpdateEvent_types.cpp in Sources */,
+				56911C531D8CF3350092A3CD /* ThriftUpdateRoomVariableRequest_types.cpp in Sources */,
+				56911C651D8CF3350092A3CD /* ThriftUserVariableUpdateEvent_types.cpp in Sources */,
+				56911B9B1D8CF3340092A3CD /* ThriftAddBuddiesResponse_types.cpp in Sources */,
 				509D4A8117EBB24E00697056 /* AppDelegate.cpp in Sources */,
+				56911C431D8CF3350092A3CD /* ThriftRoomVariableUpdateEvent_types.cpp in Sources */,
 				56835BF41D7B24B30021A197 /* packet.cpp in Sources */,
+				56911B6B1D8CF3340092A3CD /* UserEvictedFromRoomEvent.cpp in Sources */,
+				56911C5B1D8CF3350092A3CD /* ThriftUserServerVariable_types.cpp in Sources */,
+				56911C351D8CF3350092A3CD /* ThriftRemoveRoomOperatorRequest_types.cpp in Sources */,
 				56835A1D1D7B20580021A197 /* UUIDEncrypt.cpp in Sources */,
+				56911BA71D8CF3340092A3CD /* ThriftConnectionAttemptResponse_types.cpp in Sources */,
+				56911C2D1D8CF3350092A3CD /* ThriftRegisterUDPConnectionResponse_types.cpp in Sources */,
 				568359FD1D7B20580021A197 /* jsb_quyetnd_newui.cpp in Sources */,
 				56835A1F1D7B20580021A197 /* jsb_quyetnd_lobbysocket.cpp in Sources */,
 				56835A071D7B20580021A197 /* NewWidget.cpp in Sources */,
+				56911C4D1D8CF3350092A3CD /* ThriftSessionIdleEvent_types.cpp in Sources */,
+				56911BBB1D8CF3340092A3CD /* ThriftDeleteUserVariableRequest_types.cpp in Sources */,
 				56835AC41D7B242C0021A197 /* SFSObject.cpp in Sources */,
+				56911C791D8CF3350092A3CD /* ElectroTcpClient.cpp in Sources */,
+				56911C671D8CF3350092A3CD /* ThriftValidateAdditionalLoginRequest_types.cpp in Sources */,
 				56835BAE1D7B24960021A197 /* LobbyRef.cpp in Sources */,
+				56911B711D8CF3340092A3CD /* UserUpdateEvent.cpp in Sources */,
+				56911C7B1D8CF3350092A3CD /* NetworkCore.cpp in Sources */,
+				56911B971D8CF3340092A3CD /* TTransportException.cpp in Sources */,
+				56911C211D8CF3350092A3CD /* ThriftProtocol_types.cpp in Sources */,
+				56911B8B1D8CF3340092A3CD /* PrivateMessageRequest.cpp in Sources */,
+				56911BC91D8CF3350092A3CD /* ThriftEsNumber_types.cpp in Sources */,
+				56911B7F1D8CF3340092A3CD /* JsonRequest.cpp in Sources */,
 				56835BB01D7B24960021A197 /* PrimitiveValue.cpp in Sources */,
+				56911BC51D8CF3350092A3CD /* ThriftEncryptionStateChangeEvent_types.cpp in Sources */,
+				56911B611D8CF3340092A3CD /* PrivateMessageEvent.cpp in Sources */,
+				56911C7D1D8CF3350092A3CD /* NetworkDefine.cpp in Sources */,
+				56911BD31D8CF3350092A3CD /* ThriftFindZoneAndRoomByNameResponse_types.cpp in Sources */,
 				56835AD21D7B242C0021A197 /* SFSTcpClient.cpp in Sources */,
+				56911BD91D8CF3350092A3CD /* ThriftGatewayKickUserRequest_types.cpp in Sources */,
 				568359F71D7B20580021A197 /* GameResource.cpp in Sources */,
 				568359EB1D7B20580021A197 /* ActionNumber.cpp in Sources */,
 				56835AB81D7B242C0021A197 /* BaseMessage.cpp in Sources */,
+				56911C2F1D8CF3350092A3CD /* ThriftRegistryConnectToPreferredGatewayRequest_types.cpp in Sources */,
 				568359ED1D7B20580021A197 /* ActionShake2D.cpp in Sources */,
+				56911C091D8CF3350092A3CD /* ThriftLeaveZoneEvent_types.cpp in Sources */,
 				56835ACE1D7B242C0021A197 /* NetworkCore.cpp in Sources */,
 				56835A111D7B20580021A197 /* jsb_quyetnd_facebook_plugin.cpp in Sources */,
+				56911B951D8CF3340092A3CD /* TProtocol.cpp in Sources */,
+				56911BDF1D8CF3350092A3CD /* ThriftGetGameTypesRequest_types.cpp in Sources */,
 				56835BB81D7B24960021A197 /* ValueWriter.cpp in Sources */,
 				56835AC21D7B242C0021A197 /* SFSEntity.cpp in Sources */,
+				56911B5B1D8CF3340092A3CD /* LoginResponse.cpp in Sources */,
+				56911B891D8CF3340092A3CD /* PluginRequest.cpp in Sources */,
 				56835AC81D7B242C0021A197 /* SFSRef.cpp in Sources */,
 				56835BE61D7B24B30021A197 /* ccc.cpp in Sources */,
 				56835BAC1D7B24960021A197 /* DictValue.cpp in Sources */,
@@ -1434,33 +2677,93 @@
 				56835BC01D7B24960021A197 /* TCPClient.cpp in Sources */,
 				56835BAA1D7B24960021A197 /* ArrayValue.cpp in Sources */,
 				56835A191D7B20580021A197 /* sha1.cpp in Sources */,
+				56911B5F1D8CF3340092A3CD /* PluginMessageEvent.cpp in Sources */,
+				56911BC11D8CF3350092A3CD /* ThriftDHSharedModulusRequest_types.cpp in Sources */,
+				56911C3F1D8CF3350092A3CD /* ThriftRoomVariable_types.cpp in Sources */,
 				56835BE81D7B24B30021A197 /* channel.cpp in Sources */,
+				56911C6F1D8CF3350092A3CD /* ThriftZoneUpdateEvent_types.cpp in Sources */,
+				56911C551D8CF3350092A3CD /* ThriftUpdateUserVariableRequest_types.cpp in Sources */,
+				56911C191D8CF3350092A3CD /* ThriftPluginMessageEvent_types.cpp in Sources */,
+				56911BE31D8CF3350092A3CD /* ThriftGetRoomsInZoneRequest_types.cpp in Sources */,
 				56835A1B1D7B20580021A197 /* SystemPlugin.cpp in Sources */,
 				56835BB21D7B24960021A197 /* Value.cpp in Sources */,
+				56911BDB1D8CF3350092A3CD /* ThriftGatewayStatistics_types.cpp in Sources */,
 				56835A051D7B20580021A197 /* NewTextInput.cpp in Sources */,
+				56911BB31D8CF3340092A3CD /* ThriftCrossDomainPolicyRequest_types.cpp in Sources */,
+				56911C031D8CF3350092A3CD /* ThriftJoinZoneEvent_types.cpp in Sources */,
+				56911BF31D8CF3350092A3CD /* ThriftGetUserVariablesRequest_types.cpp in Sources */,
 				568359F91D7B20580021A197 /* LoadingScene.cpp in Sources */,
 				56835BB41D7B24960021A197 /* ValueJson.cpp in Sources */,
 				568359EF1D7B20580021A197 /* CustomAction.cpp in Sources */,
+				56911C231D8CF3350092A3CD /* ThriftProtocolConfiguration_types.cpp in Sources */,
+				56911C1B1D8CF3350092A3CD /* ThriftPluginRequest_types.cpp in Sources */,
+				56911BBF1D8CF3340092A3CD /* ThriftDHPublicNumbersResponse_types.cpp in Sources */,
 				56835A131D7B20580021A197 /* jsb_quyetnd_systemplugin.cpp in Sources */,
 				56835AC01D7B242C0021A197 /* SFSArray.cpp in Sources */,
 				56835BB61D7B24960021A197 /* ValueReader.cpp in Sources */,
 				568359FB1D7B20580021A197 /* ResourceLoader.cpp in Sources */,
+				56911B9F1D8CF3340092A3CD /* ThriftAggregatePluginMessageEvent_types.cpp in Sources */,
 				56835BF01D7B24B30021A197 /* list.cpp in Sources */,
+				56911C331D8CF3350092A3CD /* ThriftRemoveBuddiesResponse_types.cpp in Sources */,
+				56911C3B1D8CF3350092A3CD /* ThriftRequestDetails_types.cpp in Sources */,
+				56911B771D8CF3340092A3CD /* ZoneUpdateEvent.cpp in Sources */,
+				56911B8D1D8CF3340092A3CD /* PublicMessageRequest.cpp in Sources */,
+				56911B871D8CF3340092A3CD /* PingRequest.cpp in Sources */,
+				56911BA91D8CF3340092A3CD /* ThriftConnectionClosedEvent_types.cpp in Sources */,
+				56911C6D1D8CF3350092A3CD /* ThriftZoneUpdateAction_types.cpp in Sources */,
+				56911B991D8CF3340092A3CD /* ThriftAddBuddiesRequest_types.cpp in Sources */,
+				56911BD71D8CF3350092A3CD /* ThriftFlattenedEsObjectRO_types.cpp in Sources */,
 				56835ACA1D7B242C0021A197 /* SFSVec3D.cpp in Sources */,
+				56911BB11D8CF3340092A3CD /* ThriftCreateRoomVariableRequest_types.cpp in Sources */,
+				56911C111D8CF3350092A3CD /* ThriftMessageType_types.cpp in Sources */,
 				56835A031D7B20580021A197 /* NewTextField.cpp in Sources */,
+				56911C4F1D8CF3350092A3CD /* ThriftUpdateRoomDetailsEvent_types.cpp in Sources */,
+				56911C371D8CF3350092A3CD /* ThriftRemoveUDPConnectionRequest_types.cpp in Sources */,
+				56911C311D8CF3350092A3CD /* ThriftRemoveBuddiesRequest_types.cpp in Sources */,
+				56911BAF1D8CF3340092A3CD /* ThriftCreateRoomRequest_types.cpp in Sources */,
+				56911B751D8CF3340092A3CD /* ZoneUpdateAction.cpp in Sources */,
+				56911B571D8CF3340092A3CD /* JoinZoneEvent.cpp in Sources */,
+				56911BF51D8CF3350092A3CD /* ThriftGetUserVariablesResponse_types.cpp in Sources */,
+				56911BA11D8CF3340092A3CD /* ThriftAggregatePluginRequest_types.cpp in Sources */,
+				56911BBD1D8CF3340092A3CD /* ThriftDHInitiateKeyExchangeRequest_types.cpp in Sources */,
 				56835ABE1D7B242C0021A197 /* MessageType.cpp in Sources */,
+				56911C491D8CF3350092A3CD /* ThriftServerKickUserEvent_types.cpp in Sources */,
 				56835A171D7B20580021A197 /* MD5.cpp in Sources */,
+				56911B531D8CF3340092A3CD /* GenericErrorResponse.cpp in Sources */,
+				56911C1D1D8CF3350092A3CD /* ThriftPrivateMessageEvent_types.cpp in Sources */,
 				56835BEE1D7B24B30021A197 /* epoll.cpp in Sources */,
+				56911C4B1D8CF3350092A3CD /* ThriftServerState_types.cpp in Sources */,
+				56911B411D8CF3340092A3CD /* EsObject.cpp in Sources */,
+				56911C0B1D8CF3350092A3CD /* ThriftLoginRequest_types.cpp in Sources */,
+				56911C511D8CF3350092A3CD /* ThriftUpdateRoomDetailsRequest_types.cpp in Sources */,
+				56911B7B1D8CF3340092A3CD /* BaseRequest.cpp in Sources */,
 				56835AC61D7B242C0021A197 /* SFSPrimitive.cpp in Sources */,
+				56911B431D8CF3340092A3CD /* EsPrimitive.cpp in Sources */,
 				56835A0B1D7B20580021A197 /* CRC32.cpp in Sources */,
+				56911C251D8CF3350092A3CD /* ThriftPublicMessageEvent_types.cpp in Sources */,
+				56911BF91D8CF3350092A3CD /* ThriftGetZonesResponse_types.cpp in Sources */,
 				C06E23CC18CEFE680093C81A /* main.cpp in Sources */,
+				56911C611D8CF3350092A3CD /* ThriftUserVariable_types.cpp in Sources */,
 				56835BBE1D7B24960021A197 /* SocketAdapter.cpp in Sources */,
 				56835A0F1D7B20580021A197 /* FacebookPlugin.cpp in Sources */,
 				56835BE21D7B24B30021A197 /* buffer.cpp in Sources */,
+				569119BC1D8CF2FF0092A3CD /* ElectroClient.cpp in Sources */,
 				56835A271D7B20580021A197 /* LobbyClient.cpp in Sources */,
+				56911B4D1D8CF3340092A3CD /* ConnectionClosedEvent.cpp in Sources */,
 				56835ABC1D7B242C0021A197 /* MessageJSON.cpp in Sources */,
+				56911BC71D8CF3350092A3CD /* ThriftErrorType_types.cpp in Sources */,
+				56911C451D8CF3350092A3CD /* ThriftSearchCriteria_types.cpp in Sources */,
+				56911BA31D8CF3340092A3CD /* ThriftBuddyStatusUpdateAction_types.cpp in Sources */,
+				56911C271D8CF3350092A3CD /* ThriftPublicMessageRequest_types.cpp in Sources */,
 				56835BF21D7B24B30021A197 /* md5.cpp in Sources */,
+				56911B6D1D8CF3340092A3CD /* UserListEntry.cpp in Sources */,
+				56911B671D8CF3340092A3CD /* RoomVariable.cpp in Sources */,
+				56911BD11D8CF3350092A3CD /* ThriftFindZoneAndRoomByNameRequest_types.cpp in Sources */,
+				56911B511D8CF3340092A3CD /* GatewayKickUserRequest.cpp in Sources */,
+				56911C7F1D8CF3350092A3CD /* SocketAdapter.cpp in Sources */,
+				56911B851D8CF3340092A3CD /* LogoutRequest.cpp in Sources */,
 				56835BE41D7B24B30021A197 /* cache.cpp in Sources */,
+				56911B631D8CF3340092A3CD /* PublicMessageEvent.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1469,55 +2772,178 @@
 			buildActionMask = 2147483647;
 			files = (
 				56835BF31D7B24B30021A197 /* packet.cpp in Sources */,
+				56911BC81D8CF3350092A3CD /* ThriftEsNumber_types.cpp in Sources */,
 				56835AB71D7B242C0021A197 /* BaseMessage.cpp in Sources */,
 				56835BAF1D7B24960021A197 /* PrimitiveValue.cpp in Sources */,
+				56911BE81D8CF3350092A3CD /* ThriftGetServerLocalTimeResponse_types.cpp in Sources */,
 				56835A0C1D7B20580021A197 /* crypt_aes.cpp in Sources */,
+				56911BC41D8CF3350092A3CD /* ThriftEncryptionStateChangeEvent_types.cpp in Sources */,
 				56835A1C1D7B20580021A197 /* UUIDEncrypt.cpp in Sources */,
 				56835BE91D7B24B30021A197 /* common.cpp in Sources */,
+				56911C261D8CF3350092A3CD /* ThriftPublicMessageRequest_types.cpp in Sources */,
+				56911BBE1D8CF3340092A3CD /* ThriftDHPublicNumbersResponse_types.cpp in Sources */,
+				56911B3C1D8CF3340092A3CD /* EsEntity.cpp in Sources */,
 				56835AC91D7B242C0021A197 /* SFSVec3D.cpp in Sources */,
 				56835C081D7B25230021A197 /* iOS_native_linker.mm in Sources */,
+				56911B9E1D8CF3340092A3CD /* ThriftAggregatePluginMessageEvent_types.cpp in Sources */,
+				56911BEA1D8CF3350092A3CD /* ThriftGetUserCountRequest_types.cpp in Sources */,
 				56835AC31D7B242C0021A197 /* SFSObject.cpp in Sources */,
+				56911C4A1D8CF3350092A3CD /* ThriftServerState_types.cpp in Sources */,
+				56911BE41D8CF3350092A3CD /* ThriftGetRoomsInZoneResponse_types.cpp in Sources */,
+				56911BCC1D8CF3350092A3CD /* ThriftFindGamesRequest_types.cpp in Sources */,
+				56911B5C1D8CF3340092A3CD /* PingResponse.cpp in Sources */,
 				56835BBD1D7B24960021A197 /* SocketAdapter.cpp in Sources */,
+				56911C441D8CF3350092A3CD /* ThriftSearchCriteria_types.cpp in Sources */,
+				56911BB01D8CF3340092A3CD /* ThriftCreateRoomVariableRequest_types.cpp in Sources */,
+				56911C481D8CF3350092A3CD /* ThriftServerKickUserEvent_types.cpp in Sources */,
+				56911BD81D8CF3350092A3CD /* ThriftGatewayKickUserRequest_types.cpp in Sources */,
+				56911B761D8CF3340092A3CD /* ZoneUpdateEvent.cpp in Sources */,
+				56911BAE1D8CF3340092A3CD /* ThriftCreateRoomRequest_types.cpp in Sources */,
+				569119BB1D8CF2FF0092A3CD /* ElectroClient.cpp in Sources */,
+				56911BE01D8CF3350092A3CD /* ThriftGetGameTypesResponse_types.cpp in Sources */,
 				56835BE31D7B24B30021A197 /* cache.cpp in Sources */,
+				56911C521D8CF3350092A3CD /* ThriftUpdateRoomVariableRequest_types.cpp in Sources */,
+				56911BAC1D8CF3340092A3CD /* ThriftCreateOrJoinGameResponse_types.cpp in Sources */,
+				56911BD41D8CF3350092A3CD /* ThriftFlattenedEsObject_types.cpp in Sources */,
+				56911C561D8CF3350092A3CD /* ThriftUserEvictedFromRoomEvent_types.cpp in Sources */,
+				569119BD1D8CF2FF0092A3CD /* jsb_quyetnd_electro_socket.cpp in Sources */,
+				56911C341D8CF3350092A3CD /* ThriftRemoveRoomOperatorRequest_types.cpp in Sources */,
+				56911B8A1D8CF3340092A3CD /* PrivateMessageRequest.cpp in Sources */,
 				56835A041D7B20580021A197 /* NewTextInput.cpp in Sources */,
+				56911C7C1D8CF3350092A3CD /* NetworkDefine.cpp in Sources */,
+				56911BD01D8CF3350092A3CD /* ThriftFindZoneAndRoomByNameRequest_types.cpp in Sources */,
+				56911BDE1D8CF3350092A3CD /* ThriftGetGameTypesRequest_types.cpp in Sources */,
 				56835BB11D7B24960021A197 /* Value.cpp in Sources */,
+				56911B801D8CF3340092A3CD /* LeaveRoomRequest.cpp in Sources */,
+				56911B621D8CF3340092A3CD /* PublicMessageEvent.cpp in Sources */,
 				568359EC1D7B20580021A197 /* ActionShake2D.cpp in Sources */,
+				56911B4E1D8CF3340092A3CD /* ConnectionResponse.cpp in Sources */,
+				56911B921D8CF3340092A3CD /* TBufferTransports.cpp in Sources */,
 				56835BBB1D7B24960021A197 /* NetworkDefine.cpp in Sources */,
+				56911C321D8CF3350092A3CD /* ThriftRemoveBuddiesResponse_types.cpp in Sources */,
+				56911B661D8CF3340092A3CD /* RoomVariable.cpp in Sources */,
+				56911C4C1D8CF3350092A3CD /* ThriftSessionIdleEvent_types.cpp in Sources */,
+				56911C501D8CF3350092A3CD /* ThriftUpdateRoomDetailsRequest_types.cpp in Sources */,
+				56911BC01D8CF3350092A3CD /* ThriftDHSharedModulusRequest_types.cpp in Sources */,
+				56911B5E1D8CF3340092A3CD /* PluginMessageEvent.cpp in Sources */,
+				56911B501D8CF3340092A3CD /* GatewayKickUserRequest.cpp in Sources */,
+				56911BAA1D8CF3340092A3CD /* ThriftConnectionResponse_types.cpp in Sources */,
+				56911C5C1D8CF3350092A3CD /* ThriftUserUpdateAction_types.cpp in Sources */,
+				56911C661D8CF3350092A3CD /* ThriftValidateAdditionalLoginRequest_types.cpp in Sources */,
+				56911BA41D8CF3340092A3CD /* ThriftBuddyStatusUpdateEvent_types.cpp in Sources */,
+				56911C141D8CF3350092A3CD /* ThriftPingResponse_types.cpp in Sources */,
+				56911B4C1D8CF3340092A3CD /* ConnectionClosedEvent.cpp in Sources */,
 				56835A101D7B20580021A197 /* jsb_quyetnd_facebook_plugin.cpp in Sources */,
+				56911C6C1D8CF3350092A3CD /* ThriftZoneUpdateAction_types.cpp in Sources */,
+				56911B7E1D8CF3340092A3CD /* JsonRequest.cpp in Sources */,
+				56911C1C1D8CF3350092A3CD /* ThriftPrivateMessageEvent_types.cpp in Sources */,
 				56835AD31D7B242C0021A197 /* SocketAdapter.cpp in Sources */,
+				56911C3E1D8CF3350092A3CD /* ThriftRoomVariable_types.cpp in Sources */,
 				56835BB91D7B24960021A197 /* NetworkCore.cpp in Sources */,
 				509D4AC917EBB2AB00697056 /* RootViewController.mm in Sources */,
+				56911C3C1D8CF3350092A3CD /* ThriftRoomListEntry_types.cpp in Sources */,
+				56911C0E1D8CF3350092A3CD /* ThriftLogOutRequest_types.cpp in Sources */,
 				56835A021D7B20580021A197 /* NewTextField.cpp in Sources */,
+				56911B641D8CF3340092A3CD /* RoomListEntry.cpp in Sources */,
+				56911B941D8CF3340092A3CD /* TProtocol.cpp in Sources */,
+				56911C221D8CF3350092A3CD /* ThriftProtocolConfiguration_types.cpp in Sources */,
+				56911BFC1D8CF3350092A3CD /* ThriftJoinGameRequest_types.cpp in Sources */,
+				56911C101D8CF3350092A3CD /* ThriftMessageType_types.cpp in Sources */,
 				56835BA91D7B24960021A197 /* ArrayValue.cpp in Sources */,
+				56911BBA1D8CF3340092A3CD /* ThriftDeleteUserVariableRequest_types.cpp in Sources */,
 				56835BE71D7B24B30021A197 /* channel.cpp in Sources */,
+				56911B3A1D8CF3340092A3CD /* EsArray.cpp in Sources */,
+				56911C061D8CF3350092A3CD /* ThriftLeaveRoomRequest_types.cpp in Sources */,
+				56911BC21D8CF3350092A3CD /* ThriftDHSharedModulusResponse_types.cpp in Sources */,
 				56835BEB1D7B24B30021A197 /* core.cpp in Sources */,
+				56911BCE1D8CF3350092A3CD /* ThriftFindGamesResponse_types.cpp in Sources */,
 				56835BE11D7B24B30021A197 /* buffer.cpp in Sources */,
+				56911BFA1D8CF3350092A3CD /* ThriftIdleTimeoutWarningEvent_types.cpp in Sources */,
+				56911C601D8CF3350092A3CD /* ThriftUserVariable_types.cpp in Sources */,
+				56911BCA1D8CF3350092A3CD /* ThriftEvictUserFromRoomRequest_types.cpp in Sources */,
 				56835BF51D7B24B30021A197 /* queue.cpp in Sources */,
+				56911C381D8CF3350092A3CD /* ThriftRemoveUDPConnectionResponse_types.cpp in Sources */,
 				56835A161D7B20580021A197 /* MD5.cpp in Sources */,
+				56911B8C1D8CF3340092A3CD /* PublicMessageRequest.cpp in Sources */,
 				56835AB91D7B242C0021A197 /* BufferArray.cpp in Sources */,
+				56911B601D8CF3340092A3CD /* PrivateMessageEvent.cpp in Sources */,
+				56911C081D8CF3350092A3CD /* ThriftLeaveZoneEvent_types.cpp in Sources */,
+				56911B421D8CF3340092A3CD /* EsPrimitive.cpp in Sources */,
+				56911BB21D8CF3340092A3CD /* ThriftCrossDomainPolicyRequest_types.cpp in Sources */,
+				56911C2A1D8CF3350092A3CD /* ThriftRegisterUDPConnectionRequest_types.cpp in Sources */,
 				56835A121D7B20580021A197 /* jsb_quyetnd_systemplugin.cpp in Sources */,
+				56911C5E1D8CF3350092A3CD /* ThriftUserUpdateEvent_types.cpp in Sources */,
+				56911BA81D8CF3340092A3CD /* ThriftConnectionClosedEvent_types.cpp in Sources */,
+				56911C201D8CF3350092A3CD /* ThriftProtocol_types.cpp in Sources */,
+				56911B9A1D8CF3340092A3CD /* ThriftAddBuddiesResponse_types.cpp in Sources */,
 				56835A181D7B20580021A197 /* sha1.cpp in Sources */,
+				56911B441D8CF3340092A3CD /* ErrorType.cpp in Sources */,
+				56911B861D8CF3340092A3CD /* PingRequest.cpp in Sources */,
 				56835BF11D7B24B30021A197 /* md5.cpp in Sources */,
 				56835BEF1D7B24B30021A197 /* list.cpp in Sources */,
 				568359FA1D7B20580021A197 /* ResourceLoader.cpp in Sources */,
+				56911B361D8CF3340092A3CD /* ElectroLogger.cpp in Sources */,
+				56911BE21D8CF3350092A3CD /* ThriftGetRoomsInZoneRequest_types.cpp in Sources */,
 				56835BC11D7B24960021A197 /* UDTClient.cpp in Sources */,
+				56911B521D8CF3340092A3CD /* GenericErrorResponse.cpp in Sources */,
 				56835BBF1D7B24960021A197 /* TCPClient.cpp in Sources */,
 				56835BA71D7B24960021A197 /* Logger.cpp in Sources */,
+				56911C4E1D8CF3350092A3CD /* ThriftUpdateRoomDetailsEvent_types.cpp in Sources */,
+				56911C621D8CF3350092A3CD /* ThriftUserVariableUpdateAction_types.cpp in Sources */,
+				56911C121D8CF3350092A3CD /* ThriftPingRequest_types.cpp in Sources */,
+				56911B8E1D8CF3340092A3CD /* TBinaryProtocol.cpp in Sources */,
+				56911B561D8CF3340092A3CD /* JoinZoneEvent.cpp in Sources */,
+				56911BB61D8CF3340092A3CD /* ThriftDataType_types.cpp in Sources */,
+				56911C581D8CF3350092A3CD /* ThriftUserListEntry_types.cpp in Sources */,
+				56911BDC1D8CF3350092A3CD /* ThriftGenericErrorResponse_types.cpp in Sources */,
+				56911B7C1D8CF3340092A3CD /* JoinRoomRequest.cpp in Sources */,
 				56835ACF1D7B242C0021A197 /* NetworkDefine.cpp in Sources */,
 				56835ABB1D7B242C0021A197 /* MessageJSON.cpp in Sources */,
 				D4545227156E28EF00887EB5 /* AppDelegate.cpp in Sources */,
+				56911B681D8CF3340092A3CD /* ServerKickUserEvent.cpp in Sources */,
+				56911C7A1D8CF3350092A3CD /* NetworkCore.cpp in Sources */,
+				56911B541D8CF3340092A3CD /* JoinRoomEvent.cpp in Sources */,
+				56911BE61D8CF3350092A3CD /* ThriftGetServerLocalTimeRequest_types.cpp in Sources */,
 				509D4AC817EBB2AB00697056 /* main.m in Sources */,
+				56911B881D8CF3340092A3CD /* PluginRequest.cpp in Sources */,
+				56911C181D8CF3350092A3CD /* ThriftPluginMessageEvent_types.cpp in Sources */,
+				56911B401D8CF3340092A3CD /* EsObject.cpp in Sources */,
+				56911B981D8CF3340092A3CD /* ThriftAddBuddiesRequest_types.cpp in Sources */,
 				568359F01D7B20580021A197 /* jsb_quyetnd_action.cpp in Sources */,
 				56835BB71D7B24960021A197 /* ValueWriter.cpp in Sources */,
+				56911B9C1D8CF3340092A3CD /* ThriftAddRoomOperatorRequest_types.cpp in Sources */,
+				56911BEE1D8CF3350092A3CD /* ThriftGetUsersInRoomRequest_types.cpp in Sources */,
+				56911BBC1D8CF3340092A3CD /* ThriftDHInitiateKeyExchangeRequest_types.cpp in Sources */,
+				56911B6E1D8CF3340092A3CD /* UserUpdateAction.cpp in Sources */,
 				56835BE51D7B24B30021A197 /* ccc.cpp in Sources */,
 				568359F61D7B20580021A197 /* GameResource.cpp in Sources */,
+				56911BB81D8CF3340092A3CD /* ThriftDeleteRoomVariableRequest_types.cpp in Sources */,
+				56911B461D8CF3340092A3CD /* EsReleasePool.cpp in Sources */,
+				56911B741D8CF3340092A3CD /* ZoneUpdateAction.cpp in Sources */,
 				568359F81D7B20580021A197 /* LoadingScene.cpp in Sources */,
 				56835A001D7B20580021A197 /* NewTableView.cpp in Sources */,
 				56835A281D7B20580021A197 /* SmartfoxClient.cpp in Sources */,
+				56911C1E1D8CF3350092A3CD /* ThriftPrivateMessageRequest_types.cpp in Sources */,
 				56835ABD1D7B242C0021A197 /* MessageType.cpp in Sources */,
+				56911BF41D8CF3350092A3CD /* ThriftGetUserVariablesResponse_types.cpp in Sources */,
+				56911B381D8CF3340092A3CD /* BaseMessage.cpp in Sources */,
+				56911C021D8CF3350092A3CD /* ThriftJoinZoneEvent_types.cpp in Sources */,
 				56835AC11D7B242C0021A197 /* SFSEntity.cpp in Sources */,
 				56835A261D7B20580021A197 /* LobbyClient.cpp in Sources */,
+				56911BB41D8CF3340092A3CD /* ThriftCrossDomainPolicyResponse_types.cpp in Sources */,
+				56911B961D8CF3340092A3CD /* TTransportException.cpp in Sources */,
+				56911C3A1D8CF3350092A3CD /* ThriftRequestDetails_types.cpp in Sources */,
+				56911B481D8CF3340092A3CD /* EsUtil.cpp in Sources */,
+				56911B721D8CF3340092A3CD /* UserVariable.cpp in Sources */,
+				56911B7A1D8CF3340092A3CD /* BaseRequest.cpp in Sources */,
 				56835BF71D7B24B30021A197 /* window.cpp in Sources */,
+				56911C1A1D8CF3350092A3CD /* ThriftPluginRequest_types.cpp in Sources */,
+				56911B6A1D8CF3340092A3CD /* UserEvictedFromRoomEvent.cpp in Sources */,
+				56911BF01D8CF3350092A3CD /* ThriftGetUsersInRoomResponse_types.cpp in Sources */,
+				56911BF61D8CF3350092A3CD /* ThriftGetZonesRequest_types.cpp in Sources */,
+				56911B6C1D8CF3340092A3CD /* UserListEntry.cpp in Sources */,
+				56911C641D8CF3350092A3CD /* ThriftUserVariableUpdateEvent_types.cpp in Sources */,
+				56911C461D8CF3350092A3CD /* ThriftServerGame_types.cpp in Sources */,
 				56835AC51D7B242C0021A197 /* SFSPrimitive.cpp in Sources */,
 				568359EA1D7B20580021A197 /* ActionNumber.cpp in Sources */,
 				56835BDF1D7B24B30021A197 /* api.cpp in Sources */,
@@ -1525,25 +2951,66 @@
 				56835A0E1D7B20580021A197 /* FacebookPlugin.cpp in Sources */,
 				568359EE1D7B20580021A197 /* CustomAction.cpp in Sources */,
 				56835C271D7B25360021A197 /* FacebookPlugin_iOS.mm in Sources */,
+				56911BD61D8CF3350092A3CD /* ThriftFlattenedEsObjectRO_types.cpp in Sources */,
+				569119B31D8CF2EE0092A3CD /* FileEncrypt.cpp in Sources */,
 				56835C091D7B25230021A197 /* InAppPurchare.mm in Sources */,
+				56911BFE1D8CF3350092A3CD /* ThriftJoinRoomEvent_types.cpp in Sources */,
+				56911C0C1D8CF3350092A3CD /* ThriftLoginResponse_types.cpp in Sources */,
+				56911BEC1D8CF3350092A3CD /* ThriftGetUserCountResponse_types.cpp in Sources */,
+				56911C421D8CF3350092A3CD /* ThriftRoomVariableUpdateEvent_types.cpp in Sources */,
+				56911C6A1D8CF3350092A3CD /* ThriftZoneListEntry_types.cpp in Sources */,
+				56911C541D8CF3350092A3CD /* ThriftUpdateUserVariableRequest_types.cpp in Sources */,
+				56911BF81D8CF3350092A3CD /* ThriftGetZonesResponse_types.cpp in Sources */,
+				56911BA01D8CF3340092A3CD /* ThriftAggregatePluginRequest_types.cpp in Sources */,
+				56911C001D8CF3350092A3CD /* ThriftJoinRoomRequest_types.cpp in Sources */,
+				56911C161D8CF3350092A3CD /* ThriftPluginListEntry_types.cpp in Sources */,
+				56911C7E1D8CF3350092A3CD /* SocketAdapter.cpp in Sources */,
+				56911C2E1D8CF3350092A3CD /* ThriftRegistryConnectToPreferredGatewayRequest_types.cpp in Sources */,
 				56835A081D7B20580021A197 /* base64.cpp in Sources */,
+				56911B3E1D8CF3340092A3CD /* EsMessageStreamer.cpp in Sources */,
+				56911B821D8CF3340092A3CD /* LoginRequest.cpp in Sources */,
 				56835BAD1D7B24960021A197 /* LobbyRef.cpp in Sources */,
 				56835C0A1D7B25230021A197 /* UICKeyChainStore.m in Sources */,
 				56835AD11D7B242C0021A197 /* SFSTcpClient.cpp in Sources */,
+				56911C681D8CF3350092A3CD /* ThriftValidateAdditionalLoginResponse_types.cpp in Sources */,
+				56911B4A1D8CF3340092A3CD /* BaseEvent.cpp in Sources */,
+				56911B5A1D8CF3340092A3CD /* LoginResponse.cpp in Sources */,
 				568359F41D7B20580021A197 /* GameLaucher.cpp in Sources */,
+				56911BD21D8CF3350092A3CD /* ThriftFindZoneAndRoomByNameResponse_types.cpp in Sources */,
+				56911C401D8CF3350092A3CD /* ThriftRoomVariableUpdateAction_types.cpp in Sources */,
 				56835BED1D7B24B30021A197 /* epoll.cpp in Sources */,
+				56911C2C1D8CF3350092A3CD /* ThriftRegisterUDPConnectionResponse_types.cpp in Sources */,
+				56911C041D8CF3350092A3CD /* ThriftLeaveRoomEvent_types.cpp in Sources */,
+				56911BA61D8CF3340092A3CD /* ThriftConnectionAttemptResponse_types.cpp in Sources */,
+				56911BF21D8CF3350092A3CD /* ThriftGetUserVariablesRequest_types.cpp in Sources */,
 				56835BAB1D7B24960021A197 /* DictValue.cpp in Sources */,
+				56911B581D8CF3340092A3CD /* LeaveRoomEvent.cpp in Sources */,
+				56911C5A1D8CF3350092A3CD /* ThriftUserServerVariable_types.cpp in Sources */,
+				56911B901D8CF3340092A3CD /* TBinaryProtocol.tcc in Sources */,
 				56835A0A1D7B20580021A197 /* CRC32.cpp in Sources */,
 				56835A1E1D7B20580021A197 /* jsb_quyetnd_lobbysocket.cpp in Sources */,
 				56835A1A1D7B20580021A197 /* SystemPlugin.cpp in Sources */,
+				56911C301D8CF3350092A3CD /* ThriftRemoveBuddiesRequest_types.cpp in Sources */,
+				56911BA21D8CF3340092A3CD /* ThriftBuddyStatusUpdateAction_types.cpp in Sources */,
 				56835ACB1D7B242C0021A197 /* SFSLogger.cpp in Sources */,
+				56911C0A1D8CF3350092A3CD /* ThriftLoginRequest_types.cpp in Sources */,
 				56835ABF1D7B242C0021A197 /* SFSArray.cpp in Sources */,
+				56911C781D8CF3350092A3CD /* ElectroTcpClient.cpp in Sources */,
+				56911B701D8CF3340092A3CD /* UserUpdateEvent.cpp in Sources */,
 				56835ACD1D7B242C0021A197 /* NetworkCore.cpp in Sources */,
+				56911BDA1D8CF3350092A3CD /* ThriftGatewayStatistics_types.cpp in Sources */,
+				56911C241D8CF3350092A3CD /* ThriftPublicMessageEvent_types.cpp in Sources */,
+				56911C361D8CF3350092A3CD /* ThriftRemoveUDPConnectionRequest_types.cpp in Sources */,
+				56911C6E1D8CF3350092A3CD /* ThriftZoneUpdateEvent_types.cpp in Sources */,
+				56911B781D8CF3340092A3CD /* MessageType.cpp in Sources */,
 				56835AC71D7B242C0021A197 /* SFSRef.cpp in Sources */,
 				56835BB31D7B24960021A197 /* ValueJson.cpp in Sources */,
+				56911BC61D8CF3350092A3CD /* ThriftErrorType_types.cpp in Sources */,
 				568359FC1D7B20580021A197 /* jsb_quyetnd_newui.cpp in Sources */,
 				56835A061D7B20580021A197 /* NewWidget.cpp in Sources */,
+				56911B841D8CF3340092A3CD /* LogoutRequest.cpp in Sources */,
 				56835BB51D7B24960021A197 /* ValueReader.cpp in Sources */,
+				56911C281D8CF3350092A3CD /* ThriftQuickJoinGameRequest_types.cpp in Sources */,
 				56835A221D7B20580021A197 /* jsb_quyetnd_sfssocket.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -35,10 +35,12 @@
 //#include "../ElectroLogger.h"
 #include "MessageType.h"
 #include "ErrorType.h"
+#include "Entity/EsObject.h"
+#include "EsReleasePool.h"
 
 namespace es {
 
-class BaseMessage {
+class BaseMessage : public EsRef{
 public:
 	unsigned char flag;
 	es::type::MessageType messageType;
@@ -51,30 +53,6 @@ public:
 	virtual void getBytes(std::vector<char> &buffer);
 
 	virtual void printDebug();
-};
-
-class SocketStatus : public BaseMessage{
-public:
-	int status;
-	int preStatus;
-public:
-	SocketStatus();
-	virtual ~SocketStatus();
-
-	virtual bool initWithBytes(const char* bytes, int len);
-	virtual void getBytes(std::vector<char> &buffer);
-};
-
-
-class TimeoutMessage : public BaseMessage{
-public:
-	int requestId;
-public:
-	TimeoutMessage();
-	virtual ~TimeoutMessage();
-
-	virtual bool initWithBytes(const char* bytes, int len);
-	virtual void getBytes(std::vector<char> &buffer);
 };
 
 } /* namespace es */

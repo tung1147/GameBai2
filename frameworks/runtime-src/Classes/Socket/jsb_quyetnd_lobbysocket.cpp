@@ -117,6 +117,28 @@ bool js_quyetnd_lobbysocket_LobbyClient_initClientWithType(JSContext *cx, uint32
     JS_ReportError(cx, "js_quyetnd_lobbysocket_LobbyClient_initClientWithType : wrong number of arguments: %d, was expecting %d", argc, 1);
     return false;
 }
+
+bool js_quyetnd_lobbysocket_LobbyClient_setPingTimeInterval(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+	bool ok = true;
+	JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	quyetnd::LobbyClient* cobj = (quyetnd::LobbyClient *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2(cobj, cx, false, "js_quyetnd_lobbysocket_LobbyClient_setPingTimeInterval : Invalid Native Object");
+	if (argc == 1) {
+		double arg0 = 0;
+		ok &= JS::ToNumber(cx, args.get(0), &arg0) && !std::isnan(arg0);
+		JSB_PRECONDITION2(ok, cx, false, "js_quyetnd_lobbysocket_LobbyClient_setPingTimeInterval : Error processing arguments");
+		cobj->setPingTimeInterval(arg0);
+		args.rval().setUndefined();
+		return true;
+	}
+
+	JS_ReportError(cx, "js_quyetnd_lobbysocket_LobbyClient_setPingTimeInterval : wrong number of arguments: %d, was expecting %d", argc, 1);
+	return false;
+}
+
 bool js_quyetnd_lobbysocket_LobbyClient_constructor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     JS::CallArgs args = JS::CallArgsFromVp(argc, vp);

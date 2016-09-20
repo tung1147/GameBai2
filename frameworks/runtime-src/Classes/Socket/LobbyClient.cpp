@@ -9,13 +9,12 @@
 #include "cocos2d.h"
 USING_NS_CC;
 
-#define PING_TIME_STEP 15.0f
-
 namespace quyetnd {
 
 LobbyClient::LobbyClient() {
 	// TODO Auto-generated constructor stub
 	mClient = 0;
+	_pingTimeInterval = 15.0f;
 }
 
 LobbyClient::~LobbyClient() {
@@ -79,7 +78,7 @@ void LobbyClient::updatePing(float dt){
 			this->sendMessage(pingRequest);
 			pingRequest->release();
 
-			_pingTime = PING_TIME_STEP;
+			_pingTime = _pingTimeInterval;
 			_waitingPing = true;
 		}
 	}
@@ -105,6 +104,10 @@ void LobbyClient::connect(const std::string& host, int port){
 void LobbyClient::send(const std::string& json){
 	auto message = quyetnd::data::ValueJson::create(json);
 	this->sendMessage(message);
+}
+
+void LobbyClient::setPingTimeInterval(float time){
+
 }
 
 void LobbyClient::close(){

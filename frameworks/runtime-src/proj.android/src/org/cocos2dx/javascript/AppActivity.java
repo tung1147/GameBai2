@@ -29,13 +29,10 @@ package org.cocos2dx.javascript;
 import org.cocos2dx.lib.Cocos2dxActivity;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 
-import android.app.Dialog;
 import android.content.Intent;
-import android.content.res.Resources.Theme;
 import android.os.Bundle;
 import android.view.WindowManager;
 import quyetnd.plugin.facebook.FacebookPlugin;
-import vn.quyetnd.plugin.gcm.GcmPlugin;
 import vn.quyetnguyen.android.billing.AndroidBilling;
 import vn.quyetnguyen.plugin.system.ExtensionLoader;
 import vn.quyetnguyen.plugin.system.SystemPlugin;
@@ -61,7 +58,6 @@ public class AppActivity extends Cocos2dxActivity {
 		UUDIPlugin.getInstance().initWithActivity(this);
 		FacebookPlugin.getInstance().init(this, Cocos2dxGLSurfaceView.getInstance());		
         AndroidBilling.getInstance().initBilling(this, Cocos2dxGLSurfaceView.getInstance(), PluginConfig.IAP_base64PublicKey);
-        GcmPlugin.getInstance().initGcm(this, PluginConfig.GCM_SENDER_ID, PluginConfig.GCM_BUNDLEID, PluginConfig.GCM_URL);
         ExtensionLoader.getInstance().init(this, Cocos2dxGLSurfaceView.getInstance());
 	}
 	   

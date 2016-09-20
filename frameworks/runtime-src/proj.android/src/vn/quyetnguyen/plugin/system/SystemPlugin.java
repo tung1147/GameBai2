@@ -1,29 +1,31 @@
 package vn.quyetnguyen.plugin.system;
 
-import java.util.Set;
 import java.util.regex.Pattern;
 
+import org.cocos2dx.javascript.AppActivity;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import android.Manifest;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.puppet.gamebai.R;
+
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Rect;
+import android.media.RingtoneManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.opengl.GLSurfaceView;
-import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -300,7 +302,46 @@ public class SystemPlugin {
 //				nativeOnActivityResult(requestCode, resultCode, intenJson);
 //			}
 //		});
+				
 	}
+	
+	public void onRegisterNotificationSuccess(final String deviceId, final String token){
+		Cocos2dxGLSurfaceView.getInstance().queueEvent(new Runnable() {			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				nativeOnRegisterNotificationSuccess(deviceId, token);
+			}
+		});
+	}
+	
+	public String getFCMToken(){
+		String token = FirebaseInstanceId.getInstance().getToken();
+		if(token != null){
+			return token;
+		}
+		return "";
+	}
+	
+	public void pushNotification(String title, String message){
+      Intent intent = new Intent(activity, AppActivity.class);
+      intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+      PendingIntent pendingIntent = PendingIntent.getActivity(activity, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+
+      Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+      NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(activity)
+              .setSmallIcon(R.drawable.icon)
+              .setContentTitle(title)
+              .setContentText(message)
+              .setStyle(new NotificationCompat.BigTextStyle().bigText(title))
+              .setStyle(new NotificationCompat.BigTextStyle().bigText(message))          
+              .setAutoCancel(true)
+              .setSound(defaultSoundUri)
+              .setContentIntent(pendingIntent);
+      NotificationManager notificationManager = (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
+      notificationManager.notify(0, notificationBuilder.build());
+	}
+	
 	/****/
 	private static void jniVibrator(){
 		SystemPlugin.getInstance().vibrator();
@@ -336,16 +377,10 @@ public class SystemPlugin {
 		SystemPlugin.getInstance().requestPermissionThreadSafe(per , requestCode);
 	}
 	
-	public void onRegisterNotificationSuccess(final String deviceId, final String token){
-		Cocos2dxGLSurfaceView.getInstance().queueEvent(new Runnable() {			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				nativeOnRegisterNotificationSuccess(deviceId, token);
-			}
-		});
+	private static String jniGetFCMToken(){
+		return SystemPlugin.getInstance().getFCMToken();
 	}
-	
+
 	private static final long VIBRATOR_TIME = 100;
 	
 	private native void nativeWindowsVisibleChange(int bottom ,int left, int top, int right);

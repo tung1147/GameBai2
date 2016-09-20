@@ -29,7 +29,9 @@ class GameLaucher {
 	typedef std::function<void()> EventCallback;
 
 	std::string resourceHost;
+	std::string versionHash;
 	std::string versionFile;
+	std::string jsMainFile;
 	std::map<std::string, GameFile*> _allResources;
 	
 	bool checkFileExist(const std::string& file);
@@ -39,6 +41,7 @@ class GameLaucher {
 	int downloadMaxValue;
 
 	void checkFiles();
+	void checkVersionFile();
 public:
 	std::function<void(GameLaucherStatus)> statusCallback;
 	std::function<void(int currentValue, int maxValue)> downloadCallback;
@@ -47,11 +50,15 @@ public:
 	virtual ~GameLaucher();
 
 	bool startFromFile(const std::string& versionFile);
-
+	
+	void run();
+	void setResourceHost(const std::string& updateHost);
+	void setVersionHash(const std::string& hash);
 	void onUpdateDownloadProcess(int size);
 	void onProcessStatus(GameLaucherStatus status);
 
 	GameFile* getFile(const std::string& file);
+	GameFile* getMainJs();
 
 	static GameLaucher* getInstance();
 };

@@ -602,6 +602,9 @@ xcopy /Y /Q "$(ProjectDir)..\..\external\chipmunk\prebuilt\win32\release-lib\*.*
     <ClCompile Include="..\platform\CCImage.cpp" />
     <ClCompile Include="..\platform\CCSAXParser.cpp" />
     <ClCompile Include="..\platform\CCThread.cpp" />
+    <ClCompile Include="..\platform\decryptor\crypt_aes.cpp" />
+    <ClCompile Include="..\platform\decryptor\Decryptor.cpp" />
+    <ClCompile Include="..\platform\decryptor\MD5.cpp" />
     <ClCompile Include="..\platform\desktop\CCGLViewImpl-desktop.cpp" />
     <ClCompile Include="..\platform\win32\CCApplication-win32.cpp" />
     <ClCompile Include="..\platform\win32\CCCommon-win32.cpp" />
@@ -1230,6 +1233,9 @@ xcopy /Y /Q "$(ProjectDir)..\..\external\chipmunk\prebuilt\win32\release-lib\*.*
     <ClInclude Include="..\platform\CCPlatformMacros.h" />
     <ClInclude Include="..\platform\CCSAXParser.h" />
     <ClInclude Include="..\platform\CCThread.h" />
+    <ClInclude Include="..\platform\decryptor\crypt_aes.h" />
+    <ClInclude Include="..\platform\decryptor\Decryptor.h" />
+    <ClInclude Include="..\platform\decryptor\MD5.h" />
     <ClInclude Include="..\platform\desktop\CCGLViewImpl-desktop.h" />
     <ClInclude Include="..\platform\win32\CCApplication-win32.h" />
     <ClInclude Include="..\platform\win32\CCFileUtils-win32.h" />

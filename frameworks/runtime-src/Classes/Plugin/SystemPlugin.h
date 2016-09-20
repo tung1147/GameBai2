@@ -68,6 +68,9 @@ public:
 	std::string URLEncode(const std::string& data);
 	std::string URLDecode(const std::string& data);
 
+	std::string md5(const std::string& raw);
+	std::string sha1(const std::string& raw);
+
 	static SystemPlugin* getInstance();
 };
 

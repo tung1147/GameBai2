@@ -700,7 +700,11 @@ JS::PersistentRootedScript* ScriptingCore::getScript(const std::string& path)
 }
 
 JS::PersistentRootedScript* ScriptingCore::compileScript(const std::string& path, JS::HandleObject global, JSContext* cx)
-{
+{	
+	if (path == "js/app.js"){
+		int a = 0;
+	}
+
     if (path.empty()) {
         return nullptr;
     }
@@ -756,15 +760,25 @@ JS::PersistentRootedScript* ScriptingCore::compileScript(const std::string& path
         op.setFileAndLine(fullPath.c_str(), 1);
 
         bool ok = false;
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-        std::string jsFileContent = futil->getStringFromFile(fullPath);
-        if (!jsFileContent.empty())
-        {
-            ok = JS::Compile(cx, obj, op, jsFileContent.c_str(), jsFileContent.size(), &(*script));
-        }
-#else
-        ok = JS::Compile(cx, obj, op, fullPath.c_str(), &(*script));
-#endif
+
+		/*mod by quyetnguyen*/
+//#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+//        std::string jsFileContent = futil->getStringFromFile(fullPath);
+//        if (!jsFileContent.empty())
+//        {
+//            ok = JS::Compile(cx, obj, op, jsFileContent.c_str(), jsFileContent.size(), &(*script));
+//        }
+//#else
+//        ok = JS::Compile(cx, obj, op, fullPath.c_str(), &(*script));
+//#endif
+
+		std::string jsFileContent = futil->getStringFromFile(fullPath);
+		if (!jsFileContent.empty())
+		{
+			ok = JS::Compile(cx, obj, op, jsFileContent.c_str(), jsFileContent.size(), &(*script));
+		}
+		/*mod by quyetnguyen end*/
+
         if (ok) {
             compileSucceed = true;
             filename_script[fullPath] = script;

@@ -13,99 +13,30 @@
     <Filter Include="Objects\thrift\libs">
       <UniqueIdentifier>{96fb900d-8764-4ab2-a685-72dd78d8f8ed}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Objects\Request">
+      <UniqueIdentifier>{0822ea48-2509-479f-985f-52bf923e0028}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\Event">
+      <UniqueIdentifier>{cd24f5ff-b5d0-49f9-8336-eeee12259c30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\Entity">
+      <UniqueIdentifier>{45bb40a5-eb95-4bf1-a296-aa70924cd129}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\rapidjson">
+      <UniqueIdentifier>{76a946f1-be31-4085-bdff-d22b243c1e1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\rapidjson\error">
+      <UniqueIdentifier>{b928f088-a680-41d8-acd5-0db88724700b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\rapidjson\internal">
+      <UniqueIdentifier>{73b1cee7-6a1d-4d41-9435-ed97019a9779}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\rapidjson\msinttypes">
+      <UniqueIdentifier>{5b9de15e-296e-4ece-8d89-70e9702bc25d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\ElectroLogger.cpp" />
-    <ClCompile Include="..\Socket\SystemSocketClient.cpp">
-      <Filter>Socket</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Socket\NetwordDefine.cpp">
-      <Filter>Socket</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Socket\SocketAdapter.cpp">
-      <Filter>Socket</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Objects\ConnectionResponse.cpp">
-      <Filter>Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Objects\ErrorType.cpp">
-      <Filter>Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Objects\EsMessageStreamer.cpp">
-      <Filter>Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Objects\EsObject.cpp">
-      <Filter>Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Objects\EsUtil.cpp">
-      <Filter>Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Objects\GatewayKickUserRequest.cpp">
-      <Filter>Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Objects\GenericErrorResponse.cpp">
-      <Filter>Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Objects\JoinRoomEvent.cpp">
-      <Filter>Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Objects\JoinRoomRequest.cpp">
-      <Filter>Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Objects\LeaveRoomEvent.cpp">
-      <Filter>Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Objects\LeaveRoomRequest.cpp">
-      <Filter>Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Objects\LoginRequest.cpp">
-      <Filter>Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Objects\LoginResponse.cpp">
-      <Filter>Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Objects\LogoutRequest.cpp">
-      <Filter>Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Objects\MessageType.cpp">
-      <Filter>Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Objects\PingRequest.cpp">
-      <Filter>Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Objects\PingResponse.cpp">
-      <Filter>Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Objects\PluginMessageEvent.cpp">
-      <Filter>Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Objects\PluginRequest.cpp">
-      <Filter>Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Objects\PublicMessageEvent.cpp">
-      <Filter>Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Objects\PublicMessageRequest.cpp">
-      <Filter>Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Objects\RoomVariable.cpp">
-      <Filter>Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Objects\ServerKickUserEvent.cpp">
-      <Filter>Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Objects\UserListEntry.cpp">
-      <Filter>Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Objects\UserVariable.cpp">
-      <Filter>Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Objects\BaseMessage.cpp">
-      <Filter>Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Objects\ConnectionClosedEvent.cpp">
-      <Filter>Objects</Filter>
-    </ClCompile>
     <ClCompile Include="..\Objects\thrift\libs\TBinaryProtocol.cpp">
       <Filter>Objects\thrift\libs</Filter>
     </ClCompile>
@@ -442,130 +373,150 @@
     <ClCompile Include="..\Objects\thrift\ThriftZoneListEntry_types.cpp">
       <Filter>Objects\thrift</Filter>
     </ClCompile>
-    <ClCompile Include="..\Objects\UserEvictedFromRoomEvent.cpp">
+    <ClCompile Include="..\Socket\NetworkDefine.cpp">
+      <Filter>Socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Socket\SocketAdapter.cpp">
+      <Filter>Socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Socket\ElectroTcpClient.cpp">
+      <Filter>Socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Socket\NetworkCore.cpp">
+      <Filter>Socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Event\PingResponse.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Event\PluginMessageEvent.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Event\PrivateMessageEvent.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Event\PublicMessageEvent.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Event\RoomListEntry.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Event\RoomVariable.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Event\ServerKickUserEvent.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Event\UserEvictedFromRoomEvent.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Event\UserListEntry.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Event\UserUpdateAction.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Event\UserUpdateEvent.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Event\UserVariable.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Event\ZoneUpdateAction.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Event\ZoneUpdateEvent.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Event\ConnectionClosedEvent.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Event\ConnectionResponse.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Event\GenericErrorResponse.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Event\JoinRoomEvent.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Event\JoinZoneEvent.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Event\LeaveRoomEvent.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Event\LoginResponse.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Request\PingRequest.cpp">
+      <Filter>Objects\Request</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Request\PluginRequest.cpp">
+      <Filter>Objects\Request</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Request\PrivateMessageRequest.cpp">
+      <Filter>Objects\Request</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Request\PublicMessageRequest.cpp">
+      <Filter>Objects\Request</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Request\JoinRoomRequest.cpp">
+      <Filter>Objects\Request</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Request\LeaveRoomRequest.cpp">
+      <Filter>Objects\Request</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Request\LoginRequest.cpp">
+      <Filter>Objects\Request</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Request\LogoutRequest.cpp">
+      <Filter>Objects\Request</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\BaseMessage.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
-    <ClCompile Include="..\Objects\PrivateMessageRequest.cpp">
+    <ClCompile Include="..\Objects\ErrorType.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
-    <ClCompile Include="..\Objects\PrivateMessageEvent.cpp">
+    <ClCompile Include="..\Objects\EsUtil.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
-    <ClCompile Include="..\Objects\UserUpdateEvent.cpp">
+    <ClCompile Include="..\Objects\MessageType.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
-    <ClCompile Include="..\Objects\UserUpdateAction.cpp">
-      <Filter>Objects</Filter>
+    <ClCompile Include="..\Objects\Request\BaseRequest.cpp">
+      <Filter>Objects\Request</Filter>
     </ClCompile>
-    <ClCompile Include="..\Objects\ZoneUpdateEvent.cpp">
-      <Filter>Objects</Filter>
+    <ClCompile Include="..\Objects\Event\BaseEvent.cpp">
+      <Filter>Objects\Event</Filter>
     </ClCompile>
-    <ClCompile Include="..\Objects\RoomListEntry.cpp">
-      <Filter>Objects</Filter>
+    <ClCompile Include="..\Objects\Entity\EsArray.cpp">
+      <Filter>Objects\Entity</Filter>
     </ClCompile>
-    <ClCompile Include="..\Objects\ZoneUpdateAction.cpp">
-      <Filter>Objects</Filter>
+    <ClCompile Include="..\Objects\Entity\EsEntity.cpp">
+      <Filter>Objects\Entity</Filter>
     </ClCompile>
-    <ClCompile Include="..\Objects\JoinZoneEvent.cpp">
+    <ClCompile Include="..\Objects\Entity\EsObject.cpp">
+      <Filter>Objects\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Entity\EsPrimitive.cpp">
+      <Filter>Objects\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Entity\EsMessageStreamer.cpp">
+      <Filter>Objects\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Event\GatewayKickUserRequest.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Request\JsonRequest.cpp">
+      <Filter>Objects\Request</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\EsReleasePool.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\ElectroLogger.h" />
-    <ClInclude Include="..\ElectroClient.h" />
-    <ClInclude Include="..\Socket\SocketAdapter.h">
-      <Filter>Socket</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Socket\SystemSocketClient.h">
-      <Filter>Socket</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Socket\NetwordDefine.h">
-      <Filter>Socket</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Objects\ConnectionResponse.h">
-      <Filter>Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Objects\ErrorType.h">
-      <Filter>Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Objects\EsMessageStreamer.h">
-      <Filter>Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Objects\EsObject.h">
-      <Filter>Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Objects\EsUtil.h">
-      <Filter>Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Objects\GatewayKickUserRequest.h">
-      <Filter>Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Objects\GenericErrorResponse.h">
-      <Filter>Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Objects\JoinRoomEvent.h">
-      <Filter>Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Objects\JoinRoomRequest.h">
-      <Filter>Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Objects\LeaveRoomEvent.h">
-      <Filter>Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Objects\LeaveRoomRequest.h">
-      <Filter>Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Objects\LoginRequest.h">
-      <Filter>Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Objects\LoginResponse.h">
-      <Filter>Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Objects\LogoutRequest.h">
-      <Filter>Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Objects\MessageType.h">
-      <Filter>Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Objects\PingRequest.h">
-      <Filter>Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Objects\PingResponse.h">
-      <Filter>Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Objects\PluginMessageEvent.h">
-      <Filter>Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Objects\PluginRequest.h">
-      <Filter>Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Objects\ProtocolConfiguration.h">
-      <Filter>Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Objects\PublicMessageEvent.h">
-      <Filter>Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Objects\PublicMessageRequest.h">
-      <Filter>Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Objects\RoomVariable.h">
-      <Filter>Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Objects\ServerKickUserEvent.h">
-      <Filter>Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Objects\UserListEntry.h">
-      <Filter>Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Objects\UserVariable.h">
-      <Filter>Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Objects\BaseMessage.h">
-      <Filter>Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Objects\ConnectionClosedEvent.h">
-      <Filter>Objects</Filter>
-    </ClInclude>
     <ClInclude Include="..\Objects\thrift\libs\TBinaryProtocol.h">
       <Filter>Objects\thrift\libs</Filter>
     </ClInclude>
@@ -920,31 +871,233 @@
     <ClInclude Include="..\Objects\thrift\ThriftZoneListEntry_types.h">
       <Filter>Objects\thrift</Filter>
     </ClInclude>
-    <ClInclude Include="..\Objects\UserEvictedFromRoomEvent.h">
+    <ClInclude Include="..\Socket\NetworkDefine.h">
+      <Filter>Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Socket\SocketAdapter.h">
+      <Filter>Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Socket\ElectroTcpClient.h">
+      <Filter>Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Socket\NetworkCore.h">
+      <Filter>Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Event\PingResponse.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Event\PluginMessageEvent.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Event\PrivateMessageEvent.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Event\PublicMessageEvent.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Event\RoomListEntry.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Event\RoomVariable.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Event\ServerKickUserEvent.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Event\UserEvictedFromRoomEvent.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Event\UserListEntry.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Event\UserUpdateAction.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Event\UserUpdateEvent.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Event\UserVariable.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Event\ZoneUpdateAction.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Event\ZoneUpdateEvent.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Event\ConnectionClosedEvent.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Event\ConnectionResponse.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Event\GenericErrorResponse.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Event\JoinRoomEvent.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Event\JoinZoneEvent.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Event\LeaveRoomEvent.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Event\LoginResponse.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Request\LogoutRequest.h">
+      <Filter>Objects\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Request\PingRequest.h">
+      <Filter>Objects\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Request\PluginRequest.h">
+      <Filter>Objects\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Request\PrivateMessageRequest.h">
+      <Filter>Objects\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Request\PublicMessageRequest.h">
+      <Filter>Objects\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Request\JoinRoomRequest.h">
+      <Filter>Objects\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Request\LeaveRoomRequest.h">
+      <Filter>Objects\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Request\LoginRequest.h">
+      <Filter>Objects\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\BaseMessage.h">
       <Filter>Objects</Filter>
     </ClInclude>
-    <ClInclude Include="..\Objects\PrivateMessageRequest.h">
+    <ClInclude Include="..\Objects\ErrorType.h">
       <Filter>Objects</Filter>
     </ClInclude>
-    <ClInclude Include="..\Objects\PrivateMessageEvent.h">
+    <ClInclude Include="..\Objects\EsUtil.h">
       <Filter>Objects</Filter>
     </ClInclude>
-    <ClInclude Include="..\Objects\JoinZoneEvent.h">
+    <ClInclude Include="..\Objects\MessageType.h">
       <Filter>Objects</Filter>
     </ClInclude>
-    <ClInclude Include="..\Objects\UserUpdateAction.h">
-      <Filter>Objects</Filter>
+    <ClInclude Include="..\Objects\Event\ProtocolConfiguration.h">
+      <Filter>Objects\Event</Filter>
     </ClInclude>
-    <ClInclude Include="..\Objects\ZoneUpdateEvent.h">
-      <Filter>Objects</Filter>
+    <ClInclude Include="..\Objects\Request\BaseRequest.h">
+      <Filter>Objects\Request</Filter>
     </ClInclude>
-    <ClInclude Include="..\Objects\ZoneUpdateAction.h">
-      <Filter>Objects</Filter>
+    <ClInclude Include="..\Objects\Event\BaseEvent.h">
+      <Filter>Objects\Event</Filter>
     </ClInclude>
-    <ClInclude Include="..\Objects\RoomListEntry.h">
-      <Filter>Objects</Filter>
+    <ClInclude Include="..\Objects\Entity\EsPrimitive.h">
+      <Filter>Objects\Entity</Filter>
     </ClInclude>
-    <ClInclude Include="..\Objects\UserUpdateEvent.h">
+    <ClInclude Include="..\Objects\Entity\EsArray.h">
+      <Filter>Objects\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Entity\EsEntity.h">
+      <Filter>Objects\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Entity\EsObject.h">
+      <Filter>Objects\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Entity\EsMessageStreamer.h">
+      <Filter>Objects\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\rapidjson\error\en.h">
+      <Filter>Objects\rapidjson\error</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\rapidjson\error\error.h">
+      <Filter>Objects\rapidjson\error</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\rapidjson\internal\biginteger.h">
+      <Filter>Objects\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\rapidjson\internal\diyfp.h">
+      <Filter>Objects\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\rapidjson\internal\dtoa.h">
+      <Filter>Objects\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\rapidjson\internal\ieee754.h">
+      <Filter>Objects\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\rapidjson\internal\itoa.h">
+      <Filter>Objects\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\rapidjson\internal\meta.h">
+      <Filter>Objects\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\rapidjson\internal\pow10.h">
+      <Filter>Objects\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\rapidjson\internal\stack.h">
+      <Filter>Objects\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\rapidjson\internal\strfunc.h">
+      <Filter>Objects\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\rapidjson\internal\strtod.h">
+      <Filter>Objects\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\rapidjson\msinttypes\inttypes.h">
+      <Filter>Objects\rapidjson\msinttypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\rapidjson\msinttypes\stdint.h">
+      <Filter>Objects\rapidjson\msinttypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\rapidjson\filestream.h">
+      <Filter>Objects\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\rapidjson\filewritestream.h">
+      <Filter>Objects\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\rapidjson\memorybuffer.h">
+      <Filter>Objects\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\rapidjson\memorystream.h">
+      <Filter>Objects\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\rapidjson\prettywriter.h">
+      <Filter>Objects\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\rapidjson\rapidjson.h">
+      <Filter>Objects\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\rapidjson\reader.h">
+      <Filter>Objects\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\rapidjson\stringbuffer.h">
+      <Filter>Objects\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\rapidjson\writer.h">
+      <Filter>Objects\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\rapidjson\allocators.h">
+      <Filter>Objects\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\rapidjson\document.h">
+      <Filter>Objects\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\rapidjson\encodedstream.h">
+      <Filter>Objects\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\rapidjson\encodings.h">
+      <Filter>Objects\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\rapidjson\filereadstream.h">
+      <Filter>Objects\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Event\GatewayKickUserRequest.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Request\JsonRequest.h">
+      <Filter>Objects\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ElectroServer.h" />
+    <ClInclude Include="..\Objects\EsReleasePool.h">
       <Filter>Objects</Filter>
     </ClInclude>
   </ItemGroup>

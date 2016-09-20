@@ -37,39 +37,4 @@ void BaseMessage::printDebug(){
 	
 }
 
-/****/
-
-SocketStatus::SocketStatus(){
-	messageType = es::type::SocketStatus;
-}
-
-SocketStatus::~SocketStatus(){
-
-}
-
-bool SocketStatus::initWithBytes(const char* bytes, int len){
-	return true;
-}
-
-void SocketStatus::getBytes(std::vector<char> &buffer){
-
-}
-
-/****/
-TimeoutMessage::TimeoutMessage(){
-	requestId = -1;
-}
-
-TimeoutMessage::~TimeoutMessage(){
-
-}
-
-bool TimeoutMessage::initWithBytes(const char* bytes, int len){
-	return true;
-}
-
-void TimeoutMessage::getBytes(std::vector<char> &buffer){
-
-}
-
 } /* namespace es */

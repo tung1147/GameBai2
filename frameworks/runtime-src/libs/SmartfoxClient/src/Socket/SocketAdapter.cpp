@@ -61,6 +61,7 @@ SocketData* SocketPool::take(){
 	if (mData){
 		if (!mData->empty()){
 			SocketData* data = mData->front();
+			data->autoRelease();
 			mData->pop();
 			return data;
 		}
@@ -69,7 +70,7 @@ SocketData* SocketPool::take(){
 
 		if (mData && !mData->empty()){
 			SocketData* data = mData->front();
-			data->retain();
+			//data->retain();
 			data->autoRelease();
 
 			mData->pop();		
@@ -87,7 +88,7 @@ SocketData* SocketPool::pop(){
 	std::unique_lock<std::mutex> lk(poolMutex);
 	if (mData && !mData->empty()){
 		auto data = mData->front();
-		data->retain();
+		//data->retain();
 		data->autoRelease();
 		mData->pop();
 		return data;

@@ -12,79 +12,6 @@
  #include <android/log.h>
 #endif
 
-////mac
-//#if defined(CC_TARGET_OS_MAC) || defined(__APPLE__)
-//
-//#endif
-//
-//// iphone
-//#if defined(CC_TARGET_OS_IPHONE)
-//
-//#endif
-//
-//// android
-//#if defined(ANDROID)
-//
-//#endif
-//
-//// win32
-//#if defined(_WIN32) && defined(_WINDOWS)
-//
-//#endif
-//
-//// linux
-//#if defined(LINUX) && !defined(__APPLE__)
-//
-//#endif
-//
-//// marmalade
-//#if defined(MARMALADE)
-//
-//#endif
-//
-//// bada
-//#if defined(SHP)
-//
-//#endif
-//
-//// qnx
-//#if defined(__QNX__)
-//
-//#endif
-//
-//// native client
-//#if defined(__native_client__)
-//
-//#endif
-//
-//// Emscripten
-//#if defined(EMSCRIPTEN)
-//
-//#endif
-//
-//// tizen
-//#if defined(TIZEN)
-//
-//#endif
-//
-//// qt5
-//#if defined(CC_TARGET_QT5)
-//
-//#endif
-//
-//// WinRT (Windows 8.1 Store/Phone App)
-//#if defined(WINRT)
-//
-//#endif
-
-//#include "cocos2d.h"
-//
-//static void _print_to_console(const char* buf){
-//    cocos2d::Director::getInstance()->getConsole()->log(buf);
-//}
-
-//#define ES_LOGGER
-
 #include <string>
 
 #if defined(_WIN32) || defined(WINRT)
@@ -95,7 +22,7 @@
 
 namespace es {
 
-#ifdef ES_LOGGER
+#ifdef ES_DEBUG
     
 #define MAX_LOG_LENGTH 16 * 1024 //16KB log
     
@@ -113,7 +40,7 @@ namespace es {
 #endif
     
     void log_to_console(const char* buf){
-#ifdef ES_LOGGER
+#ifdef ES_DEBUG
     
 #if defined(ANDROID)
         __android_log_print(ANDROID_LOG_DEBUG, "electro-debug", "%s", buf);
@@ -155,7 +82,7 @@ namespace es {
     }
     
     void log(const char * format, ...){
-#ifdef ES_LOGGER
+#ifdef ES_DEBUG
         va_list args;
         va_start(args, format);
         _log(format, args);
@@ -164,7 +91,7 @@ namespace es {
     }
     
     void log_hex(const char* buf, int len){
-#ifdef ES_LOGGER
+#ifdef ES_DEBUG
         char* data = new char[len*3 + 10];
         
         for(int i=0;i<len;i++){
