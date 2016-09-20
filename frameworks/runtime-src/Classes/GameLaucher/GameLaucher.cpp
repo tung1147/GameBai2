@@ -111,6 +111,7 @@ bool GameLaucher::startFromFile(const std::string& versionFile){
 
 void GameLaucher::onUpdateDownloadProcess(int size){
 	UIThread::getInstance()->runOnUI([=](){
+		downloadCurrentValue += size;
 		if (this->downloadCallback){
 			this->downloadCallback(downloadCurrentValue, downloadMaxValue);
 		}

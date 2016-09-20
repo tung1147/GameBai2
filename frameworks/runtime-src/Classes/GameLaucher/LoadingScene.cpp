@@ -371,7 +371,12 @@ void LoadingScene::onResourceDownloadProcress(int _current, int _max){
 }
 
 void LoadingScene::requestGetUpdate(){
-	std::string urlRequest = "http://10.0.1.106/quyetnd/GBVCity/acs.json";
+	gameLaucher->setResourceHost("");
+	gameLaucher->setVersionHash("");
+	gameLaucher->run();
+	return;
+
+	std::string urlRequest = "http://10.0.1.106/quyetnd/acs.json";
 
 	cocos2d::network::HttpRequest* request = new cocos2d::network::HttpRequest();
 	request->setUrl(urlRequest.c_str());
