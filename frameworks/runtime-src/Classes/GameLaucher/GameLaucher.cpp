@@ -20,7 +20,7 @@ GameLaucher::GameLaucher() {
 	jsMainFile = "js/main.js";
 	statusCallback = nullptr;
 	downloadCallback = nullptr;
-	resourceHost = "http://10.0.1.106/quyetnd/Game/";
+	resourceHost = "";
 }
 
 GameLaucher::~GameLaucher() {
