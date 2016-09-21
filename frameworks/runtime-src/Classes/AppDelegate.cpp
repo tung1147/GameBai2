@@ -240,7 +240,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 		}
 	}
 	
-	std::string file = FileUtils::getInstance()->fullPathForFilename("src/main_default.js");
+	std::string file = FileUtils::getInstance()->fullPathForFilename("src/main.js");
 	ScriptingCore::getInstance()->runScript(file);
     return true;
 }
