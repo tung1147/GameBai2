@@ -184,7 +184,6 @@ copy "$(ProjectDir)..\..\..\project.json" "$(OutDir)\" /Y</Command>
     <ClCompile Include="..\Classes\Action\jsb_quyetnd_action.cpp" />
     <ClCompile Include="..\Classes\GameLaucher\GameLaucher.cpp" />
     <ClCompile Include="..\Classes\GameLaucher\GameResource.cpp" />
-    <ClCompile Include="..\Classes\GameLaucher\LoadingScene.cpp" />
     <ClCompile Include="..\Classes\GameLaucher\ResourceLoader.cpp" />
     <ClCompile Include="..\Classes\NewGUI\jsb_quyetnd_newui.cpp" />
     <ClCompile Include="..\Classes\NewGUI\NewTableView.cpp" />
@@ -217,7 +216,6 @@ copy "$(ProjectDir)..\..\..\project.json" "$(OutDir)\" /Y</Command>
     <ClInclude Include="..\Classes\Action\jsb_quyetnd_action.hpp" />
     <ClInclude Include="..\Classes\GameLaucher\GameLaucher.h" />
     <ClInclude Include="..\Classes\GameLaucher\GameResource.h" />
-    <ClInclude Include="..\Classes\GameLaucher\LoadingScene.h" />
     <ClInclude Include="..\Classes\GameLaucher\ResourceLoader.h" />
     <ClInclude Include="..\Classes\NewGUI\jsb_quyetnd_newui.hpp" />
     <ClInclude Include="..\Classes\NewGUI\NewTableView.h" />

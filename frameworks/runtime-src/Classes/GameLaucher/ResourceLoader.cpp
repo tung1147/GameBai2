@@ -15,8 +15,8 @@ namespace quyetnd {
 
 ResourceLoader::ResourceLoader() {
 	// TODO Auto-generated constructor stub
-	_preFinishedHandler = nullptr;
 	running = false;
+	processHandler = nullptr;
 }
 
 ResourceLoader::~ResourceLoader() {
@@ -52,10 +52,6 @@ void ResourceLoader::addSoundPreload(const std::string& sound){
 
 void ResourceLoader::addSoundUnload(const std::string& sound){
 	_unloadSound.push_back(sound);
-}
-
-void ResourceLoader::setPreFinishedHandler(const LoaderPreFinishdHandler& handler){
-	_preFinishedHandler = handler;
 }
 
 void ResourceLoader::onLoadImageThread(std::string img, std::function<void(cocos2d::Texture2D*)> callback){
@@ -103,10 +99,6 @@ void ResourceLoader::onLoadSpriteFrameThread(std::string plist, cocos2d::Texture
 
 void ResourceLoader::update(float dt){
 	if (running){
-		//TextureCache* textureCache = Director::getInstance()->getTextureCache();
-		//SpriteFrameCache* spriteCache = SpriteFrameCache::getInstance();
-		//SimpleAudioEngine* audioEngine = SimpleAudioEngine::getInstance();
-
 		switch (step)
 		{
 			case kStepUnloadImage:
@@ -249,10 +241,6 @@ void ResourceLoader::update(float dt){
 
 			case kStepPreFinishLoadResource:
 			{
-				if (_preFinishedHandler){
-					_preFinishedHandler();
-					_preFinishedHandler = nullptr;
-				}
 				currentStep++;
 				onProcessLoader();
 				step = kStepFinishLoadResource;
@@ -269,7 +257,6 @@ void ResourceLoader::update(float dt){
 				_unloadSound.clear();
 				/**/
 				running = false;
-				onFinishedLoader();
 				break;
 			}
 		}
@@ -277,10 +264,7 @@ void ResourceLoader::update(float dt){
 	}
 }
 
-void ResourceLoader::start(const LoaderFinishedHandler &finishedHandler, const LoaderProcessHandler &processHandler){
-	_finishedHandler = finishedHandler;
-	_processHandler = processHandler;
-
+void ResourceLoader::start(){
 	running = true;
 	index = 0;
 	currentStep = 0;
@@ -292,25 +276,15 @@ void ResourceLoader::start(const LoaderFinishedHandler &finishedHandler, const L
 	targetStep += _preloadBMFont.size();
 	targetStep += _unloadSound.size();
 	targetStep += _preloadSound.size();
-
-	Director::getInstance()->getScheduler()->unscheduleUpdate(this);
-	Director::getInstance()->getScheduler()->scheduleUpdate(this, INT_MIN, false);
 }
 
 void ResourceLoader::stop(){
 	running = false;
-	Director::getInstance()->getScheduler()->unscheduleUpdate(this);
 }
 
 void ResourceLoader::onProcessLoader(){
-	if (_processHandler){
-		_processHandler(currentStep, targetStep);
-	}
-}
-
-void ResourceLoader::onFinishedLoader(){
-	if (_finishedHandler){
-		_finishedHandler();
+	if (processHandler){
+		processHandler(currentStep, targetStep);
 	}
 }
 
@@ -326,6 +300,10 @@ int ResourceLoader::getMaxStep(){
 
 int ResourceLoader::getCurrentStep(){
 	return currentStep;
+}
+
+bool ResourceLoader::isFinished(){
+	return (currentStep >= targetStep);
 }
 
 } /* namespace quyetnd */

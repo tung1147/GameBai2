@@ -14,49 +14,67 @@
 #include <mutex>
 #include <queue>
 #include <functional>
+#include "cocos2d.h"
+USING_NS_CC;
 #include "GameResource.h"
+#include "ResourceLoader.h"
 
 namespace quyetnd {
 enum GameLaucherStatus{
-	GameLaucherStatus_TestVersion = 0,
-	GameLaucherStatus_TestHash,
-	GameLaucherStatus_Updating,
-	GameLaucherStatus_UpdateFailure,
-	GameLaucherStatus_Finished,
+	GetUpdate = 0,	//0
+	TestVersion,	//1
+	TestHashFiles,	//2
+	Updating,		//3
+	UpdateFailure,	//4
+	LoadResource,	//5
+	LoadSciprt,		//6
+	LoadAndroidExt,	//7
+	Finished,		//8
 };
 
 class GameLaucher {
-	typedef std::function<void()> EventCallback;
+	quyetnd::ResourceLoader resourceLoader;
+	std::map<std::string, GameFile*> _allResources;
 
 	std::string resourceHost;
 	std::string versionHash;
 	std::string versionFile;
 	std::string jsMainFile;
-	std::map<std::string, GameFile*> _allResources;
 	
-	bool checkFileExist(const std::string& file);
+	void initLaucher();
+	void clear();
 
 	int status;
 	int downloadCurrentValue;
 	int downloadMaxValue;
 
-	void checkFiles();
+	void checkVersionFileThread();
+	void checkFilesThread();
+	void loadScriptMetaThread();
+
+	void requestGetUpdate();
 	void checkVersionFile();
+	void checkFiles();
+	void loadResource();
+	void loadScript();
+#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+	void loadAndroidExt();
+#endif
+	void finishLaucher();
+
+	void onProcessStatus(int status);
+	void onLoadResourceProcess(int current, int max);
 public:
-	std::function<void(GameLaucherStatus)> statusCallback;
+	std::function<void(int)> statusCallback;
 	std::function<void(int currentValue, int maxValue)> downloadCallback;
 public:
 	GameLaucher();
 	virtual ~GameLaucher();
 
-	bool startFromFile(const std::string& versionFile);
-	
 	void run();
-	void setResourceHost(const std::string& updateHost);
-	void setVersionHash(const std::string& hash);
+	void update(float dt);
 	void onUpdateDownloadProcess(int size);
-	void onProcessStatus(GameLaucherStatus status);
-
+	
 	GameFile* getFile(const std::string& file);
 	GameFile* getMainJs();
 

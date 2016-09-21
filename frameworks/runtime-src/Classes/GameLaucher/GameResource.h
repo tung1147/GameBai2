@@ -13,12 +13,15 @@
 #include <functional>
 
 namespace quyetnd {
-typedef std::function<size_t(void*, size_t, size_t)> WriteDataHandler;
+struct WriteDataHandler{
+	std::function<size_t(void*, size_t, size_t)> mHander;
+	MD5* md5;
+};
 class GameFile {
 	bool isExistFile(const std::string& filePath);
 	bool checkHashFile();
 
-	MD5* md5;
+//	MD5* md5;
 	size_t writeData(void *ptr, size_t size, size_t nmemb, FILE *fp);
 	std::string downloadHash;
 public:

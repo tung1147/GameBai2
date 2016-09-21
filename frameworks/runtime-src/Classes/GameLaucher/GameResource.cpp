@@ -31,15 +31,10 @@ GameFile::GameFile() {
 	filePath = "";
 	md5Digest = "";
 	downloadHash = "";
-	md5 = 0;
 }
 
 GameFile::~GameFile() {
 	// TODO Auto-generated destructor stub
-	if (md5){
-		delete md5;
-		md5 = 0;
-	}
 }
 
 bool GameFile::isExistFile(const std::string& filePath){
@@ -99,7 +94,6 @@ bool GameFile::test(){
 		return true;
 	}
 #endif
-
 	filePath = FileUtils::getInstance()->getWritablePath() + "Game/" + fileName;
 //	filePath = FileUtils::getInstance()->fullPathForFilename(filePath);
 	if (!isExistFile(filePath)){
@@ -178,14 +172,8 @@ inline void _gamefile_create_parent_folder(const std::string& filePath){
 }
 
 size_t _GameFile_write_data_handler(void *ptr, size_t size, size_t nmemb, WriteDataHandler* writer) {
-	return (*writer)(ptr, size, nmemb);
-}
-
-size_t GameFile::writeData(void *ptr, size_t size, size_t nmemb, FILE *fp){
-	size_t written = fwrite(ptr, size, nmemb, fp);
-	GameLaucher::getInstance()->onUpdateDownloadProcess((int)(nmemb * size));
-	md5->update((const char*)ptr, size* nmemb);
-	return written;
+	writer->md5->update((const char*)ptr, size* nmemb);
+	return writer->mHander(ptr, size, nmemb);
 }
 
 size_t _GameFile_write_data(void *ptr, size_t size, size_t nmemb, FILE *fp) {
@@ -193,26 +181,28 @@ size_t _GameFile_write_data(void *ptr, size_t size, size_t nmemb, FILE *fp) {
 	return written;
 }
 
+size_t GameFile::writeData(void *ptr, size_t size, size_t nmemb, FILE *fp){
+	size_t written = fwrite(ptr, size, nmemb, fp);
+	GameLaucher::getInstance()->onUpdateDownloadProcess((int)(nmemb * size));
+	return written;
+}
+
 int GameFile::update(const std::string& url){
 	//load from url
 	CURL *curl;
 	CURLcode res;
-	auto root = FileUtils::getInstance()->getWritablePath();
 	curl = curl_easy_init();
-
-	int pret = 0;
 	if (curl != NULL) {
 		_gamefile_create_parent_folder(filePath);
 
 		FILE *fp;
 		fp = fopen(filePath.c_str(), "wb");
 		if (fp != NULL) {
-			if (md5){
-				delete md5;
-				md5 = 0;
-			}
-			md5 = new MD5();
-			WriteDataHandler writeFunc = CC_CALLBACK_3(GameFile::writeData, this, fp);
+
+			MD5 md5;
+			WriteDataHandler dataHandler;
+			dataHandler.mHander = CC_CALLBACK_3(GameFile::writeData, this, fp);
+			dataHandler.md5 = &md5;
 
 			curl_easy_setopt(curl, CURLOPT_URL, url.c_str());			
 			curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, true);
@@ -222,14 +212,14 @@ int GameFile::update(const std::string& url){
 			curl_easy_setopt(curl, CURLOPT_TIMEOUT, 120);
 			curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, true);
 			curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, _GameFile_write_data_handler);
-			curl_easy_setopt(curl, CURLOPT_WRITEDATA, &writeFunc);
+			curl_easy_setopt(curl, CURLOPT_WRITEDATA, &dataHandler);
 			res = curl_easy_perform(curl);
 			curl_easy_cleanup(curl);
 			if (res == CURLE_OK) {
 				fclose(fp);
 
-				md5->finalize();
-				auto md5Str = md5->hexdigest();
+				md5.finalize();
+				auto md5Str = md5.hexdigest();
 				std::transform(md5Str.begin(), md5Str.end(), md5Str.begin(), ::tolower);
 				if (md5Str == md5Digest){
 					CCLOG("download file OK : %s", url.c_str());
