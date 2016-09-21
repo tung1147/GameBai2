@@ -23,9 +23,7 @@ var LoadingScene = cc.Scene.extend({
         this.addChild(label);
     },
     nextScene : function () {
-        LobbyClient.getInstance();
-        SystemPlugin.getInstance().enableMipmapTexture("res/Card.png");
-        cc.director.replaceScene(new HomeScene());
+        cc.director.replaceScene(new HelloWorldScene());
     },
     onEnter : function () {
         this._super();
