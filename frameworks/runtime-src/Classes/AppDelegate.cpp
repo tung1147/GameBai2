@@ -231,7 +231,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 	ScriptEngineManager::getInstance()->setScriptEngine(engine);
 	GameFile* mainJs = GameLaucher::getInstance()->getMainJs();
 	if (mainJs){
-		std::string file = FileUtils::getInstance()->fullPathForFilename(mainJs->filePath);
+		std::string file = FileUtils::getInstance()->fullPathForFilename(mainJs->fileName);
 		if (file != ""){
 			bool b = ScriptingCore::getInstance()->runScript(file);
 			if (b){
@@ -240,7 +240,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 		}
 	}
 	
-	std::string file = FileUtils::getInstance()->fullPathForFilename("js/main.js");
+	std::string file = FileUtils::getInstance()->fullPathForFilename("src/main_default.js");
 	ScriptingCore::getInstance()->runScript(file);
     return true;
 }
