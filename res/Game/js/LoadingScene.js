@@ -16,9 +16,10 @@ GameLaucherStatus.Finished = 8;
 var LoadingScene = cc.Scene.extend({
     ctor : function () {
         this._super();
-        var label = new ccui.Text("Loading Scene", "arial", 30);
+        var label = new ccui.Text("Đang kiểm tra phiên bản", "arial", 30);
         label.x = cc.winSize.width/2;
         label.y = cc.winSize.height/2 + 100.0;
+        this.title = label;
         this.addChild(label);
     },
     nextScene : function () {
@@ -46,18 +47,22 @@ var LoadingScene = cc.Scene.extend({
             }
             case GameLaucherStatus.Updating:
             {
+                this.title.setString("Đang tải cập nhật");
                 break;
             }
             case GameLaucherStatus.UpdateFailure:
             {
+                this.title.setString("Cập nhật thất bại");
                 break;
             }
             case GameLaucherStatus.LoadResource:
             {
+                this.title.setString("Đang tải tài nguyên");
                 break;
             }
             case GameLaucherStatus.LoadScript:
             {
+                this.title.setString("Đang vào game");
                 break;
             }
             case GameLaucherStatus.LoadAndroidExt:
@@ -72,9 +77,9 @@ var LoadingScene = cc.Scene.extend({
         }
     },
     onLoadResourceProcess : function (current, target) {
-
+        this.title.setString("Đang tải tài nguyên[" + current + "/" + target + "]");
     },
     onUpdateDownloadProcess : function (current, target) {
-        
+        this.title.setString("Đang tải cập nhật[" + current + "/" + target + "]");
     }
 });
