@@ -18,12 +18,11 @@ var LoadingScene = cc.Scene.extend({
         this._super();
         var label = new ccui.Text("Đang kiểm tra phiên bản", "arial", 30);
         label.x = cc.winSize.width/2;
-        label.y = cc.winSize.height/2 + 100.0;
+        label.y = cc.winSize.height/2;
         this.title = label;
         this.addChild(label);
     },
     nextScene : function () {
-        LobbyClient.getInstance();
         SystemPlugin.getInstance().enableMipmapTexture("res/Card.png");
         cc.director.replaceScene(new HomeScene());
     },

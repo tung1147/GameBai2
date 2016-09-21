@@ -39,7 +39,8 @@ void GameLaucher::clear(){
 }
 
 void GameLaucher::initLaucher(){
-	Data d = FileUtils::getInstance()->getDataFromFile("version.json");
+	std::string filePath = FileUtils::getInstance()->fullPathForFilename("version.json");
+	Data d = FileUtils::getInstance()->getDataFromFile(filePath);
 	if (d.isNull()){
 		return;
 	}
@@ -91,9 +92,7 @@ void GameLaucher::update(float dt){
 void GameLaucher::requestGetUpdate(){
 	resourceHost = "";
 	versionHash = "";
-	/* start check version */
-	std::thread checkVersion(&GameLaucher::checkVersionFileThread, this);
-	checkVersion.detach();
+	this->checkVersionFile();
 	return;
 
 	std::string urlRequest = "http://10.0.1.106/quyetnd/GBVCity/acs.json";

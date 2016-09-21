@@ -52,7 +52,7 @@
  *
  */
 
-require("js/LoadingScene.js");
+require("src/LoadingScene.js");
 
 cc.game.onStart = function(){
   //  if(!cc.sys.isNative && document.getElementById("cocosLoading")) //If referenced loading.js, please remove it
