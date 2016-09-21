@@ -6,9 +6,9 @@
  */
 
 #include "ResourceLoader.h"
-#include "FileEncrypt.h"
 #include "2d/CCFontAtlasCache.h"
 #include "audio/include/SimpleAudioEngine.h"
+#include "GameLaucher.h"
 using namespace CocosDenshion;
 
 namespace quyetnd {
@@ -58,6 +58,49 @@ void ResourceLoader::setPreFinishedHandler(const LoaderPreFinishdHandler& handle
 	_preFinishedHandler = handler;
 }
 
+void ResourceLoader::onLoadImageThread(std::string img, std::function<void(cocos2d::Texture2D*)> callback){
+	std::string fullpath = FileUtils::getInstance()->fullPathForFilename(img);
+	Texture2D* texture = TextureCache::getInstance()->getTextureForKey(fullpath);
+	if (texture){
+		UIThread::getInstance()->runOnUI([=](){
+			callback(texture);
+		});
+		return;
+	}
+	else{
+		Data data = FileUtils::getInstance()->getDataFromFile(fullpath);
+		if (!data.isNull()){
+			Image* imageData = new Image();
+			imageData->initWithImageData(data.getBytes(), data.getSize());			
+			UIThread::getInstance()->runOnUI([=](){
+				Texture2D* texture = TextureCache::getInstance()->addImage(imageData, fullpath);
+				callback(texture);
+				delete imageData;
+			});
+			return;
+		}
+	}
+	UIThread::getInstance()->runOnUI([=](){
+		callback(0);
+	});
+}
+
+void ResourceLoader::onLoadSpriteFrameThread(std::string plist, cocos2d::Texture2D* texture, std::function<void(bool)> callback){
+	std::string fullpath = FileUtils::getInstance()->fullPathForFilename(plist);
+	Data data = FileUtils::getInstance()->getDataFromFile(fullpath);
+	if (!data.isNull()){
+		std::string plistContent(data.getBytes(), data.getBytes() + data.getSize());		
+		UIThread::getInstance()->runOnUI([=](){
+			SpriteFrameCache::getInstance()->addSpriteFramesWithFileContent(plistContent, texture);
+			callback(true);
+		});
+		return;
+	}
+	UIThread::getInstance()->runOnUI([=](){
+		callback(false);
+	});
+}
+
 void ResourceLoader::update(float dt){
 	if (running){
 		//TextureCache* textureCache = Director::getInstance()->getTextureCache();
@@ -70,7 +113,6 @@ void ResourceLoader::update(float dt){
 			{	
 				if (index < _preUnload.size()){
 					TextureCache* textureCache = Director::getInstance()->getTextureCache();
-
 					Texture2D* texture = textureCache->getTextureForKey(_preUnload[index].texture);
 					if (texture){
 						SpriteFrameCache* spriteCache = SpriteFrameCache::getInstance();
@@ -119,36 +161,34 @@ void ResourceLoader::update(float dt){
                     auto textureImg = _preLoad[index].texture;
                     auto plistData = _preLoad[index].plist;
 					CCLOG("loading texture: %s : %s", textureImg.c_str(), plistData.c_str());
-                    
-					FileEncryptUtils::getInstance()->loadImageAsync(textureImg, [=](const std::string&, const FileEncrypt* imgData){	
-						cocos2d::Texture2D* texture = ((ImageEncrypt*)imgData)->texture;
-						if (!texture){
-							CCLOG("error load texture: %s", textureImg.c_str());
-							return;
-						}
-
-						if (plistData != ""){
-							cocos2d::Texture2D* texture = ((ImageEncrypt*)imgData)->texture;
-							if (texture){
-								FileEncryptUtils::getInstance()->loadPlistAsync(plistData, [=](const std::string&, const FileEncrypt* data){
-									PlistEncrypt* plist = (PlistEncrypt*)data;
-									SpriteFrameCache::getInstance()->addSpriteFramesWithFileContent(plist->plistContent, texture);
-
-									index++;
-									currentStep++;
-									onProcessLoader();
-									step = kStepLoadImage;
+					std::thread loadImg(&ResourceLoader::onLoadImageThread, this, textureImg, [=](Texture2D* texture){
+						if (texture){
+							if (plistData != ""){
+								std::thread loadFrame(&ResourceLoader::onLoadSpriteFrameThread, this, plistData, texture, [=](bool ok){
+									if (ok){
+										index++;
+										currentStep++;
+										onProcessLoader();
+										step = kStepLoadImage;
+									}
+									else{
+										log("load Frame Error: %s", plistData.c_str());
+									}
 								});
-
-								return;
+								loadFrame.detach();
+							}
+							else{
+								index++;
+								currentStep++;
+								onProcessLoader();
+								step = kStepLoadImage;
 							}
 						}
-
-						index++;
-						currentStep++;
-						onProcessLoader();
-						step = kStepLoadImage;											
+						else{
+							log("load Image Error: %s", textureImg.c_str());
+						}
 					});
+					loadImg.detach();
 				}
 				else{
 					index = 0;
@@ -162,25 +202,20 @@ void ResourceLoader::update(float dt){
 				if (index < _preloadBMFont.size()){
 					step = kStepWaitingLoadImage;
 					CCLOG("load fonts: %s : %s", _preloadBMFont[index].texture.c_str(), _preloadBMFont[index].font.c_str());
-					
-					FileEncryptUtils::getInstance()->loadImageAsync(_preloadBMFont[index].texture, [=](const std::string&, const FileEncrypt* imgData){
-						FontAtlasCache::getFontAtlasFNT(_preloadBMFont[index].font);
+					std::thread loadImg(&ResourceLoader::onLoadImageThread, this, _preloadBMFont[index].texture, [=](Texture2D* texture){
+						if (texture){
+							FontAtlasCache::getFontAtlasFNT(_preloadBMFont[index].font);
 
-						index++;
-						currentStep++;
-						onProcessLoader();
-						step = kStepLoadBMFont;
+							index++;
+							currentStep++;
+							onProcessLoader();
+							step = kStepLoadBMFont;
+						}
+						else{
+							log("load Image Error: %s", _preloadBMFont[index].texture.c_str());
+						}
 					});
-
-					/*TextureCache* textureCache = Director::getInstance()->getTextureCache();
-					textureCache->addImageAsync(_preloadBMFont[index].texture, [=](Texture2D* texture){
-						FontAtlasCache::getFontAtlasFNT(_preloadBMFont[index].font);
-
-						index++;
-						currentStep++;
-						onProcessLoader();
-						step = kStepLoadBMFont;
-					});*/					
+					loadImg.detach();				
 				}
 				else{
 					index = 0;

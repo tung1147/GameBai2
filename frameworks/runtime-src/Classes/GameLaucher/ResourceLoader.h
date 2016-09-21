@@ -59,6 +59,9 @@ class ResourceLoader : public Ref{
 
 	void onProcessLoader();
 	void onFinishedLoader();
+
+	void onLoadImageThread(std::string img, std::function<void(cocos2d::Texture2D*)> callback);
+	void onLoadSpriteFrameThread(std::string plist, cocos2d::Texture2D* texture, std::function<void(bool)> callback);
 public:
 	bool running;
 public:
