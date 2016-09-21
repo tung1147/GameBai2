@@ -19,6 +19,7 @@
 #include "crypt_aes.h"
 #include "base64.h"
 #include "base/ccUTF8.h"
+#include "../GameLaucher/GameLaucher.h"
 
 USING_NS_CC;
 
@@ -667,6 +668,10 @@ void SystemPlugin::addSoftKeyboardDelegate(SoftKeyboardDelegate* delegate){
 
 void SystemPlugin::removeSoftKeyboardDelegate(SoftKeyboardDelegate* delegate){
 	_keyboardDelegate.erase(std::remove(_keyboardDelegate.begin(), _keyboardDelegate.end(), delegate));
+}
+
+void SystemPlugin::startLaucher(){
+	GameLaucher::getInstance()->run();
 }
 
 void SystemPlugin::exitApp(){

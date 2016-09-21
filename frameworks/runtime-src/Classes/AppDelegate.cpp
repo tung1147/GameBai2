@@ -242,7 +242,6 @@ bool AppDelegate::applicationDidFinishLaunching()
 	
 	std::string file = FileUtils::getInstance()->fullPathForFilename("js/main.js");
 	ScriptingCore::getInstance()->runScript(file);
-	GameLaucher::getInstance()->run();
     return true;
 }
 

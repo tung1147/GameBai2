@@ -27,7 +27,7 @@ enum GameLaucherStatus{
 	Updating,		//3
 	UpdateFailure,	//4
 	LoadResource,	//5
-	LoadSciprt,		//6
+	LoadScript,		//6
 	LoadAndroidExt,	//7
 	Finished,		//8
 };
@@ -61,12 +61,8 @@ class GameLaucher {
 	void loadAndroidExt();
 #endif
 	void finishLaucher();
-
 	void onProcessStatus(int status);
 	void onLoadResourceProcess(int current, int max);
-public:
-	std::function<void(int)> statusCallback;
-	std::function<void(int currentValue, int maxValue)> downloadCallback;
 public:
 	GameLaucher();
 	virtual ~GameLaucher();

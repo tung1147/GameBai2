@@ -24,9 +24,6 @@ GameLaucher::GameLaucher() {
 	versionHash = "";
 	jsMainFile = "js/main.js";
 	resourceHost = "";
-
-	statusCallback = nullptr;
-	downloadCallback = nullptr;
 }
 
 GameLaucher::~GameLaucher() {
@@ -119,9 +116,9 @@ void GameLaucher::requestGetUpdate(){
 				configValue.Accept(writer);
 				std::string gameConfig = stringBuffer.GetString();
 
-				cocos2d::log("updateHost: %s", updateHost.c_str());
-				cocos2d::log("hashVersionFile: %s", versionHash.c_str());
-				cocos2d::log("config: %s", gameConfig.c_str());
+				CCLOG("updateHost: %s", updateHost.c_str());
+				CCLOG("hashVersionFile: %s", versionHash.c_str());
+				CCLOG("config: %s", gameConfig.c_str());
 
 				this->resourceHost = updateHost;
 				this->versionHash = versionHash;
@@ -131,7 +128,7 @@ void GameLaucher::requestGetUpdate(){
 			}
 		}
 
-		log("loi ket noi mang");
+		CCLOG("loi ket noi mang");
 		this->requestGetUpdate();
 	});
 
@@ -194,7 +191,7 @@ void GameLaucher::loadResource(){
 }
 
 void GameLaucher::loadScript(){
-	this->onProcessStatus(GameLaucherStatus::LoadSciprt);
+	this->onProcessStatus(GameLaucherStatus::LoadScript);
 	std::thread loadThread(&GameLaucher::loadScriptMetaThread, this);
 	loadThread.detach();
 }
@@ -379,22 +376,72 @@ void GameLaucher::loadScriptMetaThread(){
 void GameLaucher::onUpdateDownloadProcess(int size){
 	UIThread::getInstance()->runOnUI([=](){
 		downloadCurrentValue += size;
-		if (this->downloadCallback){
-			this->downloadCallback(downloadCurrentValue, downloadMaxValue);
+
+		//call js event running scene;
+		auto scene = Director::getInstance()->getRunningScene();
+		auto sc = ScriptingCore::getInstance();
+		auto cx = sc->getGlobalContext();
+		auto global = sc->getGlobalObject();
+		js_proxy_t * p = jsb_get_native_proxy(scene);
+		if (p){
+			JSAutoCompartment ac(cx, global);
+			JS::RootedObject jstarget(cx, p->obj);
+			JS::RootedValue value(cx);
+			bool ok = JS_GetProperty(cx, jstarget, "onUpdateDownloadProcess", &value);
+			if (ok && !value.isNullOrUndefined()){
+				jsval dataVal[] = {
+					dataVal[0] = INT_TO_JSVAL(downloadCurrentValue),
+					dataVal[1] = INT_TO_JSVAL(downloadMaxValue)
+				};
+				auto ret = sc->executeFunctionWithOwner(OBJECT_TO_JSVAL(p->obj), "onUpdateDownloadProcess", 2, dataVal);
+			}
 		}
 	});
 }
 
 void GameLaucher::onProcessStatus(int status){
 	this->status = status;
-	cocos2d::log("onProcessStatus: %d", status);
-	if (this->statusCallback){
-		this->statusCallback(status);
+	//CCLOG("onProcessStatus: %d", status);
+	//call js event running scene;
+	auto scene = Director::getInstance()->getRunningScene();
+	auto sc = ScriptingCore::getInstance();
+	auto cx = sc->getGlobalContext();
+	auto global = sc->getGlobalObject();
+	js_proxy_t * p = jsb_get_native_proxy(scene);
+	if (p){
+		JSAutoCompartment ac(cx, global);
+		JS::RootedObject jstarget(cx, p->obj);
+		JS::RootedValue value(cx);
+		bool ok = JS_GetProperty(cx, jstarget, "onProcessStatus", &value);
+		if (ok && !value.isNullOrUndefined()){
+			jsval dataVal[] = {
+				dataVal[0] = INT_TO_JSVAL(this->status)
+			};
+			auto ret = sc->executeFunctionWithOwner(OBJECT_TO_JSVAL(p->obj), "onProcessStatus", 1, dataVal);
+		}
 	}
 }
 
 void GameLaucher::onLoadResourceProcess(int current, int max){
-
+	//call js event running scene;
+	auto scene = Director::getInstance()->getRunningScene();
+	auto sc = ScriptingCore::getInstance();
+	auto cx = sc->getGlobalContext();
+	auto global = sc->getGlobalObject();
+	js_proxy_t * p = jsb_get_native_proxy(scene);
+	if (p){
+		JSAutoCompartment ac(cx, global);
+		JS::RootedObject jstarget(cx, p->obj);
+		JS::RootedValue value(cx);
+		bool ok = JS_GetProperty(cx, jstarget, "onLoadResourceProcess", &value);
+		if (ok && !value.isNullOrUndefined()){
+			jsval dataVal[] = {
+				dataVal[0] = INT_TO_JSVAL(current),
+				dataVal[1] = INT_TO_JSVAL(max)
+			};
+			auto ret = sc->executeFunctionWithOwner(OBJECT_TO_JSVAL(p->obj), "onLoadResourceProcess", 2, dataVal);
+		}
+	}
 }
 
 GameFile* GameLaucher::getFile(const std::string& file){
