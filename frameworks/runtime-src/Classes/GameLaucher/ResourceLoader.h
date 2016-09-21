@@ -36,8 +36,6 @@ enum ResourceLoaderStep{
 };
 
 typedef std::function<void(int, int)> LoaderProcessHandler;
-typedef std::function<void()> LoaderFinishedHandler;
-typedef std::function<void()> LoaderPreFinishdHandler;
 
 class ResourceLoader : public Ref{
 	std::vector<TextureData> _preLoad;
@@ -47,10 +45,6 @@ class ResourceLoader : public Ref{
 	std::vector<std::string> _preloadSound;
 	std::vector<std::string> _unloadSound;
 
-	LoaderPreFinishdHandler _preFinishedHandler;
-	LoaderFinishedHandler _finishedHandler;
-	LoaderProcessHandler _processHandler;
-	
 	int index;
 	ResourceLoaderStep step;
 
@@ -58,12 +52,12 @@ class ResourceLoader : public Ref{
 	int currentStep;
 
 	void onProcessLoader();
-	void onFinishedLoader();
 
 	void onLoadImageThread(std::string img, std::function<void(cocos2d::Texture2D*)> callback);
 	void onLoadSpriteFrameThread(std::string plist, cocos2d::Texture2D* texture, std::function<void(bool)> callback);
 public:
 	bool running;
+	std::function<void(int, int)> processHandler;
 public:
 	ResourceLoader();
 	virtual ~ResourceLoader();
@@ -76,15 +70,13 @@ public:
 	void addSoundPreload(const std::string& sound);
 	void addSoundUnload(const std::string& sound);
 
-	void setPreFinishedHandler(const LoaderPreFinishdHandler& handler);
-
 	void update(float dt);
-
-	void start(const LoaderFinishedHandler &finishedHandler, const LoaderProcessHandler &processHandler = nullptr);
+	void start();
 	void stop();
 
 	int getMaxStep();
 	int getCurrentStep();
+	bool isFinished();
 };
 
 } /* namespace quyetnd */

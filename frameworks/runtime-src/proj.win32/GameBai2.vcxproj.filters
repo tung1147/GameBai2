@@ -55,9 +55,6 @@
     <ClCompile Include="..\Classes\GameLaucher\GameResource.cpp">
       <Filter>Classes\GameLaucher</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\GameLaucher\LoadingScene.cpp">
-      <Filter>Classes\GameLaucher</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\NewGUI\NewTextInput.cpp">
       <Filter>Classes\NewGUI</Filter>
     </ClCompile>
@@ -141,9 +138,6 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Action\CustomAction.h">
       <Filter>Classes\Action</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\GameLaucher\LoadingScene.h">
-      <Filter>Classes\GameLaucher</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\GameLaucher\ResourceLoader.h">
       <Filter>Classes\GameLaucher</Filter>

@@ -52,6 +52,8 @@
  *
  */
 
+require("js/LoadingScene.js");
+
 cc.game.onStart = function(){
   //  if(!cc.sys.isNative && document.getElementById("cocosLoading")) //If referenced loading.js, please remove it
       //  document.body.removeChild(document.getElementById("cocosLoading"));
@@ -69,30 +71,17 @@ cc.game.onStart = function(){
     if (designWidth > 1280.0){
         designWidth = 1280.0;
     }
-
-    // Setup the resolution policy and design resolution size
     cc.view.setDesignResolutionSize(designWidth, designHeight, cc.ResolutionPolicy.SHOW_ALL);
     cc.winSize.screenScale = designWidth / 1280.0;
+    // Setup the resolution policy and design resolution size
+    //cc.view.setDesignResolutionSize(960, 640, cc.ResolutionPolicy.SHOW_ALL);
     // Instead of set design resolution, you can also set the real pixel resolution size
     // Uncomment the following line and delete the previous line.
     // cc.view.setRealPixelResolution(960, 640, cc.ResolutionPolicy.SHOW_ALL);
     // The game will be resized when browser size change
     //cc.view.resizeWithBrowserSize(true);
     //load resources
-    LobbyClient.getInstance();
-    SystemPlugin.getInstance().enableMipmapTexture("res/Card.png");
-
-   // cc.director.replaceScene(new VongQuayScene());
-
-    cc.director.replaceScene(new HomeScene());
-   // cc.director.replaceScene(new CaoThapScene());
+    cc.log("on start");
+    cc.director.runScene(new LoadingScene());
 };
 cc.game.run();
-
-var testJSFunc = function (param) {
-	cc.log("params: "+param);
-    // var pret = {
-    //     name : "name1234"
-    // };
-    // return pret;
-}

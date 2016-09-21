@@ -144,6 +144,14 @@ bool jsb_quyetnd_systemplugin_exitApp(JSContext *cx, uint32_t argc, jsval *vp){
 	return false;
 }
 
+bool jsb_quyetnd_systemplugin_startLaucher(JSContext *cx, uint32_t argc, jsval *vp){
+	if (argc == 0){
+		quyetnd::SystemPlugin::getInstance()->startLaucher();
+		return true;
+	}
+	return false;
+}
+
 bool jsb_quyetnd_systemplugin_getPackageName(JSContext *cx, uint32_t argc, jsval *vp){
 	if (argc == 0){
 		JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
@@ -277,6 +285,7 @@ void js_register_quyetnd_systemplugin(JSContext *cx, JS::HandleObject global) {
 		JS_FN("androidCheckPermission", jsb_quyetnd_systemplugin_androiCheckPermission, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("showCallPhone", jsb_quyetnd_systemplugin_showCallPhone, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("exitApp", jsb_quyetnd_systemplugin_exitApp, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),	
+		JS_FN("startLaucher", jsb_quyetnd_systemplugin_startLaucher, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FS_END
     };
 	
