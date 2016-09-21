@@ -65,6 +65,9 @@ var SystemPlugin = (function() {
         },
         androidCheckPermission : function (permission) {
             return this.plugin.androidCheckPermission(permission);
+        },
+        startLaucher : function () {
+            this.plugin.startLaucher();
         }
     });
 
