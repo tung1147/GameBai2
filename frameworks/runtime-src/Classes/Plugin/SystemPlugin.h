@@ -43,11 +43,14 @@ public:
     std::string getVersionName();
     std::string getPackageName();
     void callSupport(const std::string& numberSupport);
+	void showSMS(const std::string& smsNumber, const std::string& smsContent);
+	std::vector<std::string> getCarrierName();
 	void enableMipmapTexture(const std::string& textureName);
 
 	void onBuyItemFinished(int returnCode, const std::string& signature, const std::string& json);
 	void onBuyItemFinished(int returnCode, const std::string& recept);
     void onRegisterNotificationSuccess(const std::string& uid, const std::string& token);
+	std::string getSystemPushNotification();
 
     std::string callJSFunction(const std::string& methodName, const std::string& params);
 	void callStaticVoidMethod(const std::string& className, const std::string& methodName, const std::string& params);
@@ -58,6 +61,7 @@ public:
 	void androidRequestPermission(const std::vector<std::string>& permission, int requestCode = 1234);
 	void androidOnActivityResult(int requestCode, int returnCode, const std::string& jsonData);
 	void startLaucher();
+	bool checkFileValidate(const std::string& file);
 	void exitApp();
 
 	/* ecnrypt*/

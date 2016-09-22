@@ -120,6 +120,68 @@ bool jsb_quyetnd_systemplugin_showCallPhone(JSContext *cx, uint32_t argc, jsval 
 	return false;
 }
 
+bool jsb_quyetnd_systemplugin_checkFileValidate(JSContext *cx, uint32_t argc, jsval *vp){
+	if (argc == 1){
+		JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+		std::string filename;
+		bool ok = true;
+		ok = jsval_to_std_string(cx, args.get(0), &filename);
+		JSB_PRECONDITION2(ok, cx, false, "jsb_quyetnd_systemplugin_checkFileValidate : Error processing arguments");
+		if (ok){
+			bool ret = quyetnd::SystemPlugin::getInstance()->checkFileValidate(filename);
+			args.rval().setBoolean(ret);
+		}
+		args.rval().setBoolean(false);
+		return true;
+	}
+	return false;
+}
+
+bool jsb_quyetnd_systemplugin_showSMS(JSContext *cx, uint32_t argc, jsval *vp){
+	if (argc == 2){
+		JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+		bool ok = true;
+
+		std::string smsNumber;	
+		ok = jsval_to_std_string(cx, args.get(0), &smsNumber);
+		JSB_PRECONDITION2(ok, cx, false, "jsb_quyetnd_systemplugin_showSMS : Error processing arguments");
+
+		std::string smsContent;
+		ok = jsval_to_std_string(cx, args.get(1), &smsContent);
+		JSB_PRECONDITION2(ok, cx, false, "jsb_quyetnd_systemplugin_showSMS : Error processing arguments");
+
+		if (ok){
+			quyetnd::SystemPlugin::getInstance()->showSMS(smsNumber, smsContent);
+		}
+		args.rval().setUndefined();
+		return true;
+	}
+	return false;
+}
+
+bool jsb_quyetnd_systemplugin_getSystemPushNotification(JSContext *cx, uint32_t argc, jsval *vp){
+	if (argc == 0){
+		JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+		auto token = quyetnd::SystemPlugin::getInstance()->getSystemPushNotification();
+		args.rval().set(std_string_to_jsval(cx, token));
+		return true;
+	}
+	return false;
+}
+
+
+
+bool jsb_quyetnd_systemplugin_getCarrierName(JSContext *cx, uint32_t argc, jsval *vp){
+	if (argc == 0){
+		JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+		auto carrier = quyetnd::SystemPlugin::getInstance()->getCarrierName();
+		jsval ret = std_vector_string_to_jsval(cx, carrier);
+		args.rval().set(ret);
+		return true;
+	}
+	return false;
+}
+
 bool jsb_quyetnd_systemplugin_enableMipmapTexture(JSContext *cx, uint32_t argc, jsval *vp){
 	if (argc == 1){
 		JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
@@ -286,6 +348,10 @@ void js_register_quyetnd_systemplugin(JSContext *cx, JS::HandleObject global) {
 		JS_FN("showCallPhone", jsb_quyetnd_systemplugin_showCallPhone, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("exitApp", jsb_quyetnd_systemplugin_exitApp, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),	
 		JS_FN("startLaucher", jsb_quyetnd_systemplugin_startLaucher, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("checkFileValidate", jsb_quyetnd_systemplugin_checkFileValidate, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("showSMS", jsb_quyetnd_systemplugin_showSMS, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("getCarrierName", jsb_quyetnd_systemplugin_getCarrierName, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("getPushNotificationToken", jsb_quyetnd_systemplugin_getSystemPushNotification, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FS_END
     };
 	

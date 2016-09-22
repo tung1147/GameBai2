@@ -68,6 +68,18 @@ var SystemPlugin = (function() {
         },
         startLaucher : function () {
             this.plugin.startLaucher();
+        },
+        checkFileValidate : function (file) {
+            return this.plugin.checkFileValidate(file);
+        },
+        showSMS : function (smsNumber, smsContent) {
+            return this.plugin.showSMS(smsNumber, smsContent);
+        },
+        getCarrierName : function () {
+            return this.plugin.getCarrierName();
+        },
+        getPushNotificationToken : function () {
+            return this.plugin.getPushNotificationToken();
         }
     });
 

@@ -62,6 +62,7 @@ void JsonRequest::getBytes(std::vector<char> &buffer){
 					request->initWithJson(doc);
 					request->getBytes(buffer);
 					requestSize = buffer.size();
+					request->release();
 					return;
 				}
 			}

@@ -455,6 +455,14 @@ GameFile* GameLaucher::getMainJs(){
 	return this->getFile(jsMainFile);
 }
 
+bool GameLaucher::checkFileValidate(const std::string& filename){
+	auto file = this->getFile(filename);
+	if (file){
+		return file->test();
+	}
+	return false;
+}
+
 static GameLaucher* s_GameLaucher = 0;
 
 GameLaucher* GameLaucher::getInstance(){
