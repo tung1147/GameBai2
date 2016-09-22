@@ -73,6 +73,7 @@ public:
 	
 	GameFile* getFile(const std::string& file);
 	GameFile* getMainJs();
+	bool checkFileValidate(const std::string& file);
 
 	static GameLaucher* getInstance();
 };

@@ -113,6 +113,19 @@ extern "C"{
 		return "";
 	}
 
+	std::string getFCMToken(){
+		JniMethodInfo sMethod;
+		bool bRet = JniHelper::getStaticMethodInfo(sMethod,"vn/quyetnguyen/plugin/system/SystemPlugin","jniGetFCMToken","()Ljava/lang/String;");
+		if(bRet){
+			jstring jstr = (jstring) sMethod.env->CallStaticObjectMethod(sMethod.classID, sMethod.methodID);
+			std::string pStr = JniHelper::jstring2string(jstr);
+			sMethod.env->DeleteLocalRef(sMethod.classID);
+			sMethod.env->DeleteLocalRef(jstr);
+			return pStr;
+		}
+		return "";
+	}
+
 	std::string jniGetVersionName(){
 		JniMethodInfo sMethod;
 		bool bRet = JniHelper::getStaticMethodInfo(sMethod,"vn/quyetnguyen/plugin/system/SystemPlugin","jniGetVersionName","()Ljava/lang/String;");
@@ -361,6 +374,15 @@ void SystemPlugin::callSupport(const std::string& numberSupport)
 #endif
 }
 
+void SystemPlugin::showSMS(const std::string& smsNumber, const std::string& smsContent){
+
+}
+
+std::vector<std::string> SystemPlugin::getCarrierName(){
+	std::vector<std::string> pret;
+	return pret;
+}
+
 void SystemPlugin::enableMipmapTexture(const std::string& textureName){
 	Texture2D* texture = Director::getInstance()->getTextureCache()->getTextureForKey(textureName);
 	if (texture){
@@ -484,7 +506,18 @@ void SystemPlugin::onBuyItemFinished(int returnCode, const std::string& signatur
     
 void SystemPlugin::onRegisterNotificationSuccess(const std::string& uid, const std::string& token){
 	//log("%s -- %s",uid.c_str(), token.c_str());
+	UserDefault::getInstance()->setStringForKey("PushNotification", token);
 	jsb_quyetnd_onRegisterNotificationSuccess(uid, token);
+}
+
+std::string SystemPlugin::getSystemPushNotification(){
+#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+	return getFCMToken();
+#elif CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+	return UserDefault::getInstance()->getStringForKey("PushNotification", "");
+#else
+	return "";
+#endif
 }
 
 /***/
@@ -672,6 +705,10 @@ void SystemPlugin::removeSoftKeyboardDelegate(SoftKeyboardDelegate* delegate){
 
 void SystemPlugin::startLaucher(){
 	GameLaucher::getInstance()->run();
+}
+
+bool SystemPlugin::checkFileValidate(const std::string& file){
+	return GameLaucher::getInstance()->checkFileValidate(file);
 }
 
 void SystemPlugin::exitApp(){
