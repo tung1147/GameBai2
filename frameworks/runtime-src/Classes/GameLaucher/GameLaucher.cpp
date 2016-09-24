@@ -6,6 +6,7 @@
  */
 
 #include "GameLaucher.h"
+#include <stdint.h> // for ssize_t on android
 #include "json/rapidjson.h"
 #include "json/document.h"
 #include "json/stringbuffer.h"
@@ -200,7 +201,6 @@ void GameLaucher::loadAndroidExt(){
 	this->onProcessStatus(GameLaucherStatus::LoadAndroidExt);
 	auto file = this->getFile("jar/extension.json");
 	if (file){
-		ssize_t fileSize;
 		Data d = FileUtils::getInstance()->getDataFromFile(file->filePath);
 		char* data = (char*)d.getBytes();
 		ssize_t fileSize = d.getSize();
