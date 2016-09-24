@@ -248,7 +248,8 @@ void GameLaucher::checkVersionFileThread(){
 	versionFile.fileSize = 0;
 
 	if (!versionFile.test()){
-		int returnCode = versionFile.updateNoHandler(resourceHost + versionFile.fileName);
+		//int returnCode = versionFile.updateNoHandler(resourceHost + versionFile.fileName);
+        int returnCode = versionFile.update(resourceHost + versionFile.fileName);
 		if (returnCode != 0){
 			UIThread::getInstance()->runOnUI([=](){
 				this->onProcessStatus(GameLaucherStatus::UpdateFailure);
@@ -315,7 +316,9 @@ void GameLaucher::checkFilesThread(){
 			this->onProcessStatus(GameLaucherStatus::Updating);
 		});		
 		for (int i = 0; i < _resourceUpdate.size();){
-			auto pret = _resourceUpdate[i]->update(resourceHost + _resourceUpdate[i]->fileName);
+            auto pret = _resourceUpdate[i]->update(resourceHost + _resourceUpdate[i]->fileName,[=](int bytes){
+                this->onUpdateDownloadProcess(bytes);
+            });
 			if (pret == 0){
 				i++;
 			}

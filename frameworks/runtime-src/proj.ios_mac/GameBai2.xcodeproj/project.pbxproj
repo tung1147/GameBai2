@@ -58,8 +58,6 @@
 		568359F51D7B20580021A197 /* GameLaucher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 568359B51D7B20570021A197 /* GameLaucher.cpp */; };
 		568359F61D7B20580021A197 /* GameResource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 568359B71D7B20570021A197 /* GameResource.cpp */; };
 		568359F71D7B20580021A197 /* GameResource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 568359B71D7B20570021A197 /* GameResource.cpp */; };
-		568359F81D7B20580021A197 /* LoadingScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 568359B91D7B20570021A197 /* LoadingScene.cpp */; };
-		568359F91D7B20580021A197 /* LoadingScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 568359B91D7B20570021A197 /* LoadingScene.cpp */; };
 		568359FA1D7B20580021A197 /* ResourceLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 568359BB1D7B20570021A197 /* ResourceLoader.cpp */; };
 		568359FB1D7B20580021A197 /* ResourceLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 568359BB1D7B20570021A197 /* ResourceLoader.cpp */; };
 		568359FC1D7B20580021A197 /* jsb_quyetnd_newui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 568359BE1D7B20570021A197 /* jsb_quyetnd_newui.cpp */; };
@@ -209,8 +207,6 @@
 		56835C3A1D7B25DA0021A197 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A92275471517C094001B78AA /* AudioToolbox.framework */; };
 		56835C3D1D7B26210021A197 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56835C3C1D7B26210021A197 /* StoreKit.framework */; };
 		56835C401D7B2C740021A197 /* MacOS_native_linker.mm in Sources */ = {isa = PBXBuildFile; fileRef = 56835C3F1D7B2C740021A197 /* MacOS_native_linker.mm */; };
-		569119B31D8CF2EE0092A3CD /* FileEncrypt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119B11D8CF2EE0092A3CD /* FileEncrypt.cpp */; };
-		569119B41D8CF2EE0092A3CD /* FileEncrypt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119B11D8CF2EE0092A3CD /* FileEncrypt.cpp */; };
 		569119BB1D8CF2FF0092A3CD /* ElectroClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119B71D8CF2FF0092A3CD /* ElectroClient.cpp */; };
 		569119BC1D8CF2FF0092A3CD /* ElectroClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119B71D8CF2FF0092A3CD /* ElectroClient.cpp */; };
 		569119BD1D8CF2FF0092A3CD /* jsb_quyetnd_electro_socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 569119B91D8CF2FF0092A3CD /* jsb_quyetnd_electro_socket.cpp */; };
@@ -685,8 +681,6 @@
 		568359B61D7B20570021A197 /* GameLaucher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameLaucher.h; sourceTree = "<group>"; };
 		568359B71D7B20570021A197 /* GameResource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameResource.cpp; sourceTree = "<group>"; };
 		568359B81D7B20570021A197 /* GameResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameResource.h; sourceTree = "<group>"; };
-		568359B91D7B20570021A197 /* LoadingScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LoadingScene.cpp; sourceTree = "<group>"; };
-		568359BA1D7B20570021A197 /* LoadingScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingScene.h; sourceTree = "<group>"; };
 		568359BB1D7B20570021A197 /* ResourceLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ResourceLoader.cpp; sourceTree = "<group>"; };
 		568359BC1D7B20570021A197 /* ResourceLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourceLoader.h; sourceTree = "<group>"; };
 		568359BE1D7B20570021A197 /* jsb_quyetnd_newui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jsb_quyetnd_newui.cpp; sourceTree = "<group>"; };
@@ -896,8 +890,6 @@
 		56835C3C1D7B26210021A197 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/StoreKit.framework; sourceTree = DEVELOPER_DIR; };
 		56835C3E1D7B2C740021A197 /* MacOS_native_linker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MacOS_native_linker.h; sourceTree = "<group>"; };
 		56835C3F1D7B2C740021A197 /* MacOS_native_linker.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MacOS_native_linker.mm; sourceTree = "<group>"; };
-		569119B11D8CF2EE0092A3CD /* FileEncrypt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileEncrypt.cpp; sourceTree = "<group>"; };
-		569119B21D8CF2EE0092A3CD /* FileEncrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileEncrypt.h; sourceTree = "<group>"; };
 		569119B71D8CF2FF0092A3CD /* ElectroClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ElectroClient.cpp; sourceTree = "<group>"; };
 		569119B81D8CF2FF0092A3CD /* ElectroClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ElectroClient.h; sourceTree = "<group>"; };
 		569119B91D8CF2FF0092A3CD /* jsb_quyetnd_electro_socket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jsb_quyetnd_electro_socket.cpp; sourceTree = "<group>"; };
@@ -1422,14 +1414,10 @@
 		568359B41D7B20570021A197 /* GameLaucher */ = {
 			isa = PBXGroup;
 			children = (
-				569119B11D8CF2EE0092A3CD /* FileEncrypt.cpp */,
-				569119B21D8CF2EE0092A3CD /* FileEncrypt.h */,
 				568359B51D7B20570021A197 /* GameLaucher.cpp */,
 				568359B61D7B20570021A197 /* GameLaucher.h */,
 				568359B71D7B20570021A197 /* GameResource.cpp */,
 				568359B81D7B20570021A197 /* GameResource.h */,
-				568359B91D7B20570021A197 /* LoadingScene.cpp */,
-				568359BA1D7B20570021A197 /* LoadingScene.h */,
 				568359BB1D7B20570021A197 /* ResourceLoader.cpp */,
 				568359BC1D7B20570021A197 /* ResourceLoader.h */,
 			);
@@ -2568,7 +2556,6 @@
 				56835A0D1D7B20580021A197 /* crypt_aes.cpp in Sources */,
 				56911B471D8CF3340092A3CD /* EsReleasePool.cpp in Sources */,
 				56835A291D7B20580021A197 /* SmartfoxClient.cpp in Sources */,
-				569119B41D8CF2EE0092A3CD /* FileEncrypt.cpp in Sources */,
 				56911C631D8CF3350092A3CD /* ThriftUserVariableUpdateAction_types.cpp in Sources */,
 				56911C1F1D8CF3350092A3CD /* ThriftPrivateMessageRequest_types.cpp in Sources */,
 				56911B591D8CF3340092A3CD /* LeaveRoomEvent.cpp in Sources */,
@@ -2692,7 +2679,6 @@
 				56911BB31D8CF3340092A3CD /* ThriftCrossDomainPolicyRequest_types.cpp in Sources */,
 				56911C031D8CF3350092A3CD /* ThriftJoinZoneEvent_types.cpp in Sources */,
 				56911BF31D8CF3350092A3CD /* ThriftGetUserVariablesRequest_types.cpp in Sources */,
-				568359F91D7B20580021A197 /* LoadingScene.cpp in Sources */,
 				56835BB41D7B24960021A197 /* ValueJson.cpp in Sources */,
 				568359EF1D7B20580021A197 /* CustomAction.cpp in Sources */,
 				56911C231D8CF3350092A3CD /* ThriftProtocolConfiguration_types.cpp in Sources */,
@@ -2920,7 +2906,6 @@
 				56911BB81D8CF3340092A3CD /* ThriftDeleteRoomVariableRequest_types.cpp in Sources */,
 				56911B461D8CF3340092A3CD /* EsReleasePool.cpp in Sources */,
 				56911B741D8CF3340092A3CD /* ZoneUpdateAction.cpp in Sources */,
-				568359F81D7B20580021A197 /* LoadingScene.cpp in Sources */,
 				56835A001D7B20580021A197 /* NewTableView.cpp in Sources */,
 				56835A281D7B20580021A197 /* SmartfoxClient.cpp in Sources */,
 				56911C1E1D8CF3350092A3CD /* ThriftPrivateMessageRequest_types.cpp in Sources */,
@@ -2952,7 +2937,6 @@
 				568359EE1D7B20580021A197 /* CustomAction.cpp in Sources */,
 				56835C271D7B25360021A197 /* FacebookPlugin_iOS.mm in Sources */,
 				56911BD61D8CF3350092A3CD /* ThriftFlattenedEsObjectRO_types.cpp in Sources */,
-				569119B31D8CF2EE0092A3CD /* FileEncrypt.cpp in Sources */,
 				56835C091D7B25230021A197 /* InAppPurchare.mm in Sources */,
 				56911BFE1D8CF3350092A3CD /* ThriftJoinRoomEvent_types.cpp in Sources */,
 				56911C0C1D8CF3350092A3CD /* ThriftLoginResponse_types.cpp in Sources */,
