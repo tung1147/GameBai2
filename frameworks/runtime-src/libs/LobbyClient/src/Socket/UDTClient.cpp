@@ -130,13 +130,16 @@ void UDTClient::closeSocket(){
 	std::unique_lock<std::mutex> lk(socketMutex);
 	if (mSocket != SYS_SOCKET_INVALID){
 		UDT::close(mSocket);
-		UDT::cleanup();
+		//UDT::cleanup();
 		mSocket = SYS_SOCKET_INVALID;
 	}
 }
 
 void UDTClient::resetSocket(){
 	std::unique_lock<std::mutex> lk(socketMutex);
+	if(mSocket != SYS_SOCKET_INVALID){
+		this->closeSocket();
+	}
 	mSocket = SYS_SOCKET_INVALID;
 }
 

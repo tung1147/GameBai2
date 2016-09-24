@@ -294,11 +294,11 @@ void TcpSocketClient::closeSocket(){
 	std::unique_lock<std::mutex> lk(socketMutex);
 	if (mSocket != SYS_SOCKET_INVALID){
 #ifdef USE_WINSOCK_2
-		closesocket(mSocket);
-		//shutdown(mSocket, SD_BOTH);
+		//closesocket(mSocket);
+		shutdown(mSocket, SD_BOTH);
 #else
-		close(mSocket);
-		//shutdown(mSocket, SHUT_RDWR);
+		//close(mSocket);
+		shutdown(mSocket, SHUT_RDWR);
 #endif
 		mSocket = SYS_SOCKET_INVALID;
 	}
@@ -306,6 +306,9 @@ void TcpSocketClient::closeSocket(){
 
 void TcpSocketClient::resetSocket(){
 	std::unique_lock<std::mutex> lk(socketMutex);
+	if(mSocket != SYS_SOCKET_INVALID){
+		this->closeSocket();
+	}
 	mSocket = SYS_SOCKET_INVALID;
 }
 
