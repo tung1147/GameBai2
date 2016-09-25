@@ -8,7 +8,7 @@
 #ifndef GAMELAUCHER_GAMERESOURCE_H_
 #define GAMELAUCHER_GAMERESOURCE_H_
 
-#include "string"
+#include <string>
 #include "../Plugin/MD5.h"
 #include <functional>
 
