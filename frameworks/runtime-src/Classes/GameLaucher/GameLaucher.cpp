@@ -151,13 +151,21 @@ void GameLaucher::checkFiles(){
 
 void GameLaucher::loadResource(){
 	this->onProcessStatus(GameLaucherStatus::LoadResource);
-
 	GameFile* file = this->getFile("resources.json");
-	ssize_t fileSize;
-	char* data = (char*)FileUtils::getInstance()->getFileData(file->filePath, "rb", &fileSize);
-	std::vector<char> buffer(data, data + fileSize);
-	buffer.push_back('\0');
-	delete[] data;
+	if (!file){
+		CCLOG("load resource failure");
+		return;
+	}
+
+	Data d = FileUtils::getInstance()->getDataFromFile(file->filePath);
+	if (d.isNull()){
+		CCLOG("resource Metafile NULL");
+		return;
+	}
+
+	ssize_t fileSize = d.getSize();
+	char* data = (char*)d.getBytes();
+	std::string buffer(data, data + fileSize);
 
 	rapidjson::Document doc;
 	doc.Parse<0>(buffer.data());
@@ -204,9 +212,7 @@ void GameLaucher::loadAndroidExt(){
 		Data d = FileUtils::getInstance()->getDataFromFile(file->filePath);
 		char* data = (char*)d.getBytes();
 		ssize_t fileSize = d.getSize();
-		std::vector<char> buffer(data, data + fileSize);
-		buffer.push_back('\0');
-		delete[] data;
+		std::string buffer(data, data + fileSize);
 
 		rapidjson::Document doc;
 		doc.Parse<0>(buffer.data());
