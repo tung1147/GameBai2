@@ -14,13 +14,13 @@
       <UniqueIdentifier>{5f265f1a-5cca-4c52-9b90-8f22685c07cc}</UniqueIdentifier>
     </Filter>
     <Filter Include="Entities\rapidjson\error">
-      <UniqueIdentifier>{cdf8a59e-48c4-4819-bdf0-e97fc6e41d76}</UniqueIdentifier>
+      <UniqueIdentifier>{42d5d306-f24b-4a58-ab9d-6c36ed45be7d}</UniqueIdentifier>
     </Filter>
     <Filter Include="Entities\rapidjson\internal">
-      <UniqueIdentifier>{43ab4850-9168-456d-a51e-ebbf5b601735}</UniqueIdentifier>
+      <UniqueIdentifier>{1cb56ee0-5ad0-4d23-8074-f2264f122815}</UniqueIdentifier>
     </Filter>
     <Filter Include="Entities\rapidjson\msinttypes">
-      <UniqueIdentifier>{1bf42d44-bdaa-4d69-96c4-8d5373c0881c}</UniqueIdentifier>
+      <UniqueIdentifier>{62e526da-966a-4f7d-9599-6296de8dabd9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -105,6 +105,18 @@
       <Filter>Socket</Filter>
     </ClInclude>
     <ClInclude Include="..\src\SFSServer.h" />
+    <ClInclude Include="..\src\Entities\BufferArray.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Entities\BaseMessage.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Entities\MessageType.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Entities\MessageJSON.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
     <ClInclude Include="..\src\Entities\rapidjson\error\en.h">
       <Filter>Entities\rapidjson\error</Filter>
     </ClInclude>
@@ -132,6 +144,9 @@
     <ClInclude Include="..\src\Entities\rapidjson\internal\pow10.h">
       <Filter>Entities\rapidjson\internal</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\Entities\rapidjson\internal\regex.h">
+      <Filter>Entities\rapidjson\internal</Filter>
+    </ClInclude>
     <ClInclude Include="..\src\Entities\rapidjson\internal\stack.h">
       <Filter>Entities\rapidjson\internal</Filter>
     </ClInclude>
@@ -139,6 +154,9 @@
       <Filter>Entities\rapidjson\internal</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Entities\rapidjson\internal\strtod.h">
+      <Filter>Entities\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Entities\rapidjson\internal\swap.h">
       <Filter>Entities\rapidjson\internal</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Entities\rapidjson\msinttypes\inttypes.h">
@@ -168,16 +186,25 @@
     <ClInclude Include="..\src\Entities\rapidjson\filereadstream.h">
       <Filter>Entities\rapidjson</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Entities\rapidjson\filestream.h">
+    <ClInclude Include="..\src\Entities\rapidjson\filewritestream.h">
       <Filter>Entities\rapidjson</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Entities\rapidjson\filewritestream.h">
+    <ClInclude Include="..\src\Entities\rapidjson\fwd.h">
+      <Filter>Entities\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Entities\rapidjson\istreamwrapper.h">
       <Filter>Entities\rapidjson</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Entities\rapidjson\memorybuffer.h">
       <Filter>Entities\rapidjson</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Entities\rapidjson\memorystream.h">
+      <Filter>Entities\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Entities\rapidjson\ostreamwrapper.h">
+      <Filter>Entities\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Entities\rapidjson\pointer.h">
       <Filter>Entities\rapidjson</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Entities\rapidjson\prettywriter.h">
@@ -189,17 +216,11 @@
     <ClInclude Include="..\src\Entities\rapidjson\reader.h">
       <Filter>Entities\rapidjson</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Entities\BufferArray.h">
-      <Filter>Entities</Filter>
+    <ClInclude Include="..\src\Entities\rapidjson\schema.h">
+      <Filter>Entities\rapidjson</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Entities\BaseMessage.h">
-      <Filter>Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Entities\MessageType.h">
-      <Filter>Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Entities\MessageJSON.h">
-      <Filter>Entities</Filter>
+    <ClInclude Include="..\src\Entities\rapidjson\stream.h">
+      <Filter>Entities\rapidjson</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

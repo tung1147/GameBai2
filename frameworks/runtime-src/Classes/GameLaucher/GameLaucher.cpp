@@ -6,6 +6,7 @@
  */
 
 #include "GameLaucher.h"
+#include <stdint.h> // for ssize_t on android
 #include "json/rapidjson.h"
 #include "json/document.h"
 #include "json/stringbuffer.h"
@@ -200,7 +201,6 @@ void GameLaucher::loadAndroidExt(){
 	this->onProcessStatus(GameLaucherStatus::LoadAndroidExt);
 	auto file = this->getFile("jar/extension.json");
 	if (file){
-		ssize_t fileSize;
 		Data d = FileUtils::getInstance()->getDataFromFile(file->filePath);
 		char* data = (char*)d.getBytes();
 		ssize_t fileSize = d.getSize();
@@ -248,7 +248,8 @@ void GameLaucher::checkVersionFileThread(){
 	versionFile.fileSize = 0;
 
 	if (!versionFile.test()){
-		int returnCode = versionFile.updateNoHandler(resourceHost + versionFile.fileName);
+		//int returnCode = versionFile.updateNoHandler(resourceHost + versionFile.fileName);
+        int returnCode = versionFile.update(resourceHost + versionFile.fileName);
 		if (returnCode != 0){
 			UIThread::getInstance()->runOnUI([=](){
 				this->onProcessStatus(GameLaucherStatus::UpdateFailure);
@@ -315,7 +316,9 @@ void GameLaucher::checkFilesThread(){
 			this->onProcessStatus(GameLaucherStatus::Updating);
 		});		
 		for (int i = 0; i < _resourceUpdate.size();){
-			auto pret = _resourceUpdate[i]->update(resourceHost + _resourceUpdate[i]->fileName);
+            auto pret = _resourceUpdate[i]->update(resourceHost + _resourceUpdate[i]->fileName,[=](int bytes){
+                this->onUpdateDownloadProcess(bytes);
+            });
 			if (pret == 0){
 				i++;
 			}
