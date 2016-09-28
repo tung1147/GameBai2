@@ -25,6 +25,7 @@ enum ValueType{
 	TypeString = 6,
 	TypeDict = 7,
 	TypeArray = 8,
+    TypeJSON = 101,
 };
 
 class PrimitiveValue;

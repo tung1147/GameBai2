@@ -36,20 +36,25 @@ inline Value* __createValueFromJSON(const rapidjson::Value& value){
 	switch (type)
 	{
 	case rapidjson::Type::kNullType:{
-		return new Value();
+        auto pret = new Value();
+        pret->autorelease();
+        return pret;
 	}
 	case rapidjson::Type::kFalseType:{
 		auto pret = new PrimitiveValue();
+        pret->autorelease();
 		pret->setBool(false);
 		return pret;
 	}
 	case rapidjson::Type::kTrueType:{
 		auto pret = new PrimitiveValue();
+        pret->autorelease();
 		pret->setBool(true);
 		return pret;
 	}
 	case rapidjson::Type::kNumberType:{
 		auto pret = new PrimitiveValue();
+        pret->autorelease();
 		if (value.IsInt()){
 			pret->setInt(value.GetInt());
 		}
@@ -75,6 +80,7 @@ inline Value* __createValueFromJSON(const rapidjson::Value& value){
 	}
 	case rapidjson::Type::kStringType:{
 		auto pret = new StringValue();
+        pret->autorelease();
 		pret->setString(value.GetString());
 		//pret->setData(value.GetString(), value.GetStringLength());
 		return pret;
@@ -86,26 +92,30 @@ inline Value* __createValueFromJSON(const rapidjson::Value& value){
 		return __createArrayFromJSON(value);
 	}
 	}
-
-	return new Value();
+    
+    auto pret = new Value();
+    pret->autorelease();
+    return pret;
 }
 
 inline Value* __createDictFromJSON(const rapidjson::Value& value){
 	DictValue* pret = new DictValue();
+    pret->autorelease();
 	for (auto it = value.MemberBegin(); it != value.MemberEnd(); ++it){
 		Value* item = __createValueFromJSON(it->value);
 		pret->addItem(it->name.GetString(), item);
-		item->release();
+		//item->release();
 	}
 	return pret;
 }
 
 inline Value* __createArrayFromJSON(const rapidjson::Value& value){
 	ArrayValue* pret = new ArrayValue();
+    pret->autorelease();
 	for (int i = 0; i < value.Size(); i++){
 		Value* item = __createValueFromJSON(value[i]);
 		pret->addItem(item);
-		item->release();
+		//item->release();
 	}
 	return pret;
 }
@@ -113,6 +123,7 @@ inline Value* __createArrayFromJSON(const rapidjson::Value& value){
 /****/
 
 ValueJson::ValueJson(){
+    valueType = ValueType::TypeJSON;
 	jsonStr = "";
 	value = 0;
 }
@@ -134,7 +145,8 @@ void ValueJson::writeToBuffer(quyetnd::data::ValueWriter* writer){
 			value->release();
 			value = 0;
 		}
-		this->value = __createValueFromJSON(doc);
+		value = __createValueFromJSON(doc);
+        value->retain();
 		value->writeToBuffer(writer);
 	}
 }
