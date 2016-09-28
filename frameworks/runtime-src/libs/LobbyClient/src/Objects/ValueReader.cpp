@@ -14,8 +14,9 @@
 namespace quyetnd {
 namespace data {
 
-ValueReadArrayBuffer::ValueReadArrayBuffer(int size){
+ValueReadArrayBuffer::ValueReadArrayBuffer(int type, int size){
 	this->size = size;
+    this->type = type;
 	arr.reserve(size);
 }
 
@@ -24,6 +25,40 @@ ValueReadArrayBuffer::~ValueReadArrayBuffer(){
 		arr[i]->release();
 	}
 	arr.clear();
+}
+    
+void ValueReadArrayBuffer::pushValue(Value* value){
+    arr.push_back(value);
+    value->retain();
+}
+
+bool ValueReadArrayBuffer::validate(){
+    return (arr.size() >= size);
+}
+
+Value* ValueReadArrayBuffer::toValue(){
+    if(!validate()){
+        return 0;
+    }
+    if(type == ValueType::TypeArray){
+        auto newValue = new ArrayValue();
+        for (int i = 0; i < arr.size(); i++){
+            newValue->addItem(arr[i]);
+        }
+        newValue->autorelease();
+        return newValue;
+    }
+    else if(type == ValueType::TypeDict){
+        auto newValue = new DictValue();
+        for (int i = 0; i < arr.size(); i += 2){
+            auto key = arr[i];
+            auto value = arr[i + 1];
+            newValue->addItem(((StringValue*)key)->getString(), value);
+        }
+        newValue->autorelease();
+        return newValue;
+    }
+    return 0;
 }
 
 /****/
@@ -421,114 +456,88 @@ int ValueReader::processData(const char* buffer, int& dataSize){
 }
 
 
-void ValueReader::onFinishedReadObject(Value* object){
+void ValueReader::onReadValue(Value* object){
 	if (mStack.empty()){
 		//call obj
 		if (_delegate){
 			_delegate->onRecvMessage(object);
 		}
-		object->release();
 	}
 	else{
 		auto item = mStack.top();
-		item->arr.push_back(object);
-		if (item->arr.size() == item->size){
-			Value* newValue = 0;
-			if (item->type == ValueType::TypeDict){ //dict
-				//quyetnd::log("finishMap : %d", item->size);
-
-				auto dict = new DictValue();
-				for (int i = 0; i < item->size; i += 2){
-					auto key = item->arr[i];
-					auto value = item->arr[i + 1];
-					dict->addItem(((StringValue*)key)->getString(), value);
-				}
-				newValue = dict;
-			}
-			else{ //arr
-				//quyetnd::log("finish arr : %d", item->size);
-
-				auto arr = new ArrayValue();
-				for (int i = 0; i < item->size; i++){
-					arr->addItem(item->arr[i]);
-				}
-				newValue = arr;
-			}
-
-			delete item;
-			mStack.pop();
-			this->onFinishedReadObject(newValue);
-		}
+        item->pushValue(object);
+        if(item->validate()){
+            mStack.pop();
+            auto value = item->toValue();
+            delete item;
+            this->onReadValue(value);
+        }
 	}
 }
 
 void ValueReader::onReadNil(){
-//	quyetnd::log("onReadNil");
-	this->onFinishedReadObject(new Value());
+    auto value = new Value();
+	this->onReadValue(value);
+    value->release();
 }
 
 void ValueReader::onReadBool(bool b){
-//	quyetnd::log("onReadBool : %d", b);
-
 	PrimitiveValue* value = new PrimitiveValue();
 	value->setBool(b);
-	this->onFinishedReadObject(value);
+	this->onReadValue(value);
+    value->release();
 }
 
 void ValueReader::onReadInt(int64_t i64){
-//	quyetnd::log("onReadInt : %d", i64);
-
 	PrimitiveValue* value = new PrimitiveValue();
 	value->setInt(i64);
-	this->onFinishedReadObject(value);
+	this->onReadValue(value);
+    value->release();
 }
 
 void ValueReader::onReadUnsignedInt(uint64_t i64){
-//	quyetnd::log("onReadUInt: %d", i64);
-
 	PrimitiveValue* value = new PrimitiveValue();
 	value->setUInt(i64);
-	this->onFinishedReadObject(value);
+	this->onReadValue(value);
+    value->release();
 }
 
 void ValueReader::onReadFloat(float f){
-//	quyetnd::log("onReadDouble : %f", f);
 	PrimitiveValue* value = new PrimitiveValue();
 	value->setFloat(f);
-	this->onFinishedReadObject(value);
+	this->onReadValue(value);
+    value->release();
 }
 
 void ValueReader::onReadDouble(double d){
-//	quyetnd::log("onReadDouble : %f", d);
 	PrimitiveValue* value = new PrimitiveValue();
 	value->setDouble(d);
-	this->onFinishedReadObject(value);
+	this->onReadValue(value);
+    value->release();
 }
 
 void ValueReader::onReadString(const char* str, uint32_t size){
 	StringValue* value = new StringValue();
 	value->setData(str, size);
-
-//	quyetnd::log("str : %s -- %d", value->getString().c_str(), size);
-	this->onFinishedReadObject(value);
+	this->onReadValue(value);
+    value->release();
 }
 
 void ValueReader::onReadBin(const char* str, uint32_t size){
 	StringValue* value = new StringValue();
 	value->setData(str, size);
-//	quyetnd::log("bin : %s", value->getString().c_str());
-	this->onFinishedReadObject(value);
+	this->onReadValue(value);
+    value->release();
 }
 
 void ValueReader::onReadMap(uint32_t size){
 	if (size == 0){
 		DictValue* value = new DictValue();
-		this->onFinishedReadObject(value);
+		this->onReadValue(value);
+        value->release();
 	}
 	else{
-//		quyetnd::log("map : %d", size);
-		ValueReadArrayBuffer* arr = new ValueReadArrayBuffer(size * 2);
-		arr->type = ValueType::TypeDict;
+        ValueReadArrayBuffer* arr = new ValueReadArrayBuffer(ValueType::TypeDict, size * 2);
 		mStack.push(arr);
 	}	
 }
@@ -536,12 +545,11 @@ void ValueReader::onReadMap(uint32_t size){
 void ValueReader::onReadArray(uint32_t size){
 	if (size == 0){
 		ArrayValue* value = new ArrayValue();
-		this->onFinishedReadObject(value);
+		this->onReadValue(value);
+        value->release();
 	}
 	else{
-//		quyetnd::log("array : %d", size);
-		ValueReadArrayBuffer* arr = new ValueReadArrayBuffer(size);
-		arr->type = ValueType::TypeArray;
+		ValueReadArrayBuffer* arr = new ValueReadArrayBuffer(ValueType::TypeArray, size);
 		mStack.push(arr);
 	}
 }
