@@ -12,6 +12,7 @@ var MiniGameChip = ChipButton.extend({
         this.addChild(selectedSprite);
         this.normalSprite = normalSprite;
         this.selectedSprite = selectedSprite;
+        this.chipIndex = index;
 
         var s = normalSprite.getContentSize();
         this.rectTouch = cc.rect(-s.width/2, -s.height/2, s.width, s.height);

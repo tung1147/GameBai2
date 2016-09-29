@@ -21,6 +21,7 @@ require("js/Dialog/UserDialog.js");
 require("js/Dialog/UserinfoDialog.js");
 require("js/Dialog/UserListDialog.js");
 require("js/Dialog/RewardDialog.js");
+require("js/Dialog/SMSPayDialog.js");
 require("js/app.js");
 require("js/IScene.js");
 require("js/Home/LobbySubLayer.js");

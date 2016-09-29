@@ -37,6 +37,10 @@
             "fnt": "res/fonts/RobotoCondensed_30.fnt"
         },
         {
+            "img": "res/fonts/Roboto_BoldCondensed_36_Glow.png",
+            "fnt": "res/fonts/Roboto_BoldCondensed_36_Glow.fnt"
+        },
+        {
             "img": "res/fonts/UTMAvoBold_25.png",
             "fnt": "res/fonts/UTMAvoBold_25.fnt"
         },
@@ -47,12 +51,20 @@
         {
             "img": "res/fonts/UTMAvoBold_40.png",
             "fnt": "res/fonts/UTMAvoBold_40.fnt"
+        },
+        {
+            "img": "res/fonts/videoPokerRewardFont.png",
+            "fnt": "res/fonts/videoPokerRewardFont.fnt"
         }
     ],
     "texture": [
         {"img": "res/bg-minigame-1.png"},
         {"img": "res/bg_xocdia.png"},
         {"img": "res/bigsmall_bg.png"},
+        {
+            "img": "res/CaoThap.png",
+            "plist": "res/CaoThap.plist"
+        },
         {
             "img": "res/Card.png",
             "plist": "res/Card.plist"
@@ -93,7 +105,15 @@
             "img": "res/lobby.png",
             "plist": "res/lobby.plist"
         },
+        {
+            "img": "res/MiniPoker.png",
+            "plist": "res/MiniPoker.plist"
+        },
         {"img": "res/mnpk_bg.png"},
+        {
+            "img": "res/videopoker.png",
+            "plist": "res/videopoker.plist"
+        },
         {
             "img": "res/VongQuay.png",
             "plist": "res/VongQuay.plist"

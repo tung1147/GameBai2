@@ -23,7 +23,7 @@ var LoadingScene = cc.Scene.extend({
         this.addChild(label);
     },
     nextScene : function () {
-        SystemPlugin.getInstance().enableMipmapTexture("res/Card.png");
+      //  SystemPlugin.getInstance().enableMipmapTexture("res/Card.png");
         cc.director.replaceScene(new HomeScene());
     },
     onEnter : function () {

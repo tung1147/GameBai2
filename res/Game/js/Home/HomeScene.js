@@ -3,7 +3,7 @@
  */
 
 var HomeScene = IScene.extend({
-    ctor : function () {
+    ctor: function () {
         this._super();
         this.type = "HomeScene";
         this.homeLocation = 0;
@@ -12,8 +12,8 @@ var HomeScene = IScene.extend({
         LobbyClient.getInstance().addListener("LobbyStatus", this.onLobbyStatusHandler, this);
 
         var bg = new cc.Sprite("res/game-bg.jpg");
-        bg.x = cc.winSize.width/2;
-        bg.y = cc.winSize.height/2;
+        bg.x = cc.winSize.width / 2;
+        bg.y = cc.winSize.height / 2;
         this.sceneLayer.addChild(bg);
 
         this.mainLayer = new cc.Node();
@@ -26,7 +26,7 @@ var HomeScene = IScene.extend({
         this.mainLayer.addChild(this.userInfo);
 
         this.homeLayer = new HomeLayer();
-        this.mainLayer.addChild(this.homeLayer,1);
+        this.mainLayer.addChild(this.homeLayer, 1);
 
         this.gameLayer = new GameLayer();
         this.mainLayer.addChild(this.gameLayer);
@@ -67,7 +67,7 @@ var HomeScene = IScene.extend({
         });
 
         this.homeLayer.loginBt.addClickEventListener(function () {
-            var loginDialog  = new LoginDialog();
+            var loginDialog = new LoginDialog();
             thiz.popupLayer.addChild(loginDialog);
         });
 
@@ -83,20 +83,61 @@ var HomeScene = IScene.extend({
 
         //
         FloatButton.getInstance().show(this);
+
+        LobbyClient.getInstance().addListener("fetchProducts", this.onSocketMessage, this);
+        LobbyClient.getInstance().addListener("fetchCashinProductItems", this.onFetchCashin, this);
+        LobbyClient.getInstance().addListener("changeAsset", this.onChangeAsset, this);
     },
-    onLoginHandler : function (command, data) {
-      //  cc.log("onLoginHandler");
-        if(data.status == 0){
+    onSocketMessage: function (command, data) {
+        switch (command) {
+            case "fetchProducts":
+                cc.log(JSON.stringify(data));
+                break;
+        }
+    },
+    onFetchCashin: function (command, data) {
+        cc.log(JSON.stringify(data));
+        data = data["data"]["2"];
+        cc.Global.SMSList = [];
+        for (var i = 0; i < data.length; i++) {
+            var currency = data[i]["currency"];
+            var smsGateway = data[i]["detail"]["smsGateway"];
+            var vmsContent = data[i]["detail"]["vmsContent"];
+            var vnpContent = data[i]["detail"]["vnpContent"];
+            var vttContent = data[i]["detail"]["vttContent"];
+            var gold = data[i]["gold"];
+            var id = data[i]["id"];
+            var price = data[i]["price"];
+            cc.Global.SMSList.push({
+                currency: currency,
+                smsGateway: smsGateway,
+                vmsContent: vmsContent,
+                vnpContent: vnpContent,
+                vttContent: vttContent,
+                gold: parseInt(gold.replace(",","")),
+                id: id,
+                price: parseInt(price)
+            });
+        }
+    },
+    onChangeAsset: function (command, data) {
+        data = data["data"];
+        PlayerMe.gold = data["userAssets"]["gold"];
+        this.userInfo.refreshView();
+    },
+    onLoginHandler: function (command, data) {
+        //  cc.log("onLoginHandler");
+        if (data.status == 0) {
             this.userInfo.refreshView();
             this.topBar.refreshView();
         }
     },
-    onLobbyStatusHandler : function () {
-      //  cc.log("onLobbyStatusHandler");
+    onLobbyStatusHandler: function () {
+        //  cc.log("onLobbyStatusHandler");
     },
-    startHome : function () {
+    startHome: function () {
         this.popupLayer.removeAllChildren();
-        if(this.subLayer){
+        if (this.subLayer) {
             this.subLayer.removeFromParent(true);
             this.subLayer = 0;
             this.mainLayer.visible = true;
@@ -105,24 +146,24 @@ var HomeScene = IScene.extend({
         this.gameLayer.visible = true;
         this.lobbyLayer.visible = false;
         this.userInfo.visible = false;
-        if(this.homeLocation == 0 || this.homeLocation == 3) {
+        if (this.homeLocation == 0 || this.homeLocation == 3) {
             this.gameLayer.startAnimation();
         }
-        if(this.homeLocation == 0){
+        if (this.homeLocation == 0) {
             this.miniGame.startAnimation();
         }
         this.homeLayer.y = -100.0;
         this.homeLayer.stopAllActions();
-        this.homeLayer.runAction(new cc.EaseSineOut(new cc.MoveTo(0.3, cc.p(0,0))));
+        this.homeLayer.runAction(new cc.EaseSineOut(new cc.MoveTo(0.3, cc.p(0, 0))));
         this.homeLocation = 1;
         FloatButton.getInstance().setVisible(false);
     },
-    startGame : function () {
+    startGame: function () {
         this.popupLayer.removeAllChildren();
-        if(this.homeLocation == 0 || this.homeLocation == 1){
+        if (this.homeLocation == 0 || this.homeLocation == 1) {
             this.userInfo.y = -100.0;
             this.userInfo.stopAllActions();
-            this.userInfo.runAction(new cc.EaseSineOut(new cc.MoveTo(0.3, cc.p(0,0))));
+            this.userInfo.runAction(new cc.EaseSineOut(new cc.MoveTo(0.3, cc.p(0, 0))));
         }
         this.homeLayer.visible = false;
         this.gameLayer.visible = true;
@@ -130,88 +171,94 @@ var HomeScene = IScene.extend({
         this.userInfo.visible = true;
         this.userInfo.refreshView();
         this.topBar.refreshView();
-        if(this.homeLocation == 0 || this.homeLocation == 3) {
+        if (this.homeLocation == 0 || this.homeLocation == 3) {
             this.gameLayer.startAnimation();
         }
-        if(this.homeLocation == 0){
+        if (this.homeLocation == 0) {
             this.miniGame.startAnimation();
         }
         this.homeLocation = 2;
         FloatButton.getInstance().setVisible(true);
     },
 
-    startLobby : function(){
+    startLobby: function () {
         this.popupLayer.removeAllChildren();
         this.homeLayer.visible = false;
         this.gameLayer.visible = false;
         this.lobbyLayer.visible = true;
         this.userInfo.visible = true;
         this.userInfo.refreshView();
-        if(arguments.length == 1){
+        if (arguments.length == 1) {
             this.lobbyLayer.startGame(arguments[0]);
             LobbyClient.getInstance().subscribe(arguments[0]);
         }
-        else{
+        else {
             this.lobbyLayer.startGame(-1);
         }
         this.homeLocation = 3;
         FloatButton.getInstance().setVisible(true);
     },
-    onTouchGame : function (gameId) {
-        if(this.homeLocation == 1){
-            MessageNode.getInstance().show("Bạn phải đăng nhập trước");
-            return;
+    onTouchGame: function (gameId) {
+        if (this.homeLocation == 1) {
+            //MessageNode.getInstance().show("Bạn phải đăng nhập trước");
+            //return;
         }
-        if(gameId == GameType.MiniGame_CaoThap){
+        if (gameId == GameType.MiniGame_CaoThap) {
+            var caothap = new CaoThapScene();
+            cc.director.replaceScene(new cc.TransitionFade(0.5, caothap, cc.color("#000000")));
+        }
+        else if (gameId == GameType.MiniGame_ChanLe) {
 
         }
-        else if(gameId == GameType.MiniGame_ChanLe){
-
+        else if (gameId == GameType.MiniGame_Pocker) {
+            var minipoker = new MiniPokerScene();
+            cc.director.replaceScene(new cc.TransitionFade(0.5, minipoker, cc.color("#000000")));
         }
-        else if(gameId == GameType.MiniGame_Pocker){
-
-        }
-        else if(gameId == GameType.GAME_VongQuayMayMan){
+        else if (gameId == GameType.GAME_VongQuayMayMan) {
             var vongquay = new VongQuayScene();
             cc.director.replaceScene(new cc.TransitionFade(0.5, vongquay, cc.color("#000000")));
         }
-        else{
+        else if (gameId == GameType.MiniGame_VideoPoker) {
+            var videopoker = new VideoPockerScene();
+            cc.director.replaceScene(new cc.TransitionFade(0.5, videopoker, cc.color("#000000")));
+        }
+        else {
             this.startLobby(gameId);
         }
     },
-    
-    startGameWithAnimation : function () {
+
+    startGameWithAnimation: function () {
         this.startGame();
     },
 
-    backButtonHandler : function () {
+    backButtonHandler: function () {
         var thiz = this;
-        if(LoadingDialog.getInstance().isShow()){
+        if (LoadingDialog.getInstance().isShow()) {
             return;
         }
-        if(this.popupLayer.getChildren().length > 0){
+        if (this.popupLayer.getChildren().length > 0) {
             this.popupLayer.removeAllChildren();
             return;
         }
-        if(this.subLayer){
+        if (this.subLayer) {
             this.subLayer.removeFromParent(true);
             this.subLayer = 0;
             this.mainLayer.visible = true;
-            if(this.homeLocation == 2){
+            if (this.homeLocation == 2) {
                 this.miniGame.startAnimation();
                 this.gameLayer.startAnimation();
             }
-            if(this.homeLocation == 3){
+            if (this.homeLocation == 3) {
                 this.lobbyLayer.startAnimation();
                 this.miniGame.startAnimation();
             }
             return;
         }
-        if(this.homeLocation == 1){
+        if (this.homeLocation == 1) {
             //exit app
             SystemPlugin.getInstance().exitApp();
         }
-        else if(this.homeLocation == 2){
+        else if (this.homeLocation == 2) {
             //logout
             //to home
             var dialog = new MessageConfirmDialog();
@@ -224,14 +271,14 @@ var HomeScene = IScene.extend({
             };
             dialog.show();
         }
-        else if(this.homeLocation == 3){
+        else if (this.homeLocation == 3) {
             //to game
             LobbyClient.getInstance().unSubscribe();
             this.startGame();
         }
     },
 
-    addSubLayer : function (subLayer) {
+    addSubLayer: function (subLayer) {
         var thiz = this;
         subLayer.backBt.addClickEventListener(function () {
             thiz.backButtonHandler();
@@ -245,29 +292,29 @@ var HomeScene = IScene.extend({
         this.mainLayer.visible = false;
     },
 
-    newsButtonhandler : function () {
-        if(this.homeLocation == 1){
+    newsButtonhandler: function () {
+        if (this.homeLocation == 1) {
             MessageNode.getInstance().show("Bạn phải đăng nhập trước");
             return;
         }
         this.addSubLayer(new NewsLayer());
     },
-    
-    rankButtonHandler : function () {
-        if(this.homeLocation == 1){
+
+    rankButtonHandler: function () {
+        if (this.homeLocation == 1) {
             MessageNode.getInstance().show("Bạn phải đăng nhập trước");
             return;
         }
         this.addSubLayer(new RankLayer());
     },
 
-    settingButtonHandler : function () {
+    settingButtonHandler: function () {
         var dialog = new SettingDialog();
         dialog.showWithAnimationMove();
     },
 
-    callButtonHandler : function () {
-       // SystemPlugin.getInstance().showCallPhone(GameConfig.hotline);
+    callButtonHandler: function () {
+        // SystemPlugin.getInstance().showCallPhone(GameConfig.hotline);
 
         // var request = cc.loader.getXMLHttpRequest();
         // request.open("GET", "google.com");
@@ -283,28 +330,28 @@ var HomeScene = IScene.extend({
         // request.send();
     },
 
-    newsMesasgeButtonHandler : function () {
-        if(this.homeLocation == 1){
+    newsMesasgeButtonHandler: function () {
+        if (this.homeLocation == 1) {
             MessageNode.getInstance().show("Bạn phải đăng nhập trước");
             return;
         }
         this.addSubLayer(new InboxLayer());
     },
-    
-    rewardButtonHandler : function () {
+
+    rewardButtonHandler: function () {
         this.addSubLayer(new RewardLayer());
     },
-    
-    paymentButtonHandler : function () {
+
+    paymentButtonHandler: function () {
         this.addSubLayer(new PaymentLayer());
     },
-    
-    userInfoButtonHandler : function () {
+
+    userInfoButtonHandler: function () {
         var dialog = new UserinfoDialog();
         dialog.showWithAnimationMove();
     },
 
-    onEnter : function () {
+    onEnter: function () {
         this._super();
         var thiz = this;
         cc.eventManager.addListener({
@@ -312,15 +359,15 @@ var HomeScene = IScene.extend({
             // onKeyPressed:  function(keyCode, event){
             //     cc.log("Key " + parseKeyCode(keyCode) + " was pressed!");
             // },
-            onKeyReleased: function(keyCode, event){
-                if(parseKeyCode(keyCode) == cc.KEY.back){
+            onKeyReleased: function (keyCode, event) {
+                if (parseKeyCode(keyCode) == cc.KEY.back) {
                     thiz.backButtonHandler();
                 }
             }
         }, this);
     },
 
-    onExit : function () {
+    onExit: function () {
         this._super();
         LobbyClient.getInstance().removeListener(this);
     }

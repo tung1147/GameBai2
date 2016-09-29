@@ -43,6 +43,9 @@ cc.res.font.Roboto_Condensed_25 = "res/fonts/RobotoCondensed_25.fnt";
 cc.res.font.Roboto_CondensedBold_25 = "res/fonts/RobotoBoldCondensed_25.fnt";
 cc.res.font.UTM_AvoBold_25 = "res/fonts/UTMAvoBold_25.fnt";
 
+cc.res.font.Roboto_BoldCondensed_36_Glow = "/res/fonts/Roboto_BoldCondensed_36_Glow.fnt";
+cc.res.font.videoPokerRewardFont = "/res/fonts/videoPokerRewardFont.fnt";
+
 var GameType = GameType || {};
 GameType.GAME_MauBinh = 0;
 GameType.GAME_TienLenMN = 1;
@@ -59,6 +62,7 @@ GameType.GAME_BaCayChuong = 11;
 GameType.MiniGame_ChanLe = 12;
 GameType.MiniGame_CaoThap = 13;
 GameType.MiniGame_Pocker = 14;
+GameType.MiniGame_VideoPoker = 15;
 
 var s_game_id = s_game_id || [
     [
@@ -68,7 +72,7 @@ var s_game_id = s_game_id || [
         GameType.GAME_Sam_Solo, GameType.GAME_Sam,
         GameType.GAME_Phom, GameType.GAME_BaCay,
         GameType.GAME_VongQuayMayMan, GameType.MiniGame_ChanLe,
-        GameType.GAME_MauBinh
+        //GameType.GAME_MauBinh,GameType.MiniGame_VideoPoker
     ],
     [
         GameType.GAME_TLMN_Solo, GameType.GAME_TienLenMN,
@@ -78,7 +82,7 @@ var s_game_id = s_game_id || [
     ],
     [
         GameType.MiniGame_CaoThap, GameType.MiniGame_Pocker,
-        GameType.MiniGame_ChanLe
+        /*GameType.MiniGame_ChanLe*/GameType.MiniGame_VideoPoker
     ],
     [
         GameType.GAME_VongQuayMayMan

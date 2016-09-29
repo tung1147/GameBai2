@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>frames</key>
+		<dict>
+			<key>minipoker_huthuong.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,711},{95,26}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{0,0},{95,26}}</string>
+				<key>sourceSize</key>
+				<string>{95,26}</string>
+			</dict>
+
+			<key>poker_cards_border.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,513},{199,197}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{0,0},{199,197}}</string>
+				<key>sourceSize</key>
+				<string>{199,197}</string>
+			</dict>
+
+			<key>quaytudong.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,470},{206,42}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{9,12},{206,42}}</string>
+				<key>sourceSize</key>
+				<string>{236,65}</string>
+			</dict>
+
+			<key>quaytudong_active.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,404},{236,65}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{0,0},{236,65}}</string>
+				<key>sourceSize</key>
+				<string>{236,65}</string>
+			</dict>
+
+			<key>rewardIcon.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,764},{21,22}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{0,0},{21,22}}</string>
+				<key>sourceSize</key>
+				<string>{21,22}</string>
+			</dict>
+
+			<key>reward_bg.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,738},{25,25}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{0,0},{25,25}}</string>
+				<key>sourceSize</key>
+				<string>{25,25}</string>
+			</dict>
+
+			<key>roll_bg.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,0},{860,403}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{0,0},{860,403}}</string>
+				<key>sourceSize</key>
+				<string>{860,403}</string>
+			</dict>
+
+		</dict>
+
+		<key>metadata</key>
+		<dict>
+			<key>format</key>
+			<integer>2</integer>
+			<key>size</key>
+			<string>{861,787}</string>
+			<key>textureFileName</key>
+			<string>sprites.png</string>
+			</dict>
+		</dict>
+</plist>

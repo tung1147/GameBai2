@@ -18,6 +18,8 @@
 	"js/Dialog/UserinfoDialog.js",
 	"js/Dialog/UserListDialog.js",
 	"js/Dialog/RewardDialog.js",
+	"js/Dialog/SMSPayDialog.js",
+	"js/Dialog/StatisticBoard.js",
 	"js/app.js",
 	"js/IScene.js",
 	"js/Home/LobbySubLayer.js",

@@ -21,6 +21,10 @@ var IDialog = cc.Node.extend({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches:true,
             onTouchBegan : function (touch, event) {
+                var p = thiz.convertToNodeSpace(touch.getLocation());
+                if(cc.rectContainsPoint(thiz.mTouch, p)){
+                    thiz.adjustlel();
+                }
                 return true;
             },
             onTouchEnded : function (touch, event) {
@@ -162,4 +166,7 @@ var Dialog = IDialog.extend({
     closeButtonHandler : function () {
         this.hide();
     },
+    adjustlel : function () {
+
+    }
 });

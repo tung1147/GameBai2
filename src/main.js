@@ -51,12 +51,11 @@
  }
  *
  */
-
 require("src/LoadingScene.js");
 
-cc.game.onStart = function(){
-  //  if(!cc.sys.isNative && document.getElementById("cocosLoading")) //If referenced loading.js, please remove it
-      //  document.body.removeChild(document.getElementById("cocosLoading"));
+cc.game.onStart = function () {
+    //  if(!cc.sys.isNative && document.getElementById("cocosLoading")) //If referenced loading.js, please remove it
+    //  document.body.removeChild(document.getElementById("cocosLoading"));
 
     // Pass true to enable retina display, on Android disabled by default to improve performance
     cc.view.enableRetina(cc.sys.os === cc.sys.OS_IOS ? true : false);
@@ -65,23 +64,38 @@ cc.game.onStart = function(){
     var frameSize = cc.view.getFrameSize();
     var designHeight = 720.0;
     var designWidth = frameSize.width * designHeight / frameSize.height;
-    if (designWidth < 960.0){
+    if (designWidth < 960.0) {
         designWidth = 960.0;
     }
-    if (designWidth > 1280.0){
+    if (designWidth > 1280.0) {
         designWidth = 1280.0;
     }
+
+    // Setup the resolution policy and design resolution size
     cc.view.setDesignResolutionSize(designWidth, designHeight, cc.ResolutionPolicy.SHOW_ALL);
     cc.winSize.screenScale = designWidth / 1280.0;
-    // Setup the resolution policy and design resolution size
-    //cc.view.setDesignResolutionSize(960, 640, cc.ResolutionPolicy.SHOW_ALL);
     // Instead of set design resolution, you can also set the real pixel resolution size
     // Uncomment the following line and delete the previous line.
     // cc.view.setRealPixelResolution(960, 640, cc.ResolutionPolicy.SHOW_ALL);
     // The game will be resized when browser size change
     //cc.view.resizeWithBrowserSize(true);
     //load resources
-    cc.log("on start");
-    cc.director.runScene(new LoadingScene());
+    //LobbyClient.getInstance();
+    //SystemPlugin.getInstance().enableMipmapTexture("res/Card.png");
+
+    //cc.director.replaceScene(new VongQuayScene());
+
+  //  cc.director.replaceScene(new HomeScene());
+    //cc.director.replaceScene(new CaoThapScene());
+    //cc.director.replaceScene(new VideoPockerScene());
+    cc.director.replaceScene(new LoadingScene());
 };
 cc.game.run();
+
+var testJSFunc = function (param) {
+    cc.log("params: " + param);
+    // var pret = {
+    //     name : "name1234"
+    // };
+    // return pret;
+}
