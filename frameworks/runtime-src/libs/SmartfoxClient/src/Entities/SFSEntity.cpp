@@ -9,8 +9,8 @@
 #include "SFSObject.h"
 #include "SFSPrimitive.h"
 #include "SFSArray.h"
-#include "rapidjson/rapidjson.h"
-#include "rapidjson/document.h"
+#include "rapidjson/stringbuffer.h"
+#include "rapidjson/prettywriter.h"
 #include <stdint.h>
 
 namespace SFS{
@@ -25,8 +25,8 @@ SFSEntity::~SFSEntity() {
 	// TODO Auto-generated destructor stub
 }
 
-void SFSEntity::writeToJSON(std::ostringstream& stream){
-	stream << "null";
+void SFSEntity::toValue(rapidjson::Value& value, rapidjson::Document::AllocatorType& allocator){
+	value.SetNull();
 }
 
 void SFSEntity::writeToBuffer(StreamWriter* writer){
@@ -37,15 +37,22 @@ void SFSEntity::initWithReader(StreamReader* reader){
 
 }
 
+#ifdef SFS_LOGGER
 void SFSEntity::printDebug(std::ostringstream& os, int padding){
 
 }
+#endif
 
 std::string SFSEntity::toJSON(){
-	std::ostringstream stringStream;
-	//stringStream << std::setprecision(17);
-	this->writeToJSON(stringStream);
-	return stringStream.str();
+	rapidjson::Document doc;
+	this->toValue(doc, doc.GetAllocator());
+
+	rapidjson::StringBuffer buffer;
+	buffer.Clear();
+	rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
+	doc.Accept(writer);
+	std::string jsonData = buffer.GetString();
+	return jsonData;
 }
 
 SFSEntity* SFSEntity::createSFSEntityWithReader(StreamReader* reader){
@@ -116,15 +123,19 @@ SFSEntity* __SFS_createEntityFromJSON(rapidjson::Value& value){
 	switch (type)
 	{
 	case rapidjson::Type::kNullType:{
-		return new SFSEntity();
+        auto pret = new SFSEntity();
+        pret->autoRelease();
+        return pret;
 	}
 	case rapidjson::Type::kFalseType:{
 		auto pret = new SFSPrimitive();
+        pret->autoRelease();
 		pret->setBool(false);
 		return pret;
 	}
 	case rapidjson::Type::kTrueType:{
 		auto pret = new SFSPrimitive();
+        pret->autoRelease();
 		pret->setBool(true);
 		return pret;
 	}
@@ -133,6 +144,7 @@ SFSEntity* __SFS_createEntityFromJSON(rapidjson::Value& value){
 	}
 	case rapidjson::Type::kStringType:{
 		auto pret = new SFSString();
+        pret->autoRelease();
 		pret->setString(value.GetString());
 		return pret;
 	}
@@ -144,11 +156,14 @@ SFSEntity* __SFS_createEntityFromJSON(rapidjson::Value& value){
 	}
 	}
 
-	return new SFSEntity();
+    auto pret = new SFSEntity();
+    pret->autoRelease();
+    return pret;
 }
 
 SFSEntity* __SFS_createNumberFromJSON(rapidjson::Value& value){
 	auto pret = new SFSPrimitive();
+    pret->autoRelease();
 	if (value.IsInt()){
 		pret->setInt(value.GetInt());
 	}
@@ -169,10 +184,11 @@ SFSEntity* __SFS_createNumberFromJSON(rapidjson::Value& value){
 
 SFSEntity* __SFS_createObjectFromJSON(rapidjson::Value& value){
 	auto pret = new SFSObject();
+    pret->autoRelease();
 	for (auto it = value.MemberBegin(); it != value.MemberEnd(); it++){
 		SFSEntity* value = __SFS_createEntityFromJSON(it->value);
 		pret->setItem(it->name.GetString(), value);
-		value->release();
+		//value->release();
 	}
 	return pret;
 }
@@ -203,10 +219,11 @@ SFSEntity* __SFS_createArrayFromJSON(rapidjson::Value& value){
 	}
 
 	SFSArray* arr = new SFSArray();
+    arr->autoRelease();
 	for (int i = 0; i < value.Size(); i++){
 		SFSEntity* item = __SFS_createEntityFromJSON(value[i]);
 		arr->addItem(item);
-		item->release();
+		//item->release();
 	}
 	
 	if (!_flag){
@@ -239,7 +256,7 @@ SFSEntity* SFSEntity::createFromJSON(const char* json, int size){
 	if (!b){
 		if (doc.IsObject()){		
 			SFSEntity*  value = __SFS_createEntityFromJSON(doc);
-			value->autoRelease();
+			//value->autoRelease();
 			return value;
 		}	
 	}

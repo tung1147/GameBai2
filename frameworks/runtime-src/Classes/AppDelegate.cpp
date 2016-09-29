@@ -230,7 +230,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 	ScriptEngineProtocol *engine = ScriptingCore::getInstance();
 	ScriptEngineManager::getInstance()->setScriptEngine(engine);
 	GameFile* mainJs = GameLaucher::getInstance()->getMainJs();
-	if (mainJs){
+	if (mainJs && mainJs->test()){
 		std::string file = FileUtils::getInstance()->fullPathForFilename(mainJs->fileName);
 		if (file != ""){
 			bool b = ScriptingCore::getInstance()->runScript(file);

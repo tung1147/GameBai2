@@ -69,36 +69,7 @@ void PrimitiveValue::writeToBuffer(quyetnd::data::ValueWriter* writer){
 	}
 }
 
-void PrimitiveValue::writeJson(std::ostringstream& str){
-	switch (valueType){
-	case ValueType::TypeBool:{
-		if (data.boolValue){
-			str << "true";
-		}
-		else{
-			str << "false";
-		}
-		break;
-	}
-	case ValueType::TypeFloat:{
-		str << data.floatValue;
-		break;
-	}
-	case ValueType::TypeDouble:{
-		str << data.doubleValue;
-		break;
-	}
-	case ValueType::TypeInt:{
-		str << data.i64Value;
-		break;
-	}
-	case ValueType::TypeUInt:{
-		str << data.ui64Value;
-		break;
-	}
-	}
-}
-
+#ifdef LOBBY_LOGGER
 void PrimitiveValue::printToOutStream(std::ostringstream& outStream, int padding){
 	switch (valueType)
 	{
@@ -124,6 +95,36 @@ void PrimitiveValue::printToOutStream(std::ostringstream& outStream, int padding
 	}
 	default:
 		outStream << "[NULL]";
+		break;
+	}
+}
+#endif
+
+void PrimitiveValue::toValue(rapidjson::Value& value, rapidjson::Document::AllocatorType& allocator){
+	switch (valueType)
+	{
+	case ValueType::TypeBool:{
+		value.SetBool(data.boolValue);
+		return;
+	}
+	case ValueType::TypeFloat:{
+		value.SetFloat(data.floatValue);
+		return;
+	}
+	case ValueType::TypeDouble:{
+		value.SetDouble(data.doubleValue);
+		return;
+	}
+	case ValueType::TypeInt:{
+		value.SetInt64(data.i64Value);
+		return;
+	}
+	case ValueType::TypeUInt:{
+		value.SetUint64(data.ui64Value);
+		return;
+	}
+	default:
+		value.SetNull();
 		break;
 	}
 }
@@ -186,13 +187,14 @@ StringValue::~StringValue(){
 void StringValue::writeToBuffer(quyetnd::data::ValueWriter* writer){
 	writer->writeString(data);
 }
-
-void StringValue::writeJson(std::ostringstream& str){
-	str << "\"" << _value_escape_json(data) << "\"";
-}
-
+#ifdef LOBBY_LOGGER
 void StringValue::printToOutStream(std::ostringstream& outStream, int padding){
 	outStream << "[String] " << data;
+}
+#endif
+
+void StringValue::toValue(rapidjson::Value& value, rapidjson::Document::AllocatorType& allocator){
+	value.SetString(data, allocator);
 }
 
 void StringValue::setString(const std::string& str){

@@ -82,6 +82,7 @@ void PluginMessageEvent::getBytes(std::vector<char> &buffer){
 }
 
 void PluginMessageEvent::printDebug(){
+#ifdef ES_LOGGER
 	es::log("pluginName:%s", pluginName.c_str());
 	es::log("sentToRoom:%d", sentToRoom);
 	es::log("destinationZoneId:%d", destinationZoneId);
@@ -92,6 +93,7 @@ void PluginMessageEvent::printDebug(){
 	if (parameters){
 		parameters->printDebug();
 	}
+#endif
 }
 
 } /* namespace es */

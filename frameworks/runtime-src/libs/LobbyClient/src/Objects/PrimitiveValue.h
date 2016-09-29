@@ -21,13 +21,14 @@ class PrimitiveValue : public Value{
 		int64_t i64Value;
 		uint64_t ui64Value;
 	} data;
-
+#ifdef LOBBY_LOGGER
 	virtual void printToOutStream(std::ostringstream& outStream, int padding);
+#endif
+	virtual void toValue(rapidjson::Value& value, rapidjson::Document::AllocatorType& allocator);
 public:
 	PrimitiveValue();
 	virtual ~PrimitiveValue();
 	virtual void writeToBuffer(quyetnd::data::ValueWriter* writer);
-	virtual void writeJson(std::ostringstream& str);
 
 	void setBool(bool b);
 	void setFloat(float f);
@@ -43,13 +44,16 @@ public:
 };
 
 class StringValue : public Value{
+protected:
 	std::string data;
+#ifdef LOBBY_LOGGER
 	virtual void printToOutStream(std::ostringstream& outStream, int padding);
+#endif
+	virtual void toValue(rapidjson::Value& value, rapidjson::Document::AllocatorType& allocator);
 public:
 	StringValue();
 	virtual ~StringValue();
 	virtual void writeToBuffer(quyetnd::data::ValueWriter* writer);
-	virtual void writeJson(std::ostringstream& str);
 
 	void setString(const std::string& str);
 	void setData(const char* data, int size);

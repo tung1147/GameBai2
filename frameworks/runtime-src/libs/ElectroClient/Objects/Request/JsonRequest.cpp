@@ -68,12 +68,15 @@ void JsonRequest::getBytes(std::vector<char> &buffer){
 			}
 		}
 	}
-
+#ifdef ES_LOGGER
 	es::log("error parse json");
+#endif
 }
 
 void JsonRequest::printDebug(){
+#ifdef ES_LOGGER
 	es::log("SEND message[%s] - %d bytes", es::type::messageTypeName(requestType), requestSize);
+#endif
 }
 
 } /* namespace es */

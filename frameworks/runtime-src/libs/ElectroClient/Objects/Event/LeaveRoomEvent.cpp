@@ -10,6 +10,7 @@
 #include "../thrift/libs/TBinaryProtocol.h"
 #include "../thrift/libs/TBufferTransports.h"
 #include "../thrift/ThriftLeaveRoomEvent_types.h"
+#include "../../ElectroLogger.h"
 
 namespace es {
 
@@ -52,7 +53,10 @@ bool LeaveRoomEvent::initWithBytes(const char* bytes, int len){
 }
 
 void LeaveRoomEvent::printDebug(){
-
+#ifdef ES_LOGGER
+	es::log("zoneId: %d", zoneId);
+	es::log("roomId: %d", roomId);
+#endif
 }
 
 } /* namespace es */

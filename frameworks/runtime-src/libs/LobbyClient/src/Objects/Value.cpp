@@ -10,6 +10,8 @@
 #include "ArrayValue.h"
 #include "DictValue.h"
 #include <iomanip>
+#include "rapidjson/stringbuffer.h"
+#include "rapidjson/prettywriter.h"
 #include "../Logger/Logger.h"
 
 namespace quyetnd {
@@ -29,24 +31,17 @@ void Value::writeToBuffer(quyetnd::data::ValueWriter* writer){
 	writer->writeNil();
 }
 
-void Value::writeJson(std::ostringstream& str){
-	str << "null";
-}
-
-void Value::printDebug(){
 #ifdef LOBBY_LOGGER
+void Value::printDebug(){
 	std::ostringstream outputStream;
 	this->printToOutStream(outputStream, 0);
 	refreshLogBuffer(outputStream);
-#endif
 }
 
 void Value::refreshLogBuffer(std::ostringstream& outStream){
-#ifdef LOBBY_LOGGER
 	quyetnd::log_to_console(outStream.str().c_str());
 	outStream.str("");
 	outStream.clear();
-#endif
 }
 
 void Value::printToOutStream(std::ostringstream& outStream, int padding){
@@ -62,12 +57,27 @@ void Value::printPadding(std::ostringstream& outStream, int padding){
 #endif	
 	}
 }
+#endif
+
+void Value::toValue(rapidjson::Value& value, rapidjson::Document::AllocatorType& allocator){
+	value.SetNull();
+}
 
 std::string Value::toJSON(){
-	std::ostringstream stringStream;
+	/*std::ostringstream stringStream;
 	stringStream << std::setprecision(17);
 	this->writeJson(stringStream);
-	return stringStream.str();
+	return stringStream.str();*/
+
+	rapidjson::Document doc;
+	this->toValue(doc, doc.GetAllocator());
+
+	rapidjson::StringBuffer buffer;
+	buffer.Clear();
+	rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
+	doc.Accept(writer);
+	std::string jsonData = buffer.GetString();
+	return jsonData;
 }
 
 }

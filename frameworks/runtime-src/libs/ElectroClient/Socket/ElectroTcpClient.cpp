@@ -11,7 +11,7 @@
 #include "../ElectroLogger.h"
 #include "../Objects/EsUtil.h"
 
-#define ES_DEBUG 1
+//#define ES_DEBUG 1
 
 namespace es{
 
@@ -69,7 +69,7 @@ void TcpSocketSender::update(){
 						continue;
 					}
 					else{
-#ifdef ES_DEBUG
+#ifdef ES_LOGGER
 						es::log("---------------------");
 						//es::log("SEND message[%s] - %d bytes", es::type::messageTypeName(sendData->messageType), sentData);
 						sendData->printDebug();
@@ -80,7 +80,7 @@ void TcpSocketSender::update(){
 					break;
 				}
 				else if (rs == 0){
-#ifdef ES_DEBUG
+#ifdef ES_LOGGER
 					es::log("server shutdown[2]");
 #endif
 					this->setRunning(false);
@@ -88,7 +88,7 @@ void TcpSocketSender::update(){
 					break;
 				}
 				else{
-#ifdef ES_DEBUG
+#ifdef ES_LOGGER
 					es::log("send error");
 #endif
 					this->setRunning(false);
@@ -142,7 +142,7 @@ void TcpSocketReceiver::updateCrossDomain(char* data, int size){
 		recvBuffer.clear();
 
 		updateRecvData(&data[i + 1], size - (i + 1));
-#ifdef ES_DEBUG
+#ifdef ES_LOGGER
 		es::log("crossDomain:\n%s", crossDomainString.c_str());
 #endif
 	}
@@ -199,7 +199,7 @@ void TcpSocketReceiver::processMessage(char *data, int len){
 		message->messageType = type;
 		message->messageNumber = messageNumber;
 		if (message->initWithBytes(&data[7], len - 7)){
-#ifdef ES_DEBUG
+#ifdef ES_LOGGER
 			es::log(" ---------- ");
 			es::log("RECV message[%s] : %d bytes", es::type::messageTypeName(type), headerSize + 4);
 			message->printDebug();
@@ -208,12 +208,12 @@ void TcpSocketReceiver::processMessage(char *data, int len){
 			mData->push(message);
 		}
 		else{
-#ifdef ES_DEBUG
+#ifdef ES_LOGGER
 			es::log("RECV message[%s] not init", es::type::messageTypeName(type));
 #endif
 		}
 	}else{
-#ifdef ES_DEBUG
+#ifdef ES_LOGGER
 		es::log("RECV message[%s] not handler", es::type::messageTypeName(type));
 #endif
 		message->release();
@@ -246,14 +246,14 @@ void TcpSocketReceiver::update(){
 			}
 		}
 		else if (rs == 0){
-#ifdef ES_DEBUG
+#ifdef ES_LOGGER
 			es::log("server shutdown[1]");
 #endif
 			this->setRunning(false);
 			break;
 		}
 		else{
-#ifdef ES_DEBUG
+#ifdef ES_LOGGER
 			es::log("recv header error");
 #endif
 			this->setRunning(false);
@@ -294,17 +294,18 @@ void TcpSocketClient::closeSocket(){
 	std::unique_lock<std::mutex> lk(socketMutex);
 	if (mSocket != SYS_SOCKET_INVALID){
 #ifdef USE_WINSOCK_2
-		closesocket(mSocket);
-		//shutdown(mSocket, SD_BOTH);
+		//closesocket(mSocket);
+		shutdown(mSocket, SD_BOTH);
 #else
-		close(mSocket);
-		//shutdown(mSocket, SHUT_RDWR);
+		//close(mSocket);
+		shutdown(mSocket, SHUT_RDWR);
 #endif
 		mSocket = SYS_SOCKET_INVALID;
 	}
 }
 
 void TcpSocketClient::resetSocket(){
+	this->closeSocket();
 	std::unique_lock<std::mutex> lk(socketMutex);
 	mSocket = SYS_SOCKET_INVALID;
 }
@@ -342,14 +343,18 @@ bool TcpSocketClient::connectThread(){
 	char service[16];
 	sprintf(service, "%d", port);
     if (int ret = getaddrinfo(host.c_str(), service, &hints, &peer) != 0){
+#ifdef ES_LOGGER
         es::log("getaddrinfo failure %d", ret);
+#endif
         return false;
     }
     
     for(auto _peer = peer; _peer; _peer = _peer->ai_next){
         mSocket = socket(_peer->ai_family, _peer->ai_socktype, _peer->ai_protocol);
         if (mSocket == SYS_SOCKET_INVALID){
+#ifdef ES_LOGGER
 			es::log("create socket failure");
+#endif
             continue;
         }
         
@@ -370,7 +375,9 @@ bool TcpSocketClient::connectThread(){
     }
 
 	freeaddrinfo(peer);
+#ifdef ES_LOGGER
 	es::log("connection failure 3");
+#endif
 	return false;
 }
 

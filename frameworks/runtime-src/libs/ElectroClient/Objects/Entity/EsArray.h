@@ -26,7 +26,9 @@ public:
 
 	virtual void writeToBuffer(EsMessageWriter* writer);
 	virtual void readFromBuffer(EsMessageReader* reader);
+#ifdef ES_LOGGER
 	virtual void printDebugToBuffer(std::ostringstream &outStream, int padding);
+#endif
 	virtual void toJson(rapidjson::Value& value, rapidjson::Document::AllocatorType &allocator);
 	
 	bool getBool(int index);

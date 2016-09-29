@@ -135,6 +135,7 @@ void LoginRequest::getBytes(std::vector<char> &buffer){
 }
 
 void LoginRequest::printDebug(){
+#ifdef ES_LOGGER
 	es::log("[LoginRequest]");
 	es::log("username : %s", userName.c_str());
 	es::log("passwords : %s", password.c_str());
@@ -159,6 +160,7 @@ void LoginRequest::printDebug(){
 			it->second->printDebugToBuffer(outStream, a);
 		}
 	}
+#endif
 }
 
 } /* namespace es */

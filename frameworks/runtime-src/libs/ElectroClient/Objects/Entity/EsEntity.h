@@ -25,7 +25,9 @@ class EsPrimitive;
 class EsString;
 class EsEntity {
 protected:
+#ifdef ES_LOGGER
 	virtual void printPadding(std::ostream &outStream, int padding);
+#endif
 public:
 	int type;
 public:
@@ -41,8 +43,10 @@ public:
 	virtual void writeToFlattenedEsObject(void* esObject);
 	virtual void writeToFlattenedEsObjectRO(void* esObject);
 
+#ifdef ES_LOGGER
 	virtual void printDebug();
 	virtual void printDebugToBuffer(std::ostringstream &outStream, int padding);
+#endif
 
 	virtual void toJson(rapidjson::Value& value, rapidjson::Document::AllocatorType &allocator);
 

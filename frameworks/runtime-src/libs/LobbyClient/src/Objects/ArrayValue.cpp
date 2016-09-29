@@ -27,17 +27,6 @@ void ArrayValue::writeToBuffer(quyetnd::data::ValueWriter* writer){
 	}	
 }
 
-void ArrayValue::writeJson(std::ostringstream& str){
-	str << "[";
-	for (int i = 0; i < data.size(); i++){
-		if (i > 0){
-			str << ",";
-		}
-		data[i]->writeJson(str);
-	}
-	str << "]";
-}
-
 ArrayValue::~ArrayValue() {
 	// TODO Auto-generated destructor stub
 	this->clear();
@@ -48,7 +37,7 @@ ArrayValue* ArrayValue::create(){
 	value->autorelease();
 	return value;
 }
-
+#ifdef LOBBY_LOGGER
 void ArrayValue::printToOutStream(std::ostringstream& outStream, int padding){
 	outStream << "[Array](" << data.size() << ")" << std::endl;
 	refreshLogBuffer(outStream);
@@ -63,6 +52,15 @@ void ArrayValue::printToOutStream(std::ostringstream& outStream, int padding){
 	}
 	this->printPadding(outStream, padding);
 	outStream << "}";
+}
+#endif
+void ArrayValue::toValue(rapidjson::Value& value, rapidjson::Document::AllocatorType& allocator){
+	value.SetArray();
+	for (int i = 0; i < data.size(); i++){
+		rapidjson::Value obj;
+		data[i]->toValue(obj, allocator);
+		value.PushBack(obj, allocator);
+	}
 }
 
 void ArrayValue::addItem(Value* item){

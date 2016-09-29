@@ -10,6 +10,7 @@
 #include "../thrift/libs/TBinaryProtocol.h"
 #include "../thrift/libs/TBufferTransports.h"
 #include "../thrift/ThriftPrivateMessageEvent_types.h"
+#include "../../ElectroLogger.h"
 
 namespace es {
 
@@ -62,7 +63,13 @@ bool PrivateMessageEvent::initWithBytes(const char* bytes, int len){
 }
 
 void PrivateMessageEvent::printDebug(){
-
+#ifdef ES_LOGGER
+	es::log("userName: %s", userName.c_str());
+	es::log("message: %s", message.c_str());
+	if (esObject){
+		esObject->printDebug();
+	}
+#endif
 }
 
 } /* namespace es */

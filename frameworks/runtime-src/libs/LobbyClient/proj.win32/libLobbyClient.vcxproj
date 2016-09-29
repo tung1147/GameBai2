@@ -24,8 +24,8 @@
     <ClInclude Include="..\src\Objects\rapidjson\error\en.h" />
     <ClInclude Include="..\src\Objects\rapidjson\error\error.h" />
     <ClInclude Include="..\src\Objects\rapidjson\filereadstream.h" />
-    <ClInclude Include="..\src\Objects\rapidjson\filestream.h" />
     <ClInclude Include="..\src\Objects\rapidjson\filewritestream.h" />
+    <ClInclude Include="..\src\Objects\rapidjson\fwd.h" />
     <ClInclude Include="..\src\Objects\rapidjson\internal\biginteger.h" />
     <ClInclude Include="..\src\Objects\rapidjson\internal\diyfp.h" />
     <ClInclude Include="..\src\Objects\rapidjson\internal\dtoa.h" />
@@ -33,16 +33,23 @@
     <ClInclude Include="..\src\Objects\rapidjson\internal\itoa.h" />
     <ClInclude Include="..\src\Objects\rapidjson\internal\meta.h" />
     <ClInclude Include="..\src\Objects\rapidjson\internal\pow10.h" />
+    <ClInclude Include="..\src\Objects\rapidjson\internal\regex.h" />
     <ClInclude Include="..\src\Objects\rapidjson\internal\stack.h" />
     <ClInclude Include="..\src\Objects\rapidjson\internal\strfunc.h" />
     <ClInclude Include="..\src\Objects\rapidjson\internal\strtod.h" />
+    <ClInclude Include="..\src\Objects\rapidjson\internal\swap.h" />
+    <ClInclude Include="..\src\Objects\rapidjson\istreamwrapper.h" />
     <ClInclude Include="..\src\Objects\rapidjson\memorybuffer.h" />
     <ClInclude Include="..\src\Objects\rapidjson\memorystream.h" />
     <ClInclude Include="..\src\Objects\rapidjson\msinttypes\inttypes.h" />
     <ClInclude Include="..\src\Objects\rapidjson\msinttypes\stdint.h" />
+    <ClInclude Include="..\src\Objects\rapidjson\ostreamwrapper.h" />
+    <ClInclude Include="..\src\Objects\rapidjson\pointer.h" />
     <ClInclude Include="..\src\Objects\rapidjson\prettywriter.h" />
     <ClInclude Include="..\src\Objects\rapidjson\rapidjson.h" />
     <ClInclude Include="..\src\Objects\rapidjson\reader.h" />
+    <ClInclude Include="..\src\Objects\rapidjson\schema.h" />
+    <ClInclude Include="..\src\Objects\rapidjson\stream.h" />
     <ClInclude Include="..\src\Objects\rapidjson\stringbuffer.h" />
     <ClInclude Include="..\src\Objects\rapidjson\writer.h" />
     <ClInclude Include="..\src\Objects\Value.h" />
@@ -112,7 +119,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_WINDOWS;_USRDLL;LIBLOBBYCLIENT_EXPORTS;_CRT_SECURE_NO_WARNINGS=1;-D_SCL_SECURE_NO_WARNINGS;RAPIDJSON_HAS_STDSTRING=1;LOBBY_LOGGER=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_WINDOWS;_USRDLL;LIBLOBBYCLIENT_EXPORTS;_CRT_SECURE_NO_WARNINGS=1;-D_SCL_SECURE_NO_WARNINGS;RAPIDJSON_HAS_STDSTRING=1;LOBBY_LOGGER;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\src;..\libs\udt4\udt;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>

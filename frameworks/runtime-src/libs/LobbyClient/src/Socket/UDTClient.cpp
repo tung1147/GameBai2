@@ -130,12 +130,13 @@ void UDTClient::closeSocket(){
 	std::unique_lock<std::mutex> lk(socketMutex);
 	if (mSocket != SYS_SOCKET_INVALID){
 		UDT::close(mSocket);
-		UDT::cleanup();
+		//UDT::cleanup();
 		mSocket = SYS_SOCKET_INVALID;
 	}
 }
 
 void UDTClient::resetSocket(){
+	this->closeSocket();
 	std::unique_lock<std::mutex> lk(socketMutex);
 	mSocket = SYS_SOCKET_INVALID;
 }
@@ -173,14 +174,18 @@ bool UDTClient::connectThread(){
 	char service[128];
 	sprintf(service, "%d", port);
 	if (int ret = getaddrinfo(host.c_str(), service, &hints, &peer) != 0){
+#ifdef LOBBY_LOGGER
 		quyetnd::log("getaddrinfo failure %d", ret);
+#endif
 		return false;
 	}
 
 	for (auto _peer = peer; _peer; _peer = _peer->ai_next){
 		mSocket = UDT::socket(_peer->ai_family, _peer->ai_socktype, _peer->ai_protocol);
 		if (mSocket == SYS_SOCKET_INVALID){
+#ifdef LOBBY_LOGGER
 			quyetnd::log("create socket failure");
+#endif
 			continue;
 		}
 
@@ -236,7 +241,9 @@ bool UDTClient::connectThread(){
 	}
 
 	freeaddrinfo(peer);
+#ifdef LOBBY_LOGGER
 	quyetnd::log("connection failure 3");
+#endif
 	return false;
 }
 }

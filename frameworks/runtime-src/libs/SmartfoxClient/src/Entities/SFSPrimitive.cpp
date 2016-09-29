@@ -45,43 +45,40 @@ SFSPrimitive::~SFSPrimitive() {
 	// TODO Auto-generated destructor stub
 }
 
-void SFSPrimitive::writeToJSON(std::ostringstream& stream){
+void SFSPrimitive::toValue(rapidjson::Value& value, rapidjson::Document::AllocatorType& allocator){
 	switch (dataType)
 	{
 	case SFSDATATYPE_BOOL:{
-		if (mData.boolValue){
-			stream << "true";
-		}
-		else{
-			stream << "false";
-		}
-		break;
+		value.SetBool(mData.boolValue);
+		return;
 	}
 	case SFSDATATYPE_BYTE:{
-		stream << (int)mData.byteValue;
-		break;
+		value.SetInt((int)mData.byteValue);
+		return;
 	}
 	case SFSDATATYPE_SHORT:{
-		stream << mData.i16Value;
-		break;
+		value.SetInt((int)mData.i16Value);
+		return;
 	}
 	case SFSDATATYPE_INT:{
-		stream << mData.i32Value;
-		break;
+		value.SetInt(mData.i32Value);
+		return;
 	}
 	case SFSDATATYPE_LONG:{
-		stream << mData.i64Value;
-		break;
+		value.SetInt64(mData.i64Value);
+		return;
 	}
 	case SFSDATATYPE_FLOAT:{
-		stream << mData.floatValue;
-		break;
+		value.SetFloat(mData.floatValue);
+		return;
 	}
 	case SFSDATATYPE_DOUBLE:{
-		stream << mData.doubleValue;
-		break;
+		value.SetDouble(mData.doubleValue);
+		return;
 	}
 	}
+
+	value.SetNull();
 }
 
 void SFSPrimitive::writeToBuffer(StreamWriter* writer){
@@ -152,6 +149,7 @@ void SFSPrimitive::initWithReader(StreamReader* reader){
 	}
 }
 
+#ifdef SFS_LOGGER
 void SFSPrimitive::printDebug(std::ostringstream& os, int padding){
 	switch (dataType){
 		case SFSDATATYPE_BOOL:{
@@ -190,6 +188,7 @@ void SFSPrimitive::printDebug(std::ostringstream& os, int padding){
 		}
 	}
 }
+#endif
 
 bool SFSPrimitive::getBool(){
 	return mData.boolValue;
@@ -264,8 +263,8 @@ SFSString::~SFSString(){
 
 }
 
-void SFSString::writeToJSON(std::ostringstream& stream){
-	stream << "\"" << _sfs_escape_json(mData) << "\"";
+void SFSString::toValue(rapidjson::Value& value, rapidjson::Document::AllocatorType& allocator){
+	value.SetString(mData, allocator);
 }
 
 void SFSString::writeToBuffer(StreamWriter* writer){
@@ -281,9 +280,11 @@ void SFSString::initWithReader(StreamReader* reader){
 	delete[] buffer;
 }
 
+#ifdef SFS_LOGGER
 void SFSString::printDebug(std::ostringstream& os, int padding){
 	os << "(string) " << mData;
 }
+#endif
 
 std::string SFSString::getString(){
 	return mData;

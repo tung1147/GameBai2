@@ -25,10 +25,13 @@ class SFSPrimitive : public SFSEntity{
 public:
 	SFSPrimitive();
 	virtual ~SFSPrimitive();
-	virtual void writeToJSON(std::ostringstream& stream);
+	virtual void toValue(rapidjson::Value& value, rapidjson::Document::AllocatorType& allocator);
+
 	virtual void writeToBuffer(StreamWriter* writer);
 	virtual void initWithReader(StreamReader* reader);
+#ifdef SFS_LOGGER
 	virtual void printDebug(std::ostringstream& os, int padding);
+#endif
 
 	bool getBool();
 	char getByte();
@@ -53,10 +56,13 @@ protected:
 public:
 	SFSString();
 	virtual ~SFSString();
-	virtual void writeToJSON(std::ostringstream& stream);
+	virtual void toValue(rapidjson::Value& value, rapidjson::Document::AllocatorType& allocator);
+
 	virtual void writeToBuffer(StreamWriter* writer);
 	virtual void initWithReader(StreamReader* reader);
+#ifdef SFS_LOGGER
 	virtual void printDebug(std::ostringstream& os, int padding);
+#endif
 
 	std::string getString();
 	void setString(const std::string& data);

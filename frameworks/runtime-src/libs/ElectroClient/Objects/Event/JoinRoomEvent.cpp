@@ -10,6 +10,7 @@
 #include "../thrift/libs/TBinaryProtocol.h"
 #include "../thrift/libs/TBufferTransports.h"
 #include "../thrift/ThriftJoinRoomEvent_types.h"
+#include "../../ElectroLogger.h"
 
 namespace es {
 
@@ -125,7 +126,13 @@ bool JoinRoomEvent::initWithBytes(const char* bytes, int len){
 }
 
 void JoinRoomEvent::printDebug(){
-
+#ifdef ES_LOGGER
+	es::log("zoneId: %d", zoneId);
+	es::log("roomId: %d", roomId);
+	es::log("roomName: %s", roomName.c_str());
+	es::log("roomDescription: %s", roomDescription.c_str());
+	es::log("capacity: %d", capacity);
+#endif
 }
 
 } /* namespace es */

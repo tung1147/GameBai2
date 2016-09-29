@@ -13,15 +13,17 @@ namespace quyetnd {
 namespace data{
 
 class ArrayValue : public Value{
+protected:
 	std::vector<Value*> data;
-	
+#ifdef LOBBY_LOGGER
 	virtual void printToOutStream(std::ostringstream& outStream, int padding);
+#endif
+	virtual void toValue(rapidjson::Value& value, rapidjson::Document::AllocatorType& allocator);
 public:
 	ArrayValue();
 	virtual ~ArrayValue();
 
 	virtual void writeToBuffer(quyetnd::data::ValueWriter* writer);
-	virtual void writeJson(std::ostringstream& str);
 
 	int size();
 	void clear();

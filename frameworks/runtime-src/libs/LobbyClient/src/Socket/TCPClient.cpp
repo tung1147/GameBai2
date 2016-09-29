@@ -141,17 +141,18 @@ void TCPClient::closeSocket(){
 	std::unique_lock<std::mutex> lk(socketMutex);
 	if (mSocket != SYS_SOCKET_INVALID){
 #ifdef USE_WINSOCK_2
-		closesocket(mSocket);
-		//shutdown(mSocket, SD_BOTH);
+		//closesocket(mSocket);
+		shutdown(mSocket, SD_BOTH);
 #else
-		close(mSocket);
-		//shutdown(mSocket, SHUT_RDWR);
+		//close(mSocket);
+		shutdown(mSocket, SHUT_RDWR);
 #endif
 		mSocket = SYS_SOCKET_INVALID;
 	}
 }
 
 void TCPClient::resetSocket(){
+	this->closeSocket();
 	std::unique_lock<std::mutex> lk(socketMutex);
 	mSocket = SYS_SOCKET_INVALID;
 }
@@ -200,14 +201,18 @@ bool TCPClient::connectThread(){
 	char service[128];
 	sprintf(service, "%d", port);
 	if (int ret = getaddrinfo(host.c_str(), service, &hints, &peer) != 0){
+#ifdef LOBBY_LOGGER
 		quyetnd::log("getaddrinfo failure %d", ret);
+#endif
 		return false;
 	}
 
 	for (auto _peer = peer; _peer; _peer = _peer->ai_next){
 		mSocket = socket(_peer->ai_family, _peer->ai_socktype, _peer->ai_protocol);
 		if (mSocket == SYS_SOCKET_INVALID){
+#ifdef LOBBY_LOGGER
 			quyetnd::log("create socket failure");
+#endif
 			continue;
 		}
 
@@ -227,7 +232,9 @@ bool TCPClient::connectThread(){
 	}
 
 	freeaddrinfo(peer);
+#ifdef LOBBY_LOGGER
 	quyetnd::log("connection failure 3");
+#endif
 	return false;
 }
 

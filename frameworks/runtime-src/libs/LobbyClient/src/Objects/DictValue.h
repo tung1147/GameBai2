@@ -13,13 +13,16 @@ namespace quyetnd {
 namespace data{
 
 class DictValue : public Value{
+protected:
 	std::map<std::string, Value*> data;
+#ifdef LOBBY_LOGGER
 	virtual void printToOutStream(std::ostringstream& outStream, int padding);
+#endif
+	virtual void toValue(rapidjson::Value& value, rapidjson::Document::AllocatorType& allocator);
 public:
 	DictValue();
 	virtual ~DictValue();
 	virtual void writeToBuffer(quyetnd::data::ValueWriter* writer);
-	virtual void writeJson(std::ostringstream& str);
 
 	bool isExistKey(const std::string& key);
 	int size();

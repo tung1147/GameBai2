@@ -15,15 +15,20 @@
 
 namespace quyetnd {
 namespace data {
-
+    
 class ValueReadArrayBuffer{
-public:
+private:
 	int type;
 	int size;
 	std::vector<Value*> arr;
 public:
-	ValueReadArrayBuffer(int size);
+	ValueReadArrayBuffer(int type, int size);
 	virtual ~ValueReadArrayBuffer();
+    
+    void pushValue(Value* value);
+    bool validate();
+    
+    Value* toValue();
 };
 
 class ValueReaderDelegate{
@@ -67,7 +72,7 @@ class ValueReader {
 	void onReadArray(uint32_t size);
 
 	std::stack<ValueReadArrayBuffer*> mStack;
-	void onFinishedReadObject(Value* object);
+	void onReadValue(Value* object);
 public:
 	ValueReader();
 	virtual ~ValueReader();

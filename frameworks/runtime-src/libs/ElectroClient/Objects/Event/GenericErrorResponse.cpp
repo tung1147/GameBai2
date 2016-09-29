@@ -69,12 +69,14 @@ void GenericErrorResponse::getBytes(std::vector<char> &buffer){
 }
 
 void GenericErrorResponse::printDebug(){
+#ifdef ES_LOGGER
     es::log("requestMessageType : %s", es::type::messageTypeName(requestMessageType));
     es::log("errorType : %s", es::type::errorType_name(errorType));
     if(extraData){
         es::log("extraData : ");
         extraData->printDebug();
     }
+#endif
 }
     
 }

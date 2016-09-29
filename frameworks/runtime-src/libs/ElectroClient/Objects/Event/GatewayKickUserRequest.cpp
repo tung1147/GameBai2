@@ -10,6 +10,7 @@
 #include "../thrift/libs/TBinaryProtocol.h"
 #include "../thrift/libs/TBufferTransports.h"
 #include "../thrift/ThriftGatewayKickUserRequest_types.h"
+#include "../../ElectroLogger.h"
 
 namespace es {
 
@@ -63,7 +64,10 @@ bool GatewayKickUserRequest::initWithBytes(const char* bytes, int len){
 }
 
 void GatewayKickUserRequest::getBytes(std::vector<char> &buffer){
-
+#ifdef ES_LOGGER
+	es::log("clientId : %d", clientId);
+	es::log("error : %d", error);
+#endif
 }
 
 void GatewayKickUserRequest::printDebug(){

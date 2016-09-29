@@ -39,8 +39,8 @@
     <ClInclude Include="..\src\Entities\rapidjson\error\en.h" />
     <ClInclude Include="..\src\Entities\rapidjson\error\error.h" />
     <ClInclude Include="..\src\Entities\rapidjson\filereadstream.h" />
-    <ClInclude Include="..\src\Entities\rapidjson\filestream.h" />
     <ClInclude Include="..\src\Entities\rapidjson\filewritestream.h" />
+    <ClInclude Include="..\src\Entities\rapidjson\fwd.h" />
     <ClInclude Include="..\src\Entities\rapidjson\internal\biginteger.h" />
     <ClInclude Include="..\src\Entities\rapidjson\internal\diyfp.h" />
     <ClInclude Include="..\src\Entities\rapidjson\internal\dtoa.h" />
@@ -48,16 +48,23 @@
     <ClInclude Include="..\src\Entities\rapidjson\internal\itoa.h" />
     <ClInclude Include="..\src\Entities\rapidjson\internal\meta.h" />
     <ClInclude Include="..\src\Entities\rapidjson\internal\pow10.h" />
+    <ClInclude Include="..\src\Entities\rapidjson\internal\regex.h" />
     <ClInclude Include="..\src\Entities\rapidjson\internal\stack.h" />
     <ClInclude Include="..\src\Entities\rapidjson\internal\strfunc.h" />
     <ClInclude Include="..\src\Entities\rapidjson\internal\strtod.h" />
+    <ClInclude Include="..\src\Entities\rapidjson\internal\swap.h" />
+    <ClInclude Include="..\src\Entities\rapidjson\istreamwrapper.h" />
     <ClInclude Include="..\src\Entities\rapidjson\memorybuffer.h" />
     <ClInclude Include="..\src\Entities\rapidjson\memorystream.h" />
     <ClInclude Include="..\src\Entities\rapidjson\msinttypes\inttypes.h" />
     <ClInclude Include="..\src\Entities\rapidjson\msinttypes\stdint.h" />
+    <ClInclude Include="..\src\Entities\rapidjson\ostreamwrapper.h" />
+    <ClInclude Include="..\src\Entities\rapidjson\pointer.h" />
     <ClInclude Include="..\src\Entities\rapidjson\prettywriter.h" />
     <ClInclude Include="..\src\Entities\rapidjson\rapidjson.h" />
     <ClInclude Include="..\src\Entities\rapidjson\reader.h" />
+    <ClInclude Include="..\src\Entities\rapidjson\schema.h" />
+    <ClInclude Include="..\src\Entities\rapidjson\stream.h" />
     <ClInclude Include="..\src\Entities\rapidjson\stringbuffer.h" />
     <ClInclude Include="..\src\Entities\rapidjson\writer.h" />
     <ClInclude Include="..\src\Entities\SFSArray.h" />
@@ -115,7 +122,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;_LIB;LIBSMARTFOXCLIENT_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;RAPIDJSON_HAS_STDSTRING=1;_DEBUG;_WINDOWS;_USRDLL;_LIB;LIBSMARTFOXCLIENT_EXPORTS;SFS_LOGGER=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>false</SDLCheck>
       <AdditionalIncludeDirectories>../src;../src/zlib/win32/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
@@ -136,7 +143,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;LIBELECTROCLIENT_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;RAPIDJSON_HAS_STDSTRING=1;NDEBUG;_WINDOWS;_USRDLL;LIBELECTROCLIENT_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>false</SDLCheck>
       <AdditionalIncludeDirectories>../src;../src/zlib/win32/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>

@@ -93,19 +93,27 @@ void EsObject::readFromBuffer(EsMessageReader* reader){
 			}
 
 			case EsObjectType_Charactor:{
+#ifdef ES_LOGGER
 				es::log("not support EsObjectType_Charactor");
+#endif
 				break;
 			}
 			case EsObjectType_CharactorArray:{
+#ifdef ES_LOGGER
 				es::log("not support EsObjectType_CharactorArray");
+#endif
 				break;
 			}
 			case EsObjectType_Number:{
+#ifdef ES_LOGGER
 				es::log("not support EsObjectType_Number");
+#endif
 				break;
 			}
 			case EsObjectType_NumberArray:{
+#ifdef ES_LOGGER
 				es::log("not support EsObjectType_NumberArray");
+#endif
 				break;
 			}
 		}
@@ -118,6 +126,7 @@ void EsObject::readFromBuffer(EsMessageReader* reader){
 	}
 }
 
+#ifdef ES_LOGGER
 void EsObject::printDebugToBuffer(std::ostringstream &outStream, int padding){
 	//outStream << "\n";
 
@@ -134,6 +143,7 @@ void EsObject::printDebugToBuffer(std::ostringstream &outStream, int padding){
 	this->printPadding(outStream, padding);
 	outStream << "}";//\n";
 }
+#endif
 
 EsEntity* EsObject::getEsEntity(const std::string& key){
 	auto it = mData.find(key);

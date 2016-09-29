@@ -60,7 +60,7 @@ void TcpSocketSender::update(){
 						continue;
 					}
 					else{
-#ifdef SFS_PRINT_DEBUG	
+#ifdef SFS_LOGGER
 						SFS::log("---------------------");
 						SFS::log("[SFS]SEND =>");
 						sendData->printDebug();
@@ -71,7 +71,7 @@ void TcpSocketSender::update(){
 					break;
 				}
 				else if (rs == 0){
-#ifdef SFS_PRINT_DEBUG
+#ifdef SFS_LOGGER
 					SFS::log("server shutdown[2]");
 #endif
 					this->setRunning(false);
@@ -79,7 +79,7 @@ void TcpSocketSender::update(){
 					break;
 				}
 				else{
-#ifdef SFS_PRINT_DEBUG
+#ifdef SFS_LOGGER
 					SFS::log("send error");
 #endif
 					this->setRunning(false);
@@ -130,14 +130,14 @@ void TcpSocketReceiver::updateRecvHeader(){
 		blueBoxed = headerByte & 0x10;
 		bigSized = headerByte & 0x08;
 		if (!binary){
-#ifdef SFS_PRINT_DEBUG
+#ifdef SFS_LOGGER
 			SFS::log("data is not binary");
 #endif
 			setRunning(false);
 			return;
 		}
 		if (encrypted){
-#ifdef SFS_PRINT_DEBUG
+#ifdef SFS_LOGGER
 			SFS::log("data encrypted");
 #endif      
 			setRunning(false);
@@ -145,12 +145,12 @@ void TcpSocketReceiver::updateRecvHeader(){
 		}
 
 		if (compressed){
-#ifdef SFS_PRINT_DEBUG
+#ifdef SFS_LOGGER
 			SFS::log("data compressed");
 #endif
 		}
 		if (blueBoxed){
-#ifdef SFS_PRINT_DEBUG
+#ifdef SFS_LOGGER
 			SFS::log("data blueBoxed");
 #endif
 			setRunning(false);
@@ -159,7 +159,7 @@ void TcpSocketReceiver::updateRecvHeader(){
 
 		dataSizeLength = 2;
 		if (bigSized){
-#ifdef SFS_PRINT_DEBUG
+#ifdef SFS_LOGGER
 			SFS::log("data bigSized");
 #endif
 			dataSizeLength = 4;
@@ -225,14 +225,14 @@ void TcpSocketReceiver::updateRecvData(){
 			sfsEntity = SFS::Entity::SFSEntity::createEntityWithData(recvBuffer.data(), dataSize);
 		}
 		if (!sfsEntity){
-#ifdef SFS_PRINT_DEBUG
+#ifdef SFS_LOGGER
 			SFS::log("parse SFSEntity = NULL");
 #endif	
 			this->setRunning(false);
 			return;
 		}
 		if (sfsEntity->dataType != SFS::Entity::SFSDataType::SFSDATATYPE_SFS_OBJECT){
-#ifdef SFS_PRINT_DEBUG
+#ifdef SFS_LOGGER
 			SFS::log("SFSEntity is not SFSObject");
 #endif	
 			this->setRunning(false);
@@ -250,7 +250,7 @@ void TcpSocketReceiver::updateRecvData(){
 			message->targetControler = targetController;
 			message->messageType = messageType;
 			message->setContents(contents);
-#ifdef SFS_PRINT_DEBUG
+#ifdef SFS_LOGGER
 			SFS::log("---------------------");
 			SFS::log("[SFS]RECV <=");
 			message->printDebug();
@@ -317,7 +317,7 @@ void TcpSocketReceiver::update(){
 			//es::log("end process: %d", recvBuffer.size());
 		}
 		else if (rs == 0){
-#ifdef SFS_PRINT_DEBUG
+#ifdef SFS_LOGGER
 			SFS::log("server shutdown[1]");
 #endif
 			this->setRunning(false);
@@ -325,7 +325,7 @@ void TcpSocketReceiver::update(){
 		}
 		else{
 			//error
-#ifdef SFS_PRINT_DEBUG
+#ifdef SFS_LOGGER
 			SFS::log("recv header error");
 #endif
 			this->setRunning(false);
@@ -369,17 +369,18 @@ void TcpSocketClient::closeSocket(){
 	std::unique_lock<std::mutex> lk(socketMutex);
 	if (mSocket != SYS_SOCKET_INVALID){
 #ifdef USE_WINSOCK_2
-		closesocket(mSocket);
-		//shutdown(mSocket, SD_BOTH);
+		//closesocket(mSocket);
+		shutdown(mSocket, SD_BOTH);
 #else
-		close(mSocket);
-		//shutdown(mSocket, SHUT_RDWR);
+		//close(mSocket);
+		shutdown(mSocket, SHUT_RDWR);
 #endif
 		mSocket = SYS_SOCKET_INVALID;
 	}
 }
 
 void TcpSocketClient::resetSocket(){
+	this->closeSocket();
 	std::unique_lock<std::mutex> lk(socketMutex);
 	mSocket = SYS_SOCKET_INVALID;
 }
@@ -417,7 +418,9 @@ bool TcpSocketClient::connectThread(){
 	char service[16];
 	sprintf(service, "%d", port);
     if (int ret = getaddrinfo(host.c_str(), service, &hints, &peer) != 0){
+#ifdef SFS_LOGGER
         SFS::log("getaddrinfo failure %d", ret);
+#endif
         return false;
     }
     
@@ -425,7 +428,9 @@ bool TcpSocketClient::connectThread(){
     for(auto _peer = peer; _peer; _peer = _peer->ai_next){
         mSocket = socket(_peer->ai_family, _peer->ai_socktype, _peer->ai_protocol);
         if (mSocket == SYS_SOCKET_INVALID){
+#ifdef SFS_LOGGER
             SFS::log("create socket failure");
+#endif
             continue;
         }
         
@@ -446,7 +451,9 @@ bool TcpSocketClient::connectThread(){
     }
 
 	freeaddrinfo(peer);
+#ifdef SFS_LOGGER
 	SFS::log("connection failure 3");
+#endif
 	return false;
 }
 

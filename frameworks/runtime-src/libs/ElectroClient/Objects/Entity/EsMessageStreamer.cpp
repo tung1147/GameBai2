@@ -55,7 +55,9 @@ EsMessageReader::~EsMessageReader(){
 
 void EsMessageReader::read(void* buffer, int len){
 	if (!dataBuffer || length <= 0){
+#ifdef ES_LOGGER
         es::log("es reader buffer null");
+#endif
         return;
 	}
 
@@ -64,8 +66,9 @@ void EsMessageReader::read(void* buffer, int len){
 		index += len;
 		return;
 	}
-
+#ifdef ES_LOGGER
     es::log("es reader out-of-range");
+#endif
 }
 
 bool EsMessageReader::nextBool(){
