@@ -15,11 +15,13 @@ namespace Entity{
 class SFSObject;
 class SFSArray : public SFSEntity{
 	friend SFSObject;
-
+protected:
 	std::vector<SFSEntity*> mData;
 public:
 	SFSArray();
 	virtual ~SFSArray();
+	virtual void toValue(rapidjson::Value& value, rapidjson::Document::AllocatorType& allocator);
+
 	static SFSArray* create();
 	virtual void writeToJSON(std::ostringstream& stream);
 	virtual void writeToBuffer(StreamWriter* writer);

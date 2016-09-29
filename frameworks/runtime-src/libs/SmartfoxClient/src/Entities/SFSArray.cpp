@@ -31,6 +31,15 @@ SFSArray::~SFSArray() {
 	mData.clear();
 }
 
+void SFSArray::toValue(rapidjson::Value& value, rapidjson::Document::AllocatorType& allocator){
+	value.SetArray();
+	for (int i = 0; i < mData.size(); i++){
+		rapidjson::Value obj;
+		mData[i]->toValue(obj, allocator);
+		value.PushBack(obj, allocator);
+	}
+}
+
 SFSArray* SFSArray::create(){
 	auto arr = new SFSArray();
 	arr->autoRelease();

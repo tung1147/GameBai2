@@ -13,6 +13,8 @@
 #include <map>
 #include <sstream>
 #include "BufferArray.h"
+#include "rapidjson/rapidjson.h"
+#include "rapidjson/document.h"
 
 namespace SFS{
 namespace Entity{
@@ -48,6 +50,7 @@ public:
 public:
 	SFSEntity();
 	virtual ~SFSEntity();
+	virtual void toValue(rapidjson::Value& value, rapidjson::Document::AllocatorType& allocator);
 
 	virtual void writeToJSON(std::ostringstream& stream);
 	virtual void writeToBuffer(StreamWriter* writer);

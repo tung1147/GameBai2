@@ -45,6 +45,42 @@ SFSPrimitive::~SFSPrimitive() {
 	// TODO Auto-generated destructor stub
 }
 
+void SFSPrimitive::toValue(rapidjson::Value& value, rapidjson::Document::AllocatorType& allocator){
+	switch (dataType)
+	{
+	case SFSDATATYPE_BOOL:{
+		value.SetBool(mData.boolValue);
+		return;
+	}
+	case SFSDATATYPE_BYTE:{
+		value.SetInt((int)mData.byteValue);
+		return;
+	}
+	case SFSDATATYPE_SHORT:{
+		value.SetInt((int)mData.i16Value);
+		return;
+	}
+	case SFSDATATYPE_INT:{
+		value.SetInt(mData.i32Value);
+		return;
+	}
+	case SFSDATATYPE_LONG:{
+		value.SetInt64(mData.i64Value);
+		return;
+	}
+	case SFSDATATYPE_FLOAT:{
+		value.SetFloat(mData.floatValue);
+		return;
+	}
+	case SFSDATATYPE_DOUBLE:{
+		value.SetDouble(mData.doubleValue);
+		return;
+	}
+	}
+
+	value.SetNull();
+}
+
 void SFSPrimitive::writeToJSON(std::ostringstream& stream){
 	switch (dataType)
 	{
@@ -262,6 +298,10 @@ SFSString::SFSString(){
 
 SFSString::~SFSString(){
 
+}
+
+void SFSString::toValue(rapidjson::Value& value, rapidjson::Document::AllocatorType& allocator){
+	value.SetString(mData, allocator);
 }
 
 void SFSString::writeToJSON(std::ostringstream& stream){

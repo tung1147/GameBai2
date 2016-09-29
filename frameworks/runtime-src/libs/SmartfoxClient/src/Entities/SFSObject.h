@@ -17,6 +17,8 @@ class SFSObject : public SFSEntity{
 public:
 	SFSObject();
 	virtual ~SFSObject();
+	virtual void toValue(rapidjson::Value& value, rapidjson::Document::AllocatorType& allocator);
+
 	int size();
 
 	virtual void writeToJSON(std::ostringstream& stream);
