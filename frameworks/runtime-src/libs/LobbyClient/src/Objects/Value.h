@@ -41,9 +41,11 @@ class Value : public LobbyRef{
 	friend ArrayValue;
 	friend StringValue;
 protected:
+#ifdef LOBBY_LOGGER
 	virtual void refreshLogBuffer(std::ostringstream& outStream);
 	virtual void printToOutStream(std::ostringstream& outStream, int padding);
 	virtual void printPadding(std::ostringstream& outStream, int padding);
+#endif
 	virtual void toValue(rapidjson::Value& value, rapidjson::Document::AllocatorType& allocator);
 public:
 	int valueType;
@@ -51,8 +53,9 @@ public:
 	Value();
 	virtual ~Value();
 	virtual void writeToBuffer(quyetnd::data::ValueWriter* writer);
-	virtual void writeJson(std::ostringstream& str);
+#ifdef LOBBY_LOGGER
 	virtual void printDebug();
+#endif
 
 	std::string toJSON();
 };

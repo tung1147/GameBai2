@@ -46,6 +46,7 @@ SFSArray* SFSArray::create(){
 	return arr;
 }
 
+#ifdef SFS_LOGGER
 void SFSArray::printDebug(std::ostringstream& os, int padding){
 	switch (dataType)
 	{
@@ -133,17 +134,7 @@ void SFSArray::printDebug(std::ostringstream& os, int padding){
 		
 	}
 }
-
-void SFSArray::writeToJSON(std::ostringstream& stream){
-	stream << "[";
-	for (int i = 0; i < mData.size(); i++){
-		if (i > 0){
-			stream << ",";
-		}
-		mData[i]->writeToJSON(stream);
-	}
-	stream << "]";
-}
+#endif
 
 void SFSArray::writeToBuffer(StreamWriter* writer){
 	writer->WriteByte(dataType);

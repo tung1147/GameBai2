@@ -122,7 +122,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;RAPIDJSON_HAS_STDSTRING=1;_DEBUG;_WINDOWS;_USRDLL;_LIB;LIBSMARTFOXCLIENT_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;RAPIDJSON_HAS_STDSTRING=1;_DEBUG;_WINDOWS;_USRDLL;_LIB;LIBSMARTFOXCLIENT_EXPORTS;SFS_LOGGER=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>false</SDLCheck>
       <AdditionalIncludeDirectories>../src;../src/zlib/win32/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>OldStyle</DebugInformationFormat>

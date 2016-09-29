@@ -23,7 +23,9 @@ public:
 	ValueJson();
 	virtual ~ValueJson();
 	virtual void writeToBuffer(quyetnd::data::ValueWriter* writer);
+#ifdef LOBBY_LOGGER
 	virtual void printDebug();
+#endif
 
 	const std::string& getJSON();
 	DictValue* getValue();

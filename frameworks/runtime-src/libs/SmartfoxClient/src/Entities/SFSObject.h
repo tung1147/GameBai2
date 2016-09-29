@@ -21,10 +21,11 @@ public:
 
 	int size();
 
-	virtual void writeToJSON(std::ostringstream& stream);
 	virtual void writeToBuffer(StreamWriter* writer);
 	virtual void initWithReader(StreamReader* reader);
+#ifdef SFS_LOGGER
 	virtual void printDebug(std::ostringstream& os, int padding);
+#endif
 
 	bool isExistKey(const std::string& key);
 

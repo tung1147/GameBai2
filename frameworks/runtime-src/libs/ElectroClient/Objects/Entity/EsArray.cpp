@@ -87,6 +87,7 @@ void EsArray::readFromBuffer(EsMessageReader* reader){
 	}	
 }
 
+#ifdef ES_LOGGER
 void EsArray::printDebugToBuffer(std::ostringstream &outStream, int padding){
 	switch (type)
 	{
@@ -166,6 +167,7 @@ void EsArray::printDebugToBuffer(std::ostringstream &outStream, int padding){
 		}
 	}
 }
+#endif
 
 void EsArray::toJson(rapidjson::Value& value, rapidjson::Document::AllocatorType &allocator){
 	value.SetArray();

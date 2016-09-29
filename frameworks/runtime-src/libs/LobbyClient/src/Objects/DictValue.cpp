@@ -38,18 +38,7 @@ void DictValue::writeToBuffer(quyetnd::data::ValueWriter* writer){
 	}	
 }
 
-void DictValue::writeJson(std::ostringstream& str){
-	str << "{";
-	for (auto it = data.begin(); it != data.end(); it++){
-		if (it != data.begin()){
-			str << ",";
-		}
-		str << "\"" << it->first << "\":";
-		it->second->writeJson(str);	
-	}
-	str << "}";
-}
-
+#ifdef LOBBY_LOGGER
 void DictValue::printToOutStream(std::ostringstream& outStream, int padding){
 	outStream << "[Dict](" << data.size() << ")" << std::endl;
 	refreshLogBuffer(outStream);
@@ -66,6 +55,7 @@ void DictValue::printToOutStream(std::ostringstream& outStream, int padding){
 	this->printPadding(outStream, padding);
 	outStream << "}" ;
 }
+#endif
 
 void DictValue::toValue(rapidjson::Value& value, rapidjson::Document::AllocatorType& allocator){
 	value.SetObject();

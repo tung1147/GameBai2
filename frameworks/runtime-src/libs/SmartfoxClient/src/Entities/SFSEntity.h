@@ -52,11 +52,11 @@ public:
 	virtual ~SFSEntity();
 	virtual void toValue(rapidjson::Value& value, rapidjson::Document::AllocatorType& allocator);
 
-	virtual void writeToJSON(std::ostringstream& stream);
 	virtual void writeToBuffer(StreamWriter* writer);
 	virtual void initWithReader(StreamReader* reader);	
+#ifdef SFS_LOGGER
 	virtual void printDebug(std::ostringstream& os, int padding = 0);
-
+#endif
 	virtual std::string toJSON();
 
 	static SFSEntity* createEntityWithData(const char* buffer, int size);

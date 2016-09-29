@@ -61,19 +61,6 @@ void SFSObject::writeToBuffer(StreamWriter* writer){
 	}
 }
 
-void SFSObject::writeToJSON(std::ostringstream& stream){
-	stream << "{";
-	for (auto it = mData.begin(); it != mData.end(); it++){
-		if (it != mData.begin()){
-			stream << ",";
-		}
-		stream << "\"" << it->first << "\":" ;
-		it->second->writeToJSON(stream);
-	}
-
-	stream << "}";
-}
-
 void SFSObject::initWithReader(StreamReader* reader){
 	int size = reader->NextShort();
 	for (int i = 0; i < size; i++){
@@ -84,8 +71,8 @@ void SFSObject::initWithReader(StreamReader* reader){
 	}
 }
 
+#ifdef SFS_LOGGER
 void SFSObject::printDebug(std::ostringstream& os, int padding){
-#if SFS_PRINT_DEBUG
 	os << "(SFSObject)" << std::endl;
 
 	std::string strPadding = "";
@@ -108,10 +95,8 @@ void SFSObject::printDebug(std::ostringstream& os, int padding){
 	}
 
 	os << strPadding << "}";
-
-#endif
-
 }
+#endif
 
 bool SFSObject::isExistKey(const std::string& key){
 	auto it = mData.find(key);

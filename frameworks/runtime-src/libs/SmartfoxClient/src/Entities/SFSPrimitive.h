@@ -27,10 +27,11 @@ public:
 	virtual ~SFSPrimitive();
 	virtual void toValue(rapidjson::Value& value, rapidjson::Document::AllocatorType& allocator);
 
-	virtual void writeToJSON(std::ostringstream& stream);
 	virtual void writeToBuffer(StreamWriter* writer);
 	virtual void initWithReader(StreamReader* reader);
+#ifdef SFS_LOGGER
 	virtual void printDebug(std::ostringstream& os, int padding);
+#endif
 
 	bool getBool();
 	char getByte();
@@ -57,10 +58,11 @@ public:
 	virtual ~SFSString();
 	virtual void toValue(rapidjson::Value& value, rapidjson::Document::AllocatorType& allocator);
 
-	virtual void writeToJSON(std::ostringstream& stream);
 	virtual void writeToBuffer(StreamWriter* writer);
 	virtual void initWithReader(StreamReader* reader);
+#ifdef SFS_LOGGER
 	virtual void printDebug(std::ostringstream& os, int padding);
+#endif
 
 	std::string getString();
 	void setString(const std::string& data);

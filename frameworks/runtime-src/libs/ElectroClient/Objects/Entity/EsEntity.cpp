@@ -123,7 +123,9 @@ EsEntity* __create_array(const rapidjson::Value& value){
 
 		return arr;
 	}
+#ifdef ES_LOGGER
 	es::log("array format not support");
+#endif
 	return 0;
 }
 
@@ -208,6 +210,7 @@ void EsEntity::writeToFlattenedEsObjectRO(void* obj) {
 	thrift->__isset.encodedEntries = true;
 }
 
+#ifdef ES_LOGGER
 void EsEntity::printPadding(std::ostream &outStream, int padding){
 	for (int i = 0; i < padding; i++) {
 #if defined(ANDROID)
@@ -227,6 +230,7 @@ void EsEntity::printDebug(){
 void EsEntity::printDebugToBuffer(std::ostringstream &outStream, int padding){
 
 }
+#endif
 
 EsEntity* EsEntity::createFromJson(const rapidjson::Value& value){
 	return __create_entity(value);

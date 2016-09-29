@@ -115,43 +115,45 @@ void LoginResponse::getBytes(std::vector<char> &buffer){
 }
 
 void LoginResponse::printDebug(){
-//    es::log("successful : %d", successful);
-//    es::log("errorCode : %d", errorCode);
-//    es::log("userName : %s", userName.c_str());
-//    
-//    std::ostringstream outstream;
-//    
-//    if(esObject){
-//        outstream << "esObj : ";
-//        esObject->printDebug(outstream, 9);
-//        es::log_to_console(outstream.str().c_str());
-//    }
-//    
-//    if(userVariables.size() > 0){
-//        es::log("userVariables");
-//        for (auto it : userVariables){
-//            outstream.str("");
-//            outstream.clear();
-//            
-//            outstream << it.first << " : ";
-//            it.second->printDebug(outstream, it.first.length() + 3);
-//            
-//            es::log_to_console(outstream.str().c_str());
-//        }
-//    }
-//    
-//    if(buddyListEntries.size() > 0){
-//        es::log("buddyListEntries");
-//        for (auto it : buddyListEntries){
-//            outstream.str("");
-//            outstream.clear();
-//            
-//            outstream << it.first << " : ";
-//            it.second->printDebug(outstream, it.first.length() + 3);
-//            
-//            es::log_to_console(outstream.str().c_str());
-//        }
-//    }
+#ifdef ES_LOGGER
+    /*es::log("successful : %d", successful);
+    es::log("errorCode : %d", errorCode);
+    es::log("userName : %s", userName.c_str());
+    
+    std::ostringstream outstream;
+    
+    if(esObject){
+        outstream << "esObj : ";
+        esObject->printDebug();
+        es::log_to_console(outstream.str().c_str());
+    }
+    
+    if(userVariables.size() > 0){
+        es::log("userVariables");
+        for (auto it : userVariables){
+            outstream.str("");
+            outstream.clear();
+            
+            outstream << it.first << " : ";
+            it.second->printDebug();
+            
+            es::log_to_console(outstream.str().c_str());
+        }
+    }
+    
+    if(buddyListEntries.size() > 0){
+        es::log("buddyListEntries");
+        for (auto it : buddyListEntries){
+            outstream.str("");
+            outstream.clear();
+            
+            outstream << it.first << " : ";
+            it.second->printDebug();
+            
+            es::log_to_console(outstream.str().c_str());
+        }
+    }*/
+#endif
 }
 
 } /* namespace es */

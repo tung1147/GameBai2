@@ -151,6 +151,7 @@ void ValueJson::writeToBuffer(quyetnd::data::ValueWriter* writer){
 	}
 }
 
+#ifdef LOBBY_LOGGER
 void ValueJson::printDebug(){
 	if (value){
 		value->printDebug();
@@ -159,6 +160,7 @@ void ValueJson::printDebug(){
 		Value::printDebug();
 	}
 }
+#endif
 
 const std::string& ValueJson::getJSON(){
 	return jsonStr;

@@ -31,24 +31,17 @@ void Value::writeToBuffer(quyetnd::data::ValueWriter* writer){
 	writer->writeNil();
 }
 
-void Value::writeJson(std::ostringstream& str){
-	str << "null";
-}
-
-void Value::printDebug(){
 #ifdef LOBBY_LOGGER
+void Value::printDebug(){
 	std::ostringstream outputStream;
 	this->printToOutStream(outputStream, 0);
 	refreshLogBuffer(outputStream);
-#endif
 }
 
 void Value::refreshLogBuffer(std::ostringstream& outStream){
-#ifdef LOBBY_LOGGER
 	quyetnd::log_to_console(outStream.str().c_str());
 	outStream.str("");
 	outStream.clear();
-#endif
 }
 
 void Value::printToOutStream(std::ostringstream& outStream, int padding){
@@ -64,6 +57,7 @@ void Value::printPadding(std::ostringstream& outStream, int padding){
 #endif	
 	}
 }
+#endif
 
 void Value::toValue(rapidjson::Value& value, rapidjson::Document::AllocatorType& allocator){
 	value.SetNull();

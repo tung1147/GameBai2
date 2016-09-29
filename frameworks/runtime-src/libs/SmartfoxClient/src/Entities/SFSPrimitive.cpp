@@ -81,45 +81,6 @@ void SFSPrimitive::toValue(rapidjson::Value& value, rapidjson::Document::Allocat
 	value.SetNull();
 }
 
-void SFSPrimitive::writeToJSON(std::ostringstream& stream){
-	switch (dataType)
-	{
-	case SFSDATATYPE_BOOL:{
-		if (mData.boolValue){
-			stream << "true";
-		}
-		else{
-			stream << "false";
-		}
-		break;
-	}
-	case SFSDATATYPE_BYTE:{
-		stream << (int)mData.byteValue;
-		break;
-	}
-	case SFSDATATYPE_SHORT:{
-		stream << mData.i16Value;
-		break;
-	}
-	case SFSDATATYPE_INT:{
-		stream << mData.i32Value;
-		break;
-	}
-	case SFSDATATYPE_LONG:{
-		stream << mData.i64Value;
-		break;
-	}
-	case SFSDATATYPE_FLOAT:{
-		stream << mData.floatValue;
-		break;
-	}
-	case SFSDATATYPE_DOUBLE:{
-		stream << mData.doubleValue;
-		break;
-	}
-	}
-}
-
 void SFSPrimitive::writeToBuffer(StreamWriter* writer){
 	writer->WriteByte(dataType);
 	switch (dataType)
@@ -188,6 +149,7 @@ void SFSPrimitive::initWithReader(StreamReader* reader){
 	}
 }
 
+#ifdef SFS_LOGGER
 void SFSPrimitive::printDebug(std::ostringstream& os, int padding){
 	switch (dataType){
 		case SFSDATATYPE_BOOL:{
@@ -226,6 +188,7 @@ void SFSPrimitive::printDebug(std::ostringstream& os, int padding){
 		}
 	}
 }
+#endif
 
 bool SFSPrimitive::getBool(){
 	return mData.boolValue;
@@ -304,10 +267,6 @@ void SFSString::toValue(rapidjson::Value& value, rapidjson::Document::AllocatorT
 	value.SetString(mData, allocator);
 }
 
-void SFSString::writeToJSON(std::ostringstream& stream){
-	stream << "\"" << _sfs_escape_json(mData) << "\"";
-}
-
 void SFSString::writeToBuffer(StreamWriter* writer){
 	writer->WriteByte(SFSDataType::SFSDATATYPE_STRING);
 	writer->WriteString(mData);
@@ -321,9 +280,11 @@ void SFSString::initWithReader(StreamReader* reader){
 	delete[] buffer;
 }
 
+#ifdef SFS_LOGGER
 void SFSString::printDebug(std::ostringstream& os, int padding){
 	os << "(string) " << mData;
 }
+#endif
 
 std::string SFSString::getString(){
 	return mData;

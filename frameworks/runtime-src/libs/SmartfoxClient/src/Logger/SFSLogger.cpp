@@ -16,12 +16,10 @@
 #include <android/log.h>
 #endif
 
-#define ES_LOGGER
+#ifdef SFS_LOGGER
 
 namespace SFS{
 
-
-#ifdef ES_LOGGER
 #define MAX_LOG_LENGTH 16 * 1024 //16KB log
 	static void _log(const char *format, va_list args){
 		char* buf = new char[MAX_LOG_LENGTH];
@@ -33,11 +31,8 @@ namespace SFS{
 
 		delete[] buf;
 	}
-#endif
 
 	void log_to_console(const char* buf){
-#ifdef ES_LOGGER
-
 #if defined(ANDROID)
 		__android_log_print(ANDROID_LOG_DEBUG, "smartfox-debug", "%s", buf);
 #elif defined(_WIN32) || defined(WINRT)
@@ -73,21 +68,16 @@ namespace SFS{
 		fprintf(stdout, "%s", buf);
 		fflush(stdout);
 #endif
-
-#endif
 	}
 
 	void log(const char * format, ...){
-#ifdef ES_LOGGER
 		va_list args;
 		va_start(args, format);
 		_log(format, args);
 		va_end(args);
-#endif
 	}
 
 	void log_hex(const char* buf, int len){
-#ifdef ES_LOGGER
 		char* data = new char[len * 3 + 10];
 
 		for (int i = 0; i<len; i++){
@@ -97,8 +87,8 @@ namespace SFS{
 		log("%s", data);
 
 		delete[]data;
-#endif
 	}
 
 } 
 
+#endif

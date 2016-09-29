@@ -29,10 +29,6 @@ void SFSEntity::toValue(rapidjson::Value& value, rapidjson::Document::AllocatorT
 	value.SetNull();
 }
 
-void SFSEntity::writeToJSON(std::ostringstream& stream){
-	stream << "null";
-}
-
 void SFSEntity::writeToBuffer(StreamWriter* writer){
 	writer->WriteByte(dataType);
 }
@@ -41,16 +37,13 @@ void SFSEntity::initWithReader(StreamReader* reader){
 
 }
 
+#ifdef SFS_LOGGER
 void SFSEntity::printDebug(std::ostringstream& os, int padding){
 
 }
+#endif
 
 std::string SFSEntity::toJSON(){
-	//std::ostringstream stringStream;
-	////stringStream << std::setprecision(17);
-	//this->writeToJSON(stringStream);
-	//return stringStream.str();
-
 	rapidjson::Document doc;
 	this->toValue(doc, doc.GetAllocator());
 

@@ -120,6 +120,7 @@ void EsPrimitive::toJson(rapidjson::Value& value, rapidjson::Document::Allocator
 	}
 }
 
+#ifdef ES_LOGGER
 void EsPrimitive::printDebugToBuffer(std::ostringstream &outStream, int padding){
 	switch (type)
 	{	
@@ -153,6 +154,7 @@ void EsPrimitive::printDebugToBuffer(std::ostringstream &outStream, int padding)
 		}
 	}
 }
+#endif
 
 bool EsPrimitive::getBool(){
 	return mData.boolValue;
@@ -240,9 +242,11 @@ void EsString::readFromBuffer(EsMessageReader* reader){
 	mData = reader->nextString();
 }
 
+#ifdef ES_LOGGER
 void EsString::printDebugToBuffer(std::ostringstream &outStream, int padding){
 	outStream << "[string] " << mData;
 }
+#endif
 
 void EsString::setString(const std::string& data){
 	mData = data;

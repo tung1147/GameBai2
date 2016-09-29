@@ -13,17 +13,14 @@
 #endif
 
 #include <string>
-
 #if defined(_WIN32) || defined(WINRT)
 #include "Windows.h"
 #elif defined(ANDROID)
-
 #endif
 
+#ifdef ES_LOGGER
 namespace es {
 
-#ifdef ES_DEBUG
-    
 #define MAX_LOG_LENGTH 16 * 1024 //16KB log
     
     static void _log(const char *format, va_list args){
@@ -37,11 +34,9 @@ namespace es {
         delete[] buf;
     }
     
-#endif
     
     void log_to_console(const char* buf){
-#ifdef ES_DEBUG
-    
+
 #if defined(ANDROID)
         __android_log_print(ANDROID_LOG_DEBUG, "electro-debug", "%s", buf);
 #elif defined(_WIN32) || defined(WINRT)
@@ -78,20 +73,16 @@ namespace es {
         fflush(stdout);
 #endif
         
-#endif
     }
     
     void log(const char * format, ...){
-#ifdef ES_DEBUG
         va_list args;
         va_start(args, format);
         _log(format, args);
         va_end(args);
-#endif
     }
     
     void log_hex(const char* buf, int len){
-#ifdef ES_DEBUG
         char* data = new char[len*3 + 10];
         
         for(int i=0;i<len;i++){
@@ -101,7 +92,8 @@ namespace es {
         log("%s", data);
         
         delete []data;
-#endif
     }
     
 } /* namespace es */
+
+#endif
