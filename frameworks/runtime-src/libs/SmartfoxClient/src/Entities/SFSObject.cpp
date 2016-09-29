@@ -26,6 +26,17 @@ SFSObject::~SFSObject() {
 	mData.clear();
 }
 
+void SFSObject::toValue(rapidjson::Value& value, rapidjson::Document::AllocatorType& allocator){
+	value.SetObject();
+	for (auto it = mData.begin(); it != mData.end(); it++){
+		rapidjson::Value key(it->first, allocator);
+
+		rapidjson::Value obj;
+		it->second->toValue(obj, allocator);
+		value.AddMember(key, obj, allocator);
+	}
+}
+
 int SFSObject::size(){
 	return mData.size();
 }

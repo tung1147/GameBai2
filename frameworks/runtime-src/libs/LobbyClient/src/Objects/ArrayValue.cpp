@@ -65,6 +65,15 @@ void ArrayValue::printToOutStream(std::ostringstream& outStream, int padding){
 	outStream << "}";
 }
 
+void ArrayValue::toValue(rapidjson::Value& value, rapidjson::Document::AllocatorType& allocator){
+	value.SetArray();
+	for (int i = 0; i < data.size(); i++){
+		rapidjson::Value obj;
+		data[i]->toValue(obj, allocator);
+		value.PushBack(obj, allocator);
+	}
+}
+
 void ArrayValue::addItem(Value* item){
 	data.push_back(item);
 	item->retain();

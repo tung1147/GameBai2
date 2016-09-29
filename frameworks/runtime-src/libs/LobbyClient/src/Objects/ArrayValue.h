@@ -13,9 +13,11 @@ namespace quyetnd {
 namespace data{
 
 class ArrayValue : public Value{
+protected:
 	std::vector<Value*> data;
 	
 	virtual void printToOutStream(std::ostringstream& outStream, int padding);
+	virtual void toValue(rapidjson::Value& value, rapidjson::Document::AllocatorType& allocator);
 public:
 	ArrayValue();
 	virtual ~ArrayValue();

@@ -9,8 +9,8 @@
 #include "SFSObject.h"
 #include "SFSPrimitive.h"
 #include "SFSArray.h"
-#include "rapidjson/rapidjson.h"
-#include "rapidjson/document.h"
+#include "rapidjson/stringbuffer.h"
+#include "rapidjson/prettywriter.h"
 #include <stdint.h>
 
 namespace SFS{
@@ -23,6 +23,10 @@ SFSEntity::SFSEntity() {
 
 SFSEntity::~SFSEntity() {
 	// TODO Auto-generated destructor stub
+}
+
+void SFSEntity::toValue(rapidjson::Value& value, rapidjson::Document::AllocatorType& allocator){
+	value.SetNull();
 }
 
 void SFSEntity::writeToJSON(std::ostringstream& stream){
@@ -42,10 +46,20 @@ void SFSEntity::printDebug(std::ostringstream& os, int padding){
 }
 
 std::string SFSEntity::toJSON(){
-	std::ostringstream stringStream;
-	//stringStream << std::setprecision(17);
-	this->writeToJSON(stringStream);
-	return stringStream.str();
+	//std::ostringstream stringStream;
+	////stringStream << std::setprecision(17);
+	//this->writeToJSON(stringStream);
+	//return stringStream.str();
+
+	rapidjson::Document doc;
+	this->toValue(doc, doc.GetAllocator());
+
+	rapidjson::StringBuffer buffer;
+	buffer.Clear();
+	rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
+	doc.Accept(writer);
+	std::string jsonData = buffer.GetString();
+	return jsonData;
 }
 
 SFSEntity* SFSEntity::createSFSEntityWithReader(StreamReader* reader){

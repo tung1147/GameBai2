@@ -128,6 +128,35 @@ void PrimitiveValue::printToOutStream(std::ostringstream& outStream, int padding
 	}
 }
 
+void PrimitiveValue::toValue(rapidjson::Value& value, rapidjson::Document::AllocatorType& allocator){
+	switch (valueType)
+	{
+	case ValueType::TypeBool:{
+		value.SetBool(data.boolValue);
+		return;
+	}
+	case ValueType::TypeFloat:{
+		value.SetFloat(data.floatValue);
+		return;
+	}
+	case ValueType::TypeDouble:{
+		value.SetDouble(data.doubleValue);
+		return;
+	}
+	case ValueType::TypeInt:{
+		value.SetInt64(data.i64Value);
+		return;
+	}
+	case ValueType::TypeUInt:{
+		value.SetUint64(data.ui64Value);
+		return;
+	}
+	default:
+		value.SetNull();
+		break;
+	}
+}
+
 void PrimitiveValue::setBool(bool b){
 	valueType = ValueType::TypeBool;
 	data.boolValue = b;
@@ -193,6 +222,10 @@ void StringValue::writeJson(std::ostringstream& str){
 
 void StringValue::printToOutStream(std::ostringstream& outStream, int padding){
 	outStream << "[String] " << data;
+}
+
+void StringValue::toValue(rapidjson::Value& value, rapidjson::Document::AllocatorType& allocator){
+	value.SetString(data, allocator);
 }
 
 void StringValue::setString(const std::string& str){
