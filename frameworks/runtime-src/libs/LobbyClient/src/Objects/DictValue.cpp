@@ -67,6 +67,18 @@ void DictValue::printToOutStream(std::ostringstream& outStream, int padding){
 	outStream << "}" ;
 }
 
+void DictValue::toValue(rapidjson::Value& value, rapidjson::Document::AllocatorType& allocator){
+	value.SetObject();
+	for (auto it = data.begin(); it != data.end(); it++){
+		rapidjson::Value key(it->first, allocator);
+
+		rapidjson::Value obj;
+		it->second->toValue(obj, allocator);
+
+		value.AddMember(key, obj, allocator);
+	}
+}
+
 void DictValue::addItem(const std::string& key, Value* item){
 	auto it = data.find(key);
 	if (it != data.end()){

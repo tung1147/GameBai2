@@ -23,6 +23,7 @@ class PrimitiveValue : public Value{
 	} data;
 
 	virtual void printToOutStream(std::ostringstream& outStream, int padding);
+	virtual void toValue(rapidjson::Value& value, rapidjson::Document::AllocatorType& allocator);
 public:
 	PrimitiveValue();
 	virtual ~PrimitiveValue();
@@ -43,8 +44,10 @@ public:
 };
 
 class StringValue : public Value{
+protected:
 	std::string data;
 	virtual void printToOutStream(std::ostringstream& outStream, int padding);
+	virtual void toValue(rapidjson::Value& value, rapidjson::Document::AllocatorType& allocator);
 public:
 	StringValue();
 	virtual ~StringValue();

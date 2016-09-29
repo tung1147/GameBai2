@@ -10,6 +10,8 @@
 #include "ArrayValue.h"
 #include "DictValue.h"
 #include <iomanip>
+#include "rapidjson/stringbuffer.h"
+#include "rapidjson/prettywriter.h"
 #include "../Logger/Logger.h"
 
 namespace quyetnd {
@@ -63,11 +65,25 @@ void Value::printPadding(std::ostringstream& outStream, int padding){
 	}
 }
 
+void Value::toValue(rapidjson::Value& value, rapidjson::Document::AllocatorType& allocator){
+	value.SetNull();
+}
+
 std::string Value::toJSON(){
-	std::ostringstream stringStream;
+	/*std::ostringstream stringStream;
 	stringStream << std::setprecision(17);
 	this->writeJson(stringStream);
-	return stringStream.str();
+	return stringStream.str();*/
+
+	rapidjson::Document doc;
+	this->toValue(doc, doc.GetAllocator());
+
+	rapidjson::StringBuffer buffer;
+	buffer.Clear();
+	rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
+	doc.Accept(writer);
+	std::string jsonData = buffer.GetString();
+	return jsonData;
 }
 
 }

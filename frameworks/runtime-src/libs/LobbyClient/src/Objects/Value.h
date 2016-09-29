@@ -11,6 +11,8 @@
 #include <sstream>
 #include "LobbyRef.h"
 #include "ValueWriter.h"
+#include "rapidjson/rapidjson.h"
+#include "rapidjson/document.h"
 
 namespace quyetnd {
 namespace data{
@@ -41,6 +43,7 @@ protected:
 	virtual void refreshLogBuffer(std::ostringstream& outStream);
 	virtual void printToOutStream(std::ostringstream& outStream, int padding);
 	virtual void printPadding(std::ostringstream& outStream, int padding);
+	virtual void toValue(rapidjson::Value& value, rapidjson::Document::AllocatorType& allocator);
 public:
 	int valueType;
 public:
