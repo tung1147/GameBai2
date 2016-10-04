@@ -209,7 +209,7 @@ void TextField::initWithSize(const Size& size){
 	auto mTouch = EventListenerTouchOneByOne::create();
 	mTouch->setSwallowTouches(true);
 	mTouch->onTouchBegan = [=](Touch* t, Event*){
-		if (this->checkVisible()){
+		if (this->isRunning() && this->checkVisible()){
 			auto p = this->convertToNodeSpace(t->getLocation());
 			if (_touchRect.containsPoint(p)){
 				if (!isAttachWithIME){
@@ -372,6 +372,9 @@ void TextField::onExit(){
 }
 
 bool TextField::canAttachWithIME(){
+	if (!_running || !this->checkVisible()){
+		return false;
+	}
 	return true;
 }
 
