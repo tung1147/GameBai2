@@ -140,7 +140,9 @@ void TableView::refreshViewVertical(){
 		for (int j = 0; j < columnSize && (i + j) < _items.size(); j++){
 			item = _items[i + j];
 			//item->setPosition(width*(0.5f + j) + marginLeft, y - height / 2);
+			item->setAnchorPoint(Point::ANCHOR_MIDDLE);
 			item->setPosition(Point(a + item->getContentSize().width*item->getScaleX() / 2 + marginLeft, y - height / 2));
+			item->getParent()->reorderChild(item, zorder);
 			//item->setLocalZOrder(zorder);
 			
 			zorder++;
@@ -226,7 +228,9 @@ void TableView::refreshViewHorizontal(){
 		for (int j = 0; j < rowSize && (i + j) < _items.size(); j++){
 			item = _items[i + j];
 			//item->setPosition(a + item->getContentSize().width*item->getScaleX() / 2 + marginLeft, y - height / 2);
+			item->setAnchorPoint(Point::ANCHOR_MIDDLE);
 			item->setPosition(Point(x + columnWidth / 2, a - item->getContentSize().height*item->getScaleY()/2));
+			item->getParent()->reorderChild(item, zorder);
 			//item->setLocalZOrder(zorder);
 			zorder++;
 			a -= item->getContentSize().height*item->getScaleY() + spaceStep;
