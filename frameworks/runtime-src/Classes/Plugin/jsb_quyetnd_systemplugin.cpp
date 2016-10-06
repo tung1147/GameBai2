@@ -26,6 +26,57 @@ bool jsb_quyetnd_systemplugin_getVersionName(JSContext *cx, uint32_t argc, jsval
 	return false;
 }
 
+bool jsb_quyetnd_systemplugin_downloadFile(JSContext *cx, uint32_t argc, jsval *vp){
+	if (argc == 2){
+		std::string url;
+		std::string path;
+		JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+
+		bool ok = jsval_to_std_string(cx, args[0], &url);
+		JSB_PRECONDITION2(ok, cx, false, "jsb_quyetnd_systemplugin_downloadFile : Error processing arguments");
+
+		ok = jsval_to_std_string(cx, args[1], &path);
+		JSB_PRECONDITION2(ok, cx, false, "jsb_quyetnd_systemplugin_downloadFile : Error processing arguments");
+
+		quyetnd::SystemPlugin::getInstance()->downloadFileAsync(url, path);
+		args.rval().setUndefined();
+		return true;
+	}
+	else if (argc == 3){
+		std::string url;
+		std::string path;
+		JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+
+		bool ok = jsval_to_std_string(cx, args[0], &url);
+		JSB_PRECONDITION2(ok, cx, false, "jsb_quyetnd_systemplugin_downloadFile : Error processing arguments");
+
+		ok = jsval_to_std_string(cx, args[1], &path);
+		JSB_PRECONDITION2(ok, cx, false, "jsb_quyetnd_systemplugin_downloadFile : Error processing arguments");
+
+		std::function<void(int)> arg3 = nullptr;
+		if (JS_TypeOfValue(cx, args.get(2)) == JSTYPE_FUNCTION){
+			JS::RootedObject jstarget(cx, args.thisv().toObjectOrNull());
+			std::shared_ptr<JSFunctionWrapper> func(new JSFunctionWrapper(cx, jstarget, args.get(2), args.thisv()));
+			auto lambda = [=](int returnCode) -> void {
+				JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
+				jsval largv[1];
+				largv[0] = INT_TO_JSVAL(returnCode);
+				JS::RootedValue rval(cx);
+				bool succeed = func->invoke(1, &largv[0], &rval);
+				if (!succeed && JS_IsExceptionPending(cx)) {
+					JS_ReportPendingException(cx);
+				}
+			};
+			arg3 = lambda;
+		}
+
+		quyetnd::SystemPlugin::getInstance()->downloadFileAsync(url, path, arg3);
+		args.rval().setUndefined();
+		return true;
+	}
+	return false;
+}
+
 bool jsb_quyetnd_systemplugin_androidRequestPermission(JSContext *cx, uint32_t argc, jsval *vp){
   	if (argc == 2){
 		JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
@@ -352,6 +403,7 @@ void js_register_quyetnd_systemplugin(JSContext *cx, JS::HandleObject global) {
 		JS_FN("showSMS", jsb_quyetnd_systemplugin_showSMS, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("getCarrierName", jsb_quyetnd_systemplugin_getCarrierName, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("getPushNotificationToken", jsb_quyetnd_systemplugin_getSystemPushNotification, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("downloadFile", jsb_quyetnd_systemplugin_downloadFile, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FS_END
     };
 	
