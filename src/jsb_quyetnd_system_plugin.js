@@ -80,6 +80,9 @@ var SystemPlugin = (function() {
         },
         getPushNotificationToken : function () {
             return this.plugin.getPushNotificationToken();
+        },
+        downloadFile : function (url, savePath, callback) {
+            this.plugin.downloadFile.apply(this.plugin, arguments);
         }
     });
 

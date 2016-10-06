@@ -19,6 +19,8 @@
 #include "crypt_aes.h"
 #include "base64.h"
 #include "base/ccUTF8.h"
+#include "network/HttpClient.h"
+#include <curl/curl.h>
 #include "../GameLaucher/GameLaucher.h"
 
 USING_NS_CC;
@@ -716,6 +718,85 @@ void SystemPlugin::exitApp(){
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
 	exit(0);
 #endif
+}
+
+size_t s_download_save_file_method(void *ptr, size_t size, size_t nmemb, FILE *fp){
+	size_t written = fwrite(ptr, size, nmemb, fp);
+	return written;
+}
+
+void s_download_file_thread(const std::string url, const std::string savePath, std::function<void(int)> finishedCallback){
+	CURL *curl;
+	CURLcode res;
+	curl = curl_easy_init();
+	if (curl != NULL) {
+		FILE *fp;
+		fp = fopen(savePath.c_str(), "wb");
+		if (fp != NULL) {
+			curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
+			curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, true);
+			curl_easy_setopt(curl, CURLOPT_AUTOREFERER, true);
+			curl_easy_setopt(curl, CURLOPT_MAXREDIRS, 10);
+			curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, 120);
+			curl_easy_setopt(curl, CURLOPT_TIMEOUT, 120);
+			curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, true);
+			curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, s_download_save_file_method);
+			curl_easy_setopt(curl, CURLOPT_WRITEDATA, fp);
+			res = curl_easy_perform(curl);
+			curl_easy_cleanup(curl);
+
+			fclose(fp);
+			if (res == CURLE_OK) {
+				CCLOG("download file OK : %s", url.c_str());
+				if (finishedCallback){
+					UIThread::getInstance()->runOnUI([=](){
+						finishedCallback(0);
+					});
+				}
+				return;
+			}
+			else{
+				CCLOG("download file network error[%d]: %s", res, url.c_str());
+				if (finishedCallback){
+					UIThread::getInstance()->runOnUI([=](){
+						finishedCallback(1);
+					});
+				}
+				return;
+			}
+		}
+		else{
+			CCLOG("download file network error: %s [cannot open filePath: %s]", url.c_str(), savePath.c_str());
+			if (finishedCallback){
+				UIThread::getInstance()->runOnUI([=](){
+					finishedCallback(2);
+				});
+			}
+			return;
+		}
+	}
+	CCLOG("download file network error: %s [cannot init curl]", url.c_str());
+	if (finishedCallback){
+		UIThread::getInstance()->runOnUI([=](){
+			finishedCallback(3);
+		});
+	}
+	return;
+}
+
+void SystemPlugin::downloadFileAsync(const std::string& url, const std::string& savePath, std::function<void(int)> finishedCallback){
+	std::string saveFilePath = savePath;
+	if (!FileUtils::getInstance()->isAbsolutePath(saveFilePath)){
+		saveFilePath = FileUtils::getInstance()->getWritablePath() + saveFilePath;
+	}
+	CCLOG("download to: %s", saveFilePath.c_str());
+	size_t n = saveFilePath.find_last_of("/");
+	std::string parentFolder = saveFilePath.substr(0, n);
+	if (!FileUtils::getInstance()->isDirectoryExist(parentFolder)){
+		FileUtils::getInstance()->createDirectory(parentFolder);
+	}
+	std::thread downloadThread(s_download_file_thread, url, saveFilePath, finishedCallback);
+	downloadThread.detach();
 }
 
 /****/

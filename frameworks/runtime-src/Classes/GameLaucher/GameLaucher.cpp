@@ -82,7 +82,7 @@ void GameLaucher::run(){
 
 void GameLaucher::update(float dt){
 	resourceLoader.update(dt);
-	UIThread::getInstance()->update(dt);
+	//UIThread::getInstance()->update(dt);
 	if (status == GameLaucherStatus::LoadResource){
 		if (resourceLoader.isFinished()){
 			this->loadScript();
@@ -517,6 +517,7 @@ static UIThread* s_UIThread = 0;
 UIThread* UIThread::getInstance(){
 	if (!s_UIThread){
 		s_UIThread = new UIThread();
+		Director::getInstance()->getScheduler()->scheduleUpdateForTarget(s_UIThread, 0, false);
 	}
 	return s_UIThread;
 }

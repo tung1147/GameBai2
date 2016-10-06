@@ -121,55 +121,55 @@ bool GameFile::test(){
 #endif
 }
 
-inline void _gamefile_create_folder_tree(const std::string& filePath){
-	//create parent
-	size_t n = filePath.find_last_of("/");
-	std::string parentFolder = filePath.substr(0, n);
-	
-	//create folder
-	struct stat info;
-	bool _parent = false;
-	if (stat(parentFolder.c_str(), &info) != 0){
-		_parent = false;
-	}
-	else if (info.st_mode & S_IFDIR){  // S_ISDIR() doesn't exist on my windows
-		_parent = true;
-	}
-	else{
-		_parent = false;
-	}
-	if (!_parent){
-		_gamefile_create_folder_tree(parentFolder);
-	}
-
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
-	_mkdir(filePath.c_str());
-#else
-	mkdir(filePath.c_str(), 0770);
-#endif
-}
-
-inline void _gamefile_create_parent_folder(const std::string& filePath){
-	size_t n = filePath.find_last_of("/");
-	std::string parentFolder = filePath.substr(0, n);
-
-	struct stat info;
-	bool folderExist = false;
-
-	if (stat(parentFolder.c_str(), &info) != 0){
-		folderExist = false;
-	}
-	else if (info.st_mode & S_IFDIR){  // S_ISDIR() doesn't exist on my windows
-		folderExist = true;
-	}
-	else{
-		folderExist = false;
-	}
-
-	if (!folderExist){		
-		_gamefile_create_folder_tree(parentFolder);
-	}
-}
+//inline void _gamefile_create_folder_tree(const std::string& filePath){
+//	//create parent
+//	size_t n = filePath.find_last_of("/");
+//	std::string parentFolder = filePath.substr(0, n);
+//	
+//	//create folder
+//	struct stat info;
+//	bool _parent = false;
+//	if (stat(parentFolder.c_str(), &info) != 0){
+//		_parent = false;
+//	}
+//	else if (info.st_mode & S_IFDIR){  // S_ISDIR() doesn't exist on my windows
+//		_parent = true;
+//	}
+//	else{
+//		_parent = false;
+//	}
+//	if (!_parent){
+//		_gamefile_create_folder_tree(parentFolder);
+//	}
+//
+//#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
+//	_mkdir(filePath.c_str());
+//#else
+//	mkdir(filePath.c_str(), 0770);
+//#endif
+//}
+//
+//inline void _gamefile_create_parent_folder(const std::string& filePath){
+//	size_t n = filePath.find_last_of("/");
+//	std::string parentFolder = filePath.substr(0, n);
+//
+//	struct stat info;
+//	bool folderExist = false;
+//
+//	if (stat(parentFolder.c_str(), &info) != 0){
+//		folderExist = false;
+//	}
+//	else if (info.st_mode & S_IFDIR){  // S_ISDIR() doesn't exist on my windows
+//		folderExist = true;
+//	}
+//	else{
+//		folderExist = false;
+//	}
+//
+//	if (!folderExist){		
+//		_gamefile_create_folder_tree(parentFolder);
+//	}
+//}
 
 size_t _GameFile_write_data_handler(void *ptr, size_t size, size_t nmemb, WriteDataHandler* writer) {
     size_t written = fwrite(ptr, size, nmemb, writer->file);
@@ -197,7 +197,12 @@ int GameFile::update(const std::string& url, UpdateHandler handler){
 	CURLcode res;
 	curl = curl_easy_init();
 	if (curl != NULL) {
-		_gamefile_create_parent_folder(filePath);
+		//_gamefile_create_parent_folder(filePath);
+		size_t n = filePath.find_last_of("/");
+		std::string parentFolder = filePath.substr(0, n);
+		if (!FileUtils::getInstance()->isDirectoryExist(parentFolder)){
+			FileUtils::getInstance()->createDirectory(parentFolder);
+		}
 
 		FILE *fp;
 		fp = fopen(filePath.c_str(), "wb");

@@ -75,6 +75,8 @@ public:
 	std::string md5(const std::string& raw);
 	std::string sha1(const std::string& raw);
 
+	void downloadFileAsync(const std::string& url, const std::string& savePath, std::function<void(int)> finishedCallback = nullptr);
+
 	static SystemPlugin* getInstance();
 };
 

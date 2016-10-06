@@ -9,7 +9,10 @@ var HelloWorldLayer = cc.Layer.extend({
         this.addChild(label);
         label.setTouchEnabled(true);
         label.addClickEventListener(function () {
-            ElectroClient.getInstance().connect("103.24.244.160", 9899);
+           // ElectroClient.getInstance().connect("103.24.244.160", 9899);
+            SystemPlugin.getInstance().downloadFile("http://10.0.1.106/quyetnd/GBVCity/acs.json","test.json", function (returnCode) {
+                cc.log("return: "+returnCode);
+            });
         });
 
         return true;
