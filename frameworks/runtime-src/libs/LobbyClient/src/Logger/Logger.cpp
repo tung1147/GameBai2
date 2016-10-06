@@ -91,6 +91,20 @@ void log_hex(const char* buf, int len){
 
 }
 
+#else
+namespace quyetnd{
+void log(const char * format, ...){
+
+}
+
+void log_to_console(const char* log){
+
+}
+
+void log_hex(const char* buf, int len){
+
+}
+}
 #endif
 
 
