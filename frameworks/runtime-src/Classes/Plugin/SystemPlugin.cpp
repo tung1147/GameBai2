@@ -749,7 +749,7 @@ void s_download_file_thread(const std::string url, const std::string savePath, s
 			if (res == CURLE_OK) {
 				CCLOG("download file OK : %s", url.c_str());
 				if (finishedCallback){
-					UIThread::getInstance()->runOnUI([=](){
+					Director::getInstance()->getScheduler()->performFunctionInCocosThread([=](){
 						finishedCallback(0);
 					});
 				}
@@ -758,7 +758,7 @@ void s_download_file_thread(const std::string url, const std::string savePath, s
 			else{
 				CCLOG("download file network error[%d]: %s", res, url.c_str());
 				if (finishedCallback){
-					UIThread::getInstance()->runOnUI([=](){
+					Director::getInstance()->getScheduler()->performFunctionInCocosThread([=](){
 						finishedCallback(1);
 					});
 				}
@@ -768,7 +768,7 @@ void s_download_file_thread(const std::string url, const std::string savePath, s
 		else{
 			CCLOG("download file network error: %s [cannot open filePath: %s]", url.c_str(), savePath.c_str());
 			if (finishedCallback){
-				UIThread::getInstance()->runOnUI([=](){
+				Director::getInstance()->getScheduler()->performFunctionInCocosThread([=](){
 					finishedCallback(2);
 				});
 			}
@@ -777,7 +777,7 @@ void s_download_file_thread(const std::string url, const std::string savePath, s
 	}
 	CCLOG("download file network error: %s [cannot init curl]", url.c_str());
 	if (finishedCallback){
-		UIThread::getInstance()->runOnUI([=](){
+		Director::getInstance()->getScheduler()->performFunctionInCocosThread([=](){
 			finishedCallback(3);
 		});
 	}
