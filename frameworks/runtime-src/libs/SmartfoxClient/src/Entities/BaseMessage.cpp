@@ -42,6 +42,7 @@ void BaseMessage::writeToBuffer(SFS::StreamWriter* writer){
 }
 
 void BaseMessage::printDebug(){
+#ifdef SFS_LOGGER
 	SFS::log("TargetControler = [%d]", targetControler);
 	SFS::log("Type = [%s]", _request_type_name(messageType));
 	if (contents){
@@ -51,6 +52,7 @@ void BaseMessage::printDebug(){
 		SFS::log_to_console(stream.str().c_str());
 		SFS::log_to_console("\n");
 	}
+#endif
 }
 
 void BaseMessage::setContents(Entity::SFSObject* obj){

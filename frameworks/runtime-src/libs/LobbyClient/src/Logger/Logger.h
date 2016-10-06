@@ -12,12 +12,10 @@
 //#define LOBBY_LOGGER 0
 //#endif
 
-#ifdef LOBBY_LOGGER
+
 namespace quyetnd {
 	void log(const char * format, ...);
 	void log_to_console(const char* log);
 	void log_hex(const char* buf, int len);
-
 } /* namespace quyetnd */
-#endif
 #endif /* LOBBYCLIENT_LOGGER_LOGGER_H_ */
