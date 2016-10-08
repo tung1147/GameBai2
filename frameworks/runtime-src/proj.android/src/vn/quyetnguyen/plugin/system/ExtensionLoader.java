@@ -69,13 +69,6 @@ public class ExtensionLoader {
 		}
 	}
 	public void loadExtension(String jarPath){
-		if(!jarPath.startsWith("/")){
-			//file asset -> copy to files
-			this.copyAsset(jarPath);
-			File filesDir = activity.getFilesDir();
-			File outputFile = new File(filesDir, jarPath);
-			jarPath = outputFile.getAbsolutePath();
-		}
 		Log.i(TAG, "Load jar: "+jarPath);
 		try {
 			DexFile dx = DexFile.loadDex(jarPath, File.createTempFile("opt", "dex", activity.getCacheDir()).getPath(), 0);
