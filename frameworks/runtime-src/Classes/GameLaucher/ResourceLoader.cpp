@@ -71,7 +71,8 @@ void ResourceLoader::onLoadImageThread(std::string img, std::function<void(cocos
 			UIThread::getInstance()->runOnUI([=](){
 				Texture2D* texture = TextureCache::getInstance()->addImage(imageData, fullpath);
 				callback(texture);
-				delete imageData;
+				imageData->release();
+				//delete imageData;
 			});
 			return;
 		}
