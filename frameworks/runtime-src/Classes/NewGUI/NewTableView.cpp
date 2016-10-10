@@ -43,7 +43,7 @@ TableView::TableView() {
 
 TableView::~TableView() {
 	// TODO Auto-generated destructor stub
-	this->removeAllItems();
+	//this->removeAllItems();
 }
 
 void TableView::setAnimationHandler(const ItemAnimationHandler& handler){

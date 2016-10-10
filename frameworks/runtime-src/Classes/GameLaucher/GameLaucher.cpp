@@ -220,12 +220,22 @@ void GameLaucher::loadAndroidExt(){
 			std::string jarFilePath = doc[i]["extFile"].GetString();
 			auto jarFile = this->getFile("jar/" + jarFilePath);
 			if (jarFile){
-				if (jarFile->filePath[0] == '/'){
-					SystemPlugin::getInstance()->androidLoadExtension(jarFile->filePath);
+				auto extFilePath = FileUtils::getInstance()->getWritablePath() + "Game/" + jarFile->fileName;
+				if (!FileUtils::getInstance()->isFileExist(extFilePath)){
+					Data d = FileUtils::getInstance()->getDataFromFile(jarFile->fileName);				
+					if (d.isNull()){
+						CCLOG("not found android-ext: %s", jarFile->fileName.c_str());
+					}
+					else{
+						size_t n = extFilePath.find_last_of("/");
+						std::string parentFolder = extFilePath.substr(0, n);
+						if (!FileUtils::getInstance()->isDirectoryExist(parentFolder)){
+							FileUtils::getInstance()->createDirectory(parentFolder);
+						}
+						FileUtils::getInstance()->writeDataToFile(d, extFilePath);
+					}
 				}
-				else{
-					SystemPlugin::getInstance()->androidLoadExtension("Game/" + jarFile->fileName);
-				}
+				SystemPlugin::getInstance()->androidLoadExtension(extFilePath);
 			}
 			else{
 				CCLOG("no JAR: %s", jarFilePath.c_str());
