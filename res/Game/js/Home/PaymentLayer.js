@@ -455,7 +455,8 @@ var PaymentHistoryLayer = cc.Node.extend({
 var PaymentLayer = LobbySubLayer.extend({
     ctor: function () {
         this._super();
-        var allLayer = [new PaymentCardLayer(), new PaymentInAppLayer(), new PaymentGiftcode(), new PaymentSMSLayer(), new PaymentHistoryLayer()];
+        var allLayer = [new PaymentCardLayer(), new PaymentInAppLayer(), new PaymentInAppLayer(),
+            new PaymentGiftcode(), new PaymentSMSLayer(), new PaymentHistoryLayer()];
         for (var i = 0; i < allLayer.length; i++) {
             this.addChild(allLayer[i]);
         }
@@ -464,8 +465,8 @@ var PaymentLayer = LobbySubLayer.extend({
         this.addChild(title);
         title.setScale(cc.winSize.screenScale);
 
-        var icon_img1 = ["#lobby-start-1.png", "#lobby-hearts-1.png", "#lobby-clubs-1.png", "#lobby-spades-1.png", "#lobby-diamonds-1.png"];
-        var icon_img2 = ["#lobby-start-2.png", "#lobby-hearts-2.png", "#lobby-clubs-2.png", "#lobby-spades-2.png", "#lobby-diamonds-2.png"];
+        var icon_img1 = ["#lobby-start-1.png", "#lobby-hearts-1.png", "#lobby-clubs-1.png", "#lobby-spades-1.png", "#lobby-diamonds-1.png","#lobby-hearts-1.png"];
+        var icon_img2 = ["#lobby-start-2.png", "#lobby-hearts-2.png", "#lobby-clubs-2.png", "#lobby-spades-2.png", "#lobby-diamonds-2.png","#lobby-hearts-2.png"];
         var bottomBar = new cc.Node();
         this.addChild(bottomBar);
         bottomBar.setScale(cc.winSize.screenScale);
@@ -475,7 +476,7 @@ var PaymentLayer = LobbySubLayer.extend({
         tabBg.setPosition(1280.0 / 2, tabBg.getContentSize().height / 2);
         bottomBar.addChild(tabBg);
 
-        var dx = tabBg.getContentSize().width / 5;
+        var dx = tabBg.getContentSize().width / 6;
         var x = tabBg.x - tabBg.getContentSize().width / 2 + dx / 2;
 
         var selectBar = new cc.Sprite("#sublobby-tab-selected.png");
@@ -492,12 +493,12 @@ var PaymentLayer = LobbySubLayer.extend({
         var mToggle = new ToggleNodeGroup();
         bottomBar.addChild(mToggle);
 
-        for (var i = 0; i < 5; i++) {
+        for (var i = 0; i < 6; i++) {
             var icon1 = new cc.Sprite(icon_img1[i]);
             var icon2 = new cc.Sprite(icon_img2[i]);
             icon1.setAnchorPoint(cc.p(0.5, 0.0));
             icon2.setAnchorPoint(cc.p(0.5, 0.0));
-            icon1.setPosition(x, 0);
+            icon1.setPosition(x, 10);
             icon2.setPosition(icon1.getPosition());
             bottomBar.addChild(icon1);
             bottomBar.addChild(icon2);

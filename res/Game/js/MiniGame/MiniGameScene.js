@@ -19,6 +19,9 @@ var MiniGameScene = IScene.extend({
         this.playerMe = playerMe;
         this.playerMe.setGold(PlayerMe.gold);
     },
+    onChangeAssets : function(){
+        this.playerMe.setGold(PlayerMe.gold);
+    },
     initButton : function () {
         var gameTopbar = new GameTopBar();
         this.sceneLayer.addChild(gameTopbar);

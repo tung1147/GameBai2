@@ -114,10 +114,14 @@ var VideoPockerScene = MiniGameScene.extend({
             }
         }, this);
         LobbyClient.getInstance().addListener("miniGame", this.onSocketMessage, this);
+        LobbyClient.getInstance().addListener("changeAsset", this.onSocketMessage, this);
     },
     onSocketMessage: function (command, data) {
-        cc.log("command : " + command + "\ndata : " + JSON.stringify(data));
         data = data["data"];
+        if (command == "changeAsset"){
+            this.onChangeAssets();
+            return;
+        }
         var thiz = this;
         switch (data["cmd"]) {
             case 717:// thong tin hu thuong

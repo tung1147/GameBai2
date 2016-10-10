@@ -45,11 +45,22 @@ var SmartfoxClient = (function() {
             this.send(socket.SmartfoxClient.Login, content);
         },
         sendFindAndJoinRoom : function () {
-            var params = {
-                gameType :  PlayerMe.gameType,//PlayerMe.SFS.gameType,
-                betting : PlayerMe.SFS.betting
-            };
-            this.sendExtensionRequest(-1, "findAndJoinGame",params);
+            if(PlayerMe.SFS.roomId){
+                var params = {
+                    gameType :  PlayerMe.gameType,//PlayerMe.SFS.gameType,
+                    betting : PlayerMe.SFS.betting,
+                    roomId : PlayerMe.SFS.roomId
+                };
+                this.sendExtensionRequest(-1, "findAndJoinGame",params);
+                PlayerMe.SFS.roomId = null;
+            }
+            else{
+                var params = {
+                    gameType :  PlayerMe.gameType,//PlayerMe.SFS.gameType,
+                    betting : PlayerMe.SFS.betting,
+                };
+                this.sendExtensionRequest(-1, "findAndJoinGame",params);
+            }
         },
         sendLogout : function () {
             this.send(socket.SmartfoxClient.Logout, null);
@@ -250,6 +261,8 @@ var SmartfoxClient = (function() {
                     if(gameType == "tlmn_tudo"){
                         gameScene = new TienLen();
                     }
+                    else if (gameType == "sam_tudo" || gameType == "sam_solo")
+                        gameScene = new Sam();
 
                     if(gameScene){
                         cc.director.replaceScene(new cc.TransitionFade(0.5, gameScene, cc.color("#000000")));
@@ -268,6 +281,8 @@ var SmartfoxClient = (function() {
                     if(gameType == "tlmn_tudo"){
                         gameScene = new TienLen();
                     }
+                    else if (gameType == "sam_tudo" || gameType == "sam_solo")
+                        gameScene = new Sam();
                     if(gameScene){
                         cc.director.replaceScene(gameScene);
                     }

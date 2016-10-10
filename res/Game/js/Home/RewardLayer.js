@@ -22,6 +22,10 @@ var RewardSublayer = cc.Node.extend({
         itemList.setPosition(cc.p(0, _bottom));
         this.addChild(itemList, 1);
         this.itemList = itemList;
+    },
+    requestReward: function (id) {
+        var msg = {command: "cashout", id: id};
+        LobbyClient.getInstance().send(msg);
     }
 });
 
@@ -29,12 +33,20 @@ var s_card_money = s_card_money || ["50k", "100k", "200k", "500k"];
 var RewardCardLayer = RewardSublayer.extend({
     ctor: function () {
         this._super();
-        for (var i = 0; i < 20; i++) {
-            this.addCard(s_card_type.CARD_MOBI, i % 4, 550000);
+        if (cc.Global.thecaoData) {
+            for (var i = 0; i < cc.Global.thecaoData.length; i++) {
+                this.addCard(
+                    cc.Global.thecaoData[i]["providerCode"],
+                    cc.Global.thecaoData[i]["id"],
+                    cc.Global.thecaoData[i]["netValue"],
+                    cc.Global.thecaoData[i]["price"]
+                )
+            }
         }
     },
 
-    addCard: function (cardType, cardId, gold) {
+    addCard: function (cardType, cardId, netValue, gold) {
+        var thiz = this;
         var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, cc.Global.NumberFormat1(gold));
         var goldBgWidth = goldLabel.getContentSize().width + 60.0;
         if (goldBgWidth < 170.0) {
@@ -44,35 +56,39 @@ var RewardCardLayer = RewardSublayer.extend({
         goldBg.setPreferredSize(cc.size(goldBgWidth, 44));
 
         var cardImg = null;
-        var cardMoney = null;
-        if (cardType == s_card_type.CARD_VIETTEL) {
+        // var cardMoney = null;
+        if (cardType === "VTT") {
             cardImg = new cc.Sprite("#reward-card-viettel.png");
-            cardMoney = new cc.Sprite("#reward-viettel-" + s_card_money[cardId] + ".png");
+            // cardMoney = new cc.Sprite("#reward-viettel-" + s_card_money[cardId] + ".png");
         }
-        else if (cardType == s_card_type.CARD_VINA) {
+        else if (cardType === "VNP") {
             cardImg = new cc.Sprite("#reward-card-vina.png");
-            cardMoney = new cc.Sprite("#reward-vina-" + s_card_money[cardId] + ".png");
+            // cardMoney = new cc.Sprite("#reward-vina-" + s_card_money[cardId] + ".png");
         }
         else {
             cardImg = new cc.Sprite("#reward-card-mobi.png");
-            cardMoney = new cc.Sprite("#reward-mobi-" + s_card_money[cardId] + ".png");
+            // cardMoney = new cc.Sprite("#reward-mobi-" + s_card_money[cardId] + ".png");
         }
 
-        var contaner = new ccui.Widget();
-        contaner.setContentSize(cc.size(cardImg.getContentSize().width, cardImg.getContentSize().height + 60.0));
-        this.itemList.pushItem(contaner);
+        var container = new ccui.Widget();
+        container.setContentSize(cc.size(cardImg.getContentSize().width, cardImg.getContentSize().height + 60.0));
+        this.itemList.pushItem(container);
 
-        cardImg.setPosition(contaner.getContentSize().width / 2, contaner.getContentSize().height - cardImg.getContentSize().height / 2);
-        contaner.addChild(cardImg);
-        cardMoney.setPosition(cardImg.getPosition());
-        contaner.addChild(cardMoney);
+        cardImg.setPosition(container.getContentSize().width / 2, container.getContentSize().height - cardImg.getContentSize().height / 2);
+        container.addChild(cardImg);
+        // cardMoney.setPosition(cardImg.getPosition());
+        // container.addChild(cardMoney);
 
         goldBg.setPosition(cardImg.x, goldBg.getContentSize().height / 2);
-        contaner.addChild(goldBg);
+        container.addChild(goldBg);
 
         goldLabel.setPosition(goldBg.x + 20.0, goldBg.y);
         goldLabel.setColor(cc.color("#ffde00"));
-        contaner.addChild(goldLabel);
+        container.addChild(goldLabel);
+        container.setTouchEnabled(true);
+        container.addClickEventListener(function () {
+            thiz.requestReward(cardId);
+        });
     }
 });
 
@@ -80,12 +96,20 @@ var RewardItemLayer = RewardSublayer.extend({
     ctor: function () {
         this._super();
 
-        for (var i = 0; i < 20; i++) {
-            this.addItem("itemImg", "iPhone6 32GB", 12000000, 550000);
+        if (cc.Global.vatphamData) {
+            for (var i = 0; i < cc.Global.vatphamData.length; i++) {
+                this.addItem(
+                    cc.Global.vatphamData[i]["id"],
+                    cc.Global.vatphamData[i]["name"],
+                    cc.Global.vatphamData[i]["netValue"] + " VND",
+                    cc.Global.vatphamData[i]["price"]
+                );
+            }
         }
     },
 
-    addItem: function (itemImg, itemName, itemMoney, gold) {
+    addItem: function (itemId, itemName, itemMoney, gold) {
+        var thiz = this;
         var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, cc.Global.NumberFormat1(gold));
         var goldBgWidth = goldLabel.getContentSize().width + 60.0;
         if (goldBgWidth < 170.0) {
@@ -98,26 +122,135 @@ var RewardItemLayer = RewardSublayer.extend({
         itemBg.setPreferredSize(cc.size(210, 276));
         var itemBgPadding = new cc.Sprite("#reward-item-bg-2.png");
 
-        var itemIcon = new cc.Sprite("#reward-card-viettel.png");
+        var itemIcon = new cc.Sprite("#" + itemId + ".png");
 
-        var contaner = new ccui.Widget();
-        contaner.setContentSize(cc.size(itemBg.getContentSize().width, itemBg.getContentSize().height + 60.0));
-        this.itemList.pushItem(contaner);
+        var container = new ccui.Widget();
+        container.setContentSize(cc.size(itemBg.getContentSize().width, itemBg.getContentSize().height + 60.0));
+        this.itemList.pushItem(container);
 
-        itemBg.setPosition(contaner.getContentSize().width / 2, contaner.getContentSize().height - itemBg.getContentSize().height / 2);
-        contaner.addChild(itemBg);
+        itemBg.setPosition(container.getContentSize().width / 2, container.getContentSize().height - itemBg.getContentSize().height / 2);
+        container.addChild(itemBg);
         itemBgPadding.setPosition(itemBg.x, itemBg.y - 69);
-        contaner.addChild(itemBgPadding);
+        container.addChild(itemBgPadding);
 
         itemIcon.setPosition(itemBg.x, itemBg.y + 36);
-        contaner.addChild(itemIcon);
+        container.addChild(itemIcon);
+
+        var itemNameLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, itemName,cc.TEXT_ALIGNMENT_CENTER);
+        itemNameLabel.setDimensions(180,0);
+        itemNameLabel.setPosition(itemBgPadding.x,itemBgPadding.y - 20);
+        container.addChild(itemNameLabel);
 
         goldBg.setPosition(itemBg.x, goldBg.getContentSize().height / 2);
-        contaner.addChild(goldBg);
+        container.addChild(goldBg);
 
         goldLabel.setPosition(itemBg.x + 20.0, goldBg.y);
         goldLabel.setColor(cc.color("#ffde00"));
-        contaner.addChild(goldLabel);
+        container.addChild(goldLabel);
+
+        container.setTouchEnabled(true);
+        container.addClickEventListener(function () {
+            thiz.requestReward(itemId);
+        });
+    }
+});
+
+var RewardBankLayer = RewardSublayer.extend({
+    ctor: function () {
+        this._super();
+        if (cc.Global.tienmatData) {
+            for (var i = 0; i < cc.Global.tienmatData.length; i++) {
+                this.addItem(cc.Global.tienmatData[i]["id"],
+                    cc.Global.tienmatData[i]["netValue"],
+                    cc.Global.tienmatData[i]["price"]);
+            }
+        }
+    },
+    addItem: function (id, netValue, price) {
+        var thiz = this;
+        var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, cc.Global.NumberFormat1(price));
+        var goldBgWidth = goldLabel.getContentSize().width + 60.0;
+        if (goldBgWidth < 170.0) {
+            goldBgWidth = 170.0;
+        }
+        var goldBg = ccui.Scale9Sprite.createWithSpriteFrameName("reward-gold-bg.png", cc.rect(50, 0, 4, 44));
+        goldBg.setPreferredSize(cc.size(goldBgWidth, 44));
+
+        var itemIcon = new cc.Sprite("#cash.png");
+
+        var container = new ccui.Widget();
+        container.setContentSize(cc.size(210, 270));
+        this.itemList.pushItem(container);
+
+        goldBg.setPosition(container.getContentSize().width / 2, goldBg.getContentSize().height / 2);
+        container.addChild(goldBg);
+
+        itemIcon.setPosition(goldBg.x, container.height / 2 + 30);
+        container.addChild(itemIcon);
+
+        var itemNameLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, cc.Global.NumberFormat1(netValue) + " VND");
+        itemNameLabel.setPosition(goldBg.x, goldBg.y + 40);
+        container.addChild(itemNameLabel);
+
+
+        goldLabel.setPosition(goldBg.x + 20.0, goldBg.y);
+        goldLabel.setColor(cc.color("#ffde00"));
+        container.addChild(goldLabel);
+
+        container.setTouchEnabled(true);
+        container.addClickEventListener(function () {
+            thiz.requestReward(id);
+        });
+    }
+});
+
+var RewardAgencyLayer = RewardSublayer.extend({
+    ctor: function () {
+        this._super();
+
+        if (cc.Global.dailyData) {
+            for (var i = 0; i < cc.Global.dailyData.length; i++) {
+                this.addItem(cc.Global.dailyData[i]["id"],
+                    cc.Global.dailyData[i]["netValue"],
+                    cc.Global.dailyData[i]["price"]);
+            }
+        }
+    },
+    addItem: function (id, netValue, price) {
+        var thiz = this;
+        var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, cc.Global.NumberFormat1(price));
+        var goldBgWidth = goldLabel.getContentSize().width + 60.0;
+        if (goldBgWidth < 170.0) {
+            goldBgWidth = 170.0;
+        }
+        var goldBg = ccui.Scale9Sprite.createWithSpriteFrameName("reward-gold-bg.png", cc.rect(50, 0, 4, 44));
+        goldBg.setPreferredSize(cc.size(goldBgWidth, 44));
+
+        var itemIcon = new cc.Sprite("#cash.png");
+
+        var container = new ccui.Widget();
+        container.setContentSize(cc.size(210, 270));
+        this.itemList.pushItem(container);
+
+        goldBg.setPosition(container.getContentSize().width / 2, goldBg.getContentSize().height / 2);
+        container.addChild(goldBg);
+
+        itemIcon.setPosition(goldBg.x, container.height / 2 + 30);
+        container.addChild(itemIcon);
+
+        var itemNameLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, cc.Global.NumberFormat1(netValue) + " VND");
+        itemNameLabel.setPosition(goldBg.x, goldBg.y + 40);
+        container.addChild(itemNameLabel);
+
+
+        goldLabel.setPosition(goldBg.x + 20.0, goldBg.y);
+        goldLabel.setColor(cc.color("#ffde00"));
+        container.addChild(goldLabel);
+
+        container.setTouchEnabled(true);
+        container.addClickEventListener(function () {
+            thiz.requestReward(id);
+        });
     }
 });
 
@@ -268,8 +401,8 @@ var RewardLayer = LobbySubLayer.extend({
     ctor: function () {
         this._super();
 
-        var allLayer = [new RewardCardLayer(), new RewardItemLayer(), new RewardHistoryLayer(),
-            new RewardHistoryLayer(),new RewardHistoryLayer()];
+        var allLayer = [new RewardCardLayer(), new RewardItemLayer(), new RewardBankLayer(),
+            new RewardAgencyLayer(), new RewardHistoryLayer()];
         for (var i = 0; i < allLayer.length; i++) {
             this.addChild(allLayer[i]);
         }
@@ -295,7 +428,7 @@ var RewardLayer = LobbySubLayer.extend({
         var x = tabBg.x - tabBg.getContentSize().width / 2 + dx / 2;
 
         var selectBar = new cc.Sprite("#sublobby-tab-selected.png");
-        selectBar.setAnchorPoint(cc.p(0.5,0.0));
+        selectBar.setAnchorPoint(cc.p(0.5, 0.0));
         bottomBar.addChild(selectBar);
         if (selectBar.getContentSize().width > dx) {
             selectBar.setScaleX(dx / selectBar.getContentSize().width);
@@ -309,8 +442,8 @@ var RewardLayer = LobbySubLayer.extend({
         bottomBar.addChild(mToggle);
 
         for (var i = 0; i < 5; i++) {
-            var icon1 = new cc.Sprite(icon_img1[i%3]);
-            var icon2 = new cc.Sprite(icon_img2[i%3]);
+            var icon1 = new cc.Sprite(icon_img1[i % 3]);
+            var icon2 = new cc.Sprite(icon_img2[i % 3]);
             icon1.setAnchorPoint(cc.p(0.5, 0.0));
             icon2.setAnchorPoint(cc.p(0.5, 0.0));
             icon1.setPosition(x, 10);

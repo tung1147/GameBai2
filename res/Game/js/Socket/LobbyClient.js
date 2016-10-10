@@ -135,11 +135,14 @@ var LobbyClient = (function () {
                     PlayerMe.gameType = data.gameType;
                     SmartfoxClient.getInstance().findAndJoinRoom(data.host, data.port);
                 }
-                ;
             }
             else if (command === "verifyCode") {
                 PlayerMe.verify = true;
                 PlayerMe.phoneNumber = event.data.telephone;
+            }
+            else if (command === "changeAsset"){
+                PlayerMe.gold = event["data"]["userAssets"]["gold"];
+                cc.log("Lobbyclient : " + PlayerMe.gold);
             }
         },
         onLoginEvent: function (event) {
@@ -365,6 +368,7 @@ var LobbyClient = (function () {
             SmartfoxClient.getInstance().close();
         },
         subscribe: function (gameId) {
+            cc.log("send subscribeChannel: "+gameId);
             PlayerMe.gameType = s_games_chanel[gameId];
             var request = {
                 command: "subscribeChannel",
@@ -395,7 +399,7 @@ var LobbyClient = (function () {
             instance = new Clazz();
         }
         return instance;
-    }
+    };
 
     return Clazz;
 })();

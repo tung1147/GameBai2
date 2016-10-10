@@ -10,6 +10,7 @@ var InviteDialog = Dialog.extend({
         this.title.setString("Mời chơi");
         this.initWithSize(cc.size(680, 450));
         this.userSelected = [];
+        this.allUsers = [];
 
         var top = this.dialogNode.getContentSize().height - 178.0;
         var bottom = 200.0;
@@ -39,10 +40,19 @@ var InviteDialog = Dialog.extend({
             thiz.sendInvite();
         });
 
-        for(var i=0;i<30;i++){
-            this.addItem("usernameusernameusernameusernameusernameusernameusername", 1000 + i);
+        LobbyClient.getInstance().send({command:"getChannelUsers"});
+        LobbyClient.getInstance().addListener("getChannelUsers",this.onGetChannelUser,this);
+    },
+
+    onGetChannelUser: function (command,data){
+        var users = data["users"];
+        this.allUsers = [];
+        for (var i = 0;i<users.length;i++){
+            this.addItem(users[i]["username"],users[i]["gold"]);
+            this.allUsers.push(users[i]["username"]);
         }
     },
+
     addItem : function (username, gold) {
         var bg1 = ccui.Scale9Sprite.createWithSpriteFrameName("dialob-invite-bg1.png", cc.rect(14,14,4,4));
         bg1.setPreferredSize(cc.size(286, 80));
@@ -111,10 +121,18 @@ var InviteDialog = Dialog.extend({
         }
     },
     sendInviteAll : function () {
+        if (this.allUsers.length > 0)
+            LobbyClient.getInstance().send({command: "inviteUser",users: this.allUsers});
         this.hide();
     },
     sendInvite : function () {
+        if (this.userSelected.length > 0)
+            LobbyClient.getInstance().send({command: "inviteUser",users: this.userSelected});
         this.hide();
+    },
+    onExit: function () {
+        this._super();
+        LobbyClient.getInstance().removeListener(this);
     }
 });
 
@@ -137,6 +155,11 @@ var RecvInviteDialog = Dialog.extend({
             this.setInfoWithoutSender(gameName,betting);
         }
     },
+    setRoomInfo : function (room,host,port) {
+        this.room = room;
+        this.host = host;
+        this.port = port;
+    },
     setInfoWithSender : function (username, gameName, betting) {
         var label1 = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Bạn nhận được lời mời chơi từ");
         label1.setPosition(this.dialogNode.getContentSize().width/2, 310);
@@ -148,7 +171,7 @@ var RecvInviteDialog = Dialog.extend({
         this.messageNode.addChild(label2);
 
         var label3 = new ccui.RichText();
-        var str = "Vào chơi phòng <font color='#ffde00'>" + gameName+ "</font> <font color='#ffde00'>"+ cc.Global.NumberFormat1(betting)+" V</font>";
+        var str = "Vào chơi phòng <font color='#ffde00'>" + gameName+ "</font> <font color='#ffde00'>  "+ cc.Global.NumberFormat1(betting)+" V</font>";
         label3.initWithXML("<font face='"+cc.res.font.Roboto_Condensed+"' size='25'>" + str + "</font>",null);
         label3.setPosition(this.dialogNode.getContentSize().width/2, 240);
         this.messageNode.addChild(label3);
@@ -165,6 +188,11 @@ var RecvInviteDialog = Dialog.extend({
         this.messageNode.addChild(label3);
     },
     cancelButtonHandler : function () {
+        this.hide();
+    },
+    okButtonHandler : function (){
+        PlayerMe.SFS.roomId = this.room;
+        SmartfoxClient.getInstance().findAndJoinRoom(this.host, this.port);
         this.hide();
     }
 });

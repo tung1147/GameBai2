@@ -168,6 +168,21 @@ var GamePlayerMe = GamePlayer.extend({
         avt.setPosition(60,50);
         this.infoLayer.addChild(avt);
 
+        var timer = new cc.ProgressTimer(new cc.Sprite("#player-progress-2.png"));
+        timer.setType(cc.ProgressTimer.TYPE_RADIAL);
+        timer.setPosition(avt.getPosition());
+        timer.setPercentage(100.0);
+        this.infoLayer.addChild(timer);
+        this.timer = timer;
+
+        var timer2 = new cc.ProgressTimer(new cc.Sprite("#player-progress-1.png"));
+        timer2.setType(cc.ProgressTimer.TYPE_RADIAL);
+        timer2.setReverseDirection(true);
+        timer2.setPosition(avt.getPosition());
+        timer2.setPercentage(0.0);
+        this.infoLayer.addChild(timer2);
+        this.timer2 = timer2;
+
         var userLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, PlayerMe.username, cc.TEXT_ALIGNMENT_LEFT);
         userLabel.setAnchorPoint(cc.p(0.0, 0.5));
         userLabel.setLineBreakWithoutSpace(true);
@@ -190,9 +205,6 @@ var GamePlayerMe = GamePlayer.extend({
         this.avt = avt;
     },
     setEnable : function (enable) {
-
-    },
-    setProgressPercentage : function (percentage) {
 
     }
 });

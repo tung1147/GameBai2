@@ -5,6 +5,7 @@ var LobbyLayer = cc.Node.extend({
     ctor : function () {
         this._super();
         LobbyClient.getInstance().addListener("updateAll", this.onUpdateAll, this);
+        LobbyClient.getInstance().addListener("inviteUser", this.onInviteReceived, this);
 
         var chatBar = new cc.Sprite("#home-minigame-bar.png");
         chatBar.setPosition(cc.winSize.width - 162.0 * cc.winSize.screenScale, 170.0);
@@ -177,6 +178,13 @@ var LobbyLayer = cc.Node.extend({
     startAnimation : function () {
 
     },
+    onInviteReceived: function (command, data) {
+        var inviteDialog = new RecvInviteDialog();
+        data = data["data"];
+        inviteDialog.setInfo(data["userInvite"],s_games_display_name[s_games_chanel_id[data["gameType"]]],data["betting"]);
+        inviteDialog.setRoomInfo(data["roomId"],data["ip"],data["port"]);
+        inviteDialog.showWithAnimationScale();
+    },
     onUpdateAll : function (cmd, event) {
         var data = event.data;
         var gameType = PlayerMe.gameType;
@@ -195,5 +203,5 @@ var LobbyLayer = cc.Node.extend({
             LobbyClient.getInstance().unSubscribe();
         }
         LobbyClient.getInstance().removeListener(this);
-    },
+    }
 });

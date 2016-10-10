@@ -84,16 +84,17 @@ var HomeScene = IScene.extend({
         //
         FloatButton.getInstance().show(this);
 
-        LobbyClient.getInstance().addListener("fetchProducts", this.onSocketMessage, this);
+        LobbyClient.getInstance().addListener("fetchProducts", this.onFetchProduct, this);
         LobbyClient.getInstance().addListener("fetchCashinProductItems", this.onFetchCashin, this);
         LobbyClient.getInstance().addListener("changeAsset", this.onChangeAsset, this);
     },
-    onSocketMessage: function (command, data) {
-        switch (command) {
-            case "fetchProducts":
-                cc.log(JSON.stringify(data));
-                break;
-        }
+    onFetchProduct: function (command, data) {
+        data = data["data"];
+        cc.log(JSON.stringify(data));
+        cc.Global.thecaoData = cc.Global.thecaoData || data["1"];
+        cc.Global.vatphamData = cc.Global.vatphamData || data["4"];
+        cc.Global.dailyData = cc.Global.dailyData || data["3"];
+        cc.Global.tienmatData = cc.Global.tienmatData || data["2"];
     },
     onFetchCashin: function (command, data) {
         cc.log(JSON.stringify(data));
@@ -114,7 +115,7 @@ var HomeScene = IScene.extend({
                 vmsContent: vmsContent,
                 vnpContent: vnpContent,
                 vttContent: vttContent,
-                gold: parseInt(gold.replace(",","")),
+                gold: parseInt(gold.replace(",", "")),
                 id: id,
                 price: parseInt(price)
             });

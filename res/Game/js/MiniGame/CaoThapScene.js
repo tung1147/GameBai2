@@ -53,11 +53,15 @@ var CaoThapScene = MiniGameScene.extend({
         }, this);
 
         LobbyClient.getInstance().addListener("miniGame", this.onSocketMessage, this);
+        LobbyClient.getInstance().addListener("changeAsset", this.onSocketMessage, this);
     },
 
     onSocketMessage: function (command, data) {
-        cc.log("command : " + command + "\ndata : " + JSON.stringify(data));
         data = data["data"];
+        if (command == "changeAsset"){
+            this.onChangeAssets();
+            return;
+        }
         switch (data["cmd"]) {
             //cap nhat hu thuong
             case this.REWARD_FUND_REQUEST_CODE:
@@ -201,7 +205,6 @@ var CaoThapScene = MiniGameScene.extend({
                 }
                 break;
         }
-        console.log("command : " + command + "\ndata : " + JSON.stringify(data));
     },
     onSelectChip: function (chipIndex) {
         if (this.rewardFund.length < 3)
