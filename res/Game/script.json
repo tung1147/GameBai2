@@ -55,5 +55,6 @@
 	"js/MiniGame/MiniGameScene.js",
 	"js/MiniGame/CaoThapScene.js",
 	"js/MiniGame/MiniPockerScene.js",
-	"js/MiniGame/VideoPockerScene.js"
+	"js/MiniGame/VideoPockerScene.js",
+	"js/SceneNavigator.js"
 ]

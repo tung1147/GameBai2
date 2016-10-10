@@ -464,19 +464,7 @@ var UserinfoDialog = IDialog.extend({
         logoutBt.setPosition(230 , 170);
         this.dialogNode.addChild(logoutBt);
         logoutBt.addClickEventListener(function () {
-            var scene = cc.director.getRunningScene();
-            if(scene.type == "HomeScene"){
-                scene.startHome();
-                LobbyClient.getInstance().close();
-                SmartfoxClient.getInstance().close();
-            }
-            else{
-                var homeScene = new HomeScene();
-                homeScene.startHome();
-                LobbyClient.getInstance().close();
-                SmartfoxClient.getInstance().close();
-                cc.director.replaceScene(homeScene);
-            }
+            SceneNavigator.toHome();
         });
 
         var touchSize = cc.size(this.dialogNode.getContentSize().width - 200.0, this.dialogNode.getContentSize().height - 200.0);

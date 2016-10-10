@@ -22,7 +22,12 @@ var SmartfoxClient = (function() {
                 }
             }
         },
-
+        isConnected : function () {
+            if(this.sfsSocket){
+                return (this.sfsSocket.getStatus() == socket.SmartfoxClient.Connected);
+            }
+            return false;
+        },
         sendHandShake : function () {
             var content = {
                 cl : "C++ API",
@@ -140,7 +145,6 @@ var SmartfoxClient = (function() {
                 this.sfsSocket.connect(host, port);
             }
         },
-
         onEvent : function (eventName) {
             if(eventName == "Connected"){
                 //send handshake
@@ -151,8 +155,11 @@ var SmartfoxClient = (function() {
                 MessageNode.getInstance().show("Lỗi kết nối máy chủ");
             }
             else if(eventName == "LostConnection"){
-                LoadingDialog.getInstance().hide();
-                MessageNode.getInstance().show("Mất kết nối máy chủ");
+                var runningScene = cc.director.getRunningScene();
+                if( runningScene.type != "GameScene"){
+                    LoadingDialog.getInstance().hide();
+                    MessageNode.getInstance().show("Mất kết nối máy chủ");
+                }
             }
             this.postEvent(socket.SmartfoxClient.SocketStatus, eventName);
         },

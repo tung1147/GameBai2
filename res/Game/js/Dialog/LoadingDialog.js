@@ -12,6 +12,7 @@ var LoadingDialog = (function() {
             this._super();
             var colorLayer = new cc.LayerColor(cc.color(0,0,0,180), cc.winSize.width, cc.winSize.height);
             this.addChild(colorLayer);
+            this.timeOut = 30.0;
 
             var loadingSpin = new cc.Sprite("#dialog-loading-spin.png");
             loadingSpin.setPosition(cc.winSize.width/2, cc.winSize.height/2);
@@ -34,11 +35,14 @@ var LoadingDialog = (function() {
             }, this);
 
             this.loadingSpin.runAction(new cc.RepeatForever(new cc.RotateBy(1.0, 360.0)));
+            this.timeOut = 30.0;
+            this.scheduleUpdate();
         },
         onExit : function () {
             this._super();
             cc.eventManager.removeListeners(this);
             this.loadingSpin.stopAllActions();
+            this.unscheduleUpdate();
         },
         show : function () {
             var parent = this.getParent();
@@ -73,6 +77,15 @@ var LoadingDialog = (function() {
                 return true;
             }
             return false;
+        },
+        update : function (dt) {
+            if(this.timeOut < 0){
+                this.hide();
+                SceneNavigator.toHome("Hết thời gian kết nối máy chủ");
+            }
+            else{
+                this.timeOut -= dt;
+            }
         }
     });
 

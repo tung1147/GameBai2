@@ -165,10 +165,9 @@ var LobbyClient = (function () {
             PlayerMe.gameType = "";
             PlayerMe.SFS.betting = 0;
             if (lastSessionInfo.ip && lastSessionInfo.port) { // reconnect
-                LoadingDialog.getInstance().setMessage("Đang vào lại phòng chơi");
-                SmartfoxClient.getInstance().findAndJoinRoom(lastSessionInfo.ip, lastSessionInfo.port);
+                this.reconnectSmartfox(lastSessionInfo.ip, lastSessionInfo.port);
             }
-            else {
+            else { // to Home
                 LoadingDialog.getInstance().hide();
                 var runningScene = cc.director.getRunningScene();
                 if (runningScene.type == "HomeScene") {
@@ -367,6 +366,15 @@ var LobbyClient = (function () {
             LobbyClient.getInstance().close();
             SmartfoxClient.getInstance().close();
         },
+        reconnectSmartfox : function (host, port) {
+            if(SmartfoxClient.getInstance().isConnected()){
+                LoadingDialog.getInstance().hide();
+            }
+            else{
+                LoadingDialog.getInstance().show("Đang kết nối lại máy chủ");
+                SmartfoxClient.getInstance().findAndJoinRoom(host, port);
+            }
+        },
         subscribe: function (gameId) {
             cc.log("send subscribeChannel: "+gameId);
             PlayerMe.gameType = s_games_chanel[gameId];
@@ -389,6 +397,12 @@ var LobbyClient = (function () {
                 command: "getGameServer",
                 gameType: PlayerMe.gameType,
                 betting: betting
+            };
+            this.send(request);
+        },
+        requestGetLastSessionInfo : function () {
+            var request = {
+                command: "getLastSessionInfo"
             };
             this.send(request);
         }

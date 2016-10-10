@@ -55,8 +55,10 @@ var IGameScene = IScene.extend({
         this.type = "GameScene";
         this.isOwnerMe = false;
 
+        SmartfoxClient.getInstance().addListener(socket.SmartfoxClient.SocketStatus, this.onSmartfoxSocketStatus, this);
         SmartfoxClient.getInstance().addListener(socket.SmartfoxClient.UserExitRoom, this.onUserExitRoom, this);
         SmartfoxClient.getInstance().addListener(socket.SmartfoxClient.CallExtension, this.onSFSExtension, this);
+        LobbyClient.getInstance().addListener("getLastSessionInfo", this.onGetLastSessionInfo, this);
 
         var bg = new cc.Sprite("res/game-bg.jpg");
         bg.x = cc.winSize.width/2;
@@ -70,6 +72,25 @@ var IGameScene = IScene.extend({
         gameTopBar.backBt.addClickEventListener(function(){
             thiz.backButtonClickHandler();
         });
+    },
+    onSmartfoxSocketStatus : function (type, eventName) {
+        if(eventName == "LostConnection"){
+            LoadingDialog.getInstance().show("Đang kết nối lại máy chủ");
+            LobbyClient.getInstance().requestGetLastSessionInfo();
+        }
+    },
+    onGetLastSessionInfo : function (command, eventData) {
+        var info = eventData.data.lastSessionInfo;
+        if(info){
+            var host = info.ip;
+            var port = info.port;
+            if(host && port){
+                LoadingDialog.getInstance().show("Đang kết nối lại máy chủ");
+                SmartfoxClient.getInstance().findAndJoinRoom(host, port);
+                return;
+            }
+        }
+        this.exitToLobby();
     },
     backButtonClickHandler : function () {
         SmartfoxClient.getInstance().sendExtensionRequest(PlayerMe.SFS.roomId,"quitRoom", null);
