@@ -13,6 +13,8 @@
 #include "Objects/ValueJson.h"
 #include "Objects/ValueReader.h"
 #include "Socket/TCPClient.h"
+#ifndef WINRT
 #include "Socket/UDTClient.h"
+#endif
 
 #endif /* LOBBYCLIENT_LOBBYCLIENT_H_ */

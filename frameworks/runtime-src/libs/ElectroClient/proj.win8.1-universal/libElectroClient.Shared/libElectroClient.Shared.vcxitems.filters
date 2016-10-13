@@ -2,5 +2,1016 @@
 <Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)targetver.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\EsReleasePool.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\EsUtil.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\MessageType.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\BaseMessage.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\ErrorType.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Socket\NetworkDefine.h">
+      <Filter>Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Socket\SocketAdapter.h">
+      <Filter>Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Socket\ElectroTcpClient.h">
+      <Filter>Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Socket\NetworkCore.h">
+      <Filter>Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\ElectroServer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\ElectroLogger.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\Entity\EsMessageStreamer.h">
+      <Filter>Objects\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\Entity\EsObject.h">
+      <Filter>Objects\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\Entity\EsPrimitive.h">
+      <Filter>Objects\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\Entity\EsArray.h">
+      <Filter>Objects\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\Entity\EsEntity.h">
+      <Filter>Objects\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\Event\GenericErrorResponse.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\Event\JoinRoomEvent.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\Event\JoinZoneEvent.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\Event\LeaveRoomEvent.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\Event\LoginResponse.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\Event\PingResponse.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\Event\PluginMessageEvent.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\Event\PrivateMessageEvent.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\Event\ProtocolConfiguration.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\Event\PublicMessageEvent.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\Event\RoomListEntry.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\Event\RoomVariable.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\Event\ServerKickUserEvent.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\Event\UserEvictedFromRoomEvent.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\Event\UserListEntry.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\Event\UserUpdateAction.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\Event\UserUpdateEvent.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\Event\UserVariable.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\Event\ZoneUpdateAction.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\Event\ZoneUpdateEvent.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\Event\BaseEvent.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\Event\ConnectionClosedEvent.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\Event\ConnectionResponse.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\Event\GatewayKickUserRequest.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\Request\LoginRequest.h">
+      <Filter>Objects\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\Request\LogoutRequest.h">
+      <Filter>Objects\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\Request\PingRequest.h">
+      <Filter>Objects\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\Request\PluginRequest.h">
+      <Filter>Objects\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\Request\PrivateMessageRequest.h">
+      <Filter>Objects\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\Request\PublicMessageRequest.h">
+      <Filter>Objects\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\Request\BaseRequest.h">
+      <Filter>Objects\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\Request\JoinRoomRequest.h">
+      <Filter>Objects\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\Request\JsonRequest.h">
+      <Filter>Objects\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\Request\LeaveRoomRequest.h">
+      <Filter>Objects\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\libs\TProtocol.h">
+      <Filter>Objects\thrift\libs</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\libs\TProtocolException.h">
+      <Filter>Objects\thrift\libs</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\libs\TToString.h">
+      <Filter>Objects\thrift\libs</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\libs\TTransport.h">
+      <Filter>Objects\thrift\libs</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\libs\TTransportException.h">
+      <Filter>Objects\thrift\libs</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\libs\TVirtualProtocol.h">
+      <Filter>Objects\thrift\libs</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\libs\TVirtualTransport.h">
+      <Filter>Objects\thrift\libs</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\libs\TBinaryProtocol.h">
+      <Filter>Objects\thrift\libs</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\libs\TBufferTransports.h">
+      <Filter>Objects\thrift\libs</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\libs\Thrift.h">
+      <Filter>Objects\thrift\libs</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftAddBuddiesResponse_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftAddRoomOperatorRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftAggregatePluginMessageEvent_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftAggregatePluginRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftBuddyStatusUpdateAction_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftBuddyStatusUpdateEvent_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftConnectionAttemptResponse_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftConnectionClosedEvent_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftConnectionResponse_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftCreateOrJoinGameResponse_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftCreateRoomRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftCreateRoomVariableRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftCrossDomainPolicyRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftCrossDomainPolicyResponse_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftDataType_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftDeleteRoomVariableRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftDeleteUserVariableRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftDHInitiateKeyExchangeRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftDHPublicNumbersResponse_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftDHSharedModulusRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftDHSharedModulusResponse_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftEncryptionStateChangeEvent_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftErrorType_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftEsNumber_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftEvictUserFromRoomRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftFindGamesRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftFindGamesResponse_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftFindZoneAndRoomByNameRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftFindZoneAndRoomByNameResponse_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftFlattenedEsObject_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftFlattenedEsObjectRO_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftGatewayKickUserRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftGatewayStatistics_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftGenericErrorResponse_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftGetGameTypesRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftGetGameTypesResponse_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftGetRoomsInZoneRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftGetRoomsInZoneResponse_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftGetServerLocalTimeRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftGetServerLocalTimeResponse_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftGetUserCountRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftGetUserCountResponse_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftGetUsersInRoomRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftGetUsersInRoomResponse_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftGetUserVariablesRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftGetUserVariablesResponse_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftGetZonesRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftGetZonesResponse_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftIdleTimeoutWarningEvent_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftJoinGameRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftJoinRoomEvent_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftJoinRoomRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftJoinZoneEvent_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftLeaveRoomEvent_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftLeaveRoomRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftLeaveZoneEvent_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftLoginRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftLoginResponse_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftLogOutRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftMessageType_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftPingRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftPingResponse_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftPluginListEntry_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftPluginMessageEvent_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftPluginRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftPrivateMessageEvent_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftPrivateMessageRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftProtocol_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftProtocolConfiguration_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftPublicMessageEvent_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftPublicMessageRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftQuickJoinGameRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftRegisterUDPConnectionRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftRegisterUDPConnectionResponse_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftRegistryConnectToPreferredGatewayRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftRemoveBuddiesRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftRemoveBuddiesResponse_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftRemoveRoomOperatorRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftRemoveUDPConnectionRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftRemoveUDPConnectionResponse_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftRequestDetails_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftRoomListEntry_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftRoomVariable_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftRoomVariableUpdateAction_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftRoomVariableUpdateEvent_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftSearchCriteria_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftServerGame_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftServerKickUserEvent_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftServerState_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftSessionIdleEvent_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftUpdateRoomDetailsEvent_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftUpdateRoomDetailsRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftUpdateRoomVariableRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftUpdateUserVariableRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftUserEvictedFromRoomEvent_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftUserListEntry_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftUserServerVariable_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftUserUpdateAction_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftUserUpdateEvent_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftUserVariable_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftUserVariableUpdateAction_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftUserVariableUpdateEvent_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftValidateAdditionalLoginRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftValidateAdditionalLoginResponse_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftZoneListEntry_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftZoneUpdateAction_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftZoneUpdateEvent_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftAddBuddiesRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Socket">
+      <UniqueIdentifier>{6e916ce4-ad31-420f-9eb1-e6a5354565d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects">
+      <UniqueIdentifier>{a5e99417-98eb-4634-8ca4-771c7059b7aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\Entity">
+      <UniqueIdentifier>{4ef99fb4-b893-40e1-9e74-47c87b10a46a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\Event">
+      <UniqueIdentifier>{95b02e9e-90fc-4284-aa14-2722b7368598}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\rapidjson">
+      <UniqueIdentifier>{654232a3-bbca-46c9-84a1-8217cc35da69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\Request">
+      <UniqueIdentifier>{54d2b944-eb6e-49fd-8a25-d3f9736ff78c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\thrift">
+      <UniqueIdentifier>{8222af10-2ee1-4225-8cd2-86f76f3460de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\thrift\libs">
+      <UniqueIdentifier>{8c14a2c6-e13f-4217-a06c-43f1e5a5ba20}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\EsUtil.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\MessageType.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\BaseMessage.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\ErrorType.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\EsReleasePool.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Socket\SocketAdapter.cpp">
+      <Filter>Socket</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Socket\ElectroTcpClient.cpp">
+      <Filter>Socket</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Socket\NetworkCore.cpp">
+      <Filter>Socket</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Socket\NetworkDefine.cpp">
+      <Filter>Socket</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\ElectroLogger.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\Entity\EsObject.cpp">
+      <Filter>Objects\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\Entity\EsPrimitive.cpp">
+      <Filter>Objects\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\Entity\EsArray.cpp">
+      <Filter>Objects\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\Entity\EsEntity.cpp">
+      <Filter>Objects\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\Entity\EsMessageStreamer.cpp">
+      <Filter>Objects\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\Event\GenericErrorResponse.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\Event\JoinRoomEvent.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\Event\JoinZoneEvent.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\Event\LeaveRoomEvent.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\Event\LoginResponse.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\Event\PingResponse.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\Event\PluginMessageEvent.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\Event\PrivateMessageEvent.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\Event\PublicMessageEvent.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\Event\RoomListEntry.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\Event\RoomVariable.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\Event\ServerKickUserEvent.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\Event\UserEvictedFromRoomEvent.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\Event\UserListEntry.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\Event\UserUpdateAction.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\Event\UserUpdateEvent.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\Event\UserVariable.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\Event\ZoneUpdateAction.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\Event\ZoneUpdateEvent.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\Event\BaseEvent.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\Event\ConnectionClosedEvent.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\Event\ConnectionResponse.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\Event\GatewayKickUserRequest.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\Request\LogoutRequest.cpp">
+      <Filter>Objects\Request</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\Request\PingRequest.cpp">
+      <Filter>Objects\Request</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\Request\PluginRequest.cpp">
+      <Filter>Objects\Request</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\Request\PrivateMessageRequest.cpp">
+      <Filter>Objects\Request</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\Request\PublicMessageRequest.cpp">
+      <Filter>Objects\Request</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\Request\BaseRequest.cpp">
+      <Filter>Objects\Request</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\Request\JoinRoomRequest.cpp">
+      <Filter>Objects\Request</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\Request\JsonRequest.cpp">
+      <Filter>Objects\Request</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\Request\LeaveRoomRequest.cpp">
+      <Filter>Objects\Request</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\Request\LoginRequest.cpp">
+      <Filter>Objects\Request</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\libs\TTransportException.cpp">
+      <Filter>Objects\thrift\libs</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\libs\TBinaryProtocol.cpp">
+      <Filter>Objects\thrift\libs</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\libs\TBufferTransports.cpp">
+      <Filter>Objects\thrift\libs</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\libs\TProtocol.cpp">
+      <Filter>Objects\thrift\libs</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftAddRoomOperatorRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftAggregatePluginMessageEvent_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftAggregatePluginRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftBuddyStatusUpdateAction_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftBuddyStatusUpdateEvent_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftConnectionAttemptResponse_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftConnectionClosedEvent_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftConnectionResponse_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftCreateOrJoinGameResponse_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftCreateRoomRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftCreateRoomVariableRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftCrossDomainPolicyRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftCrossDomainPolicyResponse_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftDataType_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftDeleteRoomVariableRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftDeleteUserVariableRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftDHInitiateKeyExchangeRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftDHPublicNumbersResponse_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftDHSharedModulusRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftDHSharedModulusResponse_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftEncryptionStateChangeEvent_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftErrorType_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftEsNumber_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftEvictUserFromRoomRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftFindGamesRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftFindGamesResponse_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftFindZoneAndRoomByNameRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftFindZoneAndRoomByNameResponse_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftFlattenedEsObject_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftFlattenedEsObjectRO_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftGatewayKickUserRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftGatewayStatistics_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftGenericErrorResponse_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftGetGameTypesRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftGetGameTypesResponse_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftGetRoomsInZoneRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftGetRoomsInZoneResponse_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftGetServerLocalTimeRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftGetServerLocalTimeResponse_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftGetUserCountRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftGetUserCountResponse_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftGetUsersInRoomRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftGetUsersInRoomResponse_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftGetUserVariablesRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftGetUserVariablesResponse_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftGetZonesRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftGetZonesResponse_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftIdleTimeoutWarningEvent_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftJoinGameRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftJoinRoomEvent_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftJoinRoomRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftJoinZoneEvent_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftLeaveRoomEvent_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftLeaveRoomRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftLeaveZoneEvent_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftLoginRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftLoginResponse_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftLogOutRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftMessageType_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftPingRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftPingResponse_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftPluginListEntry_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftPluginMessageEvent_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftPluginRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftPrivateMessageEvent_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftPrivateMessageRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftProtocol_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftProtocolConfiguration_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftPublicMessageEvent_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftPublicMessageRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftQuickJoinGameRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftRegisterUDPConnectionRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftRegisterUDPConnectionResponse_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftRegistryConnectToPreferredGatewayRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftRemoveBuddiesRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftRemoveBuddiesResponse_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftRemoveRoomOperatorRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftRemoveUDPConnectionRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftRemoveUDPConnectionResponse_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftRequestDetails_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftRoomListEntry_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftRoomVariable_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftRoomVariableUpdateAction_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftRoomVariableUpdateEvent_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftSearchCriteria_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftServerGame_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftServerKickUserEvent_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftServerState_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftSessionIdleEvent_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftUpdateRoomDetailsEvent_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftUpdateRoomDetailsRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftUpdateRoomVariableRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftUpdateUserVariableRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftUserEvictedFromRoomEvent_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftUserListEntry_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftUserServerVariable_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftUserUpdateAction_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftUserUpdateEvent_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftUserVariable_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftUserVariableUpdateAction_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftUserVariableUpdateEvent_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftValidateAdditionalLoginRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftValidateAdditionalLoginResponse_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftZoneListEntry_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftZoneUpdateAction_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftZoneUpdateEvent_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftAddBuddiesRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\ThriftAddBuddiesResponse_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)..\..\Objects\thrift\libs\TBinaryProtocol.tcc">
+      <Filter>Objects\thrift\libs</Filter>
+    </None>
   </ItemGroup>
 </Project>

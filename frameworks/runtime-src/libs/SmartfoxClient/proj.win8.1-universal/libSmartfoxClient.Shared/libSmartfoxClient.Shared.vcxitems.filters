@@ -2,13 +2,112 @@
 <Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)targetver.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)pch.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)libSmartfoxClient.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\src\SFSServer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\src\Entities\SFSVec3D.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\src\Entities\BaseMessage.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\src\Entities\BufferArray.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\src\Entities\MessageJSON.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\src\Entities\MessageType.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\src\Entities\SFSArray.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\src\Entities\SFSEntity.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\src\Entities\SFSObject.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\src\Entities\SFSPrimitive.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\src\Entities\SFSRef.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\src\Logger\SFSLogger.h">
+      <Filter>Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\src\Socket\SocketAdapter.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\src\Socket\NetworkCore.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\src\Socket\NetworkDefine.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\src\Socket\SFSTcpClient.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="$(MSBuildThisFileDirectory)pch.cpp">
-      <PrecompiledHeader>Create</PrecompiledHeader>
+    <Filter Include="Entities">
+      <UniqueIdentifier>{02259dc5-ae07-4e3c-aa75-0342c0f1375d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Logger">
+      <UniqueIdentifier>{d4700af8-89a8-41a9-bb6e-7bf9f61ab307}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Socket">
+      <UniqueIdentifier>{f957c593-1147-45d5-969b-9f0c770efeed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="zlib">
+      <UniqueIdentifier>{56de0a1e-5de8-4cd5-a0e5-a82456f6fe2d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\src\Entities\BaseMessage.cpp">
+      <Filter>Entities</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)libSmartfoxClient.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\src\Entities\BufferArray.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\src\Entities\MessageJSON.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\src\Entities\MessageType.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\src\Entities\SFSArray.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\src\Entities\SFSEntity.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\src\Entities\SFSObject.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\src\Entities\SFSPrimitive.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\src\Entities\SFSRef.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\src\Entities\SFSVec3D.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\src\Logger\SFSLogger.cpp">
+      <Filter>Logger</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\src\Socket\NetworkCore.cpp">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\src\Socket\NetworkDefine.cpp">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\src\Socket\SFSTcpClient.cpp">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\src\Socket\SocketAdapter.cpp">
+      <Filter>zlib</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

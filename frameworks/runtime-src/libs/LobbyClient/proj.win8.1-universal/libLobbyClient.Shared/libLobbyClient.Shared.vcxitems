@@ -14,17 +14,39 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="$(MSBuildThisFileDirectory)libLobbyClient.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)targetver.h"/>
-    <ClInclude Include="$(MSBuildThisFileDirectory)pch.h"/>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="$(MSBuildThisFileDirectory)libLobbyClient.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)pch.cpp">
-      <PrecompiledHeader>Create</PrecompiledHeader>
-    </ClCompile>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\src\LobbyServer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\src\Logger\Logger.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\src\Objects\ArrayValue.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\src\Objects\DictValue.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\src\Objects\json.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\src\Objects\LobbyRef.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\src\Objects\PrimitiveValue.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\src\Objects\Value.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\src\Objects\ValueJson.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\src\Objects\ValueReader.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\src\Objects\ValueWriter.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\src\Socket\NetworkCore.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\src\Socket\NetworkDefine.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\src\Socket\SocketAdapter.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\src\Socket\TCPClient.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectCapability Include="SourceItemsFromImports" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\src\Logger\Logger.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\src\Objects\ArrayValue.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\src\Objects\DictValue.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\src\Objects\LobbyRef.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\src\Objects\PrimitiveValue.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\src\Objects\Value.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\src\Objects\ValueJson.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\src\Objects\ValueReader.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\src\Objects\ValueWriter.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\src\Socket\NetworkCore.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\src\Socket\NetworkDefine.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\src\Socket\SocketAdapter.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\src\Socket\TCPClient.cpp" />
   </ItemGroup>
 </Project>
