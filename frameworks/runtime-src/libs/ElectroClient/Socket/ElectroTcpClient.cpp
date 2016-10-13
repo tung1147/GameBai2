@@ -305,7 +305,6 @@ void TcpSocketClient::closeSocket(){
 }
 
 void TcpSocketClient::resetSocket(){
-	this->closeSocket();
 	std::unique_lock<std::mutex> lk(socketMutex);
 	mSocket = SYS_SOCKET_INVALID;
 }

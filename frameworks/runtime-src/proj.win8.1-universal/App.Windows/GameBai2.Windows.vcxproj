@@ -124,6 +124,7 @@
       <AdditionalIncludeDirectories>$(ProjectDir)..\..\Classes;$(ProjectDir)..\..\libs\ElectroClient;$(ProjectDir)..\..\libs\SmartfoxClient\src;$(ProjectDir)..\..\libs\LobbyClient\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>CC_ENABLE_CHIPMUNK_INTEGRATION=1;COCOS2D_DEBUG=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
     </ClCompile>
     <Link>
       <IgnoreSpecificDefaultLibraries>MSVCRT;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -147,6 +148,7 @@
       <AdditionalIncludeDirectories>$(ProjectDir)..\..\Classes;$(ProjectDir)..\..\libs\ElectroClient;$(ProjectDir)..\..\libs\SmartfoxClient\src;$(ProjectDir)..\..\libs\LobbyClient\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>CC_ENABLE_CHIPMUNK_INTEGRATION=1;COCOS2D_DEBUG=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
     </ClCompile>
     <Link>
       <IgnoreSpecificDefaultLibraries>MSVCRT;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -170,6 +172,7 @@
       <AdditionalIncludeDirectories>$(ProjectDir)..\..\Classes;$(ProjectDir)..\..\libs\ElectroClient;$(ProjectDir)..\..\libs\SmartfoxClient\src;$(ProjectDir)..\..\libs\LobbyClient\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>CC_ENABLE_CHIPMUNK_INTEGRATION=1;COCOS2D_DEBUG=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
     </ClCompile>
     <Link>
       <IgnoreSpecificDefaultLibraries>MSVCRT;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>

@@ -379,7 +379,7 @@ bool SocketClient::connectThread(){
 void SocketClient::connectTo(const std::string& host, int port){
 	clearAdapter();
 	createAdapter();
-	resetSocket();
+	closeSocket();
 
 	_clientStatus.clear();
 	this->setStatus(SocketStatusType::Connecting);
