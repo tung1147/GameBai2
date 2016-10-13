@@ -1,0 +1,549 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|ARM">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM">
+      <Configuration>Release</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|ARM64">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM64">
+      <Configuration>Release</Configuration>
+      <Platform>ARM64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x86">
+      <Configuration>Debug</Configuration>
+      <Platform>x86</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x86">
+      <Configuration>Release</Configuration>
+      <Platform>x86</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{ddbc9c85-fe86-4513-b83e-6ecd9877f4f0}</ProjectGuid>
+    <Keyword>Android</Keyword>
+    <RootNamespace>libElectroClient</RootNamespace>
+    <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
+    <ApplicationType>Android</ApplicationType>
+    <ApplicationTypeRevision>2.0</ApplicationTypeRevision>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>Gcc_4_9</PlatformToolset>
+    <AndroidAPILevel>android-15</AndroidAPILevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>Gcc_4_9</PlatformToolset>
+    <AndroidAPILevel>android-15</AndroidAPILevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>Gcc_4_9</PlatformToolset>
+    <AndroidAPILevel>android-15</AndroidAPILevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>Gcc_4_9</PlatformToolset>
+    <AndroidAPILevel>android-15</AndroidAPILevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>Gcc_4_9</PlatformToolset>
+    <AndroidAPILevel>android-15</AndroidAPILevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>Gcc_4_9</PlatformToolset>
+    <AndroidAPILevel>android-15</AndroidAPILevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>Gcc_4_9</PlatformToolset>
+    <AndroidAPILevel>android-15</AndroidAPILevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>Gcc_4_9</PlatformToolset>
+    <AndroidAPILevel>android-15</AndroidAPILevel>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Label="Shared" />
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <TargetName>libElectroClient</TargetName>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <TargetName>libElectroClient</TargetName>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+    <TargetName>libElectroClient</TargetName>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
+    <TargetName>libElectroClient</TargetName>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+    <TargetName>libElectroClient</TargetName>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
+    <TargetName>libElectroClient</TargetName>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <TargetName>libElectroClient</TargetName>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <TargetName>libElectroClient</TargetName>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <CLanguageStandard>gnu11</CLanguageStandard>
+      <CppLanguageStandard>c++11</CppLanguageStandard>
+      <PreprocessorDefinitions>ANDROID;USE_FILE32API;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ExceptionHandling>Enabled</ExceptionHandling>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <CLanguageStandard>gnu11</CLanguageStandard>
+      <CppLanguageStandard>c++11</CppLanguageStandard>
+      <PreprocessorDefinitions>ANDROID;USE_FILE32API;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ExceptionHandling>Enabled</ExceptionHandling>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <CLanguageStandard>gnu11</CLanguageStandard>
+      <CppLanguageStandard>c++11</CppLanguageStandard>
+      <PreprocessorDefinitions>ANDROID;USE_FILE32API;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ExceptionHandling>Enabled</ExceptionHandling>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <CLanguageStandard>gnu11</CLanguageStandard>
+      <CppLanguageStandard>c++11</CppLanguageStandard>
+      <PreprocessorDefinitions>ANDROID;USE_FILE32API;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ExceptionHandling>Enabled</ExceptionHandling>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <CLanguageStandard>gnu11</CLanguageStandard>
+      <CppLanguageStandard>c++11</CppLanguageStandard>
+      <PreprocessorDefinitions>ANDROID;USE_FILE32API;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ExceptionHandling>Enabled</ExceptionHandling>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <CLanguageStandard>gnu11</CLanguageStandard>
+      <CppLanguageStandard>c++11</CppLanguageStandard>
+      <PreprocessorDefinitions>ANDROID;USE_FILE32API;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ExceptionHandling>Enabled</ExceptionHandling>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PreprocessorDefinitions>ANDROID;USE_FILE32API;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <CppLanguageStandard>c++11</CppLanguageStandard>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <CLanguageStandard>gnu11</CLanguageStandard>
+      <ExceptionHandling>Enabled</ExceptionHandling>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <CLanguageStandard>gnu11</CLanguageStandard>
+      <CppLanguageStandard>c++11</CppLanguageStandard>
+      <PreprocessorDefinitions>ANDROID;USE_FILE32API;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ExceptionHandling>Enabled</ExceptionHandling>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\ElectroLogger.h" />
+    <ClInclude Include="..\ElectroServer.h" />
+    <ClInclude Include="..\Objects\BaseMessage.h" />
+    <ClInclude Include="..\Objects\Entity\EsArray.h" />
+    <ClInclude Include="..\Objects\Entity\EsEntity.h" />
+    <ClInclude Include="..\Objects\Entity\EsMessageStreamer.h" />
+    <ClInclude Include="..\Objects\Entity\EsObject.h" />
+    <ClInclude Include="..\Objects\Entity\EsPrimitive.h" />
+    <ClInclude Include="..\Objects\ErrorType.h" />
+    <ClInclude Include="..\Objects\EsReleasePool.h" />
+    <ClInclude Include="..\Objects\EsUtil.h" />
+    <ClInclude Include="..\Objects\Event\BaseEvent.h" />
+    <ClInclude Include="..\Objects\Event\ConnectionClosedEvent.h" />
+    <ClInclude Include="..\Objects\Event\ConnectionResponse.h" />
+    <ClInclude Include="..\Objects\Event\GatewayKickUserRequest.h" />
+    <ClInclude Include="..\Objects\Event\GenericErrorResponse.h" />
+    <ClInclude Include="..\Objects\Event\JoinRoomEvent.h" />
+    <ClInclude Include="..\Objects\Event\JoinZoneEvent.h" />
+    <ClInclude Include="..\Objects\Event\LeaveRoomEvent.h" />
+    <ClInclude Include="..\Objects\Event\LoginResponse.h" />
+    <ClInclude Include="..\Objects\Event\PingResponse.h" />
+    <ClInclude Include="..\Objects\Event\PluginMessageEvent.h" />
+    <ClInclude Include="..\Objects\Event\PrivateMessageEvent.h" />
+    <ClInclude Include="..\Objects\Event\ProtocolConfiguration.h" />
+    <ClInclude Include="..\Objects\Event\PublicMessageEvent.h" />
+    <ClInclude Include="..\Objects\Event\RoomListEntry.h" />
+    <ClInclude Include="..\Objects\Event\RoomVariable.h" />
+    <ClInclude Include="..\Objects\Event\ServerKickUserEvent.h" />
+    <ClInclude Include="..\Objects\Event\UserEvictedFromRoomEvent.h" />
+    <ClInclude Include="..\Objects\Event\UserListEntry.h" />
+    <ClInclude Include="..\Objects\Event\UserUpdateAction.h" />
+    <ClInclude Include="..\Objects\Event\UserUpdateEvent.h" />
+    <ClInclude Include="..\Objects\Event\UserVariable.h" />
+    <ClInclude Include="..\Objects\Event\ZoneUpdateAction.h" />
+    <ClInclude Include="..\Objects\Event\ZoneUpdateEvent.h" />
+    <ClInclude Include="..\Objects\MessageType.h" />
+    <ClInclude Include="..\Objects\Request\BaseRequest.h" />
+    <ClInclude Include="..\Objects\Request\JoinRoomRequest.h" />
+    <ClInclude Include="..\Objects\Request\JsonRequest.h" />
+    <ClInclude Include="..\Objects\Request\LeaveRoomRequest.h" />
+    <ClInclude Include="..\Objects\Request\LoginRequest.h" />
+    <ClInclude Include="..\Objects\Request\LogoutRequest.h" />
+    <ClInclude Include="..\Objects\Request\PingRequest.h" />
+    <ClInclude Include="..\Objects\Request\PluginRequest.h" />
+    <ClInclude Include="..\Objects\Request\PrivateMessageRequest.h" />
+    <ClInclude Include="..\Objects\Request\PublicMessageRequest.h" />
+    <ClInclude Include="..\Objects\thrift\libs\TBinaryProtocol.h" />
+    <ClInclude Include="..\Objects\thrift\libs\TBufferTransports.h" />
+    <ClInclude Include="..\Objects\thrift\libs\Thrift.h" />
+    <ClInclude Include="..\Objects\thrift\libs\TProtocol.h" />
+    <ClInclude Include="..\Objects\thrift\libs\TProtocolException.h" />
+    <ClInclude Include="..\Objects\thrift\libs\TToString.h" />
+    <ClInclude Include="..\Objects\thrift\libs\TTransport.h" />
+    <ClInclude Include="..\Objects\thrift\libs\TTransportException.h" />
+    <ClInclude Include="..\Objects\thrift\libs\TVirtualProtocol.h" />
+    <ClInclude Include="..\Objects\thrift\libs\TVirtualTransport.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftAddBuddiesRequest_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftAddBuddiesResponse_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftAddRoomOperatorRequest_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftAggregatePluginMessageEvent_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftAggregatePluginRequest_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftBuddyStatusUpdateAction_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftBuddyStatusUpdateEvent_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftConnectionAttemptResponse_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftConnectionClosedEvent_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftConnectionResponse_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftCreateOrJoinGameResponse_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftCreateRoomRequest_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftCreateRoomVariableRequest_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftCrossDomainPolicyRequest_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftCrossDomainPolicyResponse_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftDataType_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftDeleteRoomVariableRequest_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftDeleteUserVariableRequest_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftDHInitiateKeyExchangeRequest_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftDHPublicNumbersResponse_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftDHSharedModulusRequest_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftDHSharedModulusResponse_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftEncryptionStateChangeEvent_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftErrorType_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftEsNumber_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftEvictUserFromRoomRequest_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftFindGamesRequest_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftFindGamesResponse_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftFindZoneAndRoomByNameRequest_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftFindZoneAndRoomByNameResponse_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftFlattenedEsObjectRO_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftFlattenedEsObject_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftGatewayKickUserRequest_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftGatewayStatistics_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftGenericErrorResponse_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftGetGameTypesRequest_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftGetGameTypesResponse_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftGetRoomsInZoneRequest_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftGetRoomsInZoneResponse_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftGetServerLocalTimeRequest_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftGetServerLocalTimeResponse_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftGetUserCountRequest_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftGetUserCountResponse_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftGetUsersInRoomRequest_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftGetUsersInRoomResponse_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftGetUserVariablesRequest_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftGetUserVariablesResponse_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftGetZonesRequest_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftGetZonesResponse_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftIdleTimeoutWarningEvent_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftJoinGameRequest_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftJoinRoomEvent_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftJoinRoomRequest_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftJoinZoneEvent_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftLeaveRoomEvent_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftLeaveRoomRequest_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftLeaveZoneEvent_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftLoginRequest_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftLoginResponse_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftLogOutRequest_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftMessageType_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftPingRequest_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftPingResponse_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftPluginListEntry_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftPluginMessageEvent_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftPluginRequest_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftPrivateMessageEvent_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftPrivateMessageRequest_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftProtocolConfiguration_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftProtocol_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftPublicMessageEvent_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftPublicMessageRequest_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftQuickJoinGameRequest_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftRegisterUDPConnectionRequest_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftRegisterUDPConnectionResponse_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftRegistryConnectToPreferredGatewayRequest_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftRemoveBuddiesRequest_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftRemoveBuddiesResponse_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftRemoveRoomOperatorRequest_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftRemoveUDPConnectionRequest_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftRemoveUDPConnectionResponse_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftRequestDetails_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftRoomListEntry_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftRoomVariableUpdateAction_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftRoomVariableUpdateEvent_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftRoomVariable_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftSearchCriteria_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftServerGame_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftServerKickUserEvent_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftServerState_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftSessionIdleEvent_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftUpdateRoomDetailsEvent_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftUpdateRoomDetailsRequest_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftUpdateRoomVariableRequest_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftUpdateUserVariableRequest_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftUserEvictedFromRoomEvent_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftUserListEntry_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftUserServerVariable_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftUserUpdateAction_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftUserUpdateEvent_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftUserVariableUpdateAction_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftUserVariableUpdateEvent_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftUserVariable_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftValidateAdditionalLoginRequest_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftValidateAdditionalLoginResponse_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftZoneListEntry_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftZoneUpdateAction_types.h" />
+    <ClInclude Include="..\Objects\thrift\ThriftZoneUpdateEvent_types.h" />
+    <ClInclude Include="..\Socket\ElectroTcpClient.h" />
+    <ClInclude Include="..\Socket\NetworkCore.h" />
+    <ClInclude Include="..\Socket\NetworkDefine.h" />
+    <ClInclude Include="..\Socket\SocketAdapter.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\ElectroLogger.cpp" />
+    <ClCompile Include="..\Objects\BaseMessage.cpp" />
+    <ClCompile Include="..\Objects\Entity\EsArray.cpp" />
+    <ClCompile Include="..\Objects\Entity\EsEntity.cpp" />
+    <ClCompile Include="..\Objects\Entity\EsMessageStreamer.cpp" />
+    <ClCompile Include="..\Objects\Entity\EsObject.cpp" />
+    <ClCompile Include="..\Objects\Entity\EsPrimitive.cpp" />
+    <ClCompile Include="..\Objects\ErrorType.cpp" />
+    <ClCompile Include="..\Objects\EsReleasePool.cpp" />
+    <ClCompile Include="..\Objects\EsUtil.cpp" />
+    <ClCompile Include="..\Objects\Event\BaseEvent.cpp" />
+    <ClCompile Include="..\Objects\Event\ConnectionClosedEvent.cpp" />
+    <ClCompile Include="..\Objects\Event\ConnectionResponse.cpp" />
+    <ClCompile Include="..\Objects\Event\GatewayKickUserRequest.cpp" />
+    <ClCompile Include="..\Objects\Event\GenericErrorResponse.cpp" />
+    <ClCompile Include="..\Objects\Event\JoinRoomEvent.cpp" />
+    <ClCompile Include="..\Objects\Event\JoinZoneEvent.cpp" />
+    <ClCompile Include="..\Objects\Event\LeaveRoomEvent.cpp" />
+    <ClCompile Include="..\Objects\Event\LoginResponse.cpp" />
+    <ClCompile Include="..\Objects\Event\PingResponse.cpp" />
+    <ClCompile Include="..\Objects\Event\PluginMessageEvent.cpp" />
+    <ClCompile Include="..\Objects\Event\PrivateMessageEvent.cpp" />
+    <ClCompile Include="..\Objects\Event\PublicMessageEvent.cpp" />
+    <ClCompile Include="..\Objects\Event\RoomListEntry.cpp" />
+    <ClCompile Include="..\Objects\Event\RoomVariable.cpp" />
+    <ClCompile Include="..\Objects\Event\ServerKickUserEvent.cpp" />
+    <ClCompile Include="..\Objects\Event\UserEvictedFromRoomEvent.cpp" />
+    <ClCompile Include="..\Objects\Event\UserListEntry.cpp" />
+    <ClCompile Include="..\Objects\Event\UserUpdateAction.cpp" />
+    <ClCompile Include="..\Objects\Event\UserUpdateEvent.cpp" />
+    <ClCompile Include="..\Objects\Event\UserVariable.cpp" />
+    <ClCompile Include="..\Objects\Event\ZoneUpdateAction.cpp" />
+    <ClCompile Include="..\Objects\Event\ZoneUpdateEvent.cpp" />
+    <ClCompile Include="..\Objects\MessageType.cpp" />
+    <ClCompile Include="..\Objects\Request\BaseRequest.cpp" />
+    <ClCompile Include="..\Objects\Request\JoinRoomRequest.cpp" />
+    <ClCompile Include="..\Objects\Request\JsonRequest.cpp" />
+    <ClCompile Include="..\Objects\Request\LeaveRoomRequest.cpp" />
+    <ClCompile Include="..\Objects\Request\LoginRequest.cpp" />
+    <ClCompile Include="..\Objects\Request\LogoutRequest.cpp" />
+    <ClCompile Include="..\Objects\Request\PingRequest.cpp" />
+    <ClCompile Include="..\Objects\Request\PluginRequest.cpp" />
+    <ClCompile Include="..\Objects\Request\PrivateMessageRequest.cpp" />
+    <ClCompile Include="..\Objects\Request\PublicMessageRequest.cpp" />
+    <ClCompile Include="..\Objects\thrift\libs\TBinaryProtocol.cpp" />
+    <ClCompile Include="..\Objects\thrift\libs\TBufferTransports.cpp" />
+    <ClCompile Include="..\Objects\thrift\libs\TProtocol.cpp" />
+    <ClCompile Include="..\Objects\thrift\libs\TTransportException.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftAddBuddiesRequest_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftAddBuddiesResponse_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftAddRoomOperatorRequest_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftAggregatePluginMessageEvent_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftAggregatePluginRequest_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftBuddyStatusUpdateAction_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftBuddyStatusUpdateEvent_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftConnectionAttemptResponse_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftConnectionClosedEvent_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftConnectionResponse_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftCreateOrJoinGameResponse_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftCreateRoomRequest_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftCreateRoomVariableRequest_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftCrossDomainPolicyRequest_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftCrossDomainPolicyResponse_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftDataType_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftDeleteRoomVariableRequest_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftDeleteUserVariableRequest_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftDHInitiateKeyExchangeRequest_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftDHPublicNumbersResponse_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftDHSharedModulusRequest_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftDHSharedModulusResponse_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftEncryptionStateChangeEvent_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftErrorType_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftEsNumber_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftEvictUserFromRoomRequest_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftFindGamesRequest_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftFindGamesResponse_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftFindZoneAndRoomByNameRequest_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftFindZoneAndRoomByNameResponse_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftFlattenedEsObjectRO_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftFlattenedEsObject_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftGatewayKickUserRequest_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftGatewayStatistics_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftGenericErrorResponse_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftGetGameTypesRequest_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftGetGameTypesResponse_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftGetRoomsInZoneRequest_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftGetRoomsInZoneResponse_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftGetServerLocalTimeRequest_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftGetServerLocalTimeResponse_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftGetUserCountRequest_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftGetUserCountResponse_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftGetUsersInRoomRequest_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftGetUsersInRoomResponse_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftGetUserVariablesRequest_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftGetUserVariablesResponse_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftGetZonesRequest_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftGetZonesResponse_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftIdleTimeoutWarningEvent_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftJoinGameRequest_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftJoinRoomEvent_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftJoinRoomRequest_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftJoinZoneEvent_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftLeaveRoomEvent_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftLeaveRoomRequest_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftLeaveZoneEvent_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftLoginRequest_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftLoginResponse_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftLogOutRequest_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftMessageType_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftPingRequest_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftPingResponse_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftPluginListEntry_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftPluginMessageEvent_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftPluginRequest_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftPrivateMessageEvent_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftPrivateMessageRequest_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftProtocolConfiguration_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftProtocol_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftPublicMessageEvent_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftPublicMessageRequest_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftQuickJoinGameRequest_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftRegisterUDPConnectionRequest_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftRegisterUDPConnectionResponse_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftRegistryConnectToPreferredGatewayRequest_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftRemoveBuddiesRequest_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftRemoveBuddiesResponse_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftRemoveRoomOperatorRequest_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftRemoveUDPConnectionRequest_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftRemoveUDPConnectionResponse_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftRequestDetails_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftRoomListEntry_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftRoomVariableUpdateAction_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftRoomVariableUpdateEvent_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftRoomVariable_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftSearchCriteria_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftServerGame_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftServerKickUserEvent_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftServerState_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftSessionIdleEvent_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftUpdateRoomDetailsEvent_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftUpdateRoomDetailsRequest_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftUpdateRoomVariableRequest_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftUpdateUserVariableRequest_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftUserEvictedFromRoomEvent_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftUserListEntry_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftUserServerVariable_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftUserUpdateAction_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftUserUpdateEvent_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftUserVariableUpdateAction_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftUserVariableUpdateEvent_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftUserVariable_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftValidateAdditionalLoginRequest_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftValidateAdditionalLoginResponse_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftZoneListEntry_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftZoneUpdateAction_types.cpp" />
+    <ClCompile Include="..\Objects\thrift\ThriftZoneUpdateEvent_types.cpp" />
+    <ClCompile Include="..\Socket\ElectroTcpClient.cpp" />
+    <ClCompile Include="..\Socket\NetworkCore.cpp" />
+    <ClCompile Include="..\Socket\NetworkDefine.cpp" />
+    <ClCompile Include="..\Socket\SocketAdapter.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Objects\thrift\libs\TBinaryProtocol.tcc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets" />
+</Project>

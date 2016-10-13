@@ -1,0 +1,82 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{39E2626F-3545-4960-A6E8-258AD8476CE5}") = "Cocos2d", "Cocos2d\Cocos2d.androidproj", "{46ED4173-B435-40B1-9597-6DB580EDFAFB}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Cocos2dcpp", "Cocos2dcpp\Cocos2dcpp.vcxproj", "{0A6F61A9-FC68-4326-955D-420195B9D5FE}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libElectroClient", "..\libs\ElectroClient\proj.visualstudio\libElectroClient.vcxproj", "{DDBC9C85-FE86-4513-B83E-6ECD9877F4F0}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libSmartfoxClient", "..\libs\SmartfoxClient\proj.visualstudio\libSmartfoxClient.vcxproj", "{883719BF-F0BA-45C5-9C0C-5E1BC206B73B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libLobbyClient", "..\libs\LobbyClient\proj.visualstudio\libLobbyClient.vcxproj", "{4653E355-8463-45CD-8AE2-BD55390D4F0E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libcocos2d", "libcocos2d\libcocos2d.vcxproj", "{07A89029-8168-4F32-B830-F31EC5136A25}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|ARM = Debug|ARM
+		Debug|x86 = Debug|x86
+		Release|ARM = Release|ARM
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{46ED4173-B435-40B1-9597-6DB580EDFAFB}.Debug|ARM.ActiveCfg = Debug|ARM
+		{46ED4173-B435-40B1-9597-6DB580EDFAFB}.Debug|ARM.Build.0 = Debug|ARM
+		{46ED4173-B435-40B1-9597-6DB580EDFAFB}.Debug|ARM.Deploy.0 = Debug|ARM
+		{46ED4173-B435-40B1-9597-6DB580EDFAFB}.Debug|x86.ActiveCfg = Debug|x86
+		{46ED4173-B435-40B1-9597-6DB580EDFAFB}.Debug|x86.Build.0 = Debug|x86
+		{46ED4173-B435-40B1-9597-6DB580EDFAFB}.Debug|x86.Deploy.0 = Debug|x86
+		{46ED4173-B435-40B1-9597-6DB580EDFAFB}.Release|ARM.ActiveCfg = Release|ARM
+		{46ED4173-B435-40B1-9597-6DB580EDFAFB}.Release|ARM.Build.0 = Release|ARM
+		{46ED4173-B435-40B1-9597-6DB580EDFAFB}.Release|ARM.Deploy.0 = Release|ARM
+		{46ED4173-B435-40B1-9597-6DB580EDFAFB}.Release|x86.ActiveCfg = Release|x86
+		{46ED4173-B435-40B1-9597-6DB580EDFAFB}.Release|x86.Build.0 = Release|x86
+		{46ED4173-B435-40B1-9597-6DB580EDFAFB}.Release|x86.Deploy.0 = Release|x86
+		{0A6F61A9-FC68-4326-955D-420195B9D5FE}.Debug|ARM.ActiveCfg = Debug|ARM
+		{0A6F61A9-FC68-4326-955D-420195B9D5FE}.Debug|ARM.Build.0 = Debug|ARM
+		{0A6F61A9-FC68-4326-955D-420195B9D5FE}.Debug|x86.ActiveCfg = Debug|x86
+		{0A6F61A9-FC68-4326-955D-420195B9D5FE}.Debug|x86.Build.0 = Debug|x86
+		{0A6F61A9-FC68-4326-955D-420195B9D5FE}.Release|ARM.ActiveCfg = Release|ARM
+		{0A6F61A9-FC68-4326-955D-420195B9D5FE}.Release|ARM.Build.0 = Release|ARM
+		{0A6F61A9-FC68-4326-955D-420195B9D5FE}.Release|x86.ActiveCfg = Release|x86
+		{0A6F61A9-FC68-4326-955D-420195B9D5FE}.Release|x86.Build.0 = Release|x86
+		{DDBC9C85-FE86-4513-B83E-6ECD9877F4F0}.Debug|ARM.ActiveCfg = Debug|ARM
+		{DDBC9C85-FE86-4513-B83E-6ECD9877F4F0}.Debug|ARM.Build.0 = Debug|ARM
+		{DDBC9C85-FE86-4513-B83E-6ECD9877F4F0}.Debug|x86.ActiveCfg = Debug|x86
+		{DDBC9C85-FE86-4513-B83E-6ECD9877F4F0}.Debug|x86.Build.0 = Debug|x86
+		{DDBC9C85-FE86-4513-B83E-6ECD9877F4F0}.Release|ARM.ActiveCfg = Release|ARM
+		{DDBC9C85-FE86-4513-B83E-6ECD9877F4F0}.Release|ARM.Build.0 = Release|ARM
+		{DDBC9C85-FE86-4513-B83E-6ECD9877F4F0}.Release|x86.ActiveCfg = Release|x86
+		{DDBC9C85-FE86-4513-B83E-6ECD9877F4F0}.Release|x86.Build.0 = Release|x86
+		{883719BF-F0BA-45C5-9C0C-5E1BC206B73B}.Debug|ARM.ActiveCfg = Debug|ARM
+		{883719BF-F0BA-45C5-9C0C-5E1BC206B73B}.Debug|ARM.Build.0 = Debug|ARM
+		{883719BF-F0BA-45C5-9C0C-5E1BC206B73B}.Debug|x86.ActiveCfg = Debug|x86
+		{883719BF-F0BA-45C5-9C0C-5E1BC206B73B}.Debug|x86.Build.0 = Debug|x86
+		{883719BF-F0BA-45C5-9C0C-5E1BC206B73B}.Release|ARM.ActiveCfg = Release|ARM
+		{883719BF-F0BA-45C5-9C0C-5E1BC206B73B}.Release|ARM.Build.0 = Release|ARM
+		{883719BF-F0BA-45C5-9C0C-5E1BC206B73B}.Release|x86.ActiveCfg = Release|x86
+		{883719BF-F0BA-45C5-9C0C-5E1BC206B73B}.Release|x86.Build.0 = Release|x86
+		{4653E355-8463-45CD-8AE2-BD55390D4F0E}.Debug|ARM.ActiveCfg = Debug|ARM
+		{4653E355-8463-45CD-8AE2-BD55390D4F0E}.Debug|ARM.Build.0 = Debug|ARM
+		{4653E355-8463-45CD-8AE2-BD55390D4F0E}.Debug|x86.ActiveCfg = Debug|x86
+		{4653E355-8463-45CD-8AE2-BD55390D4F0E}.Debug|x86.Build.0 = Debug|x86
+		{4653E355-8463-45CD-8AE2-BD55390D4F0E}.Release|ARM.ActiveCfg = Release|ARM
+		{4653E355-8463-45CD-8AE2-BD55390D4F0E}.Release|ARM.Build.0 = Release|ARM
+		{4653E355-8463-45CD-8AE2-BD55390D4F0E}.Release|x86.ActiveCfg = Release|x86
+		{4653E355-8463-45CD-8AE2-BD55390D4F0E}.Release|x86.Build.0 = Release|x86
+		{07A89029-8168-4F32-B830-F31EC5136A25}.Debug|ARM.ActiveCfg = Debug|ARM
+		{07A89029-8168-4F32-B830-F31EC5136A25}.Debug|ARM.Build.0 = Debug|ARM
+		{07A89029-8168-4F32-B830-F31EC5136A25}.Debug|x86.ActiveCfg = Debug|x86
+		{07A89029-8168-4F32-B830-F31EC5136A25}.Debug|x86.Build.0 = Debug|x86
+		{07A89029-8168-4F32-B830-F31EC5136A25}.Release|ARM.ActiveCfg = Release|ARM
+		{07A89029-8168-4F32-B830-F31EC5136A25}.Release|ARM.Build.0 = Release|ARM
+		{07A89029-8168-4F32-B830-F31EC5136A25}.Release|x86.ActiveCfg = Release|x86
+		{07A89029-8168-4F32-B830-F31EC5136A25}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

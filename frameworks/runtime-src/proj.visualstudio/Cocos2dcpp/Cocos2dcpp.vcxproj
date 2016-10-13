@@ -1,0 +1,347 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|ARM">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM">
+      <Configuration>Release</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x86">
+      <Configuration>Debug</Configuration>
+      <Platform>x86</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x86">
+      <Configuration>Release</Configuration>
+      <Platform>x86</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{0a6f61a9-fc68-4326-955d-420195b9d5fe}</ProjectGuid>
+    <Keyword>Android</Keyword>
+    <RootNamespace>Cocos2dcpp</RootNamespace>
+    <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
+    <ApplicationType>Android</ApplicationType>
+    <ApplicationTypeRevision>2.0</ApplicationTypeRevision>
+    <ProjectName>Cocos2dcpp</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>Gcc_4_9</PlatformToolset>
+    <AndroidAPILevel>android-15</AndroidAPILevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>Gcc_4_9</PlatformToolset>
+    <AndroidAPILevel>android-15</AndroidAPILevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>Gcc_4_9</PlatformToolset>
+    <AndroidAPILevel>android-15</AndroidAPILevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>Gcc_4_9</PlatformToolset>
+    <AndroidAPILevel>android-15</AndroidAPILevel>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Label="Shared" />
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+    <IncludePath>$(VS_NdkRoot)\sources\android\cpufeatures;$(VS_NdkRoot)\platforms\android-15\arch-x86\usr\include;$(ProjectDir)\..\..\..\cocos2d-x\external\curl\include\android;$(ProjectDir)\..\..\..\cocos2d-x\external\bullet;$(ProjectDir)\..\..\..\cocos2d-x\external\chipmunk\include\chipmunk;$(ProjectDir)\..\..\..\cocos2d-x\external\clipper;$(ProjectDir)\..\..\..\cocos2d-x\external\ConvertUTF;$(ProjectDir)\..\..\..\cocos2d-x\external\curl\include\android\curl;$(ProjectDir)\..\..\..\cocos2d-x\external\flatbuffers;$(ProjectDir)\..\..\..\cocos2d-x\external\jpeg\include\android;$(ProjectDir)\..\..\..\cocos2d-x\external\json;$(ProjectDir)\..\..\..\cocos2d-x\external\png\include\android;$(ProjectDir)\..\..\..\cocos2d-x\external\poly2tri;$(ProjectDir)\..\..\..\cocos2d-x\external\recast\Recast;$(ProjectDir)\..\..\..\cocos2d-x\external\sqlite3\include;$(ProjectDir)\..\..\..\cocos2d-x\external\tiff\include\android;$(ProjectDir)\..\..\..\cocos2d-x\external\unzip;$(ProjectDir)\..\..\..\cocos2d-x\external\webp\include\android;$(ProjectDir)\..\..\..\cocos2d-x\external\websockets\include\android;$(ProjectDir)\..\..\..\cocos2d-x\external\tinyxml2;$(ProjectDir)\..\..\..\cocos2d-x\cocos\audio\android;$(ProjectDir)\..\..\..\cocos2d-x\cocos\audio\include;$(ProjectDir)\..\..\..\cocos2d-x\cocos\platform\android;$(ProjectDir)\..\..\..\cocos2d-x\cocos\platform\android\jni;$(ProjectDir)..\..\cocos2d-x\cocos\platform\android\jni;$(LLVMToolchainPrebuiltRoot)\lib\clang\$(LLVMVersion)\include;$(ProjectDir)\cocos2d-x\cocos;$(ProjectDir)\..\..\proj.visualstudio\Cocos2dcpp\;$(ProjectDir)\..\..\..\cocos2d-x\external\xxtea;$(ProjectDir)\..\..\..\cocos2d-x\external\xxhash;$(ProjectDir)\..\..\..\cocos2d-x\external;$(ProjectDir)\..\..\..\cocos2d-x\external\edtaa3func;$(ProjectDir)\..\..\..\cocos2d-x\external\freetype2\include\android\freetype2;$(ProjectDir)\..\..\..\cocos2d-x\cocos\platform;$(ProjectDir)\..\..\..\cocos2d-x\cocos;$(ProjectDir)\..\..\libs\LobbyClient\libs\udt4\udt;$(ProjectDir)\..\..\libs\ElectroClient;$(ProjectDir)\..\..\libs\LobbyClient\src;$(ProjectDir)\..\..\libs\SmartfoxClient\src;$(ProjectDir)\..\..\..\cocos2d-x\external\spidermonkey\include\android;$(ProjectDir)\..\..\..\cocos2d-x\extensions\;$(ProjectDir)\..\..\..\cocos2d-x;$(ProjectDir)\..\..\..\cocos2d-x\cocos\editor-support</IncludePath>
+    <LibraryPath>
+    </LibraryPath>
+    <UseMultiToolTask>true</UseMultiToolTask>
+    <TargetName>libcocos2dcpp</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
+    <IncludePath>$(VS_NdkRoot)\sources\android\cpufeatures;$(VS_NdkRoot)\platforms\android-15\arch-x86\usr\include;$(ProjectDir)\..\..\..\cocos2d-x\external\curl\include\android;$(ProjectDir)\..\..\..\cocos2d-x\external\bullet;$(ProjectDir)\..\..\..\cocos2d-x\external\chipmunk\include\chipmunk;$(ProjectDir)\..\..\..\cocos2d-x\external\clipper;$(ProjectDir)\..\..\..\cocos2d-x\external\ConvertUTF;$(ProjectDir)\..\..\..\cocos2d-x\external\curl\include\android\curl;$(ProjectDir)\..\..\..\cocos2d-x\external\flatbuffers;$(ProjectDir)\..\..\..\cocos2d-x\external\jpeg\include\android;$(ProjectDir)\..\..\..\cocos2d-x\external\json;$(ProjectDir)\..\..\..\cocos2d-x\external\png\include\android;$(ProjectDir)\..\..\..\cocos2d-x\external\poly2tri;$(ProjectDir)\..\..\..\cocos2d-x\external\recast\Recast;$(ProjectDir)\..\..\..\cocos2d-x\external\sqlite3\include;$(ProjectDir)\..\..\..\cocos2d-x\external\tiff\include\android;$(ProjectDir)\..\..\..\cocos2d-x\external\unzip;$(ProjectDir)\..\..\..\cocos2d-x\external\webp\include\android;$(ProjectDir)\..\..\..\cocos2d-x\external\websockets\include\android;$(ProjectDir)\..\..\..\cocos2d-x\external\tinyxml2;$(ProjectDir)\..\..\..\cocos2d-x\cocos\audio\android;$(ProjectDir)\..\..\..\cocos2d-x\cocos\audio\include;$(ProjectDir)\..\..\..\cocos2d-x\cocos\platform\android;$(ProjectDir)\..\..\..\cocos2d-x\cocos\platform\android\jni;$(ProjectDir)..\..\cocos2d-x\cocos\platform\android\jni;$(LLVMToolchainPrebuiltRoot)\lib\clang\$(LLVMVersion)\include;$(ProjectDir)\cocos2d-x\cocos;$(ProjectDir)\..\..\proj.visualstudio\Cocos2dcpp\;$(ProjectDir)\..\..\..\cocos2d-x\external\xxtea;$(ProjectDir)\..\..\..\cocos2d-x\external\xxhash;$(ProjectDir)\..\..\..\cocos2d-x\external;$(ProjectDir)\..\..\..\cocos2d-x\external\edtaa3func;$(ProjectDir)\..\..\..\cocos2d-x\external\freetype2\include\android\freetype2;$(ProjectDir)\..\..\..\cocos2d-x\cocos\platform;$(ProjectDir)\..\..\..\cocos2d-x\cocos;$(ProjectDir)\..\..\libs\LobbyClient\libs\udt4\udt;$(ProjectDir)\..\..\libs\ElectroClient;$(ProjectDir)\..\..\libs\LobbyClient\src;$(ProjectDir)\..\..\libs\SmartfoxClient\src;$(ProjectDir)\..\..\..\cocos2d-x\external\spidermonkey\include\android;$(ProjectDir)\..\..\..\cocos2d-x\extensions\;$(ProjectDir)\..\..\..\cocos2d-x;$(ProjectDir)\..\..\..\cocos2d-x\cocos\editor-support</IncludePath>
+    <LibraryPath>
+    </LibraryPath>
+    <UseMultiToolTask>true</UseMultiToolTask>
+    <TargetName>libcocos2dcpp</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <IncludePath>$(VS_NdkRoot)\sources\android\cpufeatures;$(VS_NdkRoot)\platforms\android-15\arch-arm\usr\include;$(ProjectDir)\..\..\..\cocos2d-x\external\curl\include\android;$(ProjectDir)\..\..\..\cocos2d-x\external\bullet;$(ProjectDir)\..\..\..\cocos2d-x\external\chipmunk\include;$(ProjectDir)\..\..\..\cocos2d-x\external\chipmunk\include\chipmunk;$(ProjectDir)\..\..\..\cocos2d-x\external\clipper;$(ProjectDir)\..\..\..\cocos2d-x\external\ConvertUTF;$(ProjectDir)\..\..\..\cocos2d-x\external\curl\include\android\curl;$(ProjectDir)\..\..\..\cocos2d-x\external\flatbuffers;$(ProjectDir)\..\..\..\cocos2d-x\external\jpeg\include\android;$(ProjectDir)\..\..\..\cocos2d-x\external\json;$(ProjectDir)\..\..\..\cocos2d-x\external\png\include\android;$(ProjectDir)\..\..\..\cocos2d-x\external\poly2tri;$(ProjectDir)\..\..\..\cocos2d-x\external\recast\Recast;$(ProjectDir)\..\..\..\cocos2d-x\external\sqlite3\include;$(ProjectDir)\..\..\..\cocos2d-x\external\tiff\include\android;$(ProjectDir)\..\..\..\cocos2d-x\external\unzip;$(ProjectDir)\..\..\..\cocos2d-x\external\zlib\include;$(ProjectDir)\..\..\..\cocos2d-x\external\webp\include\android;$(ProjectDir)\..\..\..\cocos2d-x\external\websockets\include\android;$(ProjectDir)\..\..\..\cocos2d-x\external\tinyxml2;$(ProjectDir)\..\..\..\cocos2d-x\cocos\audio\android\audio_utils\include;$(ProjectDir)\..\..\..\cocos2d-x\cocos\audio\android\audio_utils;$(ProjectDir)\..\..\..\cocos2d-x\cocos\audio\android;$(ProjectDir)\..\..\..\cocos2d-x\cocos\audio\include;$(ProjectDir)\..\..\..\cocos2d-x\cocos\platform\android;$(ProjectDir)\..\..\..\cocos2d-x\cocos\platform\android\jni;$(ProjectDir)..\..\cocos2d-x\cocos\platform\android\jni;$(LLVMToolchainPrebuiltRoot)\lib\clang\$(LLVMVersion)\include;$(ProjectDir)\cocos2d-x\cocos;$(ProjectDir)\..\..\proj.visualstudio\Cocos2dcpp\;$(ProjectDir)\..\..\..\cocos2d-x\external\xxtea;$(ProjectDir)\..\..\..\cocos2d-x\external\xxhash;$(ProjectDir)\..\..\..\cocos2d-x\external;$(ProjectDir)\..\..\..\cocos2d-x\external\edtaa3func;$(ProjectDir)\..\..\..\cocos2d-x\external\freetype2\include\android\freetype2;$(ProjectDir)\..\..\..\cocos2d-x\cocos\platform;$(ProjectDir)\..\..\..\cocos2d-x\cocos;$(ProjectDir)\..\..\libs\LobbyClient\libs\udt4\udt;$(ProjectDir)\..\..\libs\ElectroClient;$(ProjectDir)\..\..\libs\LobbyClient\src;$(ProjectDir)\..\..\libs\SmartfoxClient\src;$(ProjectDir)\..\..\..\cocos2d-x\external\spidermonkey\include\android;$(ProjectDir)\..\..\..\cocos2d-x\extensions\;$(ProjectDir)\..\..\..\cocos2d-x;$(ProjectDir)\..\..\..\cocos2d-x\cocos\editor-support</IncludePath>
+    <LibraryPath>
+    </LibraryPath>
+    <UseMultiToolTask>true</UseMultiToolTask>
+    <TargetName>libcocos2dcpp</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <IncludePath>$(VS_NdkRoot)\sources\android\cpufeatures;$(VS_NdkRoot)\platforms\android-15\arch-arm\usr\include;$(ProjectDir)\..\..\..\cocos2d-x\external\curl\include\android;$(ProjectDir)\..\..\..\cocos2d-x\external\bullet;$(ProjectDir)\..\..\..\cocos2d-x\external\chipmunk\include;$(ProjectDir)\..\..\..\cocos2d-x\external\chipmunk\include\chipmunk;$(ProjectDir)\..\..\..\cocos2d-x\external\clipper;$(ProjectDir)\..\..\..\cocos2d-x\external\ConvertUTF;$(ProjectDir)\..\..\..\cocos2d-x\external\curl\include\android\curl;$(ProjectDir)\..\..\..\cocos2d-x\external\flatbuffers;$(ProjectDir)\..\..\..\cocos2d-x\external\jpeg\include\android;$(ProjectDir)\..\..\..\cocos2d-x\external\json;$(ProjectDir)\..\..\..\cocos2d-x\external\png\include\android;$(ProjectDir)\..\..\..\cocos2d-x\external\poly2tri;$(ProjectDir)\..\..\..\cocos2d-x\external\recast\Recast;$(ProjectDir)\..\..\..\cocos2d-x\external\sqlite3\include;$(ProjectDir)\..\..\..\cocos2d-x\external\tiff\include\android;$(ProjectDir)\..\..\..\cocos2d-x\external\unzip;$(ProjectDir)\..\..\..\cocos2d-x\external\webp\include\android;$(ProjectDir)\..\..\..\cocos2d-x\external\websockets\include\android;$(ProjectDir)\..\..\..\cocos2d-x\external\tinyxml2;$(ProjectDir)\..\..\..\cocos2d-x\cocos\audio\android\audio_utils\include;$(ProjectDir)\..\..\..\cocos2d-x\cocos\audio\android\audio_utils;$(ProjectDir)\..\..\..\cocos2d-x\cocos\audio\android;$(ProjectDir)\..\..\..\cocos2d-x\cocos\audio\include;$(ProjectDir)\..\..\..\cocos2d-x\cocos\platform\android;$(ProjectDir)\..\..\..\cocos2d-x\cocos\platform\android\jni;$(ProjectDir)..\..\cocos2d-x\cocos\platform\android\jni;$(LLVMToolchainPrebuiltRoot)\lib\clang\$(LLVMVersion)\include;$(ProjectDir)\cocos2d-x\cocos;$(ProjectDir)\..\..\proj.visualstudio\Cocos2dcpp\;$(ProjectDir)\..\..\..\cocos2d-x\external\xxtea;$(ProjectDir)\..\..\..\cocos2d-x\external\xxhash;$(ProjectDir)\..\..\..\cocos2d-x\external;$(ProjectDir)\..\..\..\cocos2d-x\external\edtaa3func;$(ProjectDir)\..\..\..\cocos2d-x\external\freetype2\include\android\freetype2;$(ProjectDir)\..\..\..\cocos2d-x\cocos\platform;$(ProjectDir)\..\..\..\cocos2d-x\cocos;$(ProjectDir)\..\..\libs\LobbyClient\libs\udt4\udt;$(ProjectDir)\..\..\libs\ElectroClient;$(ProjectDir)\..\..\libs\LobbyClient\src;$(ProjectDir)\..\..\libs\SmartfoxClient\src;$(ProjectDir)\..\..\..\cocos2d-x\external\spidermonkey\include\android;$(ProjectDir)\..\..\..\cocos2d-x\extensions\;$(ProjectDir)\..\..\..\cocos2d-x;$(ProjectDir)\..\..\..\cocos2d-x\cocos\editor-support</IncludePath>
+    <LibraryPath>
+    </LibraryPath>
+    <UseMultiToolTask>true</UseMultiToolTask>
+    <TargetName>libcocos2dcpp</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(AndroidSDKAPILevelRoot)\arch-x86\usr\include\SLES;$(AndroidSDKAPILevelRoot)\arch-x86\usr\include;$(ProjectDir)\jni;$(Sysroot)\usr\include;$(StlIncludeDirectories);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <CppLanguageStandard>c++11</CppLanguageStandard>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PreprocessorDefinitions>ANDROID;USE_FILE32API;CC_ENABLE_CHIPMUNK_INTEGRATION=1;__STDC_LIMIT_MACROS=1;COCOS2D_DEBUG=2;COCOS2D_JAVASCRIPT;%(PreprocessorDefinitions);COCOS2D_DEBUG=1</PreprocessorDefinitions>
+      <CLanguageStandard>gnu11</CLanguageStandard>
+      <ExceptionHandling>Enabled</ExceptionHandling>
+      <AdditionalOptions>-Wno-format -Wno-invalid-offsetof -Wno-deprecated-declarations -fsigned-char %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(ProjectDir)\..\..\..\cocos2d-x\external\png\prebuilt\android\x86;$(ProjectDir)\..\..\..\cocos2d-x\external\jpeg\prebuilt\android\x86;$(ProjectDir)\..\..\..\cocos2d-x\external\zlib\prebuilt\android\x86;$(ProjectDir)\..\..\..\cocos2d-x\external\webp\prebuilt\android\x86;$(ProjectDir)\..\..\..\cocos2d-x\external\tiff\prebuilt\android\x86;$(ProjectDir)\..\..\..\cocos2d-x\external\chipmunk\prebuilt\android\x86;$(ProjectDir)\..\..\..\cocos2d-x\external\websockets\prebuilt\android\x86;$(ProjectDir)\..\..\..\cocos2d-x\external\freetype2\prebuilt\android\x86;$(ProjectDir)\..\..\..\cocos2d-x\external\curl\prebuilt\android\x86;$(VS_NdkRoot)\sources\cxx-stl\gnu-libstdc++\4.9\libs\x86</AdditionalLibraryDirectories>
+      <SharedLibrarySearchPath>
+      </SharedLibrarySearchPath>
+      <AdditionalDependencies>$(AndroidAPILevelPath)\$(AndroidAPILevel)\arch-x86\usr\lib\libOpenSLES.so;$(AndroidAPILevelPath)\$(AndroidAPILevel)\arch-x86\usr\lib\libEGL.so;$(ProjectDir)\..\..\..\cocos2d-x\external\zlib\prebuilt\android\x86\libz.a;$(ProjectDir)\..\..\..\cocos2d-x\external\spidermonkey\prebuilt\android\x86\libjs_static.a;%(AdditionalDependencies);$(SolutionDir)$(Platform)\$(Configuration)\libElectroClient.a;$(SolutionDir)$(Platform)\$(Configuration)\libLobbyClient.a;$(SolutionDir)$(Platform)\$(Configuration)\libSmartfoxClient.a;$(SolutionDir)$(Platform)\$(Configuration)\libcocos2d.a</AdditionalDependencies>
+      <LibraryDependencies>png;jpeg;GLESv2;c;m;freetype;curl;ssl;crypto;websockets;chipmunk;tiff;webp;%(LibraryDependencies)</LibraryDependencies>
+      <ShowProgress>true</ShowProgress>
+      <VerboseOutput>false</VerboseOutput>
+      <AdditionalOptions>-v %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(AndroidSDKAPILevelRoot)\arch-x86\usr\include\SLES;$(AndroidSDKAPILevelRoot)\arch-x86\usr\include;$(ProjectDir)\jni;$(Sysroot)\usr\include;$(StlIncludeDirectories);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <CppLanguageStandard>c++11</CppLanguageStandard>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PreprocessorDefinitions>ANDROID;USE_FILE32API;CC_ENABLE_CHIPMUNK_INTEGRATION=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <CLanguageStandard>gnu11</CLanguageStandard>
+      <ExceptionHandling>Enabled</ExceptionHandling>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(ProjectDir)\..\..\..\cocos2d-x\external\png\prebuilt\android\x86;$(ProjectDir)\..\..\..\cocos2d-x\external\jpeg\prebuilt\android\x86;$(ProjectDir)\..\..\..\cocos2d-x\external\zlib\prebuilt\android\x86;$(ProjectDir)\..\..\..\cocos2d-x\external\webp\prebuilt\android\x86;$(ProjectDir)\..\..\..\cocos2d-x\external\tiff\prebuilt\android\x86;$(ProjectDir)\..\..\..\cocos2d-x\external\chipmunk\prebuilt\android\x86;$(ProjectDir)\..\..\..\cocos2d-x\external\websockets\prebuilt\android\x86;$(ProjectDir)\..\..\..\cocos2d-x\external\freetype2\prebuilt\android\x86;$(ProjectDir)\..\..\..\cocos2d-x\external\curl\prebuilt\android\x86;$(VS_NdkRoot)\sources\cxx-stl\gnu-libstdc++\4.9\libs\x86</AdditionalLibraryDirectories>
+      <SharedLibrarySearchPath>
+      </SharedLibrarySearchPath>
+      <AdditionalDependencies>$(AndroidAPILevelPath)\$(AndroidAPILevel)\arch-x86\usr\lib\libOpenSLES.so;$(AndroidAPILevelPath)\$(AndroidAPILevel)\arch-x86\usr\lib\libEGL.so;$(ProjectDir)\..\..\..\cocos2d-x\external\zlib\prebuilt\android\x86\libz.a;$(ProjectDir)\..\..\..\cocos2d-x\external\spidermonkey\prebuilt\android\x86\libjs_static.a;%(AdditionalDependencies);$(SolutionDir)$(Platform)\$(Configuration)\libElectroClient.a;$(SolutionDir)$(Platform)\$(Configuration)\libLobbyClient.a;$(SolutionDir)$(Platform)\$(Configuration)\libSmartfoxClient.a;$(SolutionDir)$(Platform)\$(Configuration)\libcocos2d.a</AdditionalDependencies>
+      <LibraryDependencies>png;jpeg;GLESv2;c;m;freetype;curl;ssl;crypto;websockets;chipmunk;tiff;webp;%(LibraryDependencies)</LibraryDependencies>
+      <ShowProgress>true</ShowProgress>
+      <VerboseOutput>false</VerboseOutput>
+      <AdditionalOptions>-v %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(AndroidSDKAPILevelRoot)\arch-arm\usr\include\SLES;$(AndroidSDKAPILevelRoot)\arch-arm\usr\include;$(ProjectDir)\jni;$(Sysroot)\usr\include;$(StlIncludeDirectories);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <CppLanguageStandard>c++11</CppLanguageStandard>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PreprocessorDefinitions>ANDROID;USE_FILE32API;CC_ENABLE_CHIPMUNK_INTEGRATION=1;__STDC_LIMIT_MACROS=1;COCOS2D_DEBUG=2;COCOS2D_JAVASCRIPT;HAVE_NEON=1;%(PreprocessorDefinitions);COCOS2D_DEBUG=1</PreprocessorDefinitions>
+      <CLanguageStandard>gnu11</CLanguageStandard>
+      <ExceptionHandling>Enabled</ExceptionHandling>
+      <AdditionalOptions>-Wno-format -Wno-invalid-offsetof -Wno-deprecated-declarations -fsigned-char %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(ProjectDir)\..\..\..\cocos2d-x\external\png\prebuilt\android\armeabi-v7a;$(ProjectDir)\..\..\..\cocos2d-x\external\jpeg\prebuilt\android\armeabi-v7a;$(ProjectDir)\..\..\..\cocos2d-x\external\zlib\prebuilt\android\armeabi-v7a;$(ProjectDir)\..\..\..\cocos2d-x\external\webp\prebuilt\android\armeabi-v7a;$(ProjectDir)\..\..\..\cocos2d-x\external\tiff\prebuilt\android\armeabi-v7a;$(ProjectDir)\..\..\..\cocos2d-x\external\chipmunk\prebuilt\android\armeabi-v7a;$(ProjectDir)\..\..\..\cocos2d-x\external\websockets\prebuilt\android\armeabi-v7a;$(ProjectDir)\..\..\..\cocos2d-x\external\freetype2\prebuilt\android\armeabi-v7a;$(ProjectDir)\..\..\..\cocos2d-x\external\curl\prebuilt\android\armeabi-v7a;$(VS_NdkRoot)\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a</AdditionalLibraryDirectories>
+      <SharedLibrarySearchPath>
+      </SharedLibrarySearchPath>
+      <AdditionalDependencies>$(AndroidAPILevelPath)\$(AndroidAPILevel)\arch-arm\usr\lib\libOpenSLES.so;$(AndroidAPILevelPath)\$(AndroidAPILevel)\arch-arm\usr\lib\libEGL.so;$(ProjectDir)\..\..\..\cocos2d-x\external\zlib\prebuilt\android\armeabi-v7a\libz.a;$(ProjectDir)\..\..\..\cocos2d-x\external\spidermonkey\prebuilt\android\armeabi-v7a\libjs_static.a;%(AdditionalDependencies);$(SolutionDir)$(Platform)\$(Configuration)\libElectroClient.a;$(SolutionDir)$(Platform)\$(Configuration)\libLobbyClient.a;$(SolutionDir)$(Platform)\$(Configuration)\libSmartfoxClient.a;$(SolutionDir)$(Platform)\$(Configuration)\libcocos2d.a</AdditionalDependencies>
+      <LibraryDependencies>png;jpeg;GLESv2;c;m;freetype;websockets;chipmunk;tiff;webp;%(LibraryDependencies)</LibraryDependencies>
+      <ShowProgress>true</ShowProgress>
+      <VerboseOutput>false</VerboseOutput>
+      <AdditionalOptions>-v %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(AndroidSDKAPILevelRoot)\arch-arm\usr\include\SLES;$(AndroidSDKAPILevelRoot)\arch-arm\usr\include;$(ProjectDir)\jni;$(Sysroot)\usr\include;$(StlIncludeDirectories);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <CppLanguageStandard>c++11</CppLanguageStandard>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PreprocessorDefinitions>ANDROID;USE_FILE32API;CC_ENABLE_CHIPMUNK_INTEGRATION=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <CLanguageStandard>gnu11</CLanguageStandard>
+      <ExceptionHandling>Enabled</ExceptionHandling>
+      <AdditionalOptions>-Wno-format %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(ProjectDir)\..\..\..\cocos2d-x\external\png\prebuilt\android\armeabi-v7a;$(ProjectDir)\..\..\..\cocos2d-x\external\jpeg\prebuilt\android\armeabi-v7a;$(ProjectDir)\..\..\..\cocos2d-x\external\zlib\prebuilt\android\armeabi-v7a;$(ProjectDir)\..\..\..\cocos2d-x\external\webp\prebuilt\android\armeabi-v7a;$(ProjectDir)\..\..\..\cocos2d-x\external\tiff\prebuilt\android\armeabi-v7a;$(ProjectDir)\..\..\..\cocos2d-x\external\chipmunk\prebuilt\android\armeabi-v7a;$(ProjectDir)\..\..\..\cocos2d-x\external\websockets\prebuilt\android\armeabi-v7a;$(ProjectDir)\..\..\..\cocos2d-x\external\freetype2\prebuilt\android\armeabi-v7a;$(ProjectDir)\..\..\..\cocos2d-x\external\curl\prebuilt\android\armeabi-v7a;$(VS_NdkRoot)\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a</AdditionalLibraryDirectories>
+      <SharedLibrarySearchPath>
+      </SharedLibrarySearchPath>
+      <AdditionalDependencies>$(AndroidAPILevelPath)\$(AndroidAPILevel)\arch-arm\usr\lib\libOpenSLES.so;$(AndroidAPILevelPath)\$(AndroidAPILevel)\arch-arm\usr\lib\libEGL.so;$(ProjectDir)\..\..\..\cocos2d-x\external\zlib\prebuilt\android\armeabi-v7a\libz.a;$(ProjectDir)\..\..\..\cocos2d-x\external\spidermonkey\prebuilt\android\armeabi-v7a\libjs_static.a;%(AdditionalDependencies);$(SolutionDir)$(Platform)\$(Configuration)\libElectroClient.a;$(SolutionDir)$(Platform)\$(Configuration)\libLobbyClient.a;$(SolutionDir)$(Platform)\$(Configuration)\libSmartfoxClient.a;$(SolutionDir)$(Platform)\$(Configuration)\libcocos2d.a</AdditionalDependencies>
+      <LibraryDependencies>png;jpeg;GLESv2;c;m;freetype;websockets;chipmunk;tiff;webp;%(LibraryDependencies)</LibraryDependencies>
+      <ShowProgress>true</ShowProgress>
+      <VerboseOutput>false</VerboseOutput>
+      <AdditionalOptions>-v %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="$(VS_NdkRoot)\sources\android\cpufeatures\cpu-features.h" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\auto\jsb_cocos2dx_3d_auto.hpp" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\auto\jsb_cocos2dx_3d_extension_auto.hpp" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\auto\jsb_cocos2dx_audioengine_auto.hpp" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\auto\jsb_cocos2dx_auto.hpp" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\auto\jsb_cocos2dx_builder_auto.hpp" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\auto\jsb_cocos2dx_experimental_video_auto.hpp" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\auto\jsb_cocos2dx_experimental_webView_auto.hpp" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\auto\jsb_cocos2dx_extension_auto.hpp" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\auto\jsb_cocos2dx_navmesh_auto.hpp" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\auto\jsb_cocos2dx_physics3d_auto.hpp" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\auto\jsb_cocos2dx_spine_auto.hpp" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\auto\jsb_cocos2dx_studio_auto.hpp" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\auto\jsb_cocos2dx_ui_auto.hpp" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\auto\js_bindings_chipmunk_auto_classes.h" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\auto\js_bindings_chipmunk_auto_classes_registration.h" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\auto\js_bindings_chipmunk_functions.h" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\auto\js_bindings_chipmunk_functions_registration.h" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\3d\jsb_cocos2dx_3d_manual.h" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\chipmunk\js_bindings_chipmunk_manual.h" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\chipmunk\js_bindings_chipmunk_registration.h" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\cocos2d_specifics.hpp" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\cocosbuilder\cocosbuilder_specifics.hpp" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\cocosbuilder\js_bindings_ccbreader.h" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\cocostudio\jsb_cocos2dx_studio_conversions.h" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\cocostudio\jsb_cocos2dx_studio_manual.h" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\component\CCComponentJS.h" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\experimental\jsb_cocos2dx_experimental_video_manual.h" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\experimental\jsb_cocos2dx_experimental_webView_manual.h" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\extension\jsb_cocos2dx_extension_manual.h" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\js-BindingsExport.h" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\jsb_event_dispatcher_manual.h" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\jsb_helper.h" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\jsb_opengl_functions.h" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\jsb_opengl_manual.h" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\jsb_opengl_registration.h" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\js_bindings_config.h" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\js_bindings_core.h" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\js_bindings_opengl.h" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\js_manual_conversions.h" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\js_module_register.h" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\localstorage\js_bindings_system_functions.h" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\localstorage\js_bindings_system_functions_registration.h" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\localstorage\js_bindings_system_registration.h" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\navmesh\jsb_cocos2dx_navmesh_conversions.h" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\navmesh\jsb_cocos2dx_navmesh_manual.h" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\network\jsb_socketio.h" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\network\jsb_websocket.h" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\network\XMLHTTPRequest.h" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\physics3d\jsb_cocos2dx_physics3d_manual.h" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\platform\android\CCJavascriptJavaBridge.h" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\ScriptingCore.h" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\spidermonkey_specifics.h" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\spine\jsb_cocos2dx_spine_manual.h" />
+    <ClInclude Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\ui\jsb_cocos2dx_ui_manual.h" />
+    <ClInclude Include="..\..\Classes\Action\ActionNumber.h" />
+    <ClInclude Include="..\..\Classes\Action\ActionShake2D.h" />
+    <ClInclude Include="..\..\Classes\Action\CustomAction.h" />
+    <ClInclude Include="..\..\Classes\Action\jsb_quyetnd_action.hpp" />
+    <ClInclude Include="..\..\Classes\AppDelegate.h" />
+    <ClInclude Include="..\..\Classes\GameLaucher\GameLaucher.h" />
+    <ClInclude Include="..\..\Classes\GameLaucher\GameResource.h" />
+    <ClInclude Include="..\..\Classes\GameLaucher\ResourceLoader.h" />
+    <ClInclude Include="..\..\Classes\NewGUI\jsb_quyetnd_newui.hpp" />
+    <ClInclude Include="..\..\Classes\NewGUI\NewTableView.h" />
+    <ClInclude Include="..\..\Classes\NewGUI\NewTextField.h" />
+    <ClInclude Include="..\..\Classes\NewGUI\NewTextInput.h" />
+    <ClInclude Include="..\..\Classes\NewGUI\NewWidget.h" />
+    <ClInclude Include="..\..\Classes\Plugin\base64.h" />
+    <ClInclude Include="..\..\Classes\Plugin\CRC32.h" />
+    <ClInclude Include="..\..\Classes\Plugin\crypt_aes.h" />
+    <ClInclude Include="..\..\Classes\Plugin\FacebookPlugin.h" />
+    <ClInclude Include="..\..\Classes\Plugin\jsb_quyetnd_facebook_plugin.hpp" />
+    <ClInclude Include="..\..\Classes\Plugin\jsb_quyetnd_systemplugin.hpp" />
+    <ClInclude Include="..\..\Classes\Plugin\MD5.h" />
+    <ClInclude Include="..\..\Classes\Plugin\sha1.h" />
+    <ClInclude Include="..\..\Classes\Plugin\SystemPlugin.h" />
+    <ClInclude Include="..\..\Classes\Plugin\UUIDEncrypt.h" />
+    <ClInclude Include="..\..\Classes\Socket\ElectroClient.h" />
+    <ClInclude Include="..\..\Classes\Socket\jsb_quyetnd_electro_socket.hpp" />
+    <ClInclude Include="..\..\Classes\Socket\jsb_quyetnd_lobbysocket.hpp" />
+    <ClInclude Include="..\..\Classes\Socket\jsb_quyetnd_sfssocket.hpp" />
+    <ClInclude Include="..\..\Classes\Socket\LobbyClient.h" />
+    <ClInclude Include="..\..\Classes\Socket\SmartfoxClient.h" />
+    <ClInclude Include="jni\main.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(VS_NdkRoot)\sources\android\cpufeatures\cpu-features.c" />
+    <ClCompile Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\auto\jsb_cocos2dx_3d_auto.cpp" />
+    <ClCompile Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\auto\jsb_cocos2dx_3d_extension_auto.cpp" />
+    <ClCompile Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\auto\jsb_cocos2dx_audioengine_auto.cpp" />
+    <ClCompile Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\auto\jsb_cocos2dx_auto.cpp" />
+    <ClCompile Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\auto\jsb_cocos2dx_builder_auto.cpp" />
+    <ClCompile Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\auto\jsb_cocos2dx_experimental_video_auto.cpp" />
+    <ClCompile Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\auto\jsb_cocos2dx_experimental_webView_auto.cpp" />
+    <ClCompile Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\auto\jsb_cocos2dx_extension_auto.cpp" />
+    <ClCompile Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\auto\jsb_cocos2dx_navmesh_auto.cpp" />
+    <ClCompile Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\auto\jsb_cocos2dx_physics3d_auto.cpp" />
+    <ClCompile Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\auto\jsb_cocos2dx_spine_auto.cpp" />
+    <ClCompile Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\auto\jsb_cocos2dx_studio_auto.cpp" />
+    <ClCompile Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\auto\jsb_cocos2dx_ui_auto.cpp" />
+    <ClCompile Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\auto\js_bindings_chipmunk_auto_classes.cpp" />
+    <ClCompile Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\auto\js_bindings_chipmunk_functions.cpp" />
+    <ClCompile Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\3d\jsb_cocos2dx_3d_manual.cpp" />
+    <ClCompile Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\chipmunk\js_bindings_chipmunk_manual.cpp" />
+    <ClCompile Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\chipmunk\js_bindings_chipmunk_registration.cpp" />
+    <ClCompile Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\cocos2d_specifics.cpp" />
+    <ClCompile Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\cocosbuilder\js_bindings_ccbreader.cpp" />
+    <ClCompile Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\cocostudio\jsb_cocos2dx_studio_conversions.cpp" />
+    <ClCompile Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\cocostudio\jsb_cocos2dx_studio_manual.cpp" />
+    <ClCompile Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\component\CCComponentJS.cpp" />
+    <ClCompile Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\experimental\jsb_cocos2dx_experimental_video_manual.cpp" />
+    <ClCompile Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\experimental\jsb_cocos2dx_experimental_webView_manual.cpp" />
+    <ClCompile Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\extension\jsb_cocos2dx_extension_manual.cpp" />
+    <ClCompile Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\jsb_event_dispatcher_manual.cpp" />
+    <ClCompile Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\jsb_opengl_functions.cpp" />
+    <ClCompile Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\jsb_opengl_manual.cpp" />
+    <ClCompile Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\jsb_opengl_registration.cpp" />
+    <ClCompile Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\js_bindings_core.cpp" />
+    <ClCompile Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\js_bindings_opengl.cpp" />
+    <ClCompile Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\js_manual_conversions.cpp" />
+    <ClCompile Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\js_module_register.cpp" />
+    <ClCompile Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\localstorage\js_bindings_system_functions.cpp" />
+    <ClCompile Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\localstorage\js_bindings_system_registration.cpp" />
+    <ClCompile Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\navmesh\jsb_cocos2dx_navmesh_conversions.cpp" />
+    <ClCompile Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\navmesh\jsb_cocos2dx_navmesh_manual.cpp" />
+    <ClCompile Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\network\jsb_socketio.cpp" />
+    <ClCompile Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\network\jsb_websocket.cpp" />
+    <ClCompile Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\network\XMLHTTPRequest.cpp" />
+    <ClCompile Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\physics3d\jsb_cocos2dx_physics3d_manual.cpp" />
+    <ClCompile Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\platform\android\CCJavascriptJavaBridge.cpp" />
+    <ClCompile Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\ScriptingCore.cpp" />
+    <ClCompile Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\spine\jsb_cocos2dx_spine_manual.cpp" />
+    <ClCompile Include="..\..\..\cocos2d-x\cocos\scripting\js-bindings\manual\ui\jsb_cocos2dx_ui_manual.cpp" />
+    <ClCompile Include="..\..\Classes\Action\ActionNumber.cpp" />
+    <ClCompile Include="..\..\Classes\Action\ActionShake2D.cpp" />
+    <ClCompile Include="..\..\Classes\Action\CustomAction.cpp" />
+    <ClCompile Include="..\..\Classes\Action\jsb_quyetnd_action.cpp" />
+    <ClCompile Include="..\..\Classes\AppDelegate.cpp" />
+    <ClCompile Include="..\..\Classes\GameLaucher\GameLaucher.cpp" />
+    <ClCompile Include="..\..\Classes\GameLaucher\GameResource.cpp" />
+    <ClCompile Include="..\..\Classes\GameLaucher\ResourceLoader.cpp" />
+    <ClCompile Include="..\..\Classes\NewGUI\jsb_quyetnd_newui.cpp" />
+    <ClCompile Include="..\..\Classes\NewGUI\NewTableView.cpp" />
+    <ClCompile Include="..\..\Classes\NewGUI\NewTextField.cpp" />
+    <ClCompile Include="..\..\Classes\NewGUI\NewTextInput.cpp" />
+    <ClCompile Include="..\..\Classes\NewGUI\NewWidget.cpp" />
+    <ClCompile Include="..\..\Classes\Plugin\base64.cpp" />
+    <ClCompile Include="..\..\Classes\Plugin\CRC32.cpp" />
+    <ClCompile Include="..\..\Classes\Plugin\crypt_aes.cpp" />
+    <ClCompile Include="..\..\Classes\Plugin\FacebookPlugin.cpp" />
+    <ClCompile Include="..\..\Classes\Plugin\jsb_quyetnd_facebook_plugin.cpp" />
+    <ClCompile Include="..\..\Classes\Plugin\jsb_quyetnd_systemplugin.cpp" />
+    <ClCompile Include="..\..\Classes\Plugin\MD5.cpp" />
+    <ClCompile Include="..\..\Classes\Plugin\sha1.cpp" />
+    <ClCompile Include="..\..\Classes\Plugin\SystemPlugin.cpp" />
+    <ClCompile Include="..\..\Classes\Plugin\UUIDEncrypt.cpp" />
+    <ClCompile Include="..\..\Classes\Socket\ElectroClient.cpp" />
+    <ClCompile Include="..\..\Classes\Socket\jsb_quyetnd_electro_socket.cpp" />
+    <ClCompile Include="..\..\Classes\Socket\jsb_quyetnd_lobbysocket.cpp" />
+    <ClCompile Include="..\..\Classes\Socket\jsb_quyetnd_sfssocket.cpp" />
+    <ClCompile Include="..\..\Classes\Socket\LobbyClient.cpp" />
+    <ClCompile Include="..\..\Classes\Socket\SmartfoxClient.cpp" />
+    <ClCompile Include="jni\main.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets" />
+</Project>

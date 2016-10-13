@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Logger">
+      <UniqueIdentifier>{016ad883-a44e-43b0-a26e-e00720110322}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects">
+      <UniqueIdentifier>{db526f9b-b57a-4bd4-a5d8-86a8b18bb5e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Socket">
+      <UniqueIdentifier>{d209cdf5-5e0d-4c6c-9f8e-b23a25f3d2da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="udt">
+      <UniqueIdentifier>{3d33081d-4ee9-4a2e-9fc4-9e8127b333fc}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\Logger\Logger.h">
+      <Filter>Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Objects\ArrayValue.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Objects\DictValue.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Objects\json.hpp">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Objects\LobbyRef.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Objects\PrimitiveValue.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Objects\Value.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Objects\ValueJson.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Objects\ValueReader.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Objects\ValueWriter.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Socket\SocketAdapter.h">
+      <Filter>Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Socket\TCPClient.h">
+      <Filter>Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Socket\UDTClient.h">
+      <Filter>Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Socket\NetworkCore.h">
+      <Filter>Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Socket\NetworkDefine.h">
+      <Filter>Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\LobbyServer.h" />
+    <ClInclude Include="..\libs\udt4\udt\channel.h">
+      <Filter>udt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\udt4\udt\common.h">
+      <Filter>udt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\udt4\udt\core.h">
+      <Filter>udt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\udt4\udt\epoll.h">
+      <Filter>udt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\udt4\udt\list.h">
+      <Filter>udt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\udt4\udt\md5.h">
+      <Filter>udt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\udt4\udt\packet.h">
+      <Filter>udt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\udt4\udt\queue.h">
+      <Filter>udt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\udt4\udt\udt.h">
+      <Filter>udt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\udt4\udt\window.h">
+      <Filter>udt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\udt4\udt\api.h">
+      <Filter>udt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\udt4\udt\buffer.h">
+      <Filter>udt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\udt4\udt\cache.h">
+      <Filter>udt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\udt4\udt\ccc.h">
+      <Filter>udt</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\Logger\Logger.cpp">
+      <Filter>Logger</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Objects\ArrayValue.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Objects\DictValue.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Objects\LobbyRef.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Objects\PrimitiveValue.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Objects\Value.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Objects\ValueJson.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Objects\ValueReader.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Objects\ValueWriter.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Socket\SocketAdapter.cpp">
+      <Filter>Socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Socket\TCPClient.cpp">
+      <Filter>Socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Socket\UDTClient.cpp">
+      <Filter>Socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Socket\NetworkCore.cpp">
+      <Filter>Socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Socket\NetworkDefine.cpp">
+      <Filter>Socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libs\udt4\udt\common.cpp">
+      <Filter>udt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libs\udt4\udt\core.cpp">
+      <Filter>udt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libs\udt4\udt\epoll.cpp">
+      <Filter>udt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libs\udt4\udt\list.cpp">
+      <Filter>udt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libs\udt4\udt\md5.cpp">
+      <Filter>udt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libs\udt4\udt\packet.cpp">
+      <Filter>udt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libs\udt4\udt\queue.cpp">
+      <Filter>udt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libs\udt4\udt\window.cpp">
+      <Filter>udt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libs\udt4\udt\api.cpp">
+      <Filter>udt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libs\udt4\udt\buffer.cpp">
+      <Filter>udt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libs\udt4\udt\cache.cpp">
+      <Filter>udt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libs\udt4\udt\ccc.cpp">
+      <Filter>udt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libs\udt4\udt\channel.cpp">
+      <Filter>udt</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,1016 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="..\ElectroLogger.h" />
+    <ClInclude Include="..\ElectroServer.h" />
+    <ClInclude Include="..\Socket\NetworkDefine.h">
+      <Filter>Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Socket\SocketAdapter.h">
+      <Filter>Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Socket\ElectroTcpClient.h">
+      <Filter>Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Socket\NetworkCore.h">
+      <Filter>Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Entity\EsArray.h">
+      <Filter>Objects\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Entity\EsEntity.h">
+      <Filter>Objects\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Entity\EsMessageStreamer.h">
+      <Filter>Objects\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Entity\EsObject.h">
+      <Filter>Objects\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Entity\EsPrimitive.h">
+      <Filter>Objects\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Event\BaseEvent.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Event\ConnectionClosedEvent.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Event\ConnectionResponse.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Event\GatewayKickUserRequest.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Event\GenericErrorResponse.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Event\JoinRoomEvent.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Event\JoinZoneEvent.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Event\LeaveRoomEvent.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Event\LoginResponse.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Event\PingResponse.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Event\PluginMessageEvent.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Event\PrivateMessageEvent.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Event\ProtocolConfiguration.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Event\PublicMessageEvent.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Event\RoomListEntry.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Event\RoomVariable.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Event\ServerKickUserEvent.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Event\UserEvictedFromRoomEvent.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Event\UserListEntry.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Event\UserUpdateAction.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Event\UserUpdateEvent.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Event\UserVariable.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Event\ZoneUpdateAction.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Event\ZoneUpdateEvent.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Request\JoinRoomRequest.h">
+      <Filter>Objects\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Request\JsonRequest.h">
+      <Filter>Objects\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Request\LeaveRoomRequest.h">
+      <Filter>Objects\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Request\LoginRequest.h">
+      <Filter>Objects\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Request\LogoutRequest.h">
+      <Filter>Objects\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Request\PingRequest.h">
+      <Filter>Objects\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Request\PluginRequest.h">
+      <Filter>Objects\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Request\PrivateMessageRequest.h">
+      <Filter>Objects\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Request\PublicMessageRequest.h">
+      <Filter>Objects\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\Request\BaseRequest.h">
+      <Filter>Objects\Request</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\MessageType.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\BaseMessage.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\ErrorType.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\EsReleasePool.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\EsUtil.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\libs\TBufferTransports.h">
+      <Filter>Objects\thrift\libs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\libs\Thrift.h">
+      <Filter>Objects\thrift\libs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\libs\TProtocol.h">
+      <Filter>Objects\thrift\libs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\libs\TProtocolException.h">
+      <Filter>Objects\thrift\libs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\libs\TToString.h">
+      <Filter>Objects\thrift\libs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\libs\TTransport.h">
+      <Filter>Objects\thrift\libs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\libs\TTransportException.h">
+      <Filter>Objects\thrift\libs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\libs\TVirtualProtocol.h">
+      <Filter>Objects\thrift\libs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\libs\TVirtualTransport.h">
+      <Filter>Objects\thrift\libs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\libs\TBinaryProtocol.h">
+      <Filter>Objects\thrift\libs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftZoneUpdateEvent_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftAddBuddiesRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftAddBuddiesResponse_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftAddRoomOperatorRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftAggregatePluginMessageEvent_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftAggregatePluginRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftBuddyStatusUpdateAction_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftBuddyStatusUpdateEvent_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftConnectionAttemptResponse_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftConnectionClosedEvent_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftConnectionResponse_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftCreateOrJoinGameResponse_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftCreateRoomRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftCreateRoomVariableRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftCrossDomainPolicyRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftCrossDomainPolicyResponse_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftDataType_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftDeleteRoomVariableRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftDeleteUserVariableRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftDHInitiateKeyExchangeRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftDHPublicNumbersResponse_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftDHSharedModulusRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftDHSharedModulusResponse_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftEncryptionStateChangeEvent_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftErrorType_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftEsNumber_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftEvictUserFromRoomRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftFindGamesRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftFindGamesResponse_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftFindZoneAndRoomByNameRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftFindZoneAndRoomByNameResponse_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftFlattenedEsObject_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftFlattenedEsObjectRO_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftGatewayKickUserRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftGatewayStatistics_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftGenericErrorResponse_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftGetGameTypesRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftGetGameTypesResponse_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftGetRoomsInZoneRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftGetRoomsInZoneResponse_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftGetServerLocalTimeRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftGetServerLocalTimeResponse_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftGetUserCountRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftGetUserCountResponse_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftGetUsersInRoomRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftGetUsersInRoomResponse_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftGetUserVariablesRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftGetUserVariablesResponse_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftGetZonesRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftGetZonesResponse_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftIdleTimeoutWarningEvent_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftJoinGameRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftJoinRoomEvent_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftJoinRoomRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftJoinZoneEvent_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftLeaveRoomEvent_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftLeaveRoomRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftLeaveZoneEvent_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftLoginRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftLoginResponse_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftLogOutRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftMessageType_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftPingRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftPingResponse_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftPluginListEntry_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftPluginMessageEvent_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftPluginRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftPrivateMessageEvent_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftPrivateMessageRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftProtocol_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftProtocolConfiguration_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftPublicMessageEvent_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftPublicMessageRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftQuickJoinGameRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftRegisterUDPConnectionRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftRegisterUDPConnectionResponse_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftRegistryConnectToPreferredGatewayRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftRemoveBuddiesRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftRemoveBuddiesResponse_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftRemoveRoomOperatorRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftRemoveUDPConnectionRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftRemoveUDPConnectionResponse_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftRequestDetails_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftRoomListEntry_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftRoomVariable_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftRoomVariableUpdateAction_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftRoomVariableUpdateEvent_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftSearchCriteria_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftServerGame_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftServerKickUserEvent_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftServerState_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftSessionIdleEvent_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftUpdateRoomDetailsEvent_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftUpdateRoomDetailsRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftUpdateRoomVariableRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftUpdateUserVariableRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftUserEvictedFromRoomEvent_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftUserListEntry_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftUserServerVariable_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftUserUpdateAction_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftUserUpdateEvent_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftUserVariable_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftUserVariableUpdateAction_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftUserVariableUpdateEvent_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftValidateAdditionalLoginRequest_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftValidateAdditionalLoginResponse_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftZoneListEntry_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Objects\thrift\ThriftZoneUpdateAction_types.h">
+      <Filter>Objects\thrift</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\ElectroLogger.cpp" />
+    <ClCompile Include="..\Socket\NetworkDefine.cpp">
+      <Filter>Socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Socket\SocketAdapter.cpp">
+      <Filter>Socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Socket\ElectroTcpClient.cpp">
+      <Filter>Socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Socket\NetworkCore.cpp">
+      <Filter>Socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Entity\EsArray.cpp">
+      <Filter>Objects\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Entity\EsEntity.cpp">
+      <Filter>Objects\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Entity\EsMessageStreamer.cpp">
+      <Filter>Objects\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Entity\EsObject.cpp">
+      <Filter>Objects\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Entity\EsPrimitive.cpp">
+      <Filter>Objects\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Event\BaseEvent.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Event\ConnectionClosedEvent.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Event\ConnectionResponse.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Event\GatewayKickUserRequest.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Event\GenericErrorResponse.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Event\JoinRoomEvent.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Event\JoinZoneEvent.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Event\LeaveRoomEvent.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Event\LoginResponse.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Event\PingResponse.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Event\PluginMessageEvent.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Event\PrivateMessageEvent.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Event\PublicMessageEvent.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Event\RoomListEntry.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Event\RoomVariable.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Event\ServerKickUserEvent.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Event\UserEvictedFromRoomEvent.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Event\UserListEntry.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Event\UserUpdateAction.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Event\UserUpdateEvent.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Event\UserVariable.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Event\ZoneUpdateAction.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Event\ZoneUpdateEvent.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Request\JsonRequest.cpp">
+      <Filter>Objects\Request</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Request\LeaveRoomRequest.cpp">
+      <Filter>Objects\Request</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Request\LoginRequest.cpp">
+      <Filter>Objects\Request</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Request\LogoutRequest.cpp">
+      <Filter>Objects\Request</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Request\PingRequest.cpp">
+      <Filter>Objects\Request</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Request\PluginRequest.cpp">
+      <Filter>Objects\Request</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Request\PrivateMessageRequest.cpp">
+      <Filter>Objects\Request</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Request\PublicMessageRequest.cpp">
+      <Filter>Objects\Request</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Request\BaseRequest.cpp">
+      <Filter>Objects\Request</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\Request\JoinRoomRequest.cpp">
+      <Filter>Objects\Request</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\MessageType.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\BaseMessage.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\ErrorType.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\EsReleasePool.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\EsUtil.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\libs\TBufferTransports.cpp">
+      <Filter>Objects\thrift\libs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\libs\TProtocol.cpp">
+      <Filter>Objects\thrift\libs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\libs\TTransportException.cpp">
+      <Filter>Objects\thrift\libs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\libs\TBinaryProtocol.cpp">
+      <Filter>Objects\thrift\libs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftZoneUpdateEvent_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftAddBuddiesRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftAddBuddiesResponse_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftAddRoomOperatorRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftAggregatePluginMessageEvent_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftAggregatePluginRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftBuddyStatusUpdateAction_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftBuddyStatusUpdateEvent_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftConnectionAttemptResponse_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftConnectionClosedEvent_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftConnectionResponse_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftCreateOrJoinGameResponse_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftCreateRoomRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftCreateRoomVariableRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftCrossDomainPolicyRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftCrossDomainPolicyResponse_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftDataType_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftDeleteRoomVariableRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftDeleteUserVariableRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftDHInitiateKeyExchangeRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftDHPublicNumbersResponse_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftDHSharedModulusRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftDHSharedModulusResponse_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftEncryptionStateChangeEvent_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftErrorType_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftEsNumber_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftEvictUserFromRoomRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftFindGamesRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftFindGamesResponse_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftFindZoneAndRoomByNameRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftFindZoneAndRoomByNameResponse_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftFlattenedEsObject_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftFlattenedEsObjectRO_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftGatewayKickUserRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftGatewayStatistics_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftGenericErrorResponse_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftGetGameTypesRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftGetGameTypesResponse_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftGetRoomsInZoneRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftGetRoomsInZoneResponse_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftGetServerLocalTimeRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftGetServerLocalTimeResponse_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftGetUserCountRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftGetUserCountResponse_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftGetUsersInRoomRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftGetUsersInRoomResponse_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftGetUserVariablesRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftGetUserVariablesResponse_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftGetZonesRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftGetZonesResponse_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftIdleTimeoutWarningEvent_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftJoinGameRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftJoinRoomEvent_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftJoinRoomRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftJoinZoneEvent_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftLeaveRoomEvent_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftLeaveRoomRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftLeaveZoneEvent_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftLoginRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftLoginResponse_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftLogOutRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftMessageType_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftPingRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftPingResponse_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftPluginListEntry_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftPluginMessageEvent_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftPluginRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftPrivateMessageEvent_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftPrivateMessageRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftProtocol_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftProtocolConfiguration_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftPublicMessageEvent_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftPublicMessageRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftQuickJoinGameRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftRegisterUDPConnectionRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftRegisterUDPConnectionResponse_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftRegistryConnectToPreferredGatewayRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftRemoveBuddiesRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftRemoveBuddiesResponse_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftRemoveRoomOperatorRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftRemoveUDPConnectionRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftRemoveUDPConnectionResponse_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftRequestDetails_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftRoomListEntry_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftRoomVariable_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftRoomVariableUpdateAction_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftRoomVariableUpdateEvent_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftSearchCriteria_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftServerGame_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftServerKickUserEvent_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftServerState_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftSessionIdleEvent_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftUpdateRoomDetailsEvent_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftUpdateRoomDetailsRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftUpdateRoomVariableRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftUpdateUserVariableRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftUserEvictedFromRoomEvent_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftUserListEntry_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftUserServerVariable_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftUserUpdateAction_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftUserUpdateEvent_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftUserVariable_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftUserVariableUpdateAction_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftUserVariableUpdateEvent_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftValidateAdditionalLoginRequest_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftValidateAdditionalLoginResponse_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftZoneListEntry_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Objects\thrift\ThriftZoneUpdateAction_types.cpp">
+      <Filter>Objects\thrift</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Socket">
+      <UniqueIdentifier>{6be94159-adc7-4dc6-926f-6a5721231001}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects">
+      <UniqueIdentifier>{71d24809-e741-4413-b285-5cd430408985}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\Entity">
+      <UniqueIdentifier>{6088adc3-262e-499f-a3f1-cc4ce7473a10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\Event">
+      <UniqueIdentifier>{7fdd8989-321d-4724-9bf6-5aa5a3dec8b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\Request">
+      <UniqueIdentifier>{b29146fe-29d7-45ec-b07b-94fc79e14355}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\rapidjson">
+      <UniqueIdentifier>{93fe3658-4e14-444d-9fca-705e3d19ebb6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\thrift">
+      <UniqueIdentifier>{185bac4d-432d-48d7-9a90-0bae28ae405e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\thrift\libs">
+      <UniqueIdentifier>{0c9ccd05-6ca5-4391-b042-f61db4fbfac5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Objects\thrift\libs\TBinaryProtocol.tcc">
+      <Filter>Objects\thrift\libs</Filter>
+    </None>
+  </ItemGroup>
+</Project>
