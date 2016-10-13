@@ -43,13 +43,16 @@ void LobbyClient::sendJSMessage(const std::string& messageName, const std::strin
 }
 
 void LobbyClient::initClientWithType(int type){
+#ifdef WINRT
+	mClient = new quyetnd::net::TCPClient();
+#else
 	if (type == quyetnd::LobbyClientType::UDT){
 		mClient = new quyetnd::net::UDTClient();
 	}
 	else{
 		mClient = new quyetnd::net::TCPClient();
 	}
-
+#endif
 	mClient->_recvCallback = CC_CALLBACK_1(LobbyClient::onRecvMessage, this);
 	mClient->_statusCallback = CC_CALLBACK_1(LobbyClient::onRecvStatus, this);
 	Director::getInstance()->getScheduler()->scheduleUpdateForTarget(this, INT_MAX, false);
