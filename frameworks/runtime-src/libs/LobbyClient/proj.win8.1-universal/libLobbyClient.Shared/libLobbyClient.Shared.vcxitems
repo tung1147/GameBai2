@@ -29,6 +29,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\src\Socket\NetworkDefine.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\src\Socket\SocketAdapter.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\src\Socket\TCPClient.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\src\Socket\UDTClient.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)targetver.h" />
   </ItemGroup>
   <ItemGroup>
@@ -48,5 +49,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\src\Socket\NetworkDefine.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\src\Socket\SocketAdapter.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\src\Socket\TCPClient.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\src\Socket\UDTClient.cpp" />
   </ItemGroup>
 </Project>

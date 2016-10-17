@@ -163,6 +163,9 @@
     <ProjectReference Include="..\..\libs\ElectroClient\proj.win8.1-universal\libElectroClient.WindowsPhone\libElectroClient.WindowsPhone.vcxproj">
       <Project>{0b748be9-fc83-4047-b7cd-fa69b125e4df}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\..\libs\LobbyClient\libs\udt4\winrt\libUDT.WindowsPhone\libUDT.WindowsPhone.vcxproj">
+      <Project>{3ab448cd-d276-4b9e-a0b4-cf3714a97bda}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\..\libs\LobbyClient\proj.win8.1-universal\libLobbyClient.WindowsPhone\libLobbyClient.WindowsPhone.vcxproj">
       <Project>{a4116a1c-0f00-496c-af08-85ee3f2769bf}</Project>
     </ProjectReference>

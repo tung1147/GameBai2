@@ -56,11 +56,11 @@
     <Filter Include="Logger">
       <UniqueIdentifier>{d4700af8-89a8-41a9-bb6e-7bf9f61ab307}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Socket">
-      <UniqueIdentifier>{f957c593-1147-45d5-969b-9f0c770efeed}</UniqueIdentifier>
-    </Filter>
     <Filter Include="zlib">
       <UniqueIdentifier>{56de0a1e-5de8-4cd5-a0e5-a82456f6fe2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Socket">
+      <UniqueIdentifier>{7e24f2b1-0d20-46b7-b5d7-ae3201b93f6d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

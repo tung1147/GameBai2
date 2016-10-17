@@ -454,7 +454,8 @@ std::string SystemPlugin::callJSFunction(const std::string& methodName, const st
 			using convert_typeX = std::codecvt_utf8<wchar_t>;
 			std::wstring_convert<convert_typeX, wchar_t> converterX;
 			std::string u8 = converterX.to_bytes(u16);
-#else
+#else		
+			std::string u8;
 			StringUtils::UTF16ToUTF8(u16, u8);
 #endif
 			return u8;

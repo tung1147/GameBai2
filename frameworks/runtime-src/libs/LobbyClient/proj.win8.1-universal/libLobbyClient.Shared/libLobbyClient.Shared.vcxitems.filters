@@ -45,6 +45,9 @@
       <Filter>Socket</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\src\LobbyServer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\src\Socket\UDTClient.h">
+      <Filter>Socket</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Logger">
@@ -95,6 +98,9 @@
       <Filter>Socket</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\src\Socket\TCPClient.cpp">
+      <Filter>Socket</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\src\Socket\UDTClient.cpp">
       <Filter>Socket</Filter>
     </ClCompile>
   </ItemGroup>
