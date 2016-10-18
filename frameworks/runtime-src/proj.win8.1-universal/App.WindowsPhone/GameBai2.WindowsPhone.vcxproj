@@ -87,7 +87,7 @@
       <AdditionalOptions>/bigobj /Zm200 %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204;4756;4800;4101;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\Classes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\Classes;$(ProjectDir)..\..\libs\ElectroClient;$(ProjectDir)..\..\libs\SmartfoxClient\src;$(ProjectDir)..\..\libs\LobbyClient\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>CC_ENABLE_CHIPMUNK_INTEGRATION=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
@@ -100,7 +100,7 @@
       <AdditionalOptions>/bigobj /Zm200 %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204;4756;4800;4101;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\Classes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\Classes;$(ProjectDir)..\..\libs\ElectroClient;$(ProjectDir)..\..\libs\SmartfoxClient\src;$(ProjectDir)..\..\libs\LobbyClient\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>CC_ENABLE_CHIPMUNK_INTEGRATION=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
@@ -110,7 +110,7 @@
       <AdditionalOptions>/bigobj /Zm200 %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204;4756;4800;4101;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\Classes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\Classes;$(ProjectDir)..\..\libs\ElectroClient;$(ProjectDir)..\..\libs\SmartfoxClient\src;$(ProjectDir)..\..\libs\LobbyClient\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>CC_ENABLE_CHIPMUNK_INTEGRATION=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
@@ -123,7 +123,7 @@
       <AdditionalOptions>/bigobj /Zm200 %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204;4756;4800;4101;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\Classes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\Classes;$(ProjectDir)..\..\libs\ElectroClient;$(ProjectDir)..\..\libs\SmartfoxClient\src;$(ProjectDir)..\..\libs\LobbyClient\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>CC_ENABLE_CHIPMUNK_INTEGRATION=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
@@ -159,6 +159,18 @@
     </ProjectReference>
     <ProjectReference Include="..\..\..\cocos2d-x\external\recast\proj.win8.1-universal\librecast.WindowsPhone\librecast.WindowsPhone.vcxproj">
       <Project>{d3bcfc1a-94bd-43b7-9c15-3f48ac6a9fac}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\libs\ElectroClient\proj.win8.1-universal\libElectroClient.WindowsPhone\libElectroClient.WindowsPhone.vcxproj">
+      <Project>{0b748be9-fc83-4047-b7cd-fa69b125e4df}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\libs\LobbyClient\libs\udt4\winrt\libUDT.WindowsPhone\libUDT.WindowsPhone.vcxproj">
+      <Project>{3ab448cd-d276-4b9e-a0b4-cf3714a97bda}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\libs\LobbyClient\proj.win8.1-universal\libLobbyClient.WindowsPhone\libLobbyClient.WindowsPhone.vcxproj">
+      <Project>{a4116a1c-0f00-496c-af08-85ee3f2769bf}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\libs\SmartfoxClient\proj.win8.1-universal\libSmartfoxClient.WindowsPhone\libSmartfoxClient.WindowsPhone.vcxproj">
+      <Project>{ab68146a-9589-48b7-8bf3-87d605d8bcf4}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

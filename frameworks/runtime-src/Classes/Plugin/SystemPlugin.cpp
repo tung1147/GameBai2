@@ -23,6 +23,10 @@
 #include <curl/curl.h>
 #include "../GameLaucher/GameLaucher.h"
 
+#ifdef WINRT
+#include <codecvt>
+#endif
+
 USING_NS_CC;
 
 static const char HEX_CHAR[17] = "0123456789ABCDEF";
@@ -446,8 +450,14 @@ std::string SystemPlugin::callJSFunction(const std::string& methodName, const st
 		bool b = JS_Stringify(cx, &rval, JS::NullPtr(), indentVal, &__stringify_callback, &buffer);
 		if (b){			
 			std::u16string u16 = std::u16string(buffer.begin(), buffer.end());
+#ifdef WINRT
+			using convert_typeX = std::codecvt_utf8<wchar_t>;
+			std::wstring_convert<convert_typeX, wchar_t> converterX;
+			std::string u8 = converterX.to_bytes(u16);
+#else		
 			std::string u8;
 			StringUtils::UTF16ToUTF8(u16, u8);
+#endif
 			return u8;
 		}
 		else{
@@ -727,7 +737,6 @@ size_t s_download_save_file_method(void *ptr, size_t size, size_t nmemb, FILE *f
 
 void s_download_file_thread(const std::string url, const std::string savePath, std::function<void(int)> finishedCallback){
 	CURL *curl;
-	CURLcode res;
 	curl = curl_easy_init();
 	if (curl != NULL) {
 		FILE *fp;
@@ -742,20 +751,33 @@ void s_download_file_thread(const std::string url, const std::string savePath, s
 			curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, true);
 			curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, s_download_save_file_method);
 			curl_easy_setopt(curl, CURLOPT_WRITEDATA, fp);
-			res = curl_easy_perform(curl);
+			CURLcode res = curl_easy_perform(curl);
+			long responseCode;
+			CURLcode code = curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &responseCode);
 			curl_easy_cleanup(curl);
 
 			fclose(fp);
 			if (res == CURLE_OK) {
-				CCLOG("download file OK : %s", url.c_str());
-				if (finishedCallback){
-					Director::getInstance()->getScheduler()->performFunctionInCocosThread([=](){
-						finishedCallback(0);
-					});
+				if (code == CURLE_OK && responseCode >= 200 && responseCode <= 300){
+					CCLOG("download file OK : %s", url.c_str());
+					if (finishedCallback){
+						Director::getInstance()->getScheduler()->performFunctionInCocosThread([=](){
+							finishedCallback(0);
+						});
+					}
+					return;
 				}
-				return;
+				else{
+					CCLOG("download file network error[%d]: %s", res, curl_easy_strerror(code));
+					if (finishedCallback){
+						Director::getInstance()->getScheduler()->performFunctionInCocosThread([=](){
+							finishedCallback(1);
+						});
+					}
+				}
 			}
-			else{
+			else{				
+				
 				CCLOG("download file network error[%d]: %s", res, url.c_str());
 				if (finishedCallback){
 					Director::getInstance()->getScheduler()->performFunctionInCocosThread([=](){

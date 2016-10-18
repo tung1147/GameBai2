@@ -40,6 +40,7 @@ protected:
 	std::string inputText;
 
 	Rect _touchRect;
+	EventListener* _touchListener;
 	bool isAttachWithIME;
 	bool isPassword;
 

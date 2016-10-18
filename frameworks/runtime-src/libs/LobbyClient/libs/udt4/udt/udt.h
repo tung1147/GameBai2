@@ -53,6 +53,11 @@ written by
    #endif
    #include <windows.h>
 #endif
+
+#ifdef USE_WINAPI_WRAPPER
+#include <winapi_wrapper.h>
+#endif
+
 #include <fstream>
 #include <set>
 #include <string>

@@ -11,6 +11,7 @@
 namespace quyetnd{
 
 TextField::TextField(){
+	_touchListener = 0;
 	inputText = "";
 	isPassword = false;
 	isAttachWithIME = false;
@@ -36,6 +37,11 @@ TextField::~TextField(){
 
 		this->detachWithIME();
 	}
+	if (_touchListener){
+		Director::getInstance()->getEventDispatcher()->removeEventListener(_touchListener);
+		_touchListener = 0;
+	}
+	Director::getInstance()->getEventDispatcher()->removeEventListenersForTarget(this);
 }
 
 TextField* TextField::createWithTTFFont(const Size& size, const std::string& textFont, float textFontSize, const std::string& placeHolderFont, float placeHolderFontSize){
@@ -210,32 +216,51 @@ void TextField::initWithSize(const Size& size){
 	mTouch->setSwallowTouches(true);
 	mTouch->onTouchBegan = [=](Touch* t, Event*){
 		if (this->isRunning() && this->checkVisible()){
-			auto p = this->convertToNodeSpace(t->getLocation());
-			if (_touchRect.containsPoint(p)){
-				if (!isAttachWithIME){
-					if (this->attachWithIME()){
-						_autoDetachWithIME = false;
-						return true;
-					}
-				}			
+			if (isAttachWithIME){
+				_autoDetachWithIME = true;
+				if (this->detachWithIME()){
+					return true;
+				}
+				else{
+					_autoDetachWithIME = false;
+				}
 			}
 			else{
-				if (isAttachWithIME){
-					_autoDetachWithIME = true;
-					if (this->detachWithIME()){
-						return true;
-					}
-					else{
-						_autoDetachWithIME = false;
+				auto p = this->convertToNodeSpace(t->getLocation());
+				if (_touchRect.containsPoint(p)){
+					if (!isAttachWithIME){
+						if (this->attachWithIME()){
+							_autoDetachWithIME = false;
+							return true;
+						}
 					}
 				}
 			}
-			return false;
 		}
 		return false;		
 	};
 
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(mTouch, this);
+
+
+	auto showTouch = EventListenerTouchOneByOne::create();
+	showTouch->setSwallowTouches(true);
+	showTouch->onTouchBegan = [=](Touch* t, Event*){
+		if (isAttachWithIME){
+			if (this->isRunning() && this->checkVisible()){
+				_autoDetachWithIME = true;
+				if (this->detachWithIME()){
+					return true;
+				}
+				else{
+					_autoDetachWithIME = false;
+				}
+			}		
+		}	
+		return false;
+	};
+	Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(showTouch, -128);
+	_touchListener = showTouch;
 
 	clippingNode = ClippingRectangleNode::create(_touchRect);
 	clippingNode->setAnchorPoint(Point::ZERO);
