@@ -213,41 +213,12 @@ var HomeLayer = cc.Node.extend({
     ctor : function () {
         this._super();
 
-        var homeBar = new cc.Node();
-        homeBar.setScale(cc.winSize.screenScale);
-        this.addChild(homeBar);
+        var settingBt = new ccui.Button("home-settingBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        settingBt.setPosition(60, cc.winSize.height - 50);
+        this.addChild(settingBt);
 
-        this.barBg = ccui.Scale9Sprite.createWithSpriteFrameName("home-bar-bg.png", cc.rect(8,8,4,4));
-        this.barBg.setPreferredSize(cc.size(1280.0, 100.0));
-        this.barBg.setAnchorPoint(cc.PointZero());
-        this.barBg.setPosition(cc.PointZero());
-        homeBar.addChild(this.barBg);
-
-        this.fbButton = new ccui.Button("home-bg-bt.png","","", ccui.Widget.PLIST_TEXTURE);
-        this.fbButton.setPosition(cc.p(640.0, this.barBg.getContentSize().height/2));
-        this.fbButton.setScale(cc.winSize.screenScale);
-        homeBar.addChild(this.fbButton);
-
-        this.loginBt = new ccui.Button("home-signin.png","home-signin-selected.png","", ccui.Widget.PLIST_TEXTURE);
-        this.loginBt.setPosition(cc.p(840.0, this.fbButton.y));
-        homeBar.addChild(this.loginBt);
-
-        this.signupBt = new ccui.Button("home-signup.png","home-signup-selected.png","", ccui.Widget.PLIST_TEXTURE);
-        this.signupBt.setPosition(cc.p(440.0, this.fbButton.y));
-        homeBar.addChild(this.signupBt);
-        
-        // var thiz = this;
-        // this.loginBt.addClickEventListener(function () {
-        //     var loginDialog  = new LoginDialog();
-        //     thiz.popupLayer.addChild(loginDialog);
-        // });
-        //
-        // this.signupBt.addClickEventListener(function () {
-        //     var signupDialog = new SignupDialog();
-        //     thiz.popupLayer.addChild(signupDialog);
-        // });
-        // this.fbButton.addClickEventListener(function () {
-        //     FacebookPlugin.getInstance().showLogin();
-        // });
+        var rankBt = new ccui.Button("home-rankBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        rankBt.setPosition(cc.winSize.width - settingBt.x, settingBt.y);
+        this.addChild(rankBt);
     }
 });

@@ -100,10 +100,16 @@ bool AppDelegate::applicationDidFinishLaunching()
     auto glview = director->getOpenGLView();
     if(!glview) {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-		//glview = cocos2d::GLViewImpl::createWithRect("GameBai", Rect(0, 0, 640, 480));
-		//glview = cocos2d::GLViewImpl::createWithRect("GameBai", Rect(0, 0, 800, 480));
-		glview = cocos2d::GLViewImpl::createWithRect("GameBai", Rect(0, 0, 854, 480));
-		//glview = cocos2d::GLViewImpl::createWithRect("GameBai", Rect(0, 0, 720, 480));
+		/*
+			1280 x 720
+			1200 x 720
+			1080 x 720
+			960 x 720
+		*/
+		glview = cocos2d::GLViewImpl::createWithRect("GameBai", Rect(0, 0, 360, 640));
+		//glview = cocos2d::GLViewImpl::createWithRect("GameBai", Rect(0, 0, 360, 600));
+		//glview = cocos2d::GLViewImpl::createWithRect("GameBai", Rect(0, 0, 360, 540));
+		//glview = cocos2d::GLViewImpl::createWithRect("GameBai", Rect(0, 0, 360, 480));
 #else	
 		glview = cocos2d::GLViewImpl::create("GameBai");
 #endif

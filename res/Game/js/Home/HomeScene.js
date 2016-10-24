@@ -19,8 +19,8 @@ var HomeScene = IScene.extend({
         this.mainLayer = new cc.Node();
         this.sceneLayer.addChild(this.mainLayer);
 
-        this.topBar = new LobbyTopBar();
-        this.mainLayer.addChild(this.topBar);
+        // this.topBar = new LobbyTopBar();
+        // this.mainLayer.addChild(this.topBar);
 
         this.userInfo = new LobbyBottomBar();
         this.mainLayer.addChild(this.userInfo);
@@ -28,103 +28,103 @@ var HomeScene = IScene.extend({
         this.homeLayer = new HomeLayer();
         this.mainLayer.addChild(this.homeLayer, 1);
 
-        this.gameLayer = new GameLayer();
-        this.mainLayer.addChild(this.gameLayer);
+        // this.gameLayer = new GameLayer();
+        // this.mainLayer.addChild(this.gameLayer);
 
-        this.lobbyLayer = new LobbyLayer();
-        this.mainLayer.addChild(this.lobbyLayer);
+        // this.lobbyLayer = new LobbyLayer();
+        // this.mainLayer.addChild(this.lobbyLayer);
 
-        this.miniGame = new MiniGameLayer();
-        this.mainLayer.addChild(this.miniGame);
+        // this.miniGame = new MiniGameLayer();
+        // this.mainLayer.addChild(this.miniGame);
 
         var thiz = this;
-        this.topBar.backBt.addClickEventListener(function () {
-            thiz.backButtonHandler();
-        });
-        this.topBar.newsBt.addClickEventListener(function () {
-            thiz.newsButtonhandler();
-        });
-        this.topBar.rankBt.addClickEventListener(function () {
-            thiz.rankButtonHandler();
-        });
-        this.topBar.callBt.addClickEventListener(function () {
-            thiz.callButtonHandler();
-        });
-        this.topBar.settingBt.addClickEventListener(function () {
-            thiz.settingButtonHandler();
-        });
-        this.userInfo.newsBt.addClickEventListener(function () {
-            thiz.newsMesasgeButtonHandler();
-        });
-        this.userInfo.paymentBt.addClickEventListener(function () {
-            thiz.paymentButtonHandler();
-        });
-        this.userInfo.rewardBt.addClickEventListener(function () {
-            thiz.rewardButtonHandler();
-        });
-        this.userInfo.userinfoBt.addClickEventListener(function () {
-            thiz.userInfoButtonHandler();
-        });
+        // this.topBar.backBt.addClickEventListener(function () {
+        //     thiz.backButtonHandler();
+        // });
+        // this.topBar.newsBt.addClickEventListener(function () {
+        //     thiz.newsButtonhandler();
+        // });
+        // this.topBar.rankBt.addClickEventListener(function () {
+        //     thiz.rankButtonHandler();
+        // });
+        // this.topBar.callBt.addClickEventListener(function () {
+        //     thiz.callButtonHandler();
+        // });
+        // this.topBar.settingBt.addClickEventListener(function () {
+        //     thiz.settingButtonHandler();
+        // });
+        // this.userInfo.newsBt.addClickEventListener(function () {
+        //     thiz.newsMesasgeButtonHandler();
+        // });
+        // this.userInfo.paymentBt.addClickEventListener(function () {
+        //     thiz.paymentButtonHandler();
+        // });
+        // this.userInfo.rewardBt.addClickEventListener(function () {
+        //     thiz.rewardButtonHandler();
+        // });
+        // this.userInfo.userinfoBt.addClickEventListener(function () {
+        //     thiz.userInfoButtonHandler();
+        // });
 
-        this.homeLayer.loginBt.addClickEventListener(function () {
-            var loginDialog = new LoginDialog();
-            thiz.popupLayer.addChild(loginDialog);
-        });
+        // this.homeLayer.loginBt.addClickEventListener(function () {
+        //     var loginDialog = new LoginDialog();
+        //     thiz.popupLayer.addChild(loginDialog);
+        // });
+        //
+        // this.homeLayer.signupBt.addClickEventListener(function () {
+        //     var signupDialog = new SignupDialog();
+        //     thiz.popupLayer.addChild(signupDialog);
+        // });
+        // this.homeLayer.fbButton.addClickEventListener(function () {
+        //     FacebookPlugin.getInstance().showLogin();
+        // });
 
-        this.homeLayer.signupBt.addClickEventListener(function () {
-            var signupDialog = new SignupDialog();
-            thiz.popupLayer.addChild(signupDialog);
-        });
-        this.homeLayer.fbButton.addClickEventListener(function () {
-            FacebookPlugin.getInstance().showLogin();
-        });
-
-        this.startHome();
+       // this.startHome();
 
         //
-        FloatButton.getInstance().show(this);
+        //FloatButton.getInstance().show(this);
 
         LobbyClient.getInstance().addListener("fetchProducts", this.onFetchProduct, this);
         LobbyClient.getInstance().addListener("fetchCashinProductItems", this.onFetchCashin, this);
         LobbyClient.getInstance().addListener("changeAsset", this.onChangeAsset, this);
     },
     onFetchProduct: function (command, data) {
-        data = data["data"];
-        cc.log(JSON.stringify(data));
-        cc.Global.thecaoData = cc.Global.thecaoData || data["1"];
-        cc.Global.vatphamData = cc.Global.vatphamData || data["4"];
-        cc.Global.dailyData = cc.Global.dailyData || data["3"];
-        cc.Global.tienmatData = cc.Global.tienmatData || data["2"];
+        // data = data["data"];
+        // cc.log(JSON.stringify(data));
+        // cc.Global.thecaoData = cc.Global.thecaoData || data["1"];
+        // cc.Global.vatphamData = cc.Global.vatphamData || data["4"];
+        // cc.Global.dailyData = cc.Global.dailyData || data["3"];
+        // cc.Global.tienmatData = cc.Global.tienmatData || data["2"];
     },
     onFetchCashin: function (command, data) {
-        cc.log(JSON.stringify(data));
-        data = data["data"]["2"];
-        cc.Global.SMSList = [];
-        for (var i = 0; i < data.length; i++) {
-            var currency = data[i]["currency"];
-            var smsGateway = data[i]["detail"]["smsGateway"];
-            var vmsContent = data[i]["detail"]["vmsContent"];
-            var vnpContent = data[i]["detail"]["vnpContent"];
-            var vttContent = data[i]["detail"]["vttContent"];
-            var gold = data[i]["gold"];
-            var id = data[i]["id"];
-            var price = data[i]["price"];
-            cc.Global.SMSList.push({
-                currency: currency,
-                smsGateway: smsGateway,
-                vmsContent: vmsContent,
-                vnpContent: vnpContent,
-                vttContent: vttContent,
-                gold: parseInt(gold.replace(",", "")),
-                id: id,
-                price: parseInt(price)
-            });
-        }
+        // cc.log(JSON.stringify(data));
+        // data = data["data"]["2"];
+        // cc.Global.SMSList = [];
+        // for (var i = 0; i < data.length; i++) {
+        //     var currency = data[i]["currency"];
+        //     var smsGateway = data[i]["detail"]["smsGateway"];
+        //     var vmsContent = data[i]["detail"]["vmsContent"];
+        //     var vnpContent = data[i]["detail"]["vnpContent"];
+        //     var vttContent = data[i]["detail"]["vttContent"];
+        //     var gold = data[i]["gold"];
+        //     var id = data[i]["id"];
+        //     var price = data[i]["price"];
+        //     cc.Global.SMSList.push({
+        //         currency: currency,
+        //         smsGateway: smsGateway,
+        //         vmsContent: vmsContent,
+        //         vnpContent: vnpContent,
+        //         vttContent: vttContent,
+        //         gold: parseInt(gold.replace(",", "")),
+        //         id: id,
+        //         price: parseInt(price)
+        //     });
+        // }
     },
     onChangeAsset: function (command, data) {
-        data = data["data"];
-        PlayerMe.gold = data["userAssets"]["gold"];
-        this.userInfo.refreshView();
+        // data = data["data"];
+        // PlayerMe.gold = data["userAssets"]["gold"];
+        // this.userInfo.refreshView();
     },
     onLoginHandler: function (command, data) {
         //  cc.log("onLoginHandler");
@@ -137,95 +137,95 @@ var HomeScene = IScene.extend({
         //  cc.log("onLobbyStatusHandler");
     },
     startHome: function () {
-        this.popupLayer.removeAllChildren();
-        if (this.subLayer) {
-            this.subLayer.removeFromParent(true);
-            this.subLayer = 0;
-            this.mainLayer.visible = true;
-        }
-        this.homeLayer.visible = true;
-        this.gameLayer.visible = true;
-        this.lobbyLayer.visible = false;
-        this.userInfo.visible = false;
-        if (this.homeLocation == 0 || this.homeLocation == 3) {
-            this.gameLayer.startAnimation();
-        }
-        if (this.homeLocation == 0) {
-            this.miniGame.startAnimation();
-        }
-        this.homeLayer.y = -100.0;
-        this.homeLayer.stopAllActions();
-        this.homeLayer.runAction(new cc.EaseSineOut(new cc.MoveTo(0.3, cc.p(0, 0))));
-        this.homeLocation = 1;
-        FloatButton.getInstance().setVisible(false);
+        // this.popupLayer.removeAllChildren();
+        // if (this.subLayer) {
+        //     this.subLayer.removeFromParent(true);
+        //     this.subLayer = 0;
+        //     this.mainLayer.visible = true;
+        // }
+        // this.homeLayer.visible = true;
+        // this.gameLayer.visible = true;
+        // this.lobbyLayer.visible = false;
+        // this.userInfo.visible = false;
+        // if (this.homeLocation == 0 || this.homeLocation == 3) {
+        //     this.gameLayer.startAnimation();
+        // }
+        // if (this.homeLocation == 0) {
+        //     this.miniGame.startAnimation();
+        // }
+        // this.homeLayer.y = -100.0;
+        // this.homeLayer.stopAllActions();
+        // this.homeLayer.runAction(new cc.EaseSineOut(new cc.MoveTo(0.3, cc.p(0, 0))));
+        // this.homeLocation = 1;
+        // FloatButton.getInstance().setVisible(false);
     },
     startGame: function () {
-        this.popupLayer.removeAllChildren();
-        if (this.homeLocation == 0 || this.homeLocation == 1) {
-            this.userInfo.y = -100.0;
-            this.userInfo.stopAllActions();
-            this.userInfo.runAction(new cc.EaseSineOut(new cc.MoveTo(0.3, cc.p(0, 0))));
-        }
-        this.homeLayer.visible = false;
-        this.gameLayer.visible = true;
-        this.lobbyLayer.visible = false;
-        this.userInfo.visible = true;
-        this.userInfo.refreshView();
-        this.topBar.refreshView();
-        if (this.homeLocation == 0 || this.homeLocation == 3) {
-            this.gameLayer.startAnimation();
-        }
-        if (this.homeLocation == 0) {
-            this.miniGame.startAnimation();
-        }
-        this.homeLocation = 2;
-        FloatButton.getInstance().setVisible(true);
+        // this.popupLayer.removeAllChildren();
+        // if (this.homeLocation == 0 || this.homeLocation == 1) {
+        //     this.userInfo.y = -100.0;
+        //     this.userInfo.stopAllActions();
+        //     this.userInfo.runAction(new cc.EaseSineOut(new cc.MoveTo(0.3, cc.p(0, 0))));
+        // }
+        // this.homeLayer.visible = false;
+        // this.gameLayer.visible = true;
+        // this.lobbyLayer.visible = false;
+        // this.userInfo.visible = true;
+        // this.userInfo.refreshView();
+        // this.topBar.refreshView();
+        // if (this.homeLocation == 0 || this.homeLocation == 3) {
+        //     this.gameLayer.startAnimation();
+        // }
+        // if (this.homeLocation == 0) {
+        //     this.miniGame.startAnimation();
+        // }
+        // this.homeLocation = 2;
+        // FloatButton.getInstance().setVisible(true);
     },
 
     startLobby: function () {
-        this.popupLayer.removeAllChildren();
-        this.homeLayer.visible = false;
-        this.gameLayer.visible = false;
-        this.lobbyLayer.visible = true;
-        this.userInfo.visible = true;
-        this.userInfo.refreshView();
-        if (arguments.length == 1) {
-            this.lobbyLayer.startGame(arguments[0]);
-            LobbyClient.getInstance().subscribe(arguments[0]);
-        }
-        else {
-            this.lobbyLayer.startGame(-1);
-        }
-        this.homeLocation = 3;
-        FloatButton.getInstance().setVisible(true);
+        // this.popupLayer.removeAllChildren();
+        // this.homeLayer.visible = false;
+        // this.gameLayer.visible = false;
+        // this.lobbyLayer.visible = true;
+        // this.userInfo.visible = true;
+        // this.userInfo.refreshView();
+        // if (arguments.length == 1) {
+        //     this.lobbyLayer.startGame(arguments[0]);
+        //     LobbyClient.getInstance().subscribe(arguments[0]);
+        // }
+        // else {
+        //     this.lobbyLayer.startGame(-1);
+        // }
+        // this.homeLocation = 3;
+        // FloatButton.getInstance().setVisible(true);
     },
     onTouchGame: function (gameId) {
-        if (this.homeLocation == 1) {
-            //MessageNode.getInstance().show("Bạn phải đăng nhập trước");
-            //return;
-        }
-        if (gameId == GameType.MiniGame_CaoThap) {
-            var caothap = new CaoThapScene();
-            cc.director.replaceScene(new cc.TransitionFade(0.5, caothap, cc.color("#000000")));
-        }
-        else if (gameId == GameType.MiniGame_ChanLe) {
-
-        }
-        else if (gameId == GameType.MiniGame_Pocker) {
-            var minipoker = new MiniPokerScene();
-            cc.director.replaceScene(new cc.TransitionFade(0.5, minipoker, cc.color("#000000")));
-        }
-        else if (gameId == GameType.GAME_VongQuayMayMan) {
-            var vongquay = new VongQuayScene();
-            cc.director.replaceScene(new cc.TransitionFade(0.5, vongquay, cc.color("#000000")));
-        }
-        else if (gameId == GameType.MiniGame_VideoPoker) {
-            var videopoker = new VideoPockerScene();
-            cc.director.replaceScene(new cc.TransitionFade(0.5, videopoker, cc.color("#000000")));
-        }
-        else {
-            this.startLobby(gameId);
-        }
+        // if (this.homeLocation == 1) {
+        //     //MessageNode.getInstance().show("Bạn phải đăng nhập trước");
+        //     //return;
+        // }
+        // if (gameId == GameType.MiniGame_CaoThap) {
+        //     var caothap = new CaoThapScene();
+        //     cc.director.replaceScene(new cc.TransitionFade(0.5, caothap, cc.color("#000000")));
+        // }
+        // else if (gameId == GameType.MiniGame_ChanLe) {
+        //
+        // }
+        // else if (gameId == GameType.MiniGame_Pocker) {
+        //     var minipoker = new MiniPokerScene();
+        //     cc.director.replaceScene(new cc.TransitionFade(0.5, minipoker, cc.color("#000000")));
+        // }
+        // else if (gameId == GameType.GAME_VongQuayMayMan) {
+        //     var vongquay = new VongQuayScene();
+        //     cc.director.replaceScene(new cc.TransitionFade(0.5, vongquay, cc.color("#000000")));
+        // }
+        // else if (gameId == GameType.MiniGame_VideoPoker) {
+        //     var videopoker = new VideoPockerScene();
+        //     cc.director.replaceScene(new cc.TransitionFade(0.5, videopoker, cc.color("#000000")));
+        // }
+        // else {
+        //     this.startLobby(gameId);
+        // }
     },
 
     startGameWithAnimation: function () {
@@ -280,33 +280,33 @@ var HomeScene = IScene.extend({
     },
 
     addSubLayer: function (subLayer) {
-        var thiz = this;
-        subLayer.backBt.addClickEventListener(function () {
-            thiz.backButtonHandler();
-        });
-        subLayer.settingBt.addClickEventListener(function () {
-            thiz.settingButtonHandler();
-        });
-
-        this.subLayer = subLayer;
-        this.sceneLayer.addChild(subLayer);
-        this.mainLayer.visible = false;
+        // var thiz = this;
+        // subLayer.backBt.addClickEventListener(function () {
+        //     thiz.backButtonHandler();
+        // });
+        // subLayer.settingBt.addClickEventListener(function () {
+        //     thiz.settingButtonHandler();
+        // });
+        //
+        // this.subLayer = subLayer;
+        // this.sceneLayer.addChild(subLayer);
+        // this.mainLayer.visible = false;
     },
 
     newsButtonhandler: function () {
-        if (this.homeLocation == 1) {
-            MessageNode.getInstance().show("Bạn phải đăng nhập trước");
-            return;
-        }
-        this.addSubLayer(new NewsLayer());
+        // if (this.homeLocation == 1) {
+        //     MessageNode.getInstance().show("Bạn phải đăng nhập trước");
+        //     return;
+        // }
+        // this.addSubLayer(new NewsLayer());
     },
 
     rankButtonHandler: function () {
-        if (this.homeLocation == 1) {
-            MessageNode.getInstance().show("Bạn phải đăng nhập trước");
-            return;
-        }
-        this.addSubLayer(new RankLayer());
+        // if (this.homeLocation == 1) {
+        //     MessageNode.getInstance().show("Bạn phải đăng nhập trước");
+        //     return;
+        // }
+        // this.addSubLayer(new RankLayer());
     },
 
     settingButtonHandler: function () {
@@ -332,19 +332,19 @@ var HomeScene = IScene.extend({
     },
 
     newsMesasgeButtonHandler: function () {
-        if (this.homeLocation == 1) {
-            MessageNode.getInstance().show("Bạn phải đăng nhập trước");
-            return;
-        }
-        this.addSubLayer(new InboxLayer());
+        // if (this.homeLocation == 1) {
+        //     MessageNode.getInstance().show("Bạn phải đăng nhập trước");
+        //     return;
+        // }
+        // this.addSubLayer(new InboxLayer());
     },
 
     rewardButtonHandler: function () {
-        this.addSubLayer(new RewardLayer());
+       // this.addSubLayer(new RewardLayer());
     },
 
     paymentButtonHandler: function () {
-        this.addSubLayer(new PaymentLayer());
+        //this.addSubLayer(new PaymentLayer());
     },
 
     userInfoButtonHandler: function () {
