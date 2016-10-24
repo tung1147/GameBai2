@@ -66,30 +66,20 @@ GameType.MiniGame_VideoPoker = 15;
 
 var s_game_id = s_game_id || [
     [
-        GameType.GAME_TLMN_Solo, GameType.GAME_TienLenMN,
         GameType.MiniGame_CaoThap, GameType.MiniGame_Pocker,
-        GameType.GAME_XocDia, GameType.GAME_TaiXiu,
-        GameType.GAME_Sam_Solo, GameType.GAME_Sam,
-        GameType.GAME_Phom, GameType.GAME_BaCay,
-        GameType.GAME_VongQuayMayMan, GameType.MiniGame_ChanLe,
-        //GameType.GAME_MauBinh,GameType.MiniGame_VideoPoker
-    ],
-    [
-        GameType.GAME_TLMN_Solo, GameType.GAME_TienLenMN,
-        GameType.GAME_Sam_Solo, GameType.GAME_Sam,
-        GameType.GAME_Phom, GameType.GAME_BaCay,
-        GameType.GAME_MauBinh
-    ],
-    [
+        /*GameType.MiniGame_ChanLe*/GameType.MiniGame_VideoPoker,
         GameType.MiniGame_CaoThap, GameType.MiniGame_Pocker,
-        /*GameType.MiniGame_ChanLe*/GameType.MiniGame_VideoPoker
+        GameType.MiniGame_CaoThap, GameType.MiniGame_Pocker,
+        GameType.MiniGame_CaoThap, GameType.MiniGame_Pocker,
+        GameType.MiniGame_CaoThap, GameType.MiniGame_Pocker,
+        GameType.MiniGame_CaoThap, GameType.MiniGame_Pocker,
+        GameType.MiniGame_CaoThap, GameType.MiniGame_Pocker,
+        GameType.MiniGame_CaoThap, GameType.MiniGame_Pocker,
+        GameType.MiniGame_CaoThap, GameType.MiniGame_Pocker,
+        GameType.MiniGame_CaoThap, GameType.MiniGame_Pocker
     ],
     [
         GameType.GAME_VongQuayMayMan
-    ],
-    [
-        GameType.GAME_TLMN_Solo, GameType.GAME_TienLenMN,
-        GameType.MiniGame_CaoThap, GameType.MiniGame_Pocker
     ]
 ];
 

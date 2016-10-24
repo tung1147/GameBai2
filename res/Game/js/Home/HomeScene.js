@@ -19,8 +19,8 @@ var HomeScene = IScene.extend({
         this.mainLayer = new cc.Node();
         this.sceneLayer.addChild(this.mainLayer);
 
-        // this.topBar = new LobbyTopBar();
-        // this.mainLayer.addChild(this.topBar);
+        this.topBar = new LobbyTopBar();
+        this.mainLayer.addChild(this.topBar);
 
         this.userInfo = new LobbyBottomBar();
         this.mainLayer.addChild(this.userInfo);
@@ -28,8 +28,8 @@ var HomeScene = IScene.extend({
         this.homeLayer = new HomeLayer();
         this.mainLayer.addChild(this.homeLayer, 1);
 
-        // this.gameLayer = new GameLayer();
-        // this.mainLayer.addChild(this.gameLayer);
+        this.gameLayer = new GameLayer();
+        this.mainLayer.addChild(this.gameLayer);
 
         // this.lobbyLayer = new LobbyLayer();
         // this.mainLayer.addChild(this.lobbyLayer);
@@ -44,15 +44,15 @@ var HomeScene = IScene.extend({
         // this.topBar.newsBt.addClickEventListener(function () {
         //     thiz.newsButtonhandler();
         // });
-        // this.topBar.rankBt.addClickEventListener(function () {
-        //     thiz.rankButtonHandler();
-        // });
         // this.topBar.callBt.addClickEventListener(function () {
         //     thiz.callButtonHandler();
         // });
-        // this.topBar.settingBt.addClickEventListener(function () {
-        //     thiz.settingButtonHandler();
-        // });
+        this.topBar.rankBt.addClickEventListener(function () {
+            thiz.rankButtonHandler();
+        });
+        this.topBar.settingBt.addClickEventListener(function () {
+            thiz.settingButtonHandler();
+        });
         // this.userInfo.newsBt.addClickEventListener(function () {
         //     thiz.newsMesasgeButtonHandler();
         // });
@@ -79,7 +79,8 @@ var HomeScene = IScene.extend({
         //     FacebookPlugin.getInstance().showLogin();
         // });
 
-       // this.startHome();
+     //   this.startHome();
+        this.startGame();
 
         //
         //FloatButton.getInstance().show(this);
@@ -130,56 +131,29 @@ var HomeScene = IScene.extend({
         //  cc.log("onLoginHandler");
         if (data.status == 0) {
             this.userInfo.refreshView();
-            this.topBar.refreshView();
+            //this.topBar.refreshView();
         }
     },
     onLobbyStatusHandler: function () {
         //  cc.log("onLobbyStatusHandler");
     },
     startHome: function () {
-        // this.popupLayer.removeAllChildren();
-        // if (this.subLayer) {
-        //     this.subLayer.removeFromParent(true);
-        //     this.subLayer = 0;
-        //     this.mainLayer.visible = true;
-        // }
-        // this.homeLayer.visible = true;
-        // this.gameLayer.visible = true;
-        // this.lobbyLayer.visible = false;
-        // this.userInfo.visible = false;
-        // if (this.homeLocation == 0 || this.homeLocation == 3) {
-        //     this.gameLayer.startAnimation();
-        // }
-        // if (this.homeLocation == 0) {
-        //     this.miniGame.startAnimation();
-        // }
-        // this.homeLayer.y = -100.0;
-        // this.homeLayer.stopAllActions();
-        // this.homeLayer.runAction(new cc.EaseSineOut(new cc.MoveTo(0.3, cc.p(0, 0))));
-        // this.homeLocation = 1;
-        // FloatButton.getInstance().setVisible(false);
+        this.popupLayer.removeAllChildren();
+        if (this.subLayer) {
+            this.subLayer.removeFromParent(true);
+            this.subLayer = 0;
+            this.mainLayer.visible = true;
+        }
+        this.homeLayer.visible = true;
+        //this.gameLayer.visible = true;
+        this.homeLocation = 1;
     },
     startGame: function () {
-        // this.popupLayer.removeAllChildren();
-        // if (this.homeLocation == 0 || this.homeLocation == 1) {
-        //     this.userInfo.y = -100.0;
-        //     this.userInfo.stopAllActions();
-        //     this.userInfo.runAction(new cc.EaseSineOut(new cc.MoveTo(0.3, cc.p(0, 0))));
-        // }
-        // this.homeLayer.visible = false;
-        // this.gameLayer.visible = true;
-        // this.lobbyLayer.visible = false;
-        // this.userInfo.visible = true;
-        // this.userInfo.refreshView();
-        // this.topBar.refreshView();
-        // if (this.homeLocation == 0 || this.homeLocation == 3) {
-        //     this.gameLayer.startAnimation();
-        // }
-        // if (this.homeLocation == 0) {
-        //     this.miniGame.startAnimation();
-        // }
-        // this.homeLocation = 2;
-        // FloatButton.getInstance().setVisible(true);
+        this.popupLayer.removeAllChildren();
+        this.homeLayer.visible = false;
+        //this.gameLayer.visible = true;
+        this.homeLocation = 2;
+        this.userInfo.refreshView();
     },
 
     startLobby: function () {

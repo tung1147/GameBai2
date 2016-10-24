@@ -2,11 +2,72 @@
  * Created by Quyet Nguyen on 7/5/2016.
  */
 
+var s_tab_title = s_tab_title || ["#game-tab-title1.png","#game-tab-title2.png"];
+var s_tab_title_x = s_tab_title_x || [200.0, 520.0];
+
 var GameLayer = cc.Node.extend({
     ctor : function () {
         this._super();
         this.allLayer = [];
-        this.initGame();
+
+        this.initTab();
+       // this.initGame();
+    },
+
+    initTab : function () {
+        var tabBg = new cc.Sprite("#game-tab.png");
+        tabBg.setPosition(cc.winSize.width/2, cc.winSize.height - 337);
+        this.addChild(tabBg);
+
+        var top = cc.winSize.height - 370.0;
+        var bottom = 100.0;
+
+        var mToggle = new ToggleNodeGroup();
+        this.addChild(mToggle);
+        for(var i=0;i<2;i++){
+            var tabImg = new cc.Sprite("#game-tab"+ (i+1) + ".png");
+            tabImg.setPosition(tabBg.getPosition());
+            this.addChild(tabImg);
+            //
+            var title1 = new cc.Sprite(s_tab_title[i]);
+            title1.setPosition(s_tab_title_x[i], tabBg.y - 2);
+            this.addChild(title1);
+
+            var listGame = new newui.TableView(cc.size(cc.winSize.width, top - bottom), 1);
+            listGame.setDirection(ccui.ScrollView.DIR_VERTICAL);
+           // listGame.setPadding(padding);
+            listGame.setBounceEnabled(true);
+            listGame.setScrollBarEnabled(false);
+            listGame.setPosition(0, bottom);
+
+            this.addChild(listGame,1);
+            this.allLayer.push(listGame);
+
+            var toggleItem = new ToggleNodeItem(title1.getContentSize());
+            toggleItem.setPosition(title1.getPosition());
+            mToggle.addItem(toggleItem);
+
+            (function (toggle, tabImg, title1,listGame) {
+                toggle.onSelect = function () {
+                    tabImg.visible = true;
+                    title1.visible = true;
+                    listGame.visible = true;
+                };
+                toggle.onUnSelect = function () {
+                    tabImg.visible = false;
+                    title1.visible = true;
+                    listGame.visible = false;
+                };
+            })(toggleItem, tabImg, title1, listGame);
+        }
+        this.mToggle = mToggle;
+
+        //
+        for(var i=0;i<this.allLayer.length;i++){
+            for(var j =0;j<s_game_id[i].length;j++){
+                this.addGameToList(s_game_id[i][j], this.allLayer[i]);
+            }
+        }
     },
 
     initGame : function () {
@@ -77,7 +138,7 @@ var GameLayer = cc.Node.extend({
     },
 
     addGameToList : function (gameId, listGame) {
-        var gameButton = new ccui.Button("lobby-game"+ gameId +".png", "", "", ccui.Widget.PLIST_TEXTURE);
+        var gameButton = new ccui.Button("home-loginBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
         listGame.pushItem(gameButton);
         gameButton.addClickEventListener(function () {
             var homeScene = cc.director.getRunningScene();

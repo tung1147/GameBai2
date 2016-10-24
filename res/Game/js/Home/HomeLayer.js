@@ -5,103 +5,84 @@
 var LoginDialog = cc.Node.extend({
     ctor : function () {
         this._super();
-        var blackLayer = new cc.LayerColor(cc.color(0,0,0,0.8 * 255), cc.winSize.width, cc.winSize.height);
-        this.addChild(blackLayer);
 
-        this.layerBg = ccui.Scale9Sprite.createWithSpriteFrameName("home-layer-bg.png", cc.rect(114, 114, 4, 4));
-        this.layerBg.setPreferredSize(cc.size(850.0, 700.0));
-        this.layerBg.setPosition(cc.winSize.width / 2, cc.winSize.height/2);
-        this.addChild(this.layerBg);
+        var bg = new cc.Sprite("#home-login-dialog.png");
+        bg.setPosition(cc.winSize.width/2, cc.winSize.height/2);
+        this.addChild(bg);
 
-        var title = cc.Sprite("#home-signin-text.png");
-        title.setPosition(this.layerBg.getContentSize().width/2, 550.0);
-        this.layerBg.addChild(title);
+        var title = new cc.Sprite("#login-title.png");
+        title.setPosition(cc.winSize.width/2, bg.y + 374);
+        this.addChild(title);
 
-        /* login text field */
-        var userNameBg = ccui.Scale9Sprite.createWithSpriteFrameName("home-text-bg.png", cc.rect(12,12,4,4));
-        userNameBg.setPreferredSize(cc.size(500, 70));
-        userNameBg.setPosition(cc.p(this.layerBg.getContentSize().width/2, 450));
-        this.layerBg.addChild(userNameBg);
+        var facebookBt = new ccui.Button("home-fbBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        facebookBt.setPosition(cc.p(cc.winSize.width/2, bg.y - 264));
+        this.addChild(facebookBt);
+        facebookBt.addClickEventListener(function () {
+            FacebookPlugin.getInstance().showLogin();
+        });
 
-        var passwordBg = ccui.Scale9Sprite.createWithSpriteFrameName("home-text-bg.png", cc.rect(12,12,4,4));
-        passwordBg.setPreferredSize(cc.size(500, 70));
-        passwordBg.setPosition(cc.p(this.layerBg.getContentSize().width/2, 350));
-        this.layerBg.addChild(passwordBg);
+        var loginBt = new ccui.Button("home-loginBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        loginBt.setPosition(cc.p(cc.winSize.width/2 - 128, bg.y - 430));
+        this.addChild(loginBt);
 
-        this.userText = new newui.TextField(cc.size(470, 70), cc.res.font.Roboto_Condensed_25);
+        var signupBt = new ccui.Button("home-signupBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        signupBt.setPosition(cc.p(cc.winSize.width/2 + 128, loginBt.y));
+        this.addChild(signupBt);
+        this.signupBt = signupBt;
+
+        var usernameBg = new ccui.Scale9Sprite("home-text-bg.png", cc.rect(20, 20, 4, 4));
+        usernameBg.setPreferredSize(cc.size(420, 72));
+        usernameBg.setPosition(cc.winSize.width/2, bg.y + 160);
+        this.addChild(usernameBg);
+
+        var passwordBg = new ccui.Scale9Sprite("home-text-bg.png", cc.rect(20, 20, 4, 4));
+        passwordBg.setPreferredSize(cc.size(420, 72));
+        passwordBg.setPosition(cc.winSize.width/2, bg.y + 62);
+        this.addChild(passwordBg);
+
+        this.checkBox = new ccui.CheckBox();
+        this.checkBox.loadTextureBackGround("home-checkBox.png", ccui.Widget.PLIST_TEXTURE);
+        this.checkBox.loadTextureFrontCross("home-checkCross.png", ccui.Widget.PLIST_TEXTURE);
+        this.checkBox.setPosition(240, bg.y - 32);
+        this.addChild( this.checkBox);
+        this.checkBox.setSelected(cc.Global.GetSetting("savePassword", true));
+        this.checkBox.addEventListener(function (target,event) {
+            cc.Global.SetSetting("savePassword", event == ccui.CheckBox.EVENT_SELECTED);
+        });
+
+        var saveLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, "LƯU MẬT KHẨU");
+        saveLabel.setPosition(cc.winSize.width/2 + 17, this.checkBox.y - 2);
+        this.addChild(saveLabel, 1);
+
+        var padding = new cc.Sprite("#home-login-padding.png");
+        padding.setPosition(cc.winSize.width/2, bg.y - 93);
+        this.addChild(padding);
+
+        var lostPasswordLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, "QUÊN MẬT KHẨU ?");
+        lostPasswordLabel.setPosition(cc.winSize.width/2, bg.y - 154);
+        this.addChild(lostPasswordLabel, 1);
+
+        this.userText = new newui.TextField(cc.size(400, 70), cc.res.font.Roboto_Condensed_25);
         this.userText.setPlaceHolder("Tài khoản");
         this.userText.setTextColor(cc.color(255,255,255));
         this.userText.setPlaceHolderColor(cc.color(144, 144, 144));
         this.userText.setMaxLength(32);
-        this.userText.setPosition(userNameBg.getPosition());
-        this.layerBg.addChild(this.userText,1);
+        this.userText.setPosition(usernameBg.getPosition());
+        this.addChild(this.userText,1);
 
-        this.passwordText = new newui.TextField(cc.size(470, 70), cc.res.font.Roboto_Condensed_25);
+        this.passwordText = new newui.TextField(cc.size(400, 70), cc.res.font.Roboto_Condensed_25);
         this.passwordText.setPasswordEnable(true);
         this.passwordText.setPlaceHolder("Mật khẩu");
         this.passwordText.setTextColor(cc.color(255,255,255));
         this.passwordText.setPlaceHolderColor(cc.color(144, 144, 144));
         this.passwordText.setMaxLength(30);
         this.passwordText.setPosition(passwordBg.getPosition());
-        this.layerBg.addChild(this.passwordText,1);
+        this.addChild(this.passwordText,1);
 
         this.userText.setText(cc.Global.GetSetting("username", ""));
         this.passwordText.setText(cc.Global.GetSetting("password", ""));
 
-        var label1 = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, "Lưu mật khẩu");
-        label1.setAnchorPoint(1.0, 0.5);
-        label1.setColor(cc.color.WHITE);
-        label1.setPosition(this.layerBg.getContentSize().width/2 - 10, 270);
-        this.layerBg.addChild(label1,1);
-
-        this.checkBox = new ccui.CheckBox();
-        this.checkBox.loadTextureBackGround("home-checkBox.png", ccui.Widget.PLIST_TEXTURE);
-        this.checkBox.loadTextureFrontCross("home-checkCross.png", ccui.Widget.PLIST_TEXTURE);
-        this.checkBox.setPosition(label1.x - label1.getContentSize().width - 30 , label1.y);
-        this.layerBg.addChild( this.checkBox);
-        this.checkBox.setSelected(cc.Global.GetSetting("savePassword", true));
-        this.checkBox.addEventListener(function (target,event) {
-            cc.Global.SetSetting("savePassword", event == ccui.CheckBox.EVENT_SELECTED);
-        });
-
-        var padding = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, "|");
-        padding.setColor(cc.color.WHITE);
-        padding.setPosition(this.layerBg.getContentSize().width/2, label1.y);
-        this.layerBg.addChild(padding,1);
-
-        var resetPassword = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, "Quên mật khẩu");
-        resetPassword.setAnchorPoint(0.0, 0.5);
-        resetPassword.setColor(cc.color.WHITE);
-        resetPassword.setPosition(this.layerBg.getContentSize().width/2 + 10, label1.y);
-        this.layerBg.addChild(resetPassword,1);
-
-        var loginBt = new ccui.Button("login-okBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        loginBt.setPosition(this.layerBg.getContentSize().width/2, 200.0);
-        this.layerBg.addChild(loginBt);
-
-        var playButton = new ccui.Button("login-playBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        playButton.setPosition(this.layerBg.getContentSize().width/2, 130.0);
-        this.layerBg.addChild(playButton);
-
-        var margin = 100.0;
-        var mTouch = cc.rect(margin, margin, this.layerBg.getContentSize().width - margin * 2, this.layerBg.getContentSize().height - margin * 2);
-        //touch
         var thiz = this;
-        cc.eventManager.addListener({
-            event: cc.EventListener.TOUCH_ONE_BY_ONE,
-            swallowTouches:true,
-            onTouchBegan : function (touch, event) {
-                return true;
-            },
-            onTouchEnded : function (touch, event) {
-                var pTouch = touch.getLocation();
-                var p = thiz.layerBg.convertToNodeSpace(pTouch);
-                if(!cc.rectContainsPoint(mTouch, p)){
-                    thiz.removeFromParent(true);
-                }
-            }
-        }, this);
-
         loginBt.addClickEventListener(function () {
             var username = thiz.userText.getText();
             var password = thiz.passwordText.getText();
@@ -123,74 +104,51 @@ var SignupDialog = cc.Node.extend({
     ctor : function () {
         this._super();
 
-        var blackLayer = new cc.LayerColor(cc.color(0,0,0,0.8 * 255), cc.winSize.width, cc.winSize.height);
-        this.addChild(blackLayer);
-
-        var bg = ccui.Scale9Sprite.createWithSpriteFrameName("home-layer-bg.png", cc.rect(114, 114, 4, 4));
-        bg.setPreferredSize(cc.size(900.0, 650.0));
-        bg.setPosition(cc.winSize.width / 2, cc.winSize.height/2);
+        var bg = new cc.Sprite("#home-login-dialog.png");
+        bg.setPosition(cc.winSize.width/2, cc.winSize.height/2);
         this.addChild(bg);
 
-        var margin = 100.0;
-        var mTouch = cc.rect(margin, margin, bg.getContentSize().width - margin * 2, bg.getContentSize().height - margin * 2);
-        var title = cc.Sprite("#home-signup-text.png");
-        title.setPosition(bg.getContentSize().width/2, 465.0);
-        bg.addChild(title);
-        this.layerBg = bg;
+        var title = new cc.Sprite("#signup-title.png");
+        title.setPosition(cc.winSize.width/2, bg.y + 374);
+        this.addChild(title);
 
-        /* login text field */
-        var userNameBg = ccui.Scale9Sprite.createWithSpriteFrameName("home-text-bg.png", cc.rect(12,12,4,4));
-        userNameBg.setPreferredSize(cc.size(500, 70));
-        userNameBg.setPosition(cc.p(this.layerBg.getContentSize().width/2, 380));
-        this.layerBg.addChild(userNameBg);
+        var signupBt = new ccui.Button("home-signupBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        signupBt.setPosition(cc.p(cc.winSize.width/2, bg.y - 50));
+        this.addChild(signupBt);
 
-        var passwordBg = ccui.Scale9Sprite.createWithSpriteFrameName("home-text-bg.png", cc.rect(12,12,4,4));
-        passwordBg.setPreferredSize(cc.size(500, 70));
-        passwordBg.setPosition(cc.p(this.layerBg.getContentSize().width/2, 280));
-        this.layerBg.addChild(passwordBg);
+        var backBt = new ccui.Button("home-closeBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        backBt.setPosition(cc.p(614, bg.y + 304));
+        this.addChild(backBt);
+        this.backBt = backBt;
 
-        this.userText = new newui.TextField(cc.size(470, 70), cc.res.font.Roboto_Condensed_25);
+        var usernameBg = new ccui.Scale9Sprite("home-text-bg.png", cc.rect(20, 20, 4, 4));
+        usernameBg.setPreferredSize(cc.size(420, 72));
+        usernameBg.setPosition(cc.winSize.width/2, bg.y + 160);
+        this.addChild(usernameBg);
+
+        var passwordBg = new ccui.Scale9Sprite("home-text-bg.png", cc.rect(20, 20, 4, 4));
+        passwordBg.setPreferredSize(cc.size(420, 72));
+        passwordBg.setPosition(cc.winSize.width/2, bg.y + 62);
+        this.addChild(passwordBg);
+
+        this.userText = new newui.TextField(cc.size(400, 70), cc.res.font.Roboto_Condensed_25);
         this.userText.setPlaceHolder("Tài khoản");
         this.userText.setTextColor(cc.color(255,255,255));
         this.userText.setPlaceHolderColor(cc.color(144, 144, 144));
         this.userText.setMaxLength(32);
-        this.userText.setPosition(userNameBg.getPosition());
-        bg.addChild(this.userText,1);
+        this.userText.setPosition(usernameBg.getPosition());
+        this.addChild(this.userText,1);
 
-        this.passwordText = new newui.TextField(cc.size(470, 70), cc.res.font.Roboto_Condensed_25);
-        this.passwordText.setPasswordEnable(true);
+        this.passwordText = new newui.TextField(cc.size(400, 70), cc.res.font.Roboto_Condensed_25);
         this.passwordText.setPlaceHolder("Mật khẩu");
         this.passwordText.setTextColor(cc.color(255,255,255));
         this.passwordText.setPlaceHolderColor(cc.color(144, 144, 144));
         this.passwordText.setMaxLength(30);
         this.passwordText.setPosition(passwordBg.getPosition());
-        bg.addChild(this.passwordText,1);
-
-        var signupBt = new ccui.Button("signup-okBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        signupBt.setPosition(this.layerBg.getContentSize().width/2, 180.0);
-        this.layerBg.addChild(signupBt);
+        this.addChild(this.passwordText,1);
 
         //touch
         var thiz = this;
-        cc.eventManager.addListener({
-            event: cc.EventListener.TOUCH_ONE_BY_ONE,
-            swallowTouches:true,
-            onTouchBegan : function (touch, event) {
-                if(thiz.visible){
-                    return true;
-                }
-                return false;
-            },
-            
-            onTouchEnded : function (touch, event) {
-                var pTouch = touch.getLocation();
-                var p = bg.convertToNodeSpace(pTouch);
-                if(!cc.rectContainsPoint(mTouch, p)){
-                    thiz.removeFromParent();
-                }
-            }
-        }, this);
-
         signupBt.addClickEventListener(function () {
             var username = thiz.userText.getText();
             var password = thiz.passwordText.getText();
@@ -211,15 +169,46 @@ var SignupDialog = cc.Node.extend({
 var HomeLayer = cc.Node.extend({
     ctor : function () {
         this._super();
+        var blackLayer = new cc.LayerColor(cc.color(0,0,0,0.8 * 255), cc.winSize.width, cc.winSize.height);
+        this.addChild(blackLayer);
 
-        var settingBt = new ccui.Button("home-settingBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        settingBt.setPosition(60, cc.winSize.height - 50);
-        this.addChild(settingBt);
+        //touch
+        var thiz = this;
+        cc.eventManager.addListener({
+            event: cc.EventListener.TOUCH_ONE_BY_ONE,
+            swallowTouches:true,
+            onTouchBegan : function (touch, event) {
+                if(thiz.visible){
+                    return true;
+                }
+                return false;
+            }
+        }, this);
 
-        var rankBt = new ccui.Button("home-rankBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        rankBt.setPosition(cc.winSize.width - settingBt.x, settingBt.y);
-        this.addChild(rankBt);
+        this.showLogin();
+    },
+    showLogin : function () {
+        if(this.dialog){
+            this.dialog.removeFromParent(true);
+        }
+        this.dialog = new LoginDialog();
+        this.addChild(this.dialog);
 
+        var thiz = this;
+        this.dialog.signupBt.addClickEventListener(function () {
+            thiz.showSignup();
+        });
+    },
+    showSignup : function () {
+        if(this.dialog){
+            this.dialog.removeFromParent(true);
+        }
+        this.dialog = new SignupDialog();
+        this.addChild(this.dialog);
 
+        var thiz = this;
+        this.dialog.backBt.addClickEventListener(function () {
+            thiz.showLogin();
+        });
     }
 });

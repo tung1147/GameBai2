@@ -79,30 +79,33 @@ var LobbyBottomBar = cc.Node.extend({
         var rewardLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, "ĐỔI THƯỞNG");
         rewardLabel.setPosition(rewardBt.x, paymentLabel.y);
         this.addChild(rewardLabel, 1);
+
+        this.refreshView();
     },
 
     refreshView : function () {
         this.nameLabel.setString(PlayerMe.username);
-        this.goldLabel.setString(cc.Global.NumberFormat1(PlayerMe.gold) +" V");
-        if(PlayerMe.messageCount <= 0){
-            this.newBg.visible = false;
-        }
-        else{
-            this.newBg.visible = true;
-            if(PlayerMe.messageCount > 9){
-                this.newLabel.setString("9+");
-            }
-            else{
-                this.newLabel.setString(PlayerMe.messageCount.toString());
-            }
-        }
+        this.goldLabel.setString(cc.Global.NumberFormat1(PlayerMe.gold));
+        // if(PlayerMe.messageCount <= 0){
+        //     this.newBg.visible = false;
+        // }
+        // else{
+        //     this.newBg.visible = true;
+        //     if(PlayerMe.messageCount > 9){
+        //         this.newLabel.setString("9+");
+        //     }
+        //     else{
+        //         this.newLabel.setString(PlayerMe.messageCount.toString());
+        //     }
+        // }
 
         var level = cc.Global.GetLevelMe();
-        this.levelLabel.setString("Level " + level.level);
+        this.levelLabel.setString("Lv." + level.level);
         this.levelBar.setPercentage(level.expPer);
 
-        var vip = cc.Global.GetVipMe();
-        this.vipLabel.setString("VIP " + vip.level);
-        this.vipBar.setPercentage(vip.expPer);
+        //
+        // var vip = cc.Global.GetVipMe();
+        // this.vipLabel.setString("VIP " + vip.level);
+        // this.vipBar.setPercentage(vip.expPer);
     }
 });
