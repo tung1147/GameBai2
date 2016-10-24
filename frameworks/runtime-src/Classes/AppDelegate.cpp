@@ -110,18 +110,6 @@ bool AppDelegate::applicationDidFinishLaunching()
         director->setOpenGLView(glview);
 }
 
-	Size frameSize = glview->getFrameSize();
-	float designHeight = 720.0f;
-	float designWidth = frameSize.width * designHeight / frameSize.height;
-	if (designWidth < 960.0f){
-		designWidth = 960.0f;
-	}
-	if (designWidth > 1280.0f){
-		designWidth = 1280.0f;
-	}
-	//glview->setDesignResolutionSize(1280,720, ResolutionPolicy::SHOW_ALL);
-	glview->setDesignResolutionSize(designWidth, designHeight, ResolutionPolicy::SHOW_ALL);
-
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0 / 60);
     
