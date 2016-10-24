@@ -30,7 +30,7 @@ var LobbyBottomBar = cc.Node.extend({
         this.addChild(startIcon);
 
         var goldLabel = cc.Label.createWithBMFont("res/fonts/lobby_gold_number.fnt", "500.000");
-        goldLabel.setColor(cc.color(255,184,0));
+   //     goldLabel.setColor(cc.color(255,184,0));
         goldLabel.setPosition(goldBg.x, goldBg.y + 2);
         this.addChild(goldLabel,1);
         this.goldLabel = goldLabel;

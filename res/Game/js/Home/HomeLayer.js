@@ -205,8 +205,7 @@ var SignupDialog = cc.Node.extend({
             LoadingDialog.getInstance().show("Đang đăng ký");
             LobbyClient.getInstance().signup(username, password);
         });
-    },
-    
+    }
 });
 
 var HomeLayer = cc.Node.extend({
@@ -220,5 +219,7 @@ var HomeLayer = cc.Node.extend({
         var rankBt = new ccui.Button("home-rankBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
         rankBt.setPosition(cc.winSize.width - settingBt.x, settingBt.y);
         this.addChild(rankBt);
+
+
     }
 });

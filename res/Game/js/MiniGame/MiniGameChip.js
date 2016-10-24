@@ -25,11 +25,11 @@ var MiniGameChip = ChipButton.extend({
         this.selectedSprite.visible = true;
 
         if(isForce){
-            this.setPositionY(this.originPoint.y + 40.0);
+            this.setPositionY(this.originPoint.y + 30.0);
         }
         else{
             this.stopAllActions();
-            var moveAction = new cc.MoveTo(0.2, cc.p(this.x, this.originPoint.y + 40.0 * cc.winSize.screenScale));
+            var moveAction = new cc.MoveTo(0.2, cc.p(this.x, this.originPoint.y + 30.0 * cc.winSize.screenScale));
             this.runAction(new cc.EaseSineOut(moveAction));
         }
     },

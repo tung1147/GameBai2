@@ -24,7 +24,8 @@ var LoadingScene = cc.Scene.extend({
     },
     nextScene : function () {
       //  SystemPlugin.getInstance().enableMipmapTexture("res/Card.png");
-        cc.director.replaceScene(new HomeScene());
+      //  cc.director.replaceScene(new HomeScene());
+        cc.director.replaceScene(new MiniPokerScene());
     },
     onEnter : function () {
         this._super();

@@ -27,36 +27,37 @@ var MiniPokerScene = MiniGameScene.extend({
         this.initChip(cc.winSize.width / 2 + 100);
 
         this.cards = [];
-        this.genCards();
+      //  this.genCards();
 
-        this.initScene();
-        this.initRewards();
+      //  this.initScene();
+     //   this.initRewards();
 
-        var thiz = this;
-        cc.eventManager.addListener({
-            event: cc.EventListener.TOUCH_ONE_BY_ONE,
-            swallowTouches: true,
-            onTouchBegan: function (touch, event) {
-                // if (touch.getLocation().x < cc.winSize.width / 2) {
-                //     thiz.adjustAdd();
-                // }
-                // else {
-                //     thiz.adjustSub();
-                // }
-                // return true;
-                if (!thiz.quaytudong)
-                    return false;
-                var p = thiz.quaytudong.convertToNodeSpace(touch.getLocation());
-                if (cc.rectContainsPoint(
-                        cc.rect(0, 0, thiz.quaytudong._getWidth(), thiz.quaytudong._getHeight()),
-                        p
-                    )) {
-                    thiz.quaytudongClick();
-                    return true;
-                }
-                return false;
-            }
-        }, this);
+        //
+        // var thiz = this;
+        // cc.eventManager.addListener({
+        //     event: cc.EventListener.TOUCH_ONE_BY_ONE,
+        //     swallowTouches: true,
+        //     onTouchBegan: function (touch, event) {
+        //         // if (touch.getLocation().x < cc.winSize.width / 2) {
+        //         //     thiz.adjustAdd();
+        //         // }
+        //         // else {
+        //         //     thiz.adjustSub();
+        //         // }
+        //         // return true;
+        //         if (!thiz.quaytudong)
+        //             return false;
+        //         var p = thiz.quaytudong.convertToNodeSpace(touch.getLocation());
+        //         if (cc.rectContainsPoint(
+        //                 cc.rect(0, 0, thiz.quaytudong._getWidth(), thiz.quaytudong._getHeight()),
+        //                 p
+        //             )) {
+        //             thiz.quaytudongClick();
+        //             return true;
+        //         }
+        //         return false;
+        //     }
+        // }, this);
 
         LobbyClient.getInstance().addListener("miniGame", this.onSocketMessage, this);
         LobbyClient.getInstance().addListener("changeAsset", this.onSocketMessage, this);

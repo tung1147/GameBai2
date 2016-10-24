@@ -4,148 +4,200 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>minigame-bg1.png</key>
+            <key>game-backBt.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{410,152},{40,40}}</string>
+                <string>{{842,193},{66,74}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{2,2},{40,40}}</string>
+                <string>{{0,0},{66,74}}</string>
                 <key>sourceSize</key>
-                <string>{44,44}</string>
+                <string>{66,74}</string>
+            </dict>
+            <key>game-bar-bg1.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{205,396},{44,27}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{44,27}}</string>
+                <key>sourceSize</key>
+                <string>{44,27}</string>
+            </dict>
+            <key>game-bottom-bar.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,210},{720,184}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{720,184}}</string>
+                <key>sourceSize</key>
+                <string>{720,184}</string>
+            </dict>
+            <key>game-level-bar.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,396},{201,27}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{201,27}}</string>
+                <key>sourceSize</key>
+                <string>{201,27}</string>
+            </dict>
+            <key>game-paymentBt.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{962,448},{46,48}}</string>
+                <key>offset</key>
+                <string>{0,1}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{2,0},{46,48}}</string>
+                <key>sourceSize</key>
+                <string>{50,50}</string>
+            </dict>
+            <key>game-settingBt.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,425},{66,74}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{66,74}}</string>
+                <key>sourceSize</key>
+                <string>{66,74}</string>
+            </dict>
+            <key>game-start-icon.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{962,382},{65,64}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{65,64}}</string>
+                <key>sourceSize</key>
+                <string>{65,64}</string>
+            </dict>
+            <key>game-start-icon2.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{70,425},{51,50}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{51,50}}</string>
+                <key>sourceSize</key>
+                <string>{51,50}</string>
+            </dict>
+            <key>game-userinfo-bg.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,2},{720,206}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{720,206}}</string>
+                <key>sourceSize</key>
+                <string>{720,206}</string>
             </dict>
             <key>minigame-chip-1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{206,356},{120,120}}</string>
+                <string>{{724,193},{116,121}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{120,120}}</string>
+                <string>{{0,0},{116,121}}</string>
                 <key>sourceSize</key>
-                <string>{120,120}</string>
+                <string>{116,121}</string>
             </dict>
             <key>minigame-chip-2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{328,356},{120,120}}</string>
+                <string>{{724,316},{117,120}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{120,120}}</string>
+                <string>{{0,0},{117,120}}</string>
                 <key>sourceSize</key>
-                <string>{120,120}</string>
+                <string>{117,120}</string>
             </dict>
             <key>minigame-chip-3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{450,355},{120,120}}</string>
+                <string>{{843,382},{117,120}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{120,120}}</string>
+                <string>{{0,0},{117,120}}</string>
                 <key>sourceSize</key>
-                <string>{120,120}</string>
+                <string>{117,120}</string>
             </dict>
             <key>minigame-chipSelected-1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{202,202}}</string>
+                <string>{{724,2},{188,189}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{202,202}}</string>
+                <string>{{0,0},{188,189}}</string>
                 <key>sourceSize</key>
-                <string>{202,202}</string>
+                <string>{188,189}</string>
             </dict>
             <key>minigame-chipSelected-2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,206},{202,202}}</string>
+                <string>{{914,2},{188,188}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{202,202}}</string>
+                <string>{{0,0},{188,188}}</string>
                 <key>sourceSize</key>
-                <string>{202,202}</string>
+                <string>{188,188}</string>
             </dict>
             <key>minigame-chipSelected-3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{206,2},{202,202}}</string>
+                <string>{{914,192},{188,188}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{202,202}}</string>
+                <string>{{0,0},{188,188}}</string>
                 <key>sourceSize</key>
-                <string>{202,202}</string>
-            </dict>
-            <key>minigame-highBt.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{206,206},{148,148}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{15,15},{148,148}}</string>
-                <key>sourceSize</key>
-                <string>{178,178}</string>
-            </dict>
-            <key>minigame-kingCard1.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{2,410},{48,63}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{42,42},{48,63}}</string>
-                <key>sourceSize</key>
-                <string>{132,147}</string>
-            </dict>
-            <key>minigame-kingCard2.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{356,206},{132,147}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{132,147}}</string>
-                <key>sourceSize</key>
-                <string>{132,147}</string>
-            </dict>
-            <key>minigame-lowBt.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{410,2},{148,148}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{15,15},{148,148}}</string>
-                <key>sourceSize</key>
-                <string>{178,178}</string>
+                <string>{188,188}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -155,9 +207,9 @@
             <key>realTextureFileName</key>
             <string>gamemini.png</string>
             <key>size</key>
-            <string>{572,479}</string>
+            <string>{1104,504}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:a2648e193c7300037d350dca1b32ce60:567877f06f2a6e088812e5dc3bf16539:3710e9591dd0391354ae62d7c976e04e$</string>
+            <string>$TexturePacker:SmartUpdate:fe85cc2844eb40598a170133f2d54da7:b3e4b4aadf1ca33080e343da86cc5825:3710e9591dd0391354ae62d7c976e04e$</string>
             <key>textureFileName</key>
             <string>gamemini.png</string>
         </dict>
