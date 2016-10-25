@@ -4,36 +4,153 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>game-tab-title1.png</key>
+            <key>game-cell-blue.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{977,752},{192,48}}</string>
+                <string>{{1378,2},{618,194}}</string>
                 <key>offset</key>
-                <string>{7,2}</string>
+                <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{69,0},{192,48}}</string>
+                <string>{{0,0},{618,194}}</string>
+                <key>sourceSize</key>
+                <string>{618,194}</string>
+            </dict>
+            <key>game-cell-green.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{656,466},{618,194}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{618,194}}</string>
+                <key>sourceSize</key>
+                <string>{618,194}</string>
+            </dict>
+            <key>game-cell-pink.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1378,198},{618,194}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{618,194}}</string>
+                <key>sourceSize</key>
+                <string>{618,194}</string>
+            </dict>
+            <key>game-cell-red.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{656,662},{618,194}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{618,194}}</string>
+                <key>sourceSize</key>
+                <string>{618,194}</string>
+            </dict>
+            <key>game-logo-13.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1610,500},{208,150}}</string>
+                <key>offset</key>
+                <string>{-160,22}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{45,0},{208,150}}</string>
+                <key>sourceSize</key>
+                <string>{618,194}</string>
+            </dict>
+            <key>game-logo-14.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1276,500},{332,98}}</string>
+                <key>offset</key>
+                <string>{-143,30}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,18},{332,98}}</string>
+                <key>sourceSize</key>
+                <string>{618,194}</string>
+            </dict>
+            <key>game-logo-15.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1276,600},{286,128}}</string>
+                <key>offset</key>
+                <string>{-166,33}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{286,128}}</string>
+                <key>sourceSize</key>
+                <string>{618,194}</string>
+            </dict>
+            <key>game-tab-title1-selected.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1812,394},{184,46}}</string>
+                <key>offset</key>
+                <string>{1,3}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{67,0},{184,46}}</string>
+                <key>sourceSize</key>
+                <string>{316,52}</string>
+            </dict>
+            <key>game-tab-title1.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1812,442},{184,46}}</string>
+                <key>offset</key>
+                <string>{1,3}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{67,0},{184,46}}</string>
+                <key>sourceSize</key>
+                <string>{316,52}</string>
+            </dict>
+            <key>game-tab-title2-selected.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1642,891},{196,46}}</string>
+                <key>offset</key>
+                <string>{2,3}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{62,0},{196,46}}</string>
                 <key>sourceSize</key>
                 <string>{316,52}</string>
             </dict>
             <key>game-tab-title2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1090,634},{254,48}}</string>
+                <string>{{1820,631},{196,46}}</string>
                 <key>offset</key>
-                <string>{3,2}</string>
+                <string>{2,3}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{34,0},{254,48}}</string>
+                <string>{{62,0},{196,46}}</string>
                 <key>sourceSize</key>
                 <string>{316,52}</string>
             </dict>
             <key>game-tab.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{656,466},{663,78}}</string>
+                <string>{{656,858},{663,78}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -46,7 +163,7 @@
             <key>game-tab1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{656,730},{319,52}}</string>
+                <string>{{1321,896},{319,52}}</string>
                 <key>offset</key>
                 <string>{-160,0}</string>
                 <key>rotated</key>
@@ -59,7 +176,7 @@
             <key>game-tab2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{656,784},{319,52}}</string>
+                <string>{{1570,808},{319,52}}</string>
                 <key>offset</key>
                 <string>{161,0}</string>
                 <key>rotated</key>
@@ -72,7 +189,7 @@
             <key>home-bar-bg1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1336,871},{44,27}}</string>
+                <string>{{1773,862},{44,27}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -111,7 +228,7 @@
             <key>home-checkBox.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1171,752},{46,48}}</string>
+                <string>{{1975,822},{46,48}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -124,7 +241,7 @@
             <key>home-checkCross.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{980,652},{36,24}}</string>
+                <string>{{158,927},{36,24}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -137,7 +254,7 @@
             <key>home-closeBt.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1201,825},{66,65}}</string>
+                <string>{{1927,755},{66,65}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -150,7 +267,7 @@
             <key>home-fbBt.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{656,546},{432,104}}</string>
+                <string>{{1378,394},{432,104}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -163,7 +280,7 @@
             <key>home-level-bar.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{977,802},{201,27}}</string>
+                <string>{{1570,862},{201,27}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -189,7 +306,7 @@
             <key>home-login-padding.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{977,831},{154,2}}</string>
+                <string>{{2,927},{154,2}}</string>
                 <key>offset</key>
                 <string>{-1,1}</string>
                 <key>rotated</key>
@@ -202,7 +319,7 @@
             <key>home-loginBt.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{656,838},{247,86}}</string>
+                <string>{{1321,808},{247,86}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -215,7 +332,7 @@
             <key>home-paymentBt.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{977,835},{76,90}}</string>
+                <string>{{1945,490},{76,90}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -228,7 +345,7 @@
             <key>home-rankBt.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{905,838},{66,74}}</string>
+                <string>{{1927,679},{66,74}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -241,7 +358,7 @@
             <key>home-rewardBt.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1055,835},{76,90}}</string>
+                <string>{{1849,679},{76,90}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -254,7 +371,7 @@
             <key>home-settingBt.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1133,831},{66,74}}</string>
+                <string>{{1840,862},{66,74}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -267,7 +384,7 @@
             <key>home-signupBt.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1090,546},{247,86}}</string>
+                <string>{{1600,720},{247,86}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -280,7 +397,7 @@
             <key>home-start-icon.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1269,825},{65,64}}</string>
+                <string>{{1908,822},{65,64}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -293,7 +410,7 @@
             <key>home-start-icon2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1321,466},{51,50}}</string>
+                <string>{{1908,888},{51,50}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -306,7 +423,7 @@
             <key>home-text-bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1336,825},{44,44}}</string>
+                <string>{{1564,600},{44,44}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -319,7 +436,7 @@
             <key>lobby-avt.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1224,684},{123,139}}</string>
+                <string>{{1820,490},{123,139}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -332,7 +449,7 @@
             <key>login-title.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{656,652},{322,76}}</string>
+                <string>{{1276,730},{322,76}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -345,7 +462,7 @@
             <key>signup-title.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{980,684},{242,66}}</string>
+                <string>{{1564,652},{242,66}}</string>
                 <key>offset</key>
                 <string>{-1,5}</string>
                 <key>rotated</key>
@@ -363,9 +480,9 @@
             <key>realTextureFileName</key>
             <string>home.png</string>
             <key>size</key>
-            <string>{1382,927}</string>
+            <string>{2024,953}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:b8b3b3c1ebbf87c969bf65485fa039aa:886df40eecf0a4fdef954f378de68ab1:10101cf27d0f1c17e861425c0e9b5b27$</string>
+            <string>$TexturePacker:SmartUpdate:cd9d700dfc3d94a56f26929584619b76:e081080033e796a9d067e47042ba1774:10101cf27d0f1c17e861425c0e9b5b27$</string>
             <key>textureFileName</key>
             <string>home.png</string>
         </dict>

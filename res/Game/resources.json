@@ -4,6 +4,10 @@
             "img": "res/fonts/lobby_gold_number.png",
             "fnt": "res/fonts/lobby_gold_number.fnt"
         },
+		{
+            "img": "res/fonts/jackpot-number-font.png",
+            "fnt": "res/fonts/jackpot-number-font.fnt"
+        },
         {
             "img": "res/fonts/bigsmall_number_font.png",
             "fnt": "res/fonts/bigsmall_number_font.fnt"

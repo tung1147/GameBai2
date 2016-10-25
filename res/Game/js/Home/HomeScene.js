@@ -79,8 +79,8 @@ var HomeScene = IScene.extend({
         //     FacebookPlugin.getInstance().showLogin();
         // });
 
-     //   this.startHome();
-        this.startGame();
+        this.startHome();
+      //  this.startGame();
 
         //
         //FloatButton.getInstance().show(this);
@@ -174,29 +174,30 @@ var HomeScene = IScene.extend({
         // FloatButton.getInstance().setVisible(true);
     },
     onTouchGame: function (gameId) {
-        // if (this.homeLocation == 1) {
-        //     //MessageNode.getInstance().show("Bạn phải đăng nhập trước");
-        //     //return;
-        // }
-        // if (gameId == GameType.MiniGame_CaoThap) {
-        //     var caothap = new CaoThapScene();
-        //     cc.director.replaceScene(new cc.TransitionFade(0.5, caothap, cc.color("#000000")));
-        // }
-        // else if (gameId == GameType.MiniGame_ChanLe) {
-        //
-        // }
-        // else if (gameId == GameType.MiniGame_Pocker) {
-        //     var minipoker = new MiniPokerScene();
-        //     cc.director.replaceScene(new cc.TransitionFade(0.5, minipoker, cc.color("#000000")));
-        // }
-        // else if (gameId == GameType.GAME_VongQuayMayMan) {
-        //     var vongquay = new VongQuayScene();
-        //     cc.director.replaceScene(new cc.TransitionFade(0.5, vongquay, cc.color("#000000")));
-        // }
-        // else if (gameId == GameType.MiniGame_VideoPoker) {
-        //     var videopoker = new VideoPockerScene();
-        //     cc.director.replaceScene(new cc.TransitionFade(0.5, videopoker, cc.color("#000000")));
-        // }
+        cc.log("onTouchGame: " + gameId);
+        if (this.homeLocation == 1) {
+            MessageNode.getInstance().show("Bạn phải đăng nhập trước");
+            return;
+        }
+        if (gameId == GameType.MiniGame_CaoThap) {
+            var caothap = new CaoThapScene();
+            cc.director.replaceScene(new cc.TransitionFade(0.5, caothap, cc.color("#000000")));
+        }
+        else if (gameId == GameType.MiniGame_ChanLe) {
+
+        }
+        else if (gameId == GameType.MiniGame_Pocker) {
+            var minipoker = new MiniPokerScene();
+            cc.director.replaceScene(new cc.TransitionFade(0.5, minipoker, cc.color("#000000")));
+        }
+        else if (gameId == GameType.GAME_VongQuayMayMan) {
+            var vongquay = new VongQuayScene();
+            cc.director.replaceScene(new cc.TransitionFade(0.5, vongquay, cc.color("#000000")));
+        }
+        else if (gameId == GameType.MiniGame_VideoPoker) {
+            var videopoker = new VideoPockerScene();
+            cc.director.replaceScene(new cc.TransitionFade(0.5, videopoker, cc.color("#000000")));
+        }
         // else {
         //     this.startLobby(gameId);
         // }

@@ -68,18 +68,9 @@ var s_game_id = s_game_id || [
     [
         GameType.MiniGame_CaoThap, GameType.MiniGame_Pocker,
         /*GameType.MiniGame_ChanLe*/GameType.MiniGame_VideoPoker,
-        GameType.MiniGame_CaoThap, GameType.MiniGame_Pocker,
-        GameType.MiniGame_CaoThap, GameType.MiniGame_Pocker,
-        GameType.MiniGame_CaoThap, GameType.MiniGame_Pocker,
-        GameType.MiniGame_CaoThap, GameType.MiniGame_Pocker,
-        GameType.MiniGame_CaoThap, GameType.MiniGame_Pocker,
-        GameType.MiniGame_CaoThap, GameType.MiniGame_Pocker,
-        GameType.MiniGame_CaoThap, GameType.MiniGame_Pocker,
-        GameType.MiniGame_CaoThap, GameType.MiniGame_Pocker,
-        GameType.MiniGame_CaoThap, GameType.MiniGame_Pocker
     ],
     [
-        GameType.GAME_VongQuayMayMan
+
     ]
 ];
 

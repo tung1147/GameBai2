@@ -2,7 +2,52 @@
  * Created by Quyet Nguyen on 7/5/2016.
  */
 
+var s_game_cell_type = s_game_cell_type || {};
+s_game_cell_type[GameType.MiniGame_ChanLe] = "";
+s_game_cell_type[GameType.MiniGame_CaoThap] = "#game-cell-blue.png";
+s_game_cell_type[GameType.MiniGame_Pocker] = "#game-cell-pink.png";
+s_game_cell_type[GameType.MiniGame_VideoPoker] = "#game-cell-green.png";
+
+var GameCell = ccui.Widget.extend({
+    ctor : function (gameId) {
+        this._super();
+        this.gameId = gameId;
+
+        var bg = new cc.Sprite(s_game_cell_type[gameId]);
+        bg.setAnchorPoint(cc.p(0,0));
+        bg.setPosition(cc.p(0,0));
+        this.addChild(bg,-1);
+        this.setContentSize(bg.getContentSize());
+
+        var gameIcon = new cc.Sprite("#game-logo-"+gameId+".png");
+        gameIcon.setAnchorPoint(cc.p(0,0));
+        gameIcon.setPosition(cc.p(0,0));
+        this.addChild(gameIcon,-1);
+
+        //init jackpot
+        var jackpotLabel1 = cc.Label.createWithBMFont("res/fonts/jackpot-number-font.fnt", "999.999.999");
+        jackpotLabel1.setPosition(540, 158);
+        this.addChild(jackpotLabel1, 1);
+
+        var jackpotLabel2 = cc.Label.createWithBMFont("res/fonts/jackpot-number-font.fnt", "999.999.999");
+        jackpotLabel2.setPosition(jackpotLabel1.x, 122);
+        this.addChild(jackpotLabel2, 1);
+
+        var jackpotLabel3 = cc.Label.createWithBMFont("res/fonts/jackpot-number-font.fnt", "999.999.999");
+        jackpotLabel3.setPosition(jackpotLabel1.x, 86);
+        this.addChild(jackpotLabel3, 1);
+
+        this.setTouchEnabled(true);
+        this.addClickEventListener(function () {
+            var scene = cc.director.getRunningScene();
+            scene.onTouchGame(gameId);
+        });
+    }
+
+});
+
 var s_tab_title = s_tab_title || ["#game-tab-title1.png","#game-tab-title2.png"];
+var s_tab_title_selected = s_tab_title_selected || ["#game-tab-title1-selected.png","#game-tab-title2-selected.png"];
 var s_tab_title_x = s_tab_title_x || [200.0, 520.0];
 
 var GameLayer = cc.Node.extend({
@@ -33,8 +78,13 @@ var GameLayer = cc.Node.extend({
             title1.setPosition(s_tab_title_x[i], tabBg.y - 2);
             this.addChild(title1);
 
+            var title2 = new cc.Sprite(s_tab_title_selected[i]);
+            title2.setPosition(title1.getPosition());
+            this.addChild(title2);
+
             var listGame = new newui.TableView(cc.size(cc.winSize.width, top - bottom), 1);
             listGame.setDirection(ccui.ScrollView.DIR_VERTICAL);
+            listGame.setMargin(40,0,0,0);
            // listGame.setPadding(padding);
             listGame.setBounceEnabled(true);
             listGame.setScrollBarEnabled(false);
@@ -47,18 +97,20 @@ var GameLayer = cc.Node.extend({
             toggleItem.setPosition(title1.getPosition());
             mToggle.addItem(toggleItem);
 
-            (function (toggle, tabImg, title1,listGame) {
+            (function (toggle, tabImg, title1,title2,listGame) {
                 toggle.onSelect = function () {
                     tabImg.visible = true;
-                    title1.visible = true;
+                    title1.visible = false;
+                    title2.visible = true;
                     listGame.visible = true;
                 };
                 toggle.onUnSelect = function () {
                     tabImg.visible = false;
                     title1.visible = true;
+                    title2.visible = false;
                     listGame.visible = false;
                 };
-            })(toggleItem, tabImg, title1, listGame);
+            })(toggleItem, tabImg, title1, title2, listGame);
         }
         this.mToggle = mToggle;
 
@@ -138,7 +190,7 @@ var GameLayer = cc.Node.extend({
     },
 
     addGameToList : function (gameId, listGame) {
-        var gameButton = new ccui.Button("home-loginBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        var gameButton = new GameCell(gameId);
         listGame.pushItem(gameButton);
         gameButton.addClickEventListener(function () {
             var homeScene = cc.director.getRunningScene();
