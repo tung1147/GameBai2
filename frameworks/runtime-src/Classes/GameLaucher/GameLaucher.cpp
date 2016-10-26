@@ -77,7 +77,7 @@ void GameLaucher::run(){
 	//clear all
 	this->clear();
 	this->requestGetUpdate();
-	Director::getInstance()->getScheduler()->scheduleUpdateForTarget(this, 0, false);
+	Director::getInstance()->getScheduler()->scheduleUpdate(this, 0, false);
 }
 
 void GameLaucher::update(float dt){
@@ -210,42 +210,51 @@ void GameLaucher::loadAndroidExt(){
 	auto file = this->getFile("jar/extension.json");
 	if (file){
 		Data d = FileUtils::getInstance()->getDataFromFile(file->filePath);
-		char* data = (char*)d.getBytes();
-		ssize_t fileSize = d.getSize();
-		std::string buffer(data, data + fileSize);
+		if (!d.isNull()){
+			char* data = (char*)d.getBytes();
+			ssize_t fileSize = d.getSize();
+			std::string buffer(data, data + fileSize);
 
-		rapidjson::Document doc;
-		doc.Parse<0>(buffer.data());
-		for (int i = 0; i < doc.Size(); i++){
-			std::string jarFilePath = doc[i]["extFile"].GetString();
-			auto jarFile = this->getFile("jar/" + jarFilePath);
-			if (jarFile){
-				auto extFilePath = FileUtils::getInstance()->getWritablePath() + "Game/" + jarFile->fileName;
-				if (!FileUtils::getInstance()->isFileExist(extFilePath)){
-					Data d = FileUtils::getInstance()->getDataFromFile(jarFile->fileName);				
-					if (d.isNull()){
-						CCLOG("not found android-ext: %s", jarFile->fileName.c_str());
+			rapidjson::Document doc;
+			bool error = doc.Parse<0>(buffer.data()).HasParseError();
+			if (!error){
+				for (int i = 0; i < doc.Size(); i++){
+					std::string jarFilePath = doc[i]["extFile"].GetString();
+					auto jarFile = this->getFile("jar/" + jarFilePath);
+					if (jarFile){
+						auto extFilePath = FileUtils::getInstance()->getWritablePath() + "Game/" + jarFile->fileName;
+						if (!FileUtils::getInstance()->isFileExist(extFilePath)){
+							Data d = FileUtils::getInstance()->getDataFromFile(jarFile->fileName);
+							if (d.isNull()){
+								CCLOG("not found android-ext: %s", jarFile->fileName.c_str());
+							}
+							else{
+								size_t n = extFilePath.find_last_of("/");
+								std::string parentFolder = extFilePath.substr(0, n);
+								if (!FileUtils::getInstance()->isDirectoryExist(parentFolder)){
+									FileUtils::getInstance()->createDirectory(parentFolder);
+								}
+								FileUtils::getInstance()->writeDataToFile(d, extFilePath);
+							}
+						}
+						SystemPlugin::getInstance()->androidLoadExtension(extFilePath);
 					}
 					else{
-						size_t n = extFilePath.find_last_of("/");
-						std::string parentFolder = extFilePath.substr(0, n);
-						if (!FileUtils::getInstance()->isDirectoryExist(parentFolder)){
-							FileUtils::getInstance()->createDirectory(parentFolder);
-						}
-						FileUtils::getInstance()->writeDataToFile(d, extFilePath);
+						CCLOG("no JAR: %s", jarFilePath.c_str());
 					}
 				}
-				SystemPlugin::getInstance()->androidLoadExtension(extFilePath);
 			}
 			else{
-				CCLOG("no JAR: %s", jarFilePath.c_str());
+				CCLOG("parse android-ext metafile error");
 			}
 		}
+		else{
+			CCLOG("no android-ext metafile");
+		}	
 	}
 	else{
 		CCLOG("android no extension");
 	}
-
 	this->finishLaucher();
 }
 #endif
@@ -397,21 +406,23 @@ void GameLaucher::onUpdateDownloadProcess(int size){
 
 		//call js event running scene;
 		auto scene = Director::getInstance()->getRunningScene();
-		auto sc = ScriptingCore::getInstance();
-		auto cx = sc->getGlobalContext();
-		auto global = sc->getGlobalObject();
 		js_proxy_t * p = jsb_get_native_proxy(scene);
 		if (p){
+			auto sc = ScriptingCore::getInstance();
+			auto cx = sc->getGlobalContext();
+			auto global = sc->getGlobalObject();
 			JSAutoCompartment ac(cx, global);
+
 			JS::RootedObject jstarget(cx, p->obj);
 			JS::RootedValue value(cx);
 			bool ok = JS_GetProperty(cx, jstarget, "onUpdateDownloadProcess", &value);
 			if (ok && !value.isNullOrUndefined()){
-				jsval dataVal[] = {
-					dataVal[0] = INT_TO_JSVAL(downloadCurrentValue),
-					dataVal[1] = INT_TO_JSVAL(downloadMaxValue)
+				jsval dataVal[2] = {
+					INT_TO_JSVAL(downloadCurrentValue),
+					INT_TO_JSVAL(downloadMaxValue)
 				};
-				auto ret = sc->executeFunctionWithOwner(OBJECT_TO_JSVAL(p->obj), "onUpdateDownloadProcess", 2, dataVal);
+				JS::RootedValue retval(cx);
+				auto ret = sc->executeFunctionWithOwner(OBJECT_TO_JSVAL(p->obj), "onUpdateDownloadProcess", 2, dataVal, &retval);
 			}
 		}
 	});
@@ -422,20 +433,22 @@ void GameLaucher::onProcessStatus(int status){
 	//CCLOG("onProcessStatus: %d", status);
 	//call js event running scene;
 	auto scene = Director::getInstance()->getRunningScene();
-	auto sc = ScriptingCore::getInstance();
-	auto cx = sc->getGlobalContext();
-	auto global = sc->getGlobalObject();
 	js_proxy_t * p = jsb_get_native_proxy(scene);
-	if (p){
+	if (p){	
+		auto sc = ScriptingCore::getInstance();
+		auto cx = sc->getGlobalContext();
+		auto global = sc->getGlobalObject();
 		JSAutoCompartment ac(cx, global);
+
 		JS::RootedObject jstarget(cx, p->obj);
 		JS::RootedValue value(cx);
 		bool ok = JS_GetProperty(cx, jstarget, "onProcessStatus", &value);
 		if (ok && !value.isNullOrUndefined()){
-			jsval dataVal[] = {
-				dataVal[0] = INT_TO_JSVAL(this->status)
+			jsval dataVal[1] = {
+				INT_TO_JSVAL(this->status)
 			};
-			auto ret = sc->executeFunctionWithOwner(OBJECT_TO_JSVAL(p->obj), "onProcessStatus", 1, dataVal);
+			JS::RootedValue retval(cx);
+			auto ret = sc->executeFunctionWithOwner(OBJECT_TO_JSVAL(p->obj), "onProcessStatus", 1, dataVal, &retval);
 		}
 	}
 }
@@ -443,21 +456,23 @@ void GameLaucher::onProcessStatus(int status){
 void GameLaucher::onLoadResourceProcess(int current, int max){
 	//call js event running scene;
 	auto scene = Director::getInstance()->getRunningScene();
-	auto sc = ScriptingCore::getInstance();
-	auto cx = sc->getGlobalContext();
-	auto global = sc->getGlobalObject();
 	js_proxy_t * p = jsb_get_native_proxy(scene);
 	if (p){
+		auto sc = ScriptingCore::getInstance();
+		auto cx = sc->getGlobalContext();
+		auto global = sc->getGlobalObject();
 		JSAutoCompartment ac(cx, global);
+
 		JS::RootedObject jstarget(cx, p->obj);
 		JS::RootedValue value(cx);
 		bool ok = JS_GetProperty(cx, jstarget, "onLoadResourceProcess", &value);
 		if (ok && !value.isNullOrUndefined()){
-			jsval dataVal[] = {
-				dataVal[0] = INT_TO_JSVAL(current),
-				dataVal[1] = INT_TO_JSVAL(max)
+			jsval dataVal[2] = {
+				INT_TO_JSVAL(current),
+				INT_TO_JSVAL(max)
 			};
-			auto ret = sc->executeFunctionWithOwner(OBJECT_TO_JSVAL(p->obj), "onLoadResourceProcess", 2, dataVal);
+			JS::RootedValue retval(cx);
+			auto ret = sc->executeFunctionWithOwner(OBJECT_TO_JSVAL(p->obj), "onLoadResourceProcess", 2, dataVal, &retval);
 		}
 	}
 }
