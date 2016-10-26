@@ -429,45 +429,26 @@ std::string SystemPlugin::callJSFunction(const std::string& methodName, const st
 	auto rootObject = sc->getGlobalObject();
 	JSAutoCompartment ac(cx, rootObject);
 
-    jsval jsStringParams = std_string_to_jsval(cx, params);
-	
-	JS::RootedString jsstr(cx, jsStringParams.toString());
-	JS::RootedValue outVal(cx);
-	bool ok = JS_ParseJSON(cx, jsstr, &outVal);
-	JS::RootedValue rval(cx);
-	bool callFuncReturn = false;
-	if (ok){
-		callFuncReturn = sc->executeFunctionWithOwner(OBJECT_TO_JSVAL(rootObject), methodName.c_str(), 1, &outVal.get(), &rval);
-	}
-	else{
-		jsval jsParams = std_string_to_jsval(cx, params);
-		callFuncReturn = sc->executeFunctionWithOwner(OBJECT_TO_JSVAL(rootObject), methodName.c_str(), 1, &jsParams, &rval);
-	}	
-	if (callFuncReturn){
-		std::vector<jschar> buffer;
-		//std::wstringstream strStream;
-		JS::RootedValue indentVal(cx, JS::UndefinedValue());
-		bool b = JS_Stringify(cx, &rval, JS::NullPtr(), indentVal, &__stringify_callback, &buffer);
-		if (b){			
-			std::u16string u16 = std::u16string(buffer.begin(), buffer.end());
-#ifdef WINRT
-			using convert_typeX = std::codecvt_utf8<wchar_t>;
-			std::wstring_convert<convert_typeX, wchar_t> converterX;
-			std::string u8 = converterX.to_bytes(u16);
-#else		
-			std::string u8;
-			StringUtils::UTF16ToUTF8(u16, u8);
-#endif
-			return u8;
+	jsval dataVal[2] = {
+		std_string_to_jsval(cx, methodName),
+		std_string_to_jsval(cx, params)
+	};
+	JS::RootedValue retval(cx);
+	auto ret = sc->executeFunctionWithOwner(OBJECT_TO_JSVAL(rootObject), "nativeCallJSFunction", 2, dataVal, &retval);
+	if (ret){
+		if (retval.isNullOrUndefined()){
+			return "null";
+		}
+		else if (retval.isString()){
+			std::string stringReturn;
+			jsval_to_std_string(cx, retval, &stringReturn);
+			return stringReturn;
 		}
 		else{
-			CCLOG("callJSFunction:[%s] JS_Stringify error", methodName.c_str());
+			return "null";
 		}
 	}
-	else{
-		CCLOG("callJSFunction:[%s] error", methodName.c_str());
-	}
-	return "";
+	return "null";
 }
 
 void SystemPlugin::callStaticVoidMethod(const std::string& className, const std::string& methodName, const std::string& params){
