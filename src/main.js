@@ -52,8 +52,24 @@
  *
  */
 
-require("src/LoadingScene.js");
+var nativeCallJSFunction = function (methodName, stringParams) {
+    try{ //
+        var params = JSON.parse(stringParams);
+        var ret = window[methodName](params);
+        if(ret){
+            return JSON.stringify(ret);
+        }
+    }catch(e){
+        /* raw */
+        var ret = window[methodName](stringParams);
+        if(ret){
+            return JSON.stringify(ret);
+        }
+    }
+    return null;
+}
 
+require("src/LoadingScene.js");
 cc.game.onStart = function(){
   //  if(!cc.sys.isNative && document.getElementById("cocosLoading")) //If referenced loading.js, please remove it
       //  document.body.removeChild(document.getElementById("cocosLoading"));
