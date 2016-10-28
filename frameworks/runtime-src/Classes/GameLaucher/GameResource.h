@@ -24,6 +24,7 @@ struct WriteDataHandler{
 class GameFile {
 	bool isExistFile(const std::string& filePath);
 	bool checkHashFile();
+	bool checkHashFileContent();
 
 	//size_t writeData(void *ptr, size_t size, size_t nmemb, FILE *fp);
 	std::string downloadHash;

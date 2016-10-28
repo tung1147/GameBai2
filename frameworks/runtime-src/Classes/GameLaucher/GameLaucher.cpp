@@ -21,7 +21,7 @@ namespace quyetnd {
 
 GameLaucher::GameLaucher() {
 	// TODO Auto-generated constructor stub
-	versionFile = "";
+	versionFile = "version.json";
 	versionHash = "";
 	jsMainFile = "js/main.js";
 	resourceHost = "";
@@ -40,7 +40,13 @@ void GameLaucher::clear(){
 }
 
 void GameLaucher::initLaucher(){
+	resourceLoader.processHandler = CC_CALLBACK_2(GameLaucher::onLoadResourceProcess, this);
+
 	std::string filePath = FileUtils::getInstance()->fullPathForFilename("version.json");
+	if (filePath.empty()){
+		return;
+	}
+
 	Data d = FileUtils::getInstance()->getDataFromFile(filePath);
 	if (d.isNull()){
 		return;
@@ -69,7 +75,6 @@ void GameLaucher::initLaucher(){
 			_allResources.insert(std::make_pair(resource->fileName, resource));
 		}
 	}
-	resourceLoader.processHandler = CC_CALLBACK_2(GameLaucher::onLoadResourceProcess, this);
 }
 
 void GameLaucher::run(){
@@ -93,7 +98,8 @@ void GameLaucher::update(float dt){
 void GameLaucher::requestGetUpdate(){
 	resourceHost = "";
 	versionHash = "";
-	this->checkVersionFile();
+//	this->checkVersionFile();
+	this->checkFiles();
 	return;
 
 	std::string urlRequest = "http://10.0.1.106/quyetnd/GBVCity/acs.json";
