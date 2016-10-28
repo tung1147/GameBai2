@@ -256,9 +256,9 @@ int GameFile::update(const std::string& url, UpdateHandler handler){
 			curl_easy_setopt(curl, CURLOPT_WRITEDATA, &dataHandler);
 			res = curl_easy_perform(curl);
 			curl_easy_cleanup(curl);
-			if (res == CURLE_OK) {
-				fclose(fp);
 
+			fclose(fp);
+			if (res == CURLE_OK) {
 				md5.finalize();
 				auto md5Str = md5.hexdigest();
 				std::transform(md5Str.begin(), md5Str.end(), md5Str.begin(), ::tolower);
@@ -274,7 +274,7 @@ int GameFile::update(const std::string& url, UpdateHandler handler){
 			}
 			else{
 				CCLOG("download file network error[%d]: %s", res, url.c_str());
-				fclose(fp);
+				remove(filePath.c_str());
 				return 2;
 			}		
 			
