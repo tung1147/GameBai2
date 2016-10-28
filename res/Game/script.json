@@ -56,5 +56,6 @@
 	"js/MiniGame/CaoThapScene.js",
 	"js/MiniGame/MiniPockerScene.js",
 	"js/MiniGame/VideoPockerScene.js",
-	"js/SceneNavigator.js"
+	"js/SceneNavigator.js",
+	"js/LagenteJs/dist/lagente.min.js"
 ]

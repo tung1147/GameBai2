@@ -83,22 +83,22 @@ AppDelegate::~AppDelegate()
 
 void AppDelegate::initGLContextAttrs()
 {
-    GLContextAttrs glContextAttrs = {8, 8, 8, 8, 24, 8};
+	GLContextAttrs glContextAttrs = { 8, 8, 8, 8, 24, 8 };
 
-    GLView::setGLContextAttrs(glContextAttrs);
+	GLView::setGLContextAttrs(glContextAttrs);
 }
 
 bool AppDelegate::applicationDidFinishLaunching()
-{		
+{
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
 	UUIDEncrypt::getInstance()->getUUID();
 #endif
 
-    // initialize director
-    auto director = Director::getInstance();
-    auto glview = director->getOpenGLView();
-    if(!glview) {
+	// initialize director
+	auto director = Director::getInstance();
+	auto glview = director->getOpenGLView();
+	if (!glview) {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 		/*
 			1280 x 720
@@ -113,8 +113,8 @@ bool AppDelegate::applicationDidFinishLaunching()
 #else	
 		glview = cocos2d::GLViewImpl::create("GameBai");
 #endif
-        director->setOpenGLView(glview);
-}
+		director->setOpenGLView(glview);
+	}
 
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0 / 60);
@@ -125,12 +125,12 @@ bool AppDelegate::applicationDidFinishLaunching()
 
 	/*decrypt*/
 	std::vector<unsigned char> aesKey = { 0x2c, 0x32, 0xc3, 0xfe, 0x2c, 0xd9, 0x37, 0xf0, 0x74, 0x38, 0xe5, 0xda, 0xed, 0xc0, 0x72, 0x99 };
-	decryptor::Decryptor::getInstance()->setDecryptKey((const char*) aesKey.data());
+	decryptor::Decryptor::getInstance()->setDecryptKey((const char*)aesKey.data());
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
-    // set writePath no backup
-    auto writePath = FileUtils::getInstance()->getWritablePath();
-    c_to_objC_set_iClound_no_backup_folder(writePath.c_str());
+	// set writePath no backup
+	auto writePath = FileUtils::getInstance()->getWritablePath();
+	c_to_objC_set_iClound_no_backup_folder(writePath.c_str());
 #endif
 
 	/*startJS*/
@@ -230,31 +230,31 @@ bool AppDelegate::applicationDidFinishLaunching()
 			bool b = ScriptingCore::getInstance()->runScript(file);
 			if (b){
 				return true;
-			}		
+			}
 		}
 	}
-	
+
 	std::string file = FileUtils::getInstance()->fullPathForFilename("src/main.js");
 	ScriptingCore::getInstance()->runScript(file);
-    return true;
+	return true;
 }
 
 // This function will be called when the app is inactive. When comes a phone call,it's be invoked too
 void AppDelegate::applicationDidEnterBackground()
 {
-    auto director = Director::getInstance();
-    director->stopAnimation();
-    director->getEventDispatcher()->dispatchCustomEvent("game_on_hide");
-    SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
-    SimpleAudioEngine::getInstance()->pauseAllEffects();
+	auto director = Director::getInstance();
+	director->stopAnimation();
+	director->getEventDispatcher()->dispatchCustomEvent("game_on_hide");
+	SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
+	SimpleAudioEngine::getInstance()->pauseAllEffects();
 }
 
 // this function will be called when the app is active again
 void AppDelegate::applicationWillEnterForeground()
 {
-    auto director = Director::getInstance();
-    director->startAnimation();
-    director->getEventDispatcher()->dispatchCustomEvent("game_on_show");
-    SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
-    SimpleAudioEngine::getInstance()->resumeAllEffects();
+	auto director = Director::getInstance();
+	director->startAnimation();
+	director->getEventDispatcher()->dispatchCustomEvent("game_on_show");
+	SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
+	SimpleAudioEngine::getInstance()->resumeAllEffects();
 }

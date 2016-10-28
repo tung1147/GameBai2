@@ -95,7 +95,7 @@ var LoadingDialog = (function() {
             instance.retain();
         }
         return instance;
-    }
+    };
 
     return LoadingDialogClass;
 })();

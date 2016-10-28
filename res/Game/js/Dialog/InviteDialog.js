@@ -136,63 +136,77 @@ var InviteDialog = Dialog.extend({
     }
 });
 
-var RecvInviteDialog = Dialog.extend({
-    ctor : function () {
-        this._super();
-        this.title.setString("Mời chơi");
-        this.initWithSize(cc.size(550, 350));
+var RecvInviteDialog = (function(){
+    var instance = null;
+    var RecvInviteClass = Dialog.extend({
+        ctor: function () {
+            this._super();
+            this.title.setString("Mời chơi");
+            this.initWithSize(cc.size(550, 350));
 
-        var messageNode = new cc.Node();
-        this.dialogNode.addChild(messageNode,10);
-        this.messageNode = messageNode;
-    },
-    setInfo : function (username, gameName, betting) {
-        this.messageNode.removeAllChildren(true);
-        if(username){
-            this.setInfoWithSender(username,gameName,betting);
+            var messageNode = new cc.Node();
+            this.dialogNode.addChild(messageNode, 10);
+            this.messageNode = messageNode;
+        },
+        setInfo: function (username, gameName, betting) {
+            this.messageNode.removeAllChildren(true);
+            if (username) {
+                this.setInfoWithSender(username, gameName, betting);
+            }
+            else {
+                this.setInfoWithoutSender(gameName, betting);
+            }
+        },
+        setRoomInfo: function (room, host, port) {
+            this.room = room;
+            this.host = host;
+            this.port = port;
+        },
+        setInfoWithSender: function (username, gameName, betting) {
+            var label1 = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Bạn nhận được lời mời chơi từ");
+            label1.setPosition(this.dialogNode.getContentSize().width / 2, 310);
+            this.messageNode.addChild(label1);
+
+            var label2 = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, username);
+            label2.setColor(cc.color("#017cee"));
+            label2.setPosition(this.dialogNode.getContentSize().width / 2, 275);
+            this.messageNode.addChild(label2);
+
+            var label3 = new ccui.RichText();
+            var str = "Vào chơi phòng <font color='#ffde00'>" + gameName + "</font> <font color='#ffde00'>  " + cc.Global.NumberFormat1(betting) + " V</font>";
+            label3.initWithXML("<font face='" + cc.res.font.Roboto_Condensed + "' size='25'>" + str + "</font>", null);
+            label3.setPosition(this.dialogNode.getContentSize().width / 2, 240);
+            this.messageNode.addChild(label3);
+        },
+        setInfoWithoutSender: function (gameName, betting) {
+            var label1 = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Bạn nhận được lời mời chơi");
+            label1.setPosition(this.dialogNode.getContentSize().width / 2, 310);
+            this.messageNode.addChild(label1);
+
+            var label3 = new ccui.RichText();
+            var str = "từ phòng <font color='#ffde00'>" + gameName + "</font> <font color='#ffde00'>" + cc.Global.NumberFormat1(betting) + " V</font>";
+            label3.initWithXML("<font face='" + cc.res.font.Roboto_Condensed + "' size='25'>" + str + "</font>", null);
+            label3.setPosition(this.dialogNode.getContentSize().width / 2, 275);
+            this.messageNode.addChild(label3);
+        },
+        cancelButtonHandler: function () {
+            this.hide();
+        },
+        okButtonHandler: function () {
+            PlayerMe.SFS.roomId = this.room;
+            SmartfoxClient.getInstance().findAndJoinRoom(this.host, this.port);
+            LoadingDialog.getInstance().show("Đang tìm phòng chơi");
+            this.hide();
         }
-        else{
-            this.setInfoWithoutSender(gameName,betting);
+    });
+
+    RecvInviteClass.getInstance = function() {
+        if (!instance) {
+            instance = new RecvInviteClass();
+            instance.retain();
         }
-    },
-    setRoomInfo : function (room,host,port) {
-        this.room = room;
-        this.host = host;
-        this.port = port;
-    },
-    setInfoWithSender : function (username, gameName, betting) {
-        var label1 = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Bạn nhận được lời mời chơi từ");
-        label1.setPosition(this.dialogNode.getContentSize().width/2, 310);
-        this.messageNode.addChild(label1);
+        return instance;
+    };
 
-        var label2 = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, username);
-        label2.setColor(cc.color("#017cee"));
-        label2.setPosition(this.dialogNode.getContentSize().width/2, 275);
-        this.messageNode.addChild(label2);
-
-        var label3 = new ccui.RichText();
-        var str = "Vào chơi phòng <font color='#ffde00'>" + gameName+ "</font> <font color='#ffde00'>  "+ cc.Global.NumberFormat1(betting)+" V</font>";
-        label3.initWithXML("<font face='"+cc.res.font.Roboto_Condensed+"' size='25'>" + str + "</font>",null);
-        label3.setPosition(this.dialogNode.getContentSize().width/2, 240);
-        this.messageNode.addChild(label3);
-    },
-    setInfoWithoutSender : function (gameName, betting) {
-        var label1 = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Bạn nhận được lời mời chơi");
-        label1.setPosition(this.dialogNode.getContentSize().width/2, 310);
-        this.messageNode.addChild(label1);
-
-        var label3 = new ccui.RichText();
-        var str = "từ phòng <font color='#ffde00'>" + gameName+ "</font> <font color='#ffde00'>"+ cc.Global.NumberFormat1(betting)+" V</font>";
-        label3.initWithXML("<font face='"+cc.res.font.Roboto_Condensed+"' size='25'>" + str + "</font>",null);
-        label3.setPosition(this.dialogNode.getContentSize().width/2, 275);
-        this.messageNode.addChild(label3);
-    },
-    cancelButtonHandler : function () {
-        this.hide();
-    },
-    okButtonHandler : function (){
-        PlayerMe.SFS.roomId = this.room;
-        SmartfoxClient.getInstance().findAndJoinRoom(this.host, this.port);
-        this.hide();
-    }
-});
+    return RecvInviteClass;
+})();

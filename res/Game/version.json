@@ -37,8 +37,8 @@
         },
         {
             "file": "js/Dialog/InviteDialog.js",
-            "size": 7015,
-            "hash": "6cd51852847fba5cef067d93a1085a97"
+            "size": 8077,
+            "hash": "2eec891f61d718a9cb1f59875d06c7c2"
         },
         {
             "file": "js/Dialog/LoadingDialog.js",
@@ -132,8 +132,8 @@
         },
         {
             "file": "js/Game/GamePlayer.js",
-            "size": 7126,
-            "hash": "623e6081947c918b3d8e9dccc8795ff4"
+            "size": 7699,
+            "hash": "5862e650c774643c499b00ecd76e21b7"
         },
         {
             "file": "js/Game/GameScene.js",
@@ -152,8 +152,8 @@
         },
         {
             "file": "js/Game/Sam.js",
-            "size": 52,
-            "hash": "f1e4ed83237227ebb698a429906e5974"
+            "size": 4401,
+            "hash": "89a2135d61d92d63a39ee0cc8375a17c"
         },
         {
             "file": "js/Game/TaiXiu.js",
@@ -162,8 +162,8 @@
         },
         {
             "file": "js/Game/TienLen.js",
-            "size": 14405,
-            "hash": "3f13b33f53d92d49eb48c9d6ec301a74"
+            "size": 14985,
+            "hash": "b365b8a55c1b71c6f191ff1d44305713"
         },
         {
             "file": "js/Game/VongQuay.js",
@@ -172,13 +172,18 @@
         },
         {
             "file": "js/Game/XocDia.js",
-            "size": 52,
-            "hash": "f1e4ed83237227ebb698a429906e5974"
+            "size": 5604,
+            "hash": "7facbb3facb5280950047ebdd09b72dd"
+        },
+        {
+            "file": "js/Game/XocDiaChip.js",
+            "size": 1854,
+            "hash": "c214be9eba2bb523a9626d24a2b5cb26"
         },
         {
             "file": "js/Global/Global.js",
-            "size": 8412,
-            "hash": "20cbded7b9336c7b6df99c8115fb9ef6"
+            "size": 8442,
+            "hash": "5ca41b55c2b6ec9d0a242c2fdc56e534"
         },
         {
             "file": "js/Global/UserAvatar.js",
@@ -197,8 +202,8 @@
         },
         {
             "file": "js/Home/HomeScene.js",
-            "size": 13167,
-            "hash": "35d77df5e9f3bd30e0d4ae618bd7d436"
+            "size": 13360,
+            "hash": "487cb2d4e94f2b4f4e56870b9983bd46"
         },
         {
             "file": "js/Home/InboxLayer.js",
@@ -212,8 +217,8 @@
         },
         {
             "file": "js/Home/LobbyLayer.js",
-            "size": 7986,
-            "hash": "32459b81c34daca90b0895d896922680"
+            "size": 8464,
+            "hash": "4b47bcacaa68b4a0e27c36aaecdaf557"
         },
         {
             "file": "js/Home/LobbySubLayer.js",
@@ -232,23 +237,23 @@
         },
         {
             "file": "js/Home/NewsLayer.js",
-            "size": 11129,
-            "hash": "e49dc9bf767c88cb085dd04c77a538b7"
+            "size": 12303,
+            "hash": "14fd0fd42023851f986004119aebb840"
         },
         {
             "file": "js/Home/PaymentLayer.js",
-            "size": 25564,
-            "hash": "a567cc0628fc781fab364fba7967e17e"
+            "size": 25647,
+            "hash": "adc2000a0dd7e92446284e14be4f3877"
         },
         {
             "file": "js/Home/RankLayer.js",
-            "size": 8426,
-            "hash": "ac41bf0aed88123339510fffa4d2812b"
+            "size": 12770,
+            "hash": "0fcaa30257272eef20f653f660512c9e"
         },
         {
             "file": "js/Home/RewardLayer.js",
-            "size": 15845,
-            "hash": "35b58e4dabc2773df757176e505be560"
+            "size": 21082,
+            "hash": "4496b70b0219cee3554ff01d033269fb"
         },
         {
             "file": "js/IScene.js",
@@ -267,8 +272,8 @@
         },
         {
             "file": "js/MiniGame/CaoThapScene.js",
-            "size": 26071,
-            "hash": "a518a6464607fe41cc6129eb1abc639c"
+            "size": 26109,
+            "hash": "e979de98ccc8de30d62a6e86496bb502"
         },
         {
             "file": "js/MiniGame/MiniGameChip.js",
@@ -277,18 +282,18 @@
         },
         {
             "file": "js/MiniGame/MiniGameScene.js",
-            "size": 3367,
-            "hash": "62507e273570c3bba81ce80c5b18fb5b"
+            "size": 3456,
+            "hash": "de41040e27599dc74c1fb23af0db67f2"
         },
         {
             "file": "js/MiniGame/MiniPockerScene.js",
-            "size": 25069,
-            "hash": "168be472e282c36898c8374c3451301a"
+            "size": 25190,
+            "hash": "ade83de1306f8b9786eacfeab2f5acd1"
         },
         {
             "file": "js/MiniGame/VideoPockerScene.js",
-            "size": 33596,
-            "hash": "0df1d975b0356549e383178dc4eac050"
+            "size": 33717,
+            "hash": "14ca61182172d58b9ed99c7ef6f41c0b"
         },
         {
             "file": "js/SceneNavigator.js",
@@ -302,8 +307,8 @@
         },
         {
             "file": "js/Socket/LobbyClient.js",
-            "size": 15294,
-            "hash": "3f8d81cc62d73210e65b66d8223c5666"
+            "size": 15525,
+            "hash": "2a8db66143c32ac8465f8af126ef370b"
         },
         {
             "file": "js/Socket/LobbyError.js",
@@ -312,8 +317,8 @@
         },
         {
             "file": "js/Socket/SmartfoxClient.js",
-            "size": 10462,
-            "hash": "01f343ba6e7b344c344bc379d4eea7df"
+            "size": 11176,
+            "hash": "6390899ec32fd3e157deeff8e66b3393"
         },
         {
             "file": "res/avatar.plist",
@@ -577,13 +582,13 @@
         },
         {
             "file": "res/GameScene.plist",
-            "size": 9105,
-            "hash": "87808b12bdd6ec1a531e968131e3df96"
+            "size": 6666,
+            "hash": "d1a1cc3eb1f0d2fa5db1271666e8c7b1"
         },
         {
             "file": "res/GameScene.png",
-            "size": 106299,
-            "hash": "5e1dfe2d7ea996d291e8990e0e730a56"
+            "size": 146301,
+            "hash": "dfe6734b5382595db992172e187306ea"
         },
         {
             "file": "res/gold-icon.png",
@@ -617,13 +622,13 @@
         },
         {
             "file": "res/lobby.plist",
-            "size": 32257,
-            "hash": "712bd27e3be9a84c52eec2bb4de6d683"
+            "size": 32999,
+            "hash": "806c88c40b58d32398062f9ac0535c95"
         },
         {
             "file": "res/lobby.png",
-            "size": 746426,
-            "hash": "d95e05c14d7cea85f97214400ed19b52"
+            "size": 1010889,
+            "hash": "3f2a7ea77c49982090b89d27a759ef49"
         },
         {
             "file": "res/MiniPoker.plist",
@@ -732,8 +737,8 @@
         },
         {
             "file": "script.json",
-            "size": 1575,
-            "hash": "75c82bba1cb906d3ff4bbb14ee5274ff"
+            "size": 1639,
+            "hash": "d348efbfde549e1765e166c1810366ec"
         }
     ],
     "main": "js/main.js",

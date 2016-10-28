@@ -14,7 +14,7 @@ var TienLen = IGameScene.extend({
         this.initPlayer();
         this.initButton();
 
-        //initCard
+        //initCardxd
         var cardList = new CardList(cc.size(cc.winSize.width - 10, 100));
         cardList.setAnchorPoint(cc.p(0.5, 0.0));
         cardList.setPosition(cc.winSize.width / 2, 100.0);
@@ -70,15 +70,6 @@ var TienLen = IGameScene.extend({
         var playerMe = new GamePlayerMe();
         playerMe.setPosition(150, 50.0);
         this.sceneLayer.addChild(playerMe, 1);
-
-        // var progressTimerBaoSam = new cc.ProgressTimer(new cc.Sprite("#player-progress-3.png"));
-        // progressTimerBaoSam.setType(cc.ProgressTimer.TYPE_BAR);
-        // progressTimerBaoSam.setMidpoint(cc.p(0.0, 0.5));
-        // progressTimerBaoSam.setBarChangeRate(cc.p(1.0, 0.0));
-        // progressTimerBaoSam.setPercentage(0);
-        // progressTimerBaoSam.setPosition(cc.p(cc.winSize.width / 2, 220.0));
-        // this.progressTimerBaoSam = progressTimerBaoSam;
-        // this.sceneLayer.addChild(progressTimerBaoSam, 2);
 
         var player1 = new GamePlayer();
         player1.setPosition(cc.winSize.width - 120.0 / cc.winSize.screenScale, 360.0);

@@ -88,10 +88,11 @@ var RankGoldLayer = RankSubLayer.extend({
         this._super();
         this.scoreLabel.setString("Vàng");
         LobbyClient.getInstance().addListener("getTop", this.onGetTop, this);
+        LobbyClient.getInstance().send({command: "getTop", type: 2, limit: 10});
     },
     onGetTop: function (command, data) {
         data = data["data"]["2"];
-        if (this.itemList.length > 0)
+        if (this.itemList.length > 0 || (!data))
             return;
         for (var i = 0; i < data.length; i++) {
             this.addItem(i + 1, data[i]["username"], data[i]["value"]);
@@ -108,10 +109,11 @@ var RankVipLayer = RankSubLayer.extend({
         this._super();
         this.scoreLabel.setString("VIP");
         LobbyClient.getInstance().addListener("getTop", this.onGetTop, this);
+        LobbyClient.getInstance().send({command: "getTop", type: 3, limit: 10});
     },
     onGetTop: function (command, data) {
         data = data["data"]["3"];
-        if (this.itemList.length > 0)
+        if (this.itemList.length > 0 || (!data))
             return;
         for (var i = 0; i < data.length; i++) {
             this.addItem(i + 1, data[i]["username"], data[i]["value"]);
@@ -127,27 +129,54 @@ var RankLevelLayer = RankSubLayer.extend({
     ctor: function () {
         this._super();
         this.scoreLabel.removeFromParent(true);
-        this.userLabel.setPositionX(this.x2 - 38);
+        this.userLabel.setPositionX(this.x2 - 88);
 
         var winLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Thắng");
-        winLabel.setPosition(this.x3 - 100, 576);
+        winLabel.setPosition(this.x3 - 200, 576);
         winLabel.setOpacity(0.2 * 255);
         this.addChild(winLabel);
 
         var loseLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Thua");
-        loseLabel.setPosition(this.x3 + 50, 576);
+        loseLabel.setPosition(this.x3 - 50, 576);
         loseLabel.setOpacity(0.2 * 255);
         this.addChild(loseLabel);
 
         LobbyClient.getInstance().addListener("getTop", this.onGetTop, this);
+
+        var typeToggle = new ToggleNodeGroup();
+        this.addChild(typeToggle, 1);
+
+        var gameTypes = ["tlmn_solo", "tlmn_tudo", "sam_solo", "sam_tudo"];
+        for (var i = 0; i < gameTypes.length; i++) {
+            var textLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, gameTypes[i]);
+            textLabel.setPosition(cc.winSize.width - 60, cc.winSize.height / 2 - gameTypes.length * 50 / 2 + i * 50);
+            this.addChild(textLabel);
+            var typeToggleItem = new ToggleNodeItem(cc.size(100, 50));
+            typeToggleItem.setPosition(cc.winSize.width - 50, cc.winSize.height / 2 - gameTypes.length * 50 / 2 + i * 50);
+            typeToggleItem.textLabel = textLabel;
+            cc.log("" + typeToggleItem.x + "   " + typeToggleItem.y);
+            (function (item, index) {
+                item.onSelect = function (isForce) {
+                    item.textLabel.setString(">" + gameTypes[index]);
+                    LobbyClient.getInstance().send({command: "getTop", type: 1, gameType: gameTypes[index], limit: 10});
+                };
+                item.onUnSelect = function () {
+                    item.textLabel.setString(gameTypes[index]);
+                };
+            })(typeToggleItem, i);
+            typeToggle.addItem(typeToggleItem);
+        }
+
+        typeToggle.selectItem(0);
     },
     onGetTop: function (command, data) {
         cc.log(JSON.stringify(data));
         data = data["data"]["1"];
-        if (this.itemList.length > 0)
+        if (!data)
             return;
+        this.itemList.removeAllItems();
         for (var i = 0; i < data.length; i++) {
-            this.addItem(i + 1, data[i]["username"], data[i]["winGold"],data[i]["looseGold"]);
+            this.addItem(i + 1, data[i]["username"], data[i]["winGold"], data[i]["looseGold"]);
         }
     },
     addItem: function (rank, username, win, lose) {
@@ -162,18 +191,18 @@ var RankLevelLayer = RankSubLayer.extend({
         container.addChild(bg1);
 
         var bg2 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png", cc.rect(10, 0, 4, 80));
-        bg2.setPreferredSize(cc.size(this.width2 - 80, container.getContentSize().height));
-        bg2.setPosition(this.x2 - 38, container.getContentSize().height / 2);
+        bg2.setPreferredSize(cc.size(this.width2 - 180, container.getContentSize().height));
+        bg2.setPosition(this.x2 - 88, container.getContentSize().height / 2);
         container.addChild(bg2);
 
         var bg3 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png", cc.rect(10, 0, 4, 80));
         bg3.setPreferredSize(cc.size(150, container.getContentSize().height));
-        bg3.setPosition(this.x3 - 100, container.getContentSize().height / 2);
+        bg3.setPosition(this.x3 - 200, container.getContentSize().height / 2);
         container.addChild(bg3);
 
         var bg4 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png", cc.rect(10, 0, 4, 80));
         bg4.setPreferredSize(cc.size(150, container.getContentSize().height));
-        bg4.setPosition(this.x3 + 50, container.getContentSize().height / 2);
+        bg4.setPosition(this.x3 - 50, container.getContentSize().height / 2);
         container.addChild(bg4);
 
         var rankLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, rank);
