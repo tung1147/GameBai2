@@ -9,7 +9,7 @@
 #include <algorithm>
 #include <ostream>
 #include <iostream>
-
+#include <fstream>
 #include "cocos2d.h"
 #include <curl/curl.h>
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
@@ -51,9 +51,40 @@ bool GameFile::isExistFile(const std::string& filePath){
 	return pret;
 }
 
+#define HASH_BUFFER_SIZE 1024
+static char *s_hashBuffer = 0;
 bool GameFile::checkHashFile(){
-	bool pret = false;
+	std::string fullPath = FileUtils::getInstance()->fullPathForFilename(filePath);
+	FILE *file = fopen(fullPath.c_str(), "rb");
+	if (file){
+		if (!s_hashBuffer){
+			s_hashBuffer = new char[HASH_BUFFER_SIZE];
+		}
+		MD5 md5;
+		size_t n;
+		bool pret = false;
+		while (true){
+			n = fread(s_hashBuffer, 1, HASH_BUFFER_SIZE, file);
+			if (n > 0){
+				md5.update(s_hashBuffer, n);
+			}
+			else{
+				break;
+			}
+		}
+		md5.finalize();
+		std::string md5Str = md5.hexdigest();
+		std::transform(md5Str.begin(), md5Str.end(), md5Str.begin(), ::tolower);
+		if (md5Str == md5Digest){
+			pret = true;
+		}
+		fclose(file);
+		return pret;
+	}
+	return checkHashFileContent();
+}
 
+bool GameFile::checkHashFileContent(){
 	Data d;
 	FileUtils::getInstance()->getContents(filePath, &d);
 	char* mData = (char*)d.getBytes();
@@ -66,9 +97,8 @@ bool GameFile::checkHashFile(){
 		std::string md5Str = md5.hexdigest();
 		std::transform(md5Str.begin(), md5Str.end(), md5Str.begin(), ::tolower);
 		if (md5Str == md5Digest){
-			pret = true;
+			return true;
 		}
-		return pret;
 	}
 	return false;
 }
@@ -226,9 +256,9 @@ int GameFile::update(const std::string& url, UpdateHandler handler){
 			curl_easy_setopt(curl, CURLOPT_WRITEDATA, &dataHandler);
 			res = curl_easy_perform(curl);
 			curl_easy_cleanup(curl);
-			if (res == CURLE_OK) {
-				fclose(fp);
 
+			fclose(fp);
+			if (res == CURLE_OK) {
 				md5.finalize();
 				auto md5Str = md5.hexdigest();
 				std::transform(md5Str.begin(), md5Str.end(), md5Str.begin(), ::tolower);
@@ -244,7 +274,7 @@ int GameFile::update(const std::string& url, UpdateHandler handler){
 			}
 			else{
 				CCLOG("download file network error[%d]: %s", res, url.c_str());
-				fclose(fp);
+				remove(filePath.c_str());
 				return 2;
 			}		
 			
