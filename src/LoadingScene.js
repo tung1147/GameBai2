@@ -25,6 +25,8 @@ var LoadingScene = cc.Scene.extend({
     nextScene : function () {
       //  SystemPlugin.getInstance().enableMipmapTexture("res/Card.png");
         cc.director.replaceScene(new HomeScene());
+        var gm = new TLMNGameManager();
+        gm.hello();
     },
     onEnter : function () {
         this._super();

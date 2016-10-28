@@ -131,6 +131,7 @@ var HomeScene = IScene.extend({
         if (data.status == 0) {
             this.userInfo.refreshView();
             this.topBar.refreshView();
+            this.miniGame.fetchHuThuong();
         }
     },
     onLobbyStatusHandler: function () {

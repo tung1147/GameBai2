@@ -404,7 +404,6 @@ var CaoThapScene = MiniGameScene.extend({
             command: "53"
         };
         LobbyClient.getInstance().send(msg);
-        LobbyClient.getInstance().send(msg);
         msg = {command: "getTopUsers", gameType: "Mini_Cao_Thap"};
         LobbyClient.getInstance().send(msg);
         msg = {command: "getExplosiveUsers", gameType: "Mini_Cao_Thap", skip: "0", limit: "20"};

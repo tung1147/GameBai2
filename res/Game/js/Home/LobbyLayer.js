@@ -179,20 +179,21 @@ var LobbyLayer = cc.Node.extend({
 
     },
     onInviteReceived: function (command, data) {
-        var inviteDialog = new RecvInviteDialog();
         data = data["data"];
-        inviteDialog.setInfo(data["userInvite"],s_games_display_name[s_games_chanel_id[data["gameType"]]],data["betting"]);
-        inviteDialog.setRoomInfo(data["roomId"],data["ip"],data["port"]);
-        inviteDialog.showWithAnimationScale();
+        if (RecvInviteDialog.getInstance().isShow())
+            return;
+        RecvInviteDialog.getInstance().setInfo(data["userInvite"],s_games_display_name[s_games_chanel_id[data["gameType"]]],data["betting"]);
+        RecvInviteDialog.getInstance().setRoomInfo(data["roomId"],data["ip"],data["port"]);
+        RecvInviteDialog.getInstance().showWithAnimationScale();
     },
     onUpdateAll : function (cmd, event) {
         var data = event.data;
         var gameType = PlayerMe.gameType;
         if(gameType === data.gameType){
             this.gameList.removeAllItems();
-            var betting = data.betting;
+            var betting = data.bettings;
             for(var i=0;i<betting.length;i++){
-                this.addCell(i, betting[i], betting[i]);
+                this.addCell(i, betting[i].betting, betting[i].minMoney);
             }
             this.gameList.runMoveEffect(3000,0.1,0.1);
         }
