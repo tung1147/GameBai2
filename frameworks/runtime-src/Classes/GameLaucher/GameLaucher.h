@@ -39,7 +39,7 @@ class GameLaucher {
 	std::string resourceHost;
 	std::string versionHash;
 	std::string versionFile;
-	std::string jsMainFile;
+//	std::string jsMainFile;
 	
 	void initLaucher();
 	void clear();
@@ -72,7 +72,7 @@ public:
 	void onUpdateDownloadProcess(int size);
 	
 	GameFile* getFile(const std::string& file);
-	GameFile* getMainJs();
+//	GameFile* getMainJs();
 	bool checkFileValidate(const std::string& file);
 
 	static GameLaucher* getInstance();
