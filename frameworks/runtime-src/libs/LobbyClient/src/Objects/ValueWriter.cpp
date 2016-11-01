@@ -229,12 +229,13 @@ void ValueWriter::writeMap(uint32_t size){
 	}
 }
 
-void ValueWriter::createDataLength(){
-	uint64_t dataSize = mBuffer.size();
-	__writer_swap_bytes((char*)&dataSize, 4);
-	mBuffer.insert(mBuffer.begin(), (const char*)&dataSize, ((const char*)&dataSize) + 4);
+uint32_t ValueWriter::getSize(){
+	return mBuffer.size();
 }
 
+void ValueWriter::insertHeader(const char* bytes, int size){
+	mBuffer.insert(mBuffer.begin(), bytes, bytes + size);
+}
 
 }
 } /* namespace quyetnd */
