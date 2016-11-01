@@ -51,7 +51,8 @@ public:
 	void writeArray(uint32_t size);
 	void writeMap(uint32_t size);
 
-	void createDataLength();
+	uint32_t getSize();
+	void insertHeader(const char* bytes, int size);
 };
 
 }

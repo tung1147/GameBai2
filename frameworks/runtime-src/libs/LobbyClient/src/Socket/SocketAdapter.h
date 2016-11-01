@@ -14,6 +14,8 @@
 #include <ctime>
 #include "../Objects/ValueReader.h"
 
+//#define USE_MESSAGE_HEADER 1
+
 namespace quyetnd{
 namespace net{
 
@@ -91,16 +93,18 @@ public:
 
 class SocketReceiver : public quyetnd::net::SocketAdapter, public quyetnd::data::ValueReaderDelegate{
 protected:
-	std::vector<char> dataBuffer;
-	quyetnd::data::ValueReader* reader;
-
+#ifdef USE_MESSAGE_HEADER
+	std::vector<char> byteBuffer;
 	int dataSize;
 	bool recvHeader;
 
-	virtual void recvData(const char* data, int size);
 	virtual void onRecvData();
 	virtual void onUpdateDataHeader();
 	virtual void onUpdateData();
+#endif
+
+	quyetnd::data::ValueReader* reader;
+	virtual void recvData(const char* data, int size);
 	virtual void onRecvMessage(quyetnd::data::Value* value);
 public:
 	SocketReceiver();
