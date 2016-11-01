@@ -90,15 +90,15 @@ bool GameFile::checkHashFileContent(){
 	char* mData = (char*)d.getBytes();
 	ssize_t fileSize = d.getSize();
 
+	MD5 md5;
 	if (mData){
-		MD5 md5;
-		md5.update(mData, fileSize);
-		md5.finalize();
-		std::string md5Str = md5.hexdigest();
-		std::transform(md5Str.begin(), md5Str.end(), md5Str.begin(), ::tolower);
-		if (md5Str == md5Digest){
-			return true;
-		}
+		md5.update(mData, fileSize);	
+	}
+	md5.finalize();
+	std::string md5Str = md5.hexdigest();
+	std::transform(md5Str.begin(), md5Str.end(), md5Str.begin(), ::tolower);
+	if (md5Str == md5Digest){
+		return true;
 	}
 	return false;
 }

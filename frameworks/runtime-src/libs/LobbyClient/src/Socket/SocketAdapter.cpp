@@ -245,6 +245,12 @@ void SocketSender::toBufferData(quyetnd::net::SocketData* data){
 	writer->clear();
 	data->writeToBuffer(writer);
 
+#ifdef USE_MESSAGE_HEADER
+	uint32_t dataSize = writer->getSize();
+	dataSize = htonl(dataSize);
+	writer->insertHeader((const char*) &dataSize, 4);
+#endif
+
 #ifdef LOBBY_LOGGER
 	quyetnd::log_to_console("\n----------------\n");
 	quyetnd::log_to_console("[SEND] <==\n");
@@ -269,10 +275,11 @@ SocketReceiver::~SocketReceiver(){
 }
 
 void SocketReceiver::updateThread(){
+#ifdef USE_MESSAGE_HEADER
 	recvHeader = true;
 	dataSize = 0;
-	dataBuffer.reserve(100 * 1024); // 100KB RAM
-
+	byteBuffer.reserve(100 * 1024); // 100KB RAM
+#endif
 	SocketAdapter::updateThread();
 }
 
@@ -280,52 +287,48 @@ void SocketReceiver::recvData(const char* data, int size){
 	if (size <= 0){
 		return;
 	}
+#ifdef USE_MESSAGE_HEADER
+	byteBuffer.insert(byteBuffer.end(), data, data + size);
+	this->onRecvData();
+#else
 	reader->addData(data, size);
+#endif
 }
 
-void SocketReceiver::onRecvData(){
-	//if (dataBuffer.size() == 0){
-	//	return;
-	//}
 
-	//if (recvHeader){
-	//	onUpdateDataHeader();
-	//}
-	//else{
-	//	onUpdateData();
-	//}
+#ifdef USE_MESSAGE_HEADER
+void SocketReceiver::onRecvData(){
+	if (byteBuffer.size() <= 0){
+		return;
+	}
+	if (recvHeader){
+		onUpdateDataHeader();
+	}
+	else{
+		onUpdateData();
+	}
 }
 
 void SocketReceiver::onUpdateDataHeader(){
-	/*if (dataBuffer.size() >= 4){
-		memcpy(&dataSize, dataBuffer.data(), sizeof(dataSize));
+	if (byteBuffer.size() >= 4){
+		memcpy(&dataSize, byteBuffer.data(), sizeof(dataSize));
 		dataSize = ntohl(dataSize);
 
 		recvHeader = false;
-		dataBuffer.erase(dataBuffer.begin(), dataBuffer.begin() + 4);
+		byteBuffer.erase(byteBuffer.begin(), byteBuffer.begin() + 4);
 		this->onRecvData();
-	}*/
+	}
 }
 
 void SocketReceiver::onUpdateData(){
-//	if (dataBuffer.size() >= dataSize){
-//		reader->addData(dataBuffer.data(), dataSize);
-//
-////		auto objData = quyetnd::data::Value::createWithData(dataBuffer.data(), dataSize);
-////		if (objData){		
-////#ifdef LOBBY_LOGGER
-////			quyetnd::log_to_console("-------------------\n");
-////			objData->printDebug();
-////			quyetnd::log_to_console("\n-------------------");
-////#endif	
-////			this->pushMessage(objData);
-////		}
-//
-//		recvHeader = true;
-//		dataBuffer.erase(dataBuffer.begin(), dataBuffer.begin() + dataSize);
-//		this->onRecvData();
-//	}
+	if (byteBuffer.size() >= dataSize){
+		reader->addData(byteBuffer.data(), dataSize);
+		recvHeader = true;
+		byteBuffer.erase(byteBuffer.begin(), byteBuffer.begin() + dataSize);
+		this->onRecvData();
+	}
 }
+#endif
 
 void SocketReceiver::onRecvMessage(quyetnd::data::Value* value){
 	if (!value){
