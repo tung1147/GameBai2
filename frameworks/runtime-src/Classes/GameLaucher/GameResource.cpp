@@ -74,7 +74,7 @@ bool GameFile::checkHashFile(){
 		}
 		md5.finalize();
 		std::string md5Str = md5.hexdigest();
-		std::transform(md5Str.begin(), md5Str.end(), md5Str.begin(), ::tolower);
+		//std::transform(md5Str.begin(), md5Str.end(), md5Str.begin(), ::tolower);
 		if (md5Str == md5Digest){
 			pret = true;
 		}
@@ -96,7 +96,7 @@ bool GameFile::checkHashFileContent(){
 	}
 	md5.finalize();
 	std::string md5Str = md5.hexdigest();
-	std::transform(md5Str.begin(), md5Str.end(), md5Str.begin(), ::tolower);
+	//std::transform(md5Str.begin(), md5Str.end(), md5Str.begin(), ::tolower);
 	if (md5Str == md5Digest){
 		return true;
 	}

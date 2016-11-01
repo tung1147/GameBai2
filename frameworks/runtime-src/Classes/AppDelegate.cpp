@@ -223,7 +223,19 @@ bool AppDelegate::applicationDidFinishLaunching()
 
 	ScriptEngineProtocol *engine = ScriptingCore::getInstance();
 	ScriptEngineManager::getInstance()->setScriptEngine(engine);
-	GameFile* mainJs = GameLaucher::getInstance()->getMainJs();
+
+	std::string mainJSFilename = "main.js";
+	GameFile* mainJs = GameLaucher::getInstance()->getFile("js/" + mainJSFilename);
+	if (!mainJs){
+		MD5 md5;
+		md5.update(mainJSFilename.data(), mainJSFilename.size());
+		md5.update(aesKey.data(), aesKey.size());
+		md5.finalize();
+
+		mainJSFilename = md5.hexdigest() + ".js";
+		mainJs = GameLaucher::getInstance()->getFile("js/" + mainJSFilename);
+	}
+	
 	if (mainJs && mainJs->test()){
 		std::string file = FileUtils::getInstance()->fullPathForFilename(mainJs->fileName);
 		if (file != ""){
