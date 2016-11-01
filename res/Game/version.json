@@ -162,8 +162,8 @@
         },
         {
             "file": "js/Game/XocDia.js",
-            "size": 5604,
-            "hash": "7facbb3facb5280950047ebdd09b72dd"
+            "size": 5567,
+            "hash": "01f1737382b992b69bb2f5d19a7b28df"
         },
         {
             "file": "js/Game/XocDiaChip.js",
@@ -249,11 +249,6 @@
             "file": "js/IScene.js",
             "size": 525,
             "hash": "e7d5ef12beadc9b9c2bfeb7d2faf14fa"
-        },
-        {
-            "file": "js/jsLoader.js",
-            "size": 2102,
-            "hash": "8186e5fa4ca0d4807e96cbe67d8e25bd"
         },
         {
             "file": "js/md5.min.js",
@@ -727,8 +722,8 @@
         },
         {
             "file": "script.json",
-            "size": 1639,
-            "hash": "d348efbfde549e1765e166c1810366ec"
+            "size": 1666,
+            "hash": "fb7cac1248e3491e3d4203d83fcafb09"
         }
     ],
     "main": "js/main.js",

@@ -37,6 +37,7 @@
 	"js/Home/InboxLayer.js",
 	"js/Game/Card.js",
 	"js/Game/ChipButton.js",
+	"js/Game/XocDiaChip.js",
 	"js/Game/GamePlayer.js",
 	"js/Game/GameScene.js",
 	"js/Game/TienLen.js",

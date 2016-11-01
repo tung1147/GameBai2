@@ -2,8 +2,6 @@
  * Created by Quyet Nguyen on 7/25/2016.
  */
 
-require("js/Game/XocDiaChip.js");
-
 var s_xocdia_slot_type = s_xocdia_slot_type || [1,1,2,2,2,2,2];
 var s_xocdia_slot_id = s_xocdia_slot_id || [1,2,3,4,5,6,7];
 var s_xocdia_slot_position = s_xocdia_slot_position || [
