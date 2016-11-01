@@ -23,7 +23,7 @@ GameLaucher::GameLaucher() {
 	// TODO Auto-generated constructor stub
 	versionFile = "version.json";
 	versionHash = "";
-	jsMainFile = "js/main.js";
+//	jsMainFile = "js/main.js";
 	resourceHost = "";
 }
 
@@ -58,11 +58,12 @@ void GameLaucher::initLaucher(){
 	rapidjson::Document doc;
 	bool error = doc.Parse<0>(buffer.data()).HasParseError();
 	if (!error){
-		std::string versionName = doc["versionName"].GetString();
-		uint32_t versionCode = doc["versionCode"].GetInt();
-		if (doc.HasMember("main")){
-			jsMainFile = doc["main"].GetString();
-		}
+		//std::string versionName = doc["versionName"].GetString();
+		//uint32_t versionCode = doc["versionCode"].GetInt();
+		//if (doc.HasMember("main")){
+		//	jsMainFile = doc["main"].GetString();
+		//}
+
 		const rapidjson::Value& files = doc["files"];
 		for (int i = 0; i < files.Size(); i++){
 			const rapidjson::Value& fileData = files[i];
@@ -311,9 +312,9 @@ void GameLaucher::checkFilesThread(){
 	doc.Parse<0>(buffer.data());
 	std::string versionName = doc["versionName"].GetString();
 	uint32_t versionCode = doc["versionCode"].GetInt();
-	if (doc.HasMember("main")){
-		jsMainFile = doc["main"].GetString();
-	}
+	//if (doc.HasMember("main")){
+	//	jsMainFile = doc["main"].GetString();
+	//}
 	const rapidjson::Value& files = doc["files"];
 	for (int i = 0; i < files.Size(); i++){
 		const rapidjson::Value& fileData = files[i];
@@ -491,9 +492,14 @@ GameFile* GameLaucher::getFile(const std::string& file){
 	return 0;
 }
 
-GameFile* GameLaucher::getMainJs(){
-	return this->getFile(jsMainFile);
-}
+//GameFile* GameLaucher::getMainJs(){
+//	auto mainFile = this->getFile("js/main.js");
+//	if (!mainFile){
+//
+//	}
+//
+//	return 0;
+//}
 
 bool GameLaucher::checkFileValidate(const std::string& filename){
 	auto file = this->getFile(filename);
