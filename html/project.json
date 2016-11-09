@@ -1,0 +1,22 @@
+{
+    "project_type": "javascript",
+
+    "debugMode" : 1,
+    "showFPS" : true,
+    "frameRate" : 60,
+    "noCache" : false,
+    "id" : "gameCanvas",
+    "renderMode" : 0,
+    "engineDir":"frameworks/cocos2d-html5",
+
+    "modules" : ["cocos2d", "extensions"],
+
+    "jsList" : [
+        "html/LobbySocket.js",
+        "html/SFSSocket.js",
+        "html/LoadingScene.js",
+        "res/Game/js/Socket/LobbyClient.js",
+        "res/Game/js/Socket/SmartfoxClient.js",
+        "res/Game/js/app.js"
+    ]
+}
