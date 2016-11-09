@@ -12,9 +12,9 @@
     "modules" : ["cocos2d", "extensions"],
 
     "jsList" : [
-        "html/LobbySocket.js",
-        "html/SFSSocket.js",
-        "html/LoadingScene.js",
+        "html/Socket/LobbySocket.js",
+        "html/Socket/SFSSocket.js",
+        "html/Scene/LoadingScene.js",
         "res/Game/js/Socket/LobbyClient.js",
         "res/Game/js/Socket/SmartfoxClient.js",
         "res/Game/js/app.js"
