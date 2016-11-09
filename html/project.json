@@ -12,6 +12,12 @@
     "modules" : ["cocos2d", "extensions"],
 
     "jsList" : [
+        "html/Core/FacebookPlugin.js",
+        "html/Core/SystemPlugin.js",
+        "html/Core/Widget.js",
+        "html/Core/EditBox.js",
+        "html/Core/TableView.js",
+        "html/Core/TextField.js",
         "html/Socket/LobbySocket.js",
         "html/Socket/SFSSocket.js",
         "html/Scene/LoadingScene.js",
