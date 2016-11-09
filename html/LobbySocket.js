@@ -19,7 +19,7 @@ socket.LobbySocket.StatusName[socket.LobbySocket.Connecting] = "Connecting";
 socket.LobbySocket.StatusName[socket.LobbySocket.Connected] = "Connected";
 socket.LobbySocket.StatusName[socket.LobbySocket.ConnectFailure] = "ConnectFailure";
 socket.LobbySocket.StatusName[socket.LobbySocket.LostConnection] = "LostConnection";
-socket.LobbySocket.StatusName[socket.LobbySocket.Closed] = "NotConnected";
+socket.LobbySocket.StatusName[socket.LobbySocket.Closed] = "Closed";
 
 socket.LobbyClient = cc.Class.extend({
     ctor : function () {
@@ -28,8 +28,7 @@ socket.LobbyClient = cc.Class.extend({
     },
     connect : function (host, port) {
         if(this.wsocket){
-            this.wsocket.close();
-            this.wsocket = null;
+            this.close();
         }
         this.setSocketStatus(socket.LobbySocket.Connecting);
 
@@ -44,13 +43,27 @@ socket.LobbyClient = cc.Class.extend({
             cc.log("onOpen: "+event.type);
             if(thiz.socketStatus == socket.LobbySocket.Connecting){
                 thiz.setSocketStatus(socket.LobbySocket.Connected);
+
+                //test
+                var message = {
+                    command: "login",
+                    platformId: 4,
+                    bundleId: "bundleId",
+                    version: "1.0.1",
+                    imei: "imei",
+                    type: "normal",
+                    username: "username",
+                    password: "password"
+                };
+                thiz.send(JSON.stringify(message));
             }
         };
         this.wsocket.onmessage = function (event) {
             cc.log("onmessage: "+event.type);
+            thiz.onRecvMessage(event.data);
         };
         this.wsocket.onerror = function (event) {
-            //cc.log("onerror: "+event.type+" -- "+wsocket.readyState);
+            cc.log("onerror: "+event.type+" -- "+wsocket.readyState);
 
             if(thiz.socketStatus == socket.LobbySocket.Connecting){
                 thiz.setSocketStatus(socket.LobbySocket.ConnectFailure);
@@ -60,17 +73,32 @@ socket.LobbyClient = cc.Class.extend({
             }
         };
         this.wsocket.onclose = function (event) {
-            thiz.wsocket = null;
-           // cc.log("onclose: "+event.type);
+            thiz.resetSocket();
+            thiz.wsocket = 0;
+
+            cc.log("onclose: "+event.type);
             if(thiz.socketStatus == socket.LobbySocket.Connected){
-                thiz.setSocketStatus(socket.LobbySocket.Closed);
+                thiz.setSocketStatus(socket.LobbySocket.LostConnection);
             }
         };
     },
     close : function () {
         if(this.wsocket){
+            if(this.socketStatus == socket.LobbySocket.Connected){
+                this.setSocketStatus(socket.LobbySocket.Closed);
+            }
+
+            this.resetSocket();
             this.wsocket.close();
-            this.wsocket = null;
+            this.wsocket = 0;
+        }
+    },
+    resetSocket : function () {
+        if(this.wsocket){
+            this.wsocket.onopen = 0;
+            this.wsocket.onmessage = 0;
+            this.wsocket.onerror = 0;
+            this.wsocket.onclose = 0;
         }
     },
     setSocketStatus : function (status) {
@@ -80,11 +108,17 @@ socket.LobbyClient = cc.Class.extend({
             this.onEvent("socketStatus", socket.LobbySocket.StatusName[this.socketStatus]);
         }
     },
-    onRecvMessage : function () {
+    onRecvMessage : function (data) {
         if(this.onEvent){
-           // this.onEvent(eventName, data);
+            cc.log("onRecvMessage: "+data);
+            this.onEvent("message", data);
         }
     },
+    send : function (data) {
+        if(this.wsocket){
+            this.wsocket.send(data);
+        }
+    }
 });
 
 /* lobby */
