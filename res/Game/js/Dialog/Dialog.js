@@ -35,6 +35,9 @@ var IDialog = cc.Node.extend({
             }
         }, this);
     },
+    adjustlel : function () {
+
+    },
     show : function () {
         var parentNode = this.getParent();
         if(parentNode){
@@ -165,8 +168,5 @@ var Dialog = IDialog.extend({
 
     closeButtonHandler : function () {
         this.hide();
-    },
-    adjustlel : function () {
-
     }
 });

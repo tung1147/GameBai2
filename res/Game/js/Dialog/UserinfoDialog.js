@@ -478,7 +478,7 @@ var UserinfoDialog = IDialog.extend({
         var allLayer = [new UserinfoPasswordLayer(), new UserinfoVerifyLayer()];
         for(var i=0;i<allLayer.length;i++){
             this.dialogNode.addChild(allLayer[i],1);
-            allLayer[i].visible = false;
+            allLayer[i].setVisible(false);
         }
         this.allLayer = allLayer;
 

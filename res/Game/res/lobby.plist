@@ -1385,7 +1385,7 @@
 			<key>size</key>
 			<string>{1067,1065}</string>
 			<key>textureFileName</key>
-			<string>sprites.png</string>
+			<string>lobby.png</string>
 			</dict>
 		</dict>
 </plist>

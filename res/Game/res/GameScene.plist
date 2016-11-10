@@ -279,7 +279,7 @@
 			<key>size</key>
 			<string>{441,435}</string>
 			<key>textureFileName</key>
-			<string>sprites.png</string>
+			<string>GameScene.png</string>
 			</dict>
 		</dict>
 </plist>

@@ -5,7 +5,7 @@
 String.prototype.insertAt=function(index, string) {
     return this.substr(0, index) + string + this.substr(index);
 }
-
+var cc = cc || {};
 cc.Global = cc.Global || {};
 cc.Global.NumberFormat1 = function (number) {
     var pret = Math.abs(number).toString();
@@ -151,9 +151,19 @@ GameConfig.hotline = "09000123";
 GameConfig.broadcastMessage = "Thông báo";
 GameConfig.DeviceIDKey = "";
 
-var LevelData = JSON.parse(jsb.fileUtils.getStringFromFile("res/data/LevelData.json"));
-var VipData = JSON.parse(jsb.fileUtils.getStringFromFile("res/data/VipData.json"));
+var LevelData = null;
+var VipData = null;
+
 cc.Global.GetLevel = function (exp) {
+    if(!LevelData){
+        if(cc.sys.isNative){
+            LevelData = JSON.parse(jsb.fileUtils.getStringFromFile("res/data/LevelData.json"));
+        }
+        else{
+            LevelData = cc.loader.getRes("res/data/LevelData.json");
+        }
+    }
+
     var preLevel = LevelData[0];
     for(var i=1;i<LevelData.length;i++){
         var obj = LevelData[i];
@@ -174,6 +184,15 @@ cc.Global.GetLevel = function (exp) {
     };
 };
 cc.Global.GetVip = function (exp) {
+    if(!VipData){
+        if(cc.sys.isNative){
+            VipData = JSON.parse(jsb.fileUtils.getStringFromFile("res/data/VipData.json"));
+        }
+        else{
+            VipData = cc.loader.getRes("res/data/VipData.json");
+        }
+    }
+
     var preLevel = VipData[0];
     for(var i=1;i<VipData.length;i++){
         var obj = VipData[i];

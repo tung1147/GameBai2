@@ -7,7 +7,7 @@ var UserAvatar = cc.Node.extend({
         this._super();
         this.setAnchorPoint(cc.p(0.5, 0.5));
 
-        var avatarImg = cc.Sprite();
+        var avatarImg = new cc.Sprite();
         this.addChild(avatarImg);
         this.avatarImg = avatarImg;
     },

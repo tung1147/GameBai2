@@ -13,7 +13,7 @@ var LoginDialog = cc.Node.extend({
         this.layerBg.setPosition(cc.winSize.width / 2, cc.winSize.height/2);
         this.addChild(this.layerBg);
 
-        var title = cc.Sprite("#home-signin-text.png");
+        var title = new cc.Sprite("#home-signin-text.png");
         title.setPosition(this.layerBg.getContentSize().width/2, 550.0);
         this.layerBg.addChild(title);
 
@@ -133,7 +133,7 @@ var SignupDialog = cc.Node.extend({
 
         var margin = 100.0;
         var mTouch = cc.rect(margin, margin, bg.getContentSize().width - margin * 2, bg.getContentSize().height - margin * 2);
-        var title = cc.Sprite("#home-signup-text.png");
+        var title = new cc.Sprite("#home-signup-text.png");
         title.setPosition(bg.getContentSize().width/2, 465.0);
         bg.addChild(title);
         this.layerBg = bg;

@@ -587,7 +587,7 @@
 			<key>size</key>
 			<string>{839,841}</string>
 			<key>textureFileName</key>
-			<string>sprites.png</string>
+			<string>dialog.png</string>
 			</dict>
 		</dict>
 </plist>

@@ -79,7 +79,9 @@ var HomeScene = IScene.extend({
             FacebookPlugin.getInstance().showLogin();
         });
 
-        this.startHome();
+       // this.startHome();
+        //this.startGame();
+        this.startLobby();
 
         //
         FloatButton.getInstance().show(this);
