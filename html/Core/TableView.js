@@ -2,219 +2,388 @@
  * Created by QuyetNguyen on 11/9/2016.
  */
 var newui = newui || {};
-newui.TableView = ccui.ListView.extend({
-    ctor : function () {
+newui.TableView = ccui.ScrollView.extend({
+    ctor : function (size, columnCount) {
         this._super();
+
+        this.animationHandler = null;
+        this._allItems = [];
+        this._padding = 0.0;
+        this._marginLeft = 0.0;
+        this._marginRight = 0.0;
+        this._marginTop = 0.0;
+        this._marginBottom = 0.0;
+        this._direction = ccui.ScrollView.DIR_HORIZONTAL;
+        this._refreshView = false;
+        this._columnCount = columnCount;
+
+        this.setContentSize(size);
     },
 
-    /**
-     * @method initWithSize
-     * @param {size_object} arg0
-     * @param {int} arg1
-     */
-    initWithSize : function (size, int) {
-
+    setPadding : function (padding) {
+        this._padding = padding;
+        this._refreshView = true;
     },
 
-    removeAllChildren : function ()
-    {
-
+    setMargin : function (top, bot, left, right) {
+        this._marginTop = top;
+        this._marginBottom = bot;
+        this._marginLeft = left;
+        this._marginRight = right;
+        this._refreshView = true;
     },
 
-    /**
-     * @method removeChild
-     * @param {cc.Node} arg0
-     * @param {bool} arg1
-     */
-    removeChild : function (node, bool)
-    {
-
-    },
-
-    /**
-     * @method size
-     * @return {int}
-     */
-    size : function ()
-    {
-        return 0;
-    },
-
-    /**
-     * @method jumpToBottom
-     */
-    jumpToBottom : function ()
-    {
-    },
-
-    /**
-     * @method getMarginBottom
-     * @return {float}
-     */
-    getMarginBottom : function ()
-    {
-        return 0;
-    },
-
-    /**
-     * @method setDirection
-     * @param {ccui.ScrollView::Direction} arg0
-     */
-    setDirection : function (direction)
-    {
-
-    },
-
-    /**
-     * @method jumpToTop
-     */
-    jumpToTop : function ()
-    {
-
-    },
-
-    /**
-     * @method runMoveEffect
-     * @param {float} arg0
-     * @param {float} arg1
-     * @param {float} arg2
-     */
-    runMoveEffect : function (float, float, float)
-    {
-
-    },
-
-
-
-    /**
-     * @method setPadding
-     * @param {float} arg0
-     */
-    setPadding : function (float)
-    {
-
-    },
-
-    /**
-     * @method removeAllItems
-     */
-    removeAllItems : function ()
-    {
-
-    },
-
-    /**
-     * @method insertItem
-     * @param {cc.Node} arg0
-     * @param {int} arg1
-     */
-    insertItem : function (node, int) {
-
-    },
-
-    /**
-     * @method getMarginTop
-     * @return {float}
-     */
-    getMarginTop : function () {
-        return 0;
-    },
-
-    /**
-     * @method removeAllChildrenWithCleanup
-     * @param {bool} arg0
-     */
-    removeAllChildrenWithCleanup : function (bool) {
-
-    },
-
-    /**
-     * @method getMarginRight
-     * @return {float}
-     */
-    getMarginRight : function () {
-        return 0;
-    },
-
-    /**
-     * @method setMargin
-     * @param {float} arg0
-     * @param {float} arg1
-     * @param {float} arg2
-     * @param {float} arg3
-     */
-    setMargin : function (float, float, float, float) {
-
-    },
-
-    /**
-     * @method getItem
-     * @param {int} arg0
-     * @return {cc.Node}
-     */
-    getItem : function (int) {
-        return cc.Node;
-    },
-
-    /**
-     * @method removeItem
-     * @param {int|cc.Node} int
-     */
-    removeItem : function(node)
-    {
-
-    },
-
-    /**
-     * @method setAnimationHandler
-     * @param {function} arg0
-     */
-    setAnimationHandler : function (func)
-    {
-
-    },
-
-    /**
-     * @method pushItem
-     * @param {cc.Node} arg0
-     */
-    pushItem : function (node) {
-
-    },
-
-    /**
-     * @method getMarginLeft
-     * @return {float}
-     */
-    getMarginLeft : function () {
-        return 0;
-    },
-
-    /**
-     * @method jumpToLeft
-     */
-    jumpToLeft : function () {
-
-    },
-
-    /**
-     * @method forceRefreshView
-     */
-    forceRefreshView : function () {
-
-    },
-
-    /**
-     * @method refreshView
-     */
     refreshView : function () {
+        if(this._refreshView) {
+            this.forceRefreshView();
+        }
+    },
+    forceRefreshView : function () {
+        if(this._direction == ccui.ScrollView.DIR_VERTICAL){
+            this.refreshViewVertical();
+        }
+        else{
+            this.refreshViewHorizontal();
+        }
+        this._refreshView = false;
+    },
+    refreshViewHorizontal : function () {
+        cc.log("refreshViewVertical");
+        var containerWidth = 0.0;
+        var containerHeight = this.getContentSize().height;
 
+        if(this._allItems.length > 0){
+            var itemSize = this._allItems[0].getContentSize();
+            var col = Math.floor(this._allItems.length / this._columnCount);
+            containerWidth = itemSize.width * col + this._padding*(col - 1) + this._marginLeft + this._marginRight;
+
+            var padding = (containerHeight - this._marginTop - this._marginBottom - (this._columnCount * itemSize.height)) / (this._columnCount + 1);
+            if(padding < 0.0){
+                padding = 0.0;
+            }
+
+            var columnIndex = 0;
+            var x = this._marginLeft + itemSize.width/2;
+            var y = containerHeight - this._marginTop - itemSize.height/2;
+
+            for(var i=0; i<this._allItems.length;i++){
+                this._allItems[i].setPosition(x, y);
+               // cc.log(x + " - "+ y);
+
+                columnIndex++;
+                if(columnIndex >= this._columnCount){
+                    columnIndex = 0;
+                    y = containerHeight - this._marginTop - itemSize.height/2;
+                    x += (this._padding + itemSize.width);
+                }
+                else{
+                    y -= (padding + itemSize.height);
+                }
+            }
+        }
+
+        if(containerWidth < this.getContentSize().width){
+            containerWidth = this.getContentSize().width;
+        }
+        this.setInnerContainerSize(cc.size(containerWidth, containerHeight));
+    },
+    refreshViewVertical : function () {
+        var containerWidth = this.getContentSize().width;
+        var containerHeight = 0.0;
+
+        if(this._allItems.length > 0){
+            var itemSize = this._allItems[0].getContentSize();
+            var row = Math.floor(this._allItems.length / this._columnCount);
+            containerHeight = itemSize.height * row + this._padding*(row - 1) + this._marginTop + this._marginBottom;
+            if(containerHeight < this.getContentSize().height){
+                containerHeight = this.getContentSize().height;
+            }
+
+          //  var padding = 0.0;
+            var padding = (containerWidth - this._marginLeft - this._marginRight - (this._columnCount * itemSize.width)) / (this._columnCount + 1);
+            if(padding < 0.0){
+                padding = 0.0;
+            }
+
+            var rowIndex = 0;
+            var x = this._marginLeft + itemSize.width/2;
+            var y = containerHeight - this._marginTop - itemSize.height/2;
+
+            for(var i=0; i<this._allItems.length;i++){
+                this._allItems[i].setPosition(x, y);
+               // cc.log(x + " - "+ y);
+
+                rowIndex++;
+                if(rowIndex >= this._columnCount){
+                    rowIndex = 0;
+
+                    x = this._marginLeft + itemSize.width/2;
+                    y -= (this._padding + itemSize.height);
+                }
+                else{
+                    x += (padding + itemSize.width);
+                }
+            }
+
+        }
+
+        this.setInnerContainerSize(cc.size(containerWidth, containerHeight));
+    },
+    getRowItems :function(rowIndex){
+        var items = [];
+        if(this._direction == ccui.ScrollView.DIR_HORIZONTAL){
+            for(var i=0;i<this._columnCount;i++){
+                items.push(this._allItems[rowIndex*this._columnCount + i]);
+            }
+        }
+        else{
+            var col = Math.floor(this._allItems.length / this._columnCount);
+            for(var i=rowIndex; i<col; i+= this._columnCount){
+                items.push(this._allItems[i]);
+            }
+        }
+
+        return items;
+    },
+    runMoveEffect : function (moveSpeed, delayPerColumn, delayPerRow) {
+        this.forceRefreshView();
+        if(this._allItems.length <= 0){
+            return;
+        }
+
+        var row = this._columnCount;
+        if(this._direction == ccui.ScrollView.DIR_HORIZONTAL){
+            row = Math.floor(this._allItems.length / this._columnCount);
+        }
+
+        var itemSize = this._allItems[0].getContentSize();
+        var dx = this.getContentSize().width + itemSize.width/2;
+        var duration = dx/moveSpeed;
+        if(moveSpeed < 0){
+            dx = -dx;
+            duration = -duration;
+        }
+
+        var delayTime1 = 0.0;
+        var delayTime2 = 0.0;
+        var maxDelayTime = 0.0;
+        var thiz = this;
+        for(var i=0; i<row; i++){
+            var items = this.getRowItems(i);
+
+            delayTime1 = 0.0;
+            for(var j=0;j<items.length;j++){
+                var item = items[j];
+                item.x += dx;
+                var delayTime = delayTime1 + delayTime2;
+                if(delayTime > maxDelayTime){
+                    maxDelayTime = delayTime;
+                }
+                item.stopAllActions();
+                this.startItemAnimation(item);
+                (function (item) {
+                    item.runAction(new cc.Sequence(new cc.DelayTime(delayTime), new cc.MoveBy(duration, cc.p(-dx, 0)), new cc.CallFunc(function () {
+                        thiz.finishedItemAnimation(item);
+                    })));
+                })(item);
+
+                if(this._direction == ccui.ScrollView.DIR_VERTICAL){
+                    delayTime1 += delayPerColumn;
+                }
+                else{
+                    delayTime1 += delayPerRow;
+                }
+            }
+
+            if(this._direction == ccui.ScrollView.DIR_VERTICAL){
+                delayTime2 += delayPerRow;
+            }
+            else{
+                delayTime2 += delayPerColumn;
+            }
+        }
+
+        var thiz = this;
+        thiz.setEnabled(false);
+        this.runAction(new cc.Sequence(new cc.DelayTime(delayTime), new cc.CallFunc(function () {
+            thiz.setEnabled(true);
+        })));
     },
 
-    /**
-     * @method jumpToRight
-     */
-    jumpToRight : function () {
+    startItemAnimation : function (item) {
+        cc.log("startItemAnimation: "+item);
+    },
+    finishedItemAnimation : function (item) {
+        cc.log("finishedItemAnimation: "+item);
+    },
 
+    setDirection : function (direction) {
+        this._super(direction);
+        this._refreshView = true;
+    },
+
+    insertItem : function (item, index) {
+        this._allItems.splice(index, 0, item);
+        this._refreshView = true;
+    },
+
+    getItem : function (index) {
+        return this._allItems[index];
+    },
+
+    removeAllItems : function () {
+        this.removeAllChildrenWithCleanup(true);
+        this._refreshView = true;
+    },
+
+    pushItem : function (item) {
+        item.setAnchorPoint(cc.p(0.5,0.5));
+        this.addChild(item);
+        this._allItems.push(item);
+        this._refreshView = true;
+    },
+
+    removeItem : function(item) {
+        this._refreshView = true;
+    },
+
+    setAnimationHandler : function (func) {
+        this.animationHandler = func;
+    },
+
+    removeAllChildrenWithCleanup : function (cleanup) {
+        this._allItems = [];
+        //update container size
+        this._super(cleanup);
+    },
+
+    _createRenderCmd: function(){
+        if(cc._renderType === cc.game.RENDER_TYPE_WEBGL)
+            return new newui.TableView.WebGLRenderCmd(this);
+        else
+            return new newui.TableView.CanvasRenderCmd(this);
+    },
+    visit : function (parentCmd) {
+        if (!this._visible){
+            return;
+        }
+        this.refreshView();
+        this._super(parentCmd);
     }
 });
+
+/* create render cmd */
+(function(){
+    if(!ccui.ProtectedNode.CanvasRenderCmd)
+        return;
+    newui.TableView.CanvasRenderCmd = function(renderable){
+        ccui.ScrollView.CanvasRenderCmd.call(this, renderable);
+        //this._needDraw = true;
+        this._dirty = false;
+    };
+
+    var proto = newui.TableView.CanvasRenderCmd.prototype = Object.create(ccui.ScrollView.CanvasRenderCmd.prototype);
+    proto.constructor = newui.TableView.CanvasRenderCmd;
+
+    proto.visit = function(parentCmd) {
+        var node = this._node;
+        if (!node._visible)
+            return;
+        var currentID = node.__instanceId;
+
+        cc.renderer.pushRenderCommand(this);
+        //cc.renderer._turnToCacheMode(currentID);
+
+        node.visit(parentCmd);
+        this.layoutVisit(parentCmd);
+
+        this._dirtyFlag = 0;
+        //cc.renderer._turnToNormalMode();
+    };
+
+    proto.rendering = function (ctx) {
+        var currentID = this._node.__instanceId;
+        var locCmds = cc.renderer._cacheToCanvasCmds[currentID], i, len,
+            scaleX = cc.view.getScaleX(),
+            scaleY = cc.view.getScaleY();
+        var context = ctx || cc._renderContext;
+        context.computeRealOffsetY();
+
+        this._node.updateChildren();
+
+        for (i = 0, len = locCmds.length; i < len; i++) {
+            var checkNode = locCmds[i]._node;
+            if(checkNode instanceof newui.TableView)
+                continue;
+            if(checkNode && checkNode._parent && checkNode._parent._inViewRect === false)
+                continue;
+            locCmds[i].rendering(context, scaleX, scaleY);
+        }
+    };
+})();
+
+(function(){
+    if(!ccui.ProtectedNode.WebGLRenderCmd)
+        return;
+    newui.TableView.WebGLRenderCmd = function(renderable){
+        ccui.ScrollView.WebGLRenderCmd.call(this, renderable);
+        this._needDraw = true;
+        this._dirty = false;
+    };
+
+    var proto = newui.TableView.WebGLRenderCmd.prototype = Object.create(ccui.ScrollView.WebGLRenderCmd.prototype);
+    proto.constructor = newui.TableView.WebGLRenderCmd;
+
+    proto.visit = function(parentCmd) {
+        var node = this._node;
+        if (!node._visible)
+            return;
+        var currentID = this._node.__instanceId;
+
+        cc.renderer.pushRenderCommand(this);
+        cc.renderer._turnToCacheMode(currentID);
+
+        node.visit(parentCmd);
+        this.layoutVisit(parentCmd);
+        // Need to update children after do layout
+        node.updateChildren();
+
+        this._dirtyFlag = 0;
+        cc.renderer._turnToNormalMode();
+    };
+
+    proto.rendering = function(ctx){
+        var currentID = this._node.__instanceId,
+            locCmds = cc.renderer._cacheToBufferCmds[currentID],
+            i, len, checkNode, cmd,
+            context = ctx || cc._renderContext;
+        if (!locCmds) {
+            return;
+        }
+
+        this._node.updateChildren();
+
+        // Reset buffer for rendering
+        context.bindBuffer(gl.ARRAY_BUFFER, null);
+
+        for (i = 0, len = locCmds.length; i < len; i++) {
+            cmd = locCmds[i];
+            checkNode = cmd._node;
+            if(checkNode instanceof newui.TableView)
+                continue;
+            if(checkNode && checkNode._parent && checkNode._parent._inViewRect === false)
+                continue;
+
+            if (cmd.uploadData) {
+                cc.renderer._uploadBufferData(cmd);
+            }
+            else {
+                if (cmd._batchingSize > 0) {
+                    cc.renderer._batchRendering();
+                }
+                cmd.rendering(context);
+            }
+            cc.renderer._batchRendering();
+        }
+    };
+})();
