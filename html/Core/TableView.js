@@ -188,7 +188,7 @@ newui.TableView = ccui.ScrollView.extend({
                 item.stopAllActions();
                 this.startItemAnimation(item);
                 (function (item) {
-                    item.runAction(new cc.Sequence(new cc.DelayTime(delayTime), new cc.MoveBy(duration, cc.p(-dx, 0)), new cc.CallFunc(function () {
+                    item.runAction(new cc.Sequence(new cc.DelayTime(delayTime), new cc.EaseCircleActionOut(new cc.MoveBy(duration, cc.p(-dx, 0))), new cc.CallFunc(function () {
                         thiz.finishedItemAnimation(item);
                     })));
                 })(item);
