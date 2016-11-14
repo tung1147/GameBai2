@@ -3,21 +3,20 @@
  */
 var newui = newui || {};
 newui.Widget = ccui.Widget.extend({
-    ctor : function () {
+    ctor : function (containerSize) {
+        this._ignoreSize = true;
         this._super();
+        this.setVirtualRendererSize(containerSize);
     },
-
-    setVirtualRendererSize : function (size)
-    {
-
+    setVirtualRendererSize : function (vitualSize) {
+        this._vitualSize = cc.size(vitualSize);
     },
-
-    /**
-     * @method getVirtualRendererSize
-     * @return {size_object}
-     */
-    getVirtualRendererSize : function ()
-    {
-        return cc.Size;
-    },
+    getVirtualRendererSize : function () {
+        if(this._vitualSize){
+            return cc.size(this._vitualSize);
+        }
+        else{
+            return cc.size(this._contentSize);
+        }
+    }
 });

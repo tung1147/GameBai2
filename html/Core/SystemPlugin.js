@@ -22,11 +22,11 @@ var SystemPlugin = (function() {
         },
 
         getDeviceUUID : function () {
-            return "web_test"
+            return "web_test";
         },
 
         getDeviceUUIDWithKey : function (key) {
-
+            return "web_test";
         },
 
         buyIAPItem : function (itemBundle) {

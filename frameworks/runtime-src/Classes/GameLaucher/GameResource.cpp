@@ -9,7 +9,7 @@
 #include <algorithm>
 #include <ostream>
 #include <iostream>
-#include <fstream>
+
 #include "cocos2d.h"
 #include <curl/curl.h>
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)

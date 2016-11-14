@@ -2582,7 +2582,7 @@ cc.game = /** @lends cc.game# */{
                     if(_src){
                         _resPath = /(.*)\//.exec(_src)[0];
                         cc.loader.resPath = _resPath;
-                        _src = cc.path.join(_resPath, 'project.json');
+                        _src = cc.path.join(_resPath, '/project.json');
                     }
                     txt = cc.loader._loadTxtSync(_src);
                 }
