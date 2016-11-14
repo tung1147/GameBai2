@@ -6,7 +6,9 @@ newui.TableView = ccui.ScrollView.extend({
     ctor : function (size, columnCount) {
         this._super();
 
-        this.animationHandler = null;
+        this.animationHandler = null
+        this._parentIsPageView = false;
+        this._checkParentPageView = false;
         this._allItems = [];
         this._padding = 0.0;
         this._marginLeft = 0.0;
@@ -262,6 +264,82 @@ newui.TableView = ccui.ScrollView.extend({
             return new newui.TableView.WebGLRenderCmd(this);
         else
             return new newui.TableView.CanvasRenderCmd(this);
+    },
+    onTouchBegan: function (touch, event) {
+        if (!this._checkParentPageView){
+            if (this._direction == ccui.ScrollView.DIR_VERTICAL){
+                var parent = this.getParent();
+                if (parent instanceof ccui.Layout){
+                    parent = parent.getParent();
+                    if (parent instanceof ccui.PageView){
+                        this._parentIsPageView = true;
+                    }
+                }
+            }
+            this._checkParentPageView = true;
+        }
+
+        if (!this._parentIsPageView){
+            return ccui.ScrollView.prototype.onTouchBegan.call(this,touch,event);
+        }
+
+        this._propagateTouchEvents = true;
+        var bret = ccui.ScrollView.prototype.onTouchBegan.call(this,touch,event);
+        this._propagateTouchEvents = false;
+        if (bret){
+            this._startPoint = touch.getLocation();
+            this._moveThis = false;
+            this._moveParent = false;
+        }
+        return bret;
+    },
+
+    onTouchMoved: function (touch, event) {
+        if (this._parentIsPageView){
+            if (!this._moveThis && !this._moveParent){
+                var p =  cc.pSub(touch.getLocation(), this._startPoint);
+                if (cc.pLength(p) > 10.0){
+                    if (Math.abs(p.x) > Math.abs(p.y)){
+                        this._moveParent = true;
+                    }
+                    else{
+                        this._moveThis = true;
+                    }
+                }
+            }
+
+            if (this._moveThis){
+                ccui.ScrollView.prototype.onTouchMoved.call(this,touch,event);
+            }
+            else if (this._moveParent){
+                this._propagateTouchEvents = true;
+                ccui.Layout.prototype.onTouchMoved.call(this,touch,event);
+                this._propagateTouchEvents = false;
+            }
+        }
+        else{
+            ccui.ScrollView.prototype.onTouchMoved.call(this,touch,event);
+        }
+    },
+    onTouchEnded: function (touch, event) {
+        if (this._parentIsPageView){
+            this._propagateTouchEvents = true;
+            ccui.ScrollView.prototype.onTouchEnded.call(this,touch,event);
+            this._propagateTouchEvents = false;
+        }
+        else{
+            ccui.ScrollView.prototype.onTouchEnded.call(this,touch,event);
+        }
+    },
+    onTouchCancelled: function (touch, event) {
+        if (this._parentIsPageView){
+            this._propagateTouchEvents = true;
+            ccui.ScrollView.prototype.onTouchCancelled.call(this,touch,event);
+            this._propagateTouchEvents = false;
+        }
+        else{
+            ccui.ScrollView.prototype.onTouchCancelled.call(this,touch,event);
+        }
     },
     visit : function (parentCmd) {
         if (!this._visible){
