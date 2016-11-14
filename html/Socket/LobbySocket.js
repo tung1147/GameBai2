@@ -26,44 +26,29 @@ socket.LobbyClient = cc.Class.extend({
         this.wsocket = null;
         this.socketStatus = socket.LobbySocket.NotConnection;
     },
-    connect : function (host, port) {
+    connect : function (url) {
+       // url = "ws://uat1.puppetserver.com:8887/websocket";
         if(this.wsocket){
             this.close();
         }
         this.setSocketStatus(socket.LobbySocket.Connecting);
-
-      //  var url = "ws://" + host + ":" + port;
-        var url = "ws://uat1.puppetserver.com:8887/websocket";
         var wsocket = new WebSocket(url);
         this.wsocket = wsocket;
 
         var thiz = this;
 
         this.wsocket.onopen = function (event) {
-            cc.log("onOpen: "+event.type);
+          //  cc.log("onOpen: "+event.type);
             if(thiz.socketStatus == socket.LobbySocket.Connecting){
                 thiz.setSocketStatus(socket.LobbySocket.Connected);
-
-                //test
-                var message = {
-                    command: "login",
-                    platformId: 4,
-                    bundleId: "bundleId",
-                    version: "1.0.1",
-                    imei: "imei",
-                    type: "normal",
-                    username: "username",
-                    password: "password"
-                };
-                thiz.send(JSON.stringify(message));
             }
         };
         this.wsocket.onmessage = function (event) {
-            cc.log("onmessage: "+event.type);
+          //  cc.log("onmessage: "+event.type);
             thiz.onRecvMessage(event.data);
         };
         this.wsocket.onerror = function (event) {
-            cc.log("onerror: "+event.type+" -- "+wsocket.readyState);
+          //  cc.log("onerror: "+event.type+" -- "+wsocket.readyState);
 
             if(thiz.socketStatus == socket.LobbySocket.Connecting){
                 thiz.setSocketStatus(socket.LobbySocket.ConnectFailure);
@@ -75,8 +60,7 @@ socket.LobbyClient = cc.Class.extend({
         this.wsocket.onclose = function (event) {
             thiz.resetSocket();
             thiz.wsocket = 0;
-
-            cc.log("onclose: "+event.type);
+          //  cc.log("onclose: "+event.type);
             if(thiz.socketStatus == socket.LobbySocket.Connected){
                 thiz.setSocketStatus(socket.LobbySocket.LostConnection);
             }
@@ -104,14 +88,13 @@ socket.LobbyClient = cc.Class.extend({
     setSocketStatus : function (status) {
         this.socketStatus = status;
         if(this.onEvent){
-            cc.log("lobbyStatus: "+socket.LobbySocket.StatusName[this.socketStatus]);
             this.onEvent("socketStatus", socket.LobbySocket.StatusName[this.socketStatus]);
         }
     },
     onRecvMessage : function (data) {
         if(this.onEvent){
-            cc.log("onRecvMessage: "+data);
             this.onEvent("message", data);
+            cc.log("data: "+data);
         }
     },
     send : function (data) {

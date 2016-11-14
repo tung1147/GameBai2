@@ -10,13 +10,13 @@ cc.Label.createWithBMFont = function () {
         return new cc.LabelBMFont(arguments[1], arguments[0]);
     }
     else if(arguments.length == 3){
-        return new cc.LabelBMFont(arguments[1], arguments[0], arguments[2]);
+        return new cc.LabelBMFont(arguments[1], arguments[0], 0, arguments[2]);
     }
     else if(arguments.length == 4){
-        return new cc.LabelBMFont(arguments[1], arguments[0], arguments[2], arguments[3]);
+        return new cc.LabelBMFont(arguments[1], arguments[0], arguments[3], arguments[2]);
     }
     else if(arguments.length == 5){
-        return new cc.LabelBMFont(arguments[1], arguments[0], arguments[2], arguments[3], arguments[4]);
+        return new cc.LabelBMFont(arguments[1], arguments[0], arguments[3], arguments[2], arguments[4]);
     }
 };
 

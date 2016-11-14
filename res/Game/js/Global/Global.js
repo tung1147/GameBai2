@@ -235,20 +235,25 @@ var ApplicationConfig = ApplicationConfig || {};
 ApplicationConfig.VERSION = "1.0.0";
 ApplicationConfig.BUNBLE = "com.gamebai.vip";
 (function () {
-    if(cc.sys.os === cc.sys.OS_IOS){
-        ApplicationConfig.PLATFORM = 1;
-    }
-    else if(cc.sys.os === cc.sys.OS_ANDROID){
-        ApplicationConfig.PLATFORM = 2;
-    }
-    else if(cc.sys.os === cc.sys.OS_WINRT){
-        ApplicationConfig.PLATFORM = 3;
-    }
-    else if(cc.sys.os === cc.sys.OS_WINDOWS){
-        ApplicationConfig.PLATFORM = 3;
+    if(cc.sys.isNative){
+        if(cc.sys.os === cc.sys.OS_IOS){
+            ApplicationConfig.PLATFORM = 1;
+        }
+        else if(cc.sys.os === cc.sys.OS_ANDROID){
+            ApplicationConfig.PLATFORM = 2;
+        }
+        else if(cc.sys.os === cc.sys.OS_WINRT){
+            ApplicationConfig.PLATFORM = 3;
+        }
+        else if(cc.sys.os === cc.sys.OS_WINDOWS){
+            ApplicationConfig.PLATFORM = 3;
+        }
+        else{
+            ApplicationConfig.PLATFORM = 3;
+        }
     }
     else{
-        ApplicationConfig.PLATFORM = 3;
+        ApplicationConfig.PLATFORM = 4;
     }
 })();
 

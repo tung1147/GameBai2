@@ -16,9 +16,9 @@ var rewardItem = cc.Node.extend({
 
         var bg_active = ccui.Scale9Sprite.createWithSpriteFrameName("reward_bg_active.png", cc.rect(28, 28, 1, 1));
         bg_active.setPreferredSize(cc.size(this.widthInPixel + 15, 40 + 15));
-        var fadeIn = cc.FadeIn(0.5, cc.p(0, 0));
-        var faceOut = cc.FadeOut(0.5, cc.p(300, 300));
-        bg_active.runAction(cc.RepeatForever(cc.Sequence(fadeIn, faceOut)));
+        var fadeIn = new cc.FadeIn(0.5, cc.p(0, 0));
+        var faceOut = new cc.FadeOut(0.5, cc.p(300, 300));
+        bg_active.runAction(new cc.RepeatForever(new cc.Sequence(fadeIn, faceOut)));
         this.bg_active = bg_active;
         bg_active.visible = false;
         this.addChild(bg_active);
@@ -349,7 +349,7 @@ var VideoPockerScene = MiniGameScene.extend({
         this.resultLabel = resultLabel;
         this.sceneLayer.addChild(resultLabel);
 
-        var resultIcon = cc.Sprite("#rewardIcon.png");
+        var resultIcon = new cc.Sprite("#rewardIcon.png");
         resultIcon.setPosition(cc.winSize.width / 2 + 100 * cc.winSize.screenScale, resultLabel.getPositionY());
         resultIcon.setScale(1.2);
         this.sceneLayer.addChild(resultIcon);
@@ -408,7 +408,7 @@ var VideoPockerScene = MiniGameScene.extend({
             rewardSprite.setScale(1.05 * cc.winSize.screenScale);
             var fadeIn = new cc.FadeIn(0.5);
             var fadeOut = new cc.FadeOut(0.5);
-            rewardSprite.runAction(cc.RepeatForever(cc.Sequence(fadeIn, fadeOut)));
+            rewardSprite.runAction(new cc.RepeatForever(new cc.Sequence(fadeIn, fadeOut)));
             rewardSprite.visible = false;
             this.cardSprites.push(cardSprite);
             this.rewardCardSprites.push(rewardSprite);
@@ -653,62 +653,6 @@ var VideoPockerScene = MiniGameScene.extend({
         this.sceneLayer.addChild(quayBtmParticle);
 
         //quay particle animation
-        var quayTopFrames = [];
-        for (i = 1; i <= 2; i++) {
-            var str = "quayTopParticle" + i + ".png";
-            var spriteFrame = cc.spriteFrameCache.getSpriteFrame(str);
-            var animFrame = new cc.AnimationFrame();
-            animFrame.initWithSpriteFrame(spriteFrame, 1, null);
-            quayTopFrames.push(animFrame);
-        }
-        var quayTopAnimation = cc.Animation.create(quayTopFrames, 0.2, 2);
-        var qtAction = cc.Animate.create(quayTopAnimation);
-        qtAction.retain();
-        this.quayTopAction = cc.RepeatForever(qtAction);
-        this.quayTopAction.retain();
-
-        var quayBtmFrames = [];
-        for (i = 1; i <= 2; i++) {
-            var str = "quayBtmParticle" + i + ".png";
-            var spriteFrame = cc.spriteFrameCache.getSpriteFrame(str);
-            var animFrame = new cc.AnimationFrame();
-            animFrame.initWithSpriteFrame(spriteFrame, 1, null);
-            quayBtmFrames.push(animFrame);
-        }
-        var quayBtmAnimation = cc.Animation.create(quayBtmFrames, 0.2, 2);
-        var qbAction = cc.Animate.create(quayBtmAnimation);
-        qbAction.retain();
-        this.quayBtmAction = cc.RepeatForever(qbAction);
-        this.quayBtmAction.retain();
-
-        //x2 particle animation
-        var x2TopFrames = [];
-        for (i = 1; i <= 2; i++) {
-            var str = "x2TopParticle" + i + ".png";
-            var spriteFrame = cc.spriteFrameCache.getSpriteFrame(str);
-            var animFrame = new cc.AnimationFrame();
-            animFrame.initWithSpriteFrame(spriteFrame, 1, null);
-            x2TopFrames.push(animFrame);
-        }
-        var x2TopAnimation = cc.Animation.create(x2TopFrames, 0.2, 2);
-        var xtAction = cc.Animate.create(x2TopAnimation);
-        xtAction.retain();
-        this.x2TopAction = cc.RepeatForever(xtAction);
-        this.x2TopAction.retain();
-
-        var x2BtmFrames = [];
-        for (i = 1; i <= 2; i++) {
-            var str = "x2BtmParticle" + i + ".png";
-            var spriteFrame = cc.spriteFrameCache.getSpriteFrame(str);
-            var animFrame = new cc.AnimationFrame();
-            animFrame.initWithSpriteFrame(spriteFrame, 1, null);
-            x2BtmFrames.push(animFrame);
-        }
-        var x2BtmAnimation = cc.Animation.create(x2BtmFrames, 0.2, 2);
-        var xbAction = cc.Animate.create(x2BtmAnimation);
-        xbAction.retain();
-        this.x2BtmAction = cc.RepeatForever(xbAction);
-        this.x2BtmAction.retain();
     },
 
     setQuayBtnState: function (isX2Enabled, isFlashing) {
@@ -717,8 +661,71 @@ var VideoPockerScene = MiniGameScene.extend({
         this.quayTopParticle.stopAllActions();
         this.quayBtmParticle.stopAllActions();
         if (isFlashing) {
-            this.quayTopParticle.runAction(isX2Enabled ? this.x2TopAction : this.quayTopAction);
-            this.quayBtmParticle.runAction(isX2Enabled ? this.x2BtmAction : this.quayBtmAction);
+            if(isX2Enabled){
+                //x2 particle animation
+                var x2TopFrames = [];
+                for (var i = 1; i <= 2; i++) {
+                    var str = "x2TopParticle" + i + ".png";
+                    var spriteFrame = cc.spriteFrameCache.getSpriteFrame(str);
+                    var animFrame = new cc.AnimationFrame();
+                    animFrame.initWithSpriteFrame(spriteFrame, 1, null);
+                    x2TopFrames.push(animFrame);
+                }
+                var x2TopAnimation = cc.Animation.create(x2TopFrames, 0.2, 2);
+                var xtAction = cc.Animate.create(x2TopAnimation);
+              //  xtAction.retain();
+                var x2TopAction = new cc.RepeatForever(xtAction);
+               // this.x2TopAction.retain();
+
+                var x2BtmFrames = [];
+                for (var i = 1; i <= 2; i++) {
+                    var str = "x2BtmParticle" + i + ".png";
+                    var spriteFrame = cc.spriteFrameCache.getSpriteFrame(str);
+                    var animFrame = new cc.AnimationFrame();
+                    animFrame.initWithSpriteFrame(spriteFrame, 1, null);
+                    x2BtmFrames.push(animFrame);
+                }
+                var x2BtmAnimation = cc.Animation.create(x2BtmFrames, 0.2, 2);
+                var xbAction = cc.Animate.create(x2BtmAnimation);
+                //xbAction.retain();
+                var x2BtmAction = new cc.RepeatForever(xbAction);
+                //this.x2BtmAction.retain();
+
+                this.quayTopParticle.runAction(x2TopAction);
+                this.quayBtmParticle.runAction(x2BtmAction);
+            }
+            else{
+                var quayTopFrames = [];
+                for (i = 1; i <= 2; i++) {
+                    var str = "quayTopParticle" + i + ".png";
+                    var spriteFrame = cc.spriteFrameCache.getSpriteFrame(str);
+                    var animFrame = new cc.AnimationFrame();
+                    animFrame.initWithSpriteFrame(spriteFrame, 1, null);
+                    quayTopFrames.push(animFrame);
+                }
+                var quayTopAnimation = cc.Animation.create(quayTopFrames, 0.2, 2);
+                var qtAction = cc.Animate.create(quayTopAnimation);
+                //qtAction.retain();
+                var quayTopAction = new cc.RepeatForever(qtAction);
+                //this.quayTopAction.retain();
+
+                var quayBtmFrames = [];
+                for (var i = 1; i <= 2; i++) {
+                    var str = "quayBtmParticle" + i + ".png";
+                    var spriteFrame = cc.spriteFrameCache.getSpriteFrame(str);
+                    var animFrame = new cc.AnimationFrame();
+                    animFrame.initWithSpriteFrame(spriteFrame, 1, null);
+                    quayBtmFrames.push(animFrame);
+                }
+                var quayBtmAnimation = cc.Animation.create(quayBtmFrames, 0.2, 2);
+                var qbAction = cc.Animate.create(quayBtmAnimation);
+                //qbAction.retain();
+                var quayBtmAction = new cc.RepeatForever(qbAction);
+              //  this.quayBtmAction.retain();
+
+                 this.quayTopParticle.runAction(quayTopAction);
+                 this.quayBtmParticle.runAction(quayBtmAction);
+            }
         }
     },
     updateRewardFund: function () {

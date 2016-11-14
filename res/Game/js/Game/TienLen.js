@@ -29,19 +29,19 @@ var TienLen = IGameScene.extend({
         //test
     },
     initButton: function () {
-        var danhbaiBt = ccui.Button("game-danhbaiBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        var danhbaiBt = new ccui.Button("game-danhbaiBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
         danhbaiBt.setPosition(cc.winSize.width - 510, 50);
         this.sceneLayer.addChild(danhbaiBt);
 
-        var xepBaiBt = ccui.Button("game-xepbaiBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        var xepBaiBt = new ccui.Button("game-xepbaiBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
         xepBaiBt.setPosition(cc.winSize.width - 310, danhbaiBt.y);
         this.sceneLayer.addChild(xepBaiBt);
 
-        var boluotBt = ccui.Button("game-boluotBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        var boluotBt = new ccui.Button("game-boluotBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
         boluotBt.setPosition(cc.winSize.width - 110, danhbaiBt.y);
         this.sceneLayer.addChild(boluotBt);
 
-        var startBt = ccui.Button("game-startBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        var startBt = new ccui.Button("game-startBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
         startBt.setPosition(boluotBt.getPosition());
         this.sceneLayer.addChild(startBt);
 

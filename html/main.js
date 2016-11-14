@@ -52,6 +52,45 @@
  *
  */
 
+var quyetnd = quyetnd || {};
+quyetnd.sys = quyetnd.sys || {};
+var _resumeMethod = function () {
+    var _listener1 = cc.EventListener.create({
+        event: cc.EventListener.CUSTOM,
+        eventName: "game_on_hide",
+        callback: function(event){
+            cc.log("game_on_hide: " + Date.now());
+            quyetnd.sys.lastRunningTime = Date.now();
+        }
+    });
+
+    var _listener2 = cc.EventListener.create({
+        event: cc.EventListener.CUSTOM,
+        eventName: "game_on_show",
+        callback: function(event){
+            if(quyetnd.sys.lastRunningTime){
+                var dt = (Date.now() - quyetnd.sys.lastRunningTime) / 1000.0;
+                cc.log("game_on_show: " + dt);
+                var frame_time = 1.0/ 60.0;
+
+                while(dt > 0){
+                    if(dt > frame_time){
+                        cc.director.getScheduler().update(frame_time);
+                    }
+                    else{
+                        cc.director.getScheduler().update(dt);
+                    }
+                    dt -= frame_time;
+                }
+            }
+        }
+    });
+
+    cc.eventManager.addListener(_listener1, -1);
+    cc.eventManager.addListener(_listener2, -1);
+};
+
+
 cc.game.onStart = function(){
     if(!cc.sys.isNative && document.getElementById("cocosLoading")) //If referenced loading.js, please remove it
         document.body.removeChild(document.getElementById("cocosLoading"));
@@ -60,6 +99,7 @@ cc.game.onStart = function(){
     cc.view.enableRetina(cc.sys.os === cc.sys.OS_IOS ? true : false);
     // Adjust viewport meta
     cc.view.adjustViewPort(true);
+
     // Setup the resolution policy and design resolution size;
     var frameSize = cc.view.getFrameSize();
     var designHeight = 720.0;
@@ -83,7 +123,7 @@ cc.game.onStart = function(){
     // cc.LoaderScene.preload(g_resources, function () {
     //     cc.director.runScene(new HelloWorldScene());
     // }, this);
-
+    _resumeMethod();
     cc.director.runScene(new LoadingScene());
 };
 cc.game.run();

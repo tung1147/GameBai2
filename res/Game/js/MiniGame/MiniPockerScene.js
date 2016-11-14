@@ -275,7 +275,7 @@ var MiniPokerScene = MiniGameScene.extend({
             rewardSprite.setScale(1.05 / 1.5);
             var fadeIn = new cc.FadeIn(0.5);
             var fadeOut = new cc.FadeOut(0.5);
-            rewardSprite.runAction(cc.RepeatForever(cc.Sequence(fadeIn, fadeOut)));
+            rewardSprite.runAction(new cc.RepeatForever(new cc.Sequence(fadeIn, fadeOut)));
             // rewardSprite.visible = false;
             this.cardSprites.push(cardSprite);
             this.rewardCardSprites.push(rewardSprite);
@@ -537,41 +537,43 @@ var MiniPokerScene = MiniGameScene.extend({
         quayBtmParticle.setScale(4 / 5);
         this.quayBtmParticle = quayBtmParticle;
         this.sceneLayer.addChild(quayBtmParticle);
-
-        var quayTopFrames = [];
-        for (i = 1; i <= 2; i++) {
-            var str = "quayTopParticle" + i + ".png";
-            var spriteFrame = cc.spriteFrameCache.getSpriteFrame(str);
-            var animFrame = new cc.AnimationFrame();
-            animFrame.initWithSpriteFrame(spriteFrame, 1, null);
-            quayTopFrames.push(animFrame);
-        }
-        var quayTopAnimation = cc.Animation.create(quayTopFrames, 0.2, 2);
-        var qtAction = cc.Animate.create(quayTopAnimation);
-        qtAction.retain();
-        this.quayTopAction = cc.RepeatForever(qtAction);
-        this.quayTopAction.retain();
-
-        var quayBtmFrames = [];
-        for (i = 1; i <= 2; i++) {
-            var str = "quayBtmParticle" + i + ".png";
-            var spriteFrame = cc.spriteFrameCache.getSpriteFrame(str);
-            var animFrame = new cc.AnimationFrame();
-            animFrame.initWithSpriteFrame(spriteFrame, 1, null);
-            quayBtmFrames.push(animFrame);
-        }
-        var quayBtmAnimation = cc.Animation.create(quayBtmFrames, 0.2, 2);
-        var qbAction = cc.Animate.create(quayBtmAnimation);
-        qbAction.retain();
-        this.quayBtmAction = cc.RepeatForever(qbAction);
-        this.quayBtmAction.retain();
     },
     setFlashing: function (isFlashing) {
         this.quayTopParticle.stopAllActions();
         this.quayBtmParticle.stopAllActions();
         if (isFlashing) {
-            this.quayTopParticle.runAction(this.quayTopAction);
-            this.quayBtmParticle.runAction(this.quayBtmAction);
+
+            var quayTopFrames = [];
+            for (var i = 1; i <= 2; i++) {
+                var str = "quayTopParticle" + i + ".png";
+                var spriteFrame = cc.spriteFrameCache.getSpriteFrame(str);
+                var animFrame = new cc.AnimationFrame();
+                animFrame.initWithSpriteFrame(spriteFrame, 1, null);
+                quayTopFrames.push(animFrame);
+            }
+            var quayTopAnimation = cc.Animation.create(quayTopFrames, 0.2, 2);
+
+            var qtAction = cc.Animate.create(quayTopAnimation);
+            //qtAction.retain();
+            this.quayTopAction = new cc.RepeatForever(qtAction);
+          //  this.quayTopAction.retain();
+
+            var quayBtmFrames = [];
+            for (var i = 1; i <= 2; i++) {
+                var str = "quayBtmParticle" + i + ".png";
+                var spriteFrame = cc.spriteFrameCache.getSpriteFrame(str);
+                var animFrame = new cc.AnimationFrame();
+                animFrame.initWithSpriteFrame(spriteFrame, 1, null);
+                quayBtmFrames.push(animFrame);
+            }
+            var quayBtmAnimation = cc.Animation.create(quayBtmFrames, 0.2, 2);
+            var qbAction = cc.Animate.create(quayBtmAnimation);
+           // qbAction.retain();
+            var quayBtmAction = new cc.RepeatForever(qbAction);
+           // this.quayBtmAction.retain();
+
+            this.quayTopParticle.runAction(quayTopAction);
+            this.quayBtmParticle.runAction(quayBtmAction);
         }
     },
     updateRewardFund: function () {

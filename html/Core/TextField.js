@@ -10,11 +10,31 @@ var newui = newui || {};
 //
 // };
 
+// newui.TextField = ccui.TextField;
+// newui.TextField.prototype.setAlignment = function () {
+//
+// };
+//
+// newui.TextField.prototype.setReturnCallback = function () {
+//
+// };
+//
+// newui.TextField.prototype.setPasswordEnable = function (isPassword) {
+//     ccui.TextField.prototype.setPasswordEnabled(isPassword);
+// };
+//
+// newui.TextField.prototype._ctor = function () {
+//     ccui.TextField.prototype.ctor.call(this, "placehold",cc.res.font.Roboto_Condensed, 30);
+// };
 
-newui.TextField = cc.Node.extend({
+newui.TextField = ccui.TextField.extend({
     ctor : function () {
-        this._super()
-       // this.init();
+        ccui.Widget.prototype.ctor.call(this);
+        this.init();
+        this.setTouchEnabled(true);
+        this.setFontName(cc.res.font.Roboto_Condensed);
+        this.setFontSize(30);
+        this.setPlaceHolder("placeholder");
     },
 
     /**
@@ -23,17 +43,17 @@ newui.TextField = cc.Node.extend({
      */
     setPasswordEnable : function (bool)
     {
-
+        this.setPasswordEnabled(bool);
     },
-
-    /**
-     * @method setText
-     * @param {String} arg0
-     */
-    setText : function (str)
-    {
-
-    },
+    //
+    // /**
+    //  * @method setText
+    //  * @param {String} arg0
+    //  */
+    // setText : function (str)
+    // {
+    //
+    // },
 
     /**
      * @method setReturnCallback
@@ -49,7 +69,7 @@ newui.TextField = cc.Node.extend({
      */
     getText : function ()
     {
-        return "";
+        return this.getString();
     },
 
     /**
@@ -62,21 +82,21 @@ newui.TextField = cc.Node.extend({
     {
     },
 
-    /**
-     * @method setMaxLength
-     * @param {int} arg0
-     */
-    setMaxLength : function (int)
-    {
-    },
-
-    /**
-     * @method setPlaceHolder
-     * @param {String} arg0
-     */
-    setPlaceHolder : function (str)
-    {
-    },
+    // /**
+    //  * @method setMaxLength
+    //  * @param {int} arg0
+    //  */
+    // setMaxLength : function (int)
+    // {
+    // },
+    //
+    // /**
+    //  * @method setPlaceHolder
+    //  * @param {String} arg0
+    //  */
+    // setPlaceHolder : function (str)
+    // {
+    // },
 
     /**
      * @method initWithTTFFont
@@ -98,22 +118,22 @@ newui.TextField = cc.Node.extend({
     {
     },
 
-    /**
-     * @method setPlaceHolderColor
-     * @param {color4b_object|color3b_object} color4b
-     */
-    setPlaceHolderColor : function(color3b)
-    {
-    },
-
-    /**
-     * @method setTextColor
-     * @param {color4b_object|color3b_object} color4b
-     */
-    setTextColor : function(color3b)
-    {
-
-    },
+    // /**
+    //  * @method setPlaceHolderColor
+    //  * @param {color4b_object|color3b_object} color4b
+    //  */
+    // setPlaceHolderColor : function(color3b)
+    // {
+    // },
+    //
+    // /**
+    //  * @method setTextColor
+    //  * @param {color4b_object|color3b_object} color4b
+    //  */
+    // setTextColor : function(color3b)
+    // {
+    //
+    // },
 
     /**
      * @method showKeyboard

@@ -232,7 +232,7 @@ var CaoThapScene = MiniGameScene.extend({
         this.huThuongValueLabel = huThuongValueLabel;
         this.sceneLayer.addChild(huThuongValueLabel);
 
-        var huThuongValueIcon = cc.Sprite("#ingame-goldIcon.png");
+        var huThuongValueIcon = new cc.Sprite("#ingame-goldIcon.png");
         huThuongValueIcon.setPosition(100, 460);
         huThuongValueIcon.setScale(1.4);
         this.sceneLayer.addChild(huThuongValueIcon);
@@ -272,7 +272,7 @@ var CaoThapScene = MiniGameScene.extend({
         this.highValueLabel = highValueLabel;
         this.sceneLayer.addChild(highValueLabel);
 
-        var highTip = cc.Sprite("#klacaonhat.png");
+        var highTip = new cc.Sprite("#klacaonhat.png");
         highTip.setPosition(highValueLabel.getPositionX(), highValueLabel.getPositionY() - 40);
         this.sceneLayer.addChild(highTip);
 
@@ -289,7 +289,7 @@ var CaoThapScene = MiniGameScene.extend({
         this.lowValueLabel = lowValueLabel;
         this.sceneLayer.addChild(lowValueLabel);
 
-        var lowTip = cc.Sprite("#alathapnhat.png");
+        var lowTip = new cc.Sprite("#alathapnhat.png");
         lowTip.setPosition(lowValueLabel.getPositionX(), highTip.getPositionY());
         this.sceneLayer.addChild(lowTip);
 

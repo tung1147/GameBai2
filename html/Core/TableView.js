@@ -133,15 +133,15 @@ newui.TableView = ccui.ScrollView.extend({
     },
     getRowItems :function(rowIndex){
         var items = [];
-        if(this._direction == ccui.ScrollView.DIR_HORIZONTAL){
+        if(this._direction == ccui.ScrollView.DIR_VERTICAL){
             for(var i=0;i<this._columnCount;i++){
                 items.push(this._allItems[rowIndex*this._columnCount + i]);
             }
         }
         else{
             var col = Math.floor(this._allItems.length / this._columnCount);
-            for(var i=rowIndex; i<col; i+= this._columnCount){
-                items.push(this._allItems[i]);
+            for(var i=0; i<col; i++){
+                items.push(this._allItems[rowIndex + i * this._columnCount]);
             }
         }
 
@@ -155,6 +155,10 @@ newui.TableView = ccui.ScrollView.extend({
 
         var row = this._columnCount;
         if(this._direction == ccui.ScrollView.DIR_HORIZONTAL){
+            var col = Math.floor(this._allItems.length / this._columnCount);
+            row = Math.floor(this._allItems.length / col);
+        }
+        else{
             row = Math.floor(this._allItems.length / this._columnCount);
         }
 
@@ -189,20 +193,9 @@ newui.TableView = ccui.ScrollView.extend({
                     })));
                 })(item);
 
-                if(this._direction == ccui.ScrollView.DIR_VERTICAL){
-                    delayTime1 += delayPerColumn;
-                }
-                else{
-                    delayTime1 += delayPerRow;
-                }
+                delayTime1 += delayPerColumn;
             }
-
-            if(this._direction == ccui.ScrollView.DIR_VERTICAL){
-                delayTime2 += delayPerRow;
-            }
-            else{
-                delayTime2 += delayPerColumn;
-            }
+            delayTime2 += delayPerRow;
         }
 
         var thiz = this;

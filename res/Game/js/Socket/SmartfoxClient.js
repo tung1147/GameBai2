@@ -142,7 +142,13 @@ var SmartfoxClient = (function () {
             if (this.sfsSocket) {
                 this.currentHost = host;
                 this.currentPort = port;
-                this.sfsSocket.connect(host, port);
+                if(cc.sys.isNative){
+                    this.sfsSocket.connect(host, port);
+                }
+                else{
+                    var url = "ws://" + host + ":" + port + "/websocket";
+                    this.sfsSocket.connect(url);
+                }
             }
         },
         onEvent: function (eventName) {

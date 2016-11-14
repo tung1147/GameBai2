@@ -15,7 +15,12 @@ var LobbyClient = (function () {
             } else {
                 this.allListener = {};
                 this.host = "uat1.puppetserver.com";
-                this.port = 9999;
+                if(cc.sys.isNative){
+                    this.port = 9999;
+                }
+                else{
+                    this.port = 8887;
+                }
                 this.isKicked = false;
                 this.lobbySocket = new socket.LobbyClient(socket.LobbyClient.TCP);
                 this.loginHandler = null;
@@ -53,7 +58,14 @@ var LobbyClient = (function () {
         connect: function () {
             if (this.lobbySocket) {
                 this.isKicked = false;
-                this.lobbySocket.connect(this.host, this.port);
+                if(cc.sys.isNative){
+                    this.lobbySocket.connect(this.host, this.port);
+                }
+                else{
+                    var url = "ws://" + this.host + ":" + this.port + "/websocket";
+                    this.lobbySocket.connect(url);
+                }
+
             }
         },
         onEvent: function (messageName, data) {
@@ -133,7 +145,12 @@ var LobbyClient = (function () {
                 if (this.betting == data.betting) {
                     PlayerMe.SFS.betting = data.betting;
                     PlayerMe.gameType = data.gameType;
-                    SmartfoxClient.getInstance().findAndJoinRoom(data.host, data.port);
+                    if(cc.sys.isNative){
+                        SmartfoxClient.getInstance().findAndJoinRoom(data.host, data.port);
+                    }
+                    else{
+                        SmartfoxClient.getInstance().findAndJoinRoom(data.host, data.webSocketPort);
+                    }
                 }
             }
             else if (command === "verifyCode") {
