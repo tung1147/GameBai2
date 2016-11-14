@@ -8,105 +8,12 @@
 
 
 var img_texture = img_texture || [
-        "res/avatar.plist",
-        "res/bg-minigame-1.png",
-        "res/bg_xocdia.png",
-        "res/bigsmall_bg.png",
-        "res/CaoThap.plist",
-        "res/CaoThap.png",
-        "res/Card.plist",
-        "res/Card.png",
-        "res/data/LevelData.json",
-        "res/data/VipData.json",
-        "res/dialog.plist",
-        "res/dialog.png",
-        "res/effectMini.plist",
-        "res/effectMini.png",
-        "res/FloatButton.plist",
-        "res/FloatButton.png",
-        "res/fonts/bigsmall_number_font.fnt",
-        "res/fonts/bigsmall_number_font.png",
-        "res/fonts/game-result-font1.fnt",
-        "res/fonts/game-result-font1.png",
-        "res/fonts/game-result-font2.fnt",
-        "res/fonts/game-result-font2.png",
-        "res/fonts/minigame-number-1.fnt",
-        "res/fonts/minigame-number-1.png",
-        "res/fonts/Roboto-BoldCondensed.ttf",
-        "res/fonts/Roboto-Condensed.ttf",
-        "res/fonts/RobotoBoldCondensed_25.fnt",
-        "res/fonts/RobotoBoldCondensed_25.png",
-        "res/fonts/RobotoBoldCondensed_30.fnt",
-        "res/fonts/RobotoBoldCondensed_30.png",
-        "res/fonts/RobotoBoldCondensed_40.fnt",
-        "res/fonts/RobotoBoldCondensed_40.png",
-        "res/fonts/RobotoCondensed_25.fnt",
-        "res/fonts/RobotoCondensed_25.png",
-        "res/fonts/RobotoCondensed_30.fnt",
-        "res/fonts/RobotoCondensed_30.png",
-        "res/fonts/Roboto_BoldCondensed_36_Glow.fnt",
-        "res/fonts/Roboto_BoldCondensed_36_Glow.png",
-        "res/fonts/UTM-AvoBold.ttf",
-        "res/fonts/UTMAvoBold_25.fnt",
-        "res/fonts/UTMAvoBold_25.png",
-        "res/fonts/UTMAvoBold_30.fnt",
-        "res/fonts/UTMAvoBold_30.png",
-        "res/fonts/UTMAvoBold_40.fnt",
-        "res/fonts/UTMAvoBold_40.png",
-        "res/fonts/videoPokerRewardFont.fnt",
-        "res/fonts/videoPokerRewardFont.png",
-        "res/game-bg.jpg",
-        "res/GameList.plist",
-        "res/GameList.png",
-        "res/gamemini.plist",
-        "res/gamemini.png",
-        "res/GameScene.plist",
-        "res/GameScene.png",
-        "res/gold-icon.png",
-        "res/gp_table.png",
-        "res/HDList.plist",
-        "res/hilo_bg.png",
-        "res/home.plist",
-        "res/home.png",
-        "res/lobby.plist",
-        "res/lobby.png",
-        "res/MiniPoker.plist",
-        "res/MiniPoker.png",
-        "res/mnpk_bg.png",
-        "res/Sound/bellopen.mp3",
-        "res/Sound/call2.mp3",
-        "res/Sound/chia_bai.mp3",
-        "res/Sound/chuyen_view.mp3",
-        "res/Sound/danh_bai.mp3",
-        "res/Sound/end_vongquay.mp3",
-        "res/Sound/join_room.mp3",
-        "res/Sound/losing.mp3",
-        "res/Sound/lucky_wheel.mp3",
-        "res/Sound/multichip.mp3",
-        "res/Sound/open_card.mp3",
-        "res/Sound/singlechip.mp3",
-        "res/Sound/winning.mp3",
-        "res/videopoker.plist",
-        "res/videopoker.png",
-        "res/VongQuay.plist",
-        "res/VongQuay.png"
+
 ];
 
 var s_frame_cache = [
-    {plist:"res/VongQuay.plist",img:"res/VongQuay.png"},
-    {plist:"res/videopoker.plist",img:"res/videopoker.png"},
-    {plist:"res/MiniPoker.plist",img:"res/MiniPoker.png"},
-    {plist:"res/lobby.plist",img:"res/lobby.png"},
-    {plist:"res/home.plist",img:"res/home.png"},
-    {plist:"res/GameScene.plist",img:"res/GameScene.png"},
-    {plist:"res/gamemini.plist",img:"res/gamemini.png"},
-    {plist:"res/GameList.plist",img:"res/GameList.png"},
-    {plist:"res/FloatButton.plist",img:"res/FloatButton.png"},
-    {plist:"res/effectMini.plist",img:"res/effectMini.png"},
-    {plist:"res/Card.plist",img:"res/Card.png"},
-    {plist:"res/dialog.plist",img:"res/dialog.png"},
-    {plist:"res/CaoThap.plist", img:"res/CaoThap.png"}
-]
+
+];
 
 // var g_resources =  g_resources || [];
 // for (var i in res) {
@@ -174,6 +81,6 @@ var LoadingScene = cc.Scene.extend({
         this.nextScene();
     },
     nextScene : function () {
-        cc.director.replaceScene(new HomeScene());
+        cc.director.replaceScene(new HelloWorldScene());
     }
 });
