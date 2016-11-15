@@ -81,4 +81,53 @@ var s_resource = s_resource || [
 	"res/videopoker.png",
 	"res/VongQuay.plist",
 	"res/VongQuay.png"
-]
+];
+
+var s_texture = s_texture || [
+	{src:"res/CaoThap.png",plist:"res/CaoThap.plist"},
+	{src:"res/Card.png",plist:"res/Card.plist"},
+	{src:"res/dialog.png",plist:"res/dialog.plist"},
+	{src:"res/effectMini.png",plist:"res/effectMini.plist"},
+	{src:"res/FloatButton.png",plist:"res/FloatButton.plist"},
+	{src:"res/GameList.png",plist:"res/GameList.plist"},
+	{src:"res/gamemini.png",plist:"res/gamemini.plist"},
+	{src:"res/GameScene.png",plist:"res/GameScene.plist"},
+	{src:"res/home.png",plist:"res/home.plist"},
+	{src:"res/lobby.png",plist:"res/lobby.plist"},
+	{src:"res/MiniPoker.png",plist:"res/MiniPoker.plist"},
+	{src:"res/videopoker.png",plist:"res/videopoker.plist"},
+	{src:"res/VongQuay.png",plist:"res/VongQuay.plist"}
+];
+
+var s_bitmap_font = s_bitmap_font || [
+	{src:"res/fonts/bigsmall_number_font.png",fnt:"res/fonts/bigsmall_number_font.fnt"},
+	{src:"res/fonts/game-result-font1.png",fnt:"res/fonts/game-result-font1.fnt"},
+	{src:"res/fonts/game-result-font2.png",fnt:"res/fonts/game-result-font2.fnt"},
+	{src:"res/fonts/minigame-number-1.png",fnt:"res/fonts/minigame-number-1.fnt"},
+	{src:"res/fonts/RobotoBoldCondensed_25.png",fnt:"res/fonts/RobotoBoldCondensed_25.fnt"},
+	{src:"res/fonts/RobotoBoldCondensed_30.png",fnt:"res/fonts/RobotoBoldCondensed_30.fnt"},
+	{src:"res/fonts/RobotoBoldCondensed_40.png",fnt:"res/fonts/RobotoBoldCondensed_40.fnt"},
+	{src:"res/fonts/RobotoCondensed_25.png",fnt:"res/fonts/RobotoCondensed_25.fnt"},
+	{src:"res/fonts/RobotoCondensed_30.png",fnt:"res/fonts/RobotoCondensed_30.fnt"},
+	{src:"res/fonts/Roboto_BoldCondensed_36_Glow.png",fnt:"res/fonts/Roboto_BoldCondensed_36_Glow.fnt"},
+	{src:"res/fonts/UTMAvoBold_25.png",fnt:"res/fonts/UTMAvoBold_25.fnt"},
+	{src:"res/fonts/UTMAvoBold_30.png",fnt:"res/fonts/UTMAvoBold_30.fnt"},
+	{src:"res/fonts/UTMAvoBold_40.png",fnt:"res/fonts/UTMAvoBold_40.fnt"},
+	{src:"res/fonts/videoPokerRewardFont.png",fnt:"res/fonts/videoPokerRewardFont.fnt"},
+];
+
+var s_sound = s_sound || [
+	"res/Sound/bellopen.mp3",
+	"res/Sound/call2.mp3",
+	"res/Sound/chia_bai.mp3",
+	"res/Sound/chuyen_view.mp3",
+	"res/Sound/danh_bai.mp3",
+	"res/Sound/end_vongquay.mp3",
+	"res/Sound/join_room.mp3",
+	"res/Sound/losing.mp3",
+	"res/Sound/lucky_wheel.mp3",
+	"res/Sound/multichip.mp3",
+	"res/Sound/open_card.mp3",
+	"res/Sound/singlechip.mp3",
+	"res/Sound/winning.mp3"
+];
