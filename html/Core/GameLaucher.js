@@ -51,6 +51,8 @@ var GameLaucher = cc.Class.extend({
         }
     },
     updateLoadResources : function (dt) {
+        this.setStatus(LaucherStatus.OnWaitingLoadResources);
+
         var thiz = this;
         cc.loader.load(s_resource,
         function (result, count, loadedCount) {
@@ -62,8 +64,6 @@ var GameLaucher = cc.Class.extend({
             thiz.itemLoaded = 0;
             thiz.setStatus(LaucherStatus.OnLoadTexture);
         });
-
-        this.setStatus(LaucherStatus.OnWaitingLoadResources);
     },
     updateLoadTexture : function (dt) {
         if(this.itemLoaded >= s_texture.length){
