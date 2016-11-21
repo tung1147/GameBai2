@@ -21,7 +21,12 @@ var LoadingScene = cc.Scene.extend({
 
     onEnter : function () {
         this._super();
-        cc.loader.resPath = "res/Game";
+        if(cc.game.CC_DEBUG_ENABLE){
+            cc.loader.resPath = "res/Game";
+        }
+        else{
+            cc.loader.resPath = "";
+        }
         this.schedule(this.startLoadResources, 0.3);
     },
     onExit : function () {
