@@ -2079,6 +2079,7 @@ function _getJsListOfModule(moduleMap, moduleName, dir) {
 }
 
 function _afterEngineLoaded(config) {
+    cc.game.CC_DEBUG_ENABLE = (config[cc.game.CONFIG_KEY.debugMode] != cc.game.DEBUG_MODE_NONE);
     if (cc._initDebugSetting)
         cc._initDebugSetting(config[cc.game.CONFIG_KEY.debugMode]);
     cc._engineLoaded = true;
