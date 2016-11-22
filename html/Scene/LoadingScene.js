@@ -45,9 +45,11 @@ var LoadingScene = cc.Scene.extend({
 
     updateLoadResources : function (current, target) {
         cc.log("updateLoadResources: "+current +"/"+target);
+        this.title.setString("Đang tải "+current + "/"+target);
     },
     updateLoadTexture : function (current, target) {
         cc.log("updateLoadTexture: "+current +"/"+target);
+        this.title.setString("Đang tải tài nguyên "+current + "/"+target);
     },
     onUpdateStatus : function (status) {
         cc.log("onUpdateStatus: "+status);
