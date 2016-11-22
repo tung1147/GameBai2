@@ -128,6 +128,7 @@ cc._fontLoader = {
         if(cc.isString(res)){
             type = cc.path.extname(res);
             name = cc.path.basename(res, type);
+            /* mod by quyetnd */
             //self._loadFont(name, res, type);
             self._loadFont(name, realUrl, type);
         }else{
