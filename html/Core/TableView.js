@@ -20,6 +20,8 @@ newui.TableView = ccui.ScrollView.extend({
         this._columnCount = columnCount;
 
         this.setContentSize(size);
+        this.setBounceEnabled(true);
+        this.setScrollBarEnabled(false);
     },
 
     setPadding : function (padding) {
