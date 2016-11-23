@@ -54,13 +54,18 @@ var Card = cc.Sprite.extend({
             this.runAction(new cc.Sequence(beforeMove,move,afterMove));
         }
     },
-    setSelected : function (selected) {
+    setSelected : function (selected, force) {
+        if(force){
+            this.stopAllActions();
+            this.setPosition(this.origin);
+        }
         if(selected){
             this.y = this.origin.y + 50;
         }
         else {
             this.y = this.origin.y;
         }
+
     },
     isSelected : function () {
         return (this.y > this.origin.y);
