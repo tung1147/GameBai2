@@ -48,6 +48,13 @@ s_sfs_error_msg[5] = "Bạn không thể bỏ lượt";
 s_sfs_error_msg[6] = "Người chơi chưa sẵn sàng";
 s_sfs_error_msg[7] = "Bạn chưa đến lượt";
 s_sfs_error_msg[8] = "Bạn không có 4 đôi thông";
+s_sfs_error_msg[9] = "Bạn không có đủ tiền";
+
+/*PHOM*/
+s_sfs_error_msg[61] = "Không thể ăn bài";
+s_sfs_error_msg[62] = "Không thể hạ bài";
+s_sfs_error_msg[63] = "Không thể gửi bài";
+s_sfs_error_msg[64] = "Không thể bốc bài";
 
 var IGameScene = IScene.extend({
     ctor : function () {
@@ -93,7 +100,7 @@ var IGameScene = IScene.extend({
         this.exitToLobby();
     },
     backButtonClickHandler : function () {
-        SmartfoxClient.getInstance().sendExtensionRequest(PlayerMe.SFS.roomId,"quitRoom", null);
+        SmartfoxClient.getInstance().sendExtensionRequest(PlayerMe.SFS.roomId,"19", null);
     },
     exitToLobby : function () {
         var homeScene = new HomeScene();
@@ -276,5 +283,5 @@ var IGameScene = IScene.extend({
             }
         }
         this.updateOwner(ownerPlayer);
-    },
+    }
 });

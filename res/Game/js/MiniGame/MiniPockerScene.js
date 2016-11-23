@@ -555,7 +555,7 @@ var MiniPokerScene = MiniGameScene.extend({
 
             var qtAction = cc.Animate.create(quayTopAnimation);
             //qtAction.retain();
-            this.quayTopAction = new cc.RepeatForever(qtAction);
+            var quayTopAction = new cc.RepeatForever(qtAction);
           //  this.quayTopAction.retain();
 
             var quayBtmFrames = [];

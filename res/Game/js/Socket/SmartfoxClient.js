@@ -278,7 +278,8 @@ var SmartfoxClient = (function () {
                     }
                     else if (gameType == "sam_tudo" || gameType == "sam_solo")
                         gameScene = new Sam();
-
+                    else if (gameType == "Phom")
+                        gameScene = new Phom();
                     if (gameScene) {
                         LoadingDialog.getInstance().hide();
                         cc.director.replaceScene(new cc.TransitionFade(0.5, gameScene, cc.color("#000000")));
@@ -299,6 +300,9 @@ var SmartfoxClient = (function () {
                     }
                     else if (gameType == "sam_tudo" || gameType == "sam_solo")
                         gameScene = new Sam();
+                    else if (gameType == "Phom"){
+                        gameScene = new Phom();
+                    }
                     if (gameScene) {
                         cc.director.replaceScene(gameScene);
                     }

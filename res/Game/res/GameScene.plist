@@ -4,10 +4,38 @@
 	<dict>
 		<key>frames</key>
 		<dict>
+			<key>game-anbaiBt.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{181,382},{180,68}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{0,0},{180,68}}</string>
+				<key>sourceSize</key>
+				<string>{180,68}</string>
+			</dict>
+
 			<key>game-baosamBt.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{0,228},{180,68}}</string>
+				<string>{{0,382},{180,68}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{0,0},{180,68}}</string>
+				<key>sourceSize</key>
+				<string>{180,68}</string>
+			</dict>
+
+			<key>game-bocbaiBt.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,313},{180,68}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
@@ -21,13 +49,13 @@
 			<key>game-boluotBt.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{0,21},{180,68}}</string>
+				<string>{{0,94},{184,72}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
 				<false/>
 				<key>sourceColorRect</key>
-				<string>{{2,2},{180,68}}</string>
+				<string>{{0,0},{184,72}}</string>
 				<key>sourceSize</key>
 				<string>{184,72}</string>
 			</dict>
@@ -35,21 +63,49 @@
 			<key>game-danhbaiBt.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{0,366},{180,68}}</string>
+				<string>{{0,21},{184,72}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
 				<false/>
 				<key>sourceColorRect</key>
-				<string>{{2,2},{180,68}}</string>
+				<string>{{0,0},{184,72}}</string>
 				<key>sourceSize</key>
 				<string>{184,72}</string>
+			</dict>
+
+			<key>game-guibaiBt.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{181,313},{180,68}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{0,0},{180,68}}</string>
+				<key>sourceSize</key>
+				<string>{180,68}</string>
+			</dict>
+
+			<key>game-habaiBt.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,451},{180,68}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{0,0},{180,68}}</string>
+				<key>sourceSize</key>
+				<string>{180,68}</string>
 			</dict>
 
 			<key>game-huysamBt.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{0,297},{180,68}}</string>
+				<string>{{0,520},{180,68}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
@@ -63,27 +119,41 @@
 			<key>game-startBt.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{0,90},{180,68}}</string>
+				<string>{{0,167},{184,72}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
 				<false/>
 				<key>sourceColorRect</key>
-				<string>{{2,2},{180,68}}</string>
+				<string>{{0,0},{184,72}}</string>
 				<key>sourceSize</key>
 				<string>{184,72}</string>
+			</dict>
+
+			<key>game-uBt.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{181,451},{180,68}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{0,0},{180,68}}</string>
+				<key>sourceSize</key>
+				<string>{180,68}</string>
 			</dict>
 
 			<key>game-xepbaiBt.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{0,159},{180,68}}</string>
+				<string>{{0,240},{184,72}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
 				<false/>
 				<key>sourceColorRect</key>
-				<string>{{2,2},{180,68}}</string>
+				<string>{{0,0},{184,72}}</string>
 				<key>sourceSize</key>
 				<string>{184,72}</string>
 			</dict>
@@ -91,13 +161,13 @@
 			<key>ingame-backBt.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{282,240},{100,100}}</string>
+				<string>{{362,307},{132,134}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
 				<false/>
 				<key>sourceColorRect</key>
-				<string>{{16,17},{100,100}}</string>
+				<string>{{0,0},{132,134}}</string>
 				<key>sourceSize</key>
 				<string>{132,134}</string>
 			</dict>
@@ -105,13 +175,13 @@
 			<key>ingame-chatBt.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{299,21},{70,70}}</string>
+				<string>{{487,442},{88,88}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
 				<false/>
 				<key>sourceColorRect</key>
-				<string>{{9,9},{70,70}}</string>
+				<string>{{0,0},{88,88}}</string>
 				<key>sourceSize</key>
 				<string>{88,88}</string>
 			</dict>
@@ -119,7 +189,7 @@
 			<key>ingame-goldIcon.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{370,71},{62,62}}</string>
+				<string>{{181,520},{62,62}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
@@ -133,13 +203,13 @@
 			<key>ingame-historyBt.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{370,0},{70,70}}</string>
+				<string>{{487,0},{88,88}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
 				<false/>
 				<key>sourceColorRect</key>
-				<string>{{9,9},{70,70}}</string>
+				<string>{{0,0},{88,88}}</string>
 				<key>sourceSize</key>
 				<string>{88,88}</string>
 			</dict>
@@ -147,13 +217,13 @@
 			<key>ingame-playerBt.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{346,341},{70,70}}</string>
+				<string>{{451,151},{88,88}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
 				<false/>
 				<key>sourceColorRect</key>
-				<string>{{9,9},{70,70}}</string>
+				<string>{{0,0},{88,88}}</string>
 				<key>sourceSize</key>
 				<string>{88,88}</string>
 			</dict>
@@ -161,13 +231,13 @@
 			<key>ingame-rankBt.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{282,139},{100,100}}</string>
+				<string>{{362,442},{124,124}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
 				<false/>
 				<key>sourceColorRect</key>
-				<string>{{12,12},{100,100}}</string>
+				<string>{{0,0},{124,124}}</string>
 				<key>sourceSize</key>
 				<string>{124,124}</string>
 			</dict>
@@ -175,13 +245,13 @@
 			<key>ingame-settingBt.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{181,240},{100,100}}</string>
+				<string>{{185,172},{132,134}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
 				<false/>
 				<key>sourceColorRect</key>
-				<string>{{16,16},{100,100}}</string>
+				<string>{{0,0},{132,134}}</string>
 				<key>sourceSize</key>
 				<string>{132,134}</string>
 			</dict>
@@ -189,13 +259,13 @@
 			<key>ingame-tutorialBt.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{181,139},{100,100}}</string>
+				<string>{{318,172},{132,134}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
 				<false/>
 				<key>sourceColorRect</key>
-				<string>{{16,17},{100,100}}</string>
+				<string>{{0,0},{132,134}}</string>
 				<key>sourceSize</key>
 				<string>{132,134}</string>
 			</dict>
@@ -203,7 +273,7 @@
 			<key>ingame_inviteBt.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{264,341},{81,80}}</string>
+				<string>{{495,240},{81,80}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
@@ -217,13 +287,13 @@
 			<key>player-progress-1.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{181,21},{117,117}}</string>
+				<string>{{185,21},{150,150}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
 				<false/>
 				<key>sourceColorRect</key>
-				<string>{{17,16},{117,117}}</string>
+				<string>{{0,0},{150,150}}</string>
 				<key>sourceSize</key>
 				<string>{150,150}</string>
 			</dict>
@@ -231,13 +301,13 @@
 			<key>player-progress-2.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{181,341},{82,82}}</string>
+				<string>{{336,0},{150,150}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
 				<false/>
 				<key>sourceColorRect</key>
-				<string>{{35,34},{82,82}}</string>
+				<string>{{0,0},{150,150}}</string>
 				<key>sourceSize</key>
 				<string>{150,150}</string>
 			</dict>
@@ -259,7 +329,7 @@
 			<key>tlmn_card_remain.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{383,134},{43,55}}</string>
+				<string>{{244,520},{43,55}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
@@ -277,9 +347,9 @@
 			<key>format</key>
 			<integer>2</integer>
 			<key>size</key>
-			<string>{441,435}</string>
+			<string>{577,589}</string>
 			<key>textureFileName</key>
-			<string>GameScene.png</string>
+			<string>sprites.png</string>
 			</dict>
 		</dict>
 </plist>
