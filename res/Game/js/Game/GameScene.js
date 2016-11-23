@@ -38,34 +38,29 @@ var GameTopBar = cc.Node.extend({
     }
 });
 
-var s_sfs_error_msg = s_sfs_error_msg || [];
-/*TLMN*/
-s_sfs_error_msg[1] = "Đánh bài không hợp lệ";
-s_sfs_error_msg[2] = "Bạn không phải chủ phòng";
-s_sfs_error_msg[3] = "Không đủ người chơi để bắt đầu";
-s_sfs_error_msg[4] = "Bạn phải đánh quân bài nhỏ nhất";
-s_sfs_error_msg[5] = "Bạn không thể bỏ lượt";
-s_sfs_error_msg[6] = "Người chơi chưa sẵn sàng";
-s_sfs_error_msg[7] = "Bạn chưa đến lượt";
-s_sfs_error_msg[8] = "Bạn không có 4 đôi thông";
-s_sfs_error_msg[9] = "Bạn không có đủ tiền";
-
-/*PHOM*/
-s_sfs_error_msg[61] = "Không thể ăn bài";
-s_sfs_error_msg[62] = "Không thể hạ bài";
-s_sfs_error_msg[63] = "Không thể gửi bài";
-s_sfs_error_msg[64] = "Không thể bốc bài";
+// var s_sfs_error_msg = s_sfs_error_msg || [];
+// /*TLMN*/
+// s_sfs_error_msg[1] = "Đánh bài không hợp lệ";
+// s_sfs_error_msg[2] = "Bạn không phải chủ phòng";
+// s_sfs_error_msg[3] = "Không đủ người chơi để bắt đầu";
+// s_sfs_error_msg[4] = "Bạn phải đánh quân bài nhỏ nhất";
+// s_sfs_error_msg[5] = "Bạn không thể bỏ lượt";
+// s_sfs_error_msg[6] = "Người chơi chưa sẵn sàng";
+// s_sfs_error_msg[7] = "Bạn chưa đến lượt";
+// s_sfs_error_msg[8] = "Bạn không có 4 đôi thông";
+// s_sfs_error_msg[9] = "Bạn không có đủ tiền";
+//
+// /*PHOM*/
+// s_sfs_error_msg[61] = "Không thể ăn bài";
+// s_sfs_error_msg[62] = "Không thể hạ bài";
+// s_sfs_error_msg[63] = "Không thể gửi bài";
+// s_sfs_error_msg[64] = "Không thể bốc bài";
 
 var IGameScene = IScene.extend({
     ctor : function () {
         this._super();
         this.type = "GameScene";
         this.isOwnerMe = false;
-
-        SmartfoxClient.getInstance().addListener(socket.SmartfoxClient.SocketStatus, this.onSmartfoxSocketStatus, this);
-        SmartfoxClient.getInstance().addListener(socket.SmartfoxClient.UserExitRoom, this.onUserExitRoom, this);
-        SmartfoxClient.getInstance().addListener(socket.SmartfoxClient.CallExtension, this.onSFSExtension, this);
-        LobbyClient.getInstance().addListener("getLastSessionInfo", this.onGetLastSessionInfo, this);
 
         var bg = new cc.Sprite("res/game-bg.jpg");
         bg.x = cc.winSize.width/2;
@@ -80,27 +75,18 @@ var IGameScene = IScene.extend({
             thiz.backButtonClickHandler();
         });
     },
-    onSmartfoxSocketStatus : function (type, eventName) {
-        if(eventName == "LostConnection"){
-            LoadingDialog.getInstance().show("Đang kết nối lại máy chủ");
-            LobbyClient.getInstance().requestGetLastSessionInfo();
+
+    getMaxSlot : function () {
+        if(this.playerView){
+            return this.playerView.length;
         }
+        return 0;
     },
-    onGetLastSessionInfo : function (command, eventData) {
-        var info = eventData.data.lastSessionInfo;
-        if(info){
-            var host = info.ip;
-            var port = info.port;
-            if(host && port){
-                LoadingDialog.getInstance().show("Đang kết nối lại máy chủ");
-                SmartfoxClient.getInstance().findAndJoinRoom(host, port);
-                return;
-            }
-        }
-        this.exitToLobby();
-    },
+
     backButtonClickHandler : function () {
-        SmartfoxClient.getInstance().sendExtensionRequest(PlayerMe.SFS.roomId,"19", null);
+        if(this._controller){
+            this._controller.requestQuitRoom();
+        }
     },
     exitToLobby : function () {
         var homeScene = new HomeScene();
@@ -115,52 +101,21 @@ var IGameScene = IScene.extend({
     },
     onExit : function () {
         this._super();
-        SmartfoxClient.getInstance().removeListener(this);
-    },
-    onUserExitRoom : function (messageType, contents) {
-        if(PlayerMe.SFS.userId ==  contents.u){
-            this.exitToLobby();
+        if(this._controller){
+            this._controller.releaseController();
+            this._controller = null;
         }
     },
-    onSFSExtension : function (messageType, content) {
-        if(content.c == "ping"){
-            SmartfoxClient.getInstance().sendExtensionRequestCurrentRoom("ping", null);
-        }
-        else if(content.c == "0"){ //update gold
-            this.updateGold(content.p.u, content.p["2"]);
-            if(content.p.u == PlayerMe.username){
-                PlayerMe.gold = parseInt(content.p["2"]);
-            }
-        }
-        else if(content.c == "1"){ //startGame
-            this.processPlayerPosition(content);
-        }
-        else if (content.c == "2"){ //user joinRoom
-            this.processPlayerPosition(content);
-        }
-        else if (content.c == "9"){ //user exit
-            this.processPlayerPosition(content);
-        }
-        else if (content.c == "13"){//reconnect
-            this.processPlayerPosition(content);
-        }
-        else if(content.c == "11"){ // update owner
-            this.updateOwner(content.p.u);
-        }
-        else if(content.c == "___err___"){ //error chem
-            this.onError(content.p);
-        }
-    },
-    onError : function (params) {
-        var ec = params.code;
-        var msg = s_sfs_error_msg[ec];
-        if(msg){
-            MessageNode.getInstance().show(msg);
+
+    showErrorMessage : function (message, scene) {
+        if(scene){
+            MessageNode.getInstance().show(message,null,scene);
         }
         else{
-            MessageNode.getInstance().show("Mã lỗi không xác định[" + ec + "]");
+            MessageNode.getInstance().show(message);
         }
     },
+
     updateOwner : function (username) {
         for(var i=0;i<this.allSlot.length;i++){
             if(this.allSlot[i].username == username){
@@ -170,7 +125,6 @@ var IGameScene = IScene.extend({
 
             }
         }
-
         if(PlayerMe.username == username){
             this.isOwnerMe = true;
         }
@@ -190,63 +144,7 @@ var IGameScene = IScene.extend({
             }
         }
     },
-    processPlayerPosition : function (content) {
-         if(content.c == "1"){ //startGame
-            var userList = content.p["5"];
-            this.setPlayerWithPosition(userList);
 
-            for(var i=0;i<this.allSlot.length;i++){
-                this.allSlot[i].setEnable(false);
-            }
-            for(var i=0;i<userList.length;i++){
-                var idx = userList[i]["4"];
-                this.allSlot[idx].setEnable(true);
-                this.allSlot[idx].setUsername(userList[i].u);
-                this.allSlot[idx].setGold(userList[i]["3"]);
-                this.allSlot[idx].stopTimeRemain();
-               // this.updateGold(userList[i].u, userList[i]["3"]);
-            }
-        }
-        else if (content.c == "2"){ //user joinRoom
-            var idx = content.p["4"];
-            this.allSlot[idx].setEnable(true);
-            this.allSlot[idx].stopTimeRemain();
-            this.allSlot[idx].setUsername(content.p.u);
-            this.allSlot[idx].setGold(content.p["3"]);
-            // this.updateGold(content.p.u, content.p["3"]);
-        }
-        else if (content.c == "9"){ //user exit
-            if(content.p.u != PlayerMe.username){
-                for(var i=0;i<this.allSlot.length;i++){
-                    if(this.allSlot[i].username == content.p.u){
-                        this.allSlot[i].setEnable(false);
-                        this.allSlot[i].stopTimeRemain();
-                        break;
-                    }
-                }
-            }
-            else{
-                //me
-            }
-        }
-        else if (content.c == "13"){//reconnect
-            var userList = content.p["1"]["5"];
-            this.setPlayerWithPosition(userList);
-
-            for(var i=0;i<this.allSlot.length;i++){
-                this.allSlot[i].setEnable(false);
-                this.allSlot[i].stopTimeRemain();
-            }
-            for(var i=0;i<userList.length;i++){
-                var idx = userList[i]["4"];
-                this.allSlot[idx].setEnable(true);
-                this.allSlot[idx].stopTimeRemain();
-                this.allSlot[idx].setUsername(userList[i].u);
-                this.allSlot[idx].setGold(userList[i]["3"]);
-               // this.updateGold(userList[i].u, userList[i]["3"]);
-            }
-        }
-    },
     getSlotByUsername : function (username) {
         for(var i=0;i<this.allSlot.length;i++){
             if(this.allSlot[i].username == username){
@@ -255,33 +153,45 @@ var IGameScene = IScene.extend({
         }
         return null;
     },
-    setPlayerWithPosition : function (players) {
-        //find me
-        var idx = 0;
-        for(var i=0;i<players.length;i++){
-            if(players[i].u == PlayerMe.username){
-                idx = players[i]["4"];
-                break;
-            }
-        }
-        var allSlot = [];
-        for(var i=0;i<this.playerView.length;i++){
-            allSlot[idx] = this.playerView[i];
-            idx++;
-            if(idx >= this.playerView.length){
-                idx = 0;
-            }
-        }
-        this.allSlot = allSlot;
 
-        //update owner
-        var ownerPlayer = null;
-        for(var i=0;i<players.length;i++){
-            if(players[i]["1"] == true){
-                ownerPlayer = players[i].u;
+    fillPlayerToSlot : function (playerList) {
+        this.allSlot = this.playerView;
+        for(var i=0;i<this.allSlot.length;i++){
+            this.allSlot[i] = this.playerView[i];
+            var data = playerList[i];
+
+            this.allSlot[i].stopTimeRemain();
+            if(data){
+                this.allSlot[i].setEnable(true);
+                this.allSlot[i].setUsername(data.username);
+                this.allSlot[i].setGold(data.gold);
+                this.allSlot[i].spectator = data.spectator;
+            }
+            else{
+                this.allSlot[i].setEnable(false);
+            }
+        }
+    },
+
+    userJoinRoom : function (info) {
+        var idx = info.index;
+        this.allSlot[idx].setEnable(true);
+        this.allSlot[idx].stopTimeRemain();
+        this.allSlot[idx].setUsername(info.username);
+        this.allSlot[idx].setGold(info.gold);
+    },
+
+    userExitRoom : function (username) {
+        for(var i=0;i<this.allSlot.length;i++){
+            if(this.allSlot[i].username == username){
+                this.allSlot[i].setEnable(false);
+                this.allSlot[i].stopTimeRemain();
                 break;
             }
         }
-        this.updateOwner(ownerPlayer);
+    },
+
+    onSFSExtension : function () {
+        
     }
 });

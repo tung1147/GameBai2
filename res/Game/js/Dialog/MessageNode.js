@@ -38,26 +38,29 @@ var MessageNode = (function() {
             cc.eventManager.removeListeners(this);
             this.stopAllActions();
         },
-        show : function () {
+        show : function (message,time,mScene) {
             var parent = this.getParent();
             if(parent){
                 parent.removeChild(this);
             }
 
-            var mScene = cc.director.getRunningScene();
+            if(!mScene){
+                mScene = cc.director.getRunningScene();
+            }
+
             if(mScene.popupLayer){
                 mScene.popupLayer.addChild(this,1)
             }
             else{
                 mScene.addChild(this,1);
             }
-            if(arguments.length == 1){
-               this.setMessage(arguments[0]);
-               this.showWithTime(3.0);
+            if(time){
+                this.setMessage(message);
+                this.showWithTime(time);
             }
-            else if(arguments.length == 2){
-               this.setMessage(arguments[0]);
-               this.showWithTime(arguments[1]);
+            else{
+                this.setMessage(message);
+                this.showWithTime(3.0);
             }
         },
         showWithParent : function (message, parent) {

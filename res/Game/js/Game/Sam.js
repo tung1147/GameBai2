@@ -4,6 +4,8 @@
 var Sam = TienLen.extend({
     ctor: function () {
         this._super();
+        this._controller = new SamController(this);
+
         var baosamBt = ccui.Button("game-baosamBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
         baosamBt.setPosition(cc.winSize.width - 910, 50);
         this.sceneLayer.addChild(baosamBt);

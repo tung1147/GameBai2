@@ -5,6 +5,7 @@
 var TrashCardOnTable = cc.Node.extend({
     ctor: function () {
         this._super();
+
         this.cardList = []; // list of card sprites
         this.cardSize = null;
         this.cardScale = 0.5;
@@ -143,6 +144,7 @@ var PhomCardList = CardList.extend({
 var Phom = IGameScene.extend({
     ctor: function () {
         this._super();
+        this._controller = new PhomController(this);
 
         var table_bg = new cc.Sprite("res/gp_table.png");
         table_bg.setPosition(cc.winSize.width / 2, cc.winSize.height / 2);
