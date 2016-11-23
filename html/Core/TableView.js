@@ -20,6 +20,8 @@ newui.TableView = ccui.ScrollView.extend({
         this._columnCount = columnCount;
 
         this.setContentSize(size);
+        this.setBounceEnabled(true);
+        this.setScrollBarEnabled(false);
     },
 
     setPadding : function (padding) {
@@ -206,10 +208,10 @@ newui.TableView = ccui.ScrollView.extend({
     },
 
     startItemAnimation : function (item) {
-        cc.log("startItemAnimation: "+item);
+       // cc.log("startItemAnimation: "+item);
     },
     finishedItemAnimation : function (item) {
-        cc.log("finishedItemAnimation: "+item);
+       // cc.log("finishedItemAnimation: "+item);
     },
 
     setDirection : function (direction) {

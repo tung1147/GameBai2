@@ -2079,6 +2079,7 @@ function _getJsListOfModule(moduleMap, moduleName, dir) {
 }
 
 function _afterEngineLoaded(config) {
+    cc.game.CC_DEBUG_ENABLE = (config[cc.game.CONFIG_KEY.debugMode] != cc.game.DEBUG_MODE_NONE);
     if (cc._initDebugSetting)
         cc._initDebugSetting(config[cc.game.CONFIG_KEY.debugMode]);
     cc._engineLoaded = true;
@@ -2582,7 +2583,7 @@ cc.game = /** @lends cc.game# */{
                     if(_src){
                         _resPath = /(.*)\//.exec(_src)[0];
                         cc.loader.resPath = _resPath;
-                        _src = cc.path.join(_resPath, '/project.json');
+                        _src = cc.path.join(_resPath, 'project.json');
                     }
                     txt = cc.loader._loadTxtSync(_src);
                 }

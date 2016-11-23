@@ -4,19 +4,21 @@
 var newui = newui || {};
 newui.Widget = ccui.Widget.extend({
     ctor : function (containerSize) {
-        this._ignoreSize = true;
-        this._super();
+        ccui.Widget.prototype.ctor.call(this);
+        this.ignoreContentAdaptWithSize(true);
+
         this.setVirtualRendererSize(containerSize);
     },
-    setVirtualRendererSize : function (vitualSize) {
-        this._vitualSize = cc.size(vitualSize);
+    setVirtualRendererSize : function (containerSize) {
+        this._vitualSize = cc.size(containerSize);
+        this.setContentSize(containerSize);
     },
     getVirtualRendererSize : function () {
         if(this._vitualSize){
             return cc.size(this._vitualSize);
         }
         else{
-            return cc.size(this._contentSize);
+            return ccui.Widget.prototype.getVirtualRendererSize.call(this);
         }
     }
 });

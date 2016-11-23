@@ -25,6 +25,18 @@ socket.LobbyClient = cc.Class.extend({
     ctor : function () {
         this.wsocket = null;
         this.socketStatus = socket.LobbySocket.NotConnection;
+
+        var thiz = this;
+        function onTimerTick() {
+            thiz.updatePing();
+        }
+        setInterval(onTimerTick, 15000); // 15s
+    },
+    updatePing : function () {
+        var pingMessage = {
+            command : "ping"
+        };
+        this.send(JSON.stringify(pingMessage));
     },
     connect : function (url) {
        // url = "ws://uat1.puppetserver.com:8887/websocket";

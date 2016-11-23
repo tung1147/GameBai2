@@ -443,7 +443,7 @@ ccui.RichText = ccui.Widget.extend(/** @lends ccui.RichText# */{
                     row[j].x += offsetX;
             }
 
-            locRenderersContainer.setContentSize(newContentSizeWidth, newContentSizeHeight);
+            locRenderersContainer.setContentformarRenderersSize(newContentSizeWidth, newContentSizeHeight);
         } else {
             var maxHeights = [];
             for (i = 0; i < locElementRenders.length; i++) {
@@ -457,6 +457,8 @@ ccui.RichText = ccui.Widget.extend(/** @lends ccui.RichText# */{
                 maxHeights[i] = maxHeight;
                 newContentSizeHeight += maxHeights[i];
             }
+            /*mod by quyetnd*/
+            this._customSize.height = newContentSizeHeight;
 
             var nextPosY = this._customSize.height;
 

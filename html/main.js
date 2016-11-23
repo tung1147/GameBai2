@@ -103,13 +103,13 @@ cc.game.onStart = function(){
     // Setup the resolution policy and design resolution size;
     var frameSize = cc.view.getFrameSize();
     var designHeight = 720.0;
-    var designWidth = 1280.0;//frameSize.width * designHeight / frameSize.height;
-    // if (designWidth < 960.0) {
-    //     designWidth = 960.0;
-    // }
-    // if (designWidth > 1280.0) {
-    //     designWidth = 1280.0;
-    // }
+    var designWidth = frameSize.width * designHeight / frameSize.height;
+    if (designWidth < 960.0) {
+        designWidth = 960.0;
+    }
+    if (designWidth > 1280.0) {
+        designWidth = 1280.0;
+    }
 
     // Setup the resolution policy and design resolution size
     cc.view.setDesignResolutionSize(designWidth, designHeight, cc.ResolutionPolicy.SHOW_ALL);
