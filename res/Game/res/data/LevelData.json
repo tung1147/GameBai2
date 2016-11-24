@@ -1,50 +1,54 @@
 [
   {
     "exp": 0,
-    "content": "Chưa đổi thưởng"
+    "content": "Rút tối đa được 100.000 vàng/ngày"
   },
   {
-    "exp": 1000,
-    "content": "test"
+    "exp": 100,
+    "content": "Rút tối đa được 200.000 vàng/ngày"
   },
   {
-    "exp": 2000,
-    "content": "test content"
+    "exp": 400,
+    "content": "Rút tối đa được 300.000 vàng/ngày"
   },
   {
-    "exp": 3000,
-    "content": "test content"
+    "exp": 1300,
+    "content": "Rút tối đa được 900.000 vàng/ngày"
   },
   {
-    "exp": 4000,
-    "content": "test content"
+    "exp": 3800,
+    "content": "Rút tối đa được 2.500.000 vàng/ngày"
   },
   {
-    "exp": 5000,
-    "content": "test content"
+    "exp": 11800,
+    "content": "Rút tối đa được 8.000.000 vàng/ngày"
   },
   {
-    "exp": 6000,
-    "content": "test content"
+    "exp": 35800,
+    "content": "Rút tối đa được 24.000.000 vàng/ngày"
   },
   {
-    "exp": 7000,
-    "content": "test content"
+    "exp": 105800,
+    "content": "Rút tối đa được 70.000.000 vàng/ngày"
   },
   {
-    "exp": 8000,
-    "content": "test content"
+    "exp": 315800,
+    "content": "Rút tối đa được 210.000.000 vàng/ngày"
   },
   {
-    "exp": 9000,
-    "content": "test content"
+    "exp": 965800,
+    "content": "Rút tối đa được 650.000.000 vàng/ngày"
   },
   {
-    "exp": 10000,
-    "content": "test content"
+    "exp": 2765800,
+    "content": "Rút tối đa được 1.800.000.000 vàng/ngày"
   },
   {
-    "exp": 11000,
-    "content": "max level"
+    "exp": 8265800,
+    "content": "Rút tối đa được 5.500.000.000 vàng/ngày"
+  },
+  {
+    "exp": 23265800,
+    "content": "Rút tối đa được 15.000.000.000 vàng/ngày"
   }
 ]

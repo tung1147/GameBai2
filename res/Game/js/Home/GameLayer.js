@@ -39,12 +39,13 @@ var GameLayer = cc.Node.extend({
             icon2.setScale(cc.winSize.screenScale);
             this.addChild(icon2);
 
-            var listGame = new newui.TableView(cc.size(right - left, 360), 2);
+            var listGame = new newui.TableView(cc.size(right - left, 404), 2);
             listGame.setDirection(ccui.ScrollView.DIR_HORIZONTAL);
             listGame.setPadding(padding);
             listGame.setBounceEnabled(true);
+            listGame.setMargin(0,0,10,10);
             listGame.setScrollBarEnabled(false);
-            listGame.setPosition(left, 220.0);
+            listGame.setPosition(left, 216.0);
 
             this.addChild(listGame,1);
             this.allLayer.push(listGame);
@@ -77,8 +78,16 @@ var GameLayer = cc.Node.extend({
     },
 
     addGameToList : function (gameId, listGame) {
-        var gameButton = new ccui.Button("lobby-game"+ gameId +".png", "", "", ccui.Widget.PLIST_TEXTURE);
+        var gameButton = new ccui.Widget();
+        gameButton.setContentSize(cc.size(190, 160));
+        gameButton.setTouchEnabled(true);
+
         listGame.pushItem(gameButton);
+
+        var gameIcon = new cc.Sprite("#lobby-game"+ gameId +".png");//new ccui.Button("lobby-game"+ gameId +".png", "", "", ccui.Widget.PLIST_TEXTURE);
+        gameIcon.setPosition(gameButton.getContentSize().width/2 , gameButton.getContentSize().height/2 - 20);
+        gameButton.addChild(gameIcon);
+
         gameButton.addClickEventListener(function () {
             var homeScene = cc.director.getRunningScene();
             homeScene.onTouchGame(gameId);

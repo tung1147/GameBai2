@@ -1,50 +1,54 @@
 [
   {
     "exp": 0,
-    "content": "test"
+    "content": "Không được rút tiền"
   },
   {
-    "exp": 1000,
-    "content": "test"
+    "exp": 100,
+    "content": "Chăm sóc VIP + 30% giới hạn rút tiền hàng ngày"
   },
   {
-    "exp": 2000,
-    "content": "test content"
+    "exp": 600,
+    "content": "Chăm sóc VIP + nạp tiền x1% giá trị nhận được + 30% giới hạn rút tiền hàng ngày"
   },
   {
-    "exp": 3000,
-    "content": "test content"
+    "exp": 1600,
+    "content": "Chăm sóc VIP + nạp tiền x2% giá trị nhận được + 50% giới hạn rút tiền hàng ngày"
   },
   {
-    "exp": 4000,
-    "content": "test content"
+    "exp": 3600,
+    "content": "Chăm sóc VIP + nạp tiền x2% giá trị nhận được + 50% giới hạn rút tiền hàng ngày"
   },
   {
-    "exp": 5000,
-    "content": "test content"
+    "exp": 8600,
+    "content": "Chăm sóc VIP + nạp tiền x2% giá trị nhận được + 50% giới hạn rút tiền hàng ngày"
   },
   {
-    "exp": 6000,
-    "content": "test content"
+    "exp": 18600,
+    "content": "Chăm sóc VIP + nạp tiền x3% giá trị nhận được + 70% giới hạn rút tiền hàng ngày"
   },
   {
-    "exp": 7000,
-    "content": "test content"
+    "exp": 48600,
+    "content": "Chăm sóc VIP + nạp tiền x3% giá trị nhận được + 70% giới hạn rút tiền hàng ngày"
   },
   {
-    "exp": 8000,
-    "content": "test content"
+    "exp": 98600,
+    "content": "Chăm sóc VIP + nạp tiền x3% giá trị nhận được + 70% giới hạn rút tiền hàng ngày"
   },
   {
-    "exp": 9000,
-    "content": "test content"
+    "exp": 198600,
+    "content": "Chăm sóc VIP + nạp tiền x3% giá trị nhận được + 70% giới hạn rút tiền hàng ngày"
   },
   {
-    "exp": 10000,
-    "content": "test content"
+    "exp": 398600,
+    "content": "Chăm sóc VIP + nạp tiền x5% giá trị nhận được + 100% giới hạn rút tiền hàng ngày"
   },
   {
-    "exp": 11000,
-    "content": "test content"
+    "exp": 898600,
+    "content": "Chăm sóc VIP + nạp tiền x5% giá trị nhận được + 100% giới hạn rút tiền hàng ngày"
+  },
+  {
+    "exp": 1698600,
+    "content": "Chăm sóc VIP + nạp tiền x6% giá trị nhận được + 100% giới hạn rút tiền hàng ngày"
   }
 ]

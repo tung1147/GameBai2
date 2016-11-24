@@ -2,7 +2,7 @@
  * Created by Quyet Nguyen on 8/19/2016.
  */
 
-var s_float_button_games = s_float_button_games || [7,7,7,7,7];
+var s_float_button_games = s_float_button_games || [13,14,15];
 var s_float_button_animationDuration = s_float_button_animationDuration || 0.2;
 
 var FloatButtonCenter = cc.Node.extend({
@@ -10,11 +10,14 @@ var FloatButtonCenter = cc.Node.extend({
         this._super();
         var normalSprite = new cc.Sprite("#floatBt-hide.png");
         this.addChild(normalSprite);
-        this.setContentSize(normalSprite.getContentSize());
+        this.setContentSize(cc.size(84, 84));
 
         var showSprite = new cc.Sprite("#floatbt-show.png");
         showSprite.visible = false;
         this.addChild(showSprite);
+
+        //normalSprite.setPosition(this.getContentSize().width/2, this.getContentSize().height/2);
+        //showSprite.setPosition(normalSprite.getPosition());
 
         this.normalSprite = normalSprite;
         this.showSprite = showSprite;
@@ -54,13 +57,13 @@ var FloatButton = (function() {
             this.btCenter = btCenter;
         },
         initComponent : function () {
-            var distance = cc.p(0,160);
+            var radius = cc.p(0,120);
             var size = s_float_button_games.length;
             var allComponent = [];
             for(var i=0;i<size;i++){
                 var component = new FloatButtomComponent(s_float_button_games[i]);
                 var angle = cc.PI * 2 / size * i;
-                component.targetPosition =  cc.pRotateByAngle(distance, cc.p(0,0), angle);
+                component.targetPosition =  cc.pRotateByAngle(radius, cc.p(0,0), angle);
                 component.visible = false;
                 this.addChild(component);
                 allComponent.push(component);
@@ -75,6 +78,7 @@ var FloatButton = (function() {
                 currentParent.removeChild(this);
             }
             parent.addChild(this);
+            this.forceHide();
            // cc.log("show");
         },
         onEnter : function () {
@@ -142,8 +146,29 @@ var FloatButton = (function() {
                     return;
                 }
             }
-            this.x += (p.x - this.startPosition.x);
-            this.y += (p.y - this.startPosition.y);
+
+            var x = this.x + (p.x - this.startPosition.x);
+            var y = this.y + (p.y - this.startPosition.y);
+            //fix position
+            var left = x - this.rectTouch.width/2;
+            var right = x + this.rectTouch.width/2;
+            var top = y + this.rectTouch.height/2;
+            var bottom = y - this.rectTouch.height/2;
+            if(left < 0){
+                x = this.rectTouch.width/2;
+            }
+            if(right > cc.winSize.width){
+                x = cc.winSize.width - this.rectTouch.width/2;
+            }
+            if(bottom < 0){
+                y = this.rectTouch.height/2;
+            }
+            if(top > cc.winSize.height){
+                y = cc.winSize.height - this.rectTouch.height/2;
+            }
+
+            this.x = x;
+            this.y = y;
             this.startPosition = p;
         },
         onTouchEnded : function (touch, event){

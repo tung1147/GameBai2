@@ -5,10 +5,10 @@ var LobbyTopBar = cc.Node.extend({
     ctor : function () {
         this._super();
 
-        var bg = new cc.Sprite("#home-top-bar.png");
-        bg.setAnchorPoint(0.0, 1.0);
-        bg.setPosition(0.0, cc.winSize.height);
-        this.addChild(bg);
+        // var bg = new cc.Sprite("#home-top-bar.png");
+        // bg.setAnchorPoint(0.0, 1.0);
+        // bg.setPosition(0.0, cc.winSize.height);
+        // this.addChild(bg);
 
         this.backBt = new ccui.Button("home-backBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
         this.backBt.setPosition(65, 653);
@@ -48,7 +48,7 @@ var LobbyTopBar = cc.Node.extend({
         this.addChild(clippingMessage);
 
         var messageText = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_30, "");
-        messageText.setColor(cc.color(255, 255, 255));
+        messageText.setColor(cc.color("#bbc9ff"));
         messageText.setAnchorPoint(0.0, 0.5);
         messageText.setPosition(0.0, clippingMessage.getContentSize().height/2);
         clippingMessage.addChild(messageText);

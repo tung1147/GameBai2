@@ -6,119 +6,139 @@
         <dict>
             <key>floatBt-bg.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{2,2},{501,501}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{0,0}</string>
-                <key>rotated</key>
+                <key>spriteSize</key>
+                <string>{378,377}</string>
+                <key>spriteSourceSize</key>
+                <string>{378,377}</string>
+                <key>textureRect</key>
+                <string>{{1,1},{378,377}}</string>
+                <key>textureRotated</key>
                 <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{501,501}}</string>
-                <key>sourceSize</key>
-                <string>{501,501}</string>
             </dict>
             <key>floatBt-game-12.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{505,364},{126,126}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{2,2},{126,126}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
+                <string>{128,128}</string>
+                <key>spriteSourceSize</key>
                 <string>{130,130}</string>
+                <key>textureRect</key>
+                <string>{{302,380},{128,128}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>floatBt-game-13.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{737,2},{124,126}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{0,0}</string>
-                <key>rotated</key>
+                <key>spriteSize</key>
+                <string>{96,98}</string>
+                <key>spriteSourceSize</key>
+                <string>{106,106}</string>
+                <key>textureRect</key>
+                <string>{{302,640},{96,98}}</string>
+                <key>textureRotated</key>
                 <false/>
-                <key>sourceColorRect</key>
-                <string>{{3,2},{124,126}}</string>
-                <key>sourceSize</key>
-                <string>{130,130}</string>
             </dict>
             <key>floatBt-game-14.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{637,258},{124,124}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,-1}</string>
+                <key>spriteSize</key>
+                <string>{96,96}</string>
+                <key>spriteSourceSize</key>
+                <string>{106,106}</string>
+                <key>textureRect</key>
+                <string>{{302,840},{96,96}}</string>
+                <key>textureRotated</key>
                 <false/>
-                <key>sourceColorRect</key>
-                <string>{{3,3},{124,124}}</string>
-                <key>sourceSize</key>
-                <string>{130,130}</string>
             </dict>
             <key>floatBt-game-15.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{633,384},{124,124}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{0,0}</string>
-                <key>rotated</key>
+                <key>spriteSize</key>
+                <string>{96,98}</string>
+                <key>spriteSourceSize</key>
+                <string>{106,106}</string>
+                <key>textureRect</key>
+                <string>{{302,740},{96,98}}</string>
+                <key>textureRotated</key>
                 <false/>
-                <key>sourceColorRect</key>
-                <string>{{3,3},{124,124}}</string>
-                <key>sourceSize</key>
-                <string>{130,130}</string>
             </dict>
             <key>floatBt-game-7.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{737,130},{124,126}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{3,2},{124,126}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
+                <string>{126,128}</string>
+                <key>spriteSourceSize</key>
                 <string>{130,130}</string>
+                <key>textureRect</key>
+                <string>{{302,510},{126,128}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>floatBt-hide.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{505,232},{130,130}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{0,0}</string>
-                <key>rotated</key>
+                <key>spriteSize</key>
+                <string>{299,299}</string>
+                <key>spriteSourceSize</key>
+                <string>{299,299}</string>
+                <key>textureRect</key>
+                <string>{{1,380},{299,299}}</string>
+                <key>textureRotated</key>
                 <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{130,130}}</string>
-                <key>sourceSize</key>
-                <string>{130,130}</string>
             </dict>
             <key>floatbt-show.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{505,2},{230,228}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{0,0}</string>
-                <key>rotated</key>
+                <key>spriteSize</key>
+                <string>{299,299}</string>
+                <key>spriteSourceSize</key>
+                <string>{299,299}</string>
+                <key>textureRect</key>
+                <string>{{1,681},{299,299}}</string>
+                <key>textureRotated</key>
                 <false/>
-                <key>sourceColorRect</key>
-                <string>{{2,0},{230,228}}</string>
-                <key>sourceSize</key>
-                <string>{234,228}</string>
             </dict>
         </dict>
         <key>metadata</key>
         <dict>
             <key>format</key>
-            <integer>2</integer>
+            <integer>3</integer>
+            <key>pixelFormat</key>
+            <string>RGBA8888</string>
+            <key>premultiplyAlpha</key>
+            <false/>
             <key>realTextureFileName</key>
             <string>FloatButton.png</string>
             <key>size</key>
-            <string>{863,510}</string>
+            <string>{431,981}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:2299119823bfb6fa3d68e8e1be00c175:344f48bfac6c90067c5994aae0e061cb:8cd5d5a3633d7f2a3323ac799373e321$</string>
+            <string>$TexturePacker:SmartUpdate:4f92de2949e77ce1ed37ae8cd60e0ea8:549ef5dc335e5203f97d18c3697a2ef0:8cd5d5a3633d7f2a3323ac799373e321$</string>
             <key>textureFileName</key>
             <string>FloatButton.png</string>
         </dict>
