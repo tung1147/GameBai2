@@ -215,7 +215,7 @@ var HomeScene = IScene.extend({
         else if (gameId == GameType.MiniGame_ChanLe) {
 
         }
-        else if (gameId == GameType.MiniGame_Pocker) {
+        else if (gameId == GameType.MiniGame_Poker) {
             var minipoker = new MiniPokerScene();
             cc.director.replaceScene(new cc.TransitionFade(0.5, minipoker, cc.color("#000000")));
         }

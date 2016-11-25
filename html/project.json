@@ -8,7 +8,6 @@
     "id" : "gameCanvas",
     "renderMode" : 2,
     "engineDir":"frameworks/cocos2d-html5",
-
     "modules" : ["cocos2d", "extensions"],
 
     "jsList" : [
@@ -60,6 +59,10 @@
         "res/Game/js/Home/RankLayer.js",
         "res/Game/js/Home/RewardLayer.js",
         "res/Game/js/Home/InboxLayer.js",
+        "res/Game/js/Game/Controller/GameController.js",
+        "res/Game/js/Game/Controller/TLMNController.js",
+        "res/Game/js/Game/Controller/PhomController.js",
+        "res/Game/js/Game/Controller/SamController.js",
         "res/Game/js/Game/Card.js",
         "res/Game/js/Game/ChipButton.js",
         "res/Game/js/Game/XocDiaChip.js",

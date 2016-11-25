@@ -61,13 +61,13 @@ GameType.GAME_Lieng = 10;
 GameType.GAME_BaCayChuong = 11;
 GameType.MiniGame_ChanLe = 12;
 GameType.MiniGame_CaoThap = 13;
-GameType.MiniGame_Pocker = 14;
+GameType.MiniGame_Poker = 14;
 GameType.MiniGame_VideoPoker = 15;
 
 var s_game_id = s_game_id || [
     [
         GameType.GAME_TLMN_Solo, GameType.GAME_TienLenMN,
-        GameType.MiniGame_CaoThap, GameType.MiniGame_Pocker,
+        GameType.MiniGame_CaoThap, GameType.MiniGame_Poker,
         GameType.GAME_XocDia, GameType.GAME_TaiXiu,
         GameType.GAME_Sam_Solo, GameType.GAME_Sam,
         GameType.GAME_Phom, GameType.GAME_BaCay,
@@ -81,7 +81,7 @@ var s_game_id = s_game_id || [
         GameType.GAME_MauBinh
     ],
     [
-        GameType.MiniGame_CaoThap, GameType.MiniGame_Pocker,
+        GameType.MiniGame_CaoThap, GameType.MiniGame_Poker,
         /*GameType.MiniGame_ChanLe*/GameType.MiniGame_VideoPoker
     ],
     [
@@ -89,11 +89,11 @@ var s_game_id = s_game_id || [
     ],
     [
         GameType.GAME_TLMN_Solo, GameType.GAME_TienLenMN,
-        GameType.MiniGame_CaoThap, GameType.MiniGame_Pocker
+        GameType.MiniGame_CaoThap, GameType.MiniGame_Poker
     ]
 ];
 
-var s_mini_game_id = [GameType.MiniGame_CaoThap, GameType.MiniGame_Pocker, GameType.MiniGame_ChanLe];
+var s_mini_game_id = [GameType.MiniGame_CaoThap, GameType.MiniGame_Poker, GameType.MiniGame_VideoPoker];
 var s_games_display_name = s_games_display_name || [];
 s_games_display_name[GameType.GAME_TLMN_Solo] = "TIẾN LÊN MIỀN NAM ĐẾM LÁ SOLO";
 s_games_display_name[GameType.GAME_TienLenMN] = "TIẾN LÊN MIỀN NAM";
@@ -106,6 +106,9 @@ s_games_display_name[GameType.GAME_Phom] = "PHỎM";
 s_games_display_name[GameType.GAME_BaCay] = "BA CÂY NHẤT ĂN TẤT";
 s_games_display_name[GameType.GAME_Lieng] = "LIÊNG";
 s_games_display_name[GameType.GAME_BaCayChuong] = "BA CÂY CHƯƠNG";
+s_games_display_name[GameType.MiniGame_CaoThap] = "Cao thấp";
+s_games_display_name[GameType.MiniGame_Poker] = "MiniPoker";
+s_games_display_name[GameType.MiniGame_VideoPoker] = "VideoPoker";
 
 var s_games_chanel = s_games_chanel || [];
 s_games_chanel[GameType.GAME_TLMN_Solo] = "";

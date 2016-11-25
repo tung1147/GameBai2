@@ -157,10 +157,17 @@ var MiniGameLayer = cc.Node.extend({
     },
 
     addMiniGame: function (gameId, listGame) {
+        cc.log("add miniGame: "+gameId);
         var size = cc.size(280.0, 92.0);
-        var cell = new MiniGameCell(size, gameId, "Hũ thưởng");
+        var cell = new MiniGameCell(size, gameId, s_games_display_name[gameId]);
         cell.setScale(cc.winSize.screenScale);
         listGame.pushItem(cell);
+
+        cell.setTouchEnabled(true);
+        cell.addClickEventListener(function () {
+            var homeScene = cc.director.getRunningScene();
+            homeScene.onTouchGame(gameId);
+        });
     },
 
     selectTab: function (index) {

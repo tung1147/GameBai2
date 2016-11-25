@@ -5,7 +5,9 @@
 var FloatButtomComponent = cc.Node.extend({
     ctor : function (gameId) {
         this._super();
-        var img = new cc.Sprite("#floatBt-game-7.png");
+        this.gameId = gameId;
+
+        var img = new cc.Sprite("#floatBt-game-" + gameId + ".png");
         this.addChild(img);
         this.rectTouch = cc.rect(-img.getContentSize().width/2, -img.getContentSize().height/2, img.getContentSize().width, img.getContentSize().height);
     },
@@ -79,7 +81,9 @@ var FloatButtomComponent = cc.Node.extend({
     onTouchEnded : function (touch, event){
         var p = this.convertToNodeSpace(touch.getLocation());
         if(cc.rectContainsPoint(this.rectTouch, p)){
-            cc.log("clicked");
+           // cc.log("clicked");
+            var homeScene = cc.director.getRunningScene();
+            homeScene.onTouchGame(this.gameId);
         }
     },
 });
