@@ -136,6 +136,20 @@ var CardList = cc.Node.extend({
         this.setContentSize(size);
         this.setAnchorPoint(cc.p(0.5,0.5));
     },
+    removeCardById: function (id) {
+        var card = this.getCardWithId(id);
+        for (var i = 0; i < this.cardList.length; i++)
+            if (this.cardList[i].rank == card.rank && this.cardList[i].suit == card.suit) {
+                var retVal = this.cardList[i];
+                retVal.setPosition(this.convertToWorldSpace(retVal.getPosition()));
+                retVal.retain();
+                retVal.removeFromParent(true);
+                this.cardList.splice(i, 1);
+                return retVal;
+            }
+            cc.log("card id " + id + " " + JSON.stringify(card));
+        return null;
+    },
     reOrder : function () {
         if(this.cardList.length > 0){
             var width = this.cardSize.width * this.cardList.length;
@@ -201,7 +215,7 @@ var CardList = cc.Node.extend({
             card.setScale(this.cardSize.height/card.getContentSize().height);
         }
         card.cardIndex = this.cardList.length;
-        card.origin = cc.p(0, 0);
+        //card.origin = cc.p(0, 0);
         card.canTouch = this.canTouch;
         this.addChild(card, this.cardList.length);
         this.cardList.push(card);
@@ -299,6 +313,9 @@ var CardList = cc.Node.extend({
             for(var j=0;j<this.cardList.length;j++){
                 var card = this.cardList[j];
                 if(card.rank == rank && card.suit == suit){
+                    var p = this.convertToWorldSpace(card.getPosition());
+                    card.setPosition(p);
+
                     card.retain();
                     card.removeFromParent(true);
                     arrCard.push(card);
