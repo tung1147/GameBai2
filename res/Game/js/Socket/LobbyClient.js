@@ -14,7 +14,7 @@ var LobbyClient = (function () {
                 throw "Cannot create new instance for Singleton Class";
             } else {
                 this.allListener = {};
-                this.host = "uat1.puppetserver.com";
+                this.host = "42.112.25.169";//"uat1.puppetserver.com";
                 if(cc.sys.isNative){
                     this.port = 9999;
                 }
@@ -163,6 +163,8 @@ var LobbyClient = (function () {
             }
         },
         onLoginEvent: function (event) {
+          //  console.log(event);
+
             var data = event.data;
             GameConfig.broadcastMessage = event.data.broadcast;
 //            LevelData = data.config.levelData;
@@ -191,6 +193,28 @@ var LobbyClient = (function () {
                     if (runningScene.homeLocation == 1) {
                         runningScene.startGame();
                     }
+                }
+            }
+
+            var serverData = data["server"];
+            if(serverData){
+                this.SFSServerInfo = {};
+                for(var i=0;i<serverData.length;i++){
+                    var serverId = serverData[i].serverId;
+                    var host = serverData[i].host;
+                    if(cc.sys.isNative){
+                        var port = serverData[i].port;
+                    }
+                    else{
+                        var port = serverData[i].websocketPort;
+                    }
+
+                    var serverInfo = {
+                        serverId : serverId,
+                        host : host,
+                        port : port
+                    };
+                    this.SFSServerInfo[serverId] = serverInfo;
                 }
             }
         },
@@ -269,6 +293,7 @@ var LobbyClient = (function () {
                     version: ApplicationConfig.VERSION,
                     imei: PlayerMe.IMEI,
                     type: "normal",
+                    displayType : "room",//ApplicationConfig.DISPLAY_TYPE,
                     username: username,
                     password: password
                 };

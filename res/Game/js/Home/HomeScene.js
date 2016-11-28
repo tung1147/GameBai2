@@ -99,29 +99,29 @@ var HomeScene = IScene.extend({
         cc.Global.tienmatData = cc.Global.tienmatData || data["2"];
     },
     onFetchCashin: function (command, data) {
-        cc.log(JSON.stringify(data));
-        data = data["data"]["2"];
-        cc.Global.SMSList = [];
-        for (var i = 0; i < data.length; i++) {
-            var currency = data[i]["currency"];
-            var smsGateway = data[i]["detail"]["smsGateway"];
-            var vmsContent = data[i]["detail"]["vmsContent"];
-            var vnpContent = data[i]["detail"]["vnpContent"];
-            var vttContent = data[i]["detail"]["vttContent"];
-            var gold = data[i]["gold"];
-            var id = data[i]["id"];
-            var price = data[i]["price"];
-            cc.Global.SMSList.push({
-                currency: currency,
-                smsGateway: smsGateway,
-                vmsContent: vmsContent,
-                vnpContent: vnpContent,
-                vttContent: vttContent,
-                gold: parseInt(gold.replace(",", "")),
-                id: id,
-                price: parseInt(price)
-            });
-        }
+        //cc.log(JSON.stringify(data));
+        // data = data["data"]["2"];
+        // cc.Global.SMSList = [];
+        // for (var i = 0; i < data.length; i++) {
+        //     var currency = data[i]["currency"];
+        //     var smsGateway = data[i]["detail"]["smsGateway"];
+        //     var vmsContent = data[i]["detail"]["vmsContent"];
+        //     var vnpContent = data[i]["detail"]["vnpContent"];
+        //     var vttContent = data[i]["detail"]["vttContent"];
+        //     var gold = data[i]["gold"];
+        //     var id = data[i]["id"];
+        //     var price = data[i]["price"];
+        //     cc.Global.SMSList.push({
+        //         currency: currency,
+        //         smsGateway: smsGateway,
+        //         vmsContent: vmsContent,
+        //         vnpContent: vnpContent,
+        //         vttContent: vttContent,
+        //         gold: parseInt(gold.replace(",", "")),
+        //         id: id,
+        //         price: parseInt(price)
+        //     });
+        // }
     },
     onChangeAsset: function (command, data) {
         data = data["data"];
@@ -146,9 +146,9 @@ var HomeScene = IScene.extend({
             this.subLayer = 0;
             this.mainLayer.visible = true;
         }
-        this.homeLayer.visible = true;
-        this.gameLayer.visible = true;
-        this.lobbyLayer.visible = false;
+        this.homeLayer.setVisible(true);
+        this.gameLayer.setVisible(true);
+        this.lobbyLayer.setVisible(false);
         this.userInfo.visible = false;
         if (this.homeLocation == 0 || this.homeLocation == 3) {
             this.gameLayer.startAnimation();
@@ -171,7 +171,7 @@ var HomeScene = IScene.extend({
         }
         this.homeLayer.visible = false;
         this.gameLayer.visible = true;
-        this.lobbyLayer.visible = false;
+        this.lobbyLayer.setVisible(false);
         this.userInfo.visible = true;
         this.userInfo.refreshView();
         this.topBar.refreshView();
@@ -189,7 +189,7 @@ var HomeScene = IScene.extend({
         this.popupLayer.removeAllChildren();
         this.homeLayer.visible = false;
         this.gameLayer.visible = false;
-        this.lobbyLayer.visible = true;
+        this.lobbyLayer.setVisible(true);
         this.userInfo.visible = true;
         this.userInfo.refreshView();
         if (arguments.length == 1) {

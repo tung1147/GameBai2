@@ -71,7 +71,7 @@ var _resumeMethod = function () {
             if(quyetnd.sys.lastRunningTime){
                 var dt = (Date.now() - quyetnd.sys.lastRunningTime) / 1000.0;
                 cc.log("game_on_show: " + dt);
-                var frame_time = 1.0/ 60.0;
+                var frame_time = 1.0;/// 60.0;
 
                 while(dt > 0){
                     if(dt > frame_time){
@@ -108,7 +108,7 @@ cc.game.onStart = function(){
   //  cc.view.setRealPixelResolution(1280,720,cc.ResolutionPolicy.SHOW_ALL);
     var frameSize = cc.view.getFrameSize();
     var designHeight = 720.0;
-    var designWidth = frameSize.width * designHeight / frameSize.height;
+    var designWidth = 1280.0;//frameSize.width * designHeight / frameSize.height;
     if (designWidth < 960.0) {
         designWidth = 960.0;
     }

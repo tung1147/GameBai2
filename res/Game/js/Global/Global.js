@@ -237,6 +237,7 @@ cc.Global.SetSetting = function (setting, value) {
 var ApplicationConfig = ApplicationConfig || {};
 ApplicationConfig.VERSION = "1.0.0";
 ApplicationConfig.BUNBLE = "com.gamebai.vip";
+ApplicationConfig.DISPLAY_TYPE = "room"; //room - betting
 (function () {
     if(cc.sys.isNative){
         if(cc.sys.os === cc.sys.OS_IOS){
