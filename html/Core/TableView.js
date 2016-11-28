@@ -15,13 +15,70 @@ newui.TableView = ccui.ScrollView.extend({
         this._marginRight = 0.0;
         this._marginTop = 0.0;
         this._marginBottom = 0.0;
-        this._direction = ccui.ScrollView.DIR_HORIZONTAL;
+        this._direction = ccui.ScrollView.DIR_VERTICAL;
         this._refreshView = false;
+        this._moveByTouch = false;
         this._columnCount = columnCount;
 
         this.setContentSize(size);
         this.setBounceEnabled(true);
         this.setScrollBarEnabled(false);
+
+        this._contentRect = cc.rect(0,0,size.width, size.height);
+
+        if ('mouse' in cc.sys.capabilities) {
+            this._initMouseScrollEvent();
+        }
+    },
+
+    _initMouseScrollEvent : function () {
+        var thiz = this;
+        cc.eventManager.addListener({
+            event: cc.EventListener.MOUSE,
+            onMouseScroll: function (event) {
+                if(thiz._checkViewVisible() && thiz.isRunning() && !thiz._isInterceptTouch && !this._moveByTouch){
+                    var delta = cc.sys.isNative ? event.getScrollY() * 6 : -event.getScrollY();
+                    var p = thiz.convertToNodeSpace(event.getLocation());
+                    if(cc.rectContainsPoint(thiz._contentRect, p)){
+                        return thiz.onMouseScrolling(delta);
+                    }
+                }
+                return false;
+            }
+        }, this);
+    },
+
+    _checkViewVisible : function () {
+        var node = this;
+        while(node){
+            if(!node.isVisible()){
+                return false;
+            }
+            node = node.getParent();
+        }
+        return true;
+    },
+
+    onMouseScrolling : function (delta) {
+        if(this._direction == ccui.ScrollView.DIR_VERTICAL){
+            var pDelta = cc.p(0, delta);
+            // var outOfBoundary = this._getHowMuchOutOfBoundary(pDelta);
+            // if(!this._fltEqualZero(outOfBoundary)) {
+            //     pDelta.x += outOfBoundary.x;
+            //     pDelta.y += outOfBoundary.y;
+            // }
+            this._moveInnerContainer(pDelta, true);
+        }
+        else{
+            var pDelta = cc.p(delta, 0);
+            // var outOfBoundary = this._getHowMuchOutOfBoundary(pDelta);
+            // if(!this._fltEqualZero(outOfBoundary)) {
+            //     pDelta.x += outOfBoundary.x;
+            //     pDelta.y += outOfBoundary.y;
+            // }
+            this._moveInnerContainer(pDelta, true);
+        }
+        return true;
     },
 
     setPadding : function (padding) {
@@ -285,7 +342,11 @@ newui.TableView = ccui.ScrollView.extend({
         }
 
         if (!this._parentIsPageView){
-            return ccui.ScrollView.prototype.onTouchBegan.call(this,touch,event);
+            var ret = ccui.ScrollView.prototype.onTouchBegan.call(this,touch,event);
+            if(ret){
+                this._moveByTouch = true;
+            }
+            return ret;
         }
 
         this._propagateTouchEvents = true;
@@ -295,6 +356,7 @@ newui.TableView = ccui.ScrollView.extend({
             this._startPoint = touch.getLocation();
             this._moveThis = false;
             this._moveParent = false;
+            this._moveByTouch = true;
         }
         return bret;
     },
@@ -327,6 +389,7 @@ newui.TableView = ccui.ScrollView.extend({
         }
     },
     onTouchEnded: function (touch, event) {
+        this._moveByTouch = false;
         if (this._parentIsPageView){
             this._propagateTouchEvents = true;
             ccui.ScrollView.prototype.onTouchEnded.call(this,touch,event);
