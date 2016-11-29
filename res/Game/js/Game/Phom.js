@@ -16,6 +16,21 @@ var TrashCardOnTable = cc.Node.extend({
         this.setPosition(x, y);
     },
 
+    removeCardById: function (id) {
+        var card = this.getCardWithId(id);
+        for (var i = 0; i < this.cardList.length; i++)
+            if (this.cardList[i].rank == card.rank && this.cardList[i].suit == card.suit) {
+                var retVal = this.cardList[i];
+                retVal.setPosition(this.convertToWorldSpace(retVal.getPosition()));
+                retVal.retain();
+                retVal.removeFromParent(true);
+                this.cardList.splice(i, 1);
+                return retVal;
+            }
+        cc.log("card id " + id + " " + JSON.stringify(card));
+        return null;
+    },
+
     addCard: function (card) {
         var p = this.convertToNodeSpace(card.getPosition());
         card.setPosition(p);
@@ -37,22 +52,6 @@ var TrashCardOnTable = cc.Node.extend({
         this.reOrder();
     },
 
-    removeCardById: function (id) {
-        var card = this.getCardWithId(id);
-
-        for (var i = 0; i < this.cardList.length; i++)
-            if (this.cardList[i].rank == card.rank && this.cardList[i].suit == card.suit) {
-                var retVal = this.cardList[i];
-                retVal.setPosition(this.convertToWorldSpace(retVal.getPosition()));
-                retVal.retain();
-                retVal.removeFromParent(true);
-                this.cardList.splice(i, 1);
-                return retVal;
-            }
-        cc.log(id + " " + JSON.stringify(card));
-        return null;
-    },
-
     getCardWithId: function (cardId) {
         var rankCard = (cardId % 13) + 3;
         if (rankCard > 13) {
@@ -64,7 +63,7 @@ var TrashCardOnTable = cc.Node.extend({
         };
     },
 
-    reOrder: function () {
+    reOrder: function (noAnimation) {
         if (this.cardList.length > 0) {
             this.setContentSize(cc.size(this.cardList[0].width *
                 this.cardList.length * this.cardScale,
@@ -82,7 +81,10 @@ var TrashCardOnTable = cc.Node.extend({
                 card.origin = cc.p(x, y);
                 card.cardIndex = i;
                 card.cardDistance = dx;
-                card.moveToOriginPosition();
+                if (noAnimation)
+                    card.setPosition(card.origin);
+                else
+                    card.moveToOriginPosition();
                 x += dx;
             }
         }
@@ -95,24 +97,21 @@ var TrashCardOnTable = cc.Node.extend({
         this.addCard(cardSprite);
     },
 
-    addCardReconnect: function (cards) {
-
-    },
-
     addCardWithoutAnimation: function (cards) {
         if (!this.cardSize) {
             this.cardSize = cards[0].getContentSize();
         }
-        this.cardList.push(cards);
+        this.cardList.concat(cards);
 
         var dx = this.cardSize.width * this.cardScale;
         var width = cards.length * dx;
-        var x = this.cardPosition.x - width / 2 + dx / 2;
+        var x = this.getContentSize().width / 2 + dx / 2;
+        var y = this.getContentSize().height / 2;
 
         for (var i = 0; i < cards.length; i++) {
             var card = cards[i];
-            card.setPosition(x, this.cardPosition.y);
-            card.setScale(0.5);
+            card.setScale(this.cardScale);
+            card.setPosition(x, y);
             this.addChild(card, 0);
             x += dx;
         }
@@ -128,8 +127,26 @@ var PhomCardList = CardList.extend({
     dealCards: function (cards, animation) {
         this._super(cards, animation);
     },
-    reArrangeCards: function (groupList) {
+    reArrangeCards: function () {
+        // chia ra 2 array, grouped va ungrouped
+        var groupedCard = [];
+        var ungroupedCard = [];
+        for (var i = 0; i < this.cardList.length; i++) {
+            var cardId = this.getCardIdWithRank(this.cardList[i].rank, this.cardList[i].suit);
+            var index = this.groupedCard.indexOf(cardId);
+            if (index != -1)
+                groupedCard[index] = this.cardList[i];
+            else
+                ungroupedCard.push(this.cardList[i]);
+        }
 
+        ungroupedCard.sort(function (a, b) {
+            return a.rank - b.rank;
+        });
+
+        this.cardList = [];
+        this.cardList = groupedCard.concat(ungroupedCard);
+        this.reOrder();
     },
     suggestCards: function (cards) {
         for (var i = 0; i < this.cardList.length; i++) {
@@ -150,7 +167,7 @@ var PhomCardList = CardList.extend({
         var groupedCard = [];
         for (var i = 0; i < param.length; i++)
             groupedCard = groupedCard.concat(param[i]);
-        cc.log("Process grouped card : " + JSON.stringify(groupedCard));
+        this.groupedCard = groupedCard;
 
         for (var i = 0; i < this.cardList.length; i++) {
             var id = this.getCardIdWithRank(this.cardList[i].rank,
@@ -206,7 +223,7 @@ var Phom = IGameScene.extend({
             this.timeTurn = content.p["7"];
         }
         else if (content.c == "13") {//reconnect
-
+            this.onReconnect(content.p);
         }
         else if (content.c == "10") {//update status
             this.onGameStatus(content.p["1"]);
@@ -250,6 +267,106 @@ var Phom = IGameScene.extend({
     },
     onStatusChanged: function (param) {
 
+    },
+    onReconnect: function (param) {
+        this._super(param);
+        var userInfo = param["1"]["5"];
+
+        //update my status
+        for (var i = 0; i < userInfo.length; i++) {
+            if (userInfo[i]["u"] == PlayerMe.username) {
+                this.onTurnChanged({s: userInfo[i]["s"], u: userInfo[i]["u"]});
+            }
+        }
+
+        //update turn
+        var turnInfo = param["1"]["12"];
+        this.getSlotByUsername(turnInfo["u"]).showTimeRemain(turnInfo["2"] / 1000, 15);
+        this.drawDeckLabel.setString(turnInfo["3"]);
+
+        //on-hand cards
+        var onHandCards = param["3"];
+        var pushLish = [];
+        for (var i = 0; i < onHandCards.length; i++) {
+            var card = this.getCardWithId(onHandCards[i]);
+            this.cardList.addCard(new Card(card.rank, card.suit));
+        }
+        this.cardList.reOrderWithoutAnimation();
+
+        // trash card
+        for (var i = 0; i < userInfo.length; i++) {
+            var data = userInfo[i];
+            var username = data["u"];
+            var slot = this.getSlotByUsername(username);
+            var trashCards = data["10"];
+
+            //trashcard
+            if (!trashCards)
+                break;
+            for (var j = 0; j < trashCards.length; j++) {
+                var card = this.getCardWithId(trashCards[j]);
+                slot.trashCards.addCard(new Card(card.rank, card.suit));
+            }
+            slot.trashCards.reOrder(true);
+        }
+
+        // stolen card
+        for (var i = 0; i < userInfo.length; i++) {
+            var data = userInfo[i];
+            var username = data["u"];
+            var stolenCards = data["12"];
+            if (username == PlayerMe.username) {
+                for (var j = 0; j < this.cardList.cardList.length; j++) {
+                    var cardId = this.getCardIdWithRank(
+                        this.cardList.cardList[j].rank,
+                        this.cardList.cardList[j].suit
+                    );
+                    if (stolenCards.indexOf(cardId) != -1) {
+                        var redBorder = new cc.Sprite("#boder_do.png");
+                        redBorder.setPosition(
+                            this.cardList.cardList[j].width / 2,
+                            this.cardList.cardList[j].height / 2
+                        );
+                        this.cardList.cardList[j].addChild(redBorder);
+                    }
+                }
+            }
+            else {
+                for (var j = 0; j < stolenCards.length; j++) {
+                    var card = this.getCardWithId(stolenCards[j]);
+                    var cardSprite = new Card(card.rank, card.suit);
+                    var redBorder = new cc.Sprite("#boder_do.png");
+                    redBorder.setPosition(cardSprite.width / 2, cardSprite.height / 2);
+                    cardSprite.addChild(redBorder);
+                    slot.dropCards.addCard(cardSprite)
+                }
+                slot.dropCards.reOrder(true);
+            }
+        }
+
+        //grouped Cards
+
+        var groupedCards = [];
+        if (param["4"]) {
+            for (var i = 0; i < param["4"].length; i++)
+                groupedCards = groupedCards.concat(param["4"][i]);
+
+            for (var i = 0; i < this.cardList.cardList.length; i++) {
+                var cardId = this.getCardIdWithRank(
+                    this.cardList.cardList[i].rank,
+                    this.cardList.cardList[i].suit
+                );
+
+                if (groupedCards.indexOf(cardId) != -1) {
+                    var dotSprite = new cc.Sprite("#card-dot.png");
+                    dotSprite.setPosition(
+                        this.cardList.cardList[i].width - 20,
+                        this.cardList.cardList[i].height - 20
+                    );
+                    this.cardList.cardList[i].addChild(dotSprite);
+                }
+            }
+        }
     },
     onGameFinished: function (param) {
         this.uBt.visible = false;
@@ -387,6 +504,7 @@ var Phom = IGameScene.extend({
                 var groupedCardAfter = [];
                 for (var j = 0; j < delegateData["5"].length; j++)
                     groupedCardAfter = groupedCardAfter.concat(delegateData["5"][j]);
+                cc.log(JSON.stringify(groupedCardAfter));
                 var receiverSlot = this.getSlotByUsername(receiver);
                 var finalList = [];
 
@@ -394,12 +512,18 @@ var Phom = IGameScene.extend({
                 for (var j = 0; j < groupedCardAfter.length; j++) {
                     if (delegateCardsId.indexOf(groupedCardAfter[j]) == -1) {
                         // from grouped card before
-                        finalList.push(receiverSlot.dropCards.removeCardById(groupedCardAfter[j]));
+                        var cardSprite = receiverSlot.dropCards.removeCardById(groupedCardAfter[j])
+                        finalList.push(cardSprite);
+                        cardSprite.release();
+                        cc.log("Removed card id " + groupedCardAfter[j]);
                     }
                     else {
                         // from my deck
                         if (sender == PlayerMe.username) {
-                            finalList.push(this.cardList.removeCardById(groupedCardAfter[j]));
+                            var cardSprite = this.cardList.removeCardById(groupedCardAfter[j])
+                            finalList.push(cardSprite);
+                            cardSprite.release();
+                            cc.log("Removed card id " + groupedCardAfter[j] + " from my deck");
                         }
                         // from someone's deck
                         else {
@@ -407,17 +531,18 @@ var Phom = IGameScene.extend({
                             var cardSprite = new Card(card.rank, card.suit);
                             cardSprite.setPosition(this.getSlotByUsername(sender).getPosition());
                             finalList.push(cardSprite);
+                            cc.log("Added card id " + groupedCardAfter[j]);
                         }
                     }
                 }
 
                 for (var j = 0; j < finalList.length; j++) {
                     //add back to receiver drop cards
-                    receiverSlot.dropCards.addCard(finalList[i]);
-                    finalList[i].release();
+                    receiverSlot.dropCards.addCard(finalList[j]);
                 }
                 receiverSlot.dropCards.reOrder();
             }
+            this.cardList.reOrder();
         }
     },
     onStealAssetUpdate: function (param) {
@@ -459,7 +584,7 @@ var Phom = IGameScene.extend({
         else {
             var stealer = this.getSlotByUsername(param["u1"]);
             stealer.dropCards.addCard(cardSprite);
-            stealer.reOrder();
+            stealer.dropCards.reOrder();
         }
     },
     onDrawDeck: function (param) {
@@ -480,6 +605,10 @@ var Phom = IGameScene.extend({
     },
     onTurnChanged: function (param) {
         var username = param.u;
+        for (var i = 0; i < this.playerView.length; i++) {
+            this.playerView[i].stopTimeRemain();
+        }
+        this.getSlotByUsername(username).showTimeRemain(15, 15);
         this.anbaiBt.visible = this.danhbaiBt.visible = this.uBt.visible
             = this.habaiBt.visible = this.drawBt.visible =
             this.guibaiBt.visible = false;
@@ -535,8 +664,10 @@ var Phom = IGameScene.extend({
                 var arr = this.cardList.removeCard(cards);
                 slot.trashCards.addCard(arr[0]);
                 this.cardList.reOrder();
-                for (var i = 0; i < arr.length; i++)
+                for (var i = 0; i < arr.length; i++) {
+                    arr[i].removeAllChildren(true);
                     arr[i].release();
+                }
             }
             else {
                 slot.trashCards.addNewCard(this.getCardWithId(param["1"]));
@@ -669,7 +800,7 @@ var Phom = IGameScene.extend({
             thiz.sendDanhBai();
         });
         xepBaiBt.addClickEventListener(function () {
-            //thiz.sendStartRequest();
+            thiz.xepBai();
         });
         habaiBt.addClickEventListener(function () {
             thiz.sendHaBaiRequest();
@@ -705,6 +836,9 @@ var Phom = IGameScene.extend({
         this.habaiBt = habaiBt;
         this.guibaiBt = guibaiBt;
     },
+    xepBai: function () {
+        this.cardList.reArrangeCards();
+    },
     sendURequest: function () {
         SmartfoxClient.getInstance().sendExtensionRequestCurrentRoom("109", null);
     },
@@ -717,7 +851,7 @@ var Phom = IGameScene.extend({
         for (var i = 0; i < guibaiList.length; i++) {
             data.push(this.getCardIdWithRank(guibaiList[i].rank, guibaiList[i].suit));
         }
-        SmartfoxClient.getInstance().sendExtensionRequestCurrentRoom("106", data);
+        SmartfoxClient.getInstance().sendExtensionRequestCurrentRoom("106", {1: data});
     },
     sendHaBaiRequest: function () {
         var habaiList = this.cardList.getCardSelected();

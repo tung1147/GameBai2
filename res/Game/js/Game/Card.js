@@ -150,6 +150,16 @@ var CardList = cc.Node.extend({
             cc.log("card id " + id + " " + JSON.stringify(card));
         return null;
     },
+    getCardWithId: function (cardId) {
+        var rankCard = (cardId % 13) + 3;
+        if (rankCard > 13) {
+            rankCard -= 13;
+        }
+        return {
+            rank: rankCard,
+            suit: Math.floor(cardId / 13)
+        };
+    },
     reOrder : function () {
         if(this.cardList.length > 0){
             var width = this.cardSize.width * this.cardList.length;
