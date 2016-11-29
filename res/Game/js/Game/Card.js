@@ -25,6 +25,7 @@ var Card = cc.Sprite.extend({
 
         this.origin = cc.p();
         this.isTouched = false;
+        this._cardSelected = false;
         var thiz = this;
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -59,6 +60,8 @@ var Card = cc.Sprite.extend({
             this.stopAllActions();
             this.setPosition(this.origin);
         }
+
+        this._cardSelected = selected;
         if(selected){
             this.y = this.origin.y + 50;
         }
@@ -68,7 +71,8 @@ var Card = cc.Sprite.extend({
 
     },
     isSelected : function () {
-        return (this.y > this.origin.y);
+       // return (this.y > this.origin.y);
+        return this._cardSelected;
     },
     onTouchBegan : function (touch, event) {
         if(this.canTouch && !this.isTouched){
@@ -91,12 +95,14 @@ var Card = cc.Sprite.extend({
             this.getParent().reorderChild(this, this.cardIndex);
         }
         else{
-            if(this.y > this.origin.y){
-                this.y = this.origin.y;
-            }
-            else{
-                this.y = this.origin.y + 50.0;
-            }
+            // if(this.y > this.origin.y){
+            //     this.y = this.origin.y;
+            // }
+            // else{
+            //     this.y = this.origin.y + 50.0;
+            // }
+
+            this.setSelected(!this._cardSelected);
         }
     },
     onTouchMoved : function (touch, event) {

@@ -244,7 +244,7 @@ var TLMNGameController = GameController.extend({
             this._view.updateGold(username, gold);
         }
 
-        this.showFinishedDialog(player);
+        this._view.showFinishedDialog(player);
     },
     updateOwner : function (username) {
        this._super(username);
