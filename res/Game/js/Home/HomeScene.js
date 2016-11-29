@@ -10,6 +10,10 @@ var HomeScene = IScene.extend({
 
         LobbyClient.getInstance().addListener("login", this.onLoginHandler, this);
         LobbyClient.getInstance().addListener("LobbyStatus", this.onLobbyStatusHandler, this);
+        LobbyClient.getInstance().addListener("changeAsset", this.onChangeRefeshUserInfo, this);
+        LobbyClient.getInstance().addListener("inboxMessage", this.onChangeRefeshUserInfo, this);
+        LobbyClient.getInstance().addListener("markReadedMessageInbox", this.onChangeRefeshUserInfo, this);
+        LobbyClient.getInstance().addListener("news", this.onNewsMessage, this);
 
         var bg = new cc.Sprite("res/game-bg.jpg");
         bg.x = cc.winSize.width / 2;
@@ -86,17 +90,15 @@ var HomeScene = IScene.extend({
         //
         FloatButton.getInstance().show(this);
 
-        LobbyClient.getInstance().addListener("fetchProducts", this.onFetchProduct, this);
+       // LobbyClient.getInstance().addListener("fetchProducts", this.onFetchProduct, this);
         LobbyClient.getInstance().addListener("fetchCashinProductItems", this.onFetchCashin, this);
-        LobbyClient.getInstance().addListener("changeAsset", this.onChangeAsset, this);
     },
     onFetchProduct: function (command, data) {
-        data = data["data"];
-        cc.log(JSON.stringify(data));
-        cc.Global.thecaoData = cc.Global.thecaoData || data["1"];
-        cc.Global.vatphamData = cc.Global.vatphamData || data["4"];
-        cc.Global.dailyData = cc.Global.dailyData || data["3"];
-        cc.Global.tienmatData = cc.Global.tienmatData || data["2"];
+        // data = data["data"];
+        // cc.Global.thecaoData = cc.Global.thecaoData || data["1"];
+        // cc.Global.vatphamData = cc.Global.vatphamData || data["4"];
+        // cc.Global.dailyData = cc.Global.dailyData || data["3"];
+        // cc.Global.tienmatData = cc.Global.tienmatData || data["2"];
     },
     onFetchCashin: function (command, data) {
         //cc.log(JSON.stringify(data));
@@ -123,16 +125,23 @@ var HomeScene = IScene.extend({
         //     });
         // }
     },
-    onChangeAsset: function (command, data) {
-        data = data["data"];
-        PlayerMe.gold = data["userAssets"]["gold"];
+    onChangeRefeshUserInfo : function (command, data) {
         this.userInfo.refreshView();
+    },
+    onNewsMessage : function (command, data) {
+        this.topBar.refreshView();
+        var popupMsg = data["data"]["popup"];
+        if(popupMsg && popupMsg != ""){
+            //show popup
+            var messageDialog = new MessageDialog();
+            messageDialog.setMessage(popupMsg);
+            messageDialog.showWithAnimationScale();
+        }
     },
     onLoginHandler: function (command, data) {
         //  cc.log("onLoginHandler");
         if (data.status == 0) {
             this.userInfo.refreshView();
-            this.topBar.refreshView();
             this.miniGame.fetchHuThuong();
         }
     },

@@ -157,7 +157,7 @@ var MiniGameLayer = cc.Node.extend({
     },
 
     addMiniGame: function (gameId, listGame) {
-        cc.log("add miniGame: "+gameId);
+        //cc.log("add miniGame: "+gameId);
         var size = cc.size(280.0, 92.0);
         var cell = new MiniGameCell(size, gameId, s_games_display_name[gameId]);
         cell.setScale(cc.winSize.screenScale);

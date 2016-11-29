@@ -6,6 +6,14 @@ var payment_card_img = payment_card_img || ["#payment-card-mobi", "#payment-card
 var payment_card_code = payment_card_code || ["Mã thẻ Mobi", "Mã thẻ Viettel", "Mã thẻ Vina", "Mã thẻ Gate", "Mã thẻ Vcoin", "Mã thẻ Bit"];
 var payment_card_serial = payment_card_serial || ["Serial thẻ Mobi", "Serial thẻ Viettel", "Serial thẻ Vina", "Serial thẻ Gate", "Serial thẻ Vcoin", "Serial thẻ Bit"];
 var payment_card_type = payment_card_type || ["VMS", "VTT", "VNP", "GATE", "VCOIN", "BIT"];
+
+if(cc.sys.isNative){
+    var payment_idx = [1,2,3,4,5,6];
+}
+else{
+    var payment_idx = [1,4,5,6];
+}
+
 var PaymentCardLayer = cc.Node.extend({
     ctor: function () {
         this._super();
@@ -58,7 +66,14 @@ var PaymentCardLayer = cc.Node.extend({
             var serial = thiz.serialThe.getString();
             var telco = thiz.type;
             var type = 1;//card
-            var msg = {command: "cashin", code: code, serial: serial, telco: telco, type: type};
+            var msg = {
+                command: "cashin",
+                code: code,
+                serial: serial,
+                telco: telco,
+                type: type
+            };
+            console.log(msg);
             LobbyClient.getInstance().send(msg);
         });
 
@@ -288,7 +303,9 @@ var PaymentGiftcode = cc.Node.extend({
     },
     onCashin: function (command, data) {
         var message = data["message"];
-        MessageNode.getInstance().show(message);
+        var dialog = new MessageDialog();
+        dialog.setMessage(message);
+        dialog.showWithAnimationScale();
     },
     onExit: function () {
         this._super();
@@ -332,7 +349,7 @@ var PaymentHistoryLayer = cc.Node.extend({
         goldLabel.setOpacity(0.2 * 255);
         this.addChild(goldLabel, 1);
 
-        var priceLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "TRẠNG THÁI");
+        var priceLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "MỆNH GIÁ");
         priceLabel.setPosition(this.x5, 576);
         priceLabel.setOpacity(0.2 * 255);
         this.addChild(priceLabel, 1);
@@ -348,33 +365,39 @@ var PaymentHistoryLayer = cc.Node.extend({
         this.addChild(itemList, 1);
         this.itemList = itemList;
 
-        LobbyClient.getInstance().send({command: "fetchCashinItems"});
-
-        // for(var i =0;i<20;i++){
-        //     this.addItem("10:54:35\n24/10/2016", "Tín dụng 1200K", "Seri thẻ: 009129197386\nMã thẻ: 091979617362", 1200000, 1);
-        // }
-
         LobbyClient.getInstance().addListener("fetchCashinItems", this.onRecvHistory, this);
+    },
+    setVisible : function (visible) {
+        this._super(visible);
+        if(visible){
+            this.itemList.removeAllItems();
+            var request = {command: "fetchCashinItems"};
+            LobbyClient.getInstance().send(request);
+        }
     },
     onExit: function () {
         this._super();
-        //  LobbyClient.getInstance().removeListener(this);
+        LobbyClient.getInstance().removeListener(this);
     },
     onRecvHistory: function (cmd, data) {
         data = data["data"];
-        for (var i = 0; i < data.length; i++) {
-            var timeInMs = new Date(data[i]["createdTime"] * 1000);
-            var timeString = timeInMs.getHours() + ":" + timeInMs.getMinutes() + ":" + timeInMs.getSeconds()
-                + " " + timeInMs.getDate() + "/" + (timeInMs.getMonth() + 1) + "/" + timeInMs.getFullYear();
-            var type = data[i]["cashInType"];
-            var info = data[i]["detail"];
-            var gold = data[i]["gold"];
-            var price = data[i]["price"];
-            this.addItem(timeString, type, info, gold, price);
+        if(data.length > 0){
+            this.itemList.removeAllItems();
+
+            for (var i = 0; i < data.length; i++) {
+                var timeInMs = new Date(data[i]["createdTime"] * 1000);
+                var timeString = timeInMs.getHours() + ":" + timeInMs.getMinutes() + ":" + timeInMs.getSeconds()
+                    + "\n" + timeInMs.getDate() + "/" + (timeInMs.getMonth() + 1) + "/" + timeInMs.getFullYear();
+                var type = data[i]["cashInType"];
+                var info = data[i]["detail"];
+                var gold = data[i]["gold"];
+                var price = data[i]["price"];
+                this.addItem(timeString, type, info, gold, price);
+            }
         }
     },
     addItem: function (time, type, info, gold, price) {
-        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, time);
+        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, time, cc.TEXT_ALIGNMENT_CENTER, 1000);
         var typeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, type);
         var infoLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, info);
         var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, gold);
@@ -455,8 +478,25 @@ var PaymentHistoryLayer = cc.Node.extend({
 var PaymentLayer = LobbySubLayer.extend({
     ctor: function () {
         this._super();
-        var allLayer = [new PaymentCardLayer(), new PaymentInAppLayer(), new PaymentInAppLayer(),
-            new PaymentGiftcode(), new PaymentSMSLayer(), new PaymentHistoryLayer()];
+        if(cc.sys.isNative){
+            var allLayer = [
+                new PaymentCardLayer(),
+                new PaymentInAppLayer(),
+                new PaymentInAppLayer(),
+                new PaymentGiftcode(),
+                new PaymentSMSLayer(),
+                new PaymentHistoryLayer()];
+        }
+        else{
+            var allLayer = [
+                new PaymentCardLayer(),
+                //new PaymentInAppLayer(),
+                //new PaymentInAppLayer(),
+                new PaymentGiftcode(),
+                new PaymentSMSLayer(),
+                new PaymentHistoryLayer()];
+        }
+
         for (var i = 0; i < allLayer.length; i++) {
             this.addChild(allLayer[i]);
         }
@@ -476,7 +516,7 @@ var PaymentLayer = LobbySubLayer.extend({
         tabBg.setPosition(1280.0 / 2, tabBg.getContentSize().height / 2);
         bottomBar.addChild(tabBg);
 
-        var dx = tabBg.getContentSize().width / 6;
+        var dx = tabBg.getContentSize().width / allLayer.length;
         var x = tabBg.x - tabBg.getContentSize().width / 2 + dx / 2;
 
         var selectBar = new cc.Sprite("#sublobby-tab-selected.png");
@@ -493,9 +533,11 @@ var PaymentLayer = LobbySubLayer.extend({
         var mToggle = new ToggleNodeGroup();
         bottomBar.addChild(mToggle);
 
-        for (var i = 0; i < 6; i++) {
-            var icon1 = new cc.Sprite(icon_img1[i]);
-            var icon2 = new cc.Sprite(icon_img2[i]);
+        for (var i = 0; i < allLayer.length; i++) {
+            var idx = payment_idx[i];
+
+            var icon1 = new cc.Sprite(icon_img1[idx]);
+            var icon2 = new cc.Sprite(icon_img2[idx]);
             icon1.setAnchorPoint(cc.p(0.5, 0.0));
             icon2.setAnchorPoint(cc.p(0.5, 0.0));
             icon1.setPosition(x, 10);
@@ -503,8 +545,8 @@ var PaymentLayer = LobbySubLayer.extend({
             bottomBar.addChild(icon1);
             bottomBar.addChild(icon2);
 
-            var text1 = new cc.Sprite("#payment-tab-" + (i + 1) + ".png");
-            var text2 = new cc.Sprite("#payment-tab-selected-" + (i + 1) + ".png");
+            var text1 = new cc.Sprite("#payment-tab-" + idx + ".png");
+            var text2 = new cc.Sprite("#payment-tab-selected-" + idx + ".png");
             text1.setPosition(x, tabBg.y);
             text2.setPosition(text1.getPosition());
             bottomBar.addChild(text1, 1);

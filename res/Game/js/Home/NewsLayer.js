@@ -22,6 +22,7 @@ var NewsSubLayer = cc.Node.extend({
 var NewsNotificationLayer = NewsSubLayer.extend({
     ctor: function () {
         this._super();
+        this.newsType = "event";
         this.dialogTitle = "Thông báo";
         var titleLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "THÔNG BÁO");
         titleLabel.setPosition(489.0 * cc.winSize.screenScale, 576);
@@ -33,7 +34,7 @@ var NewsNotificationLayer = NewsSubLayer.extend({
         this.addChild(timeLabel);
         this.titleLabel = titleLabel;
 
-        this.registerFetchData();
+        LobbyClient.getInstance().addListener("getNews", this.onNewData, this);
     },
 
     onNewData: function (command, data) {
@@ -46,9 +47,12 @@ var NewsNotificationLayer = NewsSubLayer.extend({
         }
     },
 
-    registerFetchData: function () {
-        LobbyClient.getInstance().send({command: "getNews", type: "event"});
-        LobbyClient.getInstance().addListener("getNews", this.onNewData, this);
+    setVisible : function (visible) {
+        NewsSubLayer.prototype.setVisible.call(this, visible);
+        if(visible){
+            this.itemList.removeAllItems();
+            LobbyClient.getInstance().send({command: "getNews", type: this.newsType});
+        }
     },
 
     onExit: function () {
@@ -92,12 +96,9 @@ var NewsNotificationLayer = NewsSubLayer.extend({
 var NewsTutorialLayer = NewsNotificationLayer.extend({
     ctor: function () {
         this._super();
+        this.newsType = "guide";
         this.dialogTitle = "Hướng dẫn";
         this.titleLabel.setString("HƯỚNG DẪN");
-    },
-    registerFetchData: function () {
-        LobbyClient.getInstance().send({command: "getNews", type: "guide"});
-        LobbyClient.getInstance().addListener("getNews", this.onNewData, this);
     },
     onNewData: function (command, data) {
         var guides = data["data"]["guide"];
@@ -278,14 +279,14 @@ var NewsLayer = LobbySubLayer.extend({
                 this.icon2.visible = true;
                 this.text1.visible = false;
                 this.text2.visible = true;
-                this.layer.visible = true;
+                this.layer.setVisible(true);
             };
             toggleItem.onUnSelect = function () {
                 this.icon1.visible = true;
                 this.icon2.visible = false;
                 this.text1.visible = true;
                 this.text2.visible = false;
-                this.layer.visible = false;
+                this.layer.setVisible(false);
             };
             x += dx;
             mToggle.addItem(toggleItem);

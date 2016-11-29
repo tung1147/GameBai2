@@ -165,7 +165,9 @@ var IGameScene = IScene.extend({
                 this.allSlot[i].setEnable(true);
                 this.allSlot[i].setUsername(data.username);
                 this.allSlot[i].setGold(data.gold);
+
                 this.allSlot[i].spectator = data.spectator;
+                this.allSlot[i].userIndex = data.userIndex;
             }
             else{
                 this.allSlot[i].setEnable(false);
@@ -174,11 +176,17 @@ var IGameScene = IScene.extend({
     },
 
     userJoinRoom : function (info) {
-        var idx = info.index;
-        this.allSlot[idx].setEnable(true);
-        this.allSlot[idx].stopTimeRemain();
-        this.allSlot[idx].setUsername(info.username);
-        this.allSlot[idx].setGold(info.gold);
+        var meIndex = this.allSlot[0].userIndex;
+        var slot = info.index - meIndex;
+        if(slot < 0){
+            slot += this.allSlot.length;
+        }
+
+        this.allSlot[slot].setEnable(true);
+        this.allSlot[slot].userIndex = info.index;
+        this.allSlot[slot].stopTimeRemain();
+        this.allSlot[slot].setUsername(info.username);
+        this.allSlot[slot].setGold(info.gold);
     },
 
     userExitRoom : function (username) {

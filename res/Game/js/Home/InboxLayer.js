@@ -1,6 +1,10 @@
 /**
  * Created by Quyet Nguyen on 7/13/2016.
  */
+
+var s_text_color = s_text_color || cc.color.WHITE;
+var s_text_color_readed = s_text_color_readed || cc.color(120,120,120,255);
+
 var InboxLayer = LobbySubLayer.extend({
     ctor : function () {
         this._super();
@@ -35,12 +39,18 @@ var InboxLayer = LobbySubLayer.extend({
         this.addChild(messageList, 1);
         this.messageList = messageList;
 
-        for(var i=0;i<20;i++){
-            this.addMessage(0, "Hệ thống", "Title", "Content");
-        }
+        LobbyClient.getInstance().addListener("fetchMultiMessageInbox", this.onRecvMessageInbox, this);
+        LobbyClient.getInstance().addListener("markReadedMessageInbox", this.onMarkReadedMessageInbox, this);
+        LobbyClient.getInstance().addListener("inboxMessage", this.onUpdateMessageCount, this);
     },
-    addMessage : function (time, sender, title, content) {
+    addMessage : function (messageId, time, sender, title, content, status) {
+        var textColor = s_text_color;
+        if(status == 6){
+            textColor = s_text_color_readed;
+        }
+
         var container = new ccui.Widget();
+        container.messageId = messageId;
         container.setContentSize(cc.size(this.messageList.getContentSize().width, 80));
         this.messageList.pushItem(container);
 
@@ -59,14 +69,25 @@ var InboxLayer = LobbySubLayer.extend({
         bg3.setPosition(892.0 * cc.winSize.screenScale, bg1.y);
         container.addChild(bg3);
 
-        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Time");
+        var d = new Date(time);
+        var timeString = "" + d.getDate() + "/" + (d.getMonth() + 1) + "/" + (1900 + d.getYear()) + "\n" +
+                            d.getHours() + ":"+ d.getMinutes();
+        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, timeString, cc.TEXT_ALIGNMENT_CENTER, bg1.getContentSize().width);
         timeLabel.setPosition(bg1.getPosition());
+        timeLabel.setColor(textColor);
         container.addChild(timeLabel);
+        container.timeLabel = timeLabel;
+
         var senderLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, sender);
         senderLabel.setPosition(bg2.getPosition());
+        senderLabel.setColor(textColor);
         container.addChild(senderLabel);
+        container.senderLabel = senderLabel;
+
         var titleLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, title);
         titleLabel.setPosition(bg3.getPosition());
+        titleLabel.setColor(textColor);
+        container.titleLabel = titleLabel;
         container.addChild(titleLabel);
 
         container.setTouchEnabled(true);
@@ -75,6 +96,59 @@ var InboxLayer = LobbySubLayer.extend({
             dialog.title.setString("Tin nhắn");
             dialog.setMessage(content);
             dialog.showWithAnimationScale();
+            if(status === 1){
+                var request = {
+                    command : "markReadedMessageInbox",
+                    messageId : messageId
+                };
+                LobbyClient.getInstance().send(request);
+            }
         });
+    },
+    
+    onEnter : function () {
+        this._super();
+        this.requestAllMessage();
+    },
+
+    onExit : function () {
+        this._super();
+        LobbyClient.getInstance().removeListener(this);
+    },
+
+    requestAllMessage : function () {
+        var msg = {
+            command : "fetchMultiMessageInbox"
+        };
+        LobbyClient.getInstance().send(msg);
+    },
+
+    onUpdateMessageCount : function (cmd, data) {
+        this.requestAllMessage();
+    },
+
+    onRecvMessageInbox : function (cmd, data) {
+        var msg = data["data"]["messages"];
+        if(msg && msg.length > 0){
+            cc.log("onRecvMessageInbox");
+            this.messageList.removeAllItems();
+            for(var i=0;i<msg.length;i++){
+                if(msg[i].type == 1){
+                    this.addMessage(msg[i].messageId, msg[i].sendTime, msg[i].senderName, msg[i].title, msg[i].content, msg[i].status);
+                }
+            }
+        }
+    },
+
+    onMarkReadedMessageInbox : function (cmd, data) {
+        var messageId = data["data"]["messageId"];
+        for(var i=0;i<this.messageList.size();i++){
+            var msgItem = this.messageList.getItem(i);
+            if(msgItem.messageId === messageId){
+                msgItem.timeLabel.setColor(s_text_color_readed);
+                msgItem.senderLabel.setColor(s_text_color_readed);
+                msgItem.titleLabel.setColor(s_text_color_readed);
+            }
+        }
     }
 });

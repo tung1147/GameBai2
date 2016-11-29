@@ -24,8 +24,8 @@ var RewardSublayer = cc.Node.extend({
         this.itemList = itemList;
     },
     requestReward: function (id) {
-        var msg = {command: "cashout", id: id};
-        LobbyClient.getInstance().send(msg);
+       // var msg = {command: "cashout", id: id};
+        //LobbyClient.getInstance().send(msg);
     }
 });
 

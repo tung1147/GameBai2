@@ -84,6 +84,9 @@ var GamePlayer = cc.Node.extend({
         }
         else{
             this.username = "";
+            this.userIndex = -1;
+            this.spectator = false;
+
             this.infoLayer.visible = false;
             this.inviteBt.visible = true;
         }

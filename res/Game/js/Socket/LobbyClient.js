@@ -14,8 +14,8 @@ var LobbyClient = (function () {
                 throw "Cannot create new instance for Singleton Class";
             } else {
                 this.allListener = {};
-               // this.host = "42.112.25.169";//"uat1.puppetserver.com";
-                this.host = "42.112.25.164";
+                this.host = "42.112.25.169";//"uat1.puppetserver.com";
+              //  this.host = "42.112.25.164";
                 if(cc.sys.isNative){
                     this.port = 9999;
                 }
@@ -160,14 +160,37 @@ var LobbyClient = (function () {
             }
             else if (command === "changeAsset"){
                 PlayerMe.gold = event["data"]["userAssets"]["gold"];
-                cc.log("Lobbyclient : " + PlayerMe.gold);
+               // cc.log("Lobbyclient : " + PlayerMe.gold);
+            }
+            else if(command === "inboxMessage"){
+                PlayerMe.messageCount = event["data"]["numberMessUnread"];
+            }
+            else if(command === "news"){
+                var broadcast = event["data"]["broadcast"];
+                if(broadcast){
+                    GameConfig.broadcastMessage = broadcast;
+                }
+            }
+            else if(command === "markReadedMessageInbox"){
+                var msgCount = event["data"]["numberMessUnread"];
+                PlayerMe.messageCount = msgCount;
+            }
+            else if(command === "fetchProducts"){
+                cc.Global.thecaoData = event["1"];
+                cc.Global.tienmatData = event["2"];
+                cc.Global.dailyData = event["3"];
+                cc.Global.vatphamData = event["4"];
+            }
+            else if(command === "fetchCashinProductItems"){
+
             }
         },
         onLoginEvent: function (event) {
           //  console.log(event);
+            PlayerMe.messageCount = 0;
 
             var data = event.data;
-            GameConfig.broadcastMessage = event.data.broadcast;
+         //   GameConfig.broadcastMessage = event.data.broadcast;
 //            LevelData = data.config.levelData;
  //           VipData = data.config.vipData;
             PlayerMe.gold = data.userAssets.gold;

@@ -145,13 +145,13 @@ PlayerMe.gold = 1000;
 PlayerMe.exp = 11000;
 PlayerMe.vipExp = 1000;
 PlayerMe.spin = 0;
-PlayerMe.messageCount = 100;
+PlayerMe.messageCount = 0;
 PlayerMe.SFS = PlayerMe.SFS || {};
 
 var GameConfig = GameConfig || {};
 GameConfig.email = "gamebaivip@gmail.com";
 GameConfig.hotline = "09000123";
-GameConfig.broadcastMessage = "Thông báo";
+GameConfig.broadcastMessage = "";
 GameConfig.DeviceIDKey = "";
 
 var LevelData = null;
@@ -236,7 +236,7 @@ cc.Global.SetSetting = function (setting, value) {
 
 var ApplicationConfig = ApplicationConfig || {};
 ApplicationConfig.VERSION = "1.0.0";
-ApplicationConfig.BUNBLE = "com.gamebai.vip";
+ApplicationConfig.BUNBLE = "com.iluckystarvn.daisiu";
 ApplicationConfig.DISPLAY_TYPE = "room"; //room - betting
 (function () {
     if(cc.sys.isNative){
@@ -253,7 +253,7 @@ ApplicationConfig.DISPLAY_TYPE = "room"; //room - betting
             ApplicationConfig.PLATFORM = 3;
         }
         else{
-            ApplicationConfig.PLATFORM = 3;
+            ApplicationConfig.PLATFORM = 4;
         }
     }
     else{

@@ -106,11 +106,11 @@ socket.LobbyClient = cc.Class.extend({
     onRecvMessage : function (data) {
         if(this.onEvent){
             this.onEvent("message", data);
-            cc.log("data: "+data);
+            console.log(JSON.parse(data));
         }
     },
     send : function (data) {
-        if(this.wsocket){
+        if(this.wsocket && this.socketStatus == socket.LobbySocket.Connected){
             this.wsocket.send(data);
         }
     }
