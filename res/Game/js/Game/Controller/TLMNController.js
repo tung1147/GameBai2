@@ -33,7 +33,7 @@ var TLMNGameController = GameController.extend({
     onSFSExtension: function (messageType, content) {
         this._super(messageType, content);
         if (content.c == "1") { //startGame
-            this.onJointGame(content.p);
+            this.onJoinGame(content.p);
         }
         else if (content.c == "13") {//reconnect
             this.onReconnect(content.p);
@@ -66,7 +66,7 @@ var TLMNGameController = GameController.extend({
         }
     },
 
-    onJointGame : function (params) {
+    onJoinGame : function (params) {
         this.updateGameInfo(params);
     },
 
@@ -219,6 +219,13 @@ var TLMNGameController = GameController.extend({
             var username = playerData[i].u;
             var gold = parseInt(playerData[i]["4"]);
             var title = null;
+
+            var cardListData = playerData[i]["2"];
+            var cardList = [];
+            for(var j=0;j<cardListData.length;j++){
+                cardList.push(this.getCardWithId(cardListData[j]));
+            }
+
             if(username == winPlayer){
                 title = "Thắng";
             }
@@ -226,11 +233,6 @@ var TLMNGameController = GameController.extend({
                 title = "Thua " + cardList.length + " lá";
             }
 
-            var cardListData = playerData[i]["2"];
-            var cardList = [];
-            for(var j=0;j<cardListData.length;j++){
-                cardList.push(this.getCardWithId(cardListData[j]));
-            }
             player[i] = {
                 username : username,
                 title : title,
@@ -244,7 +246,12 @@ var TLMNGameController = GameController.extend({
 
         this.showFinishedDialog(player);
     },
-    
+    updateOwner : function (username) {
+       this._super(username);
+       if (this.gameStatus == 1 && this.isOwnerMe) {
+            this._view.setStartBtVisible(true);
+       }
+    },
     /* request */
     sendStartRequest: function () {
         SmartfoxClient.getInstance().sendExtensionRequestCurrentRoom("3", null);

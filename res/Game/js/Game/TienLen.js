@@ -206,12 +206,12 @@ var TienLen = IGameScene.extend({
         this.startBt.setVisible(visible);
     },
 
-    updateOwner: function (username) {
-        this._super(username);
-        if (this.gameStatus == 1 && this.isOwnerMe) {
-            this.startBt.visible = true;
-        }
-    },
+    // updateOwner: function (username) {
+    //     this._super(username);
+    //     if (this._controller.gameStatus == 1 && this.isOwnerMe) {
+    //         this.startBt.visible = true;
+    //     }
+    // },
 
     onDanhbaiMe : function (username, cards) {
         var slot = this.getSlotByUsername(username);
@@ -231,6 +231,7 @@ var TienLen = IGameScene.extend({
     },
 
     onUpdateTurn: function (username, currentTime, maxTime) {
+        cc.log("updateTurn: "+currentTime +":"+maxTime + " - " + Date.now());
         for (var i = 0; i < this.allSlot.length; i++) {
             if (this.allSlot[i].username == username) {
                 this.allSlot[i].showTimeRemain(currentTime, maxTime);

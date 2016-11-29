@@ -79,7 +79,7 @@ var GameController = cc.Class.extend({
             this.processPlayerPosition(content);
         }
         else if(content.c == "11"){ // update owner
-            this._view.updateOwner(content.p.u);
+            this.updateOwner(content.p.u);
         }
         else if(content.c == "___err___"){ //error chem
            // this.onError(content.p);
@@ -151,7 +151,8 @@ var GameController = cc.Class.extend({
                 break;
             }
         }
-        this._view.updateOwner(ownerPlayer);
+        //this._view.updateOwner(ownerPlayer);
+        this.updateOwner(ownerPlayer);
     },
 
     onGetLastSessionInfo : function (command, eventData) {
@@ -168,7 +169,14 @@ var GameController = cc.Class.extend({
         }
         this._view.exitToLobby();
     },
-
+    updateOwner : function (username) {
+        if(PlayerMe.username == username){
+            this.isOwnerMe = true;
+        }
+        else{
+            this.isOwnerMe = false;
+        }
+    },
     //request
     requestQuitRoom : function () {
         SmartfoxClient.getInstance().sendExtensionRequest(PlayerMe.SFS.roomId,"19", null);

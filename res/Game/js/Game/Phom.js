@@ -268,6 +268,11 @@ var Phom = IGameScene.extend({
     onStatusChanged: function (param) {
 
     },
+
+    //joinRoom
+    //updateTurn
+
+
     onReconnect: function (param) {
         this._super(param);
         var userInfo = param["1"]["5"];
@@ -608,7 +613,8 @@ var Phom = IGameScene.extend({
         for (var i = 0; i < this.playerView.length; i++) {
             this.playerView[i].stopTimeRemain();
         }
-        this.getSlotByUsername(username).showTimeRemain(15, 15);
+        if (param.s != 0 && param.s != 1)
+            this.getSlotByUsername(username).showTimeRemain(15, 15);
         this.anbaiBt.visible = this.danhbaiBt.visible = this.uBt.visible
             = this.habaiBt.visible = this.drawBt.visible =
             this.guibaiBt.visible = false;
