@@ -95,13 +95,14 @@ var SmartfoxClient = (function () {
             this.send(socket.SmartfoxClient.LeaveRoom, content);
         },
         sendExtensionRequest: function (roomId, command, params) {
+            if (params == null) {
+                params = {};
+            }
             var content = {
                 r: roomId,
-                c: command
+                c: command,
+                p : params
             };
-            if (params) {
-                content.p = params;
-            }
             this.send(socket.SmartfoxClient.CallExtension, content);
         },
         sendExtensionRequestCurrentRoom: function (command, params) {

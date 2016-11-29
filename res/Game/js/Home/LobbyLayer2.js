@@ -162,7 +162,7 @@ var LobbyLayer = cc.Node.extend({
                 if(roomList){
                     var roomData = groups[i].rooms;
                     for(var j=0; j<roomData.length; j++){
-                        this.addRoomCell(roomList, roomData[j].serverId, roomData[j].roomId, roomData[j].betting, roomData[j].userCount);
+                        this.addRoomCell(roomList, roomData[j].serverId, roomData[j].roomId, roomData[j].betting, roomData[j].minMoney, roomData[j].userCount);
                     }
                 }
 
