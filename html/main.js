@@ -71,8 +71,7 @@ var _resumeMethod = function () {
             if(quyetnd.sys.lastRunningTime){
                 var dt = (Date.now() - quyetnd.sys.lastRunningTime) / 1000.0;
                 cc.log("game_on_show: " + dt);
-                var frame_time = 1.0/ 60.0;
-
+                var frame_time = 1.0 / 60.0;
                 while(dt > 0){
                     if(dt > frame_time){
                         cc.director.getScheduler().update(frame_time);
@@ -86,8 +85,8 @@ var _resumeMethod = function () {
         }
     });
 
-    cc.eventManager.addListener(_listener1, -1);
-    cc.eventManager.addListener(_listener2, -1);
+    cc.eventManager.addListener(_listener1, 1);
+    cc.eventManager.addListener(_listener2, 1);
 };
 
 
@@ -95,15 +94,20 @@ cc.game.onStart = function(){
     if(!cc.sys.isNative && document.getElementById("cocosLoading")) //If referenced loading.js, please remove it
         document.body.removeChild(document.getElementById("cocosLoading"));
 
+ //   cc.view.enableAutoFullScreen(false);
+
     // Pass true to enable retina display, on Android disabled by default to improve performance
+
     cc.view.enableRetina(cc.sys.os === cc.sys.OS_IOS ? true : false);
     // Adjust viewport meta
     cc.view.adjustViewPort(true);
 
     // Setup the resolution policy and design resolution size;
+   // cc.view.setFrameSize(cc.size(400,400));
+  //  cc.view.setRealPixelResolution(1280,720,cc.ResolutionPolicy.SHOW_ALL);
     var frameSize = cc.view.getFrameSize();
     var designHeight = 720.0;
-    var designWidth = frameSize.width * designHeight / frameSize.height;
+    var designWidth = 1280.0;//frameSize.width * designHeight / frameSize.height;
     if (designWidth < 960.0) {
         designWidth = 960.0;
     }
@@ -112,13 +116,17 @@ cc.game.onStart = function(){
     }
 
     // Setup the resolution policy and design resolution size
-    cc.view.setDesignResolutionSize(designWidth, designHeight, cc.ResolutionPolicy.SHOW_ALL);
+    var policy = new cc.ResolutionPolicy(cc.ContainerStrategy.PROPORTION_TO_FRAME, cc.ContentStrategy.SHOW_ALL);
+    cc.view.setDesignResolutionSize(designWidth, designHeight, policy);
+
     cc.winSize.screenScale = designWidth / 1280.0;
     // Instead of set design resolution, you can also set the real pixel resolution size
     // Uncomment the following line and delete the previous line.
     // cc.view.setRealPixelResolution(960, 640, cc.ResolutionPolicy.SHOW_ALL);
     // The game will be resized when browser size change
     cc.view.resizeWithBrowserSize(true);
+
+
     //load resources
     // cc.LoaderScene.preload(g_resources, function () {
     //     cc.director.runScene(new HelloWorldScene());

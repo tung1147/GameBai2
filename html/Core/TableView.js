@@ -15,13 +15,70 @@ newui.TableView = ccui.ScrollView.extend({
         this._marginRight = 0.0;
         this._marginTop = 0.0;
         this._marginBottom = 0.0;
-        this._direction = ccui.ScrollView.DIR_HORIZONTAL;
+        this._direction = ccui.ScrollView.DIR_VERTICAL;
         this._refreshView = false;
+        this._moveByTouch = false;
         this._columnCount = columnCount;
 
         this.setContentSize(size);
         this.setBounceEnabled(true);
         this.setScrollBarEnabled(false);
+
+        this._contentRect = cc.rect(0,0,size.width, size.height);
+
+        if ('mouse' in cc.sys.capabilities) {
+            this._initMouseScrollEvent();
+        }
+    },
+
+    _initMouseScrollEvent : function () {
+        var thiz = this;
+        cc.eventManager.addListener({
+            event: cc.EventListener.MOUSE,
+            onMouseScroll: function (event) {
+                if(thiz._checkViewVisible() && thiz.isRunning() && !thiz._isInterceptTouch && !this._moveByTouch){
+                    var delta = cc.sys.isNative ? event.getScrollY() * 6 : -event.getScrollY();
+                    var p = thiz.convertToNodeSpace(event.getLocation());
+                    if(cc.rectContainsPoint(thiz._contentRect, p)){
+                        return thiz.onMouseScrolling(delta);
+                    }
+                }
+                return false;
+            }
+        }, this);
+    },
+
+    _checkViewVisible : function () {
+        var node = this;
+        while(node){
+            if(!node.isVisible()){
+                return false;
+            }
+            node = node.getParent();
+        }
+        return true;
+    },
+
+    onMouseScrolling : function (delta) {
+        if(this._direction == ccui.ScrollView.DIR_VERTICAL){
+            var pDelta = cc.p(0, delta);
+            // var outOfBoundary = this._getHowMuchOutOfBoundary(pDelta);
+            // if(!this._fltEqualZero(outOfBoundary)) {
+            //     pDelta.x += outOfBoundary.x;
+            //     pDelta.y += outOfBoundary.y;
+            // }
+            this._moveInnerContainer(pDelta, true);
+        }
+        else{
+            var pDelta = cc.p(delta, 0);
+            // var outOfBoundary = this._getHowMuchOutOfBoundary(pDelta);
+            // if(!this._fltEqualZero(outOfBoundary)) {
+            //     pDelta.x += outOfBoundary.x;
+            //     pDelta.y += outOfBoundary.y;
+            // }
+            this._moveInnerContainer(pDelta, true);
+        }
+        return true;
     },
 
     setPadding : function (padding) {
@@ -58,7 +115,7 @@ newui.TableView = ccui.ScrollView.extend({
 
         if(this._allItems.length > 0){
             var itemSize = this._allItems[0].getContentSize();
-            var col = Math.floor(this._allItems.length / this._columnCount);
+            var col = Math.ceil(this._allItems.length / this._columnCount);
             containerWidth = itemSize.width * col + this._padding*(col - 1) + this._marginLeft + this._marginRight;
 
             var padding = (containerHeight - this._marginTop - this._marginBottom - (this._columnCount * itemSize.height)) / (this._columnCount + 1);
@@ -97,20 +154,20 @@ newui.TableView = ccui.ScrollView.extend({
 
         if(this._allItems.length > 0){
             var itemSize = this._allItems[0].getContentSize();
-            var row = Math.floor(this._allItems.length / this._columnCount);
+            var row = Math.ceil(this._allItems.length / this._columnCount);
             containerHeight = itemSize.height * row + this._padding*(row - 1) + this._marginTop + this._marginBottom;
             if(containerHeight < this.getContentSize().height){
                 containerHeight = this.getContentSize().height;
             }
 
           //  var padding = 0.0;
-            var padding = (containerWidth - this._marginLeft - this._marginRight - (this._columnCount * itemSize.width)) / (this._columnCount + 1);
-            if(padding < 0.0){
-                padding = 0.0;
-            }
+            var colPadding = (containerWidth - this._marginLeft - this._marginRight - (this._columnCount * itemSize.width)) / (this._columnCount + 1);
+            // if(colPadding < 0.0){
+            //     colPadding = 0.0;
+            // }
 
             var rowIndex = 0;
-            var x = this._marginLeft + itemSize.width/2;
+            var x = this._marginLeft + colPadding + itemSize.width/2;
             var y = containerHeight - this._marginTop - itemSize.height/2;
 
             for(var i=0; i<this._allItems.length;i++){
@@ -121,11 +178,11 @@ newui.TableView = ccui.ScrollView.extend({
                 if(rowIndex >= this._columnCount){
                     rowIndex = 0;
 
-                    x = this._marginLeft + itemSize.width/2;
+                    x = this._marginLeft + colPadding + itemSize.width/2;
                     y -= (this._padding + itemSize.height);
                 }
                 else{
-                    x += (padding + itemSize.width);
+                    x += (colPadding + itemSize.width);
                 }
             }
 
@@ -137,13 +194,19 @@ newui.TableView = ccui.ScrollView.extend({
         var items = [];
         if(this._direction == ccui.ScrollView.DIR_VERTICAL){
             for(var i=0;i<this._columnCount;i++){
-                items.push(this._allItems[rowIndex*this._columnCount + i]);
+                var idx = rowIndex*this._columnCount + i;
+                if(idx < this._allItems.length){
+                    items.push(this._allItems[idx]);
+                }
             }
         }
         else{
-            var col = Math.floor(this._allItems.length / this._columnCount);
+            var col = Math.ceil(this._allItems.length / this._columnCount);
             for(var i=0; i<col; i++){
-                items.push(this._allItems[rowIndex + i * this._columnCount]);
+                var idx = rowIndex + i * this._columnCount;
+                if(idx < this._allItems.length){
+                    items.push(this._allItems[idx]);
+                }
             }
         }
 
@@ -157,11 +220,11 @@ newui.TableView = ccui.ScrollView.extend({
 
         var row = this._columnCount;
         if(this._direction == ccui.ScrollView.DIR_HORIZONTAL){
-            var col = Math.floor(this._allItems.length / this._columnCount);
-            row = Math.floor(this._allItems.length / col);
+            var col = Math.ceil(this._allItems.length / this._columnCount);
+            row = Math.ceil(this._allItems.length / col);
         }
         else{
-            row = Math.floor(this._allItems.length / this._columnCount);
+            row = Math.ceil(this._allItems.length / this._columnCount);
         }
 
         var itemSize = this._allItems[0].getContentSize();
@@ -228,6 +291,10 @@ newui.TableView = ccui.ScrollView.extend({
         return this._allItems[index];
     },
 
+    size : function () {
+        return this._allItems.length;
+    },
+
     removeAllItems : function () {
         this.removeAllChildrenWithCleanup(true);
         this._refreshView = true;
@@ -275,7 +342,11 @@ newui.TableView = ccui.ScrollView.extend({
         }
 
         if (!this._parentIsPageView){
-            return ccui.ScrollView.prototype.onTouchBegan.call(this,touch,event);
+            var ret = ccui.ScrollView.prototype.onTouchBegan.call(this,touch,event);
+            if(ret){
+                this._moveByTouch = true;
+            }
+            return ret;
         }
 
         this._propagateTouchEvents = true;
@@ -285,6 +356,7 @@ newui.TableView = ccui.ScrollView.extend({
             this._startPoint = touch.getLocation();
             this._moveThis = false;
             this._moveParent = false;
+            this._moveByTouch = true;
         }
         return bret;
     },
@@ -317,6 +389,7 @@ newui.TableView = ccui.ScrollView.extend({
         }
     },
     onTouchEnded: function (touch, event) {
+        this._moveByTouch = false;
         if (this._parentIsPageView){
             this._propagateTouchEvents = true;
             ccui.ScrollView.prototype.onTouchEnded.call(this,touch,event);

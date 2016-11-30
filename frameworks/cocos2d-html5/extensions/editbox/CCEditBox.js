@@ -557,18 +557,19 @@ cc.EditBox = cc.ControlButton.extend({
      * @param {cc.Color | cc.Scale9Sprite} normal9SpriteBg
      */
     initWithSizeAndBackgroundSprite: function (size, normal9SpriteBg) {
-        if (this.initWithBackgroundSprite(normal9SpriteBg)) {
-            this._domInputSprite.x = 3;
-            this._domInputSprite.y = 3;
-
-            this.setZoomOnTouchDown(false);
-            this.setPreferredSize(size);
-            this.x = 0;
-            this.y = 0;
-            this._addTargetWithActionForControlEvent(this, this.touchDownAction, cc.CONTROL_EVENT_TOUCH_UP_INSIDE);
-            return true;
+        if(normal9SpriteBg){
+            this.initWithBackgroundSprite(normal9SpriteBg);
         }
-        return false;
+
+        this._domInputSprite.x = 3;
+        this._domInputSprite.y = 3;
+
+        this.setZoomOnTouchDown(false);
+        this.setPreferredSize(size);
+        this.x = 0;
+        this.y = 0;
+        this._addTargetWithActionForControlEvent(this, this.touchDownAction, cc.CONTROL_EVENT_TOUCH_UP_INSIDE);
+        return true;
     },
 
     /* override functions */
