@@ -172,7 +172,6 @@ var PhomCardList = CardList.extend({
         for (var i = 0; i < this.cardList.length; i++) {
             var id = this.getCardIdWithRank(this.cardList[i].rank,
                 this.cardList[i].suit);
-            cc.log("Cardlist " + i + " id " + id);
             if (groupedCard.indexOf(id) != -1) {
                 var dotSprite = new cc.Sprite("#card-dot.png");
                 dotSprite.setPosition(this.cardList[i].width - 20,
@@ -183,7 +182,7 @@ var PhomCardList = CardList.extend({
                 this.cardList[i].removeAllChildren(true);
             }
         }
-    },
+    }
 });
 var Phom = IGameScene.extend({
     ctor: function () {
@@ -215,64 +214,9 @@ var Phom = IGameScene.extend({
         this.drawDeck = drawDeck;
         this.sceneLayer.addChild(drawDeck);
     },
-    onSFSExtension: function (messageType, content) {
-        this._super(messageType, content);
-        cc.log("mysfs : " + JSON.stringify(content));
-        if (content.c == "1") { // startGame
-            this.onGameStatus(content.p["1"]);
-            this.timeTurn = content.p["7"];
-        }
-        else if (content.c == "13") {//reconnect
-            this.onReconnect(content.p);
-        }
-        else if (content.c == "10") {//update status
-            this.onGameStatus(content.p["1"]);
-        }
-        else if (content.c == "3") { //start game
-            this.onStartGame(content.p);
-        }
-        else if (content.c == "4") { // danh bai thanh cong
-            this.onDanhBaiThanhCong(content.p);
-        }
-        else if (content.c == "7") { // change turn
-            this.onTurnChanged(content.p);
-        }
-        else if (content.c == "103") { // an bai`
-            this.onStealCard(content.p);
-        }
-        else if (content.c == "104") { // can bang bai
-            this.onBalanceCard(content.p);
-        }
-        else if (content.c == "46") { // cong, tru tien an
-            this.onStealAssetUpdate(content.p);
-        }
-        else if (content.c == "106") {// gui bai
-            this.onDelegateCard(content.p);
-        }
-        else if (content.c == "108") {// ha bai
-            this.onHaBai(content.p);
-        }
-        else if (content.c == "8") { // ket thuc van choi
-            this.onGameFinished(content.p);
-        }
-        else if (content.c == "109") { // thay doi trang thai
-            this.onStatusChanged(content.p);
-        }
-        else if (content.c == "101") { //boc bai
-            this.onDrawDeck(content.p);
-        }
-        else if (content.c == "110") { // thong bao so bai boc con lai
-            this.onUpdateDrawDeck(content.p);
-        }
-    },
     onStatusChanged: function (param) {
 
     },
-
-    //joinRoom
-    //updateTurn
-
-
     onReconnect: function (param) {
         this._super(param);
         var userInfo = param["1"]["5"];
@@ -455,6 +399,54 @@ var Phom = IGameScene.extend({
         }
         dialog.showWithAnimationMove();
     },
+    performHaBaiMe: function (groupedCards) {
+        var removeList = [];
+        for (var i = 0;i<groupedCards.length;i++){
+            var list = groupedCards[i];
+            for (var j = 0;j<list.length;j++){
+                removeList.push(this.getCardWithId(list[j]));
+            }
+        }
+
+        var arr = this.cardList.removeCard(removeList);
+        for (var i = 0;i<arr.length;i++){
+            this.playerView[0].dropCards.addCard(arr[i]);
+            arr[i].release();
+        }
+        this.playerView[0].dropCards.reOrder();
+        this.cardList.reOrder();
+    },
+    performHaBaiOther : function (username,groupedCards,stolenCards) {
+        var slot = this.getSlotByUsername(username);
+        var stolenCardsId = [];
+        var stolenCardsSprite = [];
+
+        //index stolen cards
+        for (var i = 0;i<slot.dropCards.cardList.length;i++){
+            stolenCardsId.push(
+                this.getCardIdWithRank(slot.dropCards.cardList[i].rank,
+                    slot.dropCards.cardList[i].suit)
+            );
+            slot.dropCards.cardList[i].retain();
+            stolenCardsSprite.push(slot.dropCards.cardList[i]);
+            slot.dropCards.cardList[i].removeFromParent();
+        }
+
+        //add to drop cards list
+        for (var i = 0;i<groupedCards.length;i++){
+            for (var j = 0;j<groupedCards[i].length;j++){
+                var index = stolenCardsId.indexOf(groupedCards[i][j]);
+                if (index == -1){// from hands, create new sprite
+                    var card = this.getCardWithId(groupedCards[i][j]);
+                    slot.dropCards.addCard(new Card(card.rank,card.suit));
+                }
+                else{ // from exist drop card
+                    slot.dropCards.addCard(stolenCardsSprite[index]);
+                    stolenCardsSprite[index].release();
+                }
+            }
+        }
+    },
     onHaBai: function (param) {
         var username = param["u"];
         var groupedCard = param["11"];
@@ -499,56 +491,46 @@ var Phom = IGameScene.extend({
         slot.dropCards.reOrder();
         this.cardList.reOrder();
     },
-    onDelegateCard: function (param) {
-        if (param["1"] && param["1"].length > 0) {
-            for (var i = 0; i < param["1"].length; i++) {
-                var delegateData = param["1"][i];
-                var sender = delegateData["u1"];
-                var receiver = delegateData["u2"];
-                var delegateCardsId = delegateData["4"];
-                var groupedCardAfter = [];
-                for (var j = 0; j < delegateData["5"].length; j++)
-                    groupedCardAfter = groupedCardAfter.concat(delegateData["5"][j]);
-                cc.log(JSON.stringify(groupedCardAfter));
-                var receiverSlot = this.getSlotByUsername(receiver);
-                var finalList = [];
+    performReorderCards: function () {
+        this.cardList.reOrder();
+    },
+    performDelegateCards: function (sender, receiver, cards,
+                                    groupedCardAfter) {
+        var finalList = [];
+        var receiverSlot = this.getSlotByUsername(receiver);
 
-                //determine where to get sprites
-                for (var j = 0; j < groupedCardAfter.length; j++) {
-                    if (delegateCardsId.indexOf(groupedCardAfter[j]) == -1) {
-                        // from grouped card before
-                        var cardSprite = receiverSlot.dropCards.removeCardById(groupedCardAfter[j])
-                        finalList.push(cardSprite);
-                        cardSprite.release();
-                        cc.log("Removed card id " + groupedCardAfter[j]);
-                    }
-                    else {
-                        // from my deck
-                        if (sender == PlayerMe.username) {
-                            var cardSprite = this.cardList.removeCardById(groupedCardAfter[j])
-                            finalList.push(cardSprite);
-                            cardSprite.release();
-                            cc.log("Removed card id " + groupedCardAfter[j] + " from my deck");
-                        }
-                        // from someone's deck
-                        else {
-                            var card = this.getCardWithId(groupedCardAfter[j]);
-                            var cardSprite = new Card(card.rank, card.suit);
-                            cardSprite.setPosition(this.getSlotByUsername(sender).getPosition());
-                            finalList.push(cardSprite);
-                            cc.log("Added card id " + groupedCardAfter[j]);
-                        }
-                    }
-                }
-
-                for (var j = 0; j < finalList.length; j++) {
-                    //add back to receiver drop cards
-                    receiverSlot.dropCards.addCard(finalList[j]);
-                }
-                receiverSlot.dropCards.reOrder();
+        //determine where to get sprites
+        for (var j = 0; j < groupedCardAfter.length; j++) {
+            if (cards.indexOf(groupedCardAfter[j]) == -1) {
+                // from grouped card before
+                var cardSprite = receiverSlot.dropCards.removeCardById(groupedCardAfter[j])
+                finalList.push(cardSprite);
+                cardSprite.release();
             }
-            this.cardList.reOrder();
+            else {
+                // from my deck
+                if (sender == PlayerMe.username) {
+                    var cardSprite = this.cardList.removeCardById(groupedCardAfter[j])
+                    finalList.push(cardSprite);
+                    cardSprite.release();
+                    cc.log("Removed card id " + groupedCardAfter[j] + " from my deck");
+                }
+                // from someone's deck
+                else {
+                    var card = this.getCardWithId(groupedCardAfter[j]);
+                    var cardSprite = new Card(card.rank, card.suit);
+                    cardSprite.setPosition(this.getSlotByUsername(sender).getPosition());
+                    finalList.push(cardSprite);
+                    cc.log("Added card id " + groupedCardAfter[j]);
+                }
+            }
         }
+
+        for (var i = 0; i < finalList.length; i++) {
+            //add back to receiver drop cards
+            receiverSlot.dropCards.addCard(finalList[i]);
+        }
+        receiverSlot.dropCards.reOrder();
     },
     onStealAssetUpdate: function (param) {
         var stealer = param["u1"];
@@ -558,38 +540,32 @@ var Phom = IGameScene.extend({
         var stealerBalance = param["m1"];
         var stolenBalance = param["m2"];
     },
-    onBalanceCard: function (param) {
-        var cardId = param["1"];
-        var fromUser = this.getSlotByUsername(param["u1"]);
-        var destUser = this.getSlotByUsername(param["u2"]);
-        cc.log("Moving cardId " + cardId + " from user " + param["u1"]
-            + " to user " + param["u2"]);
-        var cardSprite = fromUser.trashCards.removeCardById(cardId);
-        destUser.trashCards.addCard(cardSprite);
+    performBalanceCard: function (from, to, card) {
+        var fromUser = this.getSlotByUsername(from);
+        var toUser = this.getSlotByUsername(to);
+        var cardSprite = fromUser.trashCards.removeCardById(card);
+        toUser.trashCards.addCard(cardSprite);
         cardSprite.release();
-        destUser.trashCards.reOrder();
+        toUser.trashCards.reOrder();
     },
-    onStealCard: function (param) {
-        cc.log("Player " + param["u1"] + " stolen card id " + param["1"]
-            + " from " + param["u2"]);
-        var stolenUser = this.getSlotByUsername(param["u2"]);
-        var cardSprite = stolenUser.trashCards.removeCardById(param["1"]);
-        cardSprite.removeAllChildren(true);
+    performStealCard: function (stealer, stolenUser, stolenCard,
+                                groupedCard) { // in case I'm stealer
+        var stolenUserSlot = this.getSlotByUsername(stolenUser);
+        var cardSprite = stolenUserSlot.trashCards.removeCardById(stolenCard);
+        cardSprite.removeAllChildren(true); //purify card, amen
         var borderSprite = new cc.Sprite("#boder_do.png");
         borderSprite.setPosition(cardSprite.width / 2, cardSprite.height / 2);
         cardSprite.addChild(borderSprite);
-        if (param["u1"] == PlayerMe.username) {
-            if (cardSprite) {
-                this.cardList.addCard(cardSprite);
-                cardSprite.release();
-                this.cardList.reOrder();
-                this.cardList.processGroupedCard(param["2"]);
-            }
+        if (stealer == PlayerMe.username) {
+            this.cardList.addCard(cardSprite);
+            cardSprite.release();
+            this.cardList.processGroupedCard(groupedCard);
+            this.cardList.reArrangeCards();
         }
         else {
-            var stealer = this.getSlotByUsername(param["u1"]);
-            stealer.dropCards.addCard(cardSprite);
-            stealer.dropCards.reOrder();
+            var stealerSlot = this.getSlotByUsername(stealer);
+            stealerSlot.dropCards.addCard(cardSprite);
+            stealerSlot.dropCards.reOrder();
         }
     },
     onDrawDeck: function (param) {
@@ -608,95 +584,53 @@ var Phom = IGameScene.extend({
         if (cardCount)
             this.drawDeckLabel.setString(cardCount);
     },
-    onTurnChanged: function (param) {
-        var username = param.u;
-        for (var i = 0; i < this.playerView.length; i++) {
-            this.playerView[i].stopTimeRemain();
-        }
-        if (param.s != 0 && param.s != 1)
-            this.getSlotByUsername(username).showTimeRemain(15, 15);
-        this.anbaiBt.visible = this.danhbaiBt.visible = this.uBt.visible
-            = this.habaiBt.visible = this.drawBt.visible =
-            this.guibaiBt.visible = false;
-        this.xepBaiBt.visible = true;
-        if (!param.s)
-            return;
-        switch (param.s) {
-            case 0:
-                this.xepBaiBt.visible = false;
-                break;
-            case 1:
-                break;
-            case 2:
-                this.drawBt.visible = true;
-                break;
-            case 3:
-                this.drawBt.visible = true;
-                this.anbaiBt.visible = true;
-                break;
-            case 4:
-                this.danhbaiBt.visible = true;
-                break;
-            case 5:
-                this.habaiBt.visible = true;
-                this.danhbaiBt.visible = true;
-                break;
-            case 6: // gui bai
-                this.guibaiBt.visible = true;
-                break;
-            case 7: // u`
-                this.uBt.visible = true;
-                break;
-            case 8:
-                this.xepBaiBt.visible = false;
-                break;
-        }
-
-        if (param["3"] && param["3"].length > 0) {
-            this.cardList.suggestCards(param["3"]);
-        }
-        if (param["4"] && param["4"].length > 0) {
-            this.cardList.suggestCards(param["4"]);
+    showTimeRemainUser: function (username, currentTime, maxTime) {
+        maxTime = maxTime || currentTime;
+        for (var i = 0; i < this.allSlot.length; i++) {
+            if (this.allSlot[i].username == username)
+                this.allSlot[i].showTimeRemain(currentTime, maxTime);
+            else
+                this.allSlot[i].stopTimeRemain();
         }
     },
-    onDanhBaiThanhCong: function (param) {
-        var username = param.u;
+    setDrawBtVisible: function (visible) {
+        this.drawBt.visible = visible;
+    },
+    setAnBaiBtVisible: function (visible) {
+        this.anbaiBt.visible = visible;
+    },
+    setDanhBaiBtVisible: function (visible) {
+        this.danhbaiBt.visible = visible;
+    },
+    setHaBaiBtVisible: function (visible) {
+        this.habaiBt.visible = visible;
+    },
+    setGuiBaiBtVisible: function (visible) {
+        this.guibaiBt.visible = visible;
+    },
+    setUBtVisible: function (visible) {
+        this.uBt.visible = visible;
+    },
+    suggestCards: function (cards) {
+        this.cardList.suggestCards(cards);
+    },
+    performDanhBaiMe: function (card) {
+        var arr = this.cardList.removeCard([card]);
+        this.playerView[0].trashCards.addCard(arr[0]);
+        this.cardList.reOrder();
+        for (var i = 0; i < arr.length; i++) {
+            arr[i].removeAllChildren(true);
+            arr[i].release();
+        }
+    },
+    performDanhBaiOther: function (username, card) {
         var slot = this.getSlotByUsername(username);
-        if (slot) {
-            var cards = [];
-            var cardId = param["1"];
-            cards.push(this.getCardWithId(cardId));
-            if (slot.isMe) {
-                var arr = this.cardList.removeCard(cards);
-                slot.trashCards.addCard(arr[0]);
-                this.cardList.reOrder();
-                for (var i = 0; i < arr.length; i++) {
-                    arr[i].removeAllChildren(true);
-                    arr[i].release();
-                }
-            }
-            else {
-                slot.trashCards.addNewCard(this.getCardWithId(param["1"]));
-            }
-            //slot.trashCards.reOrder();
-        }
+        slot.trashCards.addNewCard(card);
     },
-    onStartGame: function (params) {
-        var cards = [];
-        var cardData = params["1"];
-        var groupCardData = params["2"];
-        for (var i = 0; i < cardData.length; i++) {
-            var card = this.getCardWithId(cardData[i]);
-            for (var j = 0; j < groupCardData.length; j++) {
-                if (groupCardData[j].indexOf(cardData[i]) != -1) // found in group j
-                    card.groupId = j;
-                else
-                    card.groupId = -1;
-            }
-            cards.push(card);
-        }
+
+    performDealCards: function (cards, groupedCards) {
         this.cardList.dealCards(cards, true);
-        this.cardList.processGroupedCard(groupCardData);
+        this.cardList.processGroupedCard(groupedCards);
     },
     initPlayer: function () {
         var playerMe = new GamePlayerMe();
@@ -824,15 +758,6 @@ var Phom = IGameScene.extend({
             thiz.sendGuiBaiRequest();
         });
 
-        danhbaiBt.visible = false;
-        xepBaiBt.visible = true;
-        drawBt.visible = false;
-        startBt.visible = false;
-        habaiBt.visible = false;
-        anbaiBt.visible = false;
-        uBt.visible = false;
-        guibaiBt.visible = false;
-
         this.danhbaiBt = danhbaiBt;
         this.uBt = uBt;
         this.xepBaiBt = xepBaiBt;
@@ -841,6 +766,14 @@ var Phom = IGameScene.extend({
         this.anbaiBt = anbaiBt;
         this.habaiBt = habaiBt;
         this.guibaiBt = guibaiBt;
+
+        this.allButton = [danhbaiBt, uBt, xepBaiBt, drawBt,
+            startBt, anbaiBt, habaiBt, guibaiBt];
+        this.hideAllButton();
+    },
+    hideAllButton: function () {
+        for (var i = 0; i < this.allButton.length; i++)
+            this.allButton[i].visible = false;
     },
     xepBai: function () {
         this.cardList.reArrangeCards();
@@ -882,56 +815,23 @@ var Phom = IGameScene.extend({
     sendDrawRequest: function () {
         SmartfoxClient.getInstance().sendExtensionRequestCurrentRoom("101", null);
     },
-    onGameStatus: function (status) {
-        this.gameStatus = status;
-        if (status == 0) { //waiting
-            this.startBt.visible = true;
-            this.danhbaiBt.visible = this.drawBt.visible =
-                this.drawDeckLabel.visible = this.drawDeck.visible =
-                    this.xepBaiBt.visible = this.habaiBt.visible =
-                        this.anbaiBt.visible = false;
-            this.cardList.removeAll();
-            if (this.playerView) {
-                for (var i = 0; i < this.playerView.length; i++) {
-                    this.playerView[i].trashCards.removeAll();
-                    this.playerView[i].dropCards.removeAll();
-                }
+    setStartBtVisible: function (visible) {
+        this.startBt.visible = visible;
+    },
+    removeAllCards: function () {
+        this.cardList.removeAll();
+        if (this.playerView) {
+            for (var i = 0; i < this.playerView.length; i++) {
+                this.playerView[i].trashCards.removeAll();
+                this.playerView[i].dropCards.removeAll();
             }
         }
-        else if (status == 1) { //ready
-            this.danhbaiBt.visible = false;
-            this.xepBaiBt.visible = false;
-            this.drawBt.visible = false;
-            this.startBt.visible = false;
-            this.drawDeckLabel.visible = false;
-            this.drawDeck.visible = false;
-            this.anbaiBt.visible = false;
-            this.habaiBt.visible = false;
-            this.cardList.removeAll();
-            if (this.playerView) {
-                for (var i = 0; i < this.playerView.length; i++) {
-                    this.playerView[i].trashCards.removeAll();
-                    this.playerView[i].dropCards.removeAll();
-                }
-            }
-
-            if (this.isOwnerMe) {
-                this.startBt.visible = true;
-            }
-        }
-        else if (status == 2) { //play
-            this.drawDeckLabel.visible = true;
-            this.drawDeck.visible = true;
-            this.startBt.visible = false;
-            this.xepBaiBt.visible = true;
-        }
-        else if (status == 3) { //finish
-            this.danhbaiBt.visible = false;
-            this.xepBaiBt.visible = false;
-            this.drawBt.visible = false;
-            this.startBt.visible = false;
-            this.habaiBt.visible = false;
-            this.anbaiBt.visible = false;
-        }
+    },
+    setDeckVisible: function (visible) {
+        this.drawDeck.visible = visible;
+        this.drawDeckLabel.visible = visible;
+    },
+    setXepBaiBtVisible: function (visible) {
+        this.xepBaiBt.visible = visible;
     }
 });
