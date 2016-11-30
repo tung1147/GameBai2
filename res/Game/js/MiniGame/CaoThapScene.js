@@ -387,8 +387,8 @@ var CaoThapScene = MiniGameScene.extend({
         var thiz = this;
         list.stopAllActions();
         list.jumpToTop();
-        var move2 = cc.MoveTo(duration, this.historyListMoveTo);
-        var finished2 = cc.CallFunc(function () {
+        var move2 = new cc.MoveTo(duration, this.historyListMoveTo);
+        var finished2 = new cc.CallFunc(function () {
             list.y = 0;
             var card = new cc.Sprite(cardImg);
             card.setScale(thiz.cardScale);
@@ -605,7 +605,12 @@ var CaoThapScene = MiniGameScene.extend({
         this.REWARD_FUND_LIST_CODE = 511;
     },
     rankButtonHandler: function () {
-        this.stat_board.showWithAnimationScale();
+      //  this.stat_board.showWithAnimationScale();
+
+        this.addHistory({
+            rank : 1,
+            suit : CardSuit.Clubs
+        });
     },
     pushKing: function (isK) {
         if (!isK) {

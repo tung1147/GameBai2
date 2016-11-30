@@ -155,8 +155,8 @@ var VideoPockerScene = MiniGameScene.extend({
                         var basey = thiz.cardSprites[index].getPositionY();
 
                         var duration = 0.1;
-                        var move1 = cc.MoveTo(duration, cc.p(basex, basey - 20));
-                        var move2 = cc.MoveTo(duration, cc.p(basex, basey));
+                        var move1 = new cc.MoveTo(duration, cc.p(basex, basey - 20));
+                        var move2 = new cc.MoveTo(duration, cc.p(basex, basey));
 
                         if (!thiz.holdingList[index])
                             thiz.cardSprites[index].runAction(new cc.Sequence(move1, move2));
@@ -203,8 +203,8 @@ var VideoPockerScene = MiniGameScene.extend({
                         var basey = thiz.cardSprites[index].getPositionY();
 
                         var duration = 0.1;
-                        var move1 = cc.MoveTo(duration, cc.p(basex, basey - 20));
-                        var move2 = cc.MoveTo(duration, cc.p(basex, basey));
+                        var move1 = new cc.MoveTo(duration, cc.p(basex, basey - 20));
+                        var move2 = new cc.MoveTo(duration, cc.p(basex, basey));
 
                         thiz.cardSprites[index].runAction(new cc.Sequence(move1, move2));
                         index++;
@@ -756,9 +756,9 @@ var VideoPockerScene = MiniGameScene.extend({
         var selectedSprite = new cc.Sprite("#card_selected.png");
         selectedSprite.setScale(1.05 * cc.winSize.screenScale);
         selectedSprite.setPosition(this.cardSprites[selectedPos].getPosition());
-        var fadeIn = cc.FadeIn(0.5);
-        var fadeOut = cc.FadeOut(0.5);
-        selectedSprite.runAction(cc.RepeatForever(cc.Sequence(fadeIn, fadeOut)));
+        var fadeIn = new cc.FadeIn(0.5);
+        var fadeOut = new cc.FadeOut(0.5);
+        selectedSprite.runAction(new cc.RepeatForever(new cc.Sequence(fadeIn, fadeOut)));
         this.clippingcards_layout.addChild(selectedSprite);
         this.selectedSprite = selectedSprite;
 

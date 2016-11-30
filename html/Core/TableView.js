@@ -283,6 +283,9 @@ newui.TableView = ccui.ScrollView.extend({
     },
 
     insertItem : function (item, index) {
+        item.setAnchorPoint(cc.p(0.5,0.5));
+        this.addChild(item);
+
         this._allItems.splice(index, 0, item);
         this._refreshView = true;
     },

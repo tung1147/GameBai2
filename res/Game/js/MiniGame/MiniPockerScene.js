@@ -104,8 +104,8 @@ var MiniPokerScene = MiniGameScene.extend({
                         var basey = thiz.cardSprites[index].getPositionY();
 
                         var duration = 0.1;
-                        var move1 = cc.MoveTo(duration, cc.p(basex, basey - 20));
-                        var move2 = cc.MoveTo(duration, cc.p(basex, basey));
+                        var move1 = new cc.MoveTo(duration, cc.p(basex, basey - 20));
+                        var move2 = new cc.MoveTo(duration, cc.p(basex, basey));
 
                         thiz.cardSprites[index].runAction(new cc.Sequence(move1, move2));
 
