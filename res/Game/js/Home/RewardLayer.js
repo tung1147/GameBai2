@@ -12,7 +12,7 @@ var RewardSublayer = cc.Node.extend({
         this._super();
 
         var _top = 720.0 - (120.0 * cc.winSize.screenScale);
-        var _bottom = 86.0 * cc.winSize.screenScale;
+        var _bottom = 82.0 * cc.winSize.screenScale;
 
         var itemList = new newui.TableView(cc.size(cc.winSize.width, _top - _bottom), 4);
         itemList.setDirection(ccui.ScrollView.DIR_VERTICAL);
@@ -26,7 +26,7 @@ var RewardSublayer = cc.Node.extend({
     requestReward: function (id) {
        // var msg = {command: "cashout", id: id};
         //LobbyClient.getInstance().send(msg);
-    }
+    },
 });
 
 var s_card_money = s_card_money || ["50k", "100k", "200k", "500k"];
@@ -55,18 +55,20 @@ var RewardCardLayer = RewardSublayer.extend({
         var goldBg = ccui.Scale9Sprite.createWithSpriteFrameName("reward-gold-bg.png", cc.rect(50, 0, 4, 44));
         goldBg.setPreferredSize(cc.size(goldBgWidth, 44));
 
-        var cardImg = null;
         // var cardMoney = null;
         if (cardType === "VTT") {
-            cardImg = new cc.Sprite("#reward-card-viettel.png");
+            var cardImg = new cc.Sprite("#reward-card-viettel.png");
+            var cardName = "Viettel";
             // cardMoney = new cc.Sprite("#reward-viettel-" + s_card_money[cardId] + ".png");
         }
         else if (cardType === "VNP") {
-            cardImg = new cc.Sprite("#reward-card-vina.png");
+            var cardImg = new cc.Sprite("#reward-card-vina.png");
+            var cardName = "Vina";
             // cardMoney = new cc.Sprite("#reward-vina-" + s_card_money[cardId] + ".png");
         }
         else {
-            cardImg = new cc.Sprite("#reward-card-mobi.png");
+            var cardImg = new cc.Sprite("#reward-card-mobi.png");
+            var cardName = "Mobi";
             // cardMoney = new cc.Sprite("#reward-mobi-" + s_card_money[cardId] + ".png");
         }
 
@@ -87,9 +89,13 @@ var RewardCardLayer = RewardSublayer.extend({
         container.addChild(goldLabel);
         container.setTouchEnabled(true);
         container.addClickEventListener(function () {
-            thiz.requestReward(cardId);
+
+            var itemName = cardName + " " + cc.Global.NumberFormat2(netValue);
+            var dialog = new RewardDialog();
+            dialog.setCardInfo(itemName, gold);
+            dialog.showWithAnimationMove();
         });
-    }
+    },
 });
 
 var RewardItemLayer = RewardSublayer.extend({
@@ -150,7 +156,9 @@ var RewardItemLayer = RewardSublayer.extend({
 
         container.setTouchEnabled(true);
         container.addClickEventListener(function () {
-            thiz.requestReward(itemId);
+            var dialog = new RewardDialog();
+            dialog.setItemInfo(itemName, gold);
+            dialog.showWithAnimationMove();
         });
     }
 });
@@ -166,42 +174,45 @@ var RewardBankLayer = RewardSublayer.extend({
             }
         }
     },
-    addItem: function (id, netValue, price) {
-        var thiz = this;
-        var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, cc.Global.NumberFormat1(price));
-        var goldBgWidth = goldLabel.getContentSize().width + 60.0;
-        if (goldBgWidth < 170.0) {
-            goldBgWidth = 170.0;
-        }
-        var goldBg = ccui.Scale9Sprite.createWithSpriteFrameName("reward-gold-bg.png", cc.rect(50, 0, 4, 44));
-        goldBg.setPreferredSize(cc.size(goldBgWidth, 44));
-
-        var itemIcon = new cc.Sprite("#cash.png");
-
+    addItem: function (itemId, netValue, price) {
+        var bg = new cc.Sprite("#payment-inapp-bg.png");
         var container = new ccui.Widget();
-        container.setContentSize(cc.size(210, 270));
-        this.itemList.pushItem(container);
+        container.setContentSize(bg.getContentSize());
+        bg.setPosition(container.getContentSize().width / 2, container.getContentSize().height/2);
+        container.addChild(bg);
 
-        goldBg.setPosition(container.getContentSize().width / 2, goldBg.getContentSize().height / 2);
-        container.addChild(goldBg);
+        var goldIcon = 1;
+        var icon = new cc.Sprite("#payment-inapp-icon-" + goldIcon + ".png");
+        icon.setPosition(bg.getPosition());
+        container.addChild(icon);
 
-        itemIcon.setPosition(goldBg.x, container.height / 2 + 30);
-        container.addChild(itemIcon);
-
-        var itemNameLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, cc.Global.NumberFormat1(netValue) + " VND");
-        itemNameLabel.setPosition(goldBg.x, goldBg.y + 40);
-        container.addChild(itemNameLabel);
-
-
-        goldLabel.setPosition(goldBg.x + 20.0, goldBg.y);
+        var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, cc.Global.NumberFormat1(netValue) + "V");
+        goldLabel.setAnchorPoint(cc.p(0.0, 0.5));
+        goldLabel.setPosition(100, 108);
         goldLabel.setColor(cc.color("#ffde00"));
         container.addChild(goldLabel);
 
+        var priceLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, cc.Global.NumberFormat1(price) + " VNĐ");
+        priceLabel.setAnchorPoint(cc.p(1.0, 0.5));
+        priceLabel.setPosition(260,25);
+        container.addChild(priceLabel, 1);
+        container.setTouchEnabled(true);
+
+        this.itemList.pushItem(container);
+
+        var thiz = this;
         container.setTouchEnabled(true);
         container.addClickEventListener(function () {
-            thiz.requestReward(id);
+            //thiz.onClickedItem(itemId);
+            var dialog = new RewardBankDialog();
+            dialog.setInfo(netValue, price);
+            dialog.showWithAnimationMove();
         });
-    }
+    },
+
+    // onClickedItem: function (itemId) {
+    //
+    // }
 });
 
 var RewardAgencyLayer = RewardSublayer.extend({
@@ -217,39 +228,38 @@ var RewardAgencyLayer = RewardSublayer.extend({
         }
     },
     addItem: function (id, netValue, price) {
-        var thiz = this;
-        var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, cc.Global.NumberFormat1(price));
-        var goldBgWidth = goldLabel.getContentSize().width + 60.0;
-        if (goldBgWidth < 170.0) {
-            goldBgWidth = 170.0;
-        }
-        var goldBg = ccui.Scale9Sprite.createWithSpriteFrameName("reward-gold-bg.png", cc.rect(50, 0, 4, 44));
-        goldBg.setPreferredSize(cc.size(goldBgWidth, 44));
-
-        var itemIcon = new cc.Sprite("#cash.png");
-
+        var bg = new cc.Sprite("#payment-inapp-bg.png");
         var container = new ccui.Widget();
-        container.setContentSize(cc.size(210, 270));
-        this.itemList.pushItem(container);
+        container.setContentSize(bg.getContentSize());
+        bg.setPosition(container.getContentSize().width / 2, container.getContentSize().height/2);
+        container.addChild(bg);
 
-        goldBg.setPosition(container.getContentSize().width / 2, goldBg.getContentSize().height / 2);
-        container.addChild(goldBg);
+        var goldIcon = 1;
+        var icon = new cc.Sprite("#payment-inapp-icon-" + goldIcon + ".png");
+        icon.setPosition(bg.getPosition());
+        container.addChild(icon);
 
-        itemIcon.setPosition(goldBg.x, container.height / 2 + 30);
-        container.addChild(itemIcon);
-
-        var itemNameLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, cc.Global.NumberFormat1(netValue) + " VND");
-        itemNameLabel.setPosition(goldBg.x, goldBg.y + 40);
-        container.addChild(itemNameLabel);
-
-
-        goldLabel.setPosition(goldBg.x + 20.0, goldBg.y);
+        var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, cc.Global.NumberFormat1(netValue) + "V");
+        goldLabel.setAnchorPoint(cc.p(0.0, 0.5));
+        goldLabel.setPosition(100, 108);
         goldLabel.setColor(cc.color("#ffde00"));
         container.addChild(goldLabel);
 
+        var priceLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, cc.Global.NumberFormat1(price) + " VNĐ");
+        priceLabel.setAnchorPoint(cc.p(1.0, 0.5));
+        priceLabel.setPosition(260,25);
+        container.addChild(priceLabel, 1);
+        container.setTouchEnabled(true);
+
+        this.itemList.pushItem(container);
+
+        var thiz = this;
         container.setTouchEnabled(true);
         container.addClickEventListener(function () {
-            thiz.requestReward(id);
+            //thiz.requestReward(id);
+            var dialog = new RewardAgencyDialog();
+            dialog.setInfo(netValue, price);
+            dialog.showWithAnimationMove();
         });
     }
 });
@@ -419,24 +429,32 @@ var RewardLayer = LobbySubLayer.extend({
         this.addChild(bottomBar);
         bottomBar.setScale(cc.winSize.screenScale);
 
-        var tabBg = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-tab-bg.png", cc.rect(10, 0, 4, 86));
-        tabBg.setPreferredSize(cc.size(960, 86));
+        var tabBg = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-tab-bg.png", cc.rect(10, 0, 4, 82));
+        tabBg.setPreferredSize(cc.size(960, 82));
         tabBg.setPosition(1280.0 / 2, tabBg.getContentSize().height / 2);
         bottomBar.addChild(tabBg);
 
         var dx = tabBg.getContentSize().width / 5;
         var x = tabBg.x - tabBg.getContentSize().width / 2 + dx / 2;
 
-        var selectBar = new cc.Sprite("#sublobby-tab-selected.png");
-        selectBar.setAnchorPoint(cc.p(0.5, 0.0));
-        bottomBar.addChild(selectBar);
-        if (selectBar.getContentSize().width > dx) {
-            selectBar.setScaleX(dx / selectBar.getContentSize().width);
-        }
+        // var selectBar = new cc.Sprite("#sublobby-tab-selected.png");
+        // selectBar.setAnchorPoint(cc.p(0.5, 0.0));
+        // bottomBar.addChild(selectBar);
+        // if (selectBar.getContentSize().width > dx) {
+        //     selectBar.setScaleX(dx / selectBar.getContentSize().width);
+        // }
 
         var selectBg = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-tab-selected-bg.png", cc.rect(10, 10, 4, 4));
         selectBg.setPreferredSize(cc.size(dx, tabBg.getContentSize().height));
         bottomBar.addChild(selectBg);
+
+        var selectBar = new cc.Sprite("#sublobby-tab-selected.png");
+        selectBar.setAnchorPoint(cc.p(0.5, 0.0));
+        selectBar.setPosition(selectBg.getContentSize().width/2, selectBg.getContentSize().height - 2);
+        selectBg.addChild(selectBar);
+        if (selectBar.getContentSize().width > dx) {
+            selectBar.setScaleX(dx / selectBar.getContentSize().width);
+        }
 
         var mToggle = new ToggleNodeGroup();
         bottomBar.addChild(mToggle);
@@ -468,13 +486,13 @@ var RewardLayer = LobbySubLayer.extend({
             toggleItem.onSelect = function (isForce) {
                 if (isForce) {
                     selectBg.setPosition(this.getPosition());
-                    selectBar.setPosition(selectBg.getPosition());
+                   // selectBar.setPosition(selectBg.getPosition());
                 }
                 else {
                     selectBg.stopAllActions();
-                    selectBar.stopAllActions();
+                    //selectBar.stopAllActions();
                     selectBg.runAction(new cc.MoveTo(0.1, this.getPosition()));
-                    selectBar.runAction(new cc.MoveTo(0.1, this.getPosition()));
+                   // selectBar.runAction(new cc.MoveTo(0.1, this.getPosition()));
                 }
 
                 this.icon1.visible = false;

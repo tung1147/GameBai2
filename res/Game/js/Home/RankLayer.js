@@ -6,7 +6,7 @@ var RankSubLayer = cc.Node.extend({
     ctor: function () {
         this._super();
         var _top = 554.0;
-        var _bottom = 86.0 * cc.winSize.screenScale;
+        var _bottom = 82.0 * cc.winSize.screenScale;
 
         var itemList = new newui.TableView(cc.size(cc.winSize.width, _top - _bottom), 1);
         itemList.setDirection(ccui.ScrollView.DIR_VERTICAL);
@@ -257,15 +257,17 @@ var RankLayer = LobbySubLayer.extend({
         var dx = tabBg.getContentSize().width / 3;
         var x = tabBg.x - tabBg.getContentSize().width / 2 + dx / 2;
 
-        var selectBar = new cc.Sprite("#sublobby-tab-selected.png");
-        bottomBar.addChild(selectBar);
-        if (selectBar.getContentSize().width > dx) {
-            selectBar.setScaleX(dx / selectBar.getContentSize().width);
-        }
-
         var selectBg = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-tab-selected-bg.png", cc.rect(10, 10, 4, 4));
         selectBg.setPreferredSize(cc.size(dx, tabBg.getContentSize().height));
         bottomBar.addChild(selectBg);
+
+        var selectBar = new cc.Sprite("#sublobby-tab-selected.png");
+        selectBar.setAnchorPoint(cc.p(0.5, 0.0));
+        selectBar.setPosition(selectBg.getContentSize().width/2, selectBg.getContentSize().height - 2);
+        selectBg.addChild(selectBar);
+        if (selectBar.getContentSize().width > dx) {
+            selectBar.setScaleX(dx / selectBar.getContentSize().width);
+        }
 
         var mToggle = new ToggleNodeGroup();
         bottomBar.addChild(mToggle);
@@ -297,13 +299,10 @@ var RankLayer = LobbySubLayer.extend({
             toggleItem.onSelect = function (isForce) {
                 if (isForce) {
                     selectBg.setPosition(this.getPosition());
-                    selectBar.setPosition(selectBg.getPosition());
                 }
                 else {
                     selectBg.stopAllActions();
-                    selectBar.stopAllActions();
                     selectBg.runAction(new cc.MoveTo(0.1, this.getPosition()));
-                    selectBar.runAction(new cc.MoveTo(0.1, this.getPosition()));
                 }
 
                 this.icon1.visible = false;

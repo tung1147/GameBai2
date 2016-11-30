@@ -80,7 +80,10 @@ var HomeScene = IScene.extend({
             thiz.popupLayer.addChild(signupDialog);
         });
         this.homeLayer.fbButton.addClickEventListener(function () {
-            FacebookPlugin.getInstance().showLogin();
+            //FacebookPlugin.getInstance().showLogin();
+
+            var dialog = new RewardAgencyDialog();
+            dialog.show();
         });
 
         this.startHome();
@@ -91,7 +94,7 @@ var HomeScene = IScene.extend({
         FloatButton.getInstance().show(this);
 
        // LobbyClient.getInstance().addListener("fetchProducts", this.onFetchProduct, this);
-        LobbyClient.getInstance().addListener("fetchCashinProductItems", this.onFetchCashin, this);
+       // LobbyClient.getInstance().addListener("fetchCashinProductItems", this.onFetchCashin, this);
     },
     onFetchProduct: function (command, data) {
         // data = data["data"];

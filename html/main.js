@@ -71,8 +71,7 @@ var _resumeMethod = function () {
             if(quyetnd.sys.lastRunningTime){
                 var dt = (Date.now() - quyetnd.sys.lastRunningTime) / 1000.0;
                 cc.log("game_on_show: " + dt);
-                var frame_time = 1.0;/// 60.0;
-
+                var frame_time = 1.0 / 60.0;
                 while(dt > 0){
                     if(dt > frame_time){
                         cc.director.getScheduler().update(frame_time);
@@ -86,8 +85,8 @@ var _resumeMethod = function () {
         }
     });
 
-    cc.eventManager.addListener(_listener1, -1);
-    cc.eventManager.addListener(_listener2, -1);
+    cc.eventManager.addListener(_listener1, 1);
+    cc.eventManager.addListener(_listener2, 1);
 };
 
 

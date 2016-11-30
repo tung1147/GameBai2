@@ -20,8 +20,14 @@ cc.Global.NumberFormat1 = function (number) {
     return pret;
 };
 
+var Number_Format_Type = ["", "K", "M", "B"];
 cc.Global.NumberFormat2 = function (number) {
-    return number.toString();
+    var i = 0;
+    while(number >= 1000){
+        number = Math.floor(number/1000);
+        i++;
+    }
+    return (number.toString() + Number_Format_Type[i]);
 };
 
 //cc.winSize.screenScale = cc.winSize.width / 1280.0;

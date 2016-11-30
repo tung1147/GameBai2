@@ -176,13 +176,34 @@ var LobbyClient = (function () {
                 PlayerMe.messageCount = msgCount;
             }
             else if(command === "fetchProducts"){
-                cc.Global.thecaoData = event["1"];
-                cc.Global.tienmatData = event["2"];
-                cc.Global.dailyData = event["3"];
-                cc.Global.vatphamData = event["4"];
+                cc.Global.thecaoData = event["data"]["1"];
+                cc.Global.tienmatData = event["data"]["2"];
+                cc.Global.dailyData = event["data"]["3"];
+                cc.Global.vatphamData = event["data"]["4"];
             }
             else if(command === "fetchCashinProductItems"){
-
+                var data = event["data"]["2"];
+                cc.Global.SMSList = [];
+                for (var i = 0; i < data.length; i++) {
+                    var currency = data[i]["currency"];
+                    var smsGateway = data[i]["detail"]["smsGateway"];
+                    var vmsContent = data[i]["detail"]["vmsContent"];
+                    var vnpContent = data[i]["detail"]["vnpContent"];
+                    var vttContent = data[i]["detail"]["vttContent"];
+                    var gold = data[i]["gold"];
+                    var id = data[i]["id"];
+                    var price = data[i]["price"];
+                    cc.Global.SMSList.push({
+                        currency: currency,
+                        smsGateway: smsGateway,
+                        vmsContent: vmsContent,
+                        vnpContent: vnpContent,
+                        vttContent: vttContent,
+                        gold: parseInt(gold.replace(",", "")),
+                        id: id,
+                        price: parseInt(price)
+                    });
+                }
             }
         },
         onLoginEvent: function (event) {

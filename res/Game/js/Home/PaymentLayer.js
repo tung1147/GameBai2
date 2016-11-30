@@ -186,7 +186,7 @@ var PaymentInAppLayer = cc.Node.extend({
     ctor: function () {
         this._super();
 
-        var listItem = new newui.TableView(cc.size(cc.winSize.width, 450), 1);
+        var listItem = new newui.TableView(cc.size(cc.winSize.width, 450), 2);
         listItem.setDirection(ccui.ScrollView.DIR_HORIZONTAL);
         listItem.setMargin(0, 0, 50, 50);
         listItem.setPadding(30.0);
@@ -203,13 +203,9 @@ var PaymentInAppLayer = cc.Node.extend({
     addItem: function (logoId, gold, price) {
         var bg = new cc.Sprite("#payment-inapp-bg.png");
         var container = new ccui.Widget();
-        container.setContentSize(cc.size(bg.getContentSize().width, bg.getContentSize().height + 56));
-        bg.setPosition(container.getContentSize().width / 2, container.getContentSize().height - bg.getContentSize().height / 2);
+        container.setContentSize(bg.getContentSize());
+        bg.setPosition(container.getContentSize().width / 2, container.getContentSize().height/2);
         container.addChild(bg);
-
-        var bg2 = new cc.Sprite("#payment-inapp-bg-2.png");
-        bg2.setPosition(bg.x, bg2.getContentSize().height / 2);
-        container.addChild(bg2);
 
         var icon = new cc.Sprite("#payment-inapp-icon-" + logoId + ".png");
         icon.setPosition(bg.getPosition());
@@ -217,21 +213,22 @@ var PaymentInAppLayer = cc.Node.extend({
 
         var goldIcon = new cc.Sprite("#payment-inapp-goldicon.png");
         var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, cc.Global.NumberFormat1(gold) + "V");
+        goldLabel.setAnchorPoint(cc.p(0.0, 0.5));
+        goldLabel.setPosition(100, 108);
         goldLabel.setColor(cc.color("#ffde00"));
-        goldLabel.setPosition(bg.x + goldIcon.getContentSize().width / 2, bg.y - 104);
         container.addChild(goldLabel);
-        goldIcon.setPosition(goldLabel.x - goldLabel.getContentSize().width / 2 - goldIcon.getContentSize().width / 2, goldLabel.y);
-        container.addChild(goldIcon);
+      //  goldIcon.setPosition(goldLabel.x - goldLabel.getContentSize().width / 2 - goldIcon.getContentSize().width / 2, goldLabel.y);
+     //   container.addChild(goldIcon);
 
-        var priceLabel = null;
         if (Number.isInteger(price)) { //sms
-            priceLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, cc.Global.NumberFormat1(price) + " VNĐ");
+            var priceLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, cc.Global.NumberFormat1(price) + " VNĐ");
         }
         else {
-            priceLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, price + " VNĐ");
+            var priceLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, price + " VNĐ");
             //priceLabel = ccui.RichText.createWithXML("<font face='" + cc.res.font.Roboto_Condensed + "' size='25'><font color='#ffde00'>$</font>" + price + "</font>");
         }
-        priceLabel.setPosition(bg2.getPosition());
+        priceLabel.setAnchorPoint(cc.p(1.0, 0.5));
+        priceLabel.setPosition(260,25);
         container.addChild(priceLabel, 1);
         container.setTouchEnabled(true);
 
@@ -511,24 +508,25 @@ var PaymentLayer = LobbySubLayer.extend({
         this.addChild(bottomBar);
         bottomBar.setScale(cc.winSize.screenScale);
 
-        var tabBg = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-tab-bg.png", cc.rect(10, 0, 4, 86));
-        tabBg.setPreferredSize(cc.size(1100, 86));
+        var tabBg = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-tab-bg.png", cc.rect(10, 0, 4, 82));
+        tabBg.setPreferredSize(cc.size(1100, 82));
         tabBg.setPosition(1280.0 / 2, tabBg.getContentSize().height / 2);
         bottomBar.addChild(tabBg);
 
         var dx = tabBg.getContentSize().width / allLayer.length;
         var x = tabBg.x - tabBg.getContentSize().width / 2 + dx / 2;
 
-        var selectBar = new cc.Sprite("#sublobby-tab-selected.png");
-        selectBar.setAnchorPoint(cc.p(0.5, 0.0));
-        bottomBar.addChild(selectBar);
-        if (selectBar.getContentSize().width > dx) {
-            selectBar.setScaleX(dx / selectBar.getContentSize().width);
-        }
-
         var selectBg = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-tab-selected-bg.png", cc.rect(10, 10, 4, 4));
         selectBg.setPreferredSize(cc.size(dx, tabBg.getContentSize().height));
         bottomBar.addChild(selectBg);
+
+        var selectBar = new cc.Sprite("#sublobby-tab-selected.png");
+        selectBar.setAnchorPoint(cc.p(0.5, 0.0));
+        selectBar.setPosition(selectBg.getContentSize().width/2, selectBg.getContentSize().height - 2);
+        selectBg.addChild(selectBar);
+        if (selectBar.getContentSize().width > dx) {
+            selectBar.setScaleX(dx / selectBar.getContentSize().width);
+        }
 
         var mToggle = new ToggleNodeGroup();
         bottomBar.addChild(mToggle);
@@ -562,13 +560,13 @@ var PaymentLayer = LobbySubLayer.extend({
             toggleItem.onSelect = function (isForce) {
                 if (isForce) {
                     selectBg.setPosition(this.getPosition());
-                    selectBar.setPosition(selectBg.getPosition());
+                   // selectBar.setPosition(selectBg.getPosition());
                 }
                 else {
                     selectBg.stopAllActions();
-                    selectBar.stopAllActions();
+                    //selectBar.stopAllActions();
                     selectBg.runAction(new cc.MoveTo(0.1, this.getPosition()));
-                    selectBar.runAction(new cc.MoveTo(0.1, this.getPosition()));
+                  //  selectBar.runAction(new cc.MoveTo(0.1, this.getPosition()));
                 }
 
                 this.icon1.visible = false;
