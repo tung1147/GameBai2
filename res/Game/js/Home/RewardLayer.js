@@ -89,13 +89,34 @@ var RewardCardLayer = RewardSublayer.extend({
         container.addChild(goldLabel);
         container.setTouchEnabled(true);
         container.addClickEventListener(function () {
-
             var itemName = cardName + " " + cc.Global.NumberFormat2(netValue);
             var dialog = new RewardDialog();
             dialog.setCardInfo(itemName, gold);
             dialog.showWithAnimationMove();
+            dialog.okButtonHandler = function () {
+                var phone = dialog.phoneText.getText();
+                if(thiz.requestReward(cardId, phone)){
+                    dialog.hide();
+                }
+            };
         });
     },
+
+    requestReward : function (productId, phoneNumber) {
+        if(!phoneNumber || phoneNumber == ""){
+            MessageNode.getInstance().show("Bạn phải nhập số điện thoại");
+            return false;
+        }
+
+        var request = {
+            command : "cashout",
+            productId : productId,
+            telephone : phoneNumber.toString()
+        }
+
+        LobbyClient.getInstance().send(request);
+        return true;
+    }
 });
 
 var RewardItemLayer = RewardSublayer.extend({
@@ -159,7 +180,28 @@ var RewardItemLayer = RewardSublayer.extend({
             var dialog = new RewardDialog();
             dialog.setItemInfo(itemName, gold);
             dialog.showWithAnimationMove();
+            dialog.okButtonHandler = function () {
+                var phone = dialog.phoneText.getText();
+                if(thiz.requestReward(itemId, phone)){
+                    dialog.hide();
+                }
+            };
         });
+    },
+    requestReward : function (productId, phoneNumber) {
+        if(!phoneNumber || phoneNumber == ""){
+            MessageNode.getInstance().show("Bạn phải nhập số điện thoại");
+            return false;
+        }
+
+        var request = {
+            command : "cashout",
+            productId : productId,
+            telephone : phoneNumber.toString()
+        }
+
+        LobbyClient.getInstance().send(request);
+        return true;
     }
 });
 
@@ -208,11 +250,7 @@ var RewardBankLayer = RewardSublayer.extend({
             dialog.setInfo(netValue, price);
             dialog.showWithAnimationMove();
         });
-    },
-
-    // onClickedItem: function (itemId) {
-    //
-    // }
+    }
 });
 
 var RewardAgencyLayer = RewardSublayer.extend({
@@ -437,13 +475,6 @@ var RewardLayer = LobbySubLayer.extend({
         var dx = tabBg.getContentSize().width / 5;
         var x = tabBg.x - tabBg.getContentSize().width / 2 + dx / 2;
 
-        // var selectBar = new cc.Sprite("#sublobby-tab-selected.png");
-        // selectBar.setAnchorPoint(cc.p(0.5, 0.0));
-        // bottomBar.addChild(selectBar);
-        // if (selectBar.getContentSize().width > dx) {
-        //     selectBar.setScaleX(dx / selectBar.getContentSize().width);
-        // }
-
         var selectBg = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-tab-selected-bg.png", cc.rect(10, 10, 4, 4));
         selectBg.setPreferredSize(cc.size(dx, tabBg.getContentSize().height));
         bottomBar.addChild(selectBg);
@@ -512,10 +543,22 @@ var RewardLayer = LobbySubLayer.extend({
             mToggle.addItem(toggleItem);
         }
         this.mToggle = mToggle;
+
+        LobbyClient.getInstance().addListener("cashout", this.onCashout, this);
     },
 
     onEnter: function () {
         this._super();
         this.mToggle.selectItem(0);
+    },
+    onExit : function () {
+        this._super();
+        LobbyClient.getInstance().removeListener(this);
+    },
+
+    onCashout : function () {
+        var dialog = new MessageDialog();
+        dialog.setMessage("Đổi thưởng thành công\n\nVui lòng kiểm tra mục nhận thưởng");
+        dialog.showWithAnimationScale();
     }
 });

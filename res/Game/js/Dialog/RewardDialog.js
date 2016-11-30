@@ -30,6 +30,7 @@ var RewardDialog = Dialog.extend({
         phoneText.setTextColor(cc.color(255,255,255));
         phoneText.setPlaceHolderColor(cc.color(144, 144, 144));
         phoneText.setPosition(bg.getPosition());
+        this.phoneText = phoneText;
         this.dialogNode.addChild(phoneText, 1);
     },
     setCardInfo : function (itemName, gold) {
