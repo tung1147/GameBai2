@@ -59,17 +59,17 @@ var RewardCardLayer = RewardSublayer.extend({
         if (cardType === "VTT") {
             var cardImg = new cc.Sprite("#reward-card-viettel.png");
             var cardName = "Viettel";
-            // cardMoney = new cc.Sprite("#reward-viettel-" + s_card_money[cardId] + ".png");
+            var labalColor = cc.color("#034d4e");
         }
         else if (cardType === "VNP") {
             var cardImg = new cc.Sprite("#reward-card-vina.png");
             var cardName = "Vina";
-            // cardMoney = new cc.Sprite("#reward-vina-" + s_card_money[cardId] + ".png");
+            var labalColor = cc.color("#004cbe");
         }
         else {
             var cardImg = new cc.Sprite("#reward-card-mobi.png");
             var cardName = "Mobi";
-            // cardMoney = new cc.Sprite("#reward-mobi-" + s_card_money[cardId] + ".png");
+            var labalColor = cc.color("#0052a5");
         }
 
         var container = new ccui.Widget();
@@ -83,6 +83,12 @@ var RewardCardLayer = RewardSublayer.extend({
 
         goldBg.setPosition(cardImg.x, goldBg.getContentSize().height / 2);
         container.addChild(goldBg);
+
+        var cardValue = new cc.LabelTTF(cc.Global.NumberFormat1(netValue) + " VNĐ", cc.res.font.Roboto_CondensedBold, 30);
+        cardValue.enableStroke(labalColor, 5);
+        cardValue.setAnchorPoint(cc.p(1.0, 0.5));
+        cardValue.setPosition(cardImg.x + 90, 90);
+        container.addChild(cardValue);
 
         goldLabel.setPosition(goldBg.x + 20.0, goldBg.y);
         goldLabel.setColor(cc.color("#ffde00"));
@@ -129,13 +135,14 @@ var RewardItemLayer = RewardSublayer.extend({
                     cc.Global.vatphamData[i]["id"],
                     cc.Global.vatphamData[i]["name"],
                     cc.Global.vatphamData[i]["netValue"] + " VND",
-                    cc.Global.vatphamData[i]["price"]
+                    cc.Global.vatphamData[i]["price"],
+                    cc.Global.vatphamData[i]["imageUrl"]
                 );
             }
         }
     },
 
-    addItem: function (itemId, itemName, itemMoney, gold) {
+    addItem: function (itemId, itemName, itemMoney, gold, imgUrl) {
         var thiz = this;
         var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, cc.Global.NumberFormat1(gold));
         var goldBgWidth = goldLabel.getContentSize().width + 60.0;
@@ -149,7 +156,9 @@ var RewardItemLayer = RewardSublayer.extend({
         itemBg.setPreferredSize(cc.size(210, 276));
         var itemBgPadding = new cc.Sprite("#reward-item-bg-2.png");
 
-        var itemIcon = new cc.Sprite("#" + itemId + ".png");
+       // var itemIcon = new cc.Sprite("#" + itemId + ".png");
+        var itemIcon = new WebSprite();
+        itemIcon.reloadFromURL(imgUrl);
 
         var container = new ccui.Widget();
         container.setContentSize(cc.size(itemBg.getContentSize().width, itemBg.getContentSize().height + 60.0));

@@ -33,9 +33,16 @@ cc.Global.NumberFormat2 = function (number) {
 //cc.winSize.screenScale = cc.winSize.width / 1280.0;
 cc.res = cc.res || {};
 cc.res.font = cc.res.font || {};
-cc.res.font.Roboto_Condensed = "res/fonts/Roboto-Condensed.ttf";
-cc.res.font.Roboto_CondensedBold = "res/fonts/Roboto-BoldCondensed.ttf";
-cc.res.font.UTM_AvoBold = "res/fonts/UTM-AvoBold.ttf";
+if(cc.sys.isNative){
+    cc.res.font.Roboto_Condensed = "res/fonts/Roboto-Condensed.ttf";
+    cc.res.font.Roboto_CondensedBold = "res/fonts/Roboto-BoldCondensed.ttf";
+    cc.res.font.UTM_AvoBold = "res/fonts/UTM-AvoBold.ttf";
+}
+else{
+    cc.res.font.Roboto_Condensed = "Roboto-Condensed";
+    cc.res.font.Roboto_CondensedBold = "Roboto-BoldCondensed";
+    cc.res.font.UTM_AvoBold = "UTM-AvoBold";
+}
 
 cc.res.font.Roboto_Condensed_40 = "res/fonts/RobotoCondensed_40.fnt";
 cc.res.font.Roboto_CondensedBold_40 = "res/fonts/RobotoBoldCondensed_40.fnt";
