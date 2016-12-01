@@ -162,7 +162,7 @@ PlayerMe.messageCount = 0;
 PlayerMe.SFS = PlayerMe.SFS || {};
 
 var GameConfig = GameConfig || {};
-GameConfig.email = "gamebaivip@gmail.com";
+GameConfig.email = "gamebai-c567@gmail.com";
 GameConfig.hotline = "09000123";
 GameConfig.broadcastMessage = "";
 GameConfig.DeviceIDKey = "";

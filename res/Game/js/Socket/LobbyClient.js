@@ -158,6 +158,10 @@ var LobbyClient = (function () {
                 PlayerMe.verify = true;
                 PlayerMe.phoneNumber = event.data.telephone;
             }
+            else if (command === "verifyCodeBySms") {
+                PlayerMe.verify = true;
+                PlayerMe.phoneNumber = event.data.telephone;
+            }
             else if (command === "changeAsset"){
                 PlayerMe.gold = event["data"]["userAssets"]["gold"];
                // cc.log("Lobbyclient : " + PlayerMe.gold);

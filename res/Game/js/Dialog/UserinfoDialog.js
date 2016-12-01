@@ -135,152 +135,114 @@ var VerifyPhoneLayer = cc.Node.extend({
     }
 });
 
-var VerifySendPhoneLayer = cc.Node.extend({
+
+var s_Verify_SMS_Provider = s_Verify_SMS_Provider || ["VIETTEL", "VINA", "MOBI"];
+var VerifySendSMSLayer = cc.Node.extend({
     ctor : function () {
         this._super();
 
-        var bg1 = ccui.Scale9Sprite.createWithSpriteFrameName("dialog-textinput-bg.png", cc.rect(10,10,4,4));
-        bg1.setPreferredSize(cc.size(384, 60));
-        bg1.setPosition(777, 434);
-        this.addChild(bg1);
+        var mToggle = new ToggleNodeGroup();
+        this.mToggle = mToggle;
+        this.addChild(mToggle);
 
-        var bg2 = ccui.Scale9Sprite.createWithSpriteFrameName("dialog-textinput-bg.png", cc.rect(10,10,4,4));
-        bg2.setPreferredSize(cc.size(384, 60));
-        bg2.setPosition(bg1.x, 354);
-        this.addChild(bg2);
+        var left = 600;
+        var right = 1000;
+        var dx = (right - left)/(s_Verify_SMS_Provider.length);
+        var x = left + dx/2;
+        var y = 450;
 
-        var textSize = cc.size(bg1.getContentSize().width - 4, bg1.getContentSize().height - 4);
+        this.smsLabel = [];
+        var thiz = this;
+        for(var i=0; i<s_Verify_SMS_Provider.length; i++){
+            (function () {
+                var label = new cc.LabelBMFont(s_Verify_SMS_Provider[i], cc.res.font.Roboto_Condensed_25);
+                label.setColor(cc.color("#72acd6"));
+                label.setPosition(x - 10, y);
+                thiz.addChild(label,1);
 
-        var phoneText = new newui.TextField(textSize, cc.res.font.Roboto_Condensed_25);
-        phoneText.setPlaceHolder("Nhập số điện thoại");
-        phoneText.setPosition(bg1.getPosition());
-        this.addChild(phoneText,1);
-        this.phoneText = phoneText;
+                var bg1 = new cc.Sprite("#dialog-checkBox-2.png");
+                bg1.setPosition(label.x - label.getContentSize().width/2 - 20, y);
+                thiz.addChild(bg1);
 
-        var passwordText = new newui.TextField(textSize, cc.res.font.Roboto_Condensed_25);
-        passwordText.setPlaceHolder("Nhập mật khẩu");
-        passwordText.setPasswordEnable(true);
-        passwordText.setPosition(bg2.getPosition());
-        this.addChild(passwordText,1);
-        this.passwordText = passwordText;
+                var bg2 = new cc.Sprite("#dialog-checkBoxCross-2.png");
+                bg2.setPosition(bg1.getPosition());
+                thiz.addChild(bg2);
 
-        var okButton = new ccui.Button("dialog-button-1.png","","", ccui.Widget.PLIST_TEXTURE);
-        okButton.setScale9Enabled(true);
-        okButton.setZoomScale(0.03);
-        okButton.setCapInsets(cc.rect(10,10,4,4));
-        okButton.setContentSize(384, 60);
-        okButton.setPosition(bg1.x, 265);
-        this.addChild(okButton);
+                var smsContent =  new cc.LabelTTF("sms", cc.res.font.Roboto_Condensed, 20, cc.size(0, 0), cc.TEXT_ALIGNMENT_CENTER);
+                smsContent.setPosition((right + left)/2 - 30, 350);
+                thiz.addChild(smsContent, 1);
+                thiz.smsLabel.push(smsContent);
 
-        var okTitle = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Xác nhận");
-        okTitle.setPosition(okButton.getContentSize().width/2, okButton.getContentSize().height/2);
-        okButton.getRendererNormal().addChild(okTitle);
+                var toggleItem = new ToggleNodeItem(cc.size(dx, bg1.getContentSize().height));
+                toggleItem.setPosition((bg1.x + label.x)/2, bg1.y);
+                toggleItem.onSelect = function () {
+                    bg2.setVisible(true);
+                    smsContent.setVisible(true);
+                };
+                toggleItem.onUnSelect = function () {
+                    bg2.setVisible(false);
+                    smsContent.setVisible(false);
+                };
+                mToggle.addItem(toggleItem);
+                x += dx;
+            })();
+        }
 
-        var sendCodeBt = new ccui.Text("Đã có mã xác nhận", cc.res.font.Roboto_Condensed, 25);
-        sendCodeBt.setPosition(okButton.x, 160);
-        sendCodeBt.setTouchEnabled(true);
-        sendCodeBt.setTextColor(cc.color("#009cff"));
-        this.addChild(sendCodeBt,1);
-        this.sendCodeBt = sendCodeBt;
+      //  if(cc.sys.isNative){
+            var okButton = new ccui.Button("dialog-button-1.png","","", ccui.Widget.PLIST_TEXTURE);
+            okButton.setScale9Enabled(true);
+            okButton.setZoomScale(0.03);
+            okButton.setCapInsets(cc.rect(10,10,4,4));
+            okButton.setContentSize(384, 60);
+            okButton.setPosition((right + left)/2 - 30, 230);
+            this.addChild(okButton);
+            this.okButton = okButton;
 
-        okButton.addClickEventListener(function () {
-            var phone = phoneText.getText();
-            if(phone === ""){
-                MessageNode.getInstance().show("Bạn phải nhập số điện thoại");
-                return;
-            }
-            var password = passwordText.getText();
-            var request = {
-                command : "verifyAccount",
-                telephone : phone,
-                password : password
-            };
-            LobbyClient.getInstance().send(request);
-            LoadingDialog.getInstance().show("Đang gửi yêu cầu");
-        });
+            var okTitle = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Xác nhận");
+            okTitle.setPosition(okButton.getContentSize().width/2, okButton.getContentSize().height/2);
+            okButton.getRendererNormal().addChild(okTitle);
+
+            okButton.addClickEventListener(function () {
+
+            });
+     //   }
     },
     setVisible : function (visible) {
         this._super(visible);
         if(visible){
-            this.phoneText.setText("");
-            this.passwordText.setText("");
-        }
-    },
-});
-
-var VerifySendCodeLayer = cc.Node.extend({
-    ctor : function () {
-        this._super();
-
-        var title = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Nhập mã xác nhận");
-        title.setScale(20.0 / 25.0);
-        title.setPosition(777, 452);
-        this.addChild(title, 1);
-        this.title = title;
-
-        var phoneLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, "0123456789");
-        phoneLabel.setPosition(title.x, 415);
-        phoneLabel.setColor(cc.color("#009cff"));
-        this.addChild(phoneLabel, 1);
-        this.phoneLabel = phoneLabel;
-
-        var bg1 = ccui.Scale9Sprite.createWithSpriteFrameName("dialog-textinput-bg.png", cc.rect(10,10,4,4));
-        bg1.setPreferredSize(cc.size(384, 60));
-        bg1.setPosition(777, 336);
-        this.addChild(bg1);
-
-        var textSize = cc.size(bg1.getContentSize().width - 4, bg1.getContentSize().height - 4);
-
-        var codeText = new newui.TextField(textSize, cc.res.font.Roboto_Condensed_25);
-        codeText.setPlaceHolder("Mã xác nhận");
-        codeText.setPosition(bg1.getPosition());
-        this.addChild(codeText,1);
-        this.codeText = codeText;
-
-        var okButton = new ccui.Button("dialog-button-1.png","","", ccui.Widget.PLIST_TEXTURE);
-        okButton.setScale9Enabled(true);
-        okButton.setZoomScale(0.03);
-        okButton.setCapInsets(cc.rect(10,10,4,4));
-        okButton.setContentSize(384, 60);
-        okButton.setPosition(bg1.x, 242);
-        this.addChild(okButton);
-        this.okButton = okButton;
-
-        var okTitle = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Xác nhận");
-        okTitle.setPosition(okButton.getContentSize().width/2, okButton.getContentSize().height/2);
-        okButton.getRendererNormal().addChild(okTitle);
-
-        var backButton = new ccui.Text("Quay lại", cc.res.font.Roboto_Condensed, 25);
-        backButton.setPosition(okButton.x, 160);
-        backButton.setTouchEnabled(true);
-        backButton.setTextColor(cc.color("#009cff"));
-        this.addChild(backButton,1);
-        this.backButton = backButton;
-
-        okButton.addClickEventListener(function () {
-            var code = codeText.getText();
-            if(code === ""){
-                MessageNode.getInstance().show("Bạn phải nhập mã xác nhận");
-                return;
+            this.mToggle.selectItem(0);
+            if(this.okButton){
+                this.okButton.setVisible(false);
             }
+
+            //requet sms
             var request = {
-                command : "verifyCode",
-                verifyType : 1,
-                code : code
+                command : "getVerifyAccountMessage"
             };
             LobbyClient.getInstance().send(request);
-            LoadingDialog.getInstance().show("Đang gửi yêu cầu");
-        });
+        }
     },
 
-    setVisible : function (visible) {
-        this._super(visible);
-        if(visible){
-            this.phoneLabel.visible = false;
-            this.title.setString("Nhập mã xác nhận");
+    onEnter : function () {
+        this._super();
+        LobbyClient.getInstance().addListener("getVerifyAccountMessage", this.onRecvSMSContent, this);
+    },
+
+    onExit : function () {
+        this._super();
+        LobbyClient.getInstance().removeListener(this);
+    },
+
+    onRecvSMSContent : function (messageName, data) {
+        this.smsGateway = data["data"]["numberTo"];
+        this.smsContent = [data["data"]["vettel"], data["data"]["vnp"], data["data"]["vms"]];
+
+        if(this.okButton){
+            this.okButton.visible = true;
         }
-        else{
-            this.codeText.setText("");
+        for(var i=0; i<this.smsLabel.length; i++){
+            var text = "Soạn tin nhắn\n\n"+this.smsContent[i] +"\n\nGửi đến "+this.smsGateway;
+            this.smsLabel[i].setString(text);
         }
     }
 });
@@ -288,67 +250,41 @@ var VerifySendCodeLayer = cc.Node.extend({
 var UserinfoVerifyLayer = cc.Node.extend({
     ctor : function () {
         this._super();
-        LobbyClient.getInstance().addListener("verifyAccount", this.onRecvVerifyAccount, this);
+        //LobbyClient.getInstance().addListener("verifyAccount", this.onRecvVerifyAccount, this);
         LobbyClient.getInstance().addListener("verifyCode", this.onRecvVerifyCode, this);
 
         this.phoneLayer = new VerifyPhoneLayer();
         this.addChild(this.phoneLayer);
 
-        this.sendPhoneLayer = new VerifySendPhoneLayer();
-        this.addChild(this.sendPhoneLayer);
-
-        this.sendCodeLayer = new VerifySendCodeLayer();
-        this.addChild(this.sendCodeLayer);
+        this.sendSMSLayer = new VerifySendSMSLayer();
+        this.addChild(this.sendSMSLayer);
 
         this.refreshView();
-
-        var thiz = this;
-        this.sendPhoneLayer.sendCodeBt.addClickEventListener(function () {
-            thiz.toSendCodeLayer();
-        });
-
-        this.sendCodeLayer.backButton.addClickEventListener(function () {
-            thiz.toSendPhoneLayer();
-        });
-
-        this.phoneLayer.okButton.addClickEventListener(function () {
-            thiz.toSendPhoneLayer();
-        });
     },
     onExit : function () {
         this._super();
         LobbyClient.getInstance().removeListener(this);
     },
     onRecvVerifyAccount : function (messageName, data) {
-        LoadingDialog.getInstance().hide();
-        if(data.status == 0){
-            this.toSendCodeLayer();
-            this.sendCodeLayer.phoneLabel.visible = true;
-            this.sendCodeLayer.phoneLabel.setString(this.sendPhoneLayer.phoneText.getText());
-            this.sendCodeLayer.title.setString("Mã xác nhận đã gửi đến số điện thoại");
-        }
-        else{
-            MessageNode.getInstance().show("Gửi yêu cầu lỗi [" + data.status + "]");
-        }
+        // LoadingDialog.getInstance().hide();
+        // if(data.status == 0){
+        //     this.toSendCodeLayer();
+        //     this.sendCodeLayer.phoneLabel.visible = true;
+        //     this.sendCodeLayer.phoneLabel.setString(this.sendPhoneLayer.phoneText.getText());
+        //     this.sendCodeLayer.title.setString("Mã xác nhận đã gửi đến số điện thoại");
+        // }
+        // else{
+        //     MessageNode.getInstance().show("Gửi yêu cầu lỗi [" + data.status + "]");
+        // }
     },
     onRecvVerifyCode : function (messageName, data) {
         if(data.status == 0){
            this.refreshView();
         }
         else{
-            MessageNode.getInstance().show("Gửi yêu cầu lỗi [" + data.status + "]");
+            MessageNode.getInstance().show("Không thể xác nhận được tài khoản [" + data.status + "]");
         }
         LoadingDialog.getInstance().hide();
-    },
-    toSendPhoneLayer : function () {
-        this.phoneLayer.setVisible(false);
-        this.sendPhoneLayer.setVisible(true);
-        this.sendCodeLayer.setVisible(false);
-    },
-    toSendCodeLayer : function () {
-        this.phoneLayer.setVisible(false);
-        this.sendPhoneLayer.setVisible(false);
-        this.sendCodeLayer.setVisible(true);
     },
     setVisible : function (visible) {
         this._super(visible);
@@ -359,13 +295,11 @@ var UserinfoVerifyLayer = cc.Node.extend({
     refreshView :function () {
         if(PlayerMe.phoneNumber === ""){
             this.phoneLayer.setVisible(false);
-            this.sendPhoneLayer.setVisible(true);
-            this.sendCodeLayer.setVisible(false);
+            this.sendSMSLayer.setVisible(true);
         }
         else{
             this.phoneLayer.setVisible(true);
-            this.sendPhoneLayer.setVisible(false);
-            this.sendCodeLayer.setVisible(false);
+            this.sendSMSLayer.setVisible(false);
         }
     }
 });
@@ -374,6 +308,7 @@ var UserinfoDialog = IDialog.extend({
     ctor : function () {
         this._super();
         LobbyClient.getInstance().addListener("verifyCode", this.onRecvVerifyCode, this);
+        LobbyClient.getInstance().addListener("verifyCodeBySms", this.onRecvVerifyCode, this);
 
         if(cc.winSize.width < 1080.0){
             this.dialogNode.setScale(cc.winSize.width / 1080.0);
