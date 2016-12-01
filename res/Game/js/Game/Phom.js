@@ -214,215 +214,103 @@ var Phom = IGameScene.extend({
         this.drawDeck = drawDeck;
         this.sceneLayer.addChild(drawDeck);
     },
-    onStatusChanged: function (param) {
-
-    },
-    onReconnect: function (param) {
-        this._super(param);
-        var userInfo = param["1"]["5"];
-
-        //update my status
-        for (var i = 0; i < userInfo.length; i++) {
-            if (userInfo[i]["u"] == PlayerMe.username) {
-                this.onTurnChanged({s: userInfo[i]["s"], u: userInfo[i]["u"]});
-            }
+    setTrashCardList:function (cards,username) {
+        var slot = this.getSlotByUsername(username);
+        slot.trashCards.removeAll();
+        for (var j = 0; j < cards.length; j++) {
+            var card = this.getCardWithId(cards[j]);
+            slot.trashCards.addCard(new Card(card.rank, card.suit));
         }
+    },
 
-        //update turn
-        var turnInfo = param["1"]["12"];
-        this.getSlotByUsername(turnInfo["u"]).showTimeRemain(turnInfo["2"] / 1000, 15);
-        this.drawDeckLabel.setString(turnInfo["3"]);
-
-        //on-hand cards
-        var onHandCards = param["3"];
-        var pushLish = [];
-        for (var i = 0; i < onHandCards.length; i++) {
-            var card = this.getCardWithId(onHandCards[i]);
-            this.cardList.addCard(new Card(card.rank, card.suit));
+    setCardList : function (cards) {
+        this.cardList.removeAll();
+        for (var i = 0;i<cards.length;i++){
+            var card = this.getCardWithId(cards[i]);
+            this.cardList.addCard(new Card(card.rank,card.suit));
         }
         this.cardList.reOrderWithoutAnimation();
+    },
 
-        // trash card
-        for (var i = 0; i < userInfo.length; i++) {
-            var data = userInfo[i];
-            var username = data["u"];
-            var slot = this.getSlotByUsername(username);
-            var trashCards = data["10"];
-
-            //trashcard
-            if (!trashCards)
-                break;
-            for (var j = 0; j < trashCards.length; j++) {
-                var card = this.getCardWithId(trashCards[j]);
-                slot.trashCards.addCard(new Card(card.rank, card.suit));
-            }
-            slot.trashCards.reOrder(true);
-        }
-
-        // stolen card
-        for (var i = 0; i < userInfo.length; i++) {
-            var data = userInfo[i];
-            var username = data["u"];
-            var stolenCards = data["12"];
-            if (username == PlayerMe.username) {
-                for (var j = 0; j < this.cardList.cardList.length; j++) {
-                    var cardId = this.getCardIdWithRank(
-                        this.cardList.cardList[j].rank,
-                        this.cardList.cardList[j].suit
-                    );
-                    if (stolenCards.indexOf(cardId) != -1) {
-                        var redBorder = new cc.Sprite("#boder_do.png");
-                        redBorder.setPosition(
-                            this.cardList.cardList[j].width / 2,
-                            this.cardList.cardList[j].height / 2
-                        );
-                        this.cardList.cardList[j].addChild(redBorder);
-                    }
-                }
-            }
-            else {
-                for (var j = 0; j < stolenCards.length; j++) {
-                    var card = this.getCardWithId(stolenCards[j]);
-                    var cardSprite = new Card(card.rank, card.suit);
-                    var redBorder = new cc.Sprite("#boder_do.png");
-                    redBorder.setPosition(cardSprite.width / 2, cardSprite.height / 2);
-                    cardSprite.addChild(redBorder);
-                    slot.dropCards.addCard(cardSprite)
-                }
-                slot.dropCards.reOrder(true);
-            }
-        }
-
-        //grouped Cards
-
-        var groupedCards = [];
-        if (param["4"]) {
-            for (var i = 0; i < param["4"].length; i++)
-                groupedCards = groupedCards.concat(param["4"][i]);
-
-            for (var i = 0; i < this.cardList.cardList.length; i++) {
-                var cardId = this.getCardIdWithRank(
-                    this.cardList.cardList[i].rank,
-                    this.cardList.cardList[i].suit
-                );
-
-                if (groupedCards.indexOf(cardId) != -1) {
-                    var dotSprite = new cc.Sprite("#card-dot.png");
-                    dotSprite.setPosition(
-                        this.cardList.cardList[i].width - 20,
-                        this.cardList.cardList[i].height - 20
-                    );
-                    this.cardList.cardList[i].addChild(dotSprite);
-                }
+    setStolenCardsMe : function (cards) {
+        for (var i = 0;i<this.cardList.cardList.length;i++){
+            var card = this.cardList.cardList[i];
+            var cardId = this.getCardIdWithRank(card.rank,card.suit);
+            if (cards.indexOf(cardId) != -1){
+                var borderSprite = new cc.Sprite("#boder_do.png");
+                borderSprite.setPosition(card.width/2,card.height/2);
+                card.addChild(borderSprite);
             }
         }
     },
-    onGameFinished: function (param) {
-        this.uBt.visible = false;
-        var roomStatus = param["s"];
-        var winUser = param["u"];
-        var userData = param["3"];
-        var winString = "Thắng";
 
-        var dialog = new ResultDialog(userData.length);
-        for (var i = 0; i < userData.length; i++) {
-            dialog.userLabel[i].setString(userData[i].u);
-            var gold = parseInt(userData[i]["4"]);
-            var goldStr = cc.Global.NumberFormat1(Math.abs(gold)) + " V";
-            if (gold >= 0) {
-                goldStr = "+" + goldStr;
-            }
-            else {
-                goldStr = "-" + goldStr;
-            }
+    setStolenCardsOther : function(cards,username){
+        var slot = this.getSlotByUsername(username);
+        slot.dropCards.removeAll();
+
+        for (var i = 0;i<cards.length;i++){
+            var card = this.getCardWithId(cards[i]);
+            var cardSprite = new Card(card.rank, card.suit);
+            var redBorder = new cc.Sprite("#boder_do.png");
+            redBorder.setPosition(cardSprite.width / 2, cardSprite.height / 2);
+            cardSprite.addChild(redBorder);
+            slot.dropCards.addCard(cardSprite);
+        }
+    },
+
+    processGroupedCard : function (groupedCard) {
+        this.cardList.processGroupedCard(groupedCard);
+    },
+
+    showResultDialog: function (resultData) {
+        var dialog = new ResultDialog(resultData.length);
+
+        for (var i = 0; i < resultData.length; i++) {
+            dialog.userLabel[i].setString(resultData[i].username);
+            var goldStr = resultData[i].gold >= 0 ? "+" : "-";
+            goldStr += (cc.Global.NumberFormat1(Math.abs(resultData[i].gold)) + " V");
             dialog.goldLabel[i].setString(goldStr);
+            dialog.goldLabel[i].setColor(resultData[i].gold >= 0 ?
+                cc.color("#ffde00") : cc.color("#ff0000"));
+            dialog.contentLabel[i].setString(resultData[i].resultString);
 
-            if (gold >= 0) {
-                dialog.goldLabel[i].setColor(cc.color("#ffde00"));
-            }
-            else {
-                dialog.goldLabel[i].setColor(cc.color("#ff0000"));
-            }
-
-            var cardList = userData[i]["2"];
-            var contentString = "";
-            switch (userData[i]["5"]) {
-                case 0:
-                    contentString = "Bét ";
-                    if (userData[i]["7"] > 0)
-                        contentString += userData[i]["7"] + " điểm";
-                    break;
-                case 1:
-                    contentString = "Ù Khan";
-                    break;
-                case 2:
-                    contentString = "Ù Tròn";
-                    break;
-                case 3:
-                    contentString = "Ù Thường";
-                    break;
-                case 4:
-                    contentString = "Ù Đền";
-                    break;
-                case 5:
-                    contentString = "Nhất " + userData[i]["7"] + " điểm";
-                    break;
-                case 6:
-                    contentString = "Nhì " + userData[i]["7"] + " điểm";
-                    break;
-                case 7:
-                    contentString = "Ba " + userData[i]["7"] + " điểm";
-                    break;
-                case 8:
-                    contentString = "Móm";
-                    break;
-            }
-            cc.log("Content string : " + contentString);
-            dialog.contentLabel[i].setString(contentString);
-            // if (userData[i].u == winUser) {
-            //     dialog.contentLabel[i].setString(winString);
-            // }
-            // else {
-            //     dialog.contentLabel[i].setString("Thua " + cardList.length + " lá");
-            // }
-
-            for (var j = 0; j < cardList.length; j++) {
-                var cardData = this.getCardWithId(cardList[j]);
+            for (var j = 0;j<resultData[i].cardList.length;j++){
+                var cardData = this.getCardWithId(resultData[i].cardList[j]);
                 var card = new Card(cardData.rank, cardData.suit);
                 dialog.cardList[i].addCard(card);
             }
-            dialog.cardList[i].reOrderWithoutAnimation();
 
-            //update gold
-            this.updateGold(userData[i].u, userData[i]["3"]);
-            //effect
+            dialog.cardList[i].reOrderWithoutAnimation();
         }
+
         dialog.showWithAnimationMove();
     },
+
     performHaBaiMe: function (groupedCards) {
         var removeList = [];
-        for (var i = 0;i<groupedCards.length;i++){
+        for (var i = 0; i < groupedCards.length; i++) {
             var list = groupedCards[i];
-            for (var j = 0;j<list.length;j++){
+            for (var j = 0; j < list.length; j++) {
                 removeList.push(this.getCardWithId(list[j]));
             }
         }
 
         var arr = this.cardList.removeCard(removeList);
-        for (var i = 0;i<arr.length;i++){
+        for (var i = 0; i < arr.length; i++) {
             this.playerView[0].dropCards.addCard(arr[i]);
             arr[i].release();
         }
         this.playerView[0].dropCards.reOrder();
         this.cardList.reOrder();
     },
-    performHaBaiOther : function (username,groupedCards,stolenCards) {
+
+    performHaBaiOther: function (username, groupedCards, stolenCards) {
         var slot = this.getSlotByUsername(username);
         var stolenCardsId = [];
         var stolenCardsSprite = [];
 
         //index stolen cards
-        for (var i = 0;i<slot.dropCards.cardList.length;i++){
+        for (var i = 0; i < slot.dropCards.cardList.length; i++) {
             stolenCardsId.push(
                 this.getCardIdWithRank(slot.dropCards.cardList[i].rank,
                     slot.dropCards.cardList[i].suit)
@@ -433,63 +321,19 @@ var Phom = IGameScene.extend({
         }
 
         //add to drop cards list
-        for (var i = 0;i<groupedCards.length;i++){
-            for (var j = 0;j<groupedCards[i].length;j++){
+        for (var i = 0; i < groupedCards.length; i++) {
+            for (var j = 0; j < groupedCards[i].length; j++) {
                 var index = stolenCardsId.indexOf(groupedCards[i][j]);
-                if (index == -1){// from hands, create new sprite
+                if (index == -1) {// from hands, create new sprite
                     var card = this.getCardWithId(groupedCards[i][j]);
-                    slot.dropCards.addCard(new Card(card.rank,card.suit));
+                    slot.dropCards.addCard(new Card(card.rank, card.suit));
                 }
-                else{ // from exist drop card
+                else { // from exist drop card
                     slot.dropCards.addCard(stolenCardsSprite[index]);
                     stolenCardsSprite[index].release();
                 }
             }
         }
-    },
-    onHaBai: function (param) {
-        var username = param["u"];
-        var groupedCard = param["11"];
-        var stolenCard = param["12"];
-        var slot = this.getSlotByUsername(username);
-
-        var removeList = [];
-        var slotStolenCards = [];
-        var stolenCardsSprite = [];
-        for (var i = 0; i < slot.dropCards.cardList.length; i++) {
-            var id = this.getCardIdWithRank(slot.dropCards.cardList[i].rank,
-                slot.dropCards.cardList[i].suit);
-            slot.dropCards.cardList[i].retain();
-            stolenCardsSprite.push(slot.dropCards.cardList[i]);
-            slot.dropCards.cardList[i].removeFromParent();
-            slotStolenCards.push(id);
-        }
-        slot.dropCards.removeAll();
-        for (var i = 0; i < groupedCard.length; i++) {
-            var list = groupedCard[i];
-            for (var j = 0; j < list.length; j++) {
-                var card = this.getCardWithId(list[j]);
-                if (username == PlayerMe.username) {
-                    removeList.push(card);
-                } else {
-                    var cardSprite;
-                    if (slotStolenCards.indexOf(list[j]) == -1)
-                        cardSprite = new Card(card.rank, card.suit);
-                    else {
-                        cardSprite = stolenCardsSprite[slotStolenCards.indexOf(list[j])];
-                        cardSprite.release();
-                    }
-                    slot.dropCards.addCard(cardSprite);
-                }
-            }
-        }
-        var arr = this.cardList.removeCard(removeList);
-        for (var i = 0; i < arr.length; i++) {
-            this.playerView[0].dropCards.addCard(arr[i]);
-            arr[i].release();
-        }
-        slot.dropCards.reOrder();
-        this.cardList.reOrder();
     },
     performReorderCards: function () {
         this.cardList.reOrder();
@@ -568,19 +412,29 @@ var Phom = IGameScene.extend({
             stealerSlot.dropCards.reOrder();
         }
     },
-    onDrawDeck: function (param) {
-        var user = param.u;
-        if (user == PlayerMe.username) {
-            var card = this.getCardWithId(param["1"]);
-            var cardSprite = new Card(card.rank, card.suit);
-            cardSprite.setPosition(cc.winSize.width / 2, cc.winSize.height / 2);
-            this.cardList.addCard(cardSprite);
-            this.cardList.reOrder();
-            this.cardList.processGroupedCard(param["2"]);
-        }
+    performDrawCardMe: function (cardId, groupedCard) {
+        var card = this.getCardWithId(cardId);
+        var cardSprite = new Card(card.rank, card.suit);
+        cardSprite.setPosition(cc.winSize.width / 2, cc.winSize.height / 2);
+        this.cardList.addCard(cardSprite);
+        this.cardList.reOrder();
+        this.cardList.processGroupedCard(groupedCard);
     },
-    onUpdateDrawDeck: function (param) {
-        var cardCount = param["1"];
+
+    performDrawCardOther: function (username) {
+        var slot = this.getSlotByUsername(username);
+        var card = new cc.Sprite("#gp_card_up.png");
+        this.sceneLayer.addChild(card);
+        card.setScale(0.5);
+        card.setPosition(cc.winSize.width / 2, cc.winSize.height / 2);
+        var moveAction = new cc.MoveTo(0.3, slot.getPosition());
+        var removeAction = new cc.CallFunc(function () {
+            card.removeFromParent(true);
+        });
+
+        card.runAction(new cc.Sequence(moveAction, removeAction));
+    },
+    performDrawDeckUpdate: function (cardCount) {
         if (cardCount)
             this.drawDeckLabel.setString(cardCount);
     },
@@ -697,7 +551,7 @@ var Phom = IGameScene.extend({
     },
     initButton: function () {
         var danhbaiBt = new ccui.Button("game-danhbaiBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        danhbaiBt.setPosition(cc.winSize.width - 510, 50);
+        danhbaiBt.setPosition(cc.winSize.width - 310, 50);
         this.sceneLayer.addChild(danhbaiBt);
 
         var xepBaiBt = new ccui.Button("game-xepbaiBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
@@ -779,10 +633,10 @@ var Phom = IGameScene.extend({
         this.cardList.reArrangeCards();
     },
     sendURequest: function () {
-        SmartfoxClient.getInstance().sendExtensionRequestCurrentRoom("109", null);
+        this._controller.sendURequest();
     },
     sendAnBaiRequest: function () {
-        SmartfoxClient.getInstance().sendExtensionRequestCurrentRoom("103", null);
+        this._controller.sendAnBaiRequest();
     },
     sendGuiBaiRequest: function () {
         var guibaiList = this.cardList.getCardSelected();
@@ -790,7 +644,7 @@ var Phom = IGameScene.extend({
         for (var i = 0; i < guibaiList.length; i++) {
             data.push(this.getCardIdWithRank(guibaiList[i].rank, guibaiList[i].suit));
         }
-        SmartfoxClient.getInstance().sendExtensionRequestCurrentRoom("106", {1: data});
+        this._controller.sendGuiBaiRequest(data);
     },
     sendHaBaiRequest: function () {
         var habaiList = this.cardList.getCardSelected();
@@ -798,22 +652,21 @@ var Phom = IGameScene.extend({
         for (var i = 0; i < habaiList.length; i++) {
             data.push(this.getCardIdWithRank(habaiList[i].rank, habaiList[i].suit));
         }
-        SmartfoxClient.getInstance().sendExtensionRequestCurrentRoom("108", {1: data});
+        this._controller.sendHaBaiRequest(data);
     },
     sendStartRequest: function () {
-        SmartfoxClient.getInstance().sendExtensionRequestCurrentRoom("3", null);
+        this._controller.sendStartRequest();
     },
     sendDanhBai: function () {
         var cards = this.cardList.getCardSelected();
         if (cards.length > 0) {
             var cardId = this.getCardIdWithRank(cards[0].rank, cards[0].suit);
-            var param = {1: cardId};
-            SmartfoxClient.getInstance().sendExtensionRequestCurrentRoom("4", param);
+            this._controller.sendDanhBai(cardId);
         } else
             MessageNode.getInstance().show("Bạn phải chọn 1 quân bài");
     },
     sendDrawRequest: function () {
-        SmartfoxClient.getInstance().sendExtensionRequestCurrentRoom("101", null);
+        this._controller.sendDrawRequest();
     },
     setStartBtVisible: function (visible) {
         this.startBt.visible = visible;

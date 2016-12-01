@@ -105,7 +105,41 @@ var PhomController = GameController.extend({
     },
 
     onReconnect: function (param) {
-        this._view.onReconnect(param);
+        //this._view.onReconnect(param);
+        var userData = param["1"]["5"];
+
+        //update turn
+        var turnInfo = param["1"]["12"];
+        this._view.showTimeRemainUser(turnInfo["u"], turnInfo["2"] / 1000, 15);
+        this._view.performDrawDeckUpdate(turnInfo["3"]);
+
+        // on-hand cards
+        this._view.setCardList(param["3"]);
+
+        //surf through userData
+        for (var i = 0; i < userData.length; i++) {
+            var data = userData[i];
+            var username = data["u"];
+
+            // update my status
+            if (username == PlayerMe.username)
+                this.onTurnChanged({s: userData[i]["s"], u: username});
+
+            // trash cards
+            if (data["10"])
+                this._view.setTrashCardList(data["10"], username);
+
+            // stolen cards
+            if (data["12"]) {
+                if (username == PlayerMe.username)
+                    this._view.setStolenCardsMe(data["12"]);
+                else
+                    this._view.setStolenCardsOther(data["12"], username);
+            }
+        }
+
+        // grouped card
+        this._view.processGroupedCard(param["4"]);
     },
 
     onStartGame: function (param) {
@@ -220,11 +254,32 @@ var PhomController = GameController.extend({
         if (username == PlayerMe.username)
             this._view.performHaBaiMe(groupedCards);
         else
-            this._view.performHaBaiOther(username,groupedCards,stolenCards);
+            this._view.performHaBaiOther(username, groupedCards, stolenCards);
     },
 
     onGameFinished: function (param) {
-        this._view.onGameFinished(param);
+        //this._view.onGameFinished(param);
+        this._view.setUBtVisible(false); // some case u` button still visible
+        var userData = param["3"];
+        var resultData = [];
+        var resultStringArray = ["Bét ", "Ù Khan", "Ù Tròn", "Ù Thường", "Ù Đền",
+            "Nhất ", "Nhì ", "Ba ", "Móm"];
+        for (var i = 0; i < userData.length; i++) {
+            var resultEntry = {};
+            resultEntry.username = userData[i].u;
+            resultEntry.gold = parseInt(userData[i]["4"]);
+            resultEntry.cardList = userData[i]["2"];
+            resultEntry.resultString = resultStringArray[userData[i]["5"]];
+            if ([0, 5, 6, 7].indexOf(userData[i]["5"]) != -1) {
+                // them thong tin diem
+                if (userData[i]["7"])
+                    resultEntry.resultString += userData[i]["7"] + " điểm";
+            }
+            this._view.updateGold(userData[i].u, userData[i]["3"]);
+            resultData.push(resultEntry);
+        }
+
+        this._view.showResultDialog(resultData);
     },
 
     onStatusChanged: function (param) {
@@ -232,10 +287,43 @@ var PhomController = GameController.extend({
     },
 
     onDrawDeck: function (param) {
-        this._view.onDrawDeck(param);
+        var username = param.u;
+        var cardId = param["1"];
+        var groupedCard = param["2"];
+        if (username == PlayerMe.username)
+            this._view.performDrawCardMe(cardId, groupedCard);
+        else
+            this._view.performDrawCardOther(username);
     },
 
     onUpdateDrawDeck: function (param) {
-        this._view.onUpdateDrawDeck(param);
-    }
+        this._view.performDrawDeckUpdate(param["1"]);
+    },
+
+    sendURequest: function () {
+        SmartfoxClient.getInstance().sendExtensionRequestCurrentRoom("109", null);
+    },
+
+    sendAnBaiRequest: function () {
+        SmartfoxClient.getInstance().sendExtensionRequestCurrentRoom("103", null);
+    },
+
+    sendGuiBaiRequest: function (cards) {
+        SmartfoxClient.getInstance().sendExtensionRequestCurrentRoom("106", {1: cards});
+    },
+
+    sendHaBaiRequest: function (cards) {
+        SmartfoxClient.getInstance().sendExtensionRequestCurrentRoom("108", {1: cards});
+    },
+
+    sendStartRequest: function () {
+        SmartfoxClient.getInstance().sendExtensionRequestCurrentRoom("3", null);
+    },
+
+    sendDanhBai: function (cardId) {
+        SmartfoxClient.getInstance().sendExtensionRequestCurrentRoom("4", {1: cardId});
+    },
+    sendDrawRequest: function () {
+        SmartfoxClient.getInstance().sendExtensionRequestCurrentRoom("101", null);
+    },
 });
