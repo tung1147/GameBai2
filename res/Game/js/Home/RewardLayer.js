@@ -157,9 +157,9 @@ var RewardItemLayer = RewardSublayer.extend({
         var itemBgPadding = new cc.Sprite("#reward-item-bg-2.png");
 
        // var itemIcon = new cc.Sprite("#" + itemId + ".png");
-        var itemIcon = new WebSprite("#" + itemId + ".png");
+        var itemIcon = new WebSprite(cc.size(itemBg.getContentSize().width, itemBg.getContentSize().width));
+        itemIcon.loadDefault("#reward-item-default.png");
         itemIcon.reloadFromURL(imgUrl);
-        itemIcon.setFixSize(cc.size(itemBg.getContentSize().width, itemBg.getContentSize().width));
 
         var container = new ccui.Widget();
         container.setContentSize(cc.size(itemBg.getContentSize().width, itemBg.getContentSize().height + 60.0));

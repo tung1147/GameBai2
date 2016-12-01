@@ -3,59 +3,70 @@
  */
 
 var WebSprite = cc.Node.extend({
-    ctor : function (sprite) {
+    ctor : function (size) {
         this._super();
         this.setAnchorPoint(cc.p(0.5, 0.5));
         this._fixSize = false;
 
-        if(sprite){
-            var imgSprite = new cc.Sprite(sprite);
-            this.setContentSize(imgSprite.getContentSize());
-            imgSprite.setPosition(this.getContentSize().width/2, this.getContentSize().height/2);
-            this.addChild(imgSprite);
-            this.imgSprite = imgSprite;
+        if(size){
+            this._setFixSize(size);
         }
     },
 
-    initFromTexture : function (texture) {
+    _setFixSize : function (size) {
+        this._fixSize = true;
+        this.setContentSize(size);
+    },
+
+    _setImageSprite : function (sprite) {
         if(this.imgSprite){
             this.imgSprite.removeFromParent(true);
             this.imgSprite = null;
         }
 
-        var imgSprite = new cc.Sprite(texture);
         if(this._fixSize){
-            var ratioX = this.getContentSize().width / imgSprite.getContentSize().width;
-            var ratioY = this.getContentSize().width / imgSprite.getContentSize().width;
+            var ratioX = this.getContentSize().width / sprite.getContentSize().width;
+            var ratioY = this.getContentSize().width / sprite.getContentSize().width;
             var ratio = ratioX < ratioY ? ratioX : ratioY;
             if(ratio < 1.0){
-                imgSprite.setScale(ratio);
+                sprite.setScale(ratio);
             }
         }
         else{
-            this.setContentSize(imgSprite.getContentSize());
+            this.setContentSize(sprite.getContentSize());
         }
 
-        imgSprite.setPosition(this.getContentSize().width/2, this.getContentSize().height/2);
-        this.addChild(imgSprite);
-        this.imgSprite = imgSprite;
+        sprite.setPosition(this.getContentSize().width/2, this.getContentSize().height/2);
+        this.addChild(sprite);
+        this.imgSprite = sprite;
     },
 
-    setFixSize : function (size) {
-        this._fixSize = true;
-        this.setContentSize(size);
+    loadDefault : function (sprite) {
+        if(sprite){
+            var imgSprite = new cc.Sprite(sprite);
+            this._setImageSprite(imgSprite);
+        }
     },
 
     reloadFromURL : function (url) {
         var thiz = this;
+        var textureInCache = cc.textureCache.getTextureForKey(url);
+        if(textureInCache){
+            var imgSprite = new cc.Sprite(textureInCache);
+            thiz._setImageSprite(imgSprite);
+            return;
+        }
 
         if(cc.sys.isNative){
 
         }
         else{
-            url = "http://125.212.192.5/images/sonyx-1o.png";
             cc.loader.loadImg(url, function (err, texture) {
-                thiz.initFromTexture(texture);
+                if(texture){
+                    cc.textureCache.cacheImage(url, texture);
+                    var imgSprite = new cc.Sprite(texture);
+                    thiz._setImageSprite(imgSprite);
+                }
             });
         }
     }
