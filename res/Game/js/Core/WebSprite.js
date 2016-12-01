@@ -12,7 +12,33 @@ var WebSprite = cc.Node.extend({
             var imgSprite = new cc.Sprite(sprite);
             this.setContentSize(imgSprite.getContentSize());
             imgSprite.setPosition(this.getContentSize().width/2, this.getContentSize().height/2);
+            this.addChild(imgSprite);
+            this.imgSprite = imgSprite;
         }
+    },
+
+    initFromTexture : function (texture) {
+        if(this.imgSprite){
+            this.imgSprite.removeFromParent(true);
+            this.imgSprite = null;
+        }
+
+        var imgSprite = new cc.Sprite(texture);
+        if(this._fixSize){
+            var ratioX = this.getContentSize().width / imgSprite.getContentSize().width;
+            var ratioY = this.getContentSize().width / imgSprite.getContentSize().width;
+            var ratio = ratioX < ratioY ? ratioX : ratioY;
+            if(ratio < 1.0){
+                imgSprite.setScale(ratio);
+            }
+        }
+        else{
+            this.setContentSize(imgSprite.getContentSize());
+        }
+
+        imgSprite.setPosition(this.getContentSize().width/2, this.getContentSize().height/2);
+        this.addChild(imgSprite);
+        this.imgSprite = imgSprite;
     },
 
     setFixSize : function (size) {
@@ -21,8 +47,16 @@ var WebSprite = cc.Node.extend({
     },
 
     reloadFromURL : function (url) {
-        cc.loader.loadImg(url, function () {
-            cc.log("request from url");
-        });
+        var thiz = this;
+
+        if(cc.sys.isNative){
+
+        }
+        else{
+            url = "http://125.212.192.5/images/sonyx-1o.png";
+            cc.loader.loadImg(url, function (err, texture) {
+                thiz.initFromTexture(texture);
+            });
+        }
     }
 });

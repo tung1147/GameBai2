@@ -59,6 +59,7 @@ var GameTopBar = cc.Node.extend({
 var IGameScene = IScene.extend({
     ctor : function () {
         this._super();
+        this.initController();
         this.type = "GameScene";
         this.isOwnerMe = false;
 
@@ -75,7 +76,9 @@ var IGameScene = IScene.extend({
             thiz.backButtonClickHandler();
         });
     },
+    initController : function () {
 
+    },
     getMaxSlot : function () {
         if(this.playerView){
             return this.playerView.length;

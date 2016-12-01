@@ -5,7 +5,7 @@
 var TienLen = IGameScene.extend({
     ctor: function () {
         this._super();
-        this._controller = new TLMNGameController(this);
+        this.initController();
 
         var table_bg = new cc.Sprite("res/gp_table.png");
         table_bg.setPosition(cc.winSize.width / 2, cc.winSize.height / 2);
@@ -28,6 +28,9 @@ var TienLen = IGameScene.extend({
         this.cardOnTable = cardOnTable;
 
         //test
+    },
+    initController : function () {
+        this._controller = new TLMNGameController(this);
     },
     initButton: function () {
         var danhbaiBt = new ccui.Button("game-danhbaiBt.png", "", "", ccui.Widget.PLIST_TEXTURE);

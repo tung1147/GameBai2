@@ -187,7 +187,6 @@ var PhomCardList = CardList.extend({
 var Phom = IGameScene.extend({
     ctor: function () {
         this._super();
-        this._controller = new PhomController(this);
 
         var table_bg = new cc.Sprite("res/gp_table.png");
         table_bg.setPosition(cc.winSize.width / 2, cc.winSize.height / 2);
@@ -213,6 +212,9 @@ var Phom = IGameScene.extend({
         this.drawDeckLabel = drawDeckLabel;
         this.drawDeck = drawDeck;
         this.sceneLayer.addChild(drawDeck);
+    },
+    initController : function () {
+        this._controller = new PhomController(this);
     },
     setTrashCardList:function (cards,username) {
         var slot = this.getSlotByUsername(username);

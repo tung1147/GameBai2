@@ -4,15 +4,15 @@
 var Sam = TienLen.extend({
     ctor: function () {
         this._super();
-        this._controller = new SamController(this);
+      //  this._controller = new SamController(this);
 
-        var baosamBt = ccui.Button("game-baosamBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        var baosamBt = new ccui.Button("game-baosamBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
         baosamBt.setPosition(cc.winSize.width - 910, 50);
         this.sceneLayer.addChild(baosamBt);
         baosamBt.visible = false;
         this.baosamBt = baosamBt;
 
-        var huysamBt = ccui.Button("game-huysamBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        var huysamBt = new ccui.Button("game-huysamBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
         huysamBt.setPosition(cc.winSize.width - 710,50);
         this.sceneLayer.addChild(huysamBt);
         huysamBt.visible = false;
@@ -26,6 +26,9 @@ var Sam = TienLen.extend({
         huysamBt.addClickEventListener(function () {
             thiz.sendHuySamRequest();
         })
+    },
+    initController : function () {
+        this._controller = new SamController(this);
     },
     initPlayer: function () {
         var playerMe = new GamePlayerMe();
