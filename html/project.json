@@ -6,7 +6,7 @@
     "frameRate" : 60,
     "noCache" : false,
     "id" : "gameCanvas",
-    "renderMode" : 1,
+    "renderMode" : 2,
     "engineDir":"frameworks/cocos2d-html5",
     "modules" : ["cocos2d", "extensions"],
 
@@ -28,6 +28,7 @@
         "res/Game/js/Core/NewAction.js",
         "res/Game/js/Core/ToggleNodeGroup.js",
         "res/Game/js/Core/ButtonToggle.js",
+        "res/Game/js/Core/WebSprite.js",
         "res/Game/js/Socket/LobbyClient.js",
         "res/Game/js/Socket/LobbyError.js",
         "res/Game/js/Socket/SmartfoxClient.js",
