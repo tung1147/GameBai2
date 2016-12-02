@@ -22,7 +22,7 @@ var FacebookPlugin = (function() {
                 else{
                     thiz.onLoginFinished(1, "", "");
                 }
-            }, {redirect_uri : "localhost"});
+            });
         },
 
         onLoginFinished : function (returnCode, userId, accessToken) {

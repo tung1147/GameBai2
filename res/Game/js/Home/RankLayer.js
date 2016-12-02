@@ -245,14 +245,14 @@ var RankLevelLayer = RankSubLayer.extend({
         this.typeToggle = typeToggle;
     },
 
-    requestGetTop : function () {
+    requestGetTop : function (gameId) {
         this.itemList.removeAllItems();
+        LobbyClient.getInstance().send({command: "getTop", type: 1, gameType: s_games_chanel[gameId], limit: 10});
     },
 
-    onEnter : function (gameId) {
+    onEnter : function () {
         this._super();
         this.typeToggle.selectItem(0);
-        LobbyClient.getInstance().send({command: "getTop", type: 1, gameType: s_games_chanel[gameId], limit: 10});
     },
 
     initItemList : function () {
