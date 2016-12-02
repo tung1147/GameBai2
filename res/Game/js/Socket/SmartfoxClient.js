@@ -277,10 +277,14 @@ var SmartfoxClient = (function () {
                     if (gameType == "tlmn_tudo") {
                         gameScene = new TienLen();
                     }
-                    else if (gameType == "sam_tudo" || gameType == "sam_solo")
+                    else if (gameType == "sam_tudo")
                         gameScene = new Sam();
                     else if (gameType == "Phom")
                         gameScene = new Phom();
+                    else if (gameType == "tlmn_solo")
+                        gameScene = new TLMNSolo();
+                    else if (gameType == "sam_solo")
+                        gameScene = new SamSolo();
                     if (gameScene) {
                         LoadingDialog.getInstance().hide();
                         cc.director.replaceScene(new cc.TransitionFade(0.5, gameScene, cc.color("#000000")));

@@ -260,6 +260,7 @@ var PhomController = GameController.extend({
     onGameFinished: function (param) {
         //this._view.onGameFinished(param);
         this._view.setUBtVisible(false); // some case u` button still visible
+        this._view.showTimeRemainUser(null); // stop all timer
         var userData = param["3"];
         var resultData = [];
         var resultStringArray = ["Bét ", "Ù Khan", "Ù Tròn", "Ù Thường", "Ù Đền",

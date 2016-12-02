@@ -217,7 +217,7 @@ var TLMNGameController = GameController.extend({
         var player = [];
         for (var i = 0; i < playerData.length; i++) {
             var username = playerData[i].u;
-            var gold = parseInt(playerData[i]["4"]);
+            var gold = parseInt(playerData[i]["3"]);
             var title = null;
 
             var cardListData = playerData[i]["2"];

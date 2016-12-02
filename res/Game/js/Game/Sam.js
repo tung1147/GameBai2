@@ -4,7 +4,6 @@
 var Sam = TienLen.extend({
     ctor: function () {
         this._super();
-      //  this._controller = new SamController(this);
 
         var baosamBt = new ccui.Button("game-baosamBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
         baosamBt.setPosition(cc.winSize.width - 910, 50);
@@ -62,54 +61,24 @@ var Sam = TienLen.extend({
 
         this.playerView = [playerMe, player1, player2, player3,player4];
     },
-    onSFSExtension: function (messageType, content) {
-        this._super(messageType, content);
-        cc.log(JSON.stringify(content));
-        if (content.c == "51") {
-            this.onUserCallSam(content.p.u);
-        }
-        else if (content.c == "52") {
-            this.onUserFoldSam(content.p.u);
-        }
-        else if (content.c == "53") {
-            this.onChangeSamState(content.p["1"],content.p["2"]);
-        }
-        else if (content.c == "54") {
-            this.onNotifiOne(content.p.u);
-        }
+
+    setSamBtVisible :function(visible){
+        this.baosamBt.visible = this.huysamBt.visible = visible;
     },
-    onUserCallSam: function (username) {
-        var slot = this.getSlotByUsername(username);
-        var msg = slot.isMe ? "Bạn" : ("Người chơi " + username);
-        msg += " đã báo sâm thành công";
+
+    alertMessage : function (msg) {
         MessageNode.getInstance().show(msg);
     },
-    onUserFoldSam: function (username) {
-        var slot = this.getSlotByUsername(username);
-        var msg = slot.isMe ? "Bạn" : ("Người chơi " + username);
-        msg+= " đã hủy sâm thành công";
-        MessageNode.getInstance().show(msg);
+
+    showBaoSamTimeRemaining: function (timeRemaining) {
+        this.progressTimerBaoSam.visible = true;
+        this.playerView[0].setProgressPercentage(timeRemaining/10000.0);
     },
-    onChangeSamState: function (state,timeRemaining) {
-        if (state == 1){ // cho phep bao sam
-            this.baosamBt.visible = this.huysamBt.visible = true;
-            this.progressTimerBaoSam.visible = true;
-            this.playerView[0].setProgressPercentage(timeRemaining/10000.0);
-        }
-        else if (state == 2){
-            this.baosamBt.visible = this.huysamBt.visible = false;
-        }
-    },
-    onNotifiOne: function (username) {
-        var slot = this.getSlotByUsername(username);
-        if (!slot.isMe){
-            MessageNode.getInstance().show("Người chơi " + username + " chỉ còn lại 1 lá");
-        }
-    },
+
     sendBaoSamRequest: function () {
-        SmartfoxClient.getInstance().sendExtensionRequestCurrentRoom("51", {});
+        this._controller.sendBaoSamRequest();
     },
     sendHuySamRequest: function () {
-        SmartfoxClient.getInstance().sendExtensionRequestCurrentRoom("52",{});
+        this._controller.sendHuySamRequest();
     }
 });

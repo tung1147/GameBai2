@@ -5,7 +5,6 @@
 var TienLen = IGameScene.extend({
     ctor: function () {
         this._super();
-        this.initController();
 
         var table_bg = new cc.Sprite("res/gp_table.png");
         table_bg.setPosition(cc.winSize.width / 2, cc.winSize.height / 2);
