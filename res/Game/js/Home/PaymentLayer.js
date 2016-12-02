@@ -81,6 +81,10 @@ var PaymentCardLayer = cc.Node.extend({
         this.initCardItem();
     },
 
+    onRecvFetchItemExchange : function (event, data) {
+
+    },
+
     initCardItem: function () {
         this.cardSelected = 0;
         var card_img = ["#payment-card-mobi", "#payment-card-viettel", "#payment-card-vina", "#payment-card-gate", "#payment-card-vcoin", "#payment-card-bit"];
@@ -179,6 +183,18 @@ var PaymentCardLayer = cc.Node.extend({
         var equalLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "=");
         equalLabel.setPosition(container.getContentSize().width / 2, container.getContentSize().height / 2);
         container.addChild(equalLabel);
+    },
+    onEnter : function () {
+        this._super();
+        LobbyClient.getInstance().addListener("getTop", this.onRecvFetchItemExchange, this);
+        LobbyClient.getInstance().send({
+            command: "onRecvFetchItemExchange",
+            cashInType: 1
+        });
+    },
+    onExit : function () {
+        this._super();
+        LobbyClient.getInstance().removeListener(this);
     }
 });
 

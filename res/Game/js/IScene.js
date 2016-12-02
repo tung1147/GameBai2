@@ -18,5 +18,10 @@ var IScene = cc.Scene.extend({
 
         this.popupLayer = new cc.Node();
         this.addChild(this.popupLayer);
+    },
+
+    onExit : function () {
+        this._super();
+        this.popupLayer.removeAllChildrenWithCleanup(true);
     }
 })
