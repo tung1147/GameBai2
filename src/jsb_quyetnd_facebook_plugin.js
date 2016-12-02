@@ -21,6 +21,14 @@ var FacebookPlugin = (function() {
 
         onLoginFinished : function (returnCode, userId, accessToken) {
             cc.log(returnCode + " " + userId + " "+ accessToken);
+
+            if(returnCode == 0){
+                LobbyClient.getInstance().loginFacebook(accessToken);
+            }
+            else{
+                LoadingDialog.getInstance().hide();
+                MessageNode.getInstance().show("Lỗi đăng nhập facebook");
+            }
         }
     });
 
