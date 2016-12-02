@@ -13,11 +13,26 @@ var FacebookPlugin = (function() {
             }
         },
         showLogin : function () {
-            //this.plugin.showLogin();
+            var thiz = this;
+            FB.login(function(response){
+                cc.log(response);
+                if(response && response["status"] && response["status"] == "connected"){
+                    thiz.onLoginFinished(0, response["authResponse"]["userID"], response["authResponse"]["accessToken"]);
+                }
+                else{
+                    thiz.onLoginFinished(1, "", "");
+                }
+            }, {redirect_uri : "localhost"});
         },
 
         onLoginFinished : function (returnCode, userId, accessToken) {
-            //cc.log(returnCode + " " + userId + " "+ accessToken);
+            if(returnCode == 0){
+                LobbyClient.getInstance().loginFacebook(accessToken);
+            }
+            else{
+                LoadingDialog.getInstance().hide();
+                MessageNode.getInstance().show("Lỗi đăng nhập facebook");
+            }
         }
     });
 

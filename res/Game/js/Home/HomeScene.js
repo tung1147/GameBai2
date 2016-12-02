@@ -80,10 +80,7 @@ var HomeScene = IScene.extend({
             thiz.popupLayer.addChild(signupDialog);
         });
         this.homeLayer.fbButton.addClickEventListener(function () {
-            //FacebookPlugin.getInstance().showLogin();
-
-            var dialog = new RewardAgencyDialog();
-            dialog.show();
+            FacebookPlugin.getInstance().showLogin();
         });
 
         this.startHome();
@@ -216,9 +213,15 @@ var HomeScene = IScene.extend({
     },
     onTouchGame: function (gameId) {
         if (this.homeLocation == 1) {
-            //MessageNode.getInstance().show("Bạn phải đăng nhập trước");
-            //return;
+            MessageNode.getInstance().show("Bạn phải đăng nhập trước");
+            return;
         }
+
+        if(!s_game_available[gameId]){
+            MessageNode.getInstance().show("Game chưa ra mắt");
+            return;
+        }
+
         if (gameId == GameType.MiniGame_CaoThap) {
             var caothap = new CaoThapScene();
             cc.director.replaceScene(caothap);

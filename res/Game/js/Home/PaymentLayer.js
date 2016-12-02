@@ -82,7 +82,15 @@ var PaymentCardLayer = cc.Node.extend({
     },
 
     onRecvFetchItemExchange : function (event, data) {
+        this.listTiGia.removeAllItems();
+        var list = data["data"]["1"];
+        for(var i=0;i<list.length;i++){
+            var currency = list[i]["currency"];
+            var gold = list[i]["gold"];
+            var price = list[i]["price"];
 
+            this.addTiGia(price, gold, currency);
+        }
     },
 
     initCardItem: function () {
@@ -161,21 +169,25 @@ var PaymentCardLayer = cc.Node.extend({
         this.addChild(listItem);
         this.listTiGia = listItem;
 
-        for (var i = 0; i < 10; i++) {
-            this.addTiGia(20000, 20000);
-        }
+        // for (var i = 0; i < 10; i++) {
+        //     this.addTiGia(20000, 20000);
+        // }
     },
-    addTiGia: function (money, gold) {
+    addTiGia: function (money, gold, currency) {
+        if(!currency){
+            currency = "VND";
+        }
+
         var container = new ccui.Widget();
         container.setContentSize(cc.size(this.listTiGia.getContentSize().width, 40));
         this.listTiGia.pushItem(container);
 
-        var moneyLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, cc.Global.NumberFormat1(money) + " VNĐ");
+        var moneyLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, money + " " + currency);
         moneyLabel.setAnchorPoint(cc.p(1.0, 0.5));
         moneyLabel.setPosition(container.getContentSize().width / 2 - 20, container.getContentSize().height / 2);
         container.addChild(moneyLabel);
 
-        var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, cc.Global.NumberFormat1(gold) + " V");
+        var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, gold + " V");
         goldLabel.setAnchorPoint(cc.p(0.0, 0.5));
         goldLabel.setPosition(container.getContentSize().width / 2 + 20, container.getContentSize().height / 2);
         container.addChild(goldLabel);
@@ -186,9 +198,9 @@ var PaymentCardLayer = cc.Node.extend({
     },
     onEnter : function () {
         this._super();
-        LobbyClient.getInstance().addListener("getTop", this.onRecvFetchItemExchange, this);
+        LobbyClient.getInstance().addListener("fetchItemExchange", this.onRecvFetchItemExchange, this);
         LobbyClient.getInstance().send({
-            command: "onRecvFetchItemExchange",
+            command: "fetchItemExchange",
             cashInType: 1
         });
     },

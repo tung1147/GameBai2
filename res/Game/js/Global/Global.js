@@ -77,6 +77,24 @@ GameType.MiniGame_CaoThap = 13;
 GameType.MiniGame_Poker = 14;
 GameType.MiniGame_VideoPoker = 15;
 
+var s_game_available = s_game_available || {};
+s_game_available[GameType.GAME_MauBinh] = false;
+s_game_available[GameType.GAME_TienLenMN] = true;
+s_game_available[GameType.GAME_Phom] = true;
+s_game_available[GameType.GAME_Sam] = true;
+s_game_available[GameType.GAME_BaCay] = false;
+s_game_available[GameType.GAME_XocDia] = false;
+s_game_available[GameType.GAME_TaiXiu] = false;
+s_game_available[GameType.GAME_VongQuayMayMan] = false;
+s_game_available[GameType.GAME_TLMN_Solo] = true;
+s_game_available[GameType.GAME_Sam_Solo] = true;
+s_game_available[GameType.GAME_Lieng] = false;
+s_game_available[GameType.GAME_BaCayChuong] = false;
+s_game_available[GameType.MiniGame_ChanLe] = false;
+s_game_available[GameType.MiniGame_CaoThap] = true;
+s_game_available[GameType.MiniGame_Poker] = true;
+s_game_available[GameType.MiniGame_VideoPoker] = true;
+
 var s_game_id = s_game_id || [
     [
         GameType.GAME_TLMN_Solo, GameType.GAME_TienLenMN,
@@ -124,30 +142,27 @@ s_games_display_name[GameType.MiniGame_Poker] = "MiniPoker";
 s_games_display_name[GameType.MiniGame_VideoPoker] = "VideoPoker";
 
 var s_games_chanel = s_games_chanel || [];
-s_games_chanel[GameType.GAME_TLMN_Solo] = "";
+s_games_chanel[GameType.GAME_TLMN_Solo] = "tlmn_solo";
 s_games_chanel[GameType.GAME_TienLenMN] = "tlmn_tudo";
 s_games_chanel[GameType.GAME_Sam] = "sam_tudo";
 s_games_chanel[GameType.GAME_Sam_Solo] = "sam_solo";
-s_games_chanel[GameType.GAME_XocDia] = "";
-s_games_chanel[GameType.GAME_TaiXiu] = "";
-s_games_chanel[GameType.GAME_MauBinh] = "";
+s_games_chanel[GameType.GAME_XocDia] = "xocdia";
+s_games_chanel[GameType.GAME_TaiXiu] = "taixiu";
+s_games_chanel[GameType.GAME_MauBinh] = "maubinh";
 s_games_chanel[GameType.GAME_Phom] = "Phom";
-s_games_chanel[GameType.GAME_BaCay] = "";
-s_games_chanel[GameType.GAME_Lieng] = "";
-s_games_chanel[GameType.GAME_BaCayChuong] = "";
+s_games_chanel[GameType.GAME_BaCay] = "bacay";
+s_games_chanel[GameType.GAME_Lieng] = "lieng";
+s_games_chanel[GameType.GAME_BaCayChuong] = "bacaychuong";
 
 var s_games_chanel_id = s_games_chanel_id || {};
-s_games_chanel_id["1"] = GameType.GAME_TLMN_Solo;
-s_games_chanel_id["tlmn_tudo"] = GameType.GAME_TienLenMN;
-s_games_chanel_id["sam_tudo"] = GameType.GAME_Sam;
-s_games_chanel_id["sam_solo"] = GameType.GAME_Sam_Solo;
-s_games_chanel_id["4"] = GameType.GAME_XocDia;
-s_games_chanel_id["5"] = GameType.GAME_TaiXiu;
-s_games_chanel_id["6"] = GameType.GAME_MauBinh;
-s_games_chanel_id["Phom"] = GameType.GAME_Phom;
-s_games_chanel_id["8"] = GameType.GAME_BaCay;
-s_games_chanel_id["9"] = GameType.GAME_Lieng;
-s_games_chanel_id["10"] = GameType.GAME_BaCayChuong;
+(function () {
+    for(var i=0;i<s_games_chanel.length;i++){
+        var gameName = s_games_chanel[i];
+        if(gameName && gameName != ""){
+            s_games_chanel_id[gameName] = i;
+        }
+    }
+})();
 
 var PlayerMe = PlayerMe || {};
 PlayerMe.username = "quyetnd";
@@ -270,7 +285,7 @@ ApplicationConfig.DISPLAY_TYPE = "room"; //room - betting
         }
     }
     else{
-        ApplicationConfig.PLATFORM = 4;
+        ApplicationConfig.PLATFORM = 3;
     }
 })();
 

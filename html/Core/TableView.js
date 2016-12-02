@@ -61,6 +61,22 @@ newui.TableView = ccui.ScrollView.extend({
 
     onMouseScrolling : function (delta) {
         if(this._direction == ccui.ScrollView.DIR_VERTICAL){
+            var maxDelta = this.getContentSize().height/10;
+        }
+        else{
+            var maxDelta = this.getContentSize().width/10;
+        }
+        if(Math.abs(delta) > maxDelta){
+            if(delta > 0){
+                delta = maxDelta;
+            }
+            else{
+                delta = -maxDelta;
+            }
+        }
+
+
+        if(this._direction == ccui.ScrollView.DIR_VERTICAL){
             var pDelta = cc.p(0, delta);
             // var outOfBoundary = this._getHowMuchOutOfBoundary(pDelta);
             // if(!this._fltEqualZero(outOfBoundary)) {

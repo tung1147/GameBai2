@@ -5,23 +5,13 @@
 var RankSubLayer = cc.Node.extend({
     ctor: function () {
         this._super();
-        var _top = 554.0;
-        var _bottom = 82.0 * cc.winSize.screenScale;
-
-        var itemList = new newui.TableView(cc.size(cc.winSize.width, _top - _bottom), 1);
-        itemList.setDirection(ccui.ScrollView.DIR_VERTICAL);
-        itemList.setScrollBarEnabled(false);
-        itemList.setPadding(10);
-        itemList.setMargin(10, 30, 0, 0);
-        itemList.setPosition(cc.p(0, _bottom));
-        this.addChild(itemList, 1);
-        this.itemList = itemList;
+        this.initItemList();
 
         var _left = 60.0 * cc.winSize.screenScale;
         var _padding = 2.0;
         this.width1 = 150.0 * cc.winSize.screenScale;
         this.width3 = 200.0;
-        this.width2 = cc.winSize.width - this.width1 - this.width3 - _padding * 2 - _left * 2;
+        this.width2 = this.itemList.getContentSize().width - this.width1 - this.width3 - _padding * 2 - _left * 2;
 
         this.x1 = _left + this.width1 / 2;
         this.x2 = this.x1 + this.width1 / 2 + this.width2 / 2;
@@ -44,6 +34,20 @@ var RankSubLayer = cc.Node.extend({
         scoreLabel.setOpacity(0.2 * 255);
         this.addChild(scoreLabel);
         this.scoreLabel = scoreLabel;
+    },
+
+    initItemList : function () {
+        var _top = 554.0;
+        var _bottom = 82.0 * cc.winSize.screenScale;
+
+        var itemList = new newui.TableView(cc.size(cc.winSize.width, _top - _bottom), 1);
+        itemList.setDirection(ccui.ScrollView.DIR_VERTICAL);
+        itemList.setScrollBarEnabled(false);
+        itemList.setPadding(10);
+        itemList.setMargin(10, 30, 0, 0);
+        itemList.setPosition(cc.p(0, _bottom));
+        this.addChild(itemList, 1);
+        this.itemList = itemList;
     },
 
     addItem: function (rank, username, score) {
@@ -125,11 +129,37 @@ var RankVipLayer = RankSubLayer.extend({
     }
 });
 
+var s_game_rank_id = s_game_rank_id || [
+        GameType.GAME_MauBinh,
+        GameType.GAME_TienLenMN,
+        GameType.GAME_TLMN_Solo,
+        GameType.GAME_Sam,
+        GameType.GAME_Sam_Solo,
+        GameType.GAME_Phom,
+        GameType.GAME_BaCay,
+        GameType.GAME_XocDia,
+        GameType.GAME_TaiXiu,
+        //GameType.GAME_Lieng
+        //GameType.GAME_BaCayChuong
+];
+
 var RankLevelLayer = RankSubLayer.extend({
     ctor: function () {
         this._super();
         this.scoreLabel.removeFromParent(true);
         this.userLabel.setPositionX(this.x2 - 88);
+
+        //override
+        var _left = 60.0 * cc.winSize.screenScale;
+        var _padding = 2.0;
+        this.width1 = 150.0 * cc.winSize.screenScale;
+        this.width3 = 200.0;
+        this.width2 = this.itemList.getContentSize().width - this.width1 - this.width3;
+
+        this.x1 = _left + this.width1 / 2;
+        this.x2 = this.x1 + this.width1 / 2 + this.width2 / 2;
+        this.x3 = this.x2 + this.width2 / 2 + this.width3 / 2;
+        /**/
 
         var winLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Thắng");
         winLabel.setPosition(this.x3 - 200, 576);
@@ -144,31 +174,101 @@ var RankLevelLayer = RankSubLayer.extend({
         LobbyClient.getInstance().addListener("getTop", this.onGetTop, this);
 
         var typeToggle = new ToggleNodeGroup();
-        this.addChild(typeToggle, 1);
+        //this.addChild(typeToggle, 1);
 
-        var gameTypes = ["tlmn_solo", "tlmn_tudo", "sam_solo", "sam_tudo"];
-        for (var i = 0; i < gameTypes.length; i++) {
-            var textLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, gameTypes[i]);
-            textLabel.setPosition(cc.winSize.width - 60, cc.winSize.height / 2 - gameTypes.length * 50 / 2 + i * 50);
-            this.addChild(textLabel);
-            var typeToggleItem = new ToggleNodeItem(cc.size(100, 50));
-            typeToggleItem.setPosition(cc.winSize.width - 50, cc.winSize.height / 2 - gameTypes.length * 50 / 2 + i * 50);
-            typeToggleItem.textLabel = textLabel;
-            cc.log("" + typeToggleItem.x + "   " + typeToggleItem.y);
-            (function (item, index) {
-                item.onSelect = function (isForce) {
-                    item.textLabel.setString(">" + gameTypes[index]);
-                    LobbyClient.getInstance().send({command: "getTop", type: 1, gameType: gameTypes[index], limit: 10});
-                };
-                item.onUnSelect = function () {
-                    item.textLabel.setString(gameTypes[index]);
-                };
-            })(typeToggleItem, i);
-            typeToggle.addItem(typeToggleItem);
+        var itemCount = 0;
+        for (var i = 0; i < s_game_rank_id.length; i++) {
+            var gameId = s_game_rank_id[i];
+            if(s_game_available[gameId]) {
+                itemCount++;
+            }
         }
 
-        typeToggle.selectItem(0);
+        var dy = 80.0;
+        var width = 200.0;
+        var height = dy * itemCount;
+        var x = width/2 - 18.0;
+        var y = height - dy/2;
+
+        typeToggle.setAnchorPoint(cc.p(0.0,0.0));
+        typeToggle.setContentSize(cc.size(width, height));
+
+        var scrollView = new newui.TableView(cc.size(width, dy* 5), 1);
+        scrollView.setPosition(cc.winSize.width - width, 140);
+        scrollView.pushItem(typeToggle);
+        this.addChild(scrollView, 1);
+
+        var selectBg = new cc.Sprite("#rank_label_selected_1.png");
+        selectBg.setPosition(x, y);
+        typeToggle.addChild(selectBg);
+
+        var selectIcon = new cc.Sprite("#rank_label_selected_2.png");
+        selectIcon.setPosition(width - selectIcon.getContentSize().width/2, y);
+        typeToggle.addChild(selectIcon);
+
+        var thiz = this;
+        for (var i = 0; i < s_game_rank_id.length; i++) {
+            (function () {
+                var gameId = s_game_rank_id[i];
+                if(s_game_available[gameId]){
+                    var icon1 = new cc.Sprite("#rank_label_" + gameId + "_1.png");
+                    var icon2 = new cc.Sprite("#rank_label_" + gameId + "_2.png");
+
+                    icon1.setPosition(x, y);
+                    icon2.setPosition(icon1.getPosition());
+
+                    typeToggle.addChild(icon1);
+                    typeToggle.addChild(icon2);
+
+                    var toggleItem = new ToggleNodeItem(icon1.getContentSize());
+                    toggleItem.setPosition(icon1.getPosition());
+                    typeToggle.addItem(toggleItem);
+                    toggleItem.onSelect = function (isForce) {
+                        icon1.setVisible(false);
+                        icon2.setVisible(true);
+                        selectBg.y = icon1.y;
+                        selectIcon.y = icon1.y;
+
+                        thiz.requestGetTop(gameId);
+                    };
+                    toggleItem.onUnSelect = function () {
+                        icon1.setVisible(true);
+                        icon2.setVisible(false);
+                    };
+
+                    y -= dy;
+                }
+            })();
+        }
+
+     //   typeToggle.selectItem(0);
+        this.typeToggle = typeToggle;
     },
+
+    requestGetTop : function () {
+        this.itemList.removeAllItems();
+    },
+
+    onEnter : function (gameId) {
+        this._super();
+        this.typeToggle.selectItem(0);
+        LobbyClient.getInstance().send({command: "getTop", type: 1, gameType: s_games_chanel[gameId], limit: 10});
+    },
+
+    initItemList : function () {
+        var _top = 554.0;
+        var _bottom = 82.0 * cc.winSize.screenScale;
+
+        var itemList = new newui.TableView(cc.size(cc.winSize.width - 220 , _top - _bottom), 1);
+        itemList.setDirection(ccui.ScrollView.DIR_VERTICAL);
+        itemList.setScrollBarEnabled(false);
+        itemList.setPadding(10);
+        itemList.setMargin(10, 30, 0, 0);
+        itemList.setPosition(cc.p(0, _bottom));
+        this.addChild(itemList, 1);
+        this.itemList = itemList;
+    },
+
     onGetTop: function (command, data) {
         cc.log(JSON.stringify(data));
         data = data["data"]["1"];

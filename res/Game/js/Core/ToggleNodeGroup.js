@@ -25,7 +25,7 @@ var ToggleNodeItem = ccui.Widget.extend({
     }
 });
 
-var ToggleNodeGroup = cc.Node.extend({
+var ToggleNodeGroup = ccui.Widget.extend({
     ctor : function () {
         this._super();
         this.mItem = [];

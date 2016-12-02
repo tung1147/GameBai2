@@ -341,11 +341,12 @@ var LobbyClient = (function () {
                     bundleId: ApplicationConfig.BUNBLE,
                     version: ApplicationConfig.VERSION,
                     imei: PlayerMe.IMEI,
+                    displayType : ApplicationConfig.DISPLAY_TYPE,
                     type: "normal",
-                    displayType : "room",//ApplicationConfig.DISPLAY_TYPE,
                     username: username,
                     password: password
                 };
+                cc.log(loginRequest);
                 thiz.send(loginRequest);
             };
             if (redirectFromSignup) {
@@ -380,11 +381,32 @@ var LobbyClient = (function () {
             }
             this.loginSuccessHandler = null;
         },
-        loginFacebook: function () {
+        loginFacebook: function (accessToken) {
             if (!this.checkIMEI()) {
                 return;
             }
+
             this.loginSuccessHandler = null;
+
+            var thiz = this;
+            this.loginHandler = function () {
+                var loginRequest = {
+                    command: "login",
+                    platformId: ApplicationConfig.PLATFORM,
+                    bundleId: ApplicationConfig.BUNBLE,
+                    version: ApplicationConfig.VERSION,
+                    imei: PlayerMe.IMEI,
+                    displayType : ApplicationConfig.DISPLAY_TYPE,
+                    type: "facebook",
+                     username: "",
+                     password: "",
+                    accessToken : accessToken
+                };
+                cc.log(loginRequest);
+                thiz.send(loginRequest);
+            };
+
+            this.connect();
         },
         signup: function (username, password) {
             if (!this.checkIMEI()) {

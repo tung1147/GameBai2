@@ -38,18 +38,21 @@ var UserinfoPasswordLayer = cc.Node.extend({
 
         var passwordText = new newui.TextField(textSize, cc.res.font.Roboto_Condensed_25);
         passwordText.setPlaceHolder("Mật khẩu cũ");
+        passwordText.setPlaceHolderColor(cc.color("#787878"));
         passwordText.setPasswordEnable(true);
         passwordText.setPosition(bg1.getPosition());
         this.addChild(passwordText);
 
         var passwordText1 = new newui.TextField(textSize, cc.res.font.Roboto_Condensed_25);
         passwordText1.setPlaceHolder("Mật khẩu mới");
+        passwordText1.setPlaceHolderColor(cc.color("#787878"));
         passwordText1.setPasswordEnable(true);
         passwordText1.setPosition(bg2.getPosition());
         this.addChild(passwordText1);
 
         var passwordText2 = new newui.TextField(textSize, cc.res.font.Roboto_Condensed_25);
         passwordText2.setPlaceHolder("Nhập lại mật khẩu");
+        passwordText2.setPlaceHolderColor(cc.color("#787878"));
         passwordText2.setPasswordEnable(true);
         passwordText2.setPosition(bg3.getPosition());
         this.addChild(passwordText2);

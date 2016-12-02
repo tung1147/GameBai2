@@ -81,6 +81,14 @@ var GameController = cc.Class.extend({
         else if(content.c == "11"){ // update owner
             this.updateOwner(content.p.u);
         }
+        else if(content.c == "19"){ // exit room
+            if(content.p["1"]){
+                MessageNode.getInstance().show("Bạn đã đăng ký thoát phòng thành công !");
+            }
+            else{
+                MessageNode.getInstance().show("Bạn đã hủy đăng ký thoát phòng thành công !");
+            }
+        }
         else if(content.c == "___err___"){ //error chem
            // this.onError(content.p);
             var ec = content.p.code;

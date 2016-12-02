@@ -19,9 +19,16 @@ var LobbyBottomBar = cc.Node.extend({
         this.addChild(avt, 0);
         this.avatar = avt;
 
-        var nameLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, "Name2221231312313213212312312332132");
-        nameLabel.setDimensions(190.0, nameLabel.getLineHeight());
-        nameLabel.setLineBreakWithoutSpace(true);
+        if(cc.sys.isNative){
+            var nameLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, "Name2221231312313213212312312332132");
+            nameLabel.setLineBreakWithoutSpace(true);
+            nameLabel.setDimensions(190.0, nameLabel.getLineHeight());
+        }
+        else{
+            var nameLabel = new cc.LabelTTF("Name2221231312313213212312312332132", cc.res.font.Roboto_CondensedBold, 25);
+            nameLabel.setDimensions(190.0, nameLabel.getLineHeight());
+        }
+
         nameLabel.setAnchorPoint(0.0, 0.5);
         nameLabel.setColor(cc.color(255,255,255));
         nameLabel.setPosition(110,65);
