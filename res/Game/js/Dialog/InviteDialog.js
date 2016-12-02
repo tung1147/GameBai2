@@ -172,9 +172,15 @@ var RecvInviteDialog = (function(){
             label2.setPosition(this.dialogNode.getContentSize().width / 2, 275);
             this.messageNode.addChild(label2);
 
-            var label3 = new ccui.RichText();
-            var str = "Vào chơi phòng <font color='#ffde00'>" + gameName + "</font> <font color='#ffde00'>  " + cc.Global.NumberFormat1(betting) + " V</font>";
-            label3.initWithXML("<font face='" + cc.res.font.Roboto_Condensed + "' size='25'>" + str + "</font>", null);
+            if(cc.sys.isNative){
+                var label3 = new ccui.RichText();
+                var str = "Vào chơi phòng <font color='#ffde00'>" + gameName + "</font> <font color='#ffde00'>  " + cc.Global.NumberFormat1(betting) + " V</font>";
+                label3.initWithXML("<font face='" + cc.res.font.Roboto_Condensed + "' size='25'>" + str + "</font>", null);
+            }
+            else{
+                var label3 = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Vào chơi phòng "+gameName+" " +cc.Global.NumberFormat1(betting) +" V");
+            }
+
             label3.setPosition(this.dialogNode.getContentSize().width / 2, 240);
             this.messageNode.addChild(label3);
         },
@@ -183,9 +189,15 @@ var RecvInviteDialog = (function(){
             label1.setPosition(this.dialogNode.getContentSize().width / 2, 310);
             this.messageNode.addChild(label1);
 
-            var label3 = new ccui.RichText();
-            var str = "từ phòng <font color='#ffde00'>" + gameName + "</font> <font color='#ffde00'>" + cc.Global.NumberFormat1(betting) + " V</font>";
-            label3.initWithXML("<font face='" + cc.res.font.Roboto_Condensed + "' size='25'>" + str + "</font>", null);
+            if(cc.sys.isNative){
+                var label3 = new ccui.RichText();
+                var str = "Từ phòng <font color='#ffde00'>" + gameName + "</font> <font color='#ffde00'>" + cc.Global.NumberFormat1(betting) + " V</font>";
+                label3.initWithXML("<font face='" + cc.res.font.Roboto_Condensed + "' size='25'>" + str + "</font>", null);
+            }
+            else{
+                var label3 = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Từ phòng "+gameName+" " +cc.Global.NumberFormat1(betting) +" V");
+            }
+
             label3.setPosition(this.dialogNode.getContentSize().width / 2, 275);
             this.messageNode.addChild(label3);
         },

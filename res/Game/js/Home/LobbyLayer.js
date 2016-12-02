@@ -183,7 +183,15 @@ var LobbyLayer = cc.Node.extend({
         if (RecvInviteDialog.getInstance().isShow())
             return;
         RecvInviteDialog.getInstance().setInfo(data["userInvite"],s_games_display_name[s_games_chanel_id[data["gameType"]]],data["betting"]);
-        RecvInviteDialog.getInstance().setRoomInfo(data["roomId"],data["ip"],data["port"]);
+        var roomId = data["roomId"];
+        var host = data["ip"];
+        if(cc.sys.isNative){
+            var port = data["port"];
+        }
+        else{
+            var port = data["webSocketPort"];
+        }
+        RecvInviteDialog.getInstance().setRoomInfo(roomId, host, port);
         RecvInviteDialog.getInstance().showWithAnimationScale();
     },
     onUpdateAll : function (cmd, event) {
