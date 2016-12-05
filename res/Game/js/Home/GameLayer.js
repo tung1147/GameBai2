@@ -85,7 +85,7 @@ var GameLayer = cc.Node.extend({
         listGame.pushItem(gameButton);
 
         var gameIcon = new cc.Sprite("#lobby-game"+ gameId +".png");//new ccui.Button("lobby-game"+ gameId +".png", "", "", ccui.Widget.PLIST_TEXTURE);
-        gameIcon.setPosition(gameButton.getContentSize().width/2 , gameButton.getContentSize().height/2 - 20);
+        gameIcon.setPosition(gameButton.getContentSize().width/2 , gameButton.getContentSize().height/2);
         gameButton.addChild(gameIcon);
 
         gameButton.addClickEventListener(function () {

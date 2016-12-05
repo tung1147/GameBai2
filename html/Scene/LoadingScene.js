@@ -2,11 +2,6 @@
  * Created by QuyetNguyen on 11/9/2016.
  */
 
-
-cc.director.replaceScene = cc.director.replaceScene || function (scene) {
-    cc.director.runScene(scene);
-};
-
 var LoadingScene = cc.Scene.extend({
     ctor : function () {
         this._super();
@@ -20,6 +15,10 @@ var LoadingScene = cc.Scene.extend({
     },
 
     onEnter : function () {
+        cc.director.replaceScene = cc.director.replaceScene || function (scene) {
+            cc.director.runScene(scene);
+        };
+
         this._super();
         if(cc.game.CC_DEBUG_ENABLE){
             cc.loader.resPath = "res/Game";
@@ -41,6 +40,8 @@ var LoadingScene = cc.Scene.extend({
 
     nextScene : function () {
         cc.director.replaceScene(new HomeScene());
+
+      //  cc.director.replaceScene(new XocDiaScene());
     },
 
     updateLoadResources : function (current, target) {
