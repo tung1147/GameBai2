@@ -40,7 +40,7 @@ var LoadingScene = cc.Scene.extend({
     },
 
     nextScene : function () {
-        cc.director.replaceScene(new HelloWorldScene());
+		cc.director.replaceScene(new HelloWorldScene());
     },
 
     updateLoadResources : function (current, target) {
