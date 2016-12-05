@@ -22,6 +22,6 @@ var IScene = cc.Scene.extend({
 
     onExit : function () {
         this._super();
-        this.popupLayer.removeAllChildrenWithCleanup(true);
+        this.popupLayer.removeAllChildren(true);
     }
 })
