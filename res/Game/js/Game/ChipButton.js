@@ -24,6 +24,9 @@ var ChipGroup = cc.Node.extend({
         this.allChips.push(chip);
         this.addChild(chip);
         chip.unSelect(true);
+    },
+    getChip : function (idx) {
+        return this.allChips[idx];
     }
 });
 

@@ -80,7 +80,9 @@ var s_resource = s_resource || [
 	"res/videopoker.plist",
 	"res/videopoker.png",
 	"res/VongQuay.plist",
-	"res/VongQuay.png"
+	"res/VongQuay.png",
+	"res/XocDia.plist",
+	"res/XocDia.png"
 ];
 
 var s_texture = s_texture || [
@@ -96,7 +98,8 @@ var s_texture = s_texture || [
 	{src:"res/lobby.png",plist:"res/lobby.plist"},
 	{src:"res/MiniPoker.png",plist:"res/MiniPoker.plist"},
 	{src:"res/videopoker.png",plist:"res/videopoker.plist"},
-	{src:"res/VongQuay.png",plist:"res/VongQuay.plist"}
+	{src:"res/VongQuay.png",plist:"res/VongQuay.plist"},
+	{src:"res/XocDia.png",plist:"res/XocDia.plist"}
 ];
 
 var s_bitmap_font = s_bitmap_font || [
