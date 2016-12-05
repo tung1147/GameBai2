@@ -60,7 +60,7 @@ void SFSArray::printDebug(std::ostringstream& os, int padding){
 	case SFSDATATYPE_BYTE_ARRAY:{
 		os << "(byte_array)[" << mData.size() << "] : ";
 		for (int i = 0; i < mData.size(); i++){
-			os << ((SFSPrimitive*)mData[i])->getByte() << " ";
+			os << (int)(((SFSPrimitive*)mData[i])->getByte()) << " ";
 		}
 		break;
 	}
@@ -139,6 +139,13 @@ void SFSArray::printDebug(std::ostringstream& os, int padding){
 void SFSArray::writeToBuffer(StreamWriter* writer){
 	writer->WriteByte(dataType);
 	writer->WriteShort(mData.size());
+    if(dataType == SFSDATATYPE_BYTE_ARRAY){
+        writer->WriteInt(mData.size());
+    }
+    else{
+        writer->WriteShort(mData.size());
+    }
+    
 	switch (dataType){
 		case SFSDATATYPE_BOOL_ARRAY:{
 			for (int i = 0; i < mData.size(); i++){
@@ -207,7 +214,13 @@ void SFSArray::writeToBuffer(StreamWriter* writer){
 }
 
 void SFSArray::initWithReader(StreamReader* reader){
-	int size = reader->NextShort();
+    int size = 0;
+    if(dataType == SFSDATATYPE_BYTE_ARRAY){
+        size = reader->NextInt();
+    }
+    else{
+        size = reader->NextShort();
+    }
 	switch (dataType){
 		case SFSDATATYPE_BOOL_ARRAY:{
 			for (int i = 0; i < size; i++){
