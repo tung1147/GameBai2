@@ -2,11 +2,6 @@
  * Created by QuyetNguyen on 11/9/2016.
  */
 
-
-cc.director.replaceScene = cc.director.replaceScene || function (scene) {
-    cc.director.runScene(scene);
-};
-
 var LoadingScene = cc.Scene.extend({
     ctor : function () {
         this._super();
@@ -21,6 +16,11 @@ var LoadingScene = cc.Scene.extend({
 
     onEnter : function () {
         this._super();
+        //fix
+        cc.director.replaceScene = cc.director.replaceScene || function (scene) {
+            cc.director.runScene(scene);
+        };
+        //
         if(cc.game.CC_DEBUG_ENABLE){
             cc.loader.resPath = "res/Game";
         }
