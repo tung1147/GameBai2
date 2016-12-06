@@ -129,18 +129,32 @@ var GameController = cc.Class.extend({
 
         this.playerSlot = [];
         var maxSlot = this.getMaxSlot();
+        for(var i=0;i<maxSlot;i++){
+            var slot = i - meIndex;
+            if(slot < 0){
+                slot += maxSlot;
+            }
+            this.playerSlot[slot] = {
+                userIndex : i,
+                username : ""
+            };
+        }
 
         for(var i=0;i<players.length;i++){
             var slot = players[i]["4"] - meIndex;
             if(slot < 0){
                 slot += maxSlot;
             }
-            this.playerSlot[slot] = {
-                userIndex : players[i]["4"],
-                username : players[i]["u"],
-                gold : players[i]["3"],
-                spectator : players[i]["2"]
-            }
+            this.playerSlot[slot].username = players[i]["u"];
+            this.playerSlot[slot].gold = players[i]["3"];
+            this.playerSlot[slot].spectator = players[i]["2"];
+
+            // this.playerSlot[slot] = {
+            //     userIndex : players[i]["4"],
+            //     username : players[i]["u"],
+            //     gold : players[i]["3"],
+            //     spectator : players[i]["2"]
+            // }
         }
 
         this._view.fillPlayerToSlot(this.playerSlot);

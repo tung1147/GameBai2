@@ -78,15 +78,14 @@ var GamePlayer = cc.Node.extend({
         this.userLabel.setString(name);
     },
     setEnable : function (enable) {
+       // this._isEnable = enable;
         if(enable){
             this.infoLayer.visible = true;
             this.inviteBt.visible = false;
         }
         else{
             this.username = "";
-            this.userIndex = -1;
             this.spectator = false;
-
             this.infoLayer.visible = false;
             this.inviteBt.visible = true;
         }

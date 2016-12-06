@@ -167,32 +167,44 @@ var IGameScene = IScene.extend({
             var data = playerList[i];
 
             this.allSlot[i].stopTimeRemain();
-            if(data){
+            this.allSlot[i].userIndex = data.userIndex;
+
+            if(data.username == ""){
+                this.allSlot[i].setEnable(false);
+            }
+            else{
                 this.allSlot[i].setEnable(true);
                 this.allSlot[i].setUsername(data.username);
                 this.allSlot[i].setGold(data.gold);
-
                 this.allSlot[i].spectator = data.spectator;
-                this.allSlot[i].userIndex = data.userIndex;
-            }
-            else{
-                this.allSlot[i].setEnable(false);
             }
         }
     },
 
     userJoinRoom : function (info) {
-        var meIndex = this.allSlot[0].userIndex;
-        var slot = info.index - meIndex;
-        if(slot < 0){
-            slot += this.allSlot.length;
+        for(var i=0;i<this.allSlot.length;i++){
+            if(info.index == this.allSlot[i].userIndex){
+                this.allSlot[i].setEnable(true);
+                this.allSlot[i].userIndex = info.index;
+                this.allSlot[i].stopTimeRemain();
+                this.allSlot[i].setUsername(info.username);
+                this.allSlot[i].setGold(info.gold);
+
+                return;
+            }
         }
 
-        this.allSlot[slot].setEnable(true);
-        this.allSlot[slot].userIndex = info.index;
-        this.allSlot[slot].stopTimeRemain();
-        this.allSlot[slot].setUsername(info.username);
-        this.allSlot[slot].setGold(info.gold);
+        // var meIndex = this.allSlot[0].userIndex;
+        // var slot = info.index - meIndex;
+        // if(slot < 0){
+        //     slot += this.allSlot.length;
+        // }
+        //
+        // this.allSlot[slot].setEnable(true);
+        // this.allSlot[slot].userIndex = info.index;
+        // this.allSlot[slot].stopTimeRemain();
+        // this.allSlot[slot].setUsername(info.username);
+        // this.allSlot[slot].setGold(info.gold);
     },
 
     userExitRoom : function (username) {
