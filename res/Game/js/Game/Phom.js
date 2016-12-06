@@ -73,7 +73,7 @@ var TrashCardOnTable = cc.Node.extend({
                 width = this.getContentSize().width;
             }
             var dx = width / this.cardList.length;
-            var x = this.getContentSize().width / 2 - width / 2 + dx / 2;
+            var x = -this.getContentSize().width / 2 + dx / 2;
             var y = this.getContentSize().height / 2;
             for (var i = 0; i < this.cardList.length; i++) {
                 var card = this.cardList[i];
@@ -213,10 +213,10 @@ var Phom = IGameScene.extend({
         this.drawDeck = drawDeck;
         this.sceneLayer.addChild(drawDeck);
     },
-    initController : function () {
+    initController: function () {
         this._controller = new PhomController(this);
     },
-    setTrashCardList:function (cards,username) {
+    setTrashCardList: function (cards, username) {
         var slot = this.getSlotByUsername(username);
         slot.trashCards.removeAll();
         for (var j = 0; j < cards.length; j++) {
@@ -225,32 +225,32 @@ var Phom = IGameScene.extend({
         }
     },
 
-    setCardList : function (cards) {
+    setCardList: function (cards) {
         this.cardList.removeAll();
-        for (var i = 0;i<cards.length;i++){
+        for (var i = 0; i < cards.length; i++) {
             var card = this.getCardWithId(cards[i]);
-            this.cardList.addCard(new Card(card.rank,card.suit));
+            this.cardList.addCard(new Card(card.rank, card.suit));
         }
         this.cardList.reOrderWithoutAnimation();
     },
 
-    setStolenCardsMe : function (cards) {
-        for (var i = 0;i<this.cardList.cardList.length;i++){
+    setStolenCardsMe: function (cards) {
+        for (var i = 0; i < this.cardList.cardList.length; i++) {
             var card = this.cardList.cardList[i];
-            var cardId = this.getCardIdWithRank(card.rank,card.suit);
-            if (cards.indexOf(cardId) != -1){
+            var cardId = this.getCardIdWithRank(card.rank, card.suit);
+            if (cards.indexOf(cardId) != -1) {
                 var borderSprite = new cc.Sprite("#boder_do.png");
-                borderSprite.setPosition(card.width/2,card.height/2);
+                borderSprite.setPosition(card.width / 2, card.height / 2);
                 card.addChild(borderSprite);
             }
         }
     },
 
-    setStolenCardsOther : function(cards,username){
+    setStolenCardsOther: function (cards, username) {
         var slot = this.getSlotByUsername(username);
         slot.dropCards.removeAll();
 
-        for (var i = 0;i<cards.length;i++){
+        for (var i = 0; i < cards.length; i++) {
             var card = this.getCardWithId(cards[i]);
             var cardSprite = new Card(card.rank, card.suit);
             var redBorder = new cc.Sprite("#boder_do.png");
@@ -260,7 +260,7 @@ var Phom = IGameScene.extend({
         }
     },
 
-    processGroupedCard : function (groupedCard) {
+    processGroupedCard: function (groupedCard) {
         this.cardList.processGroupedCard(groupedCard);
     },
 
@@ -276,7 +276,7 @@ var Phom = IGameScene.extend({
                 cc.color("#ffde00") : cc.color("#ff0000"));
             dialog.contentLabel[i].setString(resultData[i].resultString);
 
-            for (var j = 0;j<resultData[i].cardList.length;j++){
+            for (var j = 0; j < resultData[i].cardList.length; j++) {
                 var cardData = this.getCardWithId(resultData[i].cardList[j]);
                 var card = new Card(cardData.rank, cardData.suit);
                 dialog.cardList[i].addCard(card);
@@ -377,14 +377,23 @@ var Phom = IGameScene.extend({
             receiverSlot.dropCards.addCard(finalList[i]);
         }
         receiverSlot.dropCards.reOrder();
+        this.cardList.reOrder();
     },
-    onStealAssetUpdate: function (param) {
-        var stealer = param["u1"];
-        var stolenUser = param["u2"];
-        var stealerAmount = param["s1"];
-        var stolenAmount = param["s2"];
-        var stealerBalance = param["m1"];
-        var stolenBalance = param["m2"];
+    performAssetChange: function (username, changeAmount, balance) {
+        var slot = this.getSlotByUsername(username);
+        if (balance)
+            slot.setGold(balance);
+
+        var changeSprite = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, "");
+        var changeText = (changeAmount >= 0 ? "+" : "") + changeAmount;
+        changeSprite.setString(changeText);
+        changeSprite.setColor(cc.color(changeAmount>=0 ? "#ffde00" : "#ff0000"));
+        changeSprite.setPosition(slot.avt.getPosition());
+        slot.addChild(changeSprite,420);
+
+        changeSprite.runAction(new cc.Sequence(new cc.DelayTime(1.0), new cc.CallFunc(function () {
+            changeSprite.removeFromParent(true);
+        })));
     },
     performBalanceCard: function (from, to, card) {
         var fromUser = this.getSlotByUsername(from);
@@ -399,6 +408,8 @@ var Phom = IGameScene.extend({
         var stolenUserSlot = this.getSlotByUsername(stolenUser);
         var cardSprite = stolenUserSlot.trashCards.removeCardById(stolenCard);
         cardSprite.removeAllChildren(true); //purify card, amen
+        stolenUserSlot.trashCards.reOrder();
+
         var borderSprite = new cc.Sprite("#boder_do.png");
         borderSprite.setPosition(cardSprite.width / 2, cardSprite.height / 2);
         cardSprite.addChild(borderSprite);
@@ -492,7 +503,7 @@ var Phom = IGameScene.extend({
         var playerMe = new GamePlayerMe();
         playerMe.setPosition(150, 50.0);
         playerMe.trashCards = new TrashCardOnTable();
-        playerMe.trashCards.setCardPosition(cc.winSize.width / 2 - 85, 200);
+        playerMe.trashCards.setCardPosition(cc.winSize.width / 2, 200);
         playerMe.dropCards = new TrashCardOnTable();
         playerMe.dropCards.setCardPosition(playerMe.trashCards.x, playerMe.trashCards.y + 50);
         playerMe.addChild(playerMe.dropCards);
@@ -502,7 +513,7 @@ var Phom = IGameScene.extend({
         var player1 = new GamePlayer();
         player1.setPosition(cc.winSize.width - 120.0 / cc.winSize.screenScale, 360.0);
         player1.trashCards = new TrashCardOnTable();
-        player1.trashCards.setCardPosition(player1.width / 2 - 50, player1.height / 2 - 50);
+        player1.trashCards.setCardPosition(player1.width / 2 - 50, player1.height / 2 - 25);
         player1.trashCards.setAnchorPoint(cc.p(1.0, 0.5));
         player1.dropCards = new TrashCardOnTable();
         player1.dropCards.setCardPosition(player1.trashCards.x, player1.trashCards.y + 50);
@@ -524,7 +535,7 @@ var Phom = IGameScene.extend({
         var player3 = new GamePlayer();
         player3.setPosition(120.0 / cc.winSize.screenScale, 360.0);
         player3.trashCards = new TrashCardOnTable();
-        player3.trashCards.setCardPosition(player3.width / 2, player3.height / 2 - 50);
+        player3.trashCards.setCardPosition(player3.width / 2 + 125, player3.height / 2 - 25);
         player3.trashCards.setAnchorPoint(cc.p(0.0, 0.5));
         player3.dropCards = new TrashCardOnTable();
         player3.dropCards.setCardPosition(player3.trashCards.x, player3.trashCards.y + 50);

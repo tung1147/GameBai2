@@ -224,8 +224,7 @@ var HomeScene = IScene.extend({
 
         if (gameId == GameType.MiniGame_CaoThap) {
             var caothap = new CaoThapScene();
-            cc.director.replaceScene(caothap);
-           // cc.director.replaceScene(new cc.TransitionFade(0.5, caothap, cc.color("#000000")));
+            cc.director.replaceScene(new cc.TransitionFade(0.5, caothap, cc.color("#000000")));
         }
         else if (gameId == GameType.MiniGame_ChanLe) {
 

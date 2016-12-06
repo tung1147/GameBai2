@@ -139,6 +139,28 @@ var SmartfoxClient = (function () {
                 this.connect(host, port);
             }
         },
+        joinMiniGame : function (host, port, joinCommand) {
+            var thiz = this;
+            this._loginHandler = function () {
+                thiz.sendExtensionRequest(-1, joinCommand, null);
+            };
+            //
+            if (this.sfsSocket.getStatus() == socket.SmartfoxClient.Connected) {
+                if (this.currentHost == host && this.currentPort == port) {
+                    if(this._loginHandler){
+                        this._loginHandler();
+                        this._loginHandler = null;
+                    }
+                }
+                else {
+                    this.sfsSocket.close();
+                    this.connect(host, port);
+                }
+            }
+            else {
+                this.connect(host, port);
+            }
+        },
         connect: function (host, port) {
             if (this.sfsSocket) {
                 this.currentHost = host;
@@ -251,7 +273,13 @@ var SmartfoxClient = (function () {
                     PlayerMe.SFS.userId = contents.id;
                     var isReconnect = contents.p.isReconnect;
                     if (isReconnect == false) {
-                        this.sendFindAndJoinRoom();
+                        if(this._loginHandler){
+                            this._loginHandler();
+                            this._loginHandler = null;
+                        }
+                        else {
+                            this.sendFindAndJoinRoom();
+                        }
                     }
                 }
             }

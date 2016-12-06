@@ -226,7 +226,15 @@ var PhomController = GameController.extend({
     },
 
     onStealAssetUpdate: function (param) {
-        this._view.onStealAssetUpdate(param);
+        var stealer = param["u1"];
+        var stolenUser = param["u2"];
+        var stealerAmount = param["s1"];
+        var stolenAmount = param["s2"];
+        var stealerBalance = param["m1"];
+        var stolenBalance = param["m2"];
+
+        this._view.performAssetChange(stealer,stealerAmount,stealerBalance);
+        this._view.performAssetChange(stolenUser,-stolenAmount,stolenBalance);
     },
 
     onDelegateCard: function (param) {
@@ -243,8 +251,6 @@ var PhomController = GameController.extend({
 
             this._view.performDelegateCards(sender, receiver, cards, groupedCardAfter);
         }
-
-        this._view.performReorderCards();
     },
 
     onHaBai: function (param) {
@@ -326,5 +332,5 @@ var PhomController = GameController.extend({
     },
     sendDrawRequest: function () {
         SmartfoxClient.getInstance().sendExtensionRequestCurrentRoom("101", null);
-    },
+    }
 });

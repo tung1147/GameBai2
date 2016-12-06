@@ -225,6 +225,7 @@ var LobbyClient = (function () {
             PlayerMe.phoneNumber = data.telephone;
             PlayerMe.SFS.info = data.info;
             PlayerMe.SFS.signature = event.signature;
+            PlayerMe.miniGameInfo = data.miniGameInfo;
 
             var userinfo = JSON.parse(data.info);
             PlayerMe.username = userinfo.username;

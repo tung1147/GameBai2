@@ -8,7 +8,6 @@ var CaoThapScene = MiniGameScene.extend({
 
         this.initAvatarMe();
         this.initButton();
-        this.initConstant();
         this.initChip(cc.winSize.width / 2);
 
         this.initScene();
@@ -51,21 +50,22 @@ var CaoThapScene = MiniGameScene.extend({
                 return false;
             }
         }, this);
+    },
 
-        LobbyClient.getInstance().addListener("miniGame", this.onSocketMessage, this);
-        LobbyClient.getInstance().addListener("changeAsset", this.onSocketMessage, this);
+    initController: function () {
+        this._controller = new CaoThapController(this);
     },
 
     onSocketMessage: function (command, data) {
         data = data["data"];
-        if (command == "changeAsset"){
+        if (command == "changeAsset") {
             this.onChangeAssets();
             return;
         }
         switch (data["cmd"]) {
             //cap nhat hu thuong
-            case this.REWARD_FUND_REQUEST_CODE:
-                var rewardFundList = data["" + this.REWARD_FUND_LIST_CODE];
+            case 53:
+                var rewardFundList = data["511"];
                 if (rewardFundList.length < 3)
                     return;
                 this.rewardFund = rewardFundList;
@@ -73,12 +73,12 @@ var CaoThapScene = MiniGameScene.extend({
                 break;
 
             //Lay dc card dau tien
-            case this.FIRST_CARD_REQUEST_CODE:
-                var cardId = data["" + this.FIRST_CARD_ID_CODE];
-                var currentBankValue = data["" + this.CURRENT_BANK_AMOUNT_CODE];
-                var highReward = data["" + this.HIGH_REWARD_AMOUNT_CODE];
-                var lowReward = data["" + this.LOW_REWARD_AMOUNT_CODE];
-                var gameId = data["" + this.GAME_ID_CODE];
+            case 54:
+                var cardId = data["507"];
+                var currentBankValue = data["513"];
+                var highReward = data["" + 517];
+                var lowReward = data["" + 518];
+                var gameId = data["" + 621];
                 var thiz = this;
                 cc.log("" + cardId);
 
@@ -104,17 +104,17 @@ var CaoThapScene = MiniGameScene.extend({
                 break;
 
             //doan cao thap
-            case this.PREDICT_COMMAND_CODE:
+            case 55:
                 cc.log(JSON.stringify(data));
                 var thiz = this;
-                var cardId = data["" + this.RESULT_CARD_ID_CODE];
-                var resultId = data["" + this.RESULT_ID_CODE];
-                var currentBankValue = data["" + this.CURRENT_BANK_AMOUNT_CODE];
-                var totalHighEarning = data["" + this.TOTAL_HIGH_EARNING_CODE];
-                var totalLowEarning = data["" + this.TOTAL_LOW_EARNING_CODE];
-                var totalEarning = data["" + this.TOTAL_USER_EARNING_CODE];
-                var highReward = data["" + this.HIGH_REWARD_AMOUNT_CODE];
-                var lowReward = data["" + this.LOW_REWARD_AMOUNT_CODE];
+                var cardId = data["" + 508];
+                var resultId = data["" + 510];
+                var currentBankValue = data["" + 513];
+                var totalHighEarning = data["" + 514];
+                var totalLowEarning = data["" + 515];
+                var totalEarning = data["" + 516];
+                var highReward = data["" + 517];
+                var lowReward = data["" + 518];
 
                 var cooldownTimer = setInterval(function () {
                     if (thiz.onCooldown)
@@ -159,22 +159,22 @@ var CaoThapScene = MiniGameScene.extend({
                 }, 100);
 
                 break;
-            case this.USER_GOLD_REQUEST_CODE:
-                var userGold = data["" + this.USER_GOLD_ID_CODE];
+            case 56:
+                var userGold = data["" + 6];
                 this.playerMe.setGold(userGold);
                 break;
 
-            case this.ERROR_COMMAND_CODE:
+            case 4:
                 switch (data["ec"]) {
-                    case this.NOT_ENOUGH_GOLD_ERROR_CODE : //khong du tien
+                    case 92 : //khong du tien
                         MessageNode.getInstance().show("Không đủ tiền chơi");
-                        this.rolling = this.onCooldown = false;
+                        //this.rolling = this.onCooldown = false;
                         this.turnstate = 0;
                         break;
                 }
                 break;
 
-            case this.REWARD_FUND_WIN_HISTORY_REQUEST_CODE:
+            case 51:
                 //lich su no hu thuong
                 var rewardFundHistory = data["606"];
                 for (var i = 0; i < rewardFundHistory.length; i++) {
@@ -185,7 +185,7 @@ var CaoThapScene = MiniGameScene.extend({
                 }
                 break;
 
-            case this.TOP_EARNING_LIST_COMMAND:
+            case 50:
                 // danh sach cao thu
                 var topEarningList = data["607"];
                 for (var i = 0; i < topEarningList.length; i++) {
@@ -194,7 +194,7 @@ var CaoThapScene = MiniGameScene.extend({
                 }
                 break;
 
-            case this.USER_HISTORY_REQUEST_CODE:
+            case 49:
                 var historyList = data["611"];
                 for (var i = 0; i < historyList.length; i++) {
                     var rewardName = ["Thắng", "Hòa", "Thua"];
@@ -209,7 +209,7 @@ var CaoThapScene = MiniGameScene.extend({
     onSelectChip: function (chipIndex) {
         if (this.rewardFund.length < 3)
             return;
-        this.huThuongValueLabel.setString("" + this.rewardFund[chipIndex - 1][this.REWARD_FUND_AMOUNT_CODE]);
+        this.huThuongValueLabel.setString("" + this.rewardFund[chipIndex - 1]["2"]);
     },
     initScene: function () {
         var hiloLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, "Hi - Lo", cc.TEXT_ALIGNMENT_LEFT);
@@ -371,6 +371,7 @@ var CaoThapScene = MiniGameScene.extend({
     },
     addHistory: function (data) {
         var duration = 0.5;
+        data = this.getCardWithId(data);
         var cardImg = "#" + data.rank + s_card_suit[data.suit] + ".png";
 
         var cardMove = new cc.Sprite(cardImg);
@@ -400,22 +401,11 @@ var CaoThapScene = MiniGameScene.extend({
         this._super();
         this.scheduleUpdate();
 
-        var msg = {
-            command: "53"
-        };
-        LobbyClient.getInstance().send(msg);
-        msg = {command: "getTopUsers", gameType: "Mini_Cao_Thap"};
-        LobbyClient.getInstance().send(msg);
-        msg = {command: "getExplosiveUsers", gameType: "Mini_Cao_Thap", skip: "0", limit: "20"};
-        LobbyClient.getInstance().send(msg);
-        msg = {command: "getMiniGameLogs", gameType: "Mini_Cao_Thap", skip: "0", limit: "20"};
-        LobbyClient.getInstance().send(msg);
+        this._controller.sendJoinGame();
     },
     onExit: function () {
         this._super();
         this.unscheduleUpdate();
-        LobbyClient.getInstance().send({command: 52});
-        LobbyClient.getInstance().removeListener(this);
         if (this.turnTimer)
             clearInterval(this.turnTimer);
     },
@@ -432,91 +422,31 @@ var CaoThapScene = MiniGameScene.extend({
         }
     },
     onCardClick: function () {
-        if (this.turnstate == 0) {
-            // turn dau tien
-            var msg = {
-                command: "" + this.FIRST_CARD_REQUEST_CODE
-            };
-            msg["" + this.BET_AMOUNT_ID_CODE] = this.chipGroup.chipSelected.chipIndex;
-            LobbyClient.getInstance().send(msg);
-            console.log("onCardClick");
-            this.rollCard();
+        if (this._controller.turnState == 0) {
+            this._controller.sendInitGame(this.chipGroup.chipSelected.chipIndex);
         }
     },
     onLuotMoiBtClick: function () {
-        this.result = 0;
+        this._controller.sendLuotMoiRequest();
+    },
+
+    clearTurn: function () {
         this.bankValueLabel.setString("0");
         this.luotMoiBt.visible = false;
         this.historyList.removeAllItems();
         this.card.setSpriteFrame("gp_card_up.png");
         this.timeLabel.setString("");
-        this.turnstate = 0;
-
-        msg = {
-            command: "57"
-        };
-        LobbyClient.getInstance().send(msg);
     },
+
     onHighBtClick: function () {
-        if (this.turnstate != 1 || this.rolling)
+        if (this._controller.turnState != 1 || this.rolling)
             return;
-        var msg = {
-            command: "" + this.PREDICT_COMMAND_CODE
-        };
-        msg["" + this.USER_PREDICT_ID_CODE] = this.PREDICT_HIGH;
-        LobbyClient.getInstance().send(msg);
-        this.rollCard();
+        this._controller.sendHighPredict();
     },
     onLowBtClick: function () {
-        if (this.turnstate != 1 || this.rolling)
+        if (this._controller.turnState != 1 || this.rolling)
             return;
-        var msg = {
-            command: "" + this.PREDICT_COMMAND_CODE
-        };
-        msg["" + this.USER_PREDICT_ID_CODE] = this.PREDICT_LOW;
-        LobbyClient.getInstance().send(msg);
-        this.rollCard();
-    },
-    rollCard: function () {
-        if (this.rolling)
-            return;
-        this.rolling = true;
-        var thiz = this;
-        this.onCooldown = true;
-        var cardData = {};
-        cardData.rank = Math.floor(this.result / 4);
-        cardData.suit = this.result % 4;
-        console.log("" + cardData.rank);
-        if (cardData.rank != 0)
-            thiz.addHistory(cardData);
-
-        setTimeout(function () {
-            thiz.onCooldown = false;
-        }, 1000);
-        // setTimeout(function () {
-        //     thiz.rolling = false;
-        //     res = Math.floor(Math.random() * 12 + 1);// result
-        //     thiz.setCard(res);
-        //     if (thiz.turnstate == 0) {
-        //         // roll lan dau
-        //         thiz.onRightPredict(res);
-        //         return;
-        //     }
-        //     if (res >= thiz.result && thiz.predict == 1) {
-        //         thiz.onRightPredict(res);
-        //         return;
-        //     }
-        //     if (res <= thiz.result && thiz.predict == 2) {
-        //         thiz.onRightPredict(res);
-        //         return;
-        //     }
-        //     // doan sai
-        //     thiz.tipLabel.setString("Bạn chọn sai, chúc bạn may mắn lần sau!");
-        //     thiz.timeLabel.setString("");
-        //     thiz.bankValueLabel.setString("0");
-        //     thiz.turnstate = 2;
-        //     thiz.luotMoiBt.visible = true;
-        // }, 1000);
+        this._controller.sendLowPredict();
     },
     setCard: function (cardNum) {
         // if (cardNum < 4 || cardNum > 55)
@@ -524,8 +454,8 @@ var CaoThapScene = MiniGameScene.extend({
         this.card.setSpriteFrame("" + Math.floor(cardNum / 4) +
             s_card_suit[cardNum % 4] + ".png");
     },
-    onRollResult: function () {
-
+    setRolling: function (isRolling) {
+        this.rolling = isRolling;
     },
     onTimer: function () {
         if (this.turnstate == 1) {
@@ -540,77 +470,19 @@ var CaoThapScene = MiniGameScene.extend({
 
     updateRewardFund: function () {
         // called when the reward fund is changed or user select another bet amount
+    },
+
+    performChangeRewardFund: function (data) {
+        this._super(data);
         var betAmountID = this.chipGroup.chipSelected.chipIndex;
         if (!this.rewardFund || this.rewardFund.length < 3)
             return;
-        this.huThuongValueLabel.setString(this.rewardFund[betAmountID - 1]["" + this.REWARD_FUND_AMOUNT_CODE]);
+        this.huThuongValueLabel.setString(this.rewardFund[betAmountID - 1]["2"]);
     },
 
-    initConstant: function () {
-        this.ENTER_COMMAND_CODE = 53;
-        this.FIRST_CARD_REQUEST_CODE = 54;
-        this.BET_AMOUNT_ID_CODE = 506;
-        this.BET_AMOUNT_1000 = 1;
-        this.BET_AMOUNT_10000 = 2;
-        this.BET_AMOUNT_100000 = 3;
-        this.FIRST_CARD_ID_CODE = 507;
-        this.CURRENT_BANK_AMOUNT_CODE = 513;
-        this.HIGH_REWARD_AMOUNT_CODE = 517;
-        this.LOW_REWARD_AMOUNT_CODE = 518;
-        this.GAME_ID_CODE = 621;
-        this.USER_PREDICT_ID_CODE = 509;
-        this.PREDICT_HIGH = 1;
-        this.PREDICT_LOW = 2;
-        this.PREDICT_COMMAND_CODE = 55;
-        this.RESULT_CARD_ID_CODE = 508;
-        this.RESULT_ID_CODE = 510;
-        this.TOTAL_HIGH_EARNING_CODE = 514;
-        this.TOTAL_LOW_EARNING_CODE = 515;
-        this.TOTAL_USER_EARNING_CODE = 516;
-        this.RESULT_ID_WIN = 0;
-        this.RESULT_ID_DRAW = 1;
-        this.RESULT_ID_LOSE = 2;
-        this.RESULT_ID_BIGWIN = 3;
-        this.REWARD_FUND_AMOUNT_CODE = 512;
-        this.BET_AMOUNT_CODE = 520;
-        this.USER_GOLD_REQUEST_CODE = 56;
-        this.USER_GOLD_ID_CODE = 6;
-        this.EXIT_LOBBY_COMMAND_CODE = 52;
-        this.REWARD_FUND_WIN_HISTORY_REQUEST_CODE = 51;
-        this.REWARD_FUND_WIN_HISTORY_FROM_CODE = 604;
-        this.REWARD_FUND_WIN_HISTORY_LIMIT_CODE = 605;
-        this.REWARD_FUND_WIN_HISTORY_LIST_CODE = 606;
-        this.REWARD_FUND_WIN_HISTORY_DATE_CODE = 600;
-        this.REWARD_FUND_WIN_HISTORY_BET_AMOUNT_CODE = 601;
-        this.REWARD_FUND_WIN_HISTORY_REWARD_AMOUNT_CODE = 602;
-        this.REWARD_FUND_WIN_HISTORY_USERNAME_CODE = 603;
-        this.TOP_EARNING_LIST_COMMAND = 50;
-        this.TOP_EARNING_LIST_LIMIT_CODE = 610;
-        this.TOP_EARNING_LIST_LIST_CODE = 607;
-        this.TOP_EARNING_USER_EARNING_CODE = 608;
-        this.TOP_EARNING_USERNAME_CODE = 609;
-        this.USER_HISTORY_REQUEST_CODE = 49;
-        this.USER_HISTORY_FROM_CODE = 617;
-        this.USER_HISTORY_LIMIT_CODE = 618;
-        this.USER_HISTORY_LIST_CODE = 611;
-        this.USER_HISTORY_DATE_CODE = 612;
-        this.USER_HISTORY_CARDS_CODE = 614;
-        this.USER_HISTORY_EARNING_CODE = 615;
-        this.USER_HISTORY_RESULT_CODE = 616;
-        this.ERROR_COMMAND_CODE = 4;
-        this.NOT_ENOUGH_GOLD_ERROR_CODE = 92;
-        this.ROLLING_ERROR_CODE = 93;
-        this.TIME_EXPIRED_ERROR_CODE = 94;
-        this.REWARD_FUND_REQUEST_CODE = 53;
-        this.REWARD_FUND_LIST_CODE = 511;
-    },
     rankButtonHandler: function () {
-      //  this.stat_board.showWithAnimationScale();
-
-        this.addHistory({
-            rank : 1,
-            suit : CardSuit.Clubs
-        });
+        this._super();
+        this.stat_board.showWithAnimationScale();
     },
     pushKing: function (isK) {
         if (!isK) {
@@ -625,6 +497,51 @@ var CaoThapScene = MiniGameScene.extend({
                 i++;
             this.kingCards[i].setSpriteFrame("minigame-kingCard2.png");
             this.kingCards[i].activated = true;
+        }
+    },
+    setBankValue: function (value) {
+        this.bankValueLabel.setString(cc.Global.NumberFormat1(value));
+    },
+    setReward: function (lowValue, highValue) {
+        this.lowValueLabel.setString(cc.Global.NumberFormat1(lowValue));
+        this.highValueLabel.setString(cc.Global.NumberFormat1(highValue));
+    },
+    showResultCard: function (cardId) {
+        var card = this.getCardWithId(cardId);
+        this.card.setSpriteFrame(card.rank + s_card_suit[card.suit] + ".png");
+    },
+    setLuotMoiBtVisible: function (visible) {
+        this.luotMoiBt.visible = visible;
+    },
+    getCardWithId: function (cardId) {
+        var rankCard = (cardId % 13) + 3;
+        if (rankCard > 13) {
+            rankCard -= 13;
+        }
+        return {
+            rank: rankCard,
+            suit: Math.floor(cardId / 13)
+        };
+    },
+    setTipString: function (str) {
+        this.tipLabel.setString(str);
+    },
+    showTopPlayersDialog: function (data) {
+        for (var i = 0; i < data.length; i++) {
+            this.stat_board.addTopEarningEntry(i + 1, data[i]["1"], data[i]["2"]);
+        }
+    },
+
+    showExplosionHistoryDialog: function (data) {
+        for (var i = 0; i < data.length; i++) {
+            this.stat_board.addRewardFundEntry(data[i]["1"], data[i]["2"],
+                data[i]["3"], data[i]["4"]);
+        }
+    },
+    showHistoryDialog: function (data) {
+        for (var i = 0; i < data.length; i++) {
+            this.stat_board.addHistoryEntry(data[i]["2"], data[i]["3"],
+                data[i]["4"], data[i]["5"]);
         }
     }
 });
