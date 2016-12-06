@@ -13,6 +13,46 @@ var s_xocdia_slot_position = s_xocdia_slot_position || [
         {x : 1130, y : 215}
 ];
 
+var s_xocdia_result_position= s_xocdia_result_position ||
+[
+    {x : 218, y : 194},
+    {x : 161, y : 219},
+    {x : 175, y : 152},
+    {x : 235, y : 144},
+    {x : 276, y : 178},
+    {x : 291, y : 231},
+    {x : 190, y : 270},
+    {x : 242, y : 248},
+    {x : 278, y : 302},
+    {x : 333, y : 262},
+    {x : 342, y : 200},
+    {x : 342, y : 146},
+    {x : 289, y : 125},
+    {x : 282, y : 82},
+    {x : 231, y : 86},
+    {x : 175, y : 95},
+    {x : 125, y : 129},
+    {x : 117, y : 177},
+    {x : 99, y : 223},
+    {x : 116, y : 279},
+    {x : 180, y : 318},
+    {x : 232, y : 332}
+
+];
+
+var _get_random_array = function(take, maxSize){
+    var arr = [];
+    var min = 0;
+    var max = maxSize - take;
+    for(var i=0; i<take; i++){
+        var number = min + Math.floor(Math.random() * (max - min));
+        min = number + 1;
+        max++;
+        arr.push(number);
+    }
+    return arr;
+};
+
 var XocDiaBettingSlot = cc.Node.extend({
     ctor : function (idx, parentNode) {
         this._super();
@@ -141,6 +181,8 @@ var XocDiaBettingSlot = cc.Node.extend({
 var XocDiaScene = IGameScene.extend({
     ctor : function () {
         this._super();
+        this._historyData = [];
+
         this.initView();
 
         this.initBettingSlot();
@@ -154,6 +196,7 @@ var XocDiaScene = IGameScene.extend({
 
         //history
         this.initHistory();
+        this.initDisk();
 
         this.setUserCount(0);
     },
@@ -172,7 +215,6 @@ var XocDiaScene = IGameScene.extend({
         userLabel.setPosition(playerButton.getContentSize().width/2, 22);
         playerButton.getRendererNormal().addChild(userLabel);
         this.userLabel = userLabel;
-
     },
     initController : function () {
         this._controller = new XocDiaController(this);
@@ -278,6 +320,91 @@ var XocDiaScene = IGameScene.extend({
 
         this._historyData = [];
     },
+
+    initDisk : function () {
+        var diskLayer = new cc.Node();
+        this.sceneLayer.addChild(diskLayer);
+        this.diskLayer = diskLayer;
+
+        var diskSprite = new cc.Sprite("#xocdia_dia.png");
+        diskSprite.setPosition(cc.winSize.width/2, cc.winSize.height/2);
+        diskLayer.addChild(diskSprite);
+        this.diskSprite = diskSprite;
+
+        var diskNode = new cc.Node();
+        diskSprite.addChild(diskNode);
+        this.diskNode = diskNode;
+
+        var batSprite = new cc.Sprite("#xocdia_bat.png");
+        batSprite.setPosition(diskSprite.getContentSize().width/2, diskSprite.getContentSize().height/2);
+        diskSprite.addChild(batSprite);
+        this.batSprite = batSprite;
+    },
+
+    shakeDisk : function () {
+        this.diskLayer.setVisible(true);
+        this.diskNode.removeAllChildren(true);
+        this.diskSprite.stopAllActions();
+        this.batSprite.stopAllActions();
+        this.batSprite.setPosition(this.diskSprite.getContentSize().width/2, this.diskSprite.getContentSize().height/2);
+        this.diskSprite.setPosition(cc.winSize.width/2, cc.winSize.height + this.diskSprite.getContentSize().height/2);
+
+        var thiz = this;
+        this.diskSprite.runAction(new cc.Sequence(
+            new cc.EaseSineOut(new cc.MoveTo(1.0, cc.p(cc.winSize.width/2, cc.winSize.height/2))),
+            new cc.DelayTime(0.2),
+            new quyetnd.ActionShake2D(2.0, cc.p(10.0, 10.0))
+        ));
+    },
+
+    hideDisk : function () {
+        this.diskSprite.stopAllActions();
+        this.batSprite.stopAllActions();
+        this.diskLayer.setVisible(false);
+    },
+
+    openDisk : function (result) {
+        this.diskLayer.setVisible(true);
+        this.diskNode.removeAllChildren(true);
+        this.diskSprite.stopAllActions();
+        this.batSprite.stopAllActions();
+        this.batSprite.setPosition(this.diskSprite.getContentSize().width/2, this.diskSprite.getContentSize().height/2);
+        this.diskSprite.setPosition(cc.winSize.width/2, cc.winSize.height + this.diskSprite.getContentSize().height/2);
+        /* add result */
+        var arr = _get_random_array(4, s_xocdia_result_position.length);
+        for(var i=0; i<arr.length; i++){
+            if(i < result){
+                var sprite = new cc.Sprite("#xocdia_hat_do.png");
+            }
+            else{
+                var sprite = new cc.Sprite("#xocdia_hat_trang.png");
+            }
+
+            sprite.setPosition(s_xocdia_result_position[arr[i]]);
+            this.diskNode.addChild(sprite);
+        }
+        //
+        var thiz = this;
+        var moveBat = function () {
+            thiz.batSprite.runAction(new cc.Sequence(
+                new cc.EaseSineIn(new cc.MoveBy(1.0, cc.p(0.0, 450.0))),
+                new cc.CallFunc(function () {
+                    thiz._addHistory(result);
+                    thiz._refreshHistory();
+                })
+            ));
+        };
+        this.diskSprite.runAction(new cc.Sequence(
+            new cc.EaseSineOut(new cc.MoveTo(1.0, cc.p(cc.winSize.width/2, cc.winSize.height/2))),
+            new cc.DelayTime(0.2),
+            new cc.CallFunc(moveBat)
+        ));
+    },
+
+    // _openDisk : function () {
+    //     var thiz = this;
+    //
+    // },
 
     onEnter : function () {
         this._super();
@@ -389,9 +516,9 @@ var XocDiaScene = IGameScene.extend({
         }
     },
 
-    _addHistory : function (historyList, history) {
-        if(historyList.length == 0){
-            historyList.push(history);
+    _addHistory : function (history) {
+        if(this._historyData.length == 0){
+            this._historyData.push(history);
             return;
         }
 
@@ -399,46 +526,37 @@ var XocDiaScene = IGameScene.extend({
         var col = 16;
         var maxItem = row*col;
 
-        var lastHistory = historyList[historyList.length-1];
+        var lastHistory = this._historyData[this._historyData.length-1];
         if((lastHistory%2) != (history%2)){
             //fill empty
-            var emptyCount = historyList.length % row;
+            var emptyCount = this._historyData.length % row;
             if(emptyCount > 0){
                 emptyCount = row - emptyCount;
-
                 for(var i=0;i<emptyCount;i++){
-                    historyList.push(-1);
+                    this._historyData.push(-1);
                 }
             }
         }
-        historyList.push(history);
+        this._historyData.push(history);
 
-        if(historyList.length > maxItem){
-            historyList.splice(0, row);
+        if(this._historyData.length > maxItem){
+            this._historyData.splice(0, row);
         }
     },
-
-    setHistory : function (history) {
-        var _historyData = [];
-        for(var i=0;i<history.length;i++){
-            this._addHistory(_historyData, history[i]);
-        }
-
-        cc.log(_historyData);
-
+    _refreshHistory : function () {
         var padding = 2.0;
         var itemSize = cc.size(46.0, 46.0);
         var row = 4;
         var left = 52.0;
 
         this.historyNode.removeAllChildren(true);
-        for(var i=0; i<_historyData.length; i++){
-            if(_historyData[i] >= 0){
-                var label = new cc.LabelBMFont(_historyData[i], cc.res.font.Roboto_CondensedBold_25);
+        for(var i=0; i<this._historyData.length; i++){
+            if(this._historyData[i] >= 0){
+                var label = new cc.LabelBMFont(this._historyData[i], cc.res.font.Roboto_CondensedBold_25);
 
                 var x = left + itemSize.width/2 + (itemSize.width + padding) * Math.floor(i / row);
                 var y =  this.historyNode.getContentSize().height - padding - itemSize.height/2 - (itemSize.height + padding) * (i % row) ;
-                if(_historyData[i] % 2){
+                if(this._historyData[i] % 2){
                     var historyIcon = new cc.Sprite("#xocdia_history_1.png");
                     label.setColor(cc.color("#ffffff"));
                 }
@@ -455,6 +573,16 @@ var XocDiaScene = IGameScene.extend({
         }
     },
 
+    setHistory : function (history) {
+        this._historyData = [];
+
+        for(var i=0;i<history.length;i++){
+            this._addHistory(history[i]);
+        }
+        //cc.log(this._historyData);
+        this._refreshHistory();
+    },
+
     setUserCount : function (count) {
         this.userLabel.setString(count);
     },
@@ -468,11 +596,12 @@ var XocDiaScene = IGameScene.extend({
         //
         // this.addChipToSlot(slot, chip, true);
 
-        // var history = Math.floor(Math.random() * 4) + 1;
-        // this._historyData.push(history);
-        // this.setHistory(this._historyData);
+         var history = Math.floor(Math.random() * 4) + 1;
+        // this._addHistory(history);
+        // this._refreshHistory();
 
-        this.setTimeRemaining(15.0, 20.0);
+       // this.setTimeRemaining(15.0, 20.0);
+        this.openDisk(history);
     },
 
     /*ignore*/

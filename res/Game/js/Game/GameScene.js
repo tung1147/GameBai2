@@ -70,7 +70,7 @@ var IGameScene = IScene.extend({
 
         var gameTopBar = new GameTopBar();
         this.gameTopBar = gameTopBar;
-        this.addChild(gameTopBar);
+        this.sceneLayer.addChild(gameTopBar);
 
         var thiz = this;
         gameTopBar.backBt.addClickEventListener(function(){
