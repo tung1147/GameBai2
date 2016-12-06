@@ -82,6 +82,7 @@ var GameController = cc.Class.extend({
             this.updateOwner(content.p.u);
         }
         else if(content.c == "19"){ // exit room
+            this._view.updateRegExitRoom(content.p["1"]);
             if(content.p["1"]){
                 MessageNode.getInstance().show("Bạn đã đăng ký thoát phòng thành công !");
             }
@@ -123,6 +124,8 @@ var GameController = cc.Class.extend({
             if(players[i].u == PlayerMe.username){
                 meIndex = players[i]["4"];
                 this.isSpectator = players[i]["2"];
+                var regExt = players[i]["regExt"];
+                this._view.updateRegExitRoom(regExt);
                 break;
             }
         }

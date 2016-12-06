@@ -41,7 +41,7 @@ var LoadingScene = cc.Scene.extend({
     nextScene : function () {
         cc.director.replaceScene(new HomeScene());
 
-      //  cc.director.replaceScene(new XocDiaScene());
+        //cc.director.replaceScene(new XocDiaScene());
     },
 
     updateLoadResources : function (current, target) {

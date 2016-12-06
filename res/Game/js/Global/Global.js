@@ -285,7 +285,7 @@ ApplicationConfig.DISPLAY_TYPE = "room"; //room - betting
         }
     }
     else{
-        ApplicationConfig.PLATFORM = 3;
+        ApplicationConfig.PLATFORM = 4;
     }
 })();
 

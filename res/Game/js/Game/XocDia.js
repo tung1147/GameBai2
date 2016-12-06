@@ -62,22 +62,22 @@ var XocDiaBettingSlot = cc.Node.extend({
         this.reset();
         //
         //add Touch
-        var rectTouch = cc.rect(0,0, this.getContentSize().width, this.getContentSize().height);
-        var thiz = this;
-        cc.eventManager.addListener({
-            event: cc.EventListener.TOUCH_ONE_BY_ONE,
-            swallowTouches:true,
-            onTouchBegan : function (touch, event) {
-                var p = thiz.convertToNodeSpace(touch.getLocation());
-                if(cc.rectContainsPoint(rectTouch, p)){
-                    if(thiz.onTouchSlot){
-                        thiz.onTouchSlot(s_xocdia_slot_id[slotIndex]);
-                    }
-                    return true;
-                }
-                return false;
-            },
-        }, this);
+        // var rectTouch = cc.rect(0,0, this.getContentSize().width, this.getContentSize().height);
+        // var thiz = this;
+        // cc.eventManager.addListener({
+        //     event: cc.EventListener.TOUCH_ONE_BY_ONE,
+        //     swallowTouches:true,
+        //     onTouchBegan : function (touch, event) {
+        //         var p = thiz.convertToNodeSpace(touch.getLocation());
+        //         if(cc.rectContainsPoint(rectTouch, p)){
+        //             if(thiz.onTouchSlot){
+        //                 thiz.onTouchSlot(s_xocdia_slot_id[slotIndex]);
+        //             }
+        //             return true;
+        //         }
+        //         return false;
+        //     },
+        // }, this);
     },
     setOpacity : function (opacity) {
         this._super();
@@ -141,21 +141,38 @@ var XocDiaBettingSlot = cc.Node.extend({
 var XocDiaScene = IGameScene.extend({
     ctor : function () {
         this._super();
+        this.initView();
 
-        /* init me */
+        this.initBettingSlot();
+
+        //chip button
+        var chipNode = new cc.Node();
+        chipNode.setPosition(cc.p(0,0));
+        this.sceneLayer.addChild(chipNode);
+        this.chipNode = chipNode;
+        this.initChipButton();
+
+        //history
+        this.initHistory();
+
+        this.setUserCount(0);
+    },
+    initView : function () {
         var playerMe = new GamePlayerMe();
         playerMe.setPosition(150, 50.0);
         this.sceneLayer.addChild(playerMe,1);
         this.playerView = [playerMe];
 
-        this.initBettingSlot();
+        var playerButton = new ccui.Button("ingame-playerBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        playerButton.setPosition(160, 653);
+        this.gameTopBar.addChild(playerButton);
 
-        var chipNode = new cc.Node();
-        chipNode.setPosition(cc.p(0,0));
-        this.sceneLayer.addChild(chipNode);
-        this.chipNode = chipNode;
+        var userLabel = new cc.LabelBMFont("30", cc.res.font.Roboto_CondensedBold_25);
+        userLabel.setColor(cc.color("#ffcf00"));
+        userLabel.setPosition(playerButton.getContentSize().width/2, 22);
+        playerButton.getRendererNormal().addChild(userLabel);
+        this.userLabel = userLabel;
 
-        this.initChipButton();
     },
     initController : function () {
         this._controller = new XocDiaController(this);
@@ -176,6 +193,24 @@ var XocDiaScene = IGameScene.extend({
             };
             this.bettingSlot[slotIndex] = slot;
         }
+
+        var timerBg = new cc.Sprite("#xocdia_timer_1.png");
+        timerBg.setPosition(640, 420);
+        slotNode.addChild(timerBg);
+
+        var timer = new cc.ProgressTimer(new cc.Sprite("#xocdia_timer_2.png"));
+        timer.setType(cc.ProgressTimer.TYPE_RADIAL);
+        timer.setReverseDirection(true);
+        timer.setPosition(timerBg.getPosition());
+        timer.setPercentage(30.0);
+        slotNode.addChild(timer);
+        this.timer = timer;
+
+        var timeLabel = new cc.LabelTTF("100", cc.res.font.Roboto_CondensedBold, 60);
+        timeLabel.setPosition(timerBg.getPosition());
+        timeLabel.setColor(cc.color("#ffcf00"));
+        slotNode.addChild(timeLabel);
+        this.timeLabel = timeLabel;
     },
     initChipButton : function () {
         var chipGroup = new ChipGroup();
@@ -206,6 +241,42 @@ var XocDiaScene = IGameScene.extend({
         chip4.setScale(cc.winSize.screenScale);
         chip4.originPoint = chip4.getPosition();
         chipGroup.addChip(chip4);
+    },
+
+    initHistory : function () {
+        var padding = 2.0;
+        var itemSize = cc.size(46.0, 46.0);
+        var row = 4;
+        var col = 16;
+        var left = 52.0;
+
+        var historyBg = new ccui.Scale9Sprite("xocdia_history_bg1.png", cc.rect(4,4,4,4));
+        historyBg.setPreferredSize(cc.size((itemSize.width + padding) * col + left, itemSize.height * row + padding * (row+1)));
+        historyBg.setPosition(cc.winSize.width/2, cc.winSize.height - historyBg.getContentSize().height/2);
+        this.sceneLayer.addChild(historyBg);
+
+        var historyBt = new ccui.Button("xocdia_history_bt.png","","", ccui.Widget.PLIST_TEXTURE);
+        historyBt.setPosition(left/2, historyBg.getContentSize().height/2);
+        historyBt.setZoomScale(0.0);
+        historyBg.addChild(historyBt);
+
+        for(var i=0; i<col; i++){
+            for(var j=0; j<row; j++){
+                var x = left + itemSize.width/2 + (itemSize.width + padding) * i;
+                var y = padding + itemSize.height/2 + (itemSize.height + padding) *j ;
+                var bg = new ccui.Scale9Sprite("xocdia_history_bg2.png", cc.rect(4,4,4,4));
+                bg.setPreferredSize(itemSize);
+                bg.setPosition(x,y);
+                historyBg.addChild(bg);
+            }
+        }
+
+        this.historyNode = new cc.Node();
+        this.historyNode.setContentSize(historyBg.getContentSize());
+        this.historyNode.setAnchorPoint(cc.p(0,0));
+        historyBg.addChild(this.historyNode);
+
+        this._historyData = [];
     },
 
     onEnter : function () {
@@ -268,14 +339,140 @@ var XocDiaScene = IGameScene.extend({
 
     },
 
+    setTimeRemaining : function (currentTime, maxTime) {
+        var timerProgress = 100.0* currentTime / maxTime;
+        this.timer.stopAllActions();
+        this.timeLabel.stopAllActions();
+
+        this.timer.runAction(new cc.ProgressFromTo(currentTime, timerProgress, 0.0));
+
+        this.timeLabel.setString(currentTime);
+        this.timeLabel.runAction(new quyetnd.ActionNumber(currentTime, 0));
+
+
+        //this.timeLabel.runAction(new cc.RepeatForever(alertAction));
+
+        var thiz = this;
+        if(currentTime > 5){
+            this.timeLabel.setColor(cc.color("#ffcf00"));
+            this.timer.setColor(cc.color("#ffcf00"));
+
+            this.timeLabel.runAction(new cc.Sequence(
+                new cc.DelayTime(currentTime - 5),
+                new cc.CallFunc(function () {
+                    var alertAction = new cc.Sequence(
+                        new cc.TintTo(0.2, 255,0,0),
+                        new cc.TintTo(0.2, 255,207,0)
+                    );
+                    thiz.timeLabel.runAction(new cc.RepeatForever(alertAction));
+                })
+            ));
+
+            this.timer.runAction(new cc.Sequence(
+                new cc.DelayTime(currentTime - 5),
+                new cc.CallFunc(function () {
+                    var alertAction = new cc.Sequence(
+                        new cc.TintTo(0.2, 255,0,0),
+                        new cc.TintTo(0.2, 255,207,0)
+                    );
+                    thiz.timer.runAction(new cc.RepeatForever(alertAction));
+                })
+            ));
+        }
+        else{
+            var alertAction = new cc.Sequence(
+                new cc.TintTo(0.2, 255,0,0),
+                new cc.TintTo(0.2, 255,207,0)
+            );
+            this.timeLabel.runAction(new cc.RepeatForever(alertAction.clone()));
+            this.timer.runAction(new cc.RepeatForever(alertAction));
+        }
+    },
+
+    _addHistory : function (historyList, history) {
+        if(historyList.length == 0){
+            historyList.push(history);
+            return;
+        }
+
+        var row = 4;
+        var col = 16;
+        var maxItem = row*col;
+
+        var lastHistory = historyList[historyList.length-1];
+        if((lastHistory%2) != (history%2)){
+            //fill empty
+            var emptyCount = historyList.length % row;
+            if(emptyCount > 0){
+                emptyCount = row - emptyCount;
+
+                for(var i=0;i<emptyCount;i++){
+                    historyList.push(-1);
+                }
+            }
+        }
+        historyList.push(history);
+
+        if(historyList.length > maxItem){
+            historyList.splice(0, row);
+        }
+    },
+
+    setHistory : function (history) {
+        var _historyData = [];
+        for(var i=0;i<history.length;i++){
+            this._addHistory(_historyData, history[i]);
+        }
+
+        cc.log(_historyData);
+
+        var padding = 2.0;
+        var itemSize = cc.size(46.0, 46.0);
+        var row = 4;
+        var left = 52.0;
+
+        this.historyNode.removeAllChildren(true);
+        for(var i=0; i<_historyData.length; i++){
+            if(_historyData[i] >= 0){
+                var label = new cc.LabelBMFont(_historyData[i], cc.res.font.Roboto_CondensedBold_25);
+
+                var x = left + itemSize.width/2 + (itemSize.width + padding) * Math.floor(i / row);
+                var y =  this.historyNode.getContentSize().height - padding - itemSize.height/2 - (itemSize.height + padding) * (i % row) ;
+                if(_historyData[i] % 2){
+                    var historyIcon = new cc.Sprite("#xocdia_history_1.png");
+                    label.setColor(cc.color("#ffffff"));
+                }
+                else{
+                    var historyIcon = new cc.Sprite("#xocdia_history_2.png");
+                    label.setColor(cc.color("#333333"));
+                }
+                historyIcon.setPosition(x, y);
+                this.historyNode.addChild(historyIcon, 0);
+
+                label.setPosition(x, y);
+                this.historyNode.addChild(label, 1);
+            }
+        }
+    },
+
+    setUserCount : function (count) {
+        this.userLabel.setString(count);
+    },
+
     backButtonClickHandler : function () {
         // if(this._controller){
         //     this._controller.requestQuitRoom();
         // }
-        var slot = Math.floor(Math.random()*7);
-        var chip = Math.floor(Math.random()*4);
+        // var slot = Math.floor(Math.random()*7);
+        // var chip = Math.floor(Math.random()*4);
+        //
+        // this.addChipToSlot(slot, chip, true);
 
-        this.addChipToSlot(slot, chip, true);
+        // var history = Math.floor(Math.random() * 4) + 1;
+        // this._historyData.push(history);
+        // this.setHistory(this._historyData);
+
+        this.setTimeRemaining(15.0, 20.0);
     },
 
     /*ignore*/

@@ -69,6 +69,7 @@ var IGameScene = IScene.extend({
         this.sceneLayer.addChild(bg);
 
         var gameTopBar = new GameTopBar();
+        this.gameTopBar = gameTopBar;
         this.addChild(gameTopBar);
 
         var thiz = this;
@@ -215,6 +216,16 @@ var IGameScene = IScene.extend({
                 break;
             }
         }
+    },
+
+    updateRegExitRoom : function (exit) {
+        if(exit){
+            this.gameTopBar.backBt.loadTextureNormal("ingame-backBt-active.png", ccui.Widget.PLIST_TEXTURE);
+        }
+        else{
+            this.gameTopBar.backBt.loadTextureNormal("ingame-backBt.png", ccui.Widget.PLIST_TEXTURE);
+        }
+
     },
 
     onSFSExtension : function () {
