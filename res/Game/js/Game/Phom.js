@@ -521,9 +521,10 @@ var Phom = IGameScene.extend({
         player1.addChild(player1.dropCards);
         player1.addChild(player1.trashCards);
         this.sceneLayer.addChild(player1, 1);
+        player1.chatView.setAnchorPoint(cc.p(1.0,0.0));
 
         var player2 = new GamePlayer();
-        player2.setPosition(cc.winSize.width / 2, 680.0 * cc.winSize.screenScale);
+        player2.setPosition(cc.winSize.width / 2, 650.0 * cc.winSize.screenScale);
         player2.trashCards = new TrashCardOnTable();
         player2.trashCards.setCardPosition(player2.width / 2, player2.height / 2 - 120);
         player2.dropCards = new TrashCardOnTable();
@@ -531,6 +532,8 @@ var Phom = IGameScene.extend({
         player2.addChild(player2.trashCards);
         player2.addChild(player2.dropCards);
         this.sceneLayer.addChild(player2, 1);
+        this.sceneLayer.addChild(player1, 1);
+        player2.chatView.setAnchorPoint(cc.p(0.0,1.0));
 
         var player3 = new GamePlayer();
         player3.setPosition(120.0 / cc.winSize.screenScale, 360.0);
@@ -542,6 +545,8 @@ var Phom = IGameScene.extend({
         player3.dropCards.setAnchorPoint(cc.p(0.0, 0.5));
         player3.addChild(player3.trashCards);
         player3.addChild(player3.dropCards);
+        player3.chatView.setAnchorPoint(cc.p(0.0,0.0));
+
         this.sceneLayer.addChild(player3, 1);
         this.playerView = [playerMe, player1, player2, player3];
     },

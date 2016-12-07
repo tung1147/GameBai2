@@ -29,6 +29,7 @@ var GameController = cc.Class.extend({
         SmartfoxClient.getInstance().addListener(socket.SmartfoxClient.SocketStatus, this.onSmartfoxSocketStatus, this);
         SmartfoxClient.getInstance().addListener(socket.SmartfoxClient.UserExitRoom, this.onUserExitRoom, this);
         SmartfoxClient.getInstance().addListener(socket.SmartfoxClient.CallExtension, this.onSFSExtension, this);
+        SmartfoxClient.getInstance().addListener(socket.SmartfoxClient.GenericMessage, this.onRecvChatMessage, this);
         LobbyClient.getInstance().addListener("getLastSessionInfo", this.onGetLastSessionInfo, this);
     },
 
@@ -194,6 +195,11 @@ var GameController = cc.Class.extend({
         }
         this._view.exitToLobby();
     },
+
+    onRecvChatMessage : function (event, data) {
+        this._view.onChatMessage(data.p.userName, data.m);
+    },
+
     updateOwner : function (username) {
         if(PlayerMe.username == username){
             this.isOwnerMe = true;
@@ -208,10 +214,8 @@ var GameController = cc.Class.extend({
     },
 
     sendChat : function (message) {
-       // cc.log("message: " + message);
-
         var content = {
-            t : 0,
+            t : 0, //public message
             r : PlayerMe.SFS.roomId,
             u : PlayerMe.SFS.userId,
             m : message,

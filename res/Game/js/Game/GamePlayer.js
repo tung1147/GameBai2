@@ -17,6 +17,11 @@ var GamePlayer = cc.Node.extend({
         avt.setPosition(this.getContentSize().width/2, 110);
         this.infoLayer.addChild(avt);
 
+        var chatView = new PlayerMessageView();
+        chatView.setPosition(avt.getPosition());
+        this.infoLayer.addChild(chatView, 10);
+        this.chatView = chatView;
+
         var timer = new cc.ProgressTimer(new cc.Sprite("#player-progress-2.png"));
         timer.setType(cc.ProgressTimer.TYPE_RADIAL);
         timer.setPosition(avt.getPosition());
@@ -170,6 +175,12 @@ var GamePlayerMe = GamePlayer.extend({
         avt.setPosition(60,50);
         this.infoLayer.addChild(avt);
 
+        var chatView = new PlayerMessageView();
+        chatView.setPosition(avt.getPosition());
+        chatView.setAnchorPoint(cc.p(0.0, 0.0));
+        this.infoLayer.addChild(chatView, 10);
+        this.chatView = chatView;
+
         var timer = new cc.ProgressTimer(new cc.Sprite("#player-progress-2.png"));
         timer.setType(cc.ProgressTimer.TYPE_RADIAL);
         timer.setPosition(avt.getPosition());
@@ -208,5 +219,45 @@ var GamePlayerMe = GamePlayer.extend({
     },
     setEnable : function (enable) {
 
+    }
+});
+
+var PlayerMessageView = cc.Node.extend({
+    ctor : function () {
+        this._super();
+        this.setAnchorPoint(cc.p(0.5,0.5));
+
+        var bg = new ccui.Scale9Sprite("ingame-chat-bg.png", cc.rect(20,20,4,4));
+        bg.setPreferredSize(cc.size(100,100));
+        this.setContentSize(bg.getContentSize());
+        this.addChild(bg);
+        bg.setPosition(this.getContentSize().width/2, this.getContentSize().height/2);
+        this.bg = bg;
+
+        var label = new cc.LabelBMFont("Message", cc.res.font.Roboto_Condensed_25, 300, cc.TEXT_ALIGNMENT_CENTER);
+        label.setPosition(bg.getPosition());
+        this.addChild(label);
+        this.label = label;
+
+        this.setVisible(false);
+    },
+    
+    show : function (message) {
+        this.setVisible(true);
+        this.stopAllActions();
+
+        var thiz = this;
+        this.runAction(new cc.Sequence(
+            new cc.DelayTime(5.0),
+            new cc.CallFunc(function () {
+                thiz.setVisible(false);
+            })
+        ));
+
+        this.label.setString(message);
+        this.bg.setPreferredSize(cc.size(this.label.getContentSize().width + 40, this.label.getContentSize().height + 20));
+        this.setContentSize(this.bg.getContentSize());
+        this.bg.setPosition(this.getContentSize().width/2, this.getContentSize().height/2);
+        this.label.setPosition(this.bg.getPosition());
     }
 });

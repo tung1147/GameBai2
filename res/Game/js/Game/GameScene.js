@@ -218,6 +218,16 @@ var IGameScene = IScene.extend({
 
     },
 
+    onChatMessage : function (username, message) {
+        cc.log("chat: "+username + " - "+message);
+        for(var i=0;i<this.allSlot.length;i++){
+            if(this.allSlot[i].username == username){
+                this.allSlot[i].chatView.show(message);
+                break;
+            }
+        }
+    },
+
     onSFSExtension : function () {
         
     }

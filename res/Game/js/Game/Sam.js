@@ -46,18 +46,22 @@ var Sam = TienLen.extend({
         var player1 = new GamePlayer();
         player1.setPosition(cc.winSize.width - 120.0 / cc.winSize.screenScale, 360.0);
         this.sceneLayer.addChild(player1, 1);
+        player1.chatView.setAnchorPoint(cc.p(1.0,0.0));
 
         var player2 = new GamePlayer();
-        player2.setPosition(cc.winSize.width / 2 - 220, 660.0 * cc.winSize.screenScale);
+        player2.setPosition(cc.winSize.width / 2 - 220, 650.0 * cc.winSize.screenScale);
         this.sceneLayer.addChild(player2, 1);
+        player2.chatView.setAnchorPoint(cc.p(1.0,1.0));
 
         var player3 = new GamePlayer();
-        player3.setPosition(cc.winSize.width / 2 + 220, 660.0 * cc.winSize.screenScale);
+        player3.setPosition(cc.winSize.width / 2 + 220, 650.0 * cc.winSize.screenScale);
         this.sceneLayer.addChild(player3, 1);
+        player3.chatView.setAnchorPoint(cc.p(1.0,1.0));
 
         var player4 = new GamePlayer();
         player4.setPosition(120.0 / cc.winSize.screenScale, 360.0);
         this.sceneLayer.addChild(player4, 1);
+        player4.chatView.setAnchorPoint(cc.p(0.0,0.0));
 
         this.playerView = [playerMe, player1, player2, player3,player4];
     },

@@ -199,6 +199,21 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
+            <key>ingame-chat-bg.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{44,44}</string>
+                <key>spriteSourceSize</key>
+                <string>{44,44}</string>
+                <key>textureRect</key>
+                <string>{{450,506},{44,44}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
             <key>ingame-chatBt.png</key>
             <dict>
                 <key>aliases</key>
@@ -393,7 +408,7 @@
             <key>size</key>
             <string>{496,572}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:27663122c8a0c0844acea00da9dd6e20:7cce0c303b3988408eb0a32355348e06:865db70d33f6fd1c3bd18ff13c48b0ed$</string>
+            <string>$TexturePacker:SmartUpdate:c2f52b9bc99f52a70e086ee61c3e115a:394426a13d3b55103d077a5884351d55:865db70d33f6fd1c3bd18ff13c48b0ed$</string>
             <key>textureFileName</key>
             <string>GameScene.png</string>
         </dict>
