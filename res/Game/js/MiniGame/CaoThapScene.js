@@ -56,156 +56,6 @@ var CaoThapScene = MiniGameScene.extend({
         this._controller = new CaoThapController(this);
     },
 
-    onSocketMessage: function (command, data) {
-        data = data["data"];
-        if (command == "changeAsset") {
-            this.onChangeAssets();
-            return;
-        }
-        switch (data["cmd"]) {
-            //cap nhat hu thuong
-            case 53:
-                var rewardFundList = data["511"];
-                if (rewardFundList.length < 3)
-                    return;
-                this.rewardFund = rewardFundList;
-                this.updateRewardFund();
-                break;
-
-            //Lay dc card dau tien
-            case 54:
-                var cardId = data["507"];
-                var currentBankValue = data["513"];
-                var highReward = data["" + 517];
-                var lowReward = data["" + 518];
-                var gameId = data["" + 621];
-                var thiz = this;
-                cc.log("" + cardId);
-
-                var cooldownTimer = setInterval(function () {
-                    if (thiz.onCooldown)
-                        return;
-                    thiz.rolling = false;
-                    thiz.turnstate = 1;
-                    thiz.remainingTime = 120;
-                    var rank = (cardId + 1) % 13 + 1;
-                    var suitArray = [2, 3, 0, 1];
-                    var suit = suitArray[Math.floor(cardId / 13)];
-                    thiz.result = rank * 4 + suit;
-                    thiz.setCard(rank * 4 + suit);
-                    thiz.pushKing(rank == 13);
-                    thiz.highValueLabel.setString("" + highReward);
-                    thiz.lowValueLabel.setString("" + lowReward);
-                    thiz.bankValueLabel.setString("" + currentBankValue);
-                    thiz.tipLabel.setString("Quân tiếp theo cao hơn hay thấp hơn?");
-                    clearInterval(cooldownTimer);
-                }, 100);
-
-                break;
-
-            //doan cao thap
-            case 55:
-                cc.log(JSON.stringify(data));
-                var thiz = this;
-                var cardId = data["" + 508];
-                var resultId = data["" + 510];
-                var currentBankValue = data["" + 513];
-                var totalHighEarning = data["" + 514];
-                var totalLowEarning = data["" + 515];
-                var totalEarning = data["" + 516];
-                var highReward = data["" + 517];
-                var lowReward = data["" + 518];
-
-                var cooldownTimer = setInterval(function () {
-                    if (thiz.onCooldown)
-                        return;
-                    thiz.rolling = false;
-                    thiz.turnstate = 1;
-                    thiz.remainingTime = 120;
-                    var rank = (cardId + 1) % 13 + 1;
-                    var suitArray = [2, 3, 0, 1];
-                    var suit = suitArray[Math.floor(cardId / 13)];
-                    thiz.result = rank * 4 + suit;
-                    thiz.setCard(rank * 4 + suit);
-                    thiz.highValueLabel.setString("" + highReward);
-                    thiz.lowValueLabel.setString("" + lowReward);
-                    thiz.bankValueLabel.setString("" + currentBankValue);
-                    thiz.luotMoiBt.visible = true;
-                    switch (resultId) {
-                        // thang
-                        case 0:
-                        case "0":
-                        case 1:
-                        case "1":
-                            thiz.turnstate = 1;
-                            thiz.tipLabel.setString("Quân tiếp theo cao hơn hay thấp hơn?");
-                            thiz.pushKing(rank == 13);
-                            break;
-
-                        // thua
-                        case 2:
-                        case "2":
-                            thiz.turnstate = 2;
-                            thiz.tipLabel.setString("Bạn chọn sai, chúc bạn may mắn lần sau!");
-                            break;
-
-                        //thang lon
-                        case 3:
-                        case "3":
-                            //
-                            break;
-                    }
-                    clearInterval(cooldownTimer);
-                }, 100);
-
-                break;
-            case 56:
-                var userGold = data["" + 6];
-                this.playerMe.setGold(userGold);
-                break;
-
-            case 4:
-                switch (data["ec"]) {
-                    case 92 : //khong du tien
-                        MessageNode.getInstance().show("Không đủ tiền chơi");
-                        //this.rolling = this.onCooldown = false;
-                        this.turnstate = 0;
-                        break;
-                }
-                break;
-
-            case 51:
-                //lich su no hu thuong
-                var rewardFundHistory = data["606"];
-                for (var i = 0; i < rewardFundHistory.length; i++) {
-                    this.stat_board.addRewardFundEntry(rewardFundHistory[i]["600"],
-                        cc.Global.NumberFormat1(rewardFundHistory[i]["601"]),
-                        rewardFundHistory[i]["603"],
-                        cc.Global.NumberFormat1(rewardFundHistory[i]["602"]));
-                }
-                break;
-
-            case 50:
-                // danh sach cao thu
-                var topEarningList = data["607"];
-                for (var i = 0; i < topEarningList.length; i++) {
-                    this.stat_board.addTopEarningEntry(i + 1, topEarningList[i]["609"],
-                        cc.Global.NumberFormat1(topEarningList[i]["608"]));
-                }
-                break;
-
-            case 49:
-                var historyList = data["611"];
-                for (var i = 0; i < historyList.length; i++) {
-                    var rewardName = ["Thắng", "Hòa", "Thua"];
-                    this.stat_board.addHistoryEntry(historyList[i]["612"],
-                        historyList[i]["614"],
-                        rewardName[historyList[i]["616"]],
-                        cc.Global.NumberFormat1(historyList[i]["615"]));
-                }
-                break;
-        }
-    },
     onSelectChip: function (chipIndex) {
         if (this.rewardFund.length < 3)
             return;
@@ -366,8 +216,6 @@ var CaoThapScene = MiniGameScene.extend({
         lowBt.addClickEventListener(function () {
             thiz.onLowBtClick();
         });
-
-        this.stat_board = new StatisticBoard();
     },
     addHistory: function (data) {
         var duration = 0.5;
@@ -400,8 +248,6 @@ var CaoThapScene = MiniGameScene.extend({
     onEnter: function () {
         this._super();
         this.scheduleUpdate();
-
-        this._controller.sendJoinGame();
     },
     onExit: function () {
         this._super();
@@ -480,10 +326,6 @@ var CaoThapScene = MiniGameScene.extend({
         this.huThuongValueLabel.setString(this.rewardFund[betAmountID - 1]["2"]);
     },
 
-    rankButtonHandler: function () {
-        this._super();
-        this.stat_board.showWithAnimationScale();
-    },
     pushKing: function (isK) {
         if (!isK) {
             for (var i = 0; i < 3; i++) {
@@ -513,35 +355,7 @@ var CaoThapScene = MiniGameScene.extend({
     setLuotMoiBtVisible: function (visible) {
         this.luotMoiBt.visible = visible;
     },
-    getCardWithId: function (cardId) {
-        var rankCard = (cardId % 13) + 3;
-        if (rankCard > 13) {
-            rankCard -= 13;
-        }
-        return {
-            rank: rankCard,
-            suit: Math.floor(cardId / 13)
-        };
-    },
     setTipString: function (str) {
         this.tipLabel.setString(str);
     },
-    showTopPlayersDialog: function (data) {
-        for (var i = 0; i < data.length; i++) {
-            this.stat_board.addTopEarningEntry(i + 1, data[i]["1"], data[i]["2"]);
-        }
-    },
-
-    showExplosionHistoryDialog: function (data) {
-        for (var i = 0; i < data.length; i++) {
-            this.stat_board.addRewardFundEntry(data[i]["1"], data[i]["2"],
-                data[i]["3"], data[i]["4"]);
-        }
-    },
-    showHistoryDialog: function (data) {
-        for (var i = 0; i < data.length; i++) {
-            this.stat_board.addHistoryEntry(data[i]["2"], data[i]["3"],
-                data[i]["4"], data[i]["5"]);
-        }
-    }
 });

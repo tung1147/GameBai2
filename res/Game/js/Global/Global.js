@@ -56,8 +56,8 @@ cc.res.font.Roboto_Condensed_25 = "res/fonts/RobotoCondensed_25.fnt";
 cc.res.font.Roboto_CondensedBold_25 = "res/fonts/RobotoBoldCondensed_25.fnt";
 cc.res.font.UTM_AvoBold_25 = "res/fonts/UTMAvoBold_25.fnt";
 
-cc.res.font.Roboto_BoldCondensed_36_Glow = "/res/fonts/Roboto_BoldCondensed_36_Glow.fnt";
-cc.res.font.videoPokerRewardFont = "/res/fonts/videoPokerRewardFont.fnt";
+cc.res.font.Roboto_BoldCondensed_36_Glow = "res/fonts/Roboto_BoldCondensed_36_Glow.fnt";
+cc.res.font.videoPokerRewardFont = "res/fonts/videoPokerRewardFont.fnt";
 
 var GameType = GameType || {};
 GameType.GAME_MauBinh = 0;

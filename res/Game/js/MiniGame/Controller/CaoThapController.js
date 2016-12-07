@@ -97,13 +97,14 @@ var CaoThapController = MiniGameController.extend({
     sendHighPredict: function () {
         if (!this.checkRequestRolling()) return;
         SmartfoxClient.getInstance().sendExtensionRequest(-1, "408", {1: 1});
-        this._view.setRolling(true);
+        this.setRolling(true);
         this._view.addHistory(this.result);
     },
 
     sendLowPredict: function () {
         if (!this.checkRequestRolling()) return;
         SmartfoxClient.getInstance().sendExtensionRequest(-1, "408", {1: 2});
+        this.setRolling(true);
         this._view.addHistory(this.result);
     },
 
@@ -128,8 +129,28 @@ var CaoThapController = MiniGameController.extend({
 
     sendLuotMoiRequest: function () {
         SmartfoxClient.getInstance().sendExtensionRequest(-1, "409", null);
-        this.tipLabel.setString("");
+        this._view.setTipString("");
         this.turnState = 0;
         this._view.clearTurn();
+    },
+
+    sendJoinGame : function () {
+        SmartfoxClient.getInstance().joinMiniGame(PlayerMe.miniGameInfo.ip, 8888, "404");
+    },
+
+    requestQuitRoom: function () {
+        SmartfoxClient.getInstance().sendExtensionRequest(-1, "405", null);
+    },
+
+    sendGetTopRequest : function () {
+        SmartfoxClient.getInstance().sendExtensionRequest(-1, "402", null);
+    },
+
+    sendGetExplosionHistory : function () {
+        SmartfoxClient.getInstance().sendExtensionRequest(-1,"403",null);
+    },
+
+    sendGetUserHistory : function () {
+        SmartfoxClient.getInstance().sendExtensionRequest(-1,"401",null);
     }
 });

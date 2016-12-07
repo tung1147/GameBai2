@@ -30,8 +30,8 @@ var MiniGameController = cc.Class.extend({
     onSFSExtension: function (messageType, content) {
         switch (content.c) {
             case "260": // thong tin game
-                this._view.setupMucCuoc(content.p.data["1"]); // cac muc cuoc
-                this._view.performChangeRewardFund(content.p.data["2"]); // thay doi hu thuong
+                this._view.setupMucCuoc(content.p.data["bts"]); // cac muc cuoc
+                this._view.performChangeRewardFund(content.p.data["pbs"]); // thay doi hu thuong
                 break;
 
             case "100002": // danh sach cao thu
@@ -47,8 +47,12 @@ var MiniGameController = cc.Class.extend({
                 break;
 
             case "0": // thay doi vang
-                this._view.onChangeAssets(content.p["2"],content.p["1"]);
+                this.onChangeAssets(content.p["2"], content.p["1"]);
         }
+    },
+
+    onChangeAssets: function (gold, changeAmount) {
+        this._view.onChangeAssets(gold,changeAmount);
     },
 
     onGetLastSessionInfo: function (command, eventData) {
@@ -57,7 +61,6 @@ var MiniGameController = cc.Class.extend({
             var host = info.ip;
             var port = info.port;
             if (host && port) {
-                //LoadingDialog.getInstance().show("Đang kết nối lại máy chủ");
                 LoadingDialog.getInstance().show("Đang kết nối lại máy chủ");
                 SmartfoxClient.getInstance().findAndJoinRoom(host, port);
                 return;
@@ -67,22 +70,17 @@ var MiniGameController = cc.Class.extend({
     },
 
     requestQuitRoom: function () {
-        SmartfoxClient.getInstance().sendExtensionRequest(-1, "405", null);
     },
 
     sendJoinGame: function () {
-        SmartfoxClient.getInstance().joinMiniGame(PlayerMe.miniGameInfo.ip, 8888, "404");
     },
 
-    sendGetTopRequest : function () {
-        SmartfoxClient.getInstance().sendExtensionRequest(-1, "402", null);
+    sendGetTopRequest: function () {
     },
 
-    sendGetExplosionHistory : function () {
-        SmartfoxClient.getInstance().sendExtensionRequest(-1,"403",null);
+    sendGetExplosionHistory: function () {
     },
 
-    sendGetUserHistory : function () {
-        SmartfoxClient.getInstance().sendExtensionRequest(-1,"401",null);
+    sendGetUserHistory: function () {
     }
 });

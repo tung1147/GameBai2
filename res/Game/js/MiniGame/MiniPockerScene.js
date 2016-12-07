@@ -8,7 +8,6 @@ var MiniPokerScene = MiniGameScene.extend({
     ctor: function () {
         this._super();
 
-
         this.autoRoll = false;
         this.delta = 0;
         this.baseCardHeight = 0;
@@ -21,13 +20,13 @@ var MiniPokerScene = MiniGameScene.extend({
         this.rewardGroup = [];
         this.rewardCardSprites = [];
 
-        this.initConstant();
         this.initAvatarMe();
         this.initButton();
         this.initChip(cc.winSize.width / 2 + 100);
 
         this.cards = [];
-        this.genCards();
+        for (var i = 0; i < 5; i++)
+            this.cards.push({rolling: false});
 
         this.initScene();
         this.initRewards();
@@ -58,133 +57,10 @@ var MiniPokerScene = MiniGameScene.extend({
             }
         }, this);
 
-        LobbyClient.getInstance().addListener("miniGame", this.onSocketMessage, this);
-        LobbyClient.getInstance().addListener("changeAsset", this.onSocketMessage, this);
     },
 
-    onSocketMessage: function (command, data) {
-        data = data["data"];
-        if (command == "changeAsset"){
-            this.onChangeAssets();
-            return;
-        }
-        var thiz = this;
-        switch (data["cmd"]) {
-            case 262: // cap nhat tien hu thuong
-                var rewardFundArray = data["515"];
-                if (rewardFundArray.length < 3)
-                    return;
-                this.rewardFund = rewardFundArray;
-                this.updateRewardFund();
-                break;
-
-            case 261: //ket qua luot quay
-                var rollId = data["512"];
-                var rollResultArray = data["513"];
-                var rewardCard = data["516"];
-                var rewardRank = data["518"];
-                var gameId = data["621"];
-                var userGain = data["519"];
-                this.genCards(rollResultArray);
-                setTimeout(function () {
-                    for (i = 0; i < 5; i++) {
-                        thiz.cardSprites[i].setSpriteFrame(thiz.cards[i].rank + s_card_suit[thiz.cards[i].suit] + ".png");
-                    }
-
-                    //stop rolling
-                    var index = 0;
-                    var rollingInterval = setInterval(function () {
-                        thiz.cardSprites[index].visible = true;
-                        thiz.cardRollingSprites[index].visible = false;
-                        thiz.cardRollingSprites[index + 5].visible = false;
-                        thiz.cardRollingSprites[index + 10].visible = false;
-                        thiz.cards[index].rolling = false;
-
-                        var basex = thiz.cardSprites[index].getPositionX();
-                        var basey = thiz.cardSprites[index].getPositionY();
-
-                        var duration = 0.1;
-                        var move1 = new cc.MoveTo(duration, cc.p(basex, basey - 20));
-                        var move2 = new cc.MoveTo(duration, cc.p(basex, basey));
-
-                        thiz.cardSprites[index].runAction(new cc.Sequence(move1, move2));
-
-                        index++;
-                        if (index >= 5) {
-                            thiz.rolling = false;
-                            thiz.activateReward(rollId, rewardRank);
-                            //thiz.quayBt.loadTextureNormal("quay1.png", ccui.Widget.PLIST_TEXTURE);
-                            thiz.setFlashing(false);
-                            clearInterval(rollingInterval);
-                            // show reward cards
-                            for (var i = 0; i < 5; i++)
-                                thiz.rewardCardSprites[i].visible = (rewardCard >> i) & 1;
-
-                            if (thiz.autoRoll) {
-                                setTimeout(function () {
-                                    if (thiz.autoRoll)
-                                        thiz.onQuayBtClick();
-                                }, 1500);
-                            }
-                        }
-                    }, 500);
-                }, 500);
-                break;
-
-            case 260: //update tien user
-                var userGold = data["6"];
-                //var userGain = data["519"];
-                this.playerMe.setGold(userGold);
-                break;
-
-            case 4:
-                var errorCode = data["ec"];
-                if (errorCode == 92) {
-                    MessageNode.getInstance().show("Không đủ tiền chơi");
-                    this.rolling = false;
-                    thiz.setFlashing(false);
-                    for (var i = 0; i < 15; i++) {
-                        thiz.cardSprites[i % 5].visible = true;
-                        thiz.cardRollingSprites[i].visible = false;
-                    }
-                    break;
-                }
-                break;
-
-            case 265:
-                //danh sach cao thu
-                var topEarningList = data["607"];
-                for (var i = 0; i < topEarningList.length; i++) {
-                    this.stat_board.addTopEarningEntry(i + 1, topEarningList[i]["609"],
-                        cc.Global.NumberFormat1(topEarningList[i]["608"]));
-                }
-                break;
-
-            case 266:
-                //lich su choi
-                var historyList = data["611"];
-                for (var i = 0; i < historyList.length; i++) {
-                    var rewardName = historyList[i]["616"] == 0 || historyList[i]["616"] < 10 ?
-                        this.rewardGroup[historyList[i]["616"]].rewardNameLabel.getString()
-                        : "Không ăn";
-                    this.stat_board.addHistoryEntry(historyList[i]["612"],
-                        historyList[i]["614"],
-                        rewardName,
-                        cc.Global.NumberFormat1(historyList[i]["615"]));
-                }
-                break;
-
-            case 752:
-                //lich su no hu thuong
-                var rewardFundHistory = data["606"];
-                for (var i = 0; i < rewardFundHistory.length; i++) {
-                    this.stat_board.addRewardFundEntry(rewardFundHistory[i]["600"],
-                        cc.Global.NumberFormat1(rewardFundHistory[i]["601"]),
-                        rewardFundHistory[i]["603"],
-                        cc.Global.NumberFormat1(rewardFundHistory[i]["602"]));
-                }
-                break;
-        }
+    initController: function () {
+        this._controller = new MiniPokerController(this);
     },
 
     initScene: function () {
@@ -222,8 +98,8 @@ var MiniPokerScene = MiniGameScene.extend({
         huthuongLabel.setPosition(cc.winSize.width / 2 - 105 * cc.winSize.screenScale, cc.winSize.height / 2 - 115);
         this.sceneLayer.addChild(huthuongLabel);
 
-        var huthuongValueLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_BoldCondensed_36_Glow, "12.345.678", cc.TEXT_ALIGNMENT_CENTER);
-        huthuongValueLabel.setPosition(cc.winSize.width / 2 - 130 * cc.winSize.screenScale, cc.winSize.height / 2 - 155);
+        var huthuongValueLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_BoldCondensed_36_Glow, "1", cc.TEXT_ALIGNMENT_CENTER);
+        huthuongValueLabel.setPosition(huthuongLabel.x, huthuongLabel.y - 40);
         this.huThuongValueLabel = huthuongValueLabel;
         this.sceneLayer.addChild(huthuongValueLabel);
 
@@ -233,15 +109,6 @@ var MiniPokerScene = MiniGameScene.extend({
         quayBt.setScale(4 / 5);
         this.quayBt = quayBt;
         this.sceneLayer.addChild(quayBt);
-        // var curQuayBtSprite = 1;
-        // this.quayBtInterval = setInterval(function () {
-        //     if (!thiz.rolling) {
-        //         return;
-        //     }
-        //     curQuayBtSprite++;
-        //     curQuayBtSprite = curQuayBtSprite > 3 ? 2 : curQuayBtSprite;
-        //     thiz.quayBt.loadTextureNormal("quay" + curQuayBtSprite + ".png", ccui.Widget.PLIST_TEXTURE);
-        // }, 200);
 
         this.initFlashing();
 
@@ -266,7 +133,8 @@ var MiniPokerScene = MiniGameScene.extend({
         this.cardRollingSprites = [];
         this.baseCardHeight = clippingcards_layout.height / 2;
         for (i = 0; i < 5; i++) {
-            var cardSprite = new cc.Sprite("#" + this.cards[i].rank + s_card_suit[this.cards[i].suit] + ".png");
+            var cardSprite = new cc.Sprite("#" + Math.floor(Math.random() * 13 + 1)
+                + s_card_suit[Math.floor(Math.random() * 4)] + ".png");
             cardSprite.setPosition(i * (120 + 20 * cc.winSize.screenScale) * cc.winSize.screenScale + this.cardLayoutMargin, clippingcards_layout.height / 2);
             clippingcards_layout.addChild(cardSprite);
             var rewardSprite = new cc.Sprite("#card_selected.png");
@@ -276,7 +144,7 @@ var MiniPokerScene = MiniGameScene.extend({
             var fadeIn = new cc.FadeIn(0.5);
             var fadeOut = new cc.FadeOut(0.5);
             rewardSprite.runAction(new cc.RepeatForever(new cc.Sequence(fadeIn, fadeOut)));
-            // rewardSprite.visible = false;
+            rewardSprite.visible = false;
             this.cardSprites.push(cardSprite);
             this.rewardCardSprites.push(rewardSprite);
         }
@@ -297,26 +165,15 @@ var MiniPokerScene = MiniGameScene.extend({
     onSelectChip: function (chipIndex) {
         if (this.rewardFund.length < 3)
             return;
-        this.huThuongValueLabel.setString("" + cc.Global.NumberFormat1(this.rewardFund[chipIndex - 1]["514"]));
+        this.huThuongValueLabel.setString("" + cc.Global.NumberFormat1(this.rewardFund[chipIndex - 1]["2"]));
     },
     onEnter: function () {
         this._super();
         this.scheduleUpdate();
-        var msg = {command: this.REWARD_FUND_REQUEST_CODE};
-        LobbyClient.getInstance().send(msg);
-        msg = {command: "getTopUsers", gameType: "Mini_Poker"};
-        LobbyClient.getInstance().send(msg);
-        msg = {command: "getExplosiveUsers", gameType: "Mini_Poker", skip: "0", limit: "20"};
-        LobbyClient.getInstance().send(msg);
-        msg = {command: "getMiniGameLogs", gameType: "Mini_Poker", skip: "0", limit: "20"};
-        LobbyClient.getInstance().send(msg);
     },
     onExit: function () {
         this._super();
         this.unscheduleUpdate();
-        // clearInterval(this.quayBtInterval);
-        LobbyClient.getInstance().send({command: 263});
-        LobbyClient.getInstance().removeListener(this);
     },
     update: function (dt) {
         if (!this.baseCardHeight || !this.cardHeight || this.cards.length < 5
@@ -341,7 +198,7 @@ var MiniPokerScene = MiniGameScene.extend({
     initRewards: function () {
         var margin_left = 35 + 140 * cc.winSize.screenScale;
         var item_height = 50;
-        this.rewardGroup.push({});
+
         var huthuong = new rewardItem("HŨ THƯỞNG");
         huthuong.setAnchorPoint(cc.p(0.0, 0.5));
         huthuong.setPosition(margin_left, 550);
@@ -394,19 +251,19 @@ var MiniPokerScene = MiniGameScene.extend({
     activateReward: function (id, rank) {
         if (this.activeReward instanceof rewardItem)
             this.activeReward.setActive(false);
-        if (0 < id && id < 10) {
+        if (id < 9) {
             this.activeReward = this.rewardGroup[id];
             this.activeReward.setActive(true);
-            if (id == 3 || id == 7 || id == 9) {
+            if (id == 2 || id == 6 || id == 8) {
                 var result = "";
                 switch (id) {
-                    case 3:
+                    case 2:
                         result += "TỨ QUÝ ";
                         break;
-                    case 7:
+                    case 6:
                         result += "BA LÁ ";
                         break;
-                    case 9:
+                    case 8:
                         result += "ĐÔI ";
                         break;
                 }
@@ -462,68 +319,17 @@ var MiniPokerScene = MiniGameScene.extend({
         }
 
     },
-    adjustAdd: function () {
-    },
-    adjustSub: function () {
-    },
     quaytudongClick: function () {
         this.autoRoll = !this.autoRoll;
         this.quaytudong.setSpriteFrame(this.autoRoll ? "quaytudong_active.png" : "quaytudong.png");
-        if (!this.rolling)
+        this._controller.setAutoRoll(this.autoRoll);
+        if (!this.rolling && this.autoRoll)
             this.onQuayBtClick();
     },
-    genCards: function (cardarray) {
-        for (i = 0; i < 5; i++) {
-            var suitArray = [2, 3, 0, 1];
-            var card = {};
-            if (cardarray) {
-                card = {
-                    rank: (cardarray[i] + 1) % 13 + 1,
-                    suit: suitArray[Math.floor(cardarray[i] / 13)],
-                    rolling: false
-                };
-            }
-            else {
-                card = {
-                    rank: Math.floor(Math.random() * 12) + 1,
-                    suit: suitArray[Math.floor(Math.random() * 4)],
-                    rolling: false
-                };
-            }
-
-            if (this.cards.length < 5)
-                this.cards.push(card);
-            else {
-                this.cards[i].rank = card.rank;
-                this.cards[i].suit = card.suit;
-            }
-        }
-    },
     onQuayBtClick: function () {
-        if (this.rolling)
-            return;
-        this.rolling = true;
-        this.setFlashing(true);
-        this.resultLabel.setString("");
-        for (i = 0; i < 15; i++) {
-            this.cardSprites[i % 5].visible = false;
-            this.rewardCardSprites[i % 5].visible = false;
-            this.cards[i % 5].rolling = true;
-            this.cardRollingSprites[i].visible = true;
-        }
-        var thiz = this;
-        var msg = {command: this.ROLL_COMMAND_CODE};
-        msg["" + this.BET_AMOUNT_ID_CODE] = this.chipGroup.chipSelected.chipIndex;
-        LobbyClient.getInstance().send(msg);
+        this._controller.sendRollRequest(this.chipGroup.chipSelected.chipIndex);
     },
-    initConstant: function () {
-        this.REWARD_FUND_REQUEST_CODE = 262;
-        this.ROLL_COMMAND_CODE = 261;
-        this.BET_AMOUNT_ID_CODE = 511;
-        this.BET_AMOUNT_1000 = 1;
-        this.BET_AMOUNT_10000 = 2;
-        this.BET_AMOUNT_100000 = 3;
-    },
+
     initFlashing: function () {
         //add two particle groups
         var quayTopParticle = new cc.Sprite("#quayTopParticle1.png");
@@ -556,7 +362,7 @@ var MiniPokerScene = MiniGameScene.extend({
             var qtAction = cc.Animate.create(quayTopAnimation);
             //qtAction.retain();
             var quayTopAction = new cc.RepeatForever(qtAction);
-          //  this.quayTopAction.retain();
+            //  this.quayTopAction.retain();
 
             var quayBtmFrames = [];
             for (var i = 1; i <= 2; i++) {
@@ -568,23 +374,54 @@ var MiniPokerScene = MiniGameScene.extend({
             }
             var quayBtmAnimation = cc.Animation.create(quayBtmFrames, 0.2, 2);
             var qbAction = cc.Animate.create(quayBtmAnimation);
-           // qbAction.retain();
+            // qbAction.retain();
             var quayBtmAction = new cc.RepeatForever(qbAction);
-           // this.quayBtmAction.retain();
+            // this.quayBtmAction.retain();
 
             this.quayTopParticle.runAction(quayTopAction);
             this.quayBtmParticle.runAction(quayBtmAction);
         }
     },
-    updateRewardFund: function () {
+    performChangeRewardFund: function (data) {
         // called when the reward fund is changed or user select another bet amount
+        this._super(data);
         var betAmountID = this.chipGroup.chipSelected.chipIndex;
         if (!this.rewardFund || this.rewardFund.length < 3)
             return;
-        this.huThuongValueLabel.setString("" + cc.Global.NumberFormat1(this.rewardFund
-                [this.chipGroup.chipSelected.chipIndex - 1]["514"]));
+        this.huThuongValueLabel.setString(this.rewardFund[betAmountID - 1]["2"]);
     },
-    rankButtonHandler: function () {
-        this.stat_board.showWithAnimationScale();
+
+    setCardArray: function (cardArray) {
+        for (var i = 0; i < cardArray.length; i++) {
+            var card = this.getCardWithId(cardArray[i]);
+            this.cardSprites[i].setSpriteFrame("" + card.rank + s_card_suit[card.suit] + ".png");
+        }
+    },
+
+    setRewardCards: function (indexArray) {
+        for (var i = 0; i < indexArray.length; i++) {
+            this.rewardCardSprites[i].visible = indexArray[i];
+        }
+    },
+
+    setRollCard: function (index, isRolling) {
+        for (var i = 0; i < 3; i++) {
+            this.cardRollingSprites[i * 5 + index].visible = isRolling;
+        }
+        this.cardSprites[index].visible = !isRolling;
+        this.cards[index].rolling = isRolling;
+        if (!isRolling) {
+            var duration = 0.1;
+            var basex = this.cardSprites[index].getPositionX();
+            var basey = this.cardSprites[index].getPositionY();
+
+            var move1 = new cc.MoveTo(duration, cc.p(basex, basey - 20));
+            var move2 = new cc.MoveTo(duration, cc.p(basex, basey));
+
+            this.cardSprites[index].runAction(new cc.Sequence(move1, move2));
+        }
+    },
+    setRolling: function (isRolling) {
+        this.rolling = isRolling;
     }
 });
