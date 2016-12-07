@@ -114,11 +114,11 @@ SFSEntity* SFSEntity::createEntityWithData(const char* buffer, int size){
 
 
 /****/
-SFSEntity* __SFS_createObjectFromJSON(rapidjson::Value& value);
-SFSEntity* __SFS_createArrayFromJSON(rapidjson::Value& value);
-SFSEntity* __SFS_createNumberFromJSON(rapidjson::Value& value);
+//SFSEntity* __SFS_createObjectFromJSON(rapidjson::Value& value);
+//SFSEntity* __SFS_createArrayFromJSON(rapidjson::Value& value);
+//SFSEntity* __SFS_createNumberFromJSON(rapidjson::Value& value);
 
-SFSEntity* __SFS_createEntityFromJSON(rapidjson::Value& value){
+SFSEntity* __SFS_createEntityFromJSON(const rapidjson::Value& value){
 	int type = value.GetType();
 	switch (type)
 	{
@@ -161,7 +161,7 @@ SFSEntity* __SFS_createEntityFromJSON(rapidjson::Value& value){
     return pret;
 }
 
-SFSEntity* __SFS_createNumberFromJSON(rapidjson::Value& value){
+SFSEntity* __SFS_createNumberFromJSON(const rapidjson::Value& value){
 	auto pret = new SFSPrimitive();
     pret->autoRelease();
 	if (value.IsInt()){
@@ -182,7 +182,7 @@ SFSEntity* __SFS_createNumberFromJSON(rapidjson::Value& value){
 	return pret;
 }
 
-SFSEntity* __SFS_createObjectFromJSON(rapidjson::Value& value){
+SFSEntity* __SFS_createObjectFromJSON(const rapidjson::Value& value){
 	auto pret = new SFSObject();
     pret->autoRelease();
 	for (auto it = value.MemberBegin(); it != value.MemberEnd(); it++){
@@ -193,7 +193,7 @@ SFSEntity* __SFS_createObjectFromJSON(rapidjson::Value& value){
 	return pret;
 }
 
-SFSEntity* __SFS_createArrayFromJSON(rapidjson::Value& value){
+SFSEntity* __SFS_createArrayFromJSON(const rapidjson::Value& value){
 	int _is_bool =		1 << 0;
 	int _is_int =		1 << 1;
 	int _is_float =		1 << 2;

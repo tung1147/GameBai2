@@ -60,12 +60,19 @@ public:
 	virtual void printDebug(std::ostringstream& os, int padding = 0);
 #endif
 	virtual std::string toJSON();
-
+		
 	static SFSEntity* createEntityWithData(const char* buffer, int size);
 	static SFSEntity* createFromJSON(const std::string& json);
 	static SFSEntity* createFromJSON(const char* json, int size);
 };
 
+SFS::Entity::SFSEntity* __SFS_createObjectFromJSON(const rapidjson::Value& value);
+SFS::Entity::SFSEntity* __SFS_createArrayFromJSON(const rapidjson::Value& value);
+SFS::Entity::SFSEntity* __SFS_createNumberFromJSON(const rapidjson::Value& value);
+SFS::Entity::SFSEntity* __SFS_createEntityFromJSON(const rapidjson::Value& value);
+
 }
 }
+
+
 #endif /* SFSCLIENT_ENTITIES_SFSENTITY_H_ */

@@ -6,10 +6,37 @@
  */
 
 #include "MessageJSON.h"
+#include "MessageType.h"
+#include "../Logger/SFSLogger.h"
+#include <functional>
 
 namespace SFS {
 
+SFS::Entity::SFSEntity* GenericMessageHandler(const rapidjson::Value& jsonValue){
+	SFS::Entity::SFSObject* content = new SFS::Entity::SFSObject();
+	content->autoRelease();
+	content->setByte("t", jsonValue["t"].GetInt());
+	content->setInt("r", jsonValue["r"].GetInt());
+	content->setInt("u", jsonValue["u"].GetInt());
+	content->setString("m", jsonValue["m"].GetString());
+	if (jsonValue.HasMember("p")){
+		content->setItem("p", SFS::Entity::__SFS_createObjectFromJSON(jsonValue["p"]));
+	}
+	return content;
+}
+
+static std::map<int, std::function<SFS::Entity::SFSEntity*(const rapidjson::Value&)>> s_json_handler;
+static bool _json_handler_ready = false;
+static void _init_json_handler(){
+	s_json_handler.insert(std::make_pair(SFS::MessageType::GenericMessage, GenericMessageHandler));
+}
+
 MessageJSON::MessageJSON(){
+	if (!_json_handler_ready){
+		_init_json_handler();
+		_json_handler_ready = false;
+	}
+
 	jsonContent = "";
 }
 
@@ -19,8 +46,24 @@ MessageJSON::~MessageJSON(){
 
 void MessageJSON::writeToBuffer(SFS::StreamWriter* writer){
 	if (!contents){
-		auto c = (SFS::Entity::SFSObject*)SFS::Entity::SFSEntity::createFromJSON(jsonContent);
-		this->setContents(c);
+		auto it = s_json_handler.find(this->messageType);
+		if (it != s_json_handler.end()){
+			rapidjson::Document doc;
+			bool b = doc.Parse<0>(jsonContent.c_str()).HasParseError();
+			if (!b){
+				auto c = (SFS::Entity::SFSObject*)it->second(doc);
+				this->setContents(c);
+			}
+			else{
+				SFS::log("error parse json");
+			}
+			
+		}
+		else{
+			auto c = (SFS::Entity::SFSObject*)SFS::Entity::SFSEntity::createFromJSON(jsonContent);
+			this->setContents(c);
+		}
+
 	}
 	BaseMessage::writeToBuffer(writer);
 }
