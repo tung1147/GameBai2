@@ -2,6 +2,40 @@
  * Created by Quyet Nguyen on 7/21/2016.
  */
 
+var CardRemaining = cc.Node.extend({
+    ctor : function () {
+        this._super()
+        this.setAnchorPoint(cc.p(0.5, 0.5));
+
+        var bg = new cc.Sprite("#card_remain_bg_1.png");
+        this.setContentSize(bg.getContentSize());
+        bg.setPosition(this.getContentSize().width/2, this.getContentSize().height/2);
+        this.addChild(bg);
+        this.bg = bg;
+
+        var label = new cc.LabelBMFont("99", cc.res.font.Roboto_Condensed_25);
+        label.setPosition(bg.x, bg.y);
+        this.addChild(label);
+        this.label = label;
+    },
+
+    setCardRemain : function (card) {
+        if(card <= 0){
+            this.setVisible(false);
+        }
+        else{
+            this.setVisible(true);
+            this.label.setString(card);
+            if(card > 1){
+                this.bg.setSpriteFrame("card_remain_bg_2.png");
+            }
+            else{
+                this.bg.setSpriteFrame("card_remain_bg_1.png");
+            }
+        }
+    }
+});
+
 var TienLen = IGameScene.extend({
     ctor: function () {
         this._super();
@@ -92,18 +126,35 @@ var TienLen = IGameScene.extend({
         player1.setPosition(cc.winSize.width - 120.0 / cc.winSize.screenScale, 360.0);
         this.sceneLayer.addChild(player1, 1);
         player1.chatView.setAnchorPoint(cc.p(1.0,0.0));
+        player1.chatView.y += 20;
 
         var player2 = new GamePlayer();
         player2.setPosition(cc.winSize.width / 2, 650.0 * cc.winSize.screenScale);
         this.sceneLayer.addChild(player2, 1);
-        player2.chatView.setAnchorPoint(cc.p(0.0,1.0));
+        player2.chatView.setAnchorPoint(cc.p(1.0,1.0));
 
         var player3 = new GamePlayer();
         player3.setPosition(120.0 / cc.winSize.screenScale, 360.0);
         this.sceneLayer.addChild(player3, 1);
         player3.chatView.setAnchorPoint(cc.p(0.0,0.0));
+        player3.chatView.y += 20;
 
         this.playerView = [playerMe, player1, player2, player3];
+
+        var cardRemaining1 = new CardRemaining();
+        cardRemaining1.setPosition(30,100);
+        player1.infoLayer.addChild(cardRemaining1);
+        player1.cardRemaining = cardRemaining1;
+
+        var cardRemaining2 = new CardRemaining();
+        cardRemaining2.setPosition(130,100);
+        player2.infoLayer.addChild(cardRemaining2);
+        player2.cardRemaining = cardRemaining2;
+
+        var cardRemaining3 = new CardRemaining();
+        cardRemaining3.setPosition(130,100);
+        player3.infoLayer.addChild(cardRemaining3);
+        player3.cardRemaining = cardRemaining3;
     },
 
     onBoLuot: function (username) {
@@ -257,6 +308,21 @@ var TienLen = IGameScene.extend({
             }
             else {
                 this.allSlot[i].stopTimeRemain();
+            }
+        }
+    },
+
+    updateCardRemaining : function (username, card) {
+        cc.log("updateCardRemaining: "+username);
+        for (var i = 0; i < this.allSlot.length; i++) {
+            if(this.allSlot[i].username == "") {
+                continue;
+            }
+            if (this.allSlot[i].username == username) {
+                if(this.allSlot[i].cardRemaining){
+                    this.allSlot[i].cardRemaining.setCardRemain(card);
+                }
+                break;
             }
         }
     },

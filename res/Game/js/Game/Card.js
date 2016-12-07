@@ -53,6 +53,8 @@ var Card = cc.Sprite.extend({
             });
             var move = new cc.MoveTo(0.1, cc.p(this.origin.x, this.origin.y));
             this.runAction(new cc.Sequence(beforeMove,move,afterMove));
+
+            this._cardSelected = false;
         }
     },
     setSelected : function (selected, force) {

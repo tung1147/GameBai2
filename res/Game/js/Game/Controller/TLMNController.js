@@ -67,10 +67,22 @@ var TLMNGameController = GameController.extend({
         else if (content.c == "12") { //chat chem
             this._view.onChatChem(content.p);
         }
+        else if(content.c == "50") { // update card remain
+            this.onUpdateCardReamain(content.p);
+        }
+    },
+
+    onUpdateCardReamain : function (param) {
+        this._view.updateCardRemaining(param.u, param["1"]);
     },
 
     onJoinGame : function (params) {
         this.updateGameInfo(params);
+
+        var userInfo = params["5"];
+        for(var i=0;i<userInfo.length;i++){
+            this._view.updateCardRemaining(userInfo[i]["u"], userInfo[i]["8"]);
+        }
     },
 
     onReconnect: function (params) {
@@ -90,6 +102,17 @@ var TLMNGameController = GameController.extend({
             this._view.removeCardList();
             this._view.onUpdateTurn(".", 0, 0);
         }
+
+        //update card remain
+        var userInfo = params["1"]["5"];
+        for(var i=0;i<userInfo.length;i++){
+            this._view.updateCardRemaining(userInfo[i]["u"], userInfo[i]["8"]);
+        }
+    },
+
+    onUserJoinRoom : function (p) {
+        this._super(p);
+        this._view.updateCardRemaining(p.u, 0);
     },
 
     updateGameInfo : function (params) {
@@ -112,7 +135,7 @@ var TLMNGameController = GameController.extend({
             /* update turn */
             var username = params["12"]["u"];
             var currentTime = params["12"]["2"] / 1000;
-            var newTurn = (cardData.length > 0) ? true : false;
+            var newTurn = (cardData.length > 0) ? false : true;
             this.onUpdateTurn(username, currentTime, newTurn);
         }
     },
@@ -124,6 +147,10 @@ var TLMNGameController = GameController.extend({
             cards.push(this.getCardWithId(cardData[i]));
         }
         this._view.dealCards(cards);
+
+        for(var i=0;i<this.playerSlot.length;i++){
+            this._view.updateCardRemaining(this.playerSlot[i].username, cardData.length);
+        }
     },
 
     onUpdateTurn : function (username, currentTime, newTurn) {

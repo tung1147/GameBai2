@@ -85,8 +85,8 @@ var _resumeMethod = function () {
         }
     });
 
-    cc.eventManager.addListener(_listener1, 1);
-    cc.eventManager.addListener(_listener2, 1);
+    // cc.eventManager.addListener(_listener1, 1);
+    // cc.eventManager.addListener(_listener2, 1);
 };
 
 

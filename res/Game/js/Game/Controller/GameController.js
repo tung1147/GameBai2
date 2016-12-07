@@ -50,6 +50,15 @@ var GameController = cc.Class.extend({
         }
     },
 
+    onUserJoinRoom : function (p) {
+        var userInfo = {
+            index: p["4"],
+            username: p["u"],
+            gold: p["3"]
+        };
+        this._view.userJoinRoom(userInfo);
+    },
+
     onSFSExtension : function (messageType, content) {
         if(content.c == "ping"){
             SmartfoxClient.getInstance().sendExtensionRequestCurrentRoom("ping", null);
@@ -64,12 +73,7 @@ var GameController = cc.Class.extend({
             this.processPlayerPosition(content);
         }
         else if (content.c == "2"){ //user joinRoom
-            var userInfo = {
-                index : content.p["4"],
-                username : content.p["u"],
-                gold : content.p["3"]
-            }
-            this._view.userJoinRoom(userInfo);
+            this.onUserJoinRoom(content.p);
         }
         else if (content.c == "9"){ //user exit
             if(content.p.u != PlayerMe.username){

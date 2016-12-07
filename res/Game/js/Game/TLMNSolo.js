@@ -15,7 +15,12 @@ var TLMNSolo = TienLen.extend({
         var player1 = new GamePlayer();
         player1.setPosition(cc.winSize.width / 2, 650.0 * cc.winSize.screenScale);
         this.sceneLayer.addChild(player1, 1);
-        player1.chatView.setAnchorPoint(cc.p(0.0,1.0));
+        player1.chatView.setAnchorPoint(cc.p(1.0,1.0));
+
+        var cardRemaining1 = new CardRemaining();
+        cardRemaining1.setPosition(130,100);
+        player1.infoLayer.addChild(cardRemaining1);
+        player1.cardRemaining = cardRemaining1;
 
         this.playerView = [playerMe, player1];
     }

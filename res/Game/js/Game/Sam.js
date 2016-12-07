@@ -47,6 +47,7 @@ var Sam = TienLen.extend({
         player1.setPosition(cc.winSize.width - 120.0 / cc.winSize.screenScale, 360.0);
         this.sceneLayer.addChild(player1, 1);
         player1.chatView.setAnchorPoint(cc.p(1.0,0.0));
+        player1.chatView.y += 20;
 
         var player2 = new GamePlayer();
         player2.setPosition(cc.winSize.width / 2 - 220, 650.0 * cc.winSize.screenScale);
@@ -62,8 +63,29 @@ var Sam = TienLen.extend({
         player4.setPosition(120.0 / cc.winSize.screenScale, 360.0);
         this.sceneLayer.addChild(player4, 1);
         player4.chatView.setAnchorPoint(cc.p(0.0,0.0));
+        player4.chatView.y += 20;
 
         this.playerView = [playerMe, player1, player2, player3,player4];
+
+        var cardRemaining1 = new CardRemaining();
+        cardRemaining1.setPosition(30,100);
+        player1.infoLayer.addChild(cardRemaining1);
+        player1.cardRemaining = cardRemaining1;
+
+        var cardRemaining2 = new CardRemaining();
+        cardRemaining2.setPosition(130,100);
+        player2.infoLayer.addChild(cardRemaining2);
+        player2.cardRemaining = cardRemaining2;
+
+        var cardRemaining3 = new CardRemaining();
+        cardRemaining3.setPosition(130,100);
+        player3.infoLayer.addChild(cardRemaining3);
+        player3.cardRemaining = cardRemaining3;
+
+        var cardRemaining4 = new CardRemaining();
+        cardRemaining4.setPosition(130,100);
+        player4.infoLayer.addChild(cardRemaining4);
+        player4.cardRemaining = cardRemaining4;
     },
 
     setSamBtVisible :function(visible){
