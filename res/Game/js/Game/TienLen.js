@@ -11,6 +11,20 @@ var TienLen = IGameScene.extend({
         table_bg.setScale(cc.winSize.screenScale);
         this.sceneLayer.addChild(table_bg);
 
+        //initview
+        var chatBt = new ccui.Button("ingame-chatBt.png","","", ccui.Widget.PLIST_TEXTURE);
+        chatBt.setPosition(1120, 653);
+        this.gameTopBar.addChild(chatBt);
+        var thiz = this;
+        chatBt.addClickEventListener(function () {
+            var dialog  = new ChatDialog();
+            dialog.onTouchMessage = function (message) {
+                thiz.sendChatMessage(message);
+            };
+            dialog.show();
+        });
+
+        //
         this.initPlayer();
         this.initButton();
 

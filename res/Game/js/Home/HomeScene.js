@@ -80,7 +80,9 @@ var HomeScene = IScene.extend({
             thiz.popupLayer.addChild(signupDialog);
         });
         this.homeLayer.fbButton.addClickEventListener(function () {
-            FacebookPlugin.getInstance().showLogin();
+           // FacebookPlugin.getInstance().showLogin();
+            var dialog = new ChatDialog();
+            dialog.show();
         });
 
         this.startHome();

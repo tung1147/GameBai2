@@ -8,6 +8,9 @@ var SamController = TLMNGameController.extend({
     },
 
     getMaxSlot : function () {
+        if(this.isSolo){
+            return 2;
+        }
         return 5;
     },
 

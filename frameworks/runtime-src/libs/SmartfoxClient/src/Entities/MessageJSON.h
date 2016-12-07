@@ -11,6 +11,7 @@
 #include <string>
 
 namespace SFS {
+
 class MessageJSON : public BaseMessage{
 	std::string jsonContent;
 public:

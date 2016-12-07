@@ -3,6 +3,10 @@
  */
 
 var TLMNSolo = TienLen.extend({
+    ctor : function () {
+        this._super();
+        this._controller.isSolo = true;
+    },
     initPlayer: function () {
         var playerMe = new GamePlayerMe();
         playerMe.setPosition(150, 50.0);

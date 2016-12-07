@@ -120,22 +120,12 @@ var IGameScene = IScene.extend({
         }
     },
 
-    // updateOwner : function (username) {
-    //     for(var i=0;i<this.allSlot.length;i++){
-    //         if(this.allSlot[i].username == username){
-    //             //show key icon
-    //         }
-    //         else{
-    //
-    //         }
-    //     }
-    //     if(PlayerMe.username == username){
-    //         this.isOwnerMe = true;
-    //     }
-    //     else{
-    //         this.isOwnerMe = false;
-    //     }
-    // },
+    sendChatMessage : function (message) {
+        if(this._controller){
+            this._controller.sendChat(message);
+        }
+    },
+
     showLoading : function (message) {
 
     },

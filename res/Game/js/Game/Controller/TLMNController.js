@@ -8,6 +8,9 @@ var TLMNGameController = GameController.extend({
         this.initWithView(view);
     },
     getMaxSlot : function () {
+        if(this.isSolo){
+            return 2;
+        }
         return 4;
     },
 

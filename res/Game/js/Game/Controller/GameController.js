@@ -205,5 +205,21 @@ var GameController = cc.Class.extend({
     //request
     requestQuitRoom : function () {
         SmartfoxClient.getInstance().sendExtensionRequest(PlayerMe.SFS.roomId,"19", null);
+    },
+
+    sendChat : function (message) {
+       // cc.log("message: " + message);
+
+        var content = {
+            t : 0,
+            r : PlayerMe.SFS.roomId,
+            u : PlayerMe.SFS.userId,
+            m : message,
+            p : {
+                userName : PlayerMe.username
+            }
+        };
+        SmartfoxClient.getInstance().send(socket.SmartfoxClient.GenericMessage, content);
     }
+
 });
