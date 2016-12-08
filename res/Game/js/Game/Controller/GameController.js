@@ -3,22 +3,6 @@
  */
 
 var s_sfs_error_msg = s_sfs_error_msg || [];
-/*TLMN*/
-s_sfs_error_msg[1] = "Đánh bài không hợp lệ";
-s_sfs_error_msg[2] = "Bạn không phải chủ phòng";
-s_sfs_error_msg[3] = "Không đủ người chơi để bắt đầu";
-s_sfs_error_msg[4] = "Bạn phải đánh quân bài nhỏ nhất";
-s_sfs_error_msg[5] = "Bạn không thể bỏ lượt";
-s_sfs_error_msg[6] = "Người chơi chưa sẵn sàng";
-s_sfs_error_msg[7] = "Bạn chưa đến lượt";
-s_sfs_error_msg[8] = "Bạn không có 4 đôi thông";
-s_sfs_error_msg[9] = "Bạn không có đủ tiền";
-
-/*PHOM*/
-s_sfs_error_msg[61] = "Không thể ăn bài";
-s_sfs_error_msg[62] = "Không thể hạ bài";
-s_sfs_error_msg[63] = "Không thể gửi bài";
-s_sfs_error_msg[64] = "Không thể bốc bài";
 
 var GameController = cc.Class.extend({
     ctor : function () {
@@ -27,14 +11,16 @@ var GameController = cc.Class.extend({
     initWithView : function (view) {
         this._view = view;
         SmartfoxClient.getInstance().addListener(socket.SmartfoxClient.SocketStatus, this.onSmartfoxSocketStatus, this);
-        SmartfoxClient.getInstance().addListener(socket.SmartfoxClient.UserExitRoom, this.onUserExitRoom, this);
+        SmartfoxClient.getInstance().addListener(socket.SmartfoxClient.UserExitRoom, this.onSmartfoxUserExitRoom, this);
         SmartfoxClient.getInstance().addListener(socket.SmartfoxClient.CallExtension, this.onSFSExtension, this);
-        SmartfoxClient.getInstance().addListener(socket.SmartfoxClient.GenericMessage, this.onRecvChatMessage, this);
+        SmartfoxClient.getInstance().addListener(socket.SmartfoxClient.GenericMessage, this.onSmartfoxRecvChatMessage, this);
         LobbyClient.getInstance().addListener("getLastSessionInfo", this.onGetLastSessionInfo, this);
     },
 
     releaseController : function () {
         SmartfoxClient.getInstance().removeListener(this);
+        LobbyClient.getInstance().removeListener(this);
+        this._view = null;
     },
 
     onSmartfoxSocketStatus : function (type, eventName) {
@@ -44,12 +30,73 @@ var GameController = cc.Class.extend({
         }
     },
 
-    onUserExitRoom : function (messageType, contents) {
+    onSmartfoxUserExitRoom : function (messageType, contents) {
         if(PlayerMe.SFS.userId ==  contents.u){
             this._view.exitToLobby();
         }
     },
 
+    onSmartfoxRecvChatMessage : function (event, data) {
+        this._view.onChatMessage(data.p.userName, data.m);
+    },
+
+    onSFSExtension : function (messageType, content) {
+        if(content.c == "ping"){
+            SmartfoxClient.getInstance().sendExtensionRequestCurrentRoom("ping", null);
+        }
+        else if(content.c == "0"){ //update gold
+            this.onUpdateGold(content.p);
+        }
+        else if(content.c == "1"){ //startGame
+            this.onJoinRoom(content.p);
+        }
+        else if (content.c == "13"){//reconnect
+            this.onReconnect(content.p);
+        }
+        else if (content.c == "2"){ //user joinRoom
+            this.onUserJoinRoom(content.p);
+        }
+        else if (content.c == "9"){ //user exit
+            this.onUserExit(content.p);
+        }
+        else if(content.c == "11"){ // update owner
+            this.onUpdateOwner(content.p.u);
+        }
+        else if(content.c == "19"){ // exit room
+           this.onExitGame(content.p);
+        }
+        else if(content.c == "___err___"){ //error chem
+            this.onError(content.p);
+        }
+
+        if(this._view.onSFSExtension){
+            this._view.onSFSExtension(messageType, content);
+        }
+    },
+
+    onJoinRoom : function (params) {
+        this._processPlayerPosition(params["5"]);
+    },
+
+    onReconnect : function(params){
+        this._processPlayerPosition(params["1"]["5"]);
+    },
+
+    onUpdateOwner : function (params) {
+        if(PlayerMe.username == params.u){
+            this.isOwnerMe = true;
+        }
+        else{
+            this.isOwnerMe = false;
+        }
+    },
+
+    onUpdateGold : function (params) {
+        this._view.updateGold(params.u, params["2"]);
+        if(params.u == PlayerMe.username){
+            PlayerMe.gold = parseInt(params["2"]);
+        }
+    },
     onUserJoinRoom : function (p) {
         var userInfo = {
             index: p["4"],
@@ -58,70 +105,33 @@ var GameController = cc.Class.extend({
         };
         this._view.userJoinRoom(userInfo);
     },
-
-    onSFSExtension : function (messageType, content) {
-        if(content.c == "ping"){
-            SmartfoxClient.getInstance().sendExtensionRequestCurrentRoom("ping", null);
+    onUserExit : function (params) {
+        if(params.u != PlayerMe.username){
+            this._view.userExitRoom(params.u);
         }
-        else if(content.c == "0"){ //update gold
-            this._view.updateGold(content.p.u, content.p["2"]);
-            if(content.p.u == PlayerMe.username){
-                PlayerMe.gold = parseInt(content.p["2"]);
-            }
+    },
+    onExitGame : function (param) {
+        this._view.updateRegExitRoom(param["1"]);
+        if(param["1"]){
+            MessageNode.getInstance().show("Bạn đã đăng ký thoát phòng thành công !");
         }
-        else if(content.c == "1"){ //startGame
-            this.processPlayerPosition(content);
+        else{
+            MessageNode.getInstance().show("Bạn đã hủy đăng ký thoát phòng thành công !");
         }
-        else if (content.c == "2"){ //user joinRoom
-            this.onUserJoinRoom(content.p);
+    },
+    onError : function (params) {
+        // this.onError(content.p);
+        var ec = params.code;
+        var msg = s_sfs_error_msg[ec];
+        if(msg){
+            this._view.showErrorMessage(msg);
         }
-        else if (content.c == "9"){ //user exit
-            if(content.p.u != PlayerMe.username){
-                this._view.userExitRoom(content.p["u"]);
-            }
-        }
-        else if (content.c == "13"){//reconnect
-            this.processPlayerPosition(content);
-        }
-        else if(content.c == "11"){ // update owner
-            this.updateOwner(content.p.u);
-        }
-        else if(content.c == "19"){ // exit room
-            this._view.updateRegExitRoom(content.p["1"]);
-            if(content.p["1"]){
-                MessageNode.getInstance().show("Bạn đã đăng ký thoát phòng thành công !");
-            }
-            else{
-                MessageNode.getInstance().show("Bạn đã hủy đăng ký thoát phòng thành công !");
-            }
-        }
-        else if(content.c == "___err___"){ //error chem
-           // this.onError(content.p);
-            var ec = content.p.code;
-            var msg = s_sfs_error_msg[ec];
-            if(msg){
-                this._view.showErrorMessage(msg);
-            }
-            else{
-                this._view.showErrorMessage("Mã lỗi không xác định[" + ec + "]");
-            }
-        }
-
-        if(this._view.onSFSExtension){
-            this._view.onSFSExtension(messageType, content);
+        else{
+            this._view.showErrorMessage("Mã lỗi không xác định[" + ec + "]");
         }
     },
 
-    processPlayerPosition : function (content) {
-        var players = null;
-        if(content.c == "1"){ //startGame
-            players = content.p["5"];
-        }
-        else if (content.c == "13"){//reconnect
-            players = content.p["1"]["5"];
-        }
-
-
+    _processPlayerPosition : function (players) {
         //find me
         var meIndex = 0;
         this.isSpectator = false;
@@ -185,6 +195,7 @@ var GameController = cc.Class.extend({
         this.updateOwner(ownerPlayer);
     },
 
+    //lobby client
     onGetLastSessionInfo : function (command, eventData) {
         var info = eventData.data.lastSessionInfo;
         if(info){
@@ -200,18 +211,6 @@ var GameController = cc.Class.extend({
         this._view.exitToLobby();
     },
 
-    onRecvChatMessage : function (event, data) {
-        this._view.onChatMessage(data.p.userName, data.m);
-    },
-
-    updateOwner : function (username) {
-        if(PlayerMe.username == username){
-            this.isOwnerMe = true;
-        }
-        else{
-            this.isOwnerMe = false;
-        }
-    },
     //request
     requestQuitRoom : function () {
         SmartfoxClient.getInstance().sendExtensionRequest(PlayerMe.SFS.roomId,"19", null);

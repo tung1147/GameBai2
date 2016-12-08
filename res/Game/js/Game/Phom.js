@@ -532,7 +532,7 @@ var Phom = IGameScene.extend({
         player2.addChild(player2.trashCards);
         player2.addChild(player2.dropCards);
         this.sceneLayer.addChild(player2, 1);
-        this.sceneLayer.addChild(player1, 1);
+       // this.sceneLayer.addChild(player1, 1);
         player2.chatView.setAnchorPoint(cc.p(0.0,1.0));
 
         var player3 = new GamePlayer();

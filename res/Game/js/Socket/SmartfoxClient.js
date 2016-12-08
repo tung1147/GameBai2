@@ -313,6 +313,8 @@ var SmartfoxClient = (function () {
                         gameScene = new TLMNSolo();
                     else if (gameType == "sam_solo")
                         gameScene = new SamSolo();
+                    else if (gameType == "ShakeDisk")
+                        gameScene = new XocDiaScene();
                     if (gameScene) {
                         LoadingDialog.getInstance().hide();
                         cc.director.replaceScene(new cc.TransitionFade(0.5, gameScene, cc.color("#000000")));

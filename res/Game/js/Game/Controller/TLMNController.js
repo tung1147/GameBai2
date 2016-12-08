@@ -2,6 +2,17 @@
  * Created by QuyetNguyen on 11/23/2016.
  */
 
+/*TLMN*/
+s_sfs_error_msg[1] = "Đánh bài không hợp lệ";
+s_sfs_error_msg[2] = "Bạn không phải chủ phòng";
+s_sfs_error_msg[3] = "Không đủ người chơi để bắt đầu";
+s_sfs_error_msg[4] = "Bạn phải đánh quân bài nhỏ nhất";
+s_sfs_error_msg[5] = "Bạn không thể bỏ lượt";
+s_sfs_error_msg[6] = "Người chơi chưa sẵn sàng";
+s_sfs_error_msg[7] = "Bạn chưa đến lượt";
+s_sfs_error_msg[8] = "Bạn không có 4 đôi thông";
+s_sfs_error_msg[9] = "Bạn không có đủ tiền";
+
 var TLMNGameController = GameController.extend({
     ctor : function (view) {
         this._super();
@@ -35,13 +46,7 @@ var TLMNGameController = GameController.extend({
 
     onSFSExtension: function (messageType, content) {
         this._super(messageType, content);
-        if (content.c == "1") { //startGame
-            this.onJoinGame(content.p);
-        }
-        else if (content.c == "13") {//reconnect
-            this.onReconnect(content.p);
-        }
-        else if (content.c == "10") {//update status
+        if (content.c == "10") {//update status
             this.onGameStatus(content.p["1"]);
         }
         else if (content.c == "3") { //start game
@@ -76,7 +81,8 @@ var TLMNGameController = GameController.extend({
         this._view.updateCardRemaining(param.u, param["1"]);
     },
 
-    onJoinGame : function (params) {
+    onJoinRoom : function (params) {
+        this._super(params);
         this.updateGameInfo(params);
 
         var userInfo = params["5"];
@@ -86,6 +92,8 @@ var TLMNGameController = GameController.extend({
     },
 
     onReconnect: function (params) {
+        this._super(params);
+
         this.updateGameInfo(params["1"]);
 
         var status = params["1"]["1"];
@@ -110,9 +118,17 @@ var TLMNGameController = GameController.extend({
         }
     },
 
-    onUserJoinRoom : function (p) {
-        this._super(p);
-        this._view.updateCardRemaining(p.u, 0);
+    onUserJoinRoom : function (param) {
+        this._super(param);
+        this._view.updateCardRemaining(param.u, 0);
+    },
+
+    onUpdateOwner : function (params) {
+        this._super(params);
+
+        if (this.gameStatus == 1 && this.isOwnerMe) {
+            this._view.setStartBtVisible(true);
+        }
     },
 
     updateGameInfo : function (params) {
@@ -276,12 +292,7 @@ var TLMNGameController = GameController.extend({
 
         this._view.showFinishedDialog(player);
     },
-    updateOwner : function (username) {
-       this._super(username);
-       if (this.gameStatus == 1 && this.isOwnerMe) {
-            this._view.setStartBtVisible(true);
-       }
-    },
+
     /* request */
     sendStartRequest: function () {
         SmartfoxClient.getInstance().sendExtensionRequestCurrentRoom("3", null);

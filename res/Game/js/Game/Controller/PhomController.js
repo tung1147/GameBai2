@@ -2,6 +2,12 @@
  * Created by QuyetNguyen on 11/23/2016.
  */
 
+/*PHOM*/
+s_sfs_error_msg[61] = "Không thể ăn bài";
+s_sfs_error_msg[62] = "Không thể hạ bài";
+s_sfs_error_msg[63] = "Không thể gửi bài";
+s_sfs_error_msg[64] = "Không thể bốc bài";
+
 var PhomController = GameController.extend({
     ctor: function (view) {
         this._super();
@@ -35,14 +41,7 @@ var PhomController = GameController.extend({
     onSFSExtension: function (messageType, content) {
         this._super(messageType, content);
         cc.log("mysfs : " + JSON.stringify(content));
-        if (content.c == "1") { // startGame
-            this.onGameStatus(content.p["1"]);
-            this.timeTurn = content.p["7"];
-        }
-        else if (content.c == "13") {//reconnect
-            this.onReconnect(content.p);
-        }
-        else if (content.c == "10") {//update status
+        if (content.c == "10") {//update status
             this.onGameStatus(content.p["1"]);
         }
         else if (content.c == "3") { //start game
@@ -104,7 +103,14 @@ var PhomController = GameController.extend({
         }
     },
 
+    onJoinRoom : function (params) {
+        this._super(params);
+        this.onGameStatus(params["1"]);
+        this.timeTurn = params["7"];
+    },
+
     onReconnect: function (param) {
+        this._super(param);
         //this._view.onReconnect(param);
         var userData = param["1"]["5"];
 
