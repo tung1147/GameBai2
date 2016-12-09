@@ -421,6 +421,7 @@ var MiniPokerScene = MiniGameScene.extend({
             this.cardSprites[index].runAction(new cc.Sequence(move1, move2));
         }
     },
+
     setRolling: function (isRolling) {
         this.rolling = isRolling;
     }

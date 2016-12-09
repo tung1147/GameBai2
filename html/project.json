@@ -94,6 +94,7 @@
         "res/Game/js/MiniGame/Controller/MiniGameController.js",
         "res/Game/js/MiniGame/Controller/CaoThapController.js",
         "res/Game/js/MiniGame/Controller/MiniPokerController.js",
+        "res/Game/js/MiniGame/Controller/VideoPokerController.js",
         "res/Game/js/MiniGame/MiniGameScene.js",
         "res/Game/js/MiniGame/CaoThapScene.js",
         "res/Game/js/MiniGame/MiniPockerScene.js",

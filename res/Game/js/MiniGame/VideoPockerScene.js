@@ -64,29 +64,29 @@ var VideoPockerScene = MiniGameScene.extend({
     ctor: function () {
         this._super();
 
-        this.delta = 0;
         this.baseCardHeight = 0;
         this.cardHeight = 0;
         this.rollHeight = 0;
         this.rolling = false;
         this.rewardFund = [];
         this.cardLayoutMargin = (870 * cc.winSize.screenScale - 590) / 6 + 115 - 80 * cc.winSize.screenScale;
-        this.turnstate = 0;
+        this.turnState = 0;
         this.rewardGroup = [];
         this.activeReward = {};
         this.rewardCardSprites = [];
+        this.cards = [];
+        for (var i = 0; i < 5; i++)
+            this.cards.push({rolling: false});
 
         this.initAvatarMe();
         this.initButton();
         this.initChip(cc.winSize.width / 2 + 167 * cc.winSize.screenScale);
 
-        this.cards = [];
         this.holdLayers = [];
         this.holdingList = [false, false, false, false, false];
 
         this.initScene();
         this.initRewards();
-        this.genCards();
 
         var thiz = this;
         cc.eventManager.addListener({
@@ -113,210 +113,10 @@ var VideoPockerScene = MiniGameScene.extend({
                 return false;
             }
         }, this);
-        LobbyClient.getInstance().addListener("miniGame", this.onSocketMessage, this);
-        LobbyClient.getInstance().addListener("changeAsset", this.onSocketMessage, this);
     },
-    onSocketMessage: function (command, data) {
-        data = data["data"];
-        if (command == "changeAsset"){
-            this.onChangeAssets();
-            return;
-        }
-        var thiz = this;
-        switch (data["cmd"]) {
-            case 717:// thong tin hu thuong
-                var rewardFundArray = data["1"];
-                if (rewardFundArray.length < 3)
-                    return;
-                this.rewardFund = rewardFundArray;
-                this.updateRewardFund();
-                break;
 
-            case 711: //nhan thong tin 5 la dau tien
-                var gameId = data["0"];
-                var cards = data["1"];
-                var suggestion = data["2"]["1"];
-                setTimeout(function () {
-                    thiz.genCards(cards);
-                    thiz.turnstate = 1;
-
-                    //stop rolling
-                    var index = 0;
-                    var rollingInterval = setInterval(function () {
-                        while (index < 5 && thiz.holdingList[index])
-                            index++;
-                        thiz.cardSprites[index].visible = true;
-                        thiz.cardRollingSprites[index].visible = false;
-                        thiz.cardRollingSprites[index + 5].visible = false;
-                        thiz.cardRollingSprites[index + 10].visible = false;
-                        thiz.cards[index].rolling = false;
-
-                        var basex = thiz.cardSprites[index].getPositionX();
-                        var basey = thiz.cardSprites[index].getPositionY();
-
-                        var duration = 0.1;
-                        var move1 = new cc.MoveTo(duration, cc.p(basex, basey - 20));
-                        var move2 = new cc.MoveTo(duration, cc.p(basex, basey));
-
-                        if (!thiz.holdingList[index])
-                            thiz.cardSprites[index].runAction(new cc.Sequence(move1, move2));
-                        index++;
-                        if (index >= 5) {
-                            thiz.rolling = false;
-                            this.turnstate = 1;
-                            thiz.setQuayBtnState(false, false);
-                            clearInterval(rollingInterval);
-
-                            // hold suggestion
-                            for (var i = 0; i < 5; i++) {
-                                if ((suggestion >> i) & 1)
-                                    thiz.holdClick(i);
-                            }
-                        }
-                    }, 500);
-                }, 1200);
-                break;
-
-            case 712: // thong tin 5 la sau khi hold
-                var gameId = data["0"];
-                var cards = data["1"];
-                var rewardCards = data["3"]["1"];
-                var rewardId = data["3"]["3"];
-                var rewardAmount = data["5"];
-
-                setTimeout(function () {
-                    thiz.genCards(cards);
-                    thiz.turnstate = 1;
-
-                    //stop rolling
-                    var index = 0;
-                    var rollingInterval = setInterval(function () {
-                        while (index < 4 && thiz.holdingList[index])
-                            index++;
-                        thiz.cardSprites[index].visible = true;
-                        thiz.cardRollingSprites[index].visible = false;
-                        thiz.cardRollingSprites[index + 5].visible = false;
-                        thiz.cardRollingSprites[index + 10].visible = false;
-                        thiz.cards[index].rolling = false;
-
-                        var basex = thiz.cardSprites[index].getPositionX();
-                        var basey = thiz.cardSprites[index].getPositionY();
-
-                        var duration = 0.1;
-                        var move1 = new cc.MoveTo(duration, cc.p(basex, basey - 20));
-                        var move2 = new cc.MoveTo(duration, cc.p(basex, basey));
-
-                        thiz.cardSprites[index].runAction(new cc.Sequence(move1, move2));
-                        index++;
-                        if (index >= 5) {
-                            thiz.rolling = false;
-                            thiz.setQuayBtnState(false, false);
-                            thiz.resultLabel.setString(rewardAmount);
-                            clearInterval(rollingInterval);
-
-                            if (rewardId == 9) // thua
-                            {
-                                // ket thuc luot choi
-                                thiz.turnstate = 0;
-                                for (var i = 0; i < 5; i++) {
-                                    thiz.holdingList[i] = false;
-                                    thiz.holdLayers[i].visible = false;
-                                    thiz.resultLabel.setString("0");
-                                }
-                            }
-                            else {
-                                // nguoi choi thang, cho phep x2
-                                thiz.turnstate = 2;
-                                thiz.setQuayBtnState(true, false);
-                                thiz.activateReward(rewardId);
-
-                                //hien thi cac la bai an va bo hold
-                                for (var i = 0; i < 5; i++) {
-                                    thiz.rewardCardSprites[i].visible = (rewardCards >> i) & 1;
-                                    thiz.holdingList[i] = false;
-                                    thiz.holdLayers[i].visible = false;
-                                }
-                            }
-                        }
-                    }, 500);
-                }, 1200);
-                break;
-
-            case 715:
-                //ket thuc luot choi
-                thiz.resetBoard();
-                break;
-
-            case 718:
-                //update tien nguoi choi
-                var userGold = data["6"];
-                this.playerMe.setGold(userGold);
-                break;
-
-            case 713:
-                // request x2
-                var rewardGold = data["1"];
-                var cardId = data["2"];
-
-                // hien thi ket qua server tra ve
-                thiz.genCards([cardId, -1, -1, -1, -1]);
-                thiz.turnstate = 3;
-                break;
-
-            case 714:
-                // x2 result
-                var rewardGold = data["1"];
-                var firstCardId = data["2"];
-                var remainCards = data["3"];
-                var selectedPosition = data["4"];
-                var resultId = data["5"];
-                var genArray = [];
-                genArray.push(firstCardId);
-                genArray = genArray.concat(remainCards);
-                thiz.revealCard(genArray, selectedPosition);
-                thiz.resultLabel.setString(cc.Global.NumberFormat1(rewardGold));
-                thiz.turnstate = 4;
-                break;
-
-            case 719:
-                //error
-                MessageNode.getInstance().show("Không đủ tiền để chơi");
-                this.resetBoard();
-                break;
-
-            case 751:
-                // danh sach cao thu
-                var topEarningList = data["607"];
-                for (var i = 0; i < topEarningList.length; i++) {
-                    this.stat_board.addTopEarningEntry(i + 1, topEarningList[i]["609"],
-                        cc.Global.NumberFormat1(topEarningList[i]["608"]));
-                }
-                break;
-
-            case 752:
-                // lich su no hu thuong
-                var rewardFundHistory = data["606"];
-                for (var i = 0; i < rewardFundHistory.length; i++) {
-                    this.stat_board.addRewardFundEntry(rewardFundHistory[i]["600"],
-                        cc.Global.NumberFormat1(rewardFundHistory[i]["601"]),
-                        rewardFundHistory[i]["603"],
-                        cc.Global.NumberFormat1(rewardFundHistory[i]["602"]));
-                }
-                break;
-
-            case 750:
-                // lich su choi
-                var historyList = data["611"];
-                for (var i = 0; i < historyList.length; i++) {
-                    var rewardName = historyList[i]["616"] < 9 ? this.rewardGroup[historyList[i]["616"]].rewardNameLabel.getString()
-                        : "Không ăn";
-                    this.stat_board.addHistoryEntry(historyList[i]["612"],
-                        historyList[i]["614"],
-                        rewardName,
-                        cc.Global.NumberFormat1(historyList[i]["615"]));
-                }
-                break;
-        }
+    initController: function () {
+        this._controller = new VideoPokerController(this);
     },
 
     initScene: function () {
@@ -355,11 +155,11 @@ var VideoPockerScene = MiniGameScene.extend({
         this.sceneLayer.addChild(resultIcon);
 
         var huthuongLabel = new cc.Sprite("#minipoker_huthuong.png");
-        huthuongLabel.setPosition(cc.winSize.width / 2 - 105 * cc.winSize.screenScale, cc.winSize.height / 2 - 140);
+        huthuongLabel.setPosition(cc.winSize.width / 2 - 105 * cc.winSize.screenScale, cc.winSize.height / 2 - 130);
         this.sceneLayer.addChild(huthuongLabel);
 
         var huthuongValueLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_BoldCondensed_36_Glow, "1.000.000", cc.TEXT_ALIGNMENT_CENTER);
-        huthuongValueLabel.setPosition(cc.winSize.width / 2 - 130 * cc.winSize.screenScale, cc.winSize.height / 2 - 175);
+        huthuongValueLabel.setPosition(huthuongLabel.x, huthuongLabel.y - 40);
         this.huThuongValueLabel = huthuongValueLabel;
         this.sceneLayer.addChild(huthuongValueLabel);
 
@@ -440,24 +240,13 @@ var VideoPockerScene = MiniGameScene.extend({
     onEnter: function () {
         this._super();
         this.scheduleUpdate();
-        var msg = {command: 716};
-        LobbyClient.getInstance().send(msg);
-        msg = {command: "getTopUsers", gameType: "Video_Poker"};
-        LobbyClient.getInstance().send(msg);
-        msg = {command: "getExplosiveUsers", gameType: "Video_Poker", skip: "0", limit: "20"};
-        LobbyClient.getInstance().send(msg);
-        msg = {command: "getMiniGameLogs", gameType: "Video_Poker", skip: "0", limit: "20"};
-        LobbyClient.getInstance().send(msg);
     },
     onExit: function () {
         this._super();
         this.unscheduleUpdate();
-        LobbyClient.getInstance().removeListener(this);
-        //clearInterval(this.quayBtInterval);
     },
     update: function (dt) {
-        if (!this.baseCardHeight || !this.cardHeight || this.cards.length < 5
-            || !this.rolling)
+        if (!this.baseCardHeight || !this.cardHeight || !this.rolling)
             return;
         this.rollHeight -= 40;
 
@@ -529,115 +318,53 @@ var VideoPockerScene = MiniGameScene.extend({
         this.sceneLayer.addChild(doijhoachon);
         this.rewardGroup.push(doijhoachon);
     },
-    adjustAdd: function () {
-    },
-    adjustSub: function () {
-    },
-    genCards: function (cardarray) {
-        for (i = 0; i < 5; i++) {
-            var suitArray = [2, 3, 0, 1];
-            var card = {};
-            if (cardarray) {
-                card = {
-                    rank: cardarray[i] != -1 ? ((cardarray[i] + 1) % 13 + 1) : 0,
-                    suit: suitArray[Math.floor(cardarray[i] / 13)],
-                    rolling: false
-                };
-            }
-            else {
-                card = {
-                    rank: 0,
-                    suit: 0,
-                    rolling: false
-                };
-            }
 
-            if (this.cards.length < 5)
-                this.cards.push(card);
-            else {
-                this.cards[i].rank = card.rank;
-                this.cards[i].suit = card.suit;
-            }
-        }
-        for (i = 0; i < 5; i++) {
-            if (this.cards[i].rank == 0) {
-                this.cardSprites[i].setSpriteFrame("gp_card_up.png");
-                continue;
-            }
-            this.cardSprites[i].setSpriteFrame(this.cards[i].rank + s_card_suit[this.cards[i].suit] + ".png");
-        }
-    },
     onQuayBtClick: function () {
-        if (this.rolling || this.turnstate > 2)
+        if (this.rolling)
             return;
-        if (this.turnstate == 0 || this.turnstate == 1)
-            this.rolling = true;
+        var betType = this.chipGroup.chipSelected.chipIndex;
+        switch (this.turnState) {
+            case 0:
+            case 4:
+                this._controller.sendRollRequest(betType);
+                break;
 
-        //reset hold state
-        if (this.turnstate == 0 || this.turnstate == 2) {
-            for (var i = 0; i < 5; i++) {
-                this.holdingList[i] = false;
-                this.holdLayers[i].visible = false;
-                this.rewardCardSprites[i].visible = false;
-            }
-        }
-        if (this.turnstate == 0 || this.turnstate == 1) {
-            this.setQuayBtnState(false, true);
-            for (i = 0; i < 15; i++) {
-                if (this.holdingList[i % 5])
-                    continue;
-                this.cardSprites[i % 5].visible = false;
-                this.cards[i % 5].rolling = true;
-                this.cardRollingSprites[i].visible = true;
-            }
-        }
+            case 1:
+                this._controller.sendNextRollRequest(this.holdingList);
+                break;
 
-        var thiz = this;
-        var msg = {};
-        if (this.turnstate == 0) {
-            msg = {
-                "1": this.chipGroup.chipSelected.chipIndex,
-                command: 710
-            };
+            case 2:
+                this._controller.sendDoubleRequest();
+                break;
         }
-        else if (this.turnstate == 1) { // turn 2
-            var hold = 0;
-            for (var i = 0; i < 5; i++) {
-                hold = hold | (this.holdingList[i] << i);
-            }
-            msg = {
-                "1": hold,
-                command: 712
-            };
-        } else if (this.turnstate == 2) {
-            //request x2
-            msg = {command: 713};
-        }
-        LobbyClient.getInstance().send(msg);
+    },
+    performChangeRewardFund: function (data) {
+        // called when the reward fund is changed or user select another bet amount
+        this._super(data);
+        var betAmountID = this.chipGroup.chipSelected.chipIndex;
+        if (!this.rewardFund || this.rewardFund.length < 3)
+            return;
+        this.huThuongValueLabel.setString(this.rewardFund[betAmountID - 1]["2"]);
     },
     nhanthuongClick: function () {
-        if (this.turnstate == 2) {
-            for (var i = 0; i < 5; i++)
-                this.rewardCardSprites[i].visible = false;
-            var msg = {command: 715};
-            LobbyClient.getInstance().send(msg);
-        }
-        if (this.turnstate == 4) {
-            this.resetBoard();
-        }
+        this._controller.sendGetRewardRequest();
     },
     holdClick: function (holdIndex) {
-        if (this.turnstate == 1) {
-            this.holdingList[holdIndex] = !this.holdingList[holdIndex];
-            this.holdLayers[holdIndex].visible = this.holdingList[holdIndex];
+        if (this.turnState == 1) {
+            this.setHoldCard(holdIndex, !this.holdingList[holdIndex]);
         }
-        else if (this.turnstate == 3) {
+        else if (this.turnState == 3) {
             if (holdIndex == 0)
                 return;
-            var msg = {"1": holdIndex, command: 714};
-            LobbyClient.getInstance().send(msg);
+            this._controller.sendDoubleChoice(holdIndex);
         }
     },
+
+    setHoldCard: function (index, isHold) {
+        this.holdingList[index] = isHold;
+        this.holdLayers[index].visible = isHold;
+    },
+
     initFlashing: function () {
         //add two particle groups
         var quayTopParticle = new cc.Sprite("#quayTopParticle1.png");
@@ -655,13 +382,13 @@ var VideoPockerScene = MiniGameScene.extend({
         //quay particle animation
     },
 
-    setQuayBtnState: function (isX2Enabled, isFlashing) {
+    setFlashing: function (isX2Enabled, isFlashing) {
         this.quayBt.loadTextureNormal(isX2Enabled ? "videoX2Btn.png" : "videoQuayBtn.png",
             ccui.Widget.PLIST_TEXTURE);
         this.quayTopParticle.stopAllActions();
         this.quayBtmParticle.stopAllActions();
         if (isFlashing) {
-            if(isX2Enabled){
+            if (isX2Enabled) {
                 //x2 particle animation
                 var x2TopFrames = [];
                 for (var i = 1; i <= 2; i++) {
@@ -673,9 +400,9 @@ var VideoPockerScene = MiniGameScene.extend({
                 }
                 var x2TopAnimation = cc.Animation.create(x2TopFrames, 0.2, 2);
                 var xtAction = cc.Animate.create(x2TopAnimation);
-              //  xtAction.retain();
+                //  xtAction.retain();
                 var x2TopAction = new cc.RepeatForever(xtAction);
-               // this.x2TopAction.retain();
+                // this.x2TopAction.retain();
 
                 var x2BtmFrames = [];
                 for (var i = 1; i <= 2; i++) {
@@ -687,14 +414,12 @@ var VideoPockerScene = MiniGameScene.extend({
                 }
                 var x2BtmAnimation = cc.Animation.create(x2BtmFrames, 0.2, 2);
                 var xbAction = cc.Animate.create(x2BtmAnimation);
-                //xbAction.retain();
                 var x2BtmAction = new cc.RepeatForever(xbAction);
-                //this.x2BtmAction.retain();
 
                 this.quayTopParticle.runAction(x2TopAction);
                 this.quayBtmParticle.runAction(x2BtmAction);
             }
-            else{
+            else {
                 var quayTopFrames = [];
                 for (i = 1; i <= 2; i++) {
                     var str = "quayTopParticle" + i + ".png";
@@ -721,10 +446,10 @@ var VideoPockerScene = MiniGameScene.extend({
                 var qbAction = cc.Animate.create(quayBtmAnimation);
                 //qbAction.retain();
                 var quayBtmAction = new cc.RepeatForever(qbAction);
-              //  this.quayBtmAction.retain();
+                //  this.quayBtmAction.retain();
 
-                 this.quayTopParticle.runAction(quayTopAction);
-                 this.quayBtmParticle.runAction(quayBtmAction);
+                this.quayTopParticle.runAction(quayTopAction);
+                this.quayBtmParticle.runAction(quayBtmAction);
             }
         }
     },
@@ -751,35 +476,80 @@ var VideoPockerScene = MiniGameScene.extend({
             this.activeReward = {};
         }
     },
-    revealCard: function (genArray, selectedPos) {
-        //this.genCards(genArray);
-        var selectedSprite = new cc.Sprite("#card_selected.png");
-        selectedSprite.setScale(1.05 * cc.winSize.screenScale);
-        selectedSprite.setPosition(this.cardSprites[selectedPos].getPosition());
-        var fadeIn = new cc.FadeIn(0.5);
-        var fadeOut = new cc.FadeOut(0.5);
-        selectedSprite.runAction(new cc.RepeatForever(new cc.Sequence(fadeIn, fadeOut)));
-        this.clippingcards_layout.addChild(selectedSprite);
-        this.selectedSprite = selectedSprite;
 
-        this.genCards(genArray);
-    },
     resetBoard: function () {
-        this.turnstate = 0;
-        this.setQuayBtnState(false, false);
+        this.turnState = 0;
+        this.setFlashing(false, false);
         this.activateReward(11);// deactive reward
-        this.genCards();
         this.resultLabel.setString("0");
-        if (this.selectedSprite instanceof cc.Sprite) {
-            this.selectedSprite.removeFromParent(true);
-            this.selectedSprite = null;
-        }
+
         for (var i = 0; i < 5; i++) {
             this.holdingList[i] = false;
             this.holdLayers[i].visible = false;
+            this.cardSprites[i].setSpriteFrame("gp_card_up.png");
         }
     },
-    rankButtonHandler: function () {
-        this.stat_board.showWithAnimationScale();
+
+    setRolling: function (isRolling) {
+        this.rolling = isRolling;
+    },
+
+    setHoldArray: function (holdArray) {
+        this.holdingList = holdArray;
+        for (var i = 0; i < 5; i++) {
+            this.holdLayers[i].visible = holdArray[i];
+        }
+    },
+
+    setCardArray: function (cardArray) {
+        for (var i = 0; i < cardArray.length; i++) {
+            var card = this.getCardWithId(cardArray[i]);
+            this.cardSprites[i].setSpriteFrame("" + card.rank + s_card_suit[card.suit] + ".png");
+        }
+    },
+
+    showDoubleTurn: function (firstCardId) {
+        var card = this.getCardWithId(firstCardId);
+        this.cardSprites[0].setSpriteFrame("" + card.rank + s_card_suit[card.suit] + ".png");
+        for (var i = 1; i < 5; i++)
+            this.cardSprites[i].setSpriteFrame("gp_card_up.png");
+    },
+
+    setRewardCards: function (indexArray) {
+        for (var i = 0; i < indexArray.length; i++) {
+            this.rewardCardSprites[i].visible = indexArray[i];
+        }
+    },
+
+    setBankValue: function (value) {
+        this.resultLabel.setString(cc.Global.NumberFormat1(value));
+    },
+
+    getCardWithId: function (cardId) {
+        var rankCard = (cardId % 13) + 3;
+        if (rankCard > 13) {
+            rankCard -= 13;
+        }
+        return {
+            rank: rankCard,
+            suit: Math.floor(cardId / 13)
+        };
+    },
+    setRollCard: function (index, isRolling) {
+        for (var i = 0; i < 3; i++) {
+            this.cardRollingSprites[i * 5 + index].visible = isRolling;
+        }
+        this.cardSprites[index].visible = !isRolling;
+        this.cards[index].rolling = isRolling;
+        if (!isRolling) {
+            var duration = 0.1;
+            var basex = this.cardSprites[index].getPositionX();
+            var basey = this.cardSprites[index].getPositionY();
+
+            var move1 = new cc.MoveTo(duration, cc.p(basex, basey - 20));
+            var move2 = new cc.MoveTo(duration, cc.p(basex, basey));
+
+            this.cardSprites[index].runAction(new cc.Sequence(move1, move2));
+        }
     }
 });
