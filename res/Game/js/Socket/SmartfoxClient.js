@@ -250,6 +250,27 @@ var SmartfoxClient = (function () {
                 this.isBlocked = false;
             }
         },
+        _createGameSceneWithGameType : function (gameType) {
+            if (gameType == "tlmn_tudo") {
+                return new TienLen();
+            }
+            else if (gameType == "sam_tudo"){
+                return new Sam();
+            }
+            else if (gameType == "Phom"){
+                return new Phom();
+            }
+            else if (gameType == "tlmn_solo"){
+                return new TLMNSolo();
+            }
+            else if (gameType == "sam_solo"){
+                return new SamSolo();
+            }
+            else if (gameType == "ShakeDisk"){
+                return new XocDiaScene();
+            }
+            return null;
+        },
         prePostEvent: function (messageType, contents) {
             cc.log("messageType : " + messageType);
             cc.log("contents : ", contents);
@@ -301,20 +322,7 @@ var SmartfoxClient = (function () {
                     var gameInfo = contents.p;
                     var gameName = gameInfo["r"];
                     var gameType = gameInfo["g"];
-                    var gameScene = null;
-                    if (gameType == "tlmn_tudo") {
-                        gameScene = new TienLen();
-                    }
-                    else if (gameType == "sam_tudo")
-                        gameScene = new Sam();
-                    else if (gameType == "Phom")
-                        gameScene = new Phom();
-                    else if (gameType == "tlmn_solo")
-                        gameScene = new TLMNSolo();
-                    else if (gameType == "sam_solo")
-                        gameScene = new SamSolo();
-                    else if (gameType == "ShakeDisk")
-                        gameScene = new XocDiaScene();
+                    var gameScene = this._createGameSceneWithGameType(gameType);
                     if (gameScene) {
                         LoadingDialog.getInstance().hide();
                         cc.director.replaceScene(new cc.TransitionFade(0.5, gameScene, cc.color("#000000")));
@@ -329,15 +337,8 @@ var SmartfoxClient = (function () {
                     var gameName = gameInfo["r"];
                     var gameType = gameInfo["g"];
 
-                    var gameScene = null;
-                    if (gameType == "tlmn_tudo") {
-                        gameScene = new TienLen();
-                    }
-                    else if (gameType == "sam_tudo" || gameType == "sam_solo")
-                        gameScene = new Sam();
-                    else if (gameType == "Phom"){
-                        gameScene = new Phom();
-                    }
+                    var gameScene = this._createGameSceneWithGameType(gameType);
+
                     if (gameScene) {
                         cc.director.replaceScene(gameScene);
                     }

@@ -192,7 +192,7 @@ var GameController = cc.Class.extend({
             }
         }
         //this._view.updateOwner(ownerPlayer);
-        this.updateOwner(ownerPlayer);
+        this.onUpdateOwner(ownerPlayer);
     },
 
     //lobby client

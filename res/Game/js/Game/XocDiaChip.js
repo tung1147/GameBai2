@@ -2,6 +2,14 @@
  * Created by QuyetNguyen on 10/5/2016.
  */
 
+var xocdia_chip_color = xocdia_chip_color ||
+    [
+        "#ffffff",
+        "#ffffff",
+        "#ffffff",
+        "#ffffff"
+    ];
+
 var XocDiaChip = ChipButton.extend({
     ctor : function (index) {
         this._super();
@@ -15,6 +23,7 @@ var XocDiaChip = ChipButton.extend({
         this.selectedSprite = selectedSprite;
 
         var label = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, "50V");
+        label.setColor(cc.color(xocdia_chip_color[index-1]));
         this.addChild(label);
         this.label = label;
 
@@ -51,5 +60,9 @@ var XocDiaChip = ChipButton.extend({
             var moveAction = new cc.MoveTo(0.2, cc.p(this.x, this.originPoint.y));
             this.runAction(new cc.EaseSineOut(moveAction));
         }
+    },
+    
+    setGold : function (gold) {
+        this.label.setString(cc.Global.NumberFormat2(gold));
     }
 });

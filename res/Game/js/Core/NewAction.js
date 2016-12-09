@@ -50,6 +50,24 @@ quyetnd.ActionNumber = cc.CustomAction.extend({
     }
 });
 
+quyetnd.ActionTimeRemaining = cc.CustomAction.extend({
+    ctor : function (duration) {
+        this._super();
+        this._fromNumber = duration;
+        this.initWithDuration(duration);
+    },
+
+    onUpdate : function (dt) {
+        var number = Math.ceil((1.0 - dt) * this._fromNumber);
+        this._target.setString(number.toString());
+    },
+
+    onStartWithTarget : function (target) {
+        this._target = target;
+        this._target.setString(this._fromNumber.toString());
+    }
+});
+
 quyetnd.ActionTimer = cc.CustomAction.extend({
     ctor : function (duration, callback) {
         this._super();

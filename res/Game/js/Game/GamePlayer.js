@@ -217,6 +217,10 @@ var GamePlayerMe = GamePlayer.extend({
         this.goldLabel = goldLabel;
         this.avt = avt;
     },
+    onEnter : function () {
+        this._super();
+        this.setGold(PlayerMe.gold);
+    },
     setEnable : function (enable) {
 
     }
