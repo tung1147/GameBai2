@@ -13,6 +13,7 @@ var UserDialog = Dialog.extend({
         var avt = UserAvatar.createAvatar();
         avt.setPosition(cc.p(this.dialogNode.getContentSize().width/2, 320));
         this.dialogNode.addChild(avt);
+        this.avt = avt;
 
         var userLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_30, "username", cc.TEXT_ALIGNMENT_CENTER);
         userLabel.setDimensions(580, userLabel.getLineHeight());
@@ -32,5 +33,8 @@ var UserDialog = Dialog.extend({
     },
     setGold : function (gold) {
         this.goldLabel.setString(cc.Global.NumberFormat1(gold) +" V");
+    },
+    setAvatar : function (avt) {
+        this.avt.serAvatarId(avt);
     }
 });

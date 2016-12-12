@@ -83,7 +83,7 @@ var GameController = cc.Class.extend({
     },
 
     onUpdateOwner : function (params) {
-        if(PlayerMe.username == params.u){
+        if(PlayerMe.username == params){
             this.isOwnerMe = true;
         }
         else{
@@ -101,7 +101,8 @@ var GameController = cc.Class.extend({
         var userInfo = {
             index: p["4"],
             username: p["u"],
-            gold: p["3"]
+            gold: p["3"],
+            avt : p["avtId"]
         };
         this._view.userJoinRoom(userInfo);
     },
@@ -163,9 +164,11 @@ var GameController = cc.Class.extend({
             if(slot < 0){
                 slot += maxSlot;
             }
+
             this.playerSlot[slot].username = players[i]["u"];
             this.playerSlot[slot].gold = players[i]["3"];
             this.playerSlot[slot].spectator = players[i]["2"];
+            this.playerSlot[slot].avt = players[i]["avtId"];
 
             // this.playerSlot[slot] = {
             //     userIndex : players[i]["4"],

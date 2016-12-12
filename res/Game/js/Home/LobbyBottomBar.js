@@ -148,5 +148,7 @@ var LobbyBottomBar = cc.Node.extend({
         var vip = cc.Global.GetVipMe();
         this.vipLabel.setString("VIP " + vip.level);
         this.vipBar.setPercentage(vip.expPer);
+
+        //this.avatar.
     }
 });

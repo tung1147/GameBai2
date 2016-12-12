@@ -166,6 +166,14 @@ var LobbyClient = (function () {
                 PlayerMe.gold = event["data"]["userAssets"]["gold"];
                // cc.log("Lobbyclient : " + PlayerMe.gold);
             }
+            else if(command === "inventory"){
+                var items = event["data"];
+                for(var i=0;i<items.length;i++){
+                    if(items[i].id == 1){
+                        PlayerMe.avatar = items[i]["avtId"];
+                    }
+                }
+            }
             else if(command === "inboxMessage"){
                 PlayerMe.messageCount = event["data"]["numberMessUnread"];
             }

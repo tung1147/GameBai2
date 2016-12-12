@@ -105,7 +105,15 @@ var GamePlayer = cc.Node.extend({
         var dialog = new UserDialog();
         dialog.setUsername(this.username);
         dialog.setGold(this.gold);
+        if(this.avt){
+            dialog.setAvatar(this.avt.avatarId);
+        }
         dialog.showWithAnimationScale();
+    },
+    setAvatar : function (avtId) {
+        if(this.avt){
+            this.avt.serAvatarId(avtId);
+        }
     },
     runChangeGoldEffect : function (gold) {
         var goldNumber = gold;

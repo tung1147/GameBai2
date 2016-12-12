@@ -23,11 +23,33 @@ var UserListDialog = Dialog.extend({
         this.dialogNode.addChild(listItem);
         this.listItem = listItem;
 
-        for(var i=0;i<30;i++){
-            this.addItem("usernameusernameusernameusernameusernameusernameusername", 1000 + i);
+        SmartfoxClient.getInstance().addListener(socket.SmartfoxClient.CallExtension, this.onSmartfoxExtension, this);
+    },
+    onSmartfoxExtension : function (event, data) {
+        if(this.recvData){
+            return;
+        }
+
+        if(data.c == "18"){
+            var list = data["p"]["1"];
+            for(var i=0;i<list.length;i++){
+                this.addItem(list[i].avtId, list[i].u, parseInt(list[i]["1"]));
+            }
         }
     },
-    addItem : function (username, gold) {
+    onEnter : function () {
+        this._super();
+        var request = {
+
+        };
+        this.recvData = false;
+        SmartfoxClient.getInstance().sendExtensionRequestCurrentRoom("18", request);
+    },
+    onExit : function () {
+        this._super();
+        SmartfoxClient.getInstance().removeListener(this);
+    },
+    addItem : function (avtId, username, gold) {
         var bg1 = ccui.Scale9Sprite.createWithSpriteFrameName("dialob-invite-bg1.png", cc.rect(14,14,4,4));
         bg1.setPreferredSize(cc.size(286, 80));
         bg1.setPosition(bg1.getContentSize().width/2, bg1.getContentSize().height/2);
@@ -37,7 +59,7 @@ var UserListDialog = Dialog.extend({
         container.setContentSize(bg1.getContentSize());
         container.addChild(bg1);
 
-        var avt = UserAvatar.createAvatar();
+        var avt = UserAvatar.createAvatarWithId(avtId);
         avt.setScale(0.7);
         avt.setPosition(40, container.getContentSize().height/2);
         container.addChild(avt);

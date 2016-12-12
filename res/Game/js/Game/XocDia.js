@@ -214,6 +214,10 @@ var XocDiaScene = IGameScene.extend({
         playerButton.setPosition(160, 653);
         this.gameTopBar.addChild(playerButton);
         this.playerButton = playerButton;
+        playerButton.addClickEventListener(function () {
+            var dialog = new UserListDialog();
+            dialog.showWithAnimationMove();
+        });
 
         var userLabel = new cc.LabelBMFont("30", cc.res.font.Roboto_CondensedBold_25);
         userLabel.setColor(cc.color("#ffcf00"));

@@ -1,5 +1,6 @@
 var s_resource = s_resource || [
 	"res/avatar.plist",
+	"res/avatar.png",
 	"res/bg-minigame-1.png",
 	"res/bg_xocdia.png",
 	"res/bigsmall_bg.png",
@@ -87,6 +88,7 @@ var s_resource = s_resource || [
 
 var s_texture = s_texture || [
 	{src:"res/CaoThap.png",plist:"res/CaoThap.plist"},
+	{src:"res/avatar.png",plist:"res/avatar.plist"},
 	{src:"res/Card.png",plist:"res/Card.plist"},
 	{src:"res/dialog.png",plist:"res/dialog.plist"},
 	{src:"res/effectMini.png",plist:"res/effectMini.plist"},

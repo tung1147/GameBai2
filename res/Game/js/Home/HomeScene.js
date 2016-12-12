@@ -12,6 +12,7 @@ var HomeScene = IScene.extend({
         LobbyClient.getInstance().addListener("LobbyStatus", this.onLobbyStatusHandler, this);
         LobbyClient.getInstance().addListener("changeAsset", this.onChangeRefeshUserInfo, this);
         LobbyClient.getInstance().addListener("inboxMessage", this.onChangeRefeshUserInfo, this);
+        LobbyClient.getInstance().addListener("inventory", this.onChangeRefeshUserInfo, this);
         LobbyClient.getInstance().addListener("markReadedMessageInbox", this.onChangeRefeshUserInfo, this);
         LobbyClient.getInstance().addListener("news", this.onNewsMessage, this);
 
