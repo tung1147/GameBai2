@@ -2,6 +2,52 @@
  * Created by Quyet Nguyen on 7/25/2016.
  */
 
+var BaCayCardList = CardList.extend({
+    dealCards: function (cards, animation) {
+        this._super(cards, animation);
+        for (var i = 0; i < this.cardList.length; i++) {
+            this.cardList[i].setSpriteFrame("gp_card_up.png");
+
+            // override select event to reveal card
+            (function (card) {
+                card.setSelected = function (selected, force) {
+                    if (force) {
+                        card.stopAllActions();
+                        card.setPosition(card.origin);
+                    }
+                    if (selected == true) {
+                        card.reveal();
+                    }
+                };
+                card.reveal = function () {
+                    if (card.revealed)
+                        return;
+                    card.revealed = true;
+                    var duration = 0.1;
+                    var oldScaleX = card.scaleX;
+                    var scaleDown = new cc.ScaleTo(duration, 0.0, card.scaleY);
+                    var revealAction = new cc.CallFunc(function () {
+                        card.setSpriteFrame("" + card.rank + s_card_suit[card.suit] + ".png");
+                    });
+                    var scaleUp = new cc.ScaleTo(duration, oldScaleX, card.scaleY);
+
+                    card.runAction(new cc.Sequence(scaleDown, revealAction, scaleUp));
+                }
+            })(this.cardList[i]);
+        }
+    },
+    revealAll: function (cards) {
+        if (cards) {
+            for (var i = 0; i < cards.length; i++) {
+                var card = this.getCardWithId(cards[i]);
+                this.cardList[i].rank = card.rank;
+                this.cardList[i].suit = card.suit;
+            }
+        }
+        for (var j = 0; j < this.cardList.length; j++)
+            this.cardList[j].reveal();
+    }
+});
 
 var BaCay = IGameScene.extend({
     ctor: function () {
@@ -23,16 +69,33 @@ var BaCay = IGameScene.extend({
         stateString.setPosition(cc.winSize.width / 2, cc.winSize.height / 2);
         this.sceneLayer.addChild(stateString);
         this.stateString = stateString;
+
+        var huThuongBg = ccui.Scale9Sprite.createWithSpriteFrameName("bacayhuthuong_bg.png", cc.rect(15, 15, 4, 4));
+        huThuongBg.setPreferredSize(cc.size(322, 47));
+        huThuongBg.setPosition(cc.winSize.width / 2, 525);
+        this.sceneLayer.addChild(huThuongBg);
+
+        var huThuongLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, "HŨ BA CÂY: ");
+        huThuongLabel.setPosition(huThuongBg.x - 75, huThuongBg.y);
+        huThuongLabel.setColor(cc.color("#c1ceff"));
+        this.sceneLayer.addChild(huThuongLabel);
+
+        var huThuongValueLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, "");
+        huThuongValueLabel.setPosition(huThuongBg.x + 60, huThuongBg.y);
+        huThuongValueLabel.setColor(cc.color("#ffde00"));
+        this.sceneLayer.addChild(huThuongValueLabel);
+        this.huThuongValueLabel = huThuongValueLabel;
     },
 
     initPlayer: function () {
         var playerMe = new GamePlayerMe();
         playerMe.setPosition(150, 50.0);
-        playerMe.cardList = new CardList(cc.size(240, 100));
+        playerMe.cardList = new BaCayCardList(cc.size(240, 100));
         playerMe.cardList.setPosition(cc.winSize.width / 2, 100.0);
         playerMe.resultLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, "", cc.TEXT_ALIGNMENT_CENTER);
         playerMe.resultLabel.setColor(cc.color("#8e9bff"));
         playerMe.resultLabel.setPosition(playerMe.cardList.x, playerMe.cardList.y + 90);
+        playerMe.assetChangePos = cc.p(playerMe.resultLabel.x, playerMe.resultLabel.y + 50);
         this.sceneLayer.addChild(playerMe, 1);
         this.sceneLayer.addChild(playerMe.cardList, 2);
         this.sceneLayer.addChild(playerMe.resultLabel, 2);
@@ -60,17 +123,23 @@ var BaCay = IGameScene.extend({
         this.playerView = [playerMe, player1, player2, player3, player4, player5];
 
         for (var i = 1; i < this.playerView.length; i++) {
-            var cardList = new CardList(cc.size(240, 100));
+            var cardList = new BaCayCardList(cc.size(240, 100));
             cardList.setPosition(this.playerView[i].avt.x, this.playerView[i].avt.y - 10);
             cardList.setScale(0.6);
-            this.playerView[i].addChild(cardList);
+            cardList.setTouchEnable(false);
+            this.playerView[i].infoLayer.addChild(cardList);
             this.playerView[i].cardList = cardList;
 
             var resultLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, "", cc.TEXT_ALIGNMENT_CENTER);
             resultLabel.setColor(cc.color("#8e9bff"));
             resultLabel.setPosition(cardList.x, cardList.y - 120);
-            this.playerView[i].addChild(resultLabel);
+            this.playerView[i].infoLayer.addChild(resultLabel);
             this.playerView[i].resultLabel = resultLabel;
+
+            if (i == 1 || i == 2)
+                this.playerView[i].assetChangePos = cc.p(resultLabel.x - 100, resultLabel.y);
+            else
+                this.playerView[i].assetChangePos = cc.p(resultLabel.x + 100, resultLabel.y);
         }
     },
 
@@ -78,6 +147,7 @@ var BaCay = IGameScene.extend({
         var thiz = this;
         var revealBt = new ccui.Button("game-lathetBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
         revealBt.setPosition(cc.winSize.width - 310, 50);
+        revealBt.visible = false;
         this.sceneLayer.addChild(revealBt);
         this.revealBt = revealBt;
 
@@ -90,15 +160,30 @@ var BaCay = IGameScene.extend({
         this._controller.sendRevealCard();
     },
 
+    performAssetChange: function (amount, goldAfter, username) {
+        var slot = this.getSlotByUsername(username);
+        var changeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, "");
+        changeLabel.setString(amount > 0 ? ("+" + amount) : amount);
+        changeLabel.setColor(cc.color(amount > 0 ? "#ffde00" : "#c52829"));
+        changeLabel.setPosition(slot.assetChangePos);
+        if (username == PlayerMe.username)
+            this.sceneLayer.addChild(changeLabel);
+        else
+            slot.addChild(changeLabel);
+
+        slot.setGold(goldAfter);
+        var moveAction = new cc.MoveTo(1.0, slot.assetChangePos.x, slot.assetChangePos.y + 50);
+        var removeAction = new cc.CallFunc(function () {
+            changeLabel.removeFromParent(true);
+        });
+        changeLabel.runAction(new cc.Sequence(moveAction, removeAction));
+    },
+
     revealCards: function (cards, username) {
         var slot = this.getSlotByUsername(username);
         if (slot.revealed)
             return;
-
-        var cardArray = [];
-        for (var i = 0; i < cards.length; i++)
-            cardArray.push(this.getCardWithId(cards[i]));
-        slot.cardList.addNewCard(cardArray);
+        slot.cardList.revealAll(username == PlayerMe.username ? null : cards);
         slot.revealed = true;
     },
 
@@ -115,12 +200,14 @@ var BaCay = IGameScene.extend({
         this._controller = new BaCayController(this);
     },
 
-    dealCardMe: function (cards) {
+    dealCard: function (cards) {
         var cardArray = [];
         for (var i = 0; i < cards.length; i++)
             cardArray.push(this.getCardWithId(cards[i]));
-
         this.playerView[0].cardList.dealCards(cardArray, true);
+
+        for (var j = 1; j < this.playerView.length; j++) // dummy cards for other players
+            this.playerView[j].cardList.dealCards(cardArray, true);
     },
 
     resetBoard: function () {
@@ -131,7 +218,7 @@ var BaCay = IGameScene.extend({
         }
     },
 
-    setStateString : function (str) {
+    setStateString: function (str) {
         this.stateString.setString(str);
     },
 
@@ -144,5 +231,9 @@ var BaCay = IGameScene.extend({
             rank: rankCard,
             suit: Math.floor(cardId / 13)
         };
+    },
+
+    performChangeRewardFund : function (value) {
+        this.huThuongValueLabel.setString(cc.Global.NumberFormat1(value));
     }
 });

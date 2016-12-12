@@ -11,6 +11,9 @@ var BaCayController = GameController.extend({
     onSFSExtension: function (messageType, content) {
         this._super(messageType, content);
         switch (content.c) {
+            case "1":
+                this.onChangeRoomState({1: content.p["1"]});
+                break;
             case "10":
                 this.onChangeRoomState(content.p);
                 break;
@@ -26,10 +29,16 @@ var BaCayController = GameController.extend({
         }
     },
 
+    onJoinRoom: function (param) {
+        this._super(param);
+        var huThuongValue = param["11"]["2"];
+        this._view.performChangeRewardFund(huThuongValue);
+    },
+
     onChangeRoomState: function (param) {
         var roomState = param["1"];
         var remainingTime = param["2"];
-        switch (roomState){
+        switch (roomState) {
             case 0:
                 this._view.setStateString("Đang đợi người chơi");
                 break;
@@ -50,7 +59,7 @@ var BaCayController = GameController.extend({
 
     onDealCard: function (param) {
         var cards = param["1"];
-        this._view.dealCardMe(cards);
+        this._view.dealCard(cards);
     },
 
     onRevealCard: function (param) {
@@ -60,8 +69,7 @@ var BaCayController = GameController.extend({
 
         if (username == PlayerMe.username)
             this._view.setRevealBtVisible(false);
-        else
-            this._view.revealCards(userCards, username);
+        this._view.revealCards(userCards, username);
     },
 
     onGameResult: function (param) {
@@ -86,9 +94,9 @@ var BaCayController = GameController.extend({
             var resultString = data["10"];
             var mostValuableCard = data["8"];
             var username = data["u"];
-            if (username != PlayerMe.username)
-                this._view.revealCards(cardArray, username);
+            this._view.revealCards(cardArray, username);
             this._view.setResultString(resultString, username);
+            this._view.performAssetChange(goldChange, goldAfter, username);
         }
     },
 
