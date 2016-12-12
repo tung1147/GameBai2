@@ -56,6 +56,7 @@ var _get_random_array = function(take, maxSize){
 var XocDiaBettingSlot = cc.Node.extend({
     ctor : function (idx, parentNode) {
         this._super();
+        this._chips = [];
         this._chipNode = new cc.Node();
         this.addChild(this._chipNode);
         this._slotGold = 0;
@@ -75,13 +76,11 @@ var XocDiaBettingSlot = cc.Node.extend({
             slotGoldLabel.setColor(cc.color("#392d2e"));
             slotGoldLabel.setPosition(this.x - this.getContentSize().width/4, this.y - this.getContentSize().height/2 + 25);
             parentNode.addChild(slotGoldLabel,1);
-            this.slotGoldLabel = slotGoldLabel;
 
             var userGoldLabel = new cc.LabelBMFont("1.00.000", cc.res.font.Roboto_CondensedBold_25 );
             userGoldLabel.setColor(cc.color("#392d2e"));
             userGoldLabel.setPosition(this.x + this.getContentSize().width/4, slotGoldLabel.y);
             parentNode.addChild(userGoldLabel,1);
-            this.userGoldLabel = userGoldLabel;
         }
         else{
             var slotGoldLabel = new cc.LabelBMFont("100.000", cc.res.font.Roboto_Condensed_25);
@@ -89,15 +88,15 @@ var XocDiaBettingSlot = cc.Node.extend({
             slotGoldLabel.setPosition(this.x - this.getContentSize().width/4, this.y - this.getContentSize().height/2 + 20);
             slotGoldLabel.setScale(20.0/25.0);
             parentNode.addChild(slotGoldLabel,1);
-            this.slotGoldLabel = slotGoldLabel;
 
             var userGoldLabel = new cc.LabelBMFont("100.000", cc.res.font.Roboto_CondensedBold_25);
             userGoldLabel.setColor(cc.color("#ffde00"));
             userGoldLabel.setPosition(this.x + this.getContentSize().width/4, slotGoldLabel.y);
             userGoldLabel.setScale(20.0/25.0);
             parentNode.addChild(userGoldLabel,1);
-            this.userGoldLabel = userGoldLabel
         }
+        this.slotGoldLabel = slotGoldLabel;
+        this.userGoldLabel = userGoldLabel;
 
         this.reset();
         //
@@ -144,13 +143,14 @@ var XocDiaBettingSlot = cc.Node.extend({
             this.slotGoldLabel.runAction(action);
         }
         else{
+
             this.slotGoldLabel.setString("0");
             this.slotGoldLabel.visible = false;
         }
     },
     setUserGold : function (gold) {
         this._userGold = gold;
-
+        this.userGoldLabel.stopAllActions();
         if(gold>0){
             this.userGoldLabel.visible = true;
             this.userGoldLabel.setOpacity(255);
@@ -230,6 +230,14 @@ var XocDiaScene = IGameScene.extend({
         huyCuocButton.setPosition(datLaiButton.getPosition());
         this.sceneLayer.addChild(huyCuocButton);
         this.huyCuocButton = huyCuocButton;
+
+        var thiz = this;
+        datLaiButton.addClickEventListener(function () {
+            thiz._controller.requestDatlai();
+        })
+        huyCuocButton.addClickEventListener(function () {
+            thiz._controller.requestHuyCuoc();
+        })
     },
     initController : function () {
         this._controller = new XocDiaController(this);
@@ -424,7 +432,7 @@ var XocDiaScene = IGameScene.extend({
         var winSlot = data.winSlot;
         var loseSlot = data.loseSlot;
         this.runAction(new cc.Sequence(
-            new cc.DelayTime(1.0),
+            new cc.DelayTime(3.0),
             new cc.CallFunc(function () {
                 thiz.hideDisk();
 
@@ -605,6 +613,8 @@ var XocDiaScene = IGameScene.extend({
                 }
             })();
         }
+
+        this.bettingSlot[slotId]._chips = [];
     },
 
     resetGame : function () {
@@ -621,11 +631,33 @@ var XocDiaScene = IGameScene.extend({
     },
 
     huyCuocThanhCong : function () {
+        var tagMe = this.chipTagMe;
 
+        for(var i=0;i<this.bettingSlot.length;i++){
+            var chips = this.bettingSlot[i]._chips;
+            for(var j=0;j<chips.length;j++){
+                (function () {
+                    var chip = chips[j];
+                    if(chip.chipTag == tagMe){
+                        //to me
+                        chip.runAction(new cc.Sequence(
+                            new cc.MoveTo(0.5, cc.p(50,50)),
+                            new cc.CallFunc(function () {
+                                chip.removeFromParent(true);
+                            })
+                        ));
+                    }
+                })();
+            }
+            this.bettingSlot[i]._chips = [];
+        }
     },
 
     updateSlotGold : function (slotId, gold) {
         var slot = this.bettingSlot[slotId];
+        if(!slot){
+            cc.log("slot null");
+        }
         slot.setSlotGold(gold);
     },
 

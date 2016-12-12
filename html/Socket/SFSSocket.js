@@ -112,7 +112,12 @@ socket.SmartfoxClient = cc.Class.extend({
             if(requestType == socket.SmartfoxClient.CallExtension){
                 controllerId = 1;
             }
-            var param = JSON.parse(data);
+            if(data){
+                var param = JSON.parse(data);
+            }
+            else{
+                var param = {};
+            }
             var request = {
                 a : requestType,
                 c : controllerId,

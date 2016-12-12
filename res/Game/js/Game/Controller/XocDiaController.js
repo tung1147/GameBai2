@@ -19,8 +19,9 @@ s_sfs_error_msg[102] = "Hủy cái không thành công";
 var XocDiaController = GameController.extend({
     ctor : function (view) {
         this._super();
+        this.bettingSlotCount = 7;
         this.initWithView(view);
-        this.slotGold = [0,0,0,0,0,0,0];
+        this.slotGold = [];
     },
     getMaxSlot : function () {
         return 1;
@@ -109,16 +110,36 @@ var XocDiaController = GameController.extend({
         var allSlot = params["6"];
         for(var i=0; i<allSlot.length; i++){
             this._updateGoldSlot(allSlot[i]["1"], allSlot[i]["2"]);
-            this._view.updateUserGold(allSlot[i]["1"], allSlot[i]["3"])
+            this._view.updateUserGold(allSlot[i]["1"], allSlot[i]["3"]);
         }
+
+        this._view.setHuyCuocButtonVisible(true);
+        this._view.setDatLaiButtonVisible(false);
     },
 
     datLaiThanhCong : function (param) {
+        this._view.setHuyCuocButtonVisible(true);
+        this._view.setDatLaiButtonVisible(false);
+        this._view.datLaiThanhCong();
 
+        var slots = param["6"];
+        for(var i=0;i<slots.length;i++){
+            var slotId = slots[i]["1"];
+            var slotGold = slots[i]["2"];
+            var userGold = slots[i]["3"];
+
+            this._updateGoldSlot(slotId, slotGold);
+            this._view.updateUserGold(slotId, userGold);
+        }
     },
 
     huyCuocThanhCong : function (param) {
-
+        this._view.setHuyCuocButtonVisible(false);
+        this._view.setDatLaiButtonVisible(false);
+        this._view.huyCuocThanhCong();
+        for(var i=0;i<this.bettingSlotCount;i++){
+            this._view.updateUserGold(i, 0);
+        }
     },
 
     //private
@@ -126,7 +147,6 @@ var XocDiaController = GameController.extend({
         for(var i=0;i<chips.length;i++){
             this._view.setChipValue(chips[i]["1"], chips[i]["2"]);
         }
-
     },
 
     _updateStatus : function (statusObj) {
@@ -136,7 +156,7 @@ var XocDiaController = GameController.extend({
         switch (status){
             case 1: //chuẩn bị ván mới
             {
-                this.slotGold = [0,0,0,0,0,0,0];
+                this.slotGold = [];
                 this._view.setTimeRemaining(0, 0);
                 this._view.hideDisk();
                 this._view.resetGame();
@@ -144,7 +164,7 @@ var XocDiaController = GameController.extend({
             }
             case 2: //xóc đĩa
             {
-                this.slotGold = [0,0,0,0,0,0,0];
+                this.slotGold = [];
                 this._view.setTimeRemaining(0, 0);
                 this._view.shakeDisk();
                 this._view.resetGame();
@@ -152,7 +172,7 @@ var XocDiaController = GameController.extend({
             }
             case 3: //đặt cược
             {
-                this.slotGold = [0,0,0,0,0,0,0];
+                this.slotGold = [];
                 this._view.hideDisk();
                 this._view.setTimeRemaining(currentTime, maxTime);
                 break;
@@ -179,7 +199,7 @@ var XocDiaController = GameController.extend({
         for(var i=0;i<tongCuoc.length;i++){
             var slotId = tongCuoc[i]["1"];
             var gold = tongCuoc[i]["2"];
-            if(gold > this.slotGold[slotId]){
+            if(this.slotGold[slotId] != undefined && gold > this.slotGold[slotId]){
                 //cc.log("add fake chip");
                 var chipCount = Math.floor(4 + Math.random() * 4);
                 for(var i=0;i<chipCount;i++){

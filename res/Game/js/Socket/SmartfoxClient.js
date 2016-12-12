@@ -269,6 +269,9 @@ var SmartfoxClient = (function () {
             else if (gameType == "ShakeDisk"){
                 return new XocDiaScene();
             }
+            else if(gameType == "TaiXiu"){
+                return new TaiXiuScene();
+            }
             return null;
         },
         prePostEvent: function (messageType, contents) {
