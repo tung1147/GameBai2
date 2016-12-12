@@ -50,6 +50,26 @@ quyetnd.ActionNumber = cc.CustomAction.extend({
     }
 });
 
+quyetnd.ActionNumber2 = cc.CustomAction.extend({
+    ctor : function (duration, targetNumber) {
+        this._super();
+        this._startNumber = 0;
+        this._targetNumber = targetNumber;
+        this.initWithDuration(duration);
+    },
+
+    onUpdate : function (dt) {
+        var number = Math.floor((this._targetNumber - this._startNumber) * dt + this._startNumber);
+        this._target.setString(cc.Global.NumberFormat2(number));
+    },
+
+    onStartWithTarget : function (target) {
+        this._target = target;
+        var str = this._target.getString().replace(/[.]/g,'');
+        this._startNumber = parseInt(str);
+    }
+});
+
 quyetnd.ActionTimeRemaining = cc.CustomAction.extend({
     ctor : function (duration) {
         this._super();

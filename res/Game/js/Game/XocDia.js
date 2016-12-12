@@ -322,13 +322,37 @@ var XocDiaScene = IGameScene.extend({
 
         var historyBg = new ccui.Scale9Sprite("xocdia_history_bg1.png", cc.rect(4,4,4,4));
         historyBg.setPreferredSize(cc.size((itemSize.width + padding) * col + left, itemSize.height * row + padding * (row+1)));
-        historyBg.setPosition(cc.winSize.width/2, cc.winSize.height - historyBg.getContentSize().height/2);
-        this.sceneLayer.addChild(historyBg);
+        historyBg.setAnchorPoint(cc.p(0,0));
+       // historyBg.setPosition(cc.winSize.width/2, cc.winSize.height - historyBg.getContentSize().height/2);
+       // this.sceneLayer.addChild(historyBg);
+
+        var clippingNode = new ccui.Layout();
+        clippingNode.setClippingEnabled(true);
+        clippingNode.setAnchorPoint(cc.p(0.5, 0.5));
+        clippingNode.setContentSize(historyBg.getContentSize());
+        clippingNode.setPosition(cc.winSize.width/2, cc.winSize.height - clippingNode.getContentSize().height/2);
+        this.sceneLayer.addChild(clippingNode,1);
+        clippingNode.addChild(historyBg);
+        this.historyBg = historyBg;
 
         var historyBt = new ccui.Button("xocdia_history_bt.png","","", ccui.Widget.PLIST_TEXTURE);
         historyBt.setPosition(left/2, historyBg.getContentSize().height/2);
         historyBt.setZoomScale(0.0);
         historyBg.addChild(historyBt);
+        var thiz = this;
+        historyBt.addClickEventListener(function () {
+            thiz.touchHistory();
+        });
+
+        var historyTouch = new ccui.Widget();
+        historyTouch.setAnchorPoint(cc.p(0.0,0.0));
+        historyTouch.setContentSize(historyBg.getContentSize());
+        historyTouch.setTouchEnabled(true);
+        historyBg.addChild(historyTouch);
+        historyTouch.addClickEventListener(function () {
+            thiz.touchHistory();
+        });
+        this.historyTouch = historyTouch;
 
         for(var i=0; i<col; i++){
             for(var j=0; j<row; j++){
@@ -349,14 +373,48 @@ var XocDiaScene = IGameScene.extend({
         this._historyData = [];
     },
 
-    initDisk : function () {
-        var diskLayer = new cc.Node();
-        this.sceneLayer.addChild(diskLayer);
-        this.diskLayer = diskLayer;
+    touchHistory : function () {
+        if(this.historyBg.showed){
+            this.hideHistory();
+        }
+        else{
+            this.showHistory();
+        }
+    },
 
+    showHistory : function () {
+        var thiz = this;
+        var left = 52.0;
+
+        this.historyBg.showed = true;
+        this.historyBg.stopAllActions();
+        this.historyBg.runAction(new cc.Sequence(
+            new cc.MoveTo(0.5, cc.p(0, 0)),
+            new cc.CallFunc(function () {
+                thiz.historyTouch.setTouchEnabled(true);
+            })
+        ));
+    },
+
+    hideHistory : function () {
+        var thiz = this;
+        var left = 52.0;
+        this.historyTouch.setTouchEnabled(false);
+
+        this.historyBg.showed = false;
+        this.historyBg.stopAllActions();
+        this.historyBg.runAction(new cc.Sequence(
+            new cc.MoveTo(0.5, cc.p(this.historyBg.getContentSize().width - left, 0)),
+            new cc.CallFunc(function () {
+
+            })
+        ));
+    },
+
+    initDisk : function () {
         var diskSprite = new cc.Sprite("#xocdia_dia.png");
-        diskSprite.setPosition(cc.winSize.width/2, cc.winSize.height/2);
-        diskLayer.addChild(diskSprite);
+        diskSprite.setPosition(cc.winSize.width/2, cc.winSize.height + 100);
+        this.sceneLayer.addChild(diskSprite);
         this.diskSprite = diskSprite;
 
         var diskNode = new cc.Node();
@@ -364,7 +422,8 @@ var XocDiaScene = IGameScene.extend({
         this.diskNode = diskNode;
 
         var batSprite = new cc.Sprite("#xocdia_bat.png");
-        batSprite.setPosition(diskSprite.getContentSize().width/2, diskSprite.getContentSize().height/2);
+        this.batSpritePosition = cc.p(diskSprite.getContentSize().width/2, diskSprite.getContentSize().height/2);
+        batSprite.setPosition(this.batSpritePosition);
         diskSprite.addChild(batSprite);
         this.batSprite = batSprite;
     },
@@ -379,55 +438,53 @@ var XocDiaScene = IGameScene.extend({
     },
 
     shakeDisk : function () {
-        this.diskLayer.setVisible(true);
+        this.stopAllActions();
         this.diskNode.removeAllChildren(true);
         this.diskSprite.stopAllActions();
         this.batSprite.stopAllActions();
-        this.batSprite.setPosition(this.diskSprite.getContentSize().width/2, this.diskSprite.getContentSize().height/2);
-        this.diskSprite.setPosition(cc.winSize.width/2, cc.winSize.height + this.diskSprite.getContentSize().height/2);
+
+        this.hideHistory();
 
         var thiz = this;
+        this.batSprite.runAction(new cc.MoveTo(1.0, this.batSpritePosition));
         this.diskSprite.runAction(new cc.Sequence(
             new cc.EaseSineOut(new cc.MoveTo(1.0, cc.p(cc.winSize.width/2, cc.winSize.height/2))),
             new cc.DelayTime(0.2),
-            new quyetnd.ActionShake2D(2.0, cc.p(10.0, 10.0))
+            new quyetnd.ActionShake2D(3.0, cc.p(10.0, 10.0))
         ));
     },
 
     hideDisk : function () {
+        this.stopAllActions();
+        this.diskNode.removeAllChildren(true);
         this.diskSprite.stopAllActions();
         this.batSprite.stopAllActions();
-        this.diskLayer.setVisible(false);
+
+        this.showHistory();
+
+        this.diskSprite.runAction(new cc.MoveTo(1.0, cc.p(cc.winSize.width/2, cc.winSize.height + 100)));
+        this.batSprite.runAction(new cc.MoveTo(1.0, this.batSpritePosition));
     },
 
     openDisk : function (data) {
         this.stopAllActions();
-
-        var result = data.result;
-        this.diskLayer.setVisible(true);
         this.diskNode.removeAllChildren(true);
         this.diskSprite.stopAllActions();
         this.batSprite.stopAllActions();
-        this.batSprite.setPosition(this.diskSprite.getContentSize().width/2, this.diskSprite.getContentSize().height/2);
-        this.diskSprite.setPosition(cc.winSize.width/2, cc.winSize.height + this.diskSprite.getContentSize().height/2);
+
+        this.hideHistory();
+
+        var result = data.result;
         this._addResultSprite(result);
-        //
-        var thiz = this;
-        var moveBat = function () {
-            thiz.batSprite.runAction(new cc.Sequence(
-                new cc.EaseSineIn(new cc.MoveBy(1.0, cc.p(0.0, 450.0))),
-                new cc.CallFunc(function () {
-                    thiz._addHistory(result);
-                    thiz._refreshHistory();
-                })
-            ));
-        };
-        this.diskSprite.runAction(new cc.Sequence(
-            new cc.EaseSineOut(new cc.MoveTo(1.0, cc.p(cc.winSize.width/2, cc.winSize.height/2))),
-            new cc.DelayTime(0.2),
-            new cc.CallFunc(moveBat)
+
+        /* mở bát */
+        this.diskSprite.runAction(new cc.EaseSineOut(new cc.MoveTo(1.0, cc.p(cc.winSize.width/2, cc.winSize.height/2))));
+        this.batSprite.runAction(new cc.Sequence(
+            new cc.DelayTime(1.2),
+            new cc.EaseSineIn(new cc.MoveBy(1.0, cc.p(0.0, 450.0)))
         ));
 
+        /* thu tiền */
         var thiz = this;
         var winSlot = data.winSlot;
         var loseSlot = data.loseSlot;

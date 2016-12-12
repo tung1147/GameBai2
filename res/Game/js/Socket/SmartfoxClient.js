@@ -251,25 +251,27 @@ var SmartfoxClient = (function () {
             }
         },
         _createGameSceneWithGameType : function (gameType) {
-            if (gameType == "tlmn_tudo") {
+            PlayerMe.gameType = gameType;
+
+            if (gameType == s_games_chanel[GameType.GAME_TienLenMN]) {
                 return new TienLen();
             }
-            else if (gameType == "sam_tudo"){
+            else if (gameType == s_games_chanel[GameType.GAME_Sam]){
                 return new Sam();
             }
-            else if (gameType == "Phom"){
+            else if (gameType == s_games_chanel[GameType.GAME_Phom]){
                 return new Phom();
             }
-            else if (gameType == "tlmn_solo"){
+            else if (gameType == s_games_chanel[GameType.GAME_TLMN_Solo]){
                 return new TLMNSolo();
             }
-            else if (gameType == "sam_solo"){
+            else if (gameType == s_games_chanel[GameType.GAME_Sam_Solo]){
                 return new SamSolo();
             }
-            else if (gameType == "ShakeDisk"){
+            else if (gameType == s_games_chanel[GameType.GAME_XocDia]){
                 return new XocDiaScene();
             }
-            else if(gameType == "TaiXiu"){
+            else if(gameType == s_games_chanel[GameType.GAME_TaiXiu]){
                 return new TaiXiuScene();
             }
             return null;

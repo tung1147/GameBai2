@@ -286,13 +286,37 @@ var TaiXiuScene = XocDiaScene.extend({
 
         var historyBg = new ccui.Scale9Sprite("xocdia_history_bg1.png", cc.rect(4,4,4,4));
         historyBg.setPreferredSize(cc.size((itemSize.width + padding) * col + left, itemSize.height + padding * 2));
-        historyBg.setPosition(cc.winSize.width/2, cc.winSize.height - historyBg.getContentSize().height/2);
-        this.sceneLayer.addChild(historyBg);
+        historyBg.setAnchorPoint(cc.p(0,0));
+      //  historyBg.setPosition(cc.winSize.width/2, cc.winSize.height - historyBg.getContentSize().height/2);
+       // this.sceneLayer.addChild(historyBg);
+
+        var clippingNode = new ccui.Layout();
+        clippingNode.setClippingEnabled(true);
+        clippingNode.setAnchorPoint(cc.p(0.5, 0.5));
+        clippingNode.setContentSize(historyBg.getContentSize());
+        clippingNode.setPosition(cc.winSize.width/2, cc.winSize.height - clippingNode.getContentSize().height/2);
+        this.sceneLayer.addChild(clippingNode,1);
+        clippingNode.addChild(historyBg);
+        this.historyBg = historyBg;
 
         var historyBt = new ccui.Button("xocdia_history_bt.png","","", ccui.Widget.PLIST_TEXTURE);
         historyBt.setPosition(left/2, historyBg.getContentSize().height/2);
         historyBt.setZoomScale(0.0);
         historyBg.addChild(historyBt);
+        var thiz = this;
+        historyBt.addClickEventListener(function () {
+            thiz.touchHistory();
+        });
+
+        var historyTouch = new ccui.Widget();
+        historyTouch.setAnchorPoint(cc.p(0.0,0.0));
+        historyTouch.setContentSize(historyBg.getContentSize());
+        historyTouch.setTouchEnabled(true);
+        historyBg.addChild(historyTouch);
+        historyTouch.addClickEventListener(function () {
+            thiz.touchHistory();
+        });
+        this.historyTouch = historyTouch;
 
         for(var i=0; i<col; i++){
             var x = left + itemSize.width/2 + (itemSize.width + padding) * i;
