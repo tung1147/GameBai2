@@ -48,12 +48,12 @@ var InviteDialog = Dialog.extend({
         var users = data["users"];
         this.allUsers = [];
         for (var i = 0;i<users.length;i++){
-            this.addItem(users[i]["username"],users[i]["gold"]);
+            this.addItem(users[i]["avtId"], users[i]["username"],users[i]["gold"]);
             this.allUsers.push(users[i]["username"]);
         }
     },
 
-    addItem : function (username, gold) {
+    addItem : function (avtId, username, gold) {
         var bg1 = ccui.Scale9Sprite.createWithSpriteFrameName("dialob-invite-bg1.png", cc.rect(14,14,4,4));
         bg1.setPreferredSize(cc.size(286, 80));
         bg1.setPosition(bg1.getContentSize().width/2, bg1.getContentSize().height/2);
@@ -70,7 +70,7 @@ var InviteDialog = Dialog.extend({
         container.addChild(bg2);
         container.setTouchEnabled(true);
 
-        var avt = UserAvatar.createAvatar();
+        var avt = UserAvatar.createAvatarWithId(avtId);
         avt.setScale(0.7);
         avt.setPosition(40, container.getContentSize().height/2);
         container.addChild(avt);
