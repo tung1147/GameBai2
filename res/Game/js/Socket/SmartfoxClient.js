@@ -274,6 +274,9 @@ var SmartfoxClient = (function () {
             else if(gameType == s_games_chanel[GameType.GAME_TaiXiu]){
                 return new TaiXiuScene();
             }
+            else if(gameType == s_games_chanel[GameType.GAME_BaCay]){
+                return new BaCay();
+            }
             return null;
         },
         prePostEvent: function (messageType, contents) {
