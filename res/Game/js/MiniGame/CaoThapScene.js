@@ -17,8 +17,6 @@ var CaoThapScene = MiniGameScene.extend({
         this.rewardFund = [];
         this.onCooldown = false;
 
-        this.remainingTime = 0;
-
         /*
          turnstate
          0 = chua bat dau
@@ -28,10 +26,6 @@ var CaoThapScene = MiniGameScene.extend({
         this.turnstate = 0;
         this.rolling = false;
         var thiz = this;
-
-        this.turnTimer = setInterval(function () {
-            thiz.onTimer();
-        }, 1000);
 
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -252,8 +246,6 @@ var CaoThapScene = MiniGameScene.extend({
     onExit: function () {
         this._super();
         this.unscheduleUpdate();
-        if (this.turnTimer)
-            clearInterval(this.turnTimer);
     },
     update: function (dt) {
         if (this.rolling) {
@@ -289,6 +281,7 @@ var CaoThapScene = MiniGameScene.extend({
             return;
         this._controller.sendHighPredict();
     },
+
     onLowBtClick: function () {
         if (this._controller.turnState != 1 || this.rolling)
             return;
@@ -303,15 +296,12 @@ var CaoThapScene = MiniGameScene.extend({
     setRolling: function (isRolling) {
         this.rolling = isRolling;
     },
-    onTimer: function () {
-        if (this.turnstate == 1) {
-            this.remainingTime -= 1;
 
-            this.timeLabel.setString("" + Math.floor(this.remainingTime / 60) + " : " + this.remainingTime % 60);
-            if (this.remainingTime <= 0) {
-                Math.random() < 0.5 ? this.onLowBtClick() : this.onHighBtClick();
-            }
-        }
+    setTimeRemaining: function (seconds) {
+        if (seconds > 0)
+            this.timeLabel.setString("" + Math.floor(seconds / 60) + ":" + seconds % 60);
+        else
+            this.timeLabel.setString("");
     },
 
     updateRewardFund: function () {
@@ -357,5 +347,5 @@ var CaoThapScene = MiniGameScene.extend({
     },
     setTipString: function (str) {
         this.tipLabel.setString(str);
-    },
+    }
 });

@@ -16,6 +16,11 @@ var CaoThapController = MiniGameController.extend({
         this.result = -1;
         this.rolling = false;
         this.onCooldown = false;
+        this.timeRemaining = 0;
+        var thiz = this;
+        this.intervalTimer = setInterval(function () {
+            thiz.onTimer();
+        }, 1000);
     },
 
     onSFSExtension: function (messageType, content) {
@@ -25,27 +30,55 @@ var CaoThapController = MiniGameController.extend({
         switch (content.c) {
             case "407": // nhan thong tin la dau tien
                 interval = setInterval(function () {
-                    if (!thiz.onCooldown){
+                    if (!thiz.onCooldown) {
                         thiz.onInitGame(content.p.data);
                         clearInterval(interval);
                     }
-                },100);
+                }, 100);
                 break;
 
             case "408": // nhan ket qua cao thap
                 interval = setInterval(function () {
-                    if (!thiz.onCooldown){
+                    if (!thiz.onCooldown) {
                         thiz.onPredictResult(content.p.data);
                         clearInterval(interval);
                     }
-                },100);
+                }, 100);
                 break;
         }
     },
-    onPredictResult: function (data) {
-        var resultCard = data["8"];
-        var winType = data["9"]; // win(0), same(1), lose(2), bigwin(3)
+
+    onTimer: function () {
+        if (this.turnState == 1 && this.timeRemaining > 0) {
+            this.timeRemaining -= 1;
+            if (this.timeRemaining <= 0) {
+                this._view.setTimeRemaining(0);
+                (Math.random() > 0.5) ? this.sendHighPredict() : this.sendLowPredict();
+            }
+            else
+                this._view.setTimeRemaining(this.timeRemaining);
+        }
+        else
+            this._view.setTimeRemaining(0);
+    },
+
+    processData: function (data) {
+        var gameId = data["1"];
         var bankValue = data["3"];
+        var highReward = data["4"];
+        var lowReward = data["5"];
+        var timeRemaining = data["6"];
+        //this._view.pushKing((resultCard % 13) == 10);
+        this._view.setReward(lowReward, highReward);
+        this._view.setBankValue(bankValue);
+        this.timeRemaining = Math.floor(timeRemaining / 1000);
+        this._view.setTimeRemaining(this.timeRemaining);
+        this.setRolling(false);
+    },
+
+    onPredictResult: function (data) {
+        this.processData(data);
+        var winType = data["9"]; // win(0), same(1), lose(2), bigwin(3)
         switch (winType) {
             case 0: // win
             case 1:
@@ -61,32 +94,31 @@ var CaoThapController = MiniGameController.extend({
                 this.turnState = 1;
                 break;
         }
+        var resultCard = data["8"];
         this._view.showResultCard(resultCard);
+        this._view.pushKing((resultCard % 13) == 10);
+        this.result = resultCard;
+        if (data["7"] == 1) {
+            this.turnState = 1;
+            this.result = data["8"];
+        }
+        else {
+            this.turnState = 2;
+            this.result = -1;
+            this.timeRemaining = 0;
+            this._view.setTimeRemaining(0);
+        }
         this._view.setLuotMoiBtVisible(true);
-        this._view.setBankValue(bankValue);
-        this.turnState = data["7"] == 1 ? 1 : 2;
-        this.result = data["7"] == 1 ? resultCard : -1;
-        this.setRolling(false);
     },
 
     onInitGame: function (data) {
-        var gameId = data["1"];
-        var firstCard = data["2"];
-        var bankValue = data["3"];
-        var highReward = data["4"];
-        var lowReward = data["5"];
-        var timeRemaining = data["6"];
-        var lastTurn = data["7"];
-
+        this.processData(data);
+        var resultCard = data["2"];
+        this._view.showResultCard(resultCard);
+        this._view.pushKing((resultCard % 13) == 10);
+        this.result = resultCard;
         this.turnState = 1;
-        this.result = firstCard;
-        this._view.setBankValue(bankValue);
-        this._view.setReward(lowReward, highReward);
-        this._view.showResultCard(firstCard);
-        this._view.setGameId(gameId);
-        this._view.pushKing((firstCard % 13) == 10);
         this._view.setTipString("Quân tiếp theo cao hơn hay thấp hơn?");
-        this.setRolling(false);
     },
 
     sendInitGame: function (betType) {
@@ -115,7 +147,7 @@ var CaoThapController = MiniGameController.extend({
             var thiz = this;
             setTimeout(function () {
                 thiz.onCooldown = false;
-            },1000);
+            }, 1000);
             this.setRolling(true);
             return true;
         }
@@ -131,10 +163,11 @@ var CaoThapController = MiniGameController.extend({
         SmartfoxClient.getInstance().sendExtensionRequest(-1, "409", null);
         this._view.setTipString("");
         this.turnState = 0;
+        this.setRolling(false);
         this._view.clearTurn();
     },
 
-    sendJoinGame : function () {
+    sendJoinGame: function () {
         SmartfoxClient.getInstance().joinMiniGame(PlayerMe.miniGameInfo.ip, 8888, "404");
     },
 
@@ -142,15 +175,15 @@ var CaoThapController = MiniGameController.extend({
         SmartfoxClient.getInstance().sendExtensionRequest(-1, "405", null);
     },
 
-    sendGetTopRequest : function () {
+    sendGetTopRequest: function () {
         SmartfoxClient.getInstance().sendExtensionRequest(-1, "402", null);
     },
 
-    sendGetExplosionHistory : function () {
-        SmartfoxClient.getInstance().sendExtensionRequest(-1,"403",null);
+    sendGetExplosionHistory: function () {
+        SmartfoxClient.getInstance().sendExtensionRequest(-1, "403", null);
     },
 
-    sendGetUserHistory : function () {
-        SmartfoxClient.getInstance().sendExtensionRequest(-1,"401",null);
+    sendGetUserHistory: function () {
+        SmartfoxClient.getInstance().sendExtensionRequest(-1, "401", null);
     }
 });

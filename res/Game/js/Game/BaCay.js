@@ -9,33 +9,41 @@ var BaCayCardList = CardList.extend({
             this.cardList[i].setSpriteFrame("gp_card_up.png");
 
             // override select event to reveal card
-            (function (card) {
-                card.setSelected = function (selected, force) {
-                    if (force) {
-                        card.stopAllActions();
-                        card.setPosition(card.origin);
-                    }
-                    if (selected == true) {
-                        card.reveal();
-                    }
-                };
-                card.reveal = function () {
-                    if (card.revealed)
-                        return;
-                    card.revealed = true;
-                    var duration = 0.1;
-                    var oldScaleX = card.scaleX;
-                    var scaleDown = new cc.ScaleTo(duration, 0.0, card.scaleY);
-                    var revealAction = new cc.CallFunc(function () {
-                        card.setSpriteFrame("" + card.rank + s_card_suit[card.suit] + ".png");
-                    });
-                    var scaleUp = new cc.ScaleTo(duration, oldScaleX, card.scaleY);
-
-                    card.runAction(new cc.Sequence(scaleDown, revealAction, scaleUp));
-                }
-            })(this.cardList[i]);
+            this.overrideReveal(this.cardList[i]);
         }
     },
+
+    overrideReveal : function (card) {
+        card.setSelected = function (selected, force) {
+            if (force) {
+                card.stopAllActions();
+                card.setPosition(card.origin);
+            }
+            if (selected == true) {
+                card.reveal();
+            }
+        };
+        card.reveal = function () {
+            if (card.revealed)
+                return;
+            card.revealed = true;
+            var duration = 0.1;
+            var oldScaleX = card.scaleX;
+            var scaleDown = new cc.ScaleTo(duration, 0.0, card.scaleY);
+            var revealAction = new cc.CallFunc(function () {
+                card.setSpriteFrame("" + card.rank + s_card_suit[card.suit] + ".png");
+            });
+            var scaleUp = new cc.ScaleTo(duration, oldScaleX, card.scaleY);
+
+            card.runAction(new cc.Sequence(scaleDown, revealAction, scaleUp));
+        }
+    },
+
+    addCard : function (card) {
+        this._super(card);
+        this.overrideReveal(card);
+    },
+
     revealAll: function (cards) {
         if (cards) {
             for (var i = 0; i < cards.length; i++) {
@@ -207,7 +215,21 @@ var BaCay = IGameScene.extend({
         this.playerView[0].cardList.dealCards(cardArray, true);
 
         for (var j = 1; j < this.playerView.length; j++) // dummy cards for other players
-            this.playerView[j].cardList.dealCards(cardArray, true);
+            if (this.playerView[j].username != "")
+                this.playerView[j].cardList.dealCards(cardArray, true);
+    },
+
+    reappearCard: function (cards) {
+        for (var j = 0; j < this.playerView.length; j++)
+            if (this.playerView[j].username != "") {
+                for (var i = 0; i < cards.length; i++) {
+                    var card = this.getCardWithId(cards[i]);
+                    var cardObject = new Card(card.rank, card.suit);
+                    cardObject.setSpriteFrame("gp_card_up.png");
+                    this.playerView[j].cardList.addCard(cardObject);
+                }
+                this.playerView[j].cardList.reOrderWithoutAnimation();
+            }
     },
 
     resetBoard: function () {
@@ -233,7 +255,7 @@ var BaCay = IGameScene.extend({
         };
     },
 
-    performChangeRewardFund : function (value) {
+    performChangeRewardFund: function (value) {
         this.huThuongValueLabel.setString(cc.Global.NumberFormat1(value));
     }
 });

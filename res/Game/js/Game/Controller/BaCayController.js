@@ -72,6 +72,22 @@ var BaCayController = GameController.extend({
         this._view.revealCards(userCards, username);
     },
 
+    onReconnect: function (param) {
+        this._super(param);
+        this._view.resetBoard();
+        this.onChangeRoomState({1: param["1"]["1"], 2: param["1"]["6"]});
+        this._view.reappearCard(param["3"]);
+        this._view.performChangeRewardFund(param["1"]["11"]["2"]);
+        if (param["1"]["4"]) { // game ended
+            var userInfo = param["1"]["5"];
+            for (var i = 0; i < userInfo.length; i++) {
+                var username = userInfo[i]["u"];
+                this._view.revealCards(userInfo[i]["9"],username);
+                this._view.setResultString(userInfo[i]["10"],username);
+            }
+        }
+    },
+
     onGameResult: function (param) {
         var winner = param["u"];
         // var userInfo = [];
