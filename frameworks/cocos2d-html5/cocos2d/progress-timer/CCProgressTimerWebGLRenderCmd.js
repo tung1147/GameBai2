@@ -440,6 +440,12 @@
 
         //    The size of the vertex data is the index from the hitpoint
         //    the 3 is for the m_tMidpoint, 12 o'clock point and hitpoint position.
+
+        /* fix by quyetnd, refesh vert */
+        if(this._node._alwaysRefreshVertext){
+            this._vertexDataCount = 0;
+        }
+
         var sameIndexCount = true;
         if (this._vertexDataCount !== index + 3) {
             sameIndexCount = false;
