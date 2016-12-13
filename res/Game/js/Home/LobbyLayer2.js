@@ -18,10 +18,36 @@ var LobbyLayer = cc.Node.extend({
         LobbyClient.getInstance().addListener("inviteUser", this.onInviteReceived, this);
 
         //
-        this.initListGame();
+        this.initListRoom();
+        this.initListRoomXocDia();
     },
 
-    initListGame : function () {
+    initListRoomXocDia : function () {
+        var roomXocDiaNode = new cc.Node();
+        this.addChild(roomXocDiaNode);
+        this.roomXocDiaNode = roomXocDiaNode;
+
+        var left = 310.0 * cc.winSize.screenScale;
+        var right = cc.winSize.width - 10.0 * cc.winSize.screenScale;
+        var bottom = 144.0;
+        var top = 590.0;
+
+        var listGame = new newui.TableView(cc.size(right - left, top - bottom), 1);
+        listGame.setDirection(ccui.ScrollView.DIR_VERTICAL);
+        listGame.setPadding(20);
+        listGame.setMargin(10,10,0,0);
+        listGame.setBounceEnabled(true);
+        listGame.setScrollBarEnabled(true);
+        listGame.setPosition(left, bottom);
+        roomXocDiaNode.addChild(listGame,1);
+        this.listRoomXocDia = listGame;
+    },
+
+    initListRoom: function () {
+        var roomNode = new cc.Node();
+        this.addChild(roomNode);
+        this.roomNode = roomNode;
+
         var left = 310.0 * cc.winSize.screenScale;
         var right = cc.winSize.width - 10.0 * cc.winSize.screenScale;
         var bottom = 230.0;
@@ -32,25 +58,25 @@ var LobbyLayer = cc.Node.extend({
 
         var thiz = this;
         var mToggle = new ToggleNodeGroup();
-        thiz.addChild(mToggle);
+        roomNode.addChild(mToggle);
         this.mToggle = mToggle;
         this.listGame = [];
 
         var selectedSprite = new ccui.Scale9Sprite("lobby-tabSelected.png", cc.rect(4,4,4,4));
         selectedSprite.setPreferredSize(cc.size(dx, 58));
-        this.addChild(selectedSprite,1);
+        roomNode.addChild(selectedSprite,1);
 
         for(var i=0; i<s_lobby_group_name.length; i++){
             (function () {
                 var icon1 = new cc.Sprite("#lobby-tab"+ (i+1) +".png");
                 icon1.setPosition(x,y);
                 icon1.setScale(cc.winSize.screenScale);
-                thiz.addChild(icon1);
+                roomNode.addChild(icon1);
 
                 var icon2 = new cc.Sprite("#lobby-tabSelected"+ (i+1) +".png");
                 icon2.setPosition(x,y);
                 icon2.setScale(cc.winSize.screenScale);
-                thiz.addChild(icon2);
+                roomNode.addChild(icon2);
 
                 var listGame = new newui.TableView(cc.size(right - left, top - bottom), 4);
                 listGame.setDirection(ccui.ScrollView.DIR_VERTICAL);
@@ -60,7 +86,7 @@ var LobbyLayer = cc.Node.extend({
                 listGame.setScrollBarEnabled(true);
                 listGame.setPosition(left, bottom);
                 listGame.groupName = s_lobby_group_name[i];
-                thiz.addChild(listGame,1);
+                roomNode.addChild(listGame,1);
                 thiz.listGame.push(listGame);
 
                 var toggleItem = new ToggleNodeItem(cc.size(dx, 58.0));
@@ -87,16 +113,28 @@ var LobbyLayer = cc.Node.extend({
             })();
         }
     },
+
     addRoomCell : function (roomList, serverId, roomId, betting, minMoney, userCount) {
-        var roomCell = LobbyRoomCell.createCell(this.maxUsers);
+        if(this.gameId == GameType.GAME_XocDia){
+            var roomCell = new LobbyXocDiaCell();
+        }
+        else if(this.gameId == GameType.GAME_TaiXiu){
+            var roomCell = new LobbyTaiXiuCell();
+        }
+        else{
+            var roomCell = LobbyRoomCell.createCell(this.maxUsers);
+        }
+
+      //  var roomCell = LobbyRoomCell.createCell(this.maxUsers);
+
+
         roomCell.serverId = serverId;
         roomCell.roomId = roomId;
         roomCell.setBetting(betting);
         roomCell.setUserCount(userCount);
         roomList.pushItem(roomCell);
 
-        roomCell.setTouchEnabled(true);
-        roomCell.addClickEventListener(function () {
+        roomCell.addTouchCell(function () {
             if(PlayerMe.gold < minMoney){
                 MessageNode.getInstance().show("Bạn không đủ tiền vào phòng");
             }
@@ -113,29 +151,55 @@ var LobbyLayer = cc.Node.extend({
                 cc.log("join room");
             }
         });
+
+        return roomCell;
     },
-    updateRoomCell : function (roomList, serverId, roomId, userCount) {
+
+    updateRoomCell : function (roomList, serverId, roomId, userCount, metadata) {
         for(var i=0;i<roomList.size();i++){
             var item = roomList.getItem(i);
             if(item.serverId == serverId && item.roomId == roomId){
                 item.setUserCount(userCount);
+                if(metadata){
+                    item.setMetadata(metadata);
+                }
+                return;
             }
         }
     },
+
     getRoomList : function (groupName) {
-        for(var i=0;i<this.listGame.length;i++){
-            if(this.listGame[i].groupName == groupName){
-                return this.listGame[i];
+        if(this.gameId == GameType.GAME_XocDia || this.gameId == GameType.GAME_TaiXiu){
+            return this.listRoomXocDia;
+        }
+        else{
+            for(var i=0;i<this.listGame.length;i++){
+                if(this.listGame[i].groupName == groupName){
+                    return this.listGame[i];
+                }
             }
         }
+
         return null;
     },
-    startGame : function (gameId) {
 
+    startGame : function (gameId) {
+        this.gameId = gameId;
+
+        if(gameId == GameType.GAME_TaiXiu || gameId == GameType.GAME_XocDia){
+            this.roomNode.setVisible(false);
+            this.roomXocDiaNode.setVisible(true);
+        }
+        else{
+            this.roomNode.setVisible(true);
+            this.roomXocDiaNode.setVisible(false);
+        }
     },
+
     startAnimation : function () {
 
     },
+
     onInviteReceived: function (command, data) {
         data = data["data"];
         if (RecvInviteDialog.getInstance().isShow())
@@ -152,11 +216,9 @@ var LobbyLayer = cc.Node.extend({
         RecvInviteDialog.getInstance().setRoomInfo(roomId, host, port);
         RecvInviteDialog.getInstance().showWithAnimationScale();
     },
+
     onUpdateAll : function (cmd, event) {
         console.log(event);
-        for(var i=0; i < this.listGame.length;i++){
-            this.listGame[i].removeAllItems();
-        }
 
         var data = event.data;
         this.maxUsers = data.maxUsers;
@@ -170,7 +232,17 @@ var LobbyLayer = cc.Node.extend({
                 if(roomList){
                     var roomData = groups[i].rooms;
                     for(var j=0; j<roomData.length; j++){
-                        this.addRoomCell(roomList, roomData[j].serverId, roomData[j].roomId, roomData[j].betting, roomData[j].minMoney, roomData[j].userCount);
+                        var serverId = roomData[j].serverId;
+                        var roomId = roomData[j].roomId;
+                        var betting = roomData[j].betting;
+                        var minMoney = roomData[j].minMoney;
+                        var userCount = roomData[j].userCount;
+                        var metadata = roomData[j].metadata;
+
+                        var roomCell = this.addRoomCell(roomList, serverId, roomId, betting, minMoney, userCount);
+                        if(metadata){
+                            roomCell.setMetadata(metadata);
+                        }
                     }
                 }
 
@@ -193,7 +265,7 @@ var LobbyLayer = cc.Node.extend({
                 var roomData = groups[i].rooms;
                 for(var j=0; j<roomData.length; j++){
                     //this.addRoomCell(roomList, roomData[j].serverId, roomData[j].roomId, roomData[j].betting, roomData[j].userCount);
-                    this.updateRoomCell(roomList, roomData[j].serverId, roomData[j].roomId, roomData[j].userCount);
+                    this.updateRoomCell(roomList, roomData[j].serverId, roomData[j].roomId, roomData[j].userCount, roomData[j].metadata);
                 }
             }
 
@@ -206,6 +278,7 @@ var LobbyLayer = cc.Node.extend({
             for(var i=0; i < this.listGame.length;i++){
                 this.listGame[i].removeAllItems();
             }
+            this.listRoomXocDia.removeAllItems();
         }
         else{
             this.mToggle.selectItem(0);
@@ -222,6 +295,7 @@ var LobbyLayer = cc.Node.extend({
         for(var i=0; i < this.listGame.length;i++){
             this.listGame[i].removeAllItems();
         }
+        this.listRoomXocDia.removeAllItems();
         if(this.visible == true){
             LobbyClient.getInstance().unSubscribe();
         }
