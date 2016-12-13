@@ -51,12 +51,7 @@ var CaoThapController = MiniGameController.extend({
     onTimer: function () {
         if (this.turnState == 1 && this.timeRemaining > 0) {
             this.timeRemaining -= 1;
-            if (this.timeRemaining <= 0) {
-                this._view.setTimeRemaining(0);
-                (Math.random() > 0.5) ? this.sendHighPredict() : this.sendLowPredict();
-            }
-            else
-                this._view.setTimeRemaining(this.timeRemaining);
+            this._view.setTimeRemaining(this.timeRemaining > 0 ? this.timeRemaining : 0);
         }
         else
             this._view.setTimeRemaining(0);

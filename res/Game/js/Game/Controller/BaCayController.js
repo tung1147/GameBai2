@@ -114,6 +114,8 @@ var BaCayController = GameController.extend({
             this._view.setResultString(resultString, username);
             this._view.performAssetChange(goldChange, goldAfter, username);
         }
+
+        this._view.setRevealBtVisible(false);
     },
 
     sendRevealCard: function () {
