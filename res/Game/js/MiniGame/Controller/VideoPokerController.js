@@ -172,6 +172,14 @@ var VideoPokerController = MiniGameController.extend({
         SmartfoxClient.getInstance().joinMiniGame(PlayerMe.miniGameInfo.ip, 8888, "260");
     },
 
+    onReconnect:function (param) {
+        var data = param["10"];
+        var gameId = data["1"];
+        var status = data["2"];
+        var bankString = data["3"];
+        if (data["5"]){}
+    },
+
     requestQuitRoom: function () {
         SmartfoxClient.getInstance().sendExtensionRequest(-1, "261", null);
     },

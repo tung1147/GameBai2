@@ -211,10 +211,24 @@ var CaoThapScene = MiniGameScene.extend({
             thiz.onLowBtClick();
         });
     },
-    addHistory: function (data) {
+    addHistory: function (data,force) {
+        var list = this.historyList;
+        var thiz = this;
+
         var duration = 0.5;
         data = this.getCardWithId(data);
         var cardImg = "#" + data.rank + s_card_suit[data.suit] + ".png";
+
+        if (force){
+            list.stopAllActions();
+            list.jumpToTop();
+            list.setPosition(this.historyListMoveTo.x,this.historyListMoveTo.y);
+            list.y = 0;
+            var card = new cc.Sprite(cardImg);
+            card.setScale(thiz.cardScale);
+            list.insertItem(card, 0);
+            return;
+        }
 
         var cardMove = new cc.Sprite(cardImg);
         cardMove.setPosition(this.card.getPosition());
@@ -226,8 +240,6 @@ var CaoThapScene = MiniGameScene.extend({
         this.sceneLayer.addChild(cardMove);
         cardMove.runAction(new cc.Sequence(moveAction, finishAction));
 
-        var list = this.historyList;
-        var thiz = this;
         list.stopAllActions();
         list.jumpToTop();
         var move2 = new cc.MoveTo(duration, this.historyListMoveTo);

@@ -37,6 +37,10 @@ var MiniGameController = cc.Class.extend({
                 this._view.performChangeRewardFund(content.p.data["pbs"]); // thay doi hu thuong
                 break;
 
+            case "262": // reconnect
+                this.onReconnect(content.p);
+                break;
+
             case "100002": // danh sach cao thu
                 this._view.showTopPlayersDialog(content.p.data["1"]);
                 break;
@@ -52,6 +56,10 @@ var MiniGameController = cc.Class.extend({
             case "0": // thay doi vang
                 this.onChangeAssets(content.p["2"], content.p["1"]);
         }
+    },
+
+    onReconnect : function (param) {
+
     },
 
     onChangeAssets: function (gold, changeAmount) {

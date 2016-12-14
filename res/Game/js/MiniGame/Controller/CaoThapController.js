@@ -48,6 +48,35 @@ var CaoThapController = MiniGameController.extend({
         }
     },
 
+    onReconnect: function (param) {
+        var data = param["data"];
+        var gameId = data["2"]["1"];
+        var resultCard = data["2"]["2"];
+        var lowReward = data["2"]["5"];
+        var highReward = data["2"]["4"];
+        this.timeRemaining = Math.floor(data["2"]["6"] / 1000);
+        var gameEnded = data["2"]["7"] != 1;
+        var oldCards = data["3"];
+        var kingCount = data["4"];
+        var betId = data["5"];
+        var bankString = data["6"];
+
+        this._view.setBankValue(parseInt(bankString));
+        this._view.showResultCard(resultCard);
+        this._view.setReward(lowReward, highReward);
+        this._view.setTimeRemaining(this.timeRemaining);
+        this._view.setTipString(gameEnded ? "Bạn chọn sai, chúc bạn may mắn lần sau!" :
+            "Quân tiếp theo cao hơn hay thấp hơn?");
+        this._view.setLuotMoiBtVisible(true);
+        this.turnState = gameEnded ? 2 : 1;
+        this.result = gameEnded ? -1 : resultCard;
+        for (var i = 0; i < oldCards.length - 1; i++)
+            this._view.addHistory(oldCards[i], true);
+
+        for (var i = 0; i < kingCount; i++)
+            this._view.pushKing(true);
+    },
+
     onTimer: function () {
         if (this.turnState == 1 && this.timeRemaining > 0) {
             this.timeRemaining -= 1;
