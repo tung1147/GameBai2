@@ -130,6 +130,13 @@ socket.SmartfoxClient = cc.Class.extend({
     }
 });
 
+socket.SmartfoxClient.NotConnection = 0;
+socket.SmartfoxClient.Connecting = 1;
+socket.SmartfoxClient.Connected = 2;
+socket.SmartfoxClient.ConnectFailure = 3;
+socket.SmartfoxClient.LostConnection = 4;
+socket.SmartfoxClient.Closed = 5;
+
 socket.SmartfoxClient.Handshake = 0;
 socket.SmartfoxClient.Login = 1;
 socket.SmartfoxClient.Logout = 2;

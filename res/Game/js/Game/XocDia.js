@@ -235,6 +235,30 @@ var XocDiaScene = IGameScene.extend({
         this.sceneLayer.addChild(huyCuocButton);
         this.huyCuocButton = huyCuocButton;
 
+        var resultBg1 = new ccui.Scale9Sprite("xocdia_result_bg_1.png", cc.rect(10,10,4,4));
+        resultBg1.setPreferredSize(cc.size(220, 90));
+        resultBg1.setPosition(950, 48);
+        this.sceneLayer.addChild(resultBg1);
+
+        var resultBg2 = new ccui.Scale9Sprite("xocdia_result_bg_2.png", cc.rect(4,0,4,2));
+        resultBg2.setPreferredSize(cc.size(218, 2));
+        resultBg2.setPosition(resultBg1.getPosition());
+        this.sceneLayer.addChild(resultBg2);
+
+        var tongCuocLabal = new ccui.LabelBMFont("Tổng cược : 1000", cc.res.font.Roboto_Condensed_25);
+        tongCuocLabal.setColor(cc.color("#bac2f9"));
+        tongCuocLabal.setPosition(resultBg1.x, resultBg1.y + resultBg1.getContentSize().height/4);
+        tongCuocLabal.setVisible(false);
+        this.sceneLayer.addChild(tongCuocLabal, 1);
+        this.tongCuocLabal = tongCuocLabal;
+
+        var winLabel = new ccui.LabelBMFont("Thắng : 1000", cc.res.font.Roboto_Condensed_25);
+        winLabel.setColor(cc.color("#bac2f9"));
+        winLabel.setPosition(resultBg1.x, resultBg1.y - resultBg1.getContentSize().height/4);
+        winLabel.setVisible(false);
+        this.sceneLayer.addChild(winLabel, 1);
+        this.winLabel = winLabel;
+
         var thiz = this;
         datLaiButton.addClickEventListener(function () {
             thiz._controller.requestDatlai();
@@ -290,28 +314,29 @@ var XocDiaScene = IGameScene.extend({
         var chipGroup = new ChipGroup();
         this.sceneLayer.addChild(chipGroup);
         this.chipGroup = chipGroup;
-        var centerPosition = cc.winSize.width/2;
+        var left = 310.0;
+        var dx = 110.0;
 
         var chip1 = new XocDiaChip(1);
-        chip1.setPosition(centerPosition - 255.0 * cc.winSize.screenScale , 30.0 * cc.winSize.screenScale);
+        chip1.setPosition(left + dx , 30.0 * cc.winSize.screenScale);
         chip1.setScale(cc.winSize.screenScale);
         chip1.originPoint = chip1.getPosition();
         chipGroup.addChip(chip1);
 
         var chip2 = new XocDiaChip(2);
-        chip2.setPosition(centerPosition - 85.0 * cc.winSize.screenScale, chip1.y);
+        chip2.setPosition(chip1.x + dx, chip1.y);
         chip2.setScale(cc.winSize.screenScale);
         chip2.originPoint = chip2.getPosition();
         chipGroup.addChip(chip2);
 
         var chip3 = new XocDiaChip(3);
-        chip3.setPosition(centerPosition + 85.0 * cc.winSize.screenScale, chip1.y);
+        chip3.setPosition(chip2.x + dx, chip1.y);
         chip3.setScale(cc.winSize.screenScale);
         chip3.originPoint = chip3.getPosition();
         chipGroup.addChip(chip3);
 
         var chip4 = new XocDiaChip(4);
-        chip4.setPosition(centerPosition + 255.0 *cc.winSize.screenScale, chip1.y);
+        chip4.setPosition(chip3.x + dx, chip1.y);
         chip4.setScale(cc.winSize.screenScale);
         chip4.originPoint = chip4.getPosition();
         chipGroup.addChip(chip4);
@@ -459,7 +484,7 @@ var XocDiaScene = IGameScene.extend({
     },
 
     hideDisk : function () {
-        this.stopAllActions();
+      //  this.stopAllActions();
         this.diskNode.removeAllChildren(true);
         this.diskSprite.stopAllActions();
         this.batSprite.stopAllActions();
@@ -872,6 +897,26 @@ var XocDiaScene = IGameScene.extend({
         }
         //cc.log(this._historyData);
         this._refreshHistory();
+    },
+
+    setTongCuocLabel : function (gold) {
+        if(gold < 0){
+            this.tongCuocLabal.setVisible(false);
+        }
+        else{
+            this.tongCuocLabal.setVisible(true);
+            this.tongCuocLabal.setString("Tổng cược: " + cc.Global.NumberFormat1(gold));
+        }
+    },
+
+    setWinLabel : function (gold) {
+        if(gold < 0){
+            this.winLabel.setVisible(false);
+        }
+        else{
+            this.winLabel.setVisible(true);
+            this.winLabel.setString("Thắng: " + cc.Global.NumberFormat1(gold));
+        }
     },
 
     updateGold : function (username, gold) {

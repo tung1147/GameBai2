@@ -40,7 +40,7 @@ var LobbyClient = (function () {
                     this.reconnectTimeout -= dt;
                 }
                 else {
-                    this.onRequestTimeout();
+                  //  this.onRequestTimeout();
                     this.isReconnected = false;
                 }
             }
@@ -472,24 +472,24 @@ var LobbyClient = (function () {
             this.isReconnected = true;
             this.connect();
         },
-        onRequestTimeout: function () {
-            LoadingDialog.getInstance().hide();
-            var runningScene = cc.director.getRunningScene();
-            if (runningScene.type == "HomeScene") {
-                if (runningScene.homeLocation != 1) {
-                    runningScene.startHome();
-                }
-                MessageNode.getInstance().show("Hết thời gian kết nối máy chủ");
-            }
-            else {
-                var scene = new HomeScene();
-                scene.startHome();
-                MessageNode.getInstance().showWithParent("Hết thời gian kết nối máy chủ", scene.popupLayer);
-                cc.director.replaceScene(scene);
-            }
-            LobbyClient.getInstance().close();
-            SmartfoxClient.getInstance().close();
-        },
+        // onRequestTimeout: function () {
+        //     LoadingDialog.getInstance().hide();
+        //     var runningScene = cc.director.getRunningScene();
+        //     if (runningScene.type == "HomeScene") {
+        //         if (runningScene.homeLocation != 1) {
+        //             runningScene.startHome();
+        //         }
+        //         MessageNode.getInstance().show("Hết thời gian kết nối máy chủ");
+        //     }
+        //     else {
+        //         var scene = new HomeScene();
+        //         scene.startHome();
+        //         MessageNode.getInstance().showWithParent("Hết thời gian kết nối máy chủ", scene.popupLayer);
+        //         cc.director.replaceScene(scene);
+        //     }
+        //     LobbyClient.getInstance().close();
+        //     SmartfoxClient.getInstance().close();
+        // },
         reconnectSmartfox : function (host, port) {
             if(SmartfoxClient.getInstance().isConnected()){
                 LoadingDialog.getInstance().hide();

@@ -33,9 +33,10 @@ var LobbyLayer = cc.Node.extend({
         var top = 590.0;
 
         var listGame = new newui.TableView(cc.size(right - left, top - bottom), 1);
-        listGame.setDirection(ccui.ScrollView.DIR_VERTICAL);
         listGame.setPadding(20);
         listGame.setMargin(10,10,0,0);
+
+        listGame.setDirection(ccui.ScrollView.DIR_VERTICAL);
         listGame.setBounceEnabled(true);
         listGame.setScrollBarEnabled(true);
         listGame.setPosition(left, bottom);
@@ -86,6 +87,7 @@ var LobbyLayer = cc.Node.extend({
                 listGame.setScrollBarEnabled(true);
                 listGame.setPosition(left, bottom);
                 listGame.groupName = s_lobby_group_name[i];
+                listGame.idx = i;
                 roomNode.addChild(listGame,1);
                 thiz.listGame.push(listGame);
 
@@ -249,6 +251,9 @@ var LobbyLayer = cc.Node.extend({
             }
 
             var roomList = this.getRoomList(data["group"]);
+            if(roomList.idx != undefined){
+                this.mToggle.selectItem(roomList.idx);
+            }
             roomList.runMoveEffect(3000,0.1,0.1);
 
             // if(this.gameId == GameType.GAME_TaiXiu || this.gameId == GameType.GAME_XocDia){

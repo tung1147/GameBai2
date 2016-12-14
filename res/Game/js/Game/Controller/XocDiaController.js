@@ -98,7 +98,8 @@ var XocDiaController = GameController.extend({
     },
 
     finishGame : function (params) {
-       // this._view.hideDisk();
+        this._view.setTongCuocLabel(params["4"]);
+        this._view.setWinLabel(params["1"]);
     },
 
     onDatCuocThanhCong : function (params) {
@@ -130,6 +131,26 @@ var XocDiaController = GameController.extend({
 
             this._updateGoldSlot(slotId, slotGold);
             this._view.updateUserGold(slotId, userGold);
+
+            if(userGold > 0){
+               this._addFakeChip(slotId, userGold);
+            }
+        }
+    },
+
+    _addFakeChip : function(slotId, gold){
+        while(gold > 0){
+            var chipSelected = this._chipValue[0];
+            for(var i=0;i<this._chipValue.length;i++){
+                var chip = this._chipValue[i];
+                if(chip.gold > gold){
+                    break;
+                }
+
+                chipSelected = chip;
+            }
+            gold -= chipSelected.gold;
+            this._view.addChipToSlot(slotId, chipSelected.chipId, 1); //fromMe
         }
     },
 
@@ -144,9 +165,21 @@ var XocDiaController = GameController.extend({
 
     //private
     _updateChipValue : function (chips) {
+        this._chipValue = [];
+
         for(var i=0;i<chips.length;i++){
             this._view.setChipValue(chips[i]["1"], chips[i]["2"]);
+
+            this._chipValue.push({
+                chipId : chips[i]["1"],
+                gold : chips[i]["2"]
+            })
         }
+
+        //sort chip values;
+        this._chipValue.sort(function (a, b) {
+            return (a.gold - b.gold);
+        });
     },
 
     _updateStatus : function (statusObj) {

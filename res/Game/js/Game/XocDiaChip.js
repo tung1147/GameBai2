@@ -22,7 +22,7 @@ var XocDiaChip = ChipButton.extend({
         this.normalSprite = normalSprite;
         this.selectedSprite = selectedSprite;
 
-        var label = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, "50V");
+        var label = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, "50V");
         label.setColor(cc.color(xocdia_chip_color[index-1]));
         this.addChild(label);
         this.label = label;
@@ -37,12 +37,13 @@ var XocDiaChip = ChipButton.extend({
         this.normalSprite.visible = false;
         this.selectedSprite.visible = true;
         this.label.setOpacity(255);
+        var dy = 25.0 ;//* cc.winSize.screenScale;
         if(isForce){
-            this.setPositionY(this.originPoint.y + 40.0);
+            this.setPositionY(this.originPoint.y + dy);
         }
         else{
             this.stopAllActions();
-            var moveAction = new cc.MoveTo(0.2, cc.p(this.x, this.originPoint.y + 40.0 * cc.winSize.screenScale));
+            var moveAction = new cc.MoveTo(0.2, cc.p(this.x, this.originPoint.y + dy));
             this.runAction(new cc.EaseSineOut(moveAction));
         }
 
