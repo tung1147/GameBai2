@@ -15,6 +15,10 @@ var VideoPokerController = MiniGameController.extend({
         this._super(messageType, content);
         var thiz = this;
         switch (content.c) {
+            case "251":
+                this._view.setBankValue(parseInt(content.p["data"]["2"]));
+                break;
+
             case "252": // ket qua luot dau tien
                 this.onFirstRollResult(content.p.data);
                 break;
@@ -96,7 +100,7 @@ var VideoPokerController = MiniGameController.extend({
     onRequestDoubleResult: function (param) {
         var firstCardId = param["1"];
         this._view.showDoubleTurn(firstCardId);
-        this._view.setFlashing(true,false);
+        this._view.setFlashing(true, false);
         this._view.setRewardCards([0, 0, 0, 0, 0]);
         this.setTurnState(3);
     },
@@ -110,8 +114,8 @@ var VideoPokerController = MiniGameController.extend({
         this._view.setBankValue(bankValue);
         console.log(cardArray);
         this.setTurnState(4);
-        this._view.setFlashing(false,false);
-        this._view.setHoldCard(choosenPos,true);
+        this._view.setFlashing(false, false);
+        this._view.setHoldCard(choosenPos, true);
         this._view.setCardArray(cardArray);
     },
 
@@ -119,7 +123,7 @@ var VideoPokerController = MiniGameController.extend({
         if (!this.checkRequestRolling()) return;
         for (var i = 0; i < 5; i++)
             this._view.setRollCard(i, true);
-        this._view.setHoldArray([0,0,0,0,0]);
+        this._view.setHoldArray([0, 0, 0, 0, 0]);
         this._view.setFlashing(false, true);
         SmartfoxClient.getInstance().sendExtensionRequest(-1, "251", {1: betType});
     },
@@ -172,12 +176,40 @@ var VideoPokerController = MiniGameController.extend({
         SmartfoxClient.getInstance().joinMiniGame(PlayerMe.miniGameInfo.ip, 8888, "260");
     },
 
-    onReconnect:function (param) {
-        var data = param["10"];
+    onReconnect: function (param) {
+        var data = param["data"]["10"];
         var gameId = data["1"];
         var status = data["2"];
         var bankString = data["3"];
-        if (data["5"]){}
+        this._view.setBankValue(parseInt(bankString));
+        if (data["5"]) {
+            this.setTurnState(1);
+            this._view.setCardArray(data["5"]);
+            var holdIndexes = data["7"];
+            for (var i = 0; i < 5; i++)
+                this.holdingList[i] = ((holdIndexes >> i) & 1);
+            this._view.setHoldArray(this.holdingList);
+            return;
+        }
+
+        if (data["8"]) {
+            this.setTurnState(2);
+            this._view.setCardArray(data["8"]);
+            var rewardIndexes = data["9"]["1"];
+            var rewardArray = [];
+            for (var i = 0; i < 5; i++)
+                rewardArray.push((rewardIndexes >> i) & 1);
+            this._view.setRewardCards(rewardArray);
+            var rewardId = data["9"]["2"];
+            this._view.activateReward(rewardId);
+            this._view.setFlashing(rewardId < 9,rewardId < 9);
+            return;
+        }
+
+        if (data["10"]) {
+            this.setTurnState(3);
+            this._view.setFlashing(true,false);
+        }
     },
 
     requestQuitRoom: function () {

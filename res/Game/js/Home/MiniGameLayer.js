@@ -183,16 +183,11 @@ var MiniGameLayer = cc.Node.extend({
         }
     },
 
-    onSubscribeMessage: function (command, data) {
-
-    },
-
     onEnter: function () {
         this._super();
         this.miniGameToggle.setCurrentPageIndex(0);
         this.miniGameLayer.setCurrentPageIndex(0);
         this.selectTab(0);
-        LobbyClient.getInstance().addListener("subscribeMiniGame", this.onSubscribeMessage, this);
         LobbyClient.getInstance().send({command: "subscribeMiniGame", gameType: "Mini_Poker"});
         LobbyClient.getInstance().send({command: "subscribeMiniGame", gameType: "Mini_Cao_Thap"});
         LobbyClient.getInstance().send({command: "subscribeMiniGame", gameType: "Video_Poker"});
