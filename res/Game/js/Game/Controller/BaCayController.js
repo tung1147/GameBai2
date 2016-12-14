@@ -11,6 +11,9 @@ var BaCayController = GameController.extend({
     onSFSExtension: function (messageType, content) {
         this._super(messageType, content);
         switch (content.c) {
+            case "100004":
+                this._view.performChangeRewardFund(content.p.data["2"]);
+                break;
             case "1":
                 this.onChangeRoomState({1: content.p["1"]});
                 break;

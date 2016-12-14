@@ -101,7 +101,7 @@ var SmartfoxClient = (function () {
             var content = {
                 r: roomId,
                 c: command,
-                p : params
+                p: params
             };
             this.send(socket.SmartfoxClient.CallExtension, content);
         },
@@ -139,7 +139,7 @@ var SmartfoxClient = (function () {
                 this.connect(host, port);
             }
         },
-        joinMiniGame : function (host, port, joinCommand) {
+        joinMiniGame: function (host, port, joinCommand) {
             var thiz = this;
             this._loginHandler = function () {
                 thiz.sendExtensionRequest(-1, joinCommand, null);
@@ -147,7 +147,7 @@ var SmartfoxClient = (function () {
             //
             if (this.sfsSocket.getStatus() == socket.SmartfoxClient.Connected) {
                 if (this.currentHost == host && this.currentPort == port) {
-                    if(this._loginHandler){
+                    if (this._loginHandler) {
                         this._loginHandler();
                         this._loginHandler = null;
                     }
@@ -165,10 +165,10 @@ var SmartfoxClient = (function () {
             if (this.sfsSocket) {
                 this.currentHost = host;
                 this.currentPort = port;
-                if(cc.sys.isNative){
+                if (cc.sys.isNative) {
                     this.sfsSocket.connect(host, port);
                 }
-                else{
+                else {
                     var url = "ws://" + host + ":" + port + "/websocket";
                     this.sfsSocket.connect(url);
                 }
@@ -250,31 +250,31 @@ var SmartfoxClient = (function () {
                 this.isBlocked = false;
             }
         },
-        _createGameSceneWithGameType : function (gameType) {
+        _createGameSceneWithGameType: function (gameType) {
             PlayerMe.gameType = gameType;
 
             if (gameType == s_games_chanel[GameType.GAME_TienLenMN]) {
                 return new TienLen();
             }
-            else if (gameType == s_games_chanel[GameType.GAME_Sam]){
+            else if (gameType == s_games_chanel[GameType.GAME_Sam]) {
                 return new Sam();
             }
-            else if (gameType == s_games_chanel[GameType.GAME_Phom]){
+            else if (gameType == s_games_chanel[GameType.GAME_Phom]) {
                 return new Phom();
             }
-            else if (gameType == s_games_chanel[GameType.GAME_TLMN_Solo]){
+            else if (gameType == s_games_chanel[GameType.GAME_TLMN_Solo]) {
                 return new TLMNSolo();
             }
-            else if (gameType == s_games_chanel[GameType.GAME_Sam_Solo]){
+            else if (gameType == s_games_chanel[GameType.GAME_Sam_Solo]) {
                 return new SamSolo();
             }
-            else if (gameType == s_games_chanel[GameType.GAME_XocDia]){
+            else if (gameType == s_games_chanel[GameType.GAME_XocDia]) {
                 return new XocDiaScene();
             }
-            else if(gameType == s_games_chanel[GameType.GAME_TaiXiu]){
+            else if (gameType == s_games_chanel[GameType.GAME_TaiXiu]) {
                 return new TaiXiuScene();
             }
-            else if(gameType == s_games_chanel[GameType.GAME_BaCay]){
+            else if (gameType == s_games_chanel[GameType.GAME_BaCay]) {
                 return new BaCay();
             }
             return null;
@@ -302,7 +302,7 @@ var SmartfoxClient = (function () {
                     PlayerMe.SFS.userId = contents.id;
                     var isReconnect = contents.p.isReconnect;
                     if (isReconnect == false) {
-                        if(this._loginHandler){
+                        if (this._loginHandler) {
                             this._loginHandler();
                             this._loginHandler = null;
                         }
@@ -355,7 +355,28 @@ var SmartfoxClient = (function () {
                     // LobbyClient.getInstance().gameChannel = gameType;
                     //  PlayerMe.SFS.gameType = gameType;
                 }
-                else if (contents.c == "fullRoom"){
+                else if (contents.c == "262") { // reconnect
+                    var scene = cc.director.getRunningScene();
+                    if (scene.type == "GameScene") {
+                        return false;
+                    }
+                    var gameScene;
+                    var group = contents.p["group"];
+                    if (group == "mini.caothap") {
+                        gameScene = new CaoThapScene();
+                        PlayerMe.gameType = GameType.MiniGame_CaoThap;
+                    }
+                    else if (group == "mini.videopoker") {
+                        gameScene = new VideoPockerScene();
+                        PlayerMe.gameType = GameType.MiniGame_VideoPoker;
+                    }
+                    if (gameScene) {
+                        gameScene.isReconnect = true;
+                        LoadingDialog.getInstance().hide();
+                        cc.director.replaceScene(gameScene);
+                    }
+                }
+                else if (contents.c == "fullRoom") {
                     // full room
                     LoadingDialog.getInstance().hide();
                     MessageNode.getInstance().show("Room đã đầy");

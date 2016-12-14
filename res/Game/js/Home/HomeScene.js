@@ -146,6 +146,11 @@ var HomeScene = IScene.extend({
         if (data.status == 0) {
             this.userInfo.refreshView();
             this.miniGame.fetchHuThuong();
+
+            // subscribe hu thuon
+            LobbyClient.getInstance().send({command: "subscribeMiniGame", gameType: "Mini_Poker"});
+            LobbyClient.getInstance().send({command: "subscribeMiniGame", gameType: "Mini_Cao_Thap"});
+            LobbyClient.getInstance().send({command: "subscribeMiniGame", gameType: "Video_Poker"});
         }
     },
     onLobbyStatusHandler: function () {

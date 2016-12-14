@@ -117,6 +117,8 @@ var MiniGameScene = IScene.extend({
     onEnter: function () {
         this._super();
         this.chipGroup.selectChipAtIndex(0, true);
+        if(this.isReconnect)
+            return;
         this._controller.sendJoinGame();
     },
 
