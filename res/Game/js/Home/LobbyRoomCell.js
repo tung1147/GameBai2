@@ -15,6 +15,7 @@ var LobbyRoomCell = ccui.Widget.extend({
         this.initSlot(2);
         this.initSlot(4);
         this.initSlot(5);
+        this.initSlot(6);
         this.initSlot(9);
 
         var bettingLabel = new cc.LabelBMFont("1.000.000", cc.res.font.Roboto_CondensedBold_25);
@@ -30,9 +31,11 @@ var LobbyRoomCell = ccui.Widget.extend({
         slotNode.maxSlot = maxSlot;
         slotNode.allSlot = [];
 
-        var emptySprite = new cc.Sprite("#slot-empty-" + maxSlot + ".png");
-        emptySprite.setPosition(this.getContentSize().width/2, this.getContentSize().height/2);
-        slotNode.addChild(emptySprite);
+        for(var i=0;i<maxSlot;i++){
+            var emptySprite = new cc.Sprite("#slot-empty-" + maxSlot + "-" +(i+1)+ ".png");
+            emptySprite.setPosition(this.getContentSize().width/2, this.getContentSize().height/2);
+            slotNode.addChild(emptySprite);
+        }
 
         for(var i=0;i<maxSlot;i++){
             var activeSprite = new cc.Sprite("#slot-active-" + maxSlot +"-" + (i + 1) + ".png");
@@ -281,6 +284,66 @@ LobbyXocDiaCell = ccui.Widget.extend({
         }
     },
 
+    _setTimeRemaining : function (currentTime, maxTime){
+        this.timer.stopAllActions();
+        this.timeLabel.stopAllActions();
+        if(maxTime <= 0.0){
+            this.timeLabel.setColor(cc.color("#ffcf00"));
+            this.timer.setColor(cc.color("#ffcf00"));
+            this.timeLabel.setString("0");
+            this.timer.setPercentage(0.0);
+
+            this.timeLabel.setVisible(false);
+            this.timer.setVisible(false);
+
+            return;
+        }
+
+        this.timeLabel.setVisible(true);
+        this.timer.setVisible(true);
+
+        var timerProgress = 100.0* currentTime / maxTime;
+        this.timer.runAction(new cc.ProgressFromTo(currentTime, timerProgress, 0.0));
+
+        this.timeLabel.runAction(new quyetnd.ActionTimeRemaining(currentTime));
+
+        var thiz = this;
+        if(currentTime > 5){
+            this.timeLabel.setColor(cc.color("#ffcf00"));
+            this.timer.setColor(cc.color("#ffcf00"));
+
+            this.timeLabel.runAction(new cc.Sequence(
+                new cc.DelayTime(currentTime - 5),
+                new cc.CallFunc(function () {
+                    var alertAction = new cc.Sequence(
+                        new cc.TintTo(0.2, 255,0,0),
+                        new cc.TintTo(0.2, 255,207,0)
+                    );
+                    thiz.timeLabel.runAction(new cc.RepeatForever(alertAction));
+                })
+            ));
+
+            this.timer.runAction(new cc.Sequence(
+                new cc.DelayTime(currentTime - 5),
+                new cc.CallFunc(function () {
+                    var alertAction = new cc.Sequence(
+                        new cc.TintTo(0.2, 255,0,0),
+                        new cc.TintTo(0.2, 255,207,0)
+                    );
+                    thiz.timer.runAction(new cc.RepeatForever(alertAction));
+                })
+            ));
+        }
+        else{
+            var alertAction = new cc.Sequence(
+                new cc.TintTo(0.2, 255,0,0),
+                new cc.TintTo(0.2, 255,207,0)
+            );
+            this.timeLabel.runAction(new cc.RepeatForever(alertAction.clone()));
+            this.timer.runAction(new cc.RepeatForever(alertAction));
+        }
+    },
+
     setBetting : function (betting) {
 
     },
@@ -297,6 +360,13 @@ LobbyXocDiaCell = ccui.Widget.extend({
         this.setHistory(data["4"]);
         this.bettingMin.setString(cc.Global.NumberFormat1(data["5"]));
         this.bettingMax.setString(cc.Global.NumberFormat1(data["6"]));
+        var status = data["1"];
+        if(status == 3){
+            this._setTimeRemaining(data["2"] / 1000, data["3"] / 1000);
+        }
+        else{
+            this._setTimeRemaining(0, 0);
+        }
     },
 
     setHistory : function (history) {
