@@ -137,15 +137,17 @@ var SmartfoxClient = (function () {
             this._loginHandler = afterLoginCallback;
 
             if (this.sfsSocket) {
-                if (this.currentHost == host && this.currentPort == port) {
-                    if (this._loginHandler) {
-                        this._loginHandler();
-                        this._loginHandler = null;
+                if(this.sfsSocket.getStatus() == socket.SmartfoxClient.Connected){
+                    if (this.currentHost == host && this.currentPort == port) {
+                        if (this._loginHandler) {
+                            this._loginHandler();
+                            this._loginHandler = null;
+                        }
+                        return;
                     }
-                    return;
-                }
-                else {
-                    this.sfsSocket.close();
+                    else {
+                        this.sfsSocket.close();
+                    }
                 }
 
                 this.currentHost = host;
