@@ -207,7 +207,7 @@ var GameController = cc.Class.extend({
             if(host && port){
                 //LoadingDialog.getInstance().show("Đang kết nối lại máy chủ");
                 this._view.showLoading("Đang kết nối lại máy chủ");
-                SmartfoxClient.getInstance().findAndJoinRoom(host, port);
+                SmartfoxClient.getInstance().connect(host, port);
                 return;
             }
         }

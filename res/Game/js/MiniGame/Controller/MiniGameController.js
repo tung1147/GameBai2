@@ -65,7 +65,7 @@ var MiniGameController = cc.Class.extend({
             var port = info.port;
             if (host && port) {
                 LoadingDialog.getInstance().show("Đang kết nối lại máy chủ");
-                SmartfoxClient.getInstance().findAndJoinRoom(host, port);
+                SmartfoxClient.getInstance().connect(host, port);
                 return;
             }
         }

@@ -49,23 +49,18 @@ var SmartfoxClient = (function () {
             };
             this.send(socket.SmartfoxClient.Login, content);
         },
-        sendFindAndJoinRoom: function () {
-            if (PlayerMe.SFS.roomId) {
-                var params = {
-                    gameType: PlayerMe.gameType,//PlayerMe.SFS.gameType,
-                    betting: PlayerMe.SFS.betting,
-                    roomId: PlayerMe.SFS.roomId
-                };
-                this.sendExtensionRequest(-1, "findAndJoinGame", params);
-                PlayerMe.SFS.roomId = null;
+        _sendFindAndJoinRoom: function (gameType, betting, roomId) {
+            var params = {};
+            if(gameType){
+                params.gameType = gameType;
             }
-            else {
-                var params = {
-                    gameType: PlayerMe.gameType,//PlayerMe.SFS.gameType,
-                    betting: PlayerMe.SFS.betting,
-                };
-                this.sendExtensionRequest(-1, "findAndJoinGame", params);
+            if(betting){
+                params.betting = betting;
             }
+            if(roomId){
+                params.roomId = roomId;
+            }
+            this.sendExtensionRequest(-1, "findAndJoinGame", params);
         },
         sendLogout: function () {
             this.send(socket.SmartfoxClient.Logout, null);
@@ -125,44 +120,34 @@ var SmartfoxClient = (function () {
                 this.sfsSocket.close();
             }
         },
-        findAndJoinRoom: function (host, port) {
-            if (this.sfsSocket.getStatus() == socket.SmartfoxClient.Connected) {
-                if (this.currentHost == host && this.currentPort == port) {
-                    this.sendFindAndJoinRoom();
-                }
-                else {
-                    this.sfsSocket.close();
-                    this.connect(host, port);
-                }
-            }
-            else {
-                this.connect(host, port);
-            }
+        findAndJoinRoom: function (host, port, gameType, betting, roomId) {
+            var thiz = this;
+            this.connect(host,port, function () {
+                thiz._sendFindAndJoinRoom(gameType, betting, roomId);
+            });
         },
         joinMiniGame: function (host, port, joinCommand) {
             var thiz = this;
-            this._loginHandler = function () {
+            this.connect(host,port, function () {
                 thiz.sendExtensionRequest(-1, joinCommand, null);
-            };
-            //
-            if (this.sfsSocket.getStatus() == socket.SmartfoxClient.Connected) {
+            });
+        },
+
+        connect: function (host, port, afterLoginCallback) {
+            this._loginHandler = afterLoginCallback;
+
+            if (this.sfsSocket) {
                 if (this.currentHost == host && this.currentPort == port) {
                     if (this._loginHandler) {
                         this._loginHandler();
                         this._loginHandler = null;
                     }
+                    return;
                 }
                 else {
                     this.sfsSocket.close();
-                    this.connect(host, port);
                 }
-            }
-            else {
-                this.connect(host, port);
-            }
-        },
-        connect: function (host, port) {
-            if (this.sfsSocket) {
+
                 this.currentHost = host;
                 this.currentPort = port;
                 if (cc.sys.isNative) {
@@ -300,15 +285,9 @@ var SmartfoxClient = (function () {
                 }
                 else {
                     PlayerMe.SFS.userId = contents.id;
-                    var isReconnect = contents.p.isReconnect;
-                    if (isReconnect == false) {
-                        if (this._loginHandler) {
-                            this._loginHandler();
-                            this._loginHandler = null;
-                        }
-                        else {
-                            this.sendFindAndJoinRoom();
-                        }
+                    if (this._loginHandler) {
+                        this._loginHandler();
+                        this._loginHandler = null;
                     }
                 }
             }

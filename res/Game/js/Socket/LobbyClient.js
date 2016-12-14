@@ -146,12 +146,14 @@ var LobbyClient = (function () {
                 if (this.betting == data.betting) {
                     PlayerMe.SFS.betting = data.betting;
                     PlayerMe.gameType = data.gameType;
+
                     if(cc.sys.isNative){
-                        SmartfoxClient.getInstance().findAndJoinRoom(data.host, data.port);
+                        var _port = data.port;
                     }
                     else{
-                        SmartfoxClient.getInstance().findAndJoinRoom(data.host, data.webSocketPort);
+                        var _port = data.webSocketPort;
                     }
+                    SmartfoxClient.getInstance().findAndJoinRoom(data.host, _port, data.betting, data.gameType);
                 }
             }
             else if (command === "verifyCode") {
@@ -494,7 +496,7 @@ var LobbyClient = (function () {
             }
             else{
                 LoadingDialog.getInstance().show("Đang kết nối lại máy chủ");
-                SmartfoxClient.getInstance().findAndJoinRoom(host, port);
+                SmartfoxClient.getInstance().connect(host, port);
             }
         },
         subscribe: function (gameId) {

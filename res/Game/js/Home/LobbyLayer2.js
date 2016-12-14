@@ -142,7 +142,7 @@ var LobbyLayer = cc.Node.extend({
                 var serverInfo = LobbyClient.getInstance().SFSServerInfo[serverId];
                 if(serverInfo){
                     PlayerMe.SFS.roomId = roomId;
-                    SmartfoxClient.getInstance().findAndJoinRoom(serverInfo.host, serverInfo.port);
+                    SmartfoxClient.getInstance().findAndJoinRoom(serverInfo.host, serverInfo.port, null, null, roomId);
                 }
                 else{
                     MessageNode.getInstance().show("Không có thông tin máy chủ");
@@ -247,12 +247,21 @@ var LobbyLayer = cc.Node.extend({
                 }
 
             }
-            for(var i=0;i<this.listGame.length;i++){
-                if(this.listGame[i].visible){
-                    this.listGame[i].runMoveEffect(3000,0.1,0.1);
-                    break;
-                }
-            }
+
+            var roomList = this.getRoomList(data["group"]);
+            roomList.runMoveEffect(3000,0.1,0.1);
+
+            // if(this.gameId == GameType.GAME_TaiXiu || this.gameId == GameType.GAME_XocDia){
+            //
+            // }
+            // else{
+            //     for(var i=0;i<this.listGame.length;i++){
+            //         if(this.listGame[i].visible){
+            //             this.listGame[i].runMoveEffect(3000,0.1,0.1);
+            //             break;
+            //         }
+            //     }
+            // }
         }
     },
 

@@ -206,7 +206,7 @@ var RecvInviteDialog = (function(){
         },
         okButtonHandler: function () {
             PlayerMe.SFS.roomId = this.room;
-            SmartfoxClient.getInstance().findAndJoinRoom(this.host, this.port);
+            SmartfoxClient.getInstance().findAndJoinRoom(this.host, this.port, null, null, this.room);
             LoadingDialog.getInstance().show("Đang tìm phòng chơi");
             this.hide();
         }
