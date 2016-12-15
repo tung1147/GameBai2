@@ -533,6 +533,7 @@ newui.TableView = ccui.ScrollView.extend({
 
         for (i = 0, len = locCmds.length; i < len; i++) {
             cmd = locCmds[i];
+
             checkNode = cmd._node;
             if(checkNode instanceof newui.TableView)
                 continue;
@@ -543,12 +544,13 @@ newui.TableView = ccui.ScrollView.extend({
                 cc.renderer._uploadBufferData(cmd);
             }
             else {
+                cc.renderer._batchRendering();
                 if (cmd._batchingSize > 0) {
                     cc.renderer._batchRendering();
                 }
                 cmd.rendering(context);
             }
-            cc.renderer._batchRendering();
         }
+        cc.renderer._batchRendering();
     };
 })();

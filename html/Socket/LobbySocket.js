@@ -25,6 +25,36 @@ socket.LobbyClient = cc.Class.extend({
     ctor : function () {
         this.wsocket = null;
         this.socketStatus = socket.LobbySocket.NotConnection;
+        this._waitingPing = false;
+
+        var thiz = this;
+        function onTimerTick() {
+            thiz.updatePing();
+        }
+        setInterval(onTimerTick, 5000); // 5s
+    },
+    updatePing : function () {
+        if(this.wsocket && this.socketStatus == socket.LobbySocket.Connected){
+            if(this._waitingPing){
+                //lost ping
+                cc.log("[Lobby] lost PING");
+
+                this.resetSocket();
+                this.wsocket.close();
+                this.wsocket = 0;
+
+                this.setSocketStatus(socket.LobbySocket.LostConnection);
+            }
+            else{
+                //send ping
+                var pingMessage = {
+                    command : "ping"
+                };
+                this.send(JSON.stringify(pingMessage));
+                this._waitingPing = true;
+                this._sendPingTime = Date.now();
+            }
+        }
     },
     connect : function (url) {
        // url = "ws://uat1.puppetserver.com:8887/websocket";
@@ -40,6 +70,7 @@ socket.LobbyClient = cc.Class.extend({
         this.wsocket.onopen = function (event) {
           //  cc.log("onOpen: "+event.type);
             if(thiz.socketStatus == socket.LobbySocket.Connecting){
+                thiz._waitingPing = false;
                 thiz.setSocketStatus(socket.LobbySocket.Connected);
             }
         };
@@ -92,13 +123,24 @@ socket.LobbyClient = cc.Class.extend({
         }
     },
     onRecvMessage : function (data) {
-        if(this.onEvent){
-            this.onEvent("message", data);
-            cc.log("data: "+data);
+        var obj = JSON.parse(data);
+
+        var cmd = obj.command;
+        if(cmd === "ping"){
+            var latency = Date.now() - this._sendPingTime;
+            cc.log("[Lobby] Recv PING: "+latency.toString() + "ms");
+
+            this._waitingPing = false;
+        }
+        else{
+            if(this.onEvent) {
+                this.onEvent("message", data);
+                console.log(obj);
+            }
         }
     },
     send : function (data) {
-        if(this.wsocket){
+        if(this.wsocket && this.socketStatus == socket.LobbySocket.Connected){
             this.wsocket.send(data);
         }
     }
