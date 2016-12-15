@@ -23,7 +23,33 @@ socket.SFSSocket.StatusName[socket.SFSSocket.Closed] = "Closed";
 socket.SmartfoxClient = cc.Class.extend({
     ctor : function () {
         this.wsocket = null;
+        this._waitingPing = false;
         this.socketStatus = socket.SFSSocket.NotConnection;
+
+        var thiz = this;
+        function onTimerTick() {
+            thiz.updatePing();
+        }
+        setInterval(onTimerTick, 5000); // 5s
+    },
+    updatePing : function () {
+        if(this.wsocket && this.socketStatus == socket.SFSSocket.Connected){
+            if(this._waitingPing){
+                //lost ping
+                cc.log("[SFS] lost PING");
+
+                this.resetSocket();
+                this.wsocket.close();
+                this.wsocket = 0;
+
+                this.setSocketStatus(socket.SFSSocket.LostConnection);
+            }
+            else{
+                this.send(socket.SmartfoxClient.PingPong, null);
+                this._sendPingTime = Date.now();
+                this._waitingPing = true;
+            }
+        }
     },
     connect : function (url) {
         if(this.wsocket){
@@ -41,6 +67,7 @@ socket.SmartfoxClient = cc.Class.extend({
         this.wsocket.onopen = function (event) {
           //  cc.log("onOpen: "+event.type);
             if(thiz.socketStatus == socket.SFSSocket.Connecting){
+                thiz._waitingPing = false;
                 thiz.setSocketStatus(socket.SFSSocket.Connected);
             }
         };
@@ -90,7 +117,7 @@ socket.SmartfoxClient = cc.Class.extend({
     setSocketStatus : function (status) {
         this.socketStatus = status;
         if(this.onEvent){
-            cc.log("sfs: status :"+socket.SFSSocket.StatusName[this.socketStatus]);
+            //cc.log("sfs: status :"+socket.SFSSocket.StatusName[this.socketStatus]);
             this.onEvent(socket.SFSSocket.StatusName[this.socketStatus]);
         }
     },
@@ -100,14 +127,22 @@ socket.SmartfoxClient = cc.Class.extend({
     onRecvMessage : function (data) {
         if(this.onMessage){
             var content = JSON.parse(data);
-            var param = JSON.stringify(content.p);
+            var action = content.a;
+            if(action == socket.SmartfoxClient.PingPong){
+                var latency = Date.now() - this._sendPingTime;
+                cc.log("[SFS] Recv PING: "+latency.toString() + "ms");
 
-        //    cc.log("onRecvMessage: "+data);
-            this.onMessage(content.a, param);
+                this._waitingPing = false;
+            }
+            else{
+                var param = JSON.stringify(content.p);
+                this.onMessage(action, param);
+            }
         }
     },
     send : function (requestType, data) {
-        if(this.wsocket){
+        if(this.wsocket && this.socketStatus == socket.SFSSocket.Connected){
+
             var controllerId = 0;
             if(requestType == socket.SmartfoxClient.CallExtension){
                 controllerId = 1;
@@ -125,17 +160,17 @@ socket.SmartfoxClient = cc.Class.extend({
             };
             this.wsocket.send(JSON.stringify(request));
 
-            cc.log("send: "+data);
+            //cc.log("send: "+data);
         }
     }
 });
 
-socket.SmartfoxClient.NotConnection = 0;
-socket.SmartfoxClient.Connecting = 1;
-socket.SmartfoxClient.Connected = 2;
-socket.SmartfoxClient.ConnectFailure = 3;
-socket.SmartfoxClient.LostConnection = 4;
-socket.SmartfoxClient.Closed = 5;
+socket.SmartfoxClient.NotConnection = socket.SFSSocket.NotConnection;
+socket.SmartfoxClient.Connecting = socket.SFSSocket.Connecting;
+socket.SmartfoxClient.Connected = socket.SFSSocket.Connected;
+socket.SmartfoxClient.ConnectFailure = socket.SFSSocket.ConnectFailure;
+socket.SmartfoxClient.LostConnection = socket.SFSSocket.LostConnection;
+socket.SmartfoxClient.Closed = socket.SFSSocket.Closed;
 
 socket.SmartfoxClient.Handshake = 0;
 socket.SmartfoxClient.Login = 1;

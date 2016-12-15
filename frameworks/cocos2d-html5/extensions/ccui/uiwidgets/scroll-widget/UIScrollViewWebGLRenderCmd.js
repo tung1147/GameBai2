@@ -39,6 +39,11 @@
 
         this._node.updateChildren();
 
+
+        /* fix by quyetnguyen
+         * batch render command */
+
+
         // Reset buffer for rendering
         context.bindBuffer(gl.ARRAY_BUFFER, null);
 
@@ -54,12 +59,13 @@
                 cc.renderer._uploadBufferData(cmd);
             }
             else {
+                cc.renderer._batchRendering();
                 if (cmd._batchingSize > 0) {
                     cc.renderer._batchRendering();
                 }
                 cmd.rendering(context);
             }
-            cc.renderer._batchRendering();
         }
+        cc.renderer._batchRendering();
     };
 })();
