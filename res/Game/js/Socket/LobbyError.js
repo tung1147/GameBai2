@@ -1,7 +1,7 @@
 /**
  * Created by Quyet Nguyen on 7/20/2016.
  */
-var LobbyClient = LobbyClient || {};
+//var LobbyClient = LobbyClient || {};
 LobbyClient.Error = {
     6 : {
         message : "Tài khoản không tồn tại",

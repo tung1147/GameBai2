@@ -23,6 +23,14 @@ var CaoThapController = MiniGameController.extend({
         }, 1000);
     },
 
+    releaseController : function () {
+        this._super();
+        if(this.intervalTimer != undefined){
+            clearInterval(this.intervalTimer);
+            this.intervalTimer = undefined;
+        }
+    },
+
     onSFSExtension: function (messageType, content) {
         this._super(messageType, content);
         var thiz = this;
@@ -192,7 +200,7 @@ var CaoThapController = MiniGameController.extend({
     },
 
     sendJoinGame: function () {
-        SmartfoxClient.getInstance().joinMiniGame(PlayerMe.miniGameInfo.ip, 8888, "404");
+        SmartfoxClient.getInstance().joinMiniGame(PlayerMe.miniGameInfo.ip, PlayerMe.miniGameInfo.port, "404");
     },
 
     requestQuitRoom: function () {

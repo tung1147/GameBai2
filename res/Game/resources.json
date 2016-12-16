@@ -61,6 +61,15 @@
         {"img": "res/bg-minigame-1.png"},
         {"img": "res/bg_xocdia.png"},
         {"img": "res/bigsmall_bg.png"},
+        {"img": "res/game-bg.jpg"},
+        {"img": "res/gold-icon.png"},
+        {"img": "res/gp_table.png"},
+        {"img": "res/hilo_bg.png"},
+        {"img": "res/mnpk_bg.png"},
+        {
+            "img": "res/avatar.png",
+            "plist": "res/avatar.plist"
+        },
         {
             "img": "res/CaoThap.png",
             "plist": "res/CaoThap.plist"
@@ -81,7 +90,6 @@
             "img": "res/FloatButton.png",
             "plist": "res/FloatButton.plist"
         },
-        {"img": "res/game-bg.jpg"},
         {
             "img": "res/GameList.png",
             "plist": "res/GameList.plist"
@@ -94,9 +102,6 @@
             "img": "res/GameScene.png",
             "plist": "res/GameScene.plist"
         },
-        {"img": "res/gold-icon.png"},
-        {"img": "res/gp_table.png"},
-        {"img": "res/hilo_bg.png"},
         {
             "img": "res/home.png",
             "plist": "res/home.plist"
@@ -109,7 +114,6 @@
             "img": "res/MiniPoker.png",
             "plist": "res/MiniPoker.plist"
         },
-        {"img": "res/mnpk_bg.png"},
         {
             "img": "res/videopoker.png",
             "plist": "res/videopoker.plist"
@@ -117,6 +121,10 @@
         {
             "img": "res/VongQuay.png",
             "plist": "res/VongQuay.plist"
+        },
+        {
+            "img": "res/XocDia.png",
+            "plist": "res/XocDia.plist"
         }
     ],
     "Sound": [

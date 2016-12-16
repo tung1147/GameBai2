@@ -119,7 +119,7 @@ var XocDiaBettingSlot = cc.Node.extend({
         }, this);
     },
     setOpacity : function (opacity) {
-        this._super();
+        this._super(opacity);
         this.bg.setOpacity(opacity);
         this.slotGoldLabel.setOpacity(opacity);
         this.userGoldLabel.setOpacity(opacity);
@@ -245,14 +245,14 @@ var XocDiaScene = IGameScene.extend({
         resultBg2.setPosition(resultBg1.getPosition());
         this.sceneLayer.addChild(resultBg2);
 
-        var tongCuocLabal = new ccui.LabelBMFont("Tổng cược : 1000", cc.res.font.Roboto_Condensed_25);
+        var tongCuocLabal = new cc.LabelBMFont("Tổng cược : 1000", cc.res.font.Roboto_Condensed_25);
         tongCuocLabal.setColor(cc.color("#bac2f9"));
         tongCuocLabal.setPosition(resultBg1.x, resultBg1.y + resultBg1.getContentSize().height/4);
         tongCuocLabal.setVisible(false);
         this.sceneLayer.addChild(tongCuocLabal, 1);
         this.tongCuocLabal = tongCuocLabal;
 
-        var winLabel = new ccui.LabelBMFont("Thắng : 1000", cc.res.font.Roboto_Condensed_25);
+        var winLabel = new cc.LabelBMFont("Thắng : 1000", cc.res.font.Roboto_Condensed_25);
         winLabel.setColor(cc.color("#bac2f9"));
         winLabel.setPosition(resultBg1.x, resultBg1.y - resultBg1.getContentSize().height/4);
         winLabel.setVisible(false);

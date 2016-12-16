@@ -66,7 +66,7 @@ var MiniPokerController = MiniGameController.extend({
     },
 
     sendJoinGame: function () {
-        SmartfoxClient.getInstance().joinMiniGame(PlayerMe.miniGameInfo.ip, 8888, "355");
+        SmartfoxClient.getInstance().joinMiniGame(PlayerMe.miniGameInfo.ip, PlayerMe.miniGameInfo.port, "355");
     },
 
     sendRollRequest: function (betType) {

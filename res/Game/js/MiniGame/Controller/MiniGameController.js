@@ -15,9 +15,11 @@ var MiniGameController = cc.Class.extend({
     },
 
     releaseController: function () {
-        this.requestQuitRoom();
+        this._view = null;
         SmartfoxClient.getInstance().removeListener(this);
         LobbyClient.getInstance().removeListener(this);
+
+        this.requestQuitRoom();
     },
 
     onSmartfoxSocketStatus: function (type, eventName) {
