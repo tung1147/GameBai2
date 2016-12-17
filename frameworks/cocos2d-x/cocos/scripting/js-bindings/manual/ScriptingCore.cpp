@@ -701,9 +701,7 @@ JS::PersistentRootedScript* ScriptingCore::getScript(const std::string& path)
 
 JS::PersistentRootedScript* ScriptingCore::compileScript(const std::string& path, JS::HandleObject global, JSContext* cx)
 {	
-	if (path == "js/app.js"){
-		int a = 0;
-	}
+	//CCLOG("compileScript  %s", path.c_str());
 
     if (path.empty()) {
         return nullptr;
