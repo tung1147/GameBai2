@@ -203,7 +203,9 @@ bool GameFile::test(){
 
 size_t _GameFile_write_data_handler(void *ptr, size_t size, size_t nmemb, WriteDataHandler* writer) {
     size_t written = fwrite(ptr, size, nmemb, writer->file);
-	writer->md5->update((const char*)ptr, size* nmemb);
+	if (writer->md5){
+		writer->md5->update((const char*)ptr, size* nmemb);
+	}
     if(writer->handler != nullptr){
         writer->handler((int)(nmemb * size));
     }
@@ -221,7 +223,16 @@ size_t _GameFile_write_data_handler(void *ptr, size_t size, size_t nmemb, WriteD
 //	return written;
 //}
 
-int GameFile::update(const std::string& url, UpdateHandler handler){
+inline std::string _getFileName(const std::string& filePath){
+	auto pos =  filePath.find_last_of("/");
+	if (pos != std::string::npos){
+		std::string fileName = filePath.substr(pos + 1);
+		return fileName;
+	}
+	return filePath;
+}
+
+int GameFile::update(const std::string& url, bool zipFileAvailable, UpdateHandler handler){
 	//load from url
 	CURL *curl;
 	CURLcode res;
@@ -235,17 +246,35 @@ int GameFile::update(const std::string& url, UpdateHandler handler){
 		}
 
 		FILE *fp;
-		fp = fopen(filePath.c_str(), "wb");
+		std::string zipFilePath = "";
+		std::string zipFileName = "";
+
+		if (zipFileAvailable){
+			zipFilePath = filePath + ".zip";
+			fp = fopen(zipFilePath.c_str(), "wb");
+
+			zipFileName = _getFileName(fileName);
+		}
+		else{
+			fp = fopen(filePath.c_str(), "wb");
+		}
+		
 		if (fp != NULL) {
 
 			MD5 md5;
 			WriteDataHandler dataHandler;
 			//dataHandler.mHander = CC_CALLBACK_3(GameFile::writeData, this, fp);
             dataHandler.file = fp;
-			dataHandler.md5 = &md5;
-            dataHandler.handler = handler;
-
-			curl_easy_setopt(curl, CURLOPT_URL, url.c_str());			
+			dataHandler.handler = handler;
+			if (zipFileAvailable){
+				dataHandler.md5 = 0;
+				std::string str = url + ".zip";
+				curl_easy_setopt(curl, CURLOPT_URL, str.c_str());
+			}
+			else{
+				dataHandler.md5 = &md5;
+				curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
+			}		
 			curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, true);
 			curl_easy_setopt(curl, CURLOPT_AUTOREFERER, true);
 			curl_easy_setopt(curl, CURLOPT_MAXREDIRS, 10);
@@ -259,7 +288,21 @@ int GameFile::update(const std::string& url, UpdateHandler handler){
 
 			fclose(fp);
 			if (res == CURLE_OK) {
-				md5.finalize();
+				if (zipFileAvailable){
+					ssize_t dataSize = 0;
+					CCLOG("unzip: %s", zipFilePath.c_str());
+					unsigned char* data = FileUtils::getInstance()->getFileDataFromZip(zipFilePath, zipFileName, &dataSize);
+					if (data && dataSize > 0){
+						FILE* file = fopen(filePath.c_str(), "wb");
+						fwrite(data, 1, dataSize, file);
+						fclose(file);
+
+						md5.update((const char*)data, dataSize);
+					}
+					remove(zipFilePath.c_str());
+				} 
+
+				md5.finalize();			
 				auto md5Str = md5.hexdigest();
 				std::transform(md5Str.begin(), md5Str.end(), md5Str.begin(), ::tolower);
 				if (md5Str == md5Digest){

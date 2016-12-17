@@ -119,6 +119,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 
 	/*decrypt*/
 	std::vector<unsigned char> aesKey = { 0x2c, 0x32, 0xc3, 0xfe, 0x2c, 0xd9, 0x37, 0xf0, 0x74, 0x38, 0xe5, 0xda, 0xed, 0xc0, 0x72, 0x99 };
+	// aes: LDLD/izZN/B0OOXa7cBymQ==
 	decryptor::Decryptor::getInstance()->setDecryptKey((const char*) aesKey.data());
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
