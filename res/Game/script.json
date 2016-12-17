@@ -3,6 +3,7 @@
 	"js/Core/NewAction.js",
 	"js/Core/ToggleNodeGroup.js",
 	"js/Core/ButtonToggle.js",
+	"js/Core/WebSprite.js",
 	"js/Socket/LobbyClient.js",
 	"js/Socket/LobbyError.js",
 	"js/Socket/SmartfoxClient.js",

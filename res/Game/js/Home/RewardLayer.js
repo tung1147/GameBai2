@@ -85,7 +85,15 @@ var RewardCardLayer = RewardSublayer.extend({
         container.addChild(goldBg);
 
         var cardValue = new cc.LabelTTF(cc.Global.NumberFormat1(netValue) + " VNĐ", cc.res.font.Roboto_CondensedBold, 30);
-        cardValue.enableStroke(labalColor, 5);
+        if(cc.sys.isNative){
+            if(cc.sys.os === cc.sys.IOS || cc.sys.os === cc.sys.ANDROID){
+                cardValue.enableStroke(labalColor, 5);
+            }
+        }
+        else{
+            cardValue.enableStroke(labalColor, 5);
+        }
+
         cardValue.setAnchorPoint(cc.p(1.0, 0.5));
         cardValue.setPosition(cardImg.x + 90, 90);
         container.addChild(cardValue);
