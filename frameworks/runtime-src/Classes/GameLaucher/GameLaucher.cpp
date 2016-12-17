@@ -24,7 +24,7 @@ GameLaucher::GameLaucher() {
 	versionFile = "version.json";
 	versionHash = "";
 //	jsMainFile = "js/main.js";
-	resourceHost = "";
+	resourceHost = "http://gamebai.test/release/mobile/";
 }
 
 GameLaucher::~GameLaucher() {
@@ -97,7 +97,7 @@ void GameLaucher::update(float dt){
 }
 
 void GameLaucher::requestGetUpdate(){
-	resourceHost = "";
+	//resourceHost = "";
 	versionHash = "";
 //	this->checkVersionFile();
 	this->checkFiles();
@@ -281,7 +281,7 @@ void GameLaucher::checkVersionFileThread(){
 
 	if (!versionFile.test()){
 		//int returnCode = versionFile.updateNoHandler(resourceHost + versionFile.fileName);
-        int returnCode = versionFile.update(resourceHost + versionFile.fileName);
+        int returnCode = versionFile.update(resourceHost + versionFile.fileName, false);
 		if (returnCode != 0){
 			UIThread::getInstance()->runOnUI([=](){
 				this->onProcessStatus(GameLaucherStatus::UpdateFailure);
@@ -310,11 +310,11 @@ void GameLaucher::checkFilesThread(){
 
 	rapidjson::Document doc;
 	doc.Parse<0>(buffer.data());
-	std::string versionName = doc["versionName"].GetString();
-	uint32_t versionCode = doc["versionCode"].GetInt();
-	//if (doc.HasMember("main")){
-	//	jsMainFile = doc["main"].GetString();
-	//}
+	bool zipFileAvailable = false;
+	if (doc.HasMember("zipFileAvailable")){
+		zipFileAvailable = doc["zipFileAvailable"].GetBool();
+	}
+
 	const rapidjson::Value& files = doc["files"];
 	for (int i = 0; i < files.Size(); i++){
 		const rapidjson::Value& fileData = files[i];
@@ -348,7 +348,7 @@ void GameLaucher::checkFilesThread(){
 			this->onProcessStatus(GameLaucherStatus::Updating);
 		});		
 		for (int i = 0; i < _resourceUpdate.size();){
-            auto pret = _resourceUpdate[i]->update(resourceHost + _resourceUpdate[i]->fileName,[=](int bytes){
+			auto pret = _resourceUpdate[i]->update(resourceHost + _resourceUpdate[i]->fileName, zipFileAvailable, [=](int bytes){
                 this->onUpdateDownloadProcess(bytes);
             });
 			if (pret == 0){
@@ -491,15 +491,6 @@ GameFile* GameLaucher::getFile(const std::string& file){
 	}
 	return 0;
 }
-
-//GameFile* GameLaucher::getMainJs(){
-//	auto mainFile = this->getFile("js/main.js");
-//	if (!mainFile){
-//
-//	}
-//
-//	return 0;
-//}
 
 bool GameLaucher::checkFileValidate(const std::string& filename){
 	auto file = this->getFile(filename);

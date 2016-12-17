@@ -37,7 +37,7 @@ public:
 	GameFile();
 	virtual ~GameFile();
 	bool test();
-	int update(const std::string& url, UpdateHandler handler = nullptr);
+	int update(const std::string& url, bool zipFileAvailable, UpdateHandler handler = nullptr);
    // int updateNoHandler(const std::string& url, std::function<void(int)> updateHandler = nullptr);
 };
 
