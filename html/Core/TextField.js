@@ -118,7 +118,7 @@ newui.TextField = cc.Node.extend({
 
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
-            swallowTouches:true,
+            swallowTouches:false,
             onTouchBegan : function (touch, event) {
                 if(!thiz.checkVisible()){
                     return false;
@@ -142,22 +142,22 @@ newui.TextField = cc.Node.extend({
             }
         }, thiz);
 
-        var eventListener = cc.EventListener.create({
-            event: cc.EventListener.TOUCH_ONE_BY_ONE,
-            swallowTouches:true,
-            onTouchBegan : function (touch, event) {
-                if(thiz._isAttachWithIME){
-                    setTimeout(function(){
-                        thiz.detachWithIME();
-                    }, 0);
-                    return true;
-                }
-                return false;
-            }
-        });
-
-        cc.eventManager.addListener(eventListener, -1);
-        this.touchEventListener = eventListener;
+        // var eventListener = cc.EventListener.create({
+        //     event: cc.EventListener.TOUCH_ONE_BY_ONE,
+        //     swallowTouches:true,
+        //     onTouchBegan : function (touch, event) {
+        //         if(thiz._isAttachWithIME){
+        //             setTimeout(function(){
+        //                 thiz.detachWithIME();
+        //             }, 0);
+        //             return true;
+        //         }
+        //         return false;
+        //     }
+        // });
+        //
+        // cc.eventManager.addListener(eventListener, -1);
+        // this.touchEventListener = eventListener;
     },
 
     update : function (dt) {
@@ -310,8 +310,8 @@ newui.TextField = cc.Node.extend({
     attachWithIME:function () {
         var ret = cc.imeDispatcher.attachDelegateWithIME(this);
         if(ret){
-            this._isAttachWithIME = true;
-            this._updateText = true;
+           // this._isAttachWithIME = true;
+          //  this._updateText = true;
         }
         cc.log("attachWithIME: " +ret);
         return ret;
@@ -320,8 +320,8 @@ newui.TextField = cc.Node.extend({
     detachWithIME:function () {
         var ret = cc.imeDispatcher.detachDelegateWithIME(this);
         if(ret){
-            this._isAttachWithIME = false;
-            this._updateText = true;
+           // this._isAttachWithIME = false;
+          //  this._updateText = true;
         }
         cc.log("detachWithIME: " +ret);
         return ret;
@@ -337,6 +337,9 @@ newui.TextField = cc.Node.extend({
 
     didAttachWithIME:function () {
         cc.log("didAttachWithIME");
+        this._isAttachWithIME = true;
+     //   this._updateText = true;
+
         this.textCursor.setVisible(true);
         var action = new cc.Sequence(new cc.Blink(0.3, 0), new cc.Blink(0.3, 1));
         this.textCursor.runAction(new cc.RepeatForever(action));
@@ -345,6 +348,9 @@ newui.TextField = cc.Node.extend({
 
     didDetachWithIME:function () {
         cc.log("didDetachWithIME");
+        this._isAttachWithIME = false;
+       // this._updateText = true;
+
         this.textCursor.setVisible(false);
         this.textCursor.stopAllActions();
         this.updateText();
