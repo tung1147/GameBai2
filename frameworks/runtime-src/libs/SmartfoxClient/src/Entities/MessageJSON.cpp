@@ -55,7 +55,9 @@ void MessageJSON::writeToBuffer(SFS::StreamWriter* writer){
 				this->setContents(c);
 			}
 			else{
+#ifdef SFS_LOGGER
 				SFS::log("error parse json");
+#endif
 			}
 			
 		}

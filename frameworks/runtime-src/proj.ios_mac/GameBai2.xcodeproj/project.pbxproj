@@ -46,6 +46,10 @@
 		509D4AE717EBB81800697056 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 509D4AE617EBB81800697056 /* OpenGL.framework */; };
 		509D4AE917EBB82000697056 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 509D4AE817EBB82000697056 /* AppKit.framework */; };
 		509D4AEB17EBB82600697056 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 509D4AEA17EBB82600697056 /* IOKit.framework */; };
+		563EA2861E080C4D00A65DB0 /* jsb_quyetnd_resourcedownloader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 563EA2821E080C4D00A65DB0 /* jsb_quyetnd_resourcedownloader.cpp */; };
+		563EA2871E080C4D00A65DB0 /* jsb_quyetnd_resourcedownloader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 563EA2821E080C4D00A65DB0 /* jsb_quyetnd_resourcedownloader.cpp */; };
+		563EA2881E080C4D00A65DB0 /* ResourcesDownloader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 563EA2841E080C4D00A65DB0 /* ResourcesDownloader.cpp */; };
+		563EA2891E080C4D00A65DB0 /* ResourcesDownloader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 563EA2841E080C4D00A65DB0 /* ResourcesDownloader.cpp */; };
 		568359EA1D7B20580021A197 /* ActionNumber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 568359AB1D7B20570021A197 /* ActionNumber.cpp */; };
 		568359EB1D7B20580021A197 /* ActionNumber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 568359AB1D7B20570021A197 /* ActionNumber.cpp */; };
 		568359EC1D7B20580021A197 /* ActionShake2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 568359AD1D7B20570021A197 /* ActionShake2D.cpp */; };
@@ -768,6 +772,10 @@
 		5631B52F1D98424C003CCB79 /* stream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stream.h; sourceTree = "<group>"; };
 		5631B5301D98424C003CCB79 /* stringbuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stringbuffer.h; sourceTree = "<group>"; };
 		5631B5311D98424C003CCB79 /* writer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = writer.h; sourceTree = "<group>"; };
+		563EA2821E080C4D00A65DB0 /* jsb_quyetnd_resourcedownloader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jsb_quyetnd_resourcedownloader.cpp; sourceTree = "<group>"; };
+		563EA2831E080C4D00A65DB0 /* jsb_quyetnd_resourcedownloader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = jsb_quyetnd_resourcedownloader.hpp; sourceTree = "<group>"; };
+		563EA2841E080C4D00A65DB0 /* ResourcesDownloader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ResourcesDownloader.cpp; sourceTree = "<group>"; };
+		563EA2851E080C4D00A65DB0 /* ResourcesDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourcesDownloader.h; sourceTree = "<group>"; };
 		568359AB1D7B20570021A197 /* ActionNumber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ActionNumber.cpp; sourceTree = "<group>"; };
 		568359AC1D7B20570021A197 /* ActionNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionNumber.h; sourceTree = "<group>"; };
 		568359AD1D7B20570021A197 /* ActionShake2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ActionShake2D.cpp; sourceTree = "<group>"; };
@@ -1633,6 +1641,10 @@
 		568359C91D7B20570021A197 /* Plugin */ = {
 			isa = PBXGroup;
 			children = (
+				563EA2821E080C4D00A65DB0 /* jsb_quyetnd_resourcedownloader.cpp */,
+				563EA2831E080C4D00A65DB0 /* jsb_quyetnd_resourcedownloader.hpp */,
+				563EA2841E080C4D00A65DB0 /* ResourcesDownloader.cpp */,
+				563EA2851E080C4D00A65DB0 /* ResourcesDownloader.h */,
 				568359CA1D7B20570021A197 /* base64.cpp */,
 				568359CB1D7B20570021A197 /* base64.h */,
 				568359CC1D7B20570021A197 /* CRC32.cpp */,
@@ -2660,8 +2672,10 @@
 				56911C5B1D8CF3350092A3CD /* ThriftUserServerVariable_types.cpp in Sources */,
 				56911C351D8CF3350092A3CD /* ThriftRemoveRoomOperatorRequest_types.cpp in Sources */,
 				56835A1D1D7B20580021A197 /* UUIDEncrypt.cpp in Sources */,
+				563EA2891E080C4D00A65DB0 /* ResourcesDownloader.cpp in Sources */,
 				56911BA71D8CF3340092A3CD /* ThriftConnectionAttemptResponse_types.cpp in Sources */,
 				56911C2D1D8CF3350092A3CD /* ThriftRegisterUDPConnectionResponse_types.cpp in Sources */,
+				563EA2871E080C4D00A65DB0 /* jsb_quyetnd_resourcedownloader.cpp in Sources */,
 				568359FD1D7B20580021A197 /* jsb_quyetnd_newui.cpp in Sources */,
 				56835A1F1D7B20580021A197 /* jsb_quyetnd_lobbysocket.cpp in Sources */,
 				56835A071D7B20580021A197 /* NewWidget.cpp in Sources */,
@@ -2818,6 +2832,7 @@
 				56835AC31D7B242C0021A197 /* SFSObject.cpp in Sources */,
 				56911C4A1D8CF3350092A3CD /* ThriftServerState_types.cpp in Sources */,
 				56911BE41D8CF3350092A3CD /* ThriftGetRoomsInZoneResponse_types.cpp in Sources */,
+				563EA2881E080C4D00A65DB0 /* ResourcesDownloader.cpp in Sources */,
 				56911BCC1D8CF3350092A3CD /* ThriftFindGamesRequest_types.cpp in Sources */,
 				56911B5C1D8CF3340092A3CD /* PingResponse.cpp in Sources */,
 				56835BBD1D7B24960021A197 /* SocketAdapter.cpp in Sources */,
@@ -3028,6 +3043,7 @@
 				56911C241D8CF3350092A3CD /* ThriftPublicMessageEvent_types.cpp in Sources */,
 				56911C361D8CF3350092A3CD /* ThriftRemoveUDPConnectionRequest_types.cpp in Sources */,
 				56911C6E1D8CF3350092A3CD /* ThriftZoneUpdateEvent_types.cpp in Sources */,
+				563EA2861E080C4D00A65DB0 /* jsb_quyetnd_resourcedownloader.cpp in Sources */,
 				56911B781D8CF3340092A3CD /* MessageType.cpp in Sources */,
 				56835AC71D7B242C0021A197 /* SFSRef.cpp in Sources */,
 				56835BB31D7B24960021A197 /* ValueJson.cpp in Sources */,
@@ -3077,7 +3093,11 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = mac/Prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					SFS_LOGGER,
+					LOBBY_LOGGER,
+				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = mac/Info.plist;
@@ -3171,7 +3191,11 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ios/Prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					SFS_LOGGER,
+					LOBBY_LOGGER,
+				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/../libs/FacebookSDK/proj.ios",
