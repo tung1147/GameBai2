@@ -7,9 +7,10 @@
 
 #include "ResourceLoader.h"
 #include "2d/CCFontAtlasCache.h"
-#include "audio/include/SimpleAudioEngine.h"
+//#include "audio/include/SimpleAudioEngine.h"
+#include "audio/include/AudioEngine.h"
 #include "GameLaucher.h"
-using namespace CocosDenshion;
+//using namespace CocosDenshion;
 
 namespace quyetnd {
 
@@ -131,9 +132,9 @@ void ResourceLoader::update(float dt){
 			{
 				if (index < _unloadSound.size()){
 					CCLOG("unload sound: %s", _unloadSound[index].c_str());
-
-					SimpleAudioEngine* audioEngine = SimpleAudioEngine::getInstance();
-					audioEngine->unloadEffect(_unloadSound[index].c_str());
+					cocos2d::experimental::AudioEngine::uncache(_unloadSound[index]);
+					//SimpleAudioEngine* audioEngine = SimpleAudioEngine::getInstance();
+					//audioEngine->unloadEffect(_unloadSound[index].c_str());
 
 					index++;
 					currentStep++;
@@ -226,8 +227,9 @@ void ResourceLoader::update(float dt){
 			{
 				if (index < _preloadSound.size()){
 					CCLOG("load sound: %s", _preloadSound[index].c_str());
-					SimpleAudioEngine* audioEngine = SimpleAudioEngine::getInstance();
-					audioEngine->preloadEffect(_preloadSound[index].c_str());
+					/*SimpleAudioEngine* audioEngine = SimpleAudioEngine::getInstance();
+					audioEngine->preloadEffect(_preloadSound[index].c_str());*/
+					cocos2d::experimental::AudioEngine::preload(_preloadSound[index]);
 
 					index++;
 					currentStep++;

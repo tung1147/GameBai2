@@ -1,8 +1,11 @@
 #include "AppDelegate.h"
 #include "cocos2d.h"
-#include "audio/include/SimpleAudioEngine.h"
+#include "audio/include/AudioEngine.h"
+
 USING_NS_CC;
-using namespace CocosDenshion;
+
+//#include "audio/include/SimpleAudioEngine.h"
+//using namespace CocosDenshion;
 
 #include "scripting/js-bindings/auto/jsb_cocos2dx_3d_auto.hpp"
 #include "scripting/js-bindings/auto/jsb_cocos2dx_3d_extension_auto.hpp"
@@ -246,14 +249,16 @@ bool AppDelegate::applicationDidFinishLaunching()
     return true;
 }
 
+
 // This function will be called when the app is inactive. When comes a phone call,it's be invoked too
 void AppDelegate::applicationDidEnterBackground()
 {
     auto director = Director::getInstance();
     director->stopAnimation();
     director->getEventDispatcher()->dispatchCustomEvent("game_on_hide");
-    SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
-    SimpleAudioEngine::getInstance()->pauseAllEffects();
+    //SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
+    //SimpleAudioEngine::getInstance()->pauseAllEffects();
+	cocos2d::experimental::AudioEngine::pauseAll();
 }
 
 // this function will be called when the app is active again
@@ -262,6 +267,7 @@ void AppDelegate::applicationWillEnterForeground()
     auto director = Director::getInstance();
     director->startAnimation();
     director->getEventDispatcher()->dispatchCustomEvent("game_on_show");
-    SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
-    SimpleAudioEngine::getInstance()->resumeAllEffects();
+    //SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
+    //SimpleAudioEngine::getInstance()->resumeAllEffects();
+	cocos2d::experimental::AudioEngine::resumeAll();
 }
