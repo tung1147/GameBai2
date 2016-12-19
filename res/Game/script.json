@@ -1,5 +1,6 @@
 [
 	"js/Global/Global.js",
+	"js/Global/SoundPlayer.js",
 	"js/Core/NewAction.js",
 	"js/Core/ToggleNodeGroup.js",
 	"js/Core/ButtonToggle.js",
