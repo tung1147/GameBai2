@@ -11,6 +11,8 @@
 
 #define RESOURCES_CACHE_DIR "res_cache/"
 
+namespace quyetnd{
+
 Resources::Resources(){
 	_url = "";
 	_cacheFileName = "";
@@ -33,7 +35,6 @@ void Resources::onLoadResourceFinished(){
 	else{
 		_isSucess = false;
 	}
-	this->invokeCallback();
 }
 
 void Resources::invokeCallback(){
@@ -65,6 +66,7 @@ void Resources::loadFromCache(){
 	this->onLoadResourcePreFinished();
 	Director::getInstance()->getScheduler()->performFunctionInCocosThread([=](){
 		this->onLoadResourceFinished();
+		this->invokeCallback();
 	});
 }
 
@@ -88,6 +90,7 @@ void Resources::loadFromUrl(){
 			writeData.file = fp;
 			writeData.resources = this; 
 
+			curl_easy_setopt(curl, CURLOPT_URL, _url.c_str());
 			curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, true);
 			curl_easy_setopt(curl, CURLOPT_AUTOREFERER, true);
 			curl_easy_setopt(curl, CURLOPT_MAXREDIRS, 10);
@@ -101,7 +104,10 @@ void Resources::loadFromUrl(){
 
 			fclose(fp);
 			if (res != CURLE_OK) {
-				_buffer.clear();
+				_buffer.clear();			
+			}
+
+			if (_buffer.size() == 0){
 				remove(_cacheFileName.c_str());
 			}
 		}
@@ -111,6 +117,7 @@ void Resources::loadFromUrl(){
 	this->onLoadResourcePreFinished();
 	Director::getInstance()->getScheduler()->performFunctionInCocosThread([=](){
 		this->onLoadResourceFinished();
+		this->invokeCallback();
 	});
 }
 
@@ -134,10 +141,8 @@ void Resources::load( const DownloadCallback& callback){
 		return;
 	}
 	else{
-		if (_isLoading){
-			_s_callback.push_back(callback);
-		}
-		else{
+		_s_callback.push_back(callback);
+		if (!_isLoading){	
 			this->loadResources();
 		}
 	}
@@ -159,11 +164,13 @@ ResourcesTexture::~ResourcesTexture(){
 
 void ResourcesTexture::onLoadResourcePreFinished(){
 	if (_buffer.size() > 0){
-		Image* image = new Image();
+		image = new Image();
 		bool b = image->initWithImageData(_buffer.data(), _buffer.size());
 		if (!b){
+			_buffer.clear();
 			image->release();
 			image = 0;
+			remove(_cacheFileName.c_str());
 		}
 	}
 }
@@ -173,10 +180,9 @@ void ResourcesTexture::onLoadResourceFinished(){
 		_isSucess = true;
 		texture = Director::getInstance()->getTextureCache()->addImage(image, _cacheFileName);
 	}
-	else{
+	else{	
 		_isSucess = false;
 	}
-	this->invokeCallback();
 }
 
 /***/
@@ -209,27 +215,32 @@ const std::string& ResourcesDownloader::getCacheDir(){
 }
 
 Resources* ResourcesDownloader::createResourcesWithType(int resType){
+	if (resType == ResourcesType::kResourcesTypeTexture){
+		return new ResourcesTexture();
+	}
 	return new Resources();
 }
 
 void ResourcesDownloader::loadResources(const std::string& url, int resType, const DownloadCallback &callback){
 	auto it = _resources.find(url);
-	if (it != _resources.end()){
+	if (it != _resources.end()){		
 		if (callback != nullptr){
-			callback(it->second);
+			it->second->load(callback);
 		}
 	}
 	else{
 		auto res = this->createResourcesWithType(resType);
+		_resources.insert(std::make_pair(url, res));
 		res->setUrl(url);
 		res->load(callback);
 	}
 }
 
-void ResourcesDownloader::loadTexture(const std::string& url, std::function<void(const cocos2d::Texture2D*)> _callback){
+void ResourcesDownloader::loadTexture(const std::string& url, std::function<void(cocos2d::Texture2D*)> _callback){
 	this->loadResources(url, ResourcesType::kResourcesTypeTexture, [=](Resources* res){
 		ResourcesTexture* resTex = (ResourcesTexture*)res;
 		_callback(resTex->texture);
 	});
 }
 
+}

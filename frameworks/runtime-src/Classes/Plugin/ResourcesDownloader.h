@@ -10,6 +10,8 @@
 #include "cocos2d.h"
 USING_NS_CC;
 
+namespace quyetnd{
+
 enum ResourcesType{
 	kResourcesTypeTexture = 1,
 };
@@ -51,7 +53,7 @@ public:
 class ResourcesTexture : public Resources {
 protected:
 	cocos2d::Image* image;
-	
+
 	virtual void onLoadResourcePreFinished();
 	virtual void onLoadResourceFinished();
 public:
@@ -75,9 +77,10 @@ public:
 	const std::string& getCacheDir();
 
 	void loadResources(const std::string& url, int resType, const DownloadCallback &callback = nullptr);
-	void loadTexture(const std::string& url, std::function<void(const cocos2d::Texture2D*)> callback);
+	void loadTexture(const std::string& url, std::function<void(cocos2d::Texture2D*)> callback);
 
 	static ResourcesDownloader* getInstance();
 };
 
+}
 #endif /* PLUGIN_RESOURCES_DOWNLOADER_H_ */
