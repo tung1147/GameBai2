@@ -580,6 +580,7 @@ bool js_quyetnd_newui_TableView_refreshView(JSContext *cx, uint32_t argc, jsval 
     JS_ReportError(cx, "js_quyetnd_newui_TableView_refreshView : wrong number of arguments: %d, was expecting %d", argc, 0);
     return false;
 }
+
 bool js_quyetnd_newui_TableView_jumpToRight(JSContext *cx, uint32_t argc, jsval *vp)
 {
     JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
@@ -596,6 +597,26 @@ bool js_quyetnd_newui_TableView_jumpToRight(JSContext *cx, uint32_t argc, jsval 
     JS_ReportError(cx, "js_quyetnd_newui_TableView_jumpToRight : wrong number of arguments: %d, was expecting %d", argc, 0);
     return false;
 }
+
+bool js_quyetnd_newui_TableView_setReverse(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+	JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	quyetnd::TableView* cobj = (quyetnd::TableView *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2(cobj, cx, false, "js_quyetnd_newui_TableView_setReverse : Invalid Native Object");
+	if (argc == 1) {
+		bool reverse = JS::ToBoolean(args.get(0));;
+		cobj->setReverse(reverse);
+
+		args.rval().setUndefined();
+		return true;
+	}
+
+	JS_ReportError(cx, "js_quyetnd_newui_TableView_setReverse : wrong number of arguments: %d, was expecting %d", argc, 0);
+	return false;
+}
+
 bool js_quyetnd_newui_TableView_constructor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
@@ -671,7 +692,9 @@ void js_register_quyetnd_newui_TableView(JSContext *cx, JS::HandleObject global)
         JS_FN("forceRefreshView", js_quyetnd_newui_TableView_forceRefreshView, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("refreshView", js_quyetnd_newui_TableView_refreshView, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("jumpToRight", js_quyetnd_newui_TableView_jumpToRight, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("setReverse", js_quyetnd_newui_TableView_setReverse, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("ctor", js_quyetnd_newui_TableView_ctor, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+
         JS_FS_END
     };
 
