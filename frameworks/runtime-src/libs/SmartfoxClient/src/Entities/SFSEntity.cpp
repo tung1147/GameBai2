@@ -95,7 +95,7 @@ SFSEntity* SFSEntity::createSFSEntityWithReader(StreamReader* reader){
 			break;
 		}
 		case Entity::SFSDataType::SFSDATATYPE_CLASS:{
-			int a = 2;
+			//int a = 2;
 		}
 		default:{
 			entity = new SFSEntity();
