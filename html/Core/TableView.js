@@ -131,30 +131,31 @@ newui.TableView = ccui.ScrollView.extend({
 
         if(this._allItems.length > 0){
             var itemSize = this._allItems[0].getContentSize();
-            var col = Math.ceil(this._allItems.length / this._columnCount);
+            var row = this._columnCount;
+            var col = Math.ceil(this._allItems.length / row);
             containerWidth = itemSize.width * col + this._padding*(col - 1) + this._marginLeft + this._marginRight;
-
-            var rowPadding = (containerHeight - this._marginTop - this._marginBottom - (this._columnCount * itemSize.height)) / (this._columnCount + 1);
+            if(containerWidth < this.getContentSize().width){
+                containerWidth = this.getContentSize().width;
+            }
+            var rowPadding = (containerHeight - this._marginTop - this._marginBottom - (row * itemSize.height)) / (row + 1);
             if(rowPadding < 0.0){
                 rowPadding = 0.0;
             }
-
-            var columnIndex = 0;
-            var x = this._marginLeft + itemSize.width/2;
+            if(this._isReverse){
+                var x = containerWidth - this._marginRight - itemSize.width/2;
+            }
+            else{
+                var x = this._marginLeft + itemSize.width/2;
+            }
             var y = containerHeight - this._marginTop - itemSize.height/2 - rowPadding;
-
             for(var i=0; i<this._allItems.length;i++){
-                this._allItems[i].setPosition(x, y);
-               // cc.log(x + " - "+ y);
-
-                columnIndex++;
-                if(columnIndex >= this._columnCount){
-                    columnIndex = 0;
-                    y = containerHeight - this._marginTop - itemSize.height/2 - rowPadding;
-                    x += (this._padding + itemSize.width);
+                var colIdx = Math.floor(i/row);
+                var rowIdx = i % row;
+                if(this._isReverse){
+                    this._allItems[i].setPosition(x - colIdx * (this._padding + itemSize.width), y - rowIdx * (rowPadding + itemSize.height));
                 }
                 else{
-                    y -= (rowPadding + itemSize.height);
+                    this._allItems[i].setPosition(x + colIdx * (this._padding + itemSize.width), y - rowIdx * (rowPadding + itemSize.height));
                 }
             }
         }
@@ -170,40 +171,41 @@ newui.TableView = ccui.ScrollView.extend({
 
         if(this._allItems.length > 0){
             var itemSize = this._allItems[0].getContentSize();
+            var col = this._columnCount;
             var row = Math.ceil(this._allItems.length / this._columnCount);
             containerHeight = itemSize.height * row + this._padding*(row - 1) + this._marginTop + this._marginBottom;
             if(containerHeight < this.getContentSize().height){
                 containerHeight = this.getContentSize().height;
             }
-
-          //  var padding = 0.0;
-            var colPadding = (containerWidth - this._marginLeft - this._marginRight - (this._columnCount * itemSize.width)) / (this._columnCount + 1);
-            // if(colPadding < 0.0){
-            //     colPadding = 0.0;
-            // }
-
-            var rowIndex = 0;
-            var x = this._marginLeft + colPadding + itemSize.width/2;
-            var y = containerHeight - this._marginTop - itemSize.height/2;
-
-            for(var i=0; i<this._allItems.length;i++){
-                this._allItems[i].setPosition(x, y);
-               // cc.log(x + " - "+ y);
-
-                rowIndex++;
-                if(rowIndex >= this._columnCount){
-                    rowIndex = 0;
-
-                    x = this._marginLeft + colPadding + itemSize.width/2;
-                    y -= (this._padding + itemSize.height);
-                }
-                else{
-                    x += (colPadding + itemSize.width);
-                }
+            var colPadding = (containerWidth - this._marginLeft - this._marginRight - (col * itemSize.width)) / (col + 1);
+            if(colPadding < 0){
+                colPadding = 0.0;
             }
 
+            var x = this._marginLeft + colPadding + itemSize.width/2;
+            if(this._isReverse){
+                var y = this._marginBottom + itemSize.height/2;
+            }
+            else{
+                var y = containerHeight - this._marginTop - itemSize.height/2;
+            }
+
+            for(var i=0; i<this._allItems.length;i++){
+                var colIdx = i % col;
+                var rowIdx = Math.floor(i / col);
+
+                if(this._isReverse){
+                    this._allItems[i].setPosition(x + colIdx * (itemSize.width + colPadding), y + rowIdx * (itemSize.height + this._padding));
+                }
+                else{
+                    this._allItems[i].setPosition(x + colIdx * (itemSize.width + colPadding), y - rowIdx * (itemSize.height + this._padding));
+                }
+            }
         }
 
+        if(containerHeight < this.getContentSize().height){
+            containerHeight = this.getContentSize().height;
+        }
         this.setInnerContainerSize(cc.size(containerWidth, containerHeight));
     },
     getRowItems :function(rowIndex){
@@ -228,6 +230,12 @@ newui.TableView = ccui.ScrollView.extend({
 
         return items;
     },
+
+    setReverse : function (reverse) {
+        this._isReverse = reverse;
+        this._refreshView = true;
+    },
+
     runMoveEffect : function (moveSpeed, delayPerColumn, delayPerRow) {
         this.forceRefreshView();
         if(this._allItems.length <= 0){

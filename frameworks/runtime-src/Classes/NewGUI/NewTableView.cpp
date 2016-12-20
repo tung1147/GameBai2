@@ -39,6 +39,7 @@ TableView::TableView() {
 	_parentIsPageView = false;
 	_moveThis = false;
 	_moveParent = false;
+	_reverse = false;
 }
 
 TableView::~TableView() {
@@ -71,175 +72,87 @@ void TableView::initWithSize(const Size& size, int columnSize){
 }
 
 void TableView::refreshViewVertical(){
-	//float width = (this->getContentSize().width - marginLeft - marginRight) / columnSize;
-	float allItemWidth = 0.0f;
-	float spaceStep, height, itemHeight;
-	float defaultItemWidth;
-	int zorder = 0;
-	Node* item;
+	float containerWidth = this->getContentSize().width;
+	float containerHeight = 0.0f;
+	if (_items.size() > 0){
+		Size itemSize = _items[0]->getContentSize();
+		int col = this->columnSize;
+		int row = ceil(((float)_items.size()) / col);
 
-	float containerHeight = marginTop + marginBottom;
-	for (int i = 0; i < _items.size(); i += columnSize){
-		//find max height
-//		item = _items[i];
-//		itemHeight = item->getContentSize().height * item->getScaleY();
-		height = 0.0f;
+		containerHeight = row * itemSize.height + (row - 1) * (this->padding) + this->marginTop + this->marginBottom;
+		if (containerHeight < this->getContentSize().height){
+			containerHeight = this->getContentSize().height;
+		}
 
-		for (int j = 0; j < columnSize && (i + j) < _items.size(); j++){
-			item = _items[i + j];
-			itemHeight = item->getContentSize().height * item->getScaleY();
-			if (itemHeight > height){
-				height = itemHeight;
+		float paddingWidth = (containerWidth - col * itemSize.width - this->marginLeft - this->marginRight) / (col + 1);
+		if (paddingWidth < 0.0){
+			paddingWidth = 0.0;
+		}
+
+		float x = this->marginLeft + itemSize.width / 2 + paddingWidth;
+		float y = containerHeight - itemSize.height / 2 - this->marginTop;
+		if (this->_reverse){
+			y = this->marginBottom + itemSize.height / 2;
+		}
+
+		for (int i = 0; i < _items.size(); i++){
+			int colIdx = i % col;
+			int rowIdx = i / col;
+			if (this->_reverse){
+				_items[i]->setPosition(x + colIdx * (itemSize.width + paddingWidth), y + rowIdx * (itemSize.height + this->padding));
+			}
+			else{
+				_items[i]->setPosition(x + colIdx * (itemSize.width + paddingWidth), y - rowIdx * (itemSize.height + this->padding));
 			}
 		}
-		//add height
-		containerHeight += (height + padding);
 	}
-	containerHeight -= padding;
+
 	if (containerHeight < this->getContentSize().height){
 		containerHeight = this->getContentSize().height;
 	}
-    
-    spaceStep = 0.0f;
-    bool flag = true;
-	float y = containerHeight - marginTop;
-	for (int i = 0; i < _items.size(); i += columnSize){
-		//
-		allItemWidth = 0.0f;
-//		item = _items[i];
-//		itemHeight = item->getContentSize().height * item->getScaleY();
-		height = 0.0f;
-		for (int j = 0; j < columnSize && (i + j) < _items.size(); j++){
-			item = _items[i + j];
-			itemHeight = item->getContentSize().height * item->getScaleY();
-			if (itemHeight > height){
-				height = itemHeight;
-			}
-			allItemWidth += item->getContentSize().width * item->getScaleX();
-		}
-//		if (_items.size() - i >= columnSize){
-//			spaceStep = (this->getContentSize().width - marginLeft - marginRight - allItemWidth) / (columnSize + 1);
-//		}
-
-		if (_items.size() - i < columnSize){
-			if(flag){
-				item = _items[i];
-				defaultItemWidth = item->getContentSize().width * item->getScaleX();
-				allItemWidth = defaultItemWidth*columnSize;
-				spaceStep = (this->getContentSize().width - marginLeft - marginRight - allItemWidth) / (columnSize + 1);
-			}
-			//spaceStep = (this->getContentSize().width - marginLeft - marginRight - allItemWidth) / (columnSize + 1);
-		}
-		else{
-			spaceStep = (this->getContentSize().width - marginLeft - marginRight - allItemWidth) / (columnSize + 1);
-		}
-
-		flag = false;
-		float a = spaceStep;
-
-		for (int j = 0; j < columnSize && (i + j) < _items.size(); j++){
-			item = _items[i + j];
-			//item->setPosition(width*(0.5f + j) + marginLeft, y - height / 2);
-			item->setAnchorPoint(Point::ANCHOR_MIDDLE);
-			item->setPosition(Point(a + item->getContentSize().width*item->getScaleX() / 2 + marginLeft, y - height / 2));
-			item->getParent()->reorderChild(item, zorder);
-			//item->setLocalZOrder(zorder);
-			
-			zorder++;
-			a += item->getContentSize().width*item->getScaleX() + spaceStep;
-		}
-
-		y -= (height + padding);
-	}
-
-	this->setInnerContainerSize(Size(this->getContentSize().width, containerHeight));
+	this->setInnerContainerSize(Size(containerWidth, containerHeight));
 }
 
 void TableView::refreshViewHorizontal(){
-	float itemHeight = (this->getContentSize().height - marginTop - marginBottom) / rowSize;
-	float containerWidth = marginLeft + marginRight;
-	float columnWidth = 0.0f;
-	float itemWidth, spaceStep, allItemHeight;
-	Node* item;
+	float containerWidth = 0.0f;
+	float containerHeight = this->getContentSize().height;
+	if (_items.size() > 0){
+		Size itemSize = _items[0]->getContentSize();
 
-	for (int i = 0; i < _items.size(); i += rowSize){
-		//find max height
-		item = _items[i];
-		itemWidth = item->getContentSize().width * item->getScaleX();
-		columnWidth = itemWidth;
-		for (int j = 0; j < rowSize && (i + j) < _items.size(); j++){
-			item = _items[i+j];
-			itemWidth = item->getContentSize().width * item->getScaleX();
-			columnWidth = itemWidth;
-			if (itemWidth > columnWidth){
-				columnWidth = itemWidth;
-			}
+		int row = this->rowSize;
+		int col = ceil(((float)_items.size()) / row);
+		containerWidth = col * itemSize.width + (col - 1) * (this->padding) + this->marginLeft + this->marginRight;
+		if (containerWidth < this->getContentSize().width){
+			containerWidth = this->getContentSize().width;
 		}
-		containerWidth += columnWidth + padding;
+
+		float paddingHeight = (containerHeight - row * itemSize.height - this->marginTop - this->marginBottom) / (row + 1);
+		if (paddingHeight < 0.0){
+			paddingHeight = 0.0; 
+		}
+
+		float x = this->marginLeft + itemSize.width / 2;
+		float y = containerHeight - itemSize.height / 2 - paddingHeight;
+		if (this->_reverse){
+			x = containerWidth - this->marginRight - itemSize.width / 2;
+		}
+
+		for (int i = 0; i < _items.size(); i++){
+			int colIdx = i / row;
+			int rowIdx = i % row;
+			if (this->_reverse){
+				_items[i]->setPosition(x - colIdx * (itemSize.width + this->padding), y - rowIdx * (itemSize.height + paddingHeight));
+			}
+			else{
+				_items[i]->setPosition(x + colIdx * (itemSize.width + this->padding), y - rowIdx * (itemSize.height + paddingHeight));
+			}			
+		}
 	}
-	containerWidth -= padding;
+
 	if (containerWidth < this->getContentSize().width){
 		containerWidth = this->getContentSize().width;
 	}
-
-	float x = marginLeft;
-	int zorder = 0;
-	spaceStep = 0.0f;
-	bool flag = true;
-	for (int i = 0; i < _items.size(); i += rowSize){
-		//find max height
-		allItemHeight = 0.0f;
-		item = _items[i];
-		itemWidth = item->getContentSize().width * item->getScaleX();
-		columnWidth = itemWidth;
-		int j =0;
-		for (j = 0; j < rowSize && (i + j) < _items.size(); j++){
-			item = _items[i + j];
-			itemWidth = item->getContentSize().width * item->getScaleX();
-			if (itemWidth > columnWidth){
-				columnWidth = itemWidth;
-			}
-			allItemHeight += item->getContentSize().height * item->getScaleY();
-		}
-
-//		if (_items.size() - i >= rowSize){
-//			spaceStep = (this->getContentSize().height - marginTop - marginBottom - allItemHeight) / (rowSize + 1);
-//		}
-
-		if (_items.size() - i < rowSize){
-			//log("1234zzzz");
-			if(flag){
-				item = _items[i];
-				float defaultItemHeight = item->getContentSize().height * item->getScaleY();
-				allItemHeight = defaultItemHeight*rowSize;
-				//log("zzzz");
-				spaceStep = (this->getContentSize().height - marginTop - marginBottom - allItemHeight) / (rowSize + 1);
-			}
-			//spaceStep = (this->getContentSize().height - marginTop - marginBottom - allItemHeight) / (rowSize + 1);
-		}
-		else{
-			spaceStep = (this->getContentSize().height - marginTop - marginBottom - allItemHeight) / (rowSize + 1);
-		}
-
-		flag = false;
-		//spaceStep = (this->getContentSize().height - marginTop - marginBottom - allItemHeight) / (rowSize + 1);
-		float a = this->getContentSize().height - spaceStep - marginTop;
-		
-		for (int j = 0; j < rowSize && (i + j) < _items.size(); j++){
-			item = _items[i + j];
-			//item->setPosition(a + item->getContentSize().width*item->getScaleX() / 2 + marginLeft, y - height / 2);
-			item->setAnchorPoint(Point::ANCHOR_MIDDLE);
-			item->setPosition(Point(x + columnWidth / 2, a - item->getContentSize().height*item->getScaleY()/2));
-			item->getParent()->reorderChild(item, zorder);
-			//item->setLocalZOrder(zorder);
-			zorder++;
-			a -= item->getContentSize().height*item->getScaleY() + spaceStep;
-		}
-
-		x += (columnWidth + padding);
-	}
-
-	this->setInnerContainerSize(Size(containerWidth, this->getContentSize().height));
+	this->setInnerContainerSize(Size(containerWidth, containerHeight));
 }
 
 void TableView::setPadding(float padding){
@@ -542,6 +455,11 @@ void TableView::insertItem(Node* item, int index){
 	this->addChild(item, 0);
 
 	_items.insert(_items.begin() + index, item);
+	_isUpdateView = true;
+}
+
+void TableView::setReverse(bool reverse){
+	_reverse = reverse;
 	_isUpdateView = true;
 }
 

@@ -42,6 +42,7 @@ protected:
 	bool _parentIsPageView;
 	bool _moveThis;
 	bool _moveParent;
+	bool _reverse;
 	Point _startPoint;
 	
 	void refreshViewVertical();
@@ -89,6 +90,7 @@ public:
 	virtual void removeItem(int index);
 	virtual void pushItem(Node* item);
 	virtual void insertItem(Node* item, int index);
+	virtual void setReverse(bool reverse);
 
 	void refreshView();
 	void forceRefreshView();
