@@ -301,7 +301,7 @@ var CaoThapScene = MiniGameScene.extend({
     },
     setCard: function (cardNum) {
         // if (cardNum < 4 || cardNum > 55)
-        //     console.log(cardNum);
+        //     cc.log(cardNum);
         this.card.setSpriteFrame("" + Math.floor(cardNum / 4) +
             s_card_suit[cardNum % 4] + ".png");
     },

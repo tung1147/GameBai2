@@ -112,7 +112,7 @@ var VideoPokerController = MiniGameController.extend({
         var bankValue = param["6"];
         var choosenPos = param["3"];
         this._view.setBankValue(bankValue);
-        console.log(cardArray);
+        cc.log(cardArray);
         this.setTurnState(4);
         this._view.setFlashing(false, false);
         this._view.setHoldCard(choosenPos, true);

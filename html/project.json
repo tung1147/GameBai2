@@ -100,6 +100,10 @@
         "res/Game/js/MiniGame/CaoThapScene.js",
         "res/Game/js/MiniGame/MiniPockerScene.js",
         "res/Game/js/MiniGame/VideoPockerScene.js",
+        "res/Game/js/MiniGame/MiniGameLayer/MiniGame.js",
+        "res/Game/js/MiniGame/MiniGameLayer/CaoThapLayer.js",
+        "res/Game/js/MiniGame/MiniGameLayer/MiniPokerLayer.js",
+        "res/Game/js/MiniGame/MiniGameLayer/VideoPokerLayer.js",
         "res/Game/js/SceneNavigator.js"
     ]
 }

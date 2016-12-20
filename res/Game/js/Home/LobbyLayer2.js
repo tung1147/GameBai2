@@ -220,7 +220,7 @@ var LobbyLayer = cc.Node.extend({
     },
 
     onUpdateAll : function (cmd, event) {
-        console.log(event);
+        cc.log(event);
 
         var data = event.data;
         this.maxUsers = data.maxUsers;

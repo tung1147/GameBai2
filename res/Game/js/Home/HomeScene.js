@@ -230,24 +230,12 @@ var HomeScene = IScene.extend({
             return;
         }
 
-        if (gameId == GameType.MiniGame_CaoThap) {
-            var caothap = new CaoThapScene();
-            cc.director.replaceScene(new cc.TransitionFade(0.5, caothap, cc.color("#000000")));
-        }
-        else if (gameId == GameType.MiniGame_ChanLe) {
-
-        }
-        else if (gameId == GameType.MiniGame_Poker) {
-            var minipoker = new MiniPokerScene();
-            cc.director.replaceScene(new cc.TransitionFade(0.5, minipoker, cc.color("#000000")));
-        }
-        else if (gameId == GameType.GAME_VongQuayMayMan) {
-            var vongquay = new VongQuayScene();
-            cc.director.replaceScene(new cc.TransitionFade(0.5, vongquay, cc.color("#000000")));
-        }
-        else if (gameId == GameType.MiniGame_VideoPoker) {
-            var videopoker = new VideoPockerScene();
-            cc.director.replaceScene(new cc.TransitionFade(0.5, videopoker, cc.color("#000000")));
+        if (gameId == GameType.GAME_VongQuayMayMan ||
+            gameId == GameType.MiniGame_CaoThap ||
+            gameId == GameType.MiniGame_ChanLe ||
+            gameId == GameType.MiniGame_Poker ||
+            gameId == GameType.MiniGame_VideoPoker) {
+            SceneNavigator.toMiniGame(gameId, false);
         }
         else {
             this.startLobby(gameId);

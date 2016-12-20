@@ -336,7 +336,7 @@ var SmartfoxClient = (function () {
                     // LobbyClient.getInstance().gameChannel = gameType;
                     //  PlayerMe.SFS.gameType = gameType;
                 }
-                else if (contents.c == "262") { // reconnect
+                else if (contents.c == "262") { // reconnect mini game
                     var scene = cc.director.getRunningScene();
                     if (scene.type == "GameScene") {
                         return false;

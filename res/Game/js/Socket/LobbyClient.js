@@ -221,7 +221,7 @@ var LobbyClient = (function () {
             }
         },
         onLoginEvent: function (event) {
-          //  console.log(event);
+          //  cc.log(event);
             PlayerMe.messageCount = 0;
 
             var data = event.data;

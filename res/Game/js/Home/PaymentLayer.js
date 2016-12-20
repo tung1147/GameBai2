@@ -73,7 +73,7 @@ var PaymentCardLayer = cc.Node.extend({
                 telco: telco,
                 type: type
             };
-            console.log(msg);
+            cc.log(msg);
             LobbyClient.getInstance().send(msg);
         });
 

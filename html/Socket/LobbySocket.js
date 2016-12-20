@@ -135,7 +135,7 @@ socket.LobbyClient = cc.Class.extend({
         else{
             if(this.onEvent) {
                 this.onEvent("message", data);
-                console.log(obj);
+                cc.log(obj);
             }
         }
     },
