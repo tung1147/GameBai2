@@ -58,7 +58,11 @@ var WebSprite = cc.Node.extend({
         }
 
         if(cc.sys.isNative){
-
+            quyetnd.ResourcesDownloader.loadTexture(url, function (texture) {
+                cc.log("loadTexture: 1111");
+                var imgSprite = new cc.Sprite(texture);
+                thiz._setImageSprite(imgSprite);
+            });
         }
         else{
             cc.loader.loadImg(url, function (err, texture) {
