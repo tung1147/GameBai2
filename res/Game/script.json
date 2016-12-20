@@ -73,5 +73,9 @@
 	"js/MiniGame/CaoThapScene.js",
 	"js/MiniGame/MiniPockerScene.js",
 	"js/MiniGame/VideoPockerScene.js",
+	"js/MiniGame/MiniGameLayer/MiniGame.js",
+	"js/MiniGame/MiniGameLayer/CaoThapLayer.js",
+	"js/MiniGame/MiniGameLayer/MiniPokerLayer.js",
+	"js/MiniGame/MiniGameLayer/VideoPokerLayer.js",
 	"js/SceneNavigator.js"
 ]
