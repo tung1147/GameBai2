@@ -34,8 +34,10 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\Plugin\crypt_aes.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\Plugin\FacebookPlugin.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\Plugin\jsb_quyetnd_facebook_plugin.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\Plugin\jsb_quyetnd_resourcedownloader.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\Plugin\jsb_quyetnd_systemplugin.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\Plugin\MD5.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\Plugin\ResourcesDownloader.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\Plugin\sha1.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\Plugin\SystemPlugin.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\Plugin\UUIDEncrypt.cpp" />
@@ -71,8 +73,10 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\Plugin\crypt_aes.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\Plugin\FacebookPlugin.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\Plugin\jsb_quyetnd_facebook_plugin.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\Plugin\jsb_quyetnd_resourcedownloader.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\Plugin\jsb_quyetnd_systemplugin.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\Plugin\MD5.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\Plugin\ResourcesDownloader.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\Plugin\sha1.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\Plugin\SystemPlugin.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\Plugin\UUIDEncrypt.h" />
