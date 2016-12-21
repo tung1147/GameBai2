@@ -112,9 +112,14 @@ var VideoPokerController = MiniGameController.extend({
         var bankValue = param["6"];
         var choosenPos = param["3"];
         this._view.setBankValue(bankValue);
-        cc.log(cardArray);
-        this.setTurnState(4);
-        this._view.setFlashing(false, false);
+        console.log(cardArray);
+        if (param["5"] != 2) {
+            this.setTurnState(2);
+            this._view.setFlashing(true, true);
+        } else {
+            this.setTurnState(4);
+            this._view.setFlashing(false, false);
+        }
         this._view.setHoldCard(choosenPos, true);
         this._view.setCardArray(cardArray);
     },
@@ -202,13 +207,22 @@ var VideoPokerController = MiniGameController.extend({
             this._view.setRewardCards(rewardArray);
             var rewardId = data["9"]["2"];
             this._view.activateReward(rewardId);
-            this._view.setFlashing(rewardId < 9,rewardId < 9);
+            this._view.setFlashing(rewardId < 9, rewardId < 9);
             return;
         }
 
         if (data["10"]) {
-            this.setTurnState(3);
-            this._view.setFlashing(true,false);
+            switch (data["10"]["2"]) {
+                case 1: // chua pick la'
+                    this.setTurnState(3);
+                    this._view.showDoubleTurn(data["10"]["1"]);
+                    this._view.setFlashing(true, false);
+                    break;
+
+                case 2: // da pick la'
+                    this.onDoubleResult(data["10"]);
+                    break;
+            }
         }
     },
 

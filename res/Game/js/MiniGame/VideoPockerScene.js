@@ -511,8 +511,10 @@ var VideoPockerScene = MiniGameScene.extend({
     showDoubleTurn: function (firstCardId) {
         var card = this.getCardWithId(firstCardId);
         this.cardSprites[0].setSpriteFrame("" + card.rank + s_card_suit[card.suit] + ".png");
-        for (var i = 1; i < 5; i++)
+        for (var i = 1; i < 5; i++) {
             this.cardSprites[i].setSpriteFrame("gp_card_up.png");
+            this.holdLayers[i].setVisible(false);
+        }
     },
 
     setRewardCards: function (indexArray) {
