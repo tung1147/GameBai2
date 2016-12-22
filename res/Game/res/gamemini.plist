@@ -4,160 +4,486 @@
     <dict>
         <key>frames</key>
         <dict>
+            <key>addBtn.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{46,47}</string>
+                <key>spriteSourceSize</key>
+                <string>{46,47}</string>
+                <key>textureRect</key>
+                <string>{{1051,426},{46,47}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>huthuong100k.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{86,24}</string>
+                <key>spriteSourceSize</key>
+                <string>{86,24}</string>
+                <key>textureRect</key>
+                <string>{{1000,96},{86,24}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>huthuong10k.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{72,24}</string>
+                <key>spriteSourceSize</key>
+                <string>{72,24}</string>
+                <key>textureRect</key>
+                <string>{{1000,184},{72,24}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>huthuong1k.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{60,24}</string>
+                <key>spriteSourceSize</key>
+                <string>{60,24}</string>
+                <key>textureRect</key>
+                <string>{{1110,367},{60,24}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>huthuongbg.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{228,99}</string>
+                <key>spriteSourceSize</key>
+                <string>{228,99}</string>
+                <key>textureRect</key>
+                <string>{{899,96},{228,99}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>jackOrBetterTop.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{720,284}</string>
+                <key>spriteSourceSize</key>
+                <string>{720,284}</string>
+                <key>textureRect</key>
+                <string>{{1,428},{720,284}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
             <key>minigame-bg1.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{410,152},{40,40}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{2,2},{40,40}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
+                <string>{42,42}</string>
+                <key>spriteSourceSize</key>
                 <string>{44,44}</string>
+                <key>textureRect</key>
+                <string>{{1110,393},{42,42}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>minigame-chip-1.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{206,356},{120,120}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{120,120}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
                 <string>{120,120}</string>
+                <key>spriteSourceSize</key>
+                <string>{120,120}</string>
+                <key>textureRect</key>
+                <string>{{1051,1},{120,120}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>minigame-chip-2.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{328,356},{120,120}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{120,120}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
                 <string>{120,120}</string>
+                <key>spriteSourceSize</key>
+                <string>{120,120}</string>
+                <key>textureRect</key>
+                <string>{{1051,123},{120,120}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>minigame-chip-3.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{450,355},{120,120}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{120,120}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
                 <string>{120,120}</string>
+                <key>spriteSourceSize</key>
+                <string>{120,120}</string>
+                <key>textureRect</key>
+                <string>{{1051,245},{120,120}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>minigame-chipSelected-1.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{2,2},{202,202}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{202,202}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
                 <string>{202,202}</string>
+                <key>spriteSourceSize</key>
+                <string>{202,202}</string>
+                <key>textureRect</key>
+                <string>{{1,714},{202,202}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>minigame-chipSelected-2.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{2,206},{202,202}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{202,202}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
                 <string>{202,202}</string>
+                <key>spriteSourceSize</key>
+                <string>{202,202}</string>
+                <key>textureRect</key>
+                <string>{{205,714},{202,202}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>minigame-chipSelected-3.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{206,2},{202,202}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{202,202}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
                 <string>{202,202}</string>
+                <key>spriteSourceSize</key>
+                <string>{202,202}</string>
+                <key>textureRect</key>
+                <string>{{409,714},{202,202}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>minigame-highBt.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{206,206},{148,148}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{15,15},{148,148}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
+                <string>{150,150}</string>
+                <key>spriteSourceSize</key>
                 <string>{178,178}</string>
+                <key>textureRect</key>
+                <string>{{722,723},{150,150}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>minigame-kingCard1.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{2,410},{48,63}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{42,42},{48,63}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
+                <string>{50,65}</string>
+                <key>spriteSourceSize</key>
                 <string>{132,147}</string>
+                <key>textureRect</key>
+                <string>{{613,861},{50,65}}</string>
+                <key>textureRotated</key>
+                <true/>
             </dict>
             <key>minigame-kingCard2.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{356,206},{132,147}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{132,147}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
                 <string>{132,147}</string>
+                <key>spriteSourceSize</key>
+                <string>{132,147}</string>
+                <key>textureRect</key>
+                <string>{{899,478},{132,147}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>minigame-lowBt.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{410,2},{148,148}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{15,15},{148,148}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
+                <string>{150,150}</string>
+                <key>spriteSourceSize</key>
                 <string>{178,178}</string>
+                <key>textureRect</key>
+                <string>{{899,326},{150,150}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>minilayer-chip-1.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{123,138}</string>
+                <key>spriteSourceSize</key>
+                <string>{123,138}</string>
+                <key>textureRect</key>
+                <string>{{1033,478},{123,138}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>minilayer-chip-2.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{107,145}</string>
+                <key>spriteSourceSize</key>
+                <string>{107,145}</string>
+                <key>textureRect</key>
+                <string>{{613,714},{107,145}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>minilayer-chip-3.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{123,142}</string>
+                <key>spriteSourceSize</key>
+                <string>{123,142}</string>
+                <key>textureRect</key>
+                <string>{{899,627},{123,142}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>minilayer-chipSelected-1.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{123,138}</string>
+                <key>spriteSourceSize</key>
+                <string>{123,138}</string>
+                <key>textureRect</key>
+                <string>{{1033,603},{123,138}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>minilayer-chipSelected-2.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{107,145}</string>
+                <key>spriteSourceSize</key>
+                <string>{107,145}</string>
+                <key>textureRect</key>
+                <string>{{874,771},{107,145}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>minilayer-chipSelected-3.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{123,142}</string>
+                <key>spriteSourceSize</key>
+                <string>{123,142}</string>
+                <key>textureRect</key>
+                <string>{{983,771},{123,142}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>poker_bank.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{320,93}</string>
+                <key>spriteSourceSize</key>
+                <string>{320,93}</string>
+                <key>textureRect</key>
+                <string>{{723,1},{320,93}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>poker_cards_border_vertical.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{27,27}</string>
+                <key>spriteSourceSize</key>
+                <string>{27,27}</string>
+                <key>textureRect</key>
+                <string>{{680,861},{27,27}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>rewardBackground.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{720,425}</string>
+                <key>spriteSourceSize</key>
+                <string>{720,425}</string>
+                <key>textureRect</key>
+                <string>{{1,1},{720,425}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>reward_bg.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{27,27}</string>
+                <key>spriteSourceSize</key>
+                <string>{27,27}</string>
+                <key>textureRect</key>
+                <string>{{1000,258},{27,27}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>reward_bg_active.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{57,57}</string>
+                <key>spriteSourceSize</key>
+                <string>{57,57}</string>
+                <key>textureRect</key>
+                <string>{{1051,367},{57,57}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>videoQuayBtn-disabled.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{174,207}</string>
+                <key>spriteSourceSize</key>
+                <string>{174,207}</string>
+                <key>textureRect</key>
+                <string>{{723,96},{174,207}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>videoQuayBtn.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{174,207}</string>
+                <key>spriteSourceSize</key>
+                <string>{174,207}</string>
+                <key>textureRect</key>
+                <string>{{723,305},{174,207}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>videoX2btn.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{174,207}</string>
+                <key>spriteSourceSize</key>
+                <string>{174,207}</string>
+                <key>textureRect</key>
+                <string>{{723,514},{174,207}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
         </dict>
         <key>metadata</key>
         <dict>
             <key>format</key>
-            <integer>2</integer>
+            <integer>3</integer>
+            <key>pixelFormat</key>
+            <string>RGBA8888</string>
+            <key>premultiplyAlpha</key>
+            <false/>
             <key>realTextureFileName</key>
             <string>gamemini.png</string>
             <key>size</key>
-            <string>{572,479}</string>
+            <string>{1172,917}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:a2648e193c7300037d350dca1b32ce60:567877f06f2a6e088812e5dc3bf16539:3710e9591dd0391354ae62d7c976e04e$</string>
+            <string>$TexturePacker:SmartUpdate:2dcf4a83a29b0043394b153e9bac55e8:48ee0257eb6fe48f381c7b02a89aafb0:3710e9591dd0391354ae62d7c976e04e$</string>
             <key>textureFileName</key>
             <string>gamemini.png</string>
         </dict>

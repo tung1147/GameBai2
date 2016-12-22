@@ -327,10 +327,12 @@ var VideoPockerScene = MiniGameScene.extend({
             case 0:
             case 4:
                 this._controller.sendRollRequest(betType);
+                this.setRolling(true);
                 break;
 
             case 1:
                 this._controller.sendNextRollRequest(this.holdingList);
+                this.setRolling(true);
                 break;
 
             case 2:
@@ -492,13 +494,14 @@ var VideoPockerScene = MiniGameScene.extend({
 
     setRolling: function (isRolling) {
         this.rolling = isRolling;
+        for (var i = 0; i < 5; i++)
+            this.setRollCard(i, isRolling);
     },
 
     setHoldArray: function (holdArray) {
         this.holdingList = holdArray;
-        for (var i = 0; i < 5; i++) {
-            this.holdLayers[i].visible = holdArray[i];
-        }
+        for (var i = 0; i < 5; i++)
+            this.setHoldCard(i, holdArray[i]);
     },
 
     setCardArray: function (cardArray) {
@@ -506,6 +509,8 @@ var VideoPockerScene = MiniGameScene.extend({
             var card = this.getCardWithId(cardArray[i]);
             this.cardSprites[i].setSpriteFrame("" + card.rank + s_card_suit[card.suit] + ".png");
         }
+
+        this.setRolling(false);
     },
 
     showDoubleTurn: function (firstCardId) {
@@ -538,12 +543,17 @@ var VideoPockerScene = MiniGameScene.extend({
         };
     },
     setRollCard: function (index, isRolling) {
+        // prevent rolling if the card is holded
+        if (this.holdingList[index] && isRolling)
+            return;
+
         for (var i = 0; i < 3; i++) {
             this.cardRollingSprites[i * 5 + index].visible = isRolling;
         }
         this.cardSprites[index].visible = !isRolling;
-        this.cards[index].rolling = isRolling;
-        if (!isRolling) {
+
+        // perform stopping action on rolling cards only
+        if (isRolling == false && this.cards[index].rolling) {
             var duration = 0.1;
             var basex = this.cardSprites[index].getPositionX();
             var basey = this.cardSprites[index].getPositionY();
@@ -552,6 +562,8 @@ var VideoPockerScene = MiniGameScene.extend({
             var move2 = new cc.MoveTo(duration, cc.p(basex, basey));
 
             this.cardSprites[index].runAction(new cc.Sequence(move1, move2));
+            cc.log("stop roll");
         }
+        this.cards[index].rolling = isRolling;
     }
 });

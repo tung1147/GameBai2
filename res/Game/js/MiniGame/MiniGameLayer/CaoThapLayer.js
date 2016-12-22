@@ -3,46 +3,33 @@
  */
 
 var CaoThapLayer = MiniGamePopup.extend({
-    ctor : function () {
+    ctor: function () {
         this._super();
         this._boudingRect = cc.rect(30, 47, 930, 510);
 
         var bg = new cc.Sprite("#caothap_bg.png");
-        bg.setAnchorPoint(cc.p(0,0));
+        bg.setAnchorPoint(cc.p(0, 0));
         this.setContentSize(bg.getContentSize());
-        this.setAnchorPoint(cc.p(0.5,0.5));
+        this.setAnchorPoint(cc.p(0.5, 0.5));
         this.addChild(bg);
 
+        var highButton = new ccui.Button("caothap_up.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        highButton.setPosition(270, 292);
+        this.addChild(highButton);
 
-        var closeButton = new ccui.Button("caothap_closeBt.png","","", ccui.Widget.PLIST_TEXTURE);
-        closeButton.setPosition(895, 407);
-        this.addChild(closeButton);
-
-        var tutorialButton = new ccui.Button("caothap_tutorialBt.png","","", ccui.Widget.PLIST_TEXTURE);
-        tutorialButton.setPosition(769, 426);
-        this.addChild(tutorialButton);
-
-        var historyButton = new ccui.Button("caothap_historyBt.png","","", ccui.Widget.PLIST_TEXTURE);
-        historyButton.setPosition(694, 430);
-        this.addChild(historyButton);
-
-        var upButton = new ccui.Button("caothap_up.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        upButton.setPosition(270, 292);
-        this.addChild(upButton);
-
-        var downButton = new ccui.Button("caothap_down.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        downButton.setPosition(730, 292);
-        this.addChild(downButton);
+        var lowButton = new ccui.Button("caothap_down.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        lowButton.setPosition(730, 292);
+        this.addChild(lowButton);
 
         var startButton = new ccui.Button("caothap_startButton.png", "", "", ccui.Widget.PLIST_TEXTURE);
         startButton.setZoomScale(0.0);
         startButton.setPosition(871.5, 114);
         this.addChild(startButton);
-        startButton.setVisible(false);
+        this.startButton = startButton;
 
         var nextButton = new ccui.Button("caothap_nextButton.png", "caothap_nextButton.png", "caothap_nextButton_off.png", ccui.Widget.PLIST_TEXTURE);
         nextButton.setPosition(startButton.getPosition());
-        nextButton.setEnabled(false);
+        nextButton.setVisible(false);
         this.addChild(nextButton);
         this.nextButton = nextButton;
 
@@ -50,59 +37,77 @@ var CaoThapLayer = MiniGamePopup.extend({
         coinIcon.setPosition(749, 90);
         this.addChild(coinIcon);
 
-        var goldLabel = new cc.LabelBMFont("100.000", cc.res.font.Roboto_CondensedBold_30);
-        goldLabel.setColor(cc.color("#ffea00"));
-        goldLabel.setAnchorPoint(cc.p(1.0, 0.5));
-        goldLabel.setPosition(725, 90);
-        this.addChild(goldLabel, 1);
+        var bankLabel = new cc.LabelBMFont("100.000", cc.res.font.Roboto_CondensedBold_30);
+        bankLabel.setColor(cc.color("#ffea00"));
+        bankLabel.setAnchorPoint(cc.p(1.0, 0.5));
+        bankLabel.setPosition(725, 90);
+        this.bankLabel = bankLabel;
+        this.addChild(bankLabel, 1);
 
         var timeLabel = new cc.LabelBMFont("05:00", cc.res.font.Roboto_CondensedBold_30);
         timeLabel.setPosition(500, 415);
+        this.timeLabel = timeLabel;
         this.addChild(timeLabel, 1);
 
-        var jackpotLabel = new cc.LabelBMFont("100.000", cc.res.font.Roboto_CondensedBold_30);
-        jackpotLabel.setColor(cc.color("#ffea00"));
-        jackpotLabel.setPosition(500, 462);
-        this.addChild(jackpotLabel, 1);
+        var highLabel = new cc.LabelBMFont("CAO", cc.res.font.Roboto_CondensedBold_30);
+        highLabel.setColor(cc.color("#c9ceff"));
+        highLabel.setPosition(highButton.x, 192);
+        this.addChild(highLabel, 1);
 
-        var upLabel = new cc.LabelBMFont("CAO", cc.res.font.Roboto_CondensedBold_30);
-        upLabel.setColor(cc.color("#c9ceff"));
-        upLabel.setPosition(upButton.x, 192);
-        this.addChild(upLabel, 1);
+        var lowLabel = new cc.LabelBMFont("THẤP", cc.res.font.Roboto_CondensedBold_30);
+        lowLabel.setColor(cc.color("#c9ceff"));
+        lowLabel.setPosition(lowButton.x, highLabel.y);
+        this.addChild(lowLabel, 1);
 
-        var downLabel = new cc.LabelBMFont("THẤP", cc.res.font.Roboto_CondensedBold_30);
-        downLabel.setColor(cc.color("#c9ceff"));
-        downLabel.setPosition(downButton.x, upLabel.y);
-        this.addChild(downLabel, 1);
+        var highValueLabel = new cc.LabelBMFont("10.000.000", cc.res.font.Roboto_Condensed_25);
+        highValueLabel.setColor(cc.color("#ffea00"));
+        highValueLabel.setPosition(highButton.x, 160);
+        this.highValueLabel = highValueLabel;
+        this.addChild(highValueLabel, 2);
 
-        var upGoldLabel = new cc.LabelBMFont("10.000.000", cc.res.font.Roboto_Condensed_25);
-        upGoldLabel.setColor(cc.color("#ffea00"));
-        upGoldLabel.setPosition(upButton.x, 160);
-        this.addChild(upGoldLabel, 2);
+        var lowValueLabel = new cc.LabelBMFont("10.000.000", cc.res.font.Roboto_Condensed_25);
+        lowValueLabel.setColor(cc.color("#ffea00"));
+        lowValueLabel.setPosition(lowButton.x, highValueLabel.y);
+        this.lowValueLabel = lowValueLabel;
+        this.addChild(lowValueLabel, 2);
 
-        var downGoldLabel = new cc.LabelBMFont("10.000.000", cc.res.font.Roboto_Condensed_25);
-        downGoldLabel.setColor(cc.color("#ffea00"));
-        downGoldLabel.setPosition(downButton.x, upGoldLabel.y);
-        this.addChild(downGoldLabel, 2);
+        var card = new cc.Sprite("#gp_card_up.png");
+        card.setScale(2 * cc.winSize.screenScale);
+        card.setPosition(500, 260);
+        this.addChild(card);
+        this.card = card;
+
+        var gameIdLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "ID : 1231231233", cc.TEXT_ALIGNMENT_LEFT);
+        gameIdLabel.setColor(cc.color("#5366cb"));
+        gameIdLabel.setScale(0.8);
+        gameIdLabel.setPosition(lowButton.x, lowValueLabel.y - 25);
+        this.addChild(gameIdLabel);
+        this.gameIdLabel = gameIdLabel;
 
         this.initNoHu();
         this.initHistory();
-        this.initMucCuoc();
 
         var thiz = this;
-        downButton.addClickEventListener(function () {
-            var idx = Math.floor(Math.random() * 13);
-            thiz.addHistory(idx);
+        lowButton.addClickEventListener(function () {
+            thiz._controller.sendLowPredict();
+        });
+
+        highButton.addClickEventListener(function () {
+            thiz._controller.sendHighPredict();
+        });
+
+        startButton.addClickEventListener(function () {
+            thiz._controller.sendInitGame(thiz.chipGroup.chipSelected.chipIndex);
+        });
+
+        nextButton.addClickEventListener(function () {
+            thiz._controller.sendLuotMoiRequest();
         });
     },
 
-    initMucCuoc : function () {
-
-    },
-
-    initNoHu : function () {
+    initNoHu: function () {
         this._kingCards = [];
-        for(var i=0;i<3;i++){
+        for (var i = 0; i < 3; i++) {
             var kingCard = new cc.Sprite("#caothap_kingCard_1.png");
             kingCard.setPosition(227 + i * 45, 429);
             this.addChild(kingCard, 1);
@@ -110,13 +115,22 @@ var CaoThapLayer = MiniGamePopup.extend({
         }
     },
 
-    initHistory : function () {
+    setBankValue: function (value) {
+        this.bankLabel.setString(cc.Global.NumberFormat1(value));
+    },
+
+    showResultCard: function (cardId) {
+        var card = this.getCardWithId(cardId);
+        this.card.setSpriteFrame(card.rank + s_card_suit[card.suit] + ".png");
+    },
+
+    initHistory: function () {
         var historyList = new newui.TableView(cc.size(355, 48), 1);
         historyList.setDirection(ccui.ScrollView.DIR_HORIZONTAL);
         historyList.setReverse(true);
         historyList.setPosition(205, 65);
-       // historyList.setMargin(margin, margin, 0, 0);
-       // historyList.setPadding(padding);
+        // historyList.setMargin(margin, margin, 0, 0);
+        // historyList.setPadding(padding);
         historyList.setScrollBarEnabled(false);
         this.addChild(historyList, 3);
         this.historyList = historyList;
@@ -127,8 +141,30 @@ var CaoThapLayer = MiniGamePopup.extend({
         // }
     },
 
-    addHistory : function (cardIndex) {
-        if(this.historyList.size() > 0){
+    initController: function () {
+        this._controller = new CaoThapController(this);
+    },
+
+    pushKing: function (isK) {
+        if (!isK) {
+            for (var i = 0; i < 3; i++) {
+                this._kingCards[i].setSpriteFrame("caothap_kingCard_1.png");
+                this._kingCards[i].activated = false;
+            }
+        }
+        else {
+            var i = 0;
+            while (this._kingCards[i].activated && i < 2)
+                i++;
+            this._kingCards[i].setSpriteFrame("caothap_kingCard_2.png");
+            this._kingCards[i].activated = true;
+        }
+    },
+
+    addHistory: function (cardValue, enforce) {
+        var card = this.getCardWithId(cardValue);
+        var cardIndex = card.rank;
+        if (this.historyList.size() > 0) {
             var item = this.historyList.getItem(0);
             item.label.setColor(cc.color("#8d9de6"));
             item.lastCardSprite.setVisible(false);
@@ -138,9 +174,9 @@ var CaoThapLayer = MiniGamePopup.extend({
         var container = new ccui.Widget();
         container.setContentSize(39, 48);
 
-        var label =  new cc.LabelBMFont(cardIndex.toString(), cc.res.font.Roboto_CondensedBold_30);
+        var label = new cc.LabelBMFont(cardIndex.toString(), cc.res.font.Roboto_CondensedBold_30);
         label.setColor(cc.color("#7adfff"));
-        label.setPosition(container.getContentSize().width/2, container.getContentSize().height/2);
+        label.setPosition(container.getContentSize().width / 2, container.getContentSize().height / 2);
         container.addChild(label);
         container.label = label;
 
@@ -152,5 +188,32 @@ var CaoThapLayer = MiniGamePopup.extend({
         this.historyList.insertItem(container, 0);
         this.historyList.forceRefreshView();
         this.historyList.jumpToRight();
+    },
+
+    setReward: function (lowReward, highReward) {
+        this.lowValueLabel.setString(cc.Global.NumberFormat1(lowReward));
+        this.highValueLabel.setString(cc.Global.NumberFormat1(highReward));
+    },
+
+    setTimeRemaining: function (timeRemaining) {
+
+    },
+
+    setTipString: function (str) {
+
+    },
+
+    setLuotMoiBtVisible: function (visible) {
+        this.startButton.visible = !visible;
+        this.nextButton.visible = visible;
+    },
+
+    clearTurn: function () {
+        this.bankLabel.setString("0");
+        this.nextButton.visible = false;
+        this.startButton.visible = true;
+        this.historyList.removeAllItems();
+        this.card.setSpriteFrame("gp_card_up.png");
+        this.timeLabel.setString("");
     }
 });

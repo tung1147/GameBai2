@@ -35,7 +35,7 @@ var MiniGameController = cc.Class.extend({
                 this._view.performChangeRewardFund(content.p.data["1"]);
                 break;
             case "260": // thong tin game
-                this._view.setupMucCuoc(content.p.data["bts"]); // cac muc cuoc
+                //this._view.setupMucCuoc(content.p.data["bts"]); // cac muc cuoc
                 this._view.performChangeRewardFund(content.p.data["pbs"]); // thay doi hu thuong
                 break;
 

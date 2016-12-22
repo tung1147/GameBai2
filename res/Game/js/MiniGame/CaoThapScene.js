@@ -316,10 +316,6 @@ var CaoThapScene = MiniGameScene.extend({
             this.timeLabel.setString("");
     },
 
-    updateRewardFund: function () {
-        // called when the reward fund is changed or user select another bet amount
-    },
-
     performChangeRewardFund: function (data) {
         this._super(data);
         var betAmountID = this.chipGroup.chipSelected.chipIndex;

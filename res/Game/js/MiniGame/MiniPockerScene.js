@@ -327,7 +327,10 @@ var MiniPokerScene = MiniGameScene.extend({
             this.onQuayBtClick();
     },
     onQuayBtClick: function () {
+        if (this.rolling)
+            return;
         this._controller.sendRollRequest(this.chipGroup.chipSelected.chipIndex);
+        this.setRolling(true);
     },
 
     initFlashing: function () {
@@ -396,6 +399,7 @@ var MiniPokerScene = MiniGameScene.extend({
             var card = this.getCardWithId(cardArray[i]);
             this.cardSprites[i].setSpriteFrame("" + card.rank + s_card_suit[card.suit] + ".png");
         }
+        this.setRolling(false);
     },
 
     setRewardCards: function (indexArray) {
@@ -414,6 +418,7 @@ var MiniPokerScene = MiniGameScene.extend({
             var duration = 0.1;
             var basex = this.cardSprites[index].getPositionX();
             var basey = this.cardSprites[index].getPositionY();
+            cc.log("basey : " + basey);
 
             var move1 = new cc.MoveTo(duration, cc.p(basex, basey - 20));
             var move2 = new cc.MoveTo(duration, cc.p(basex, basey));
@@ -424,5 +429,7 @@ var MiniPokerScene = MiniGameScene.extend({
 
     setRolling: function (isRolling) {
         this.rolling = isRolling;
+        for (var i = 0; i < 5; i++)
+            this.setRollCard(i, isRolling);
     }
 });

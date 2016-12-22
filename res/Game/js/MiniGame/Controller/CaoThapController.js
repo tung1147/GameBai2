@@ -15,43 +15,45 @@ var CaoThapController = MiniGameController.extend({
         this.turnState = 0;
         this.result = -1;
         this.rolling = false;
-        this.onCooldown = false;
+        // this.onCooldown = false;
         this.timeRemaining = 0;
-        var thiz = this;
-        this.intervalTimer = setInterval(function () {
-            thiz.onTimer();
-        }, 1000);
+        // var thiz = this;
+        // this.intervalTimer = setInterval(function () {
+        //     thiz.onTimer();
+        // }, 1000);
     },
 
-    releaseController : function () {
-        this._super();
-        if(this.intervalTimer != undefined){
-            clearInterval(this.intervalTimer);
-            this.intervalTimer = undefined;
-        }
-    },
+    // releaseController : function () {
+    //     this._super();
+    //     if(this.intervalTimer != undefined){
+    //         clearInterval(this.intervalTimer);
+    //         this.intervalTimer = undefined;
+    //     }
+    // },
 
     onSFSExtension: function (messageType, content) {
         this._super(messageType, content);
         var thiz = this;
-        var interval = null;
+        // var interval = null;
         switch (content.c) {
             case "407": // nhan thong tin la dau tien
-                interval = setInterval(function () {
-                    if (!thiz.onCooldown) {
-                        thiz.onInitGame(content.p.data);
-                        clearInterval(interval);
-                    }
-                }, 100);
+                // interval = setInterval(function () {
+                //     if (!thiz.onCooldown) {
+                //         thiz.onInitGame(content.p.data);
+                //         clearInterval(interval);
+                //     }
+                // }, 100);
+                this.onInitGame(content.p.data);
                 break;
 
             case "408": // nhan ket qua cao thap
-                interval = setInterval(function () {
-                    if (!thiz.onCooldown) {
-                        thiz.onPredictResult(content.p.data);
-                        clearInterval(interval);
-                    }
-                }, 100);
+                // interval = setInterval(function () {
+                //     if (!thiz.onCooldown) {
+                //         thiz.onPredictResult(content.p.data);
+                //         clearInterval(interval);
+                //     }
+                // }, 100);
+                this.onPredictResult(content.p.data);
                 break;
         }
     },
@@ -85,14 +87,14 @@ var CaoThapController = MiniGameController.extend({
             this._view.pushKing(true);
     },
 
-    onTimer: function () {
-        if (this.turnState == 1 && this.timeRemaining > 0) {
-            this.timeRemaining -= 1;
-            this._view.setTimeRemaining(this.timeRemaining > 0 ? this.timeRemaining : 0);
-        }
-        else
-            this._view.setTimeRemaining(0);
-    },
+    // onTimer: function () {
+    //     if (this.turnState == 1 && this.timeRemaining > 0) {
+    //         this.timeRemaining -= 1;
+    //         this._view.setTimeRemaining(this.timeRemaining > 0 ? this.timeRemaining : 0);
+    //     }
+    //     else
+    //         this._view.setTimeRemaining(0);
+    // },
 
     processData: function (data) {
         var gameId = data["1"];
@@ -105,7 +107,7 @@ var CaoThapController = MiniGameController.extend({
         this._view.setBankValue(bankValue);
         this.timeRemaining = Math.floor(timeRemaining / 1000);
         this._view.setTimeRemaining(this.timeRemaining);
-        this.setRolling(false);
+        //this.setRolling(false);
     },
 
     onPredictResult: function (data) {
@@ -155,47 +157,40 @@ var CaoThapController = MiniGameController.extend({
 
     sendInitGame: function (betType) {
         if (!this.checkRequestRolling()) return;
+        if (this.turnState != 0) return;
         SmartfoxClient.getInstance().sendExtensionRequest(-1, "407", {1: betType});
     },
 
     sendHighPredict: function () {
         if (!this.checkRequestRolling()) return;
+        if (this.turnState != 1) return;
         SmartfoxClient.getInstance().sendExtensionRequest(-1, "408", {1: 1});
-        this.setRolling(true);
+        //this.setRolling(true);
         this._view.addHistory(this.result);
     },
 
     sendLowPredict: function () {
         if (!this.checkRequestRolling()) return;
+        if (this.turnState != 1) return;
         SmartfoxClient.getInstance().sendExtensionRequest(-1, "408", {1: 2});
-        this.setRolling(true);
+        //this.setRolling(true);
         this._view.addHistory(this.result);
     },
 
     checkRequestRolling: function () {
-        if (this.turnState != 2 && this.rolling != true) {
-            this.rolling = true;
-            this.onCooldown = true;
-            var thiz = this;
-            setTimeout(function () {
-                thiz.onCooldown = false;
-            }, 1000);
-            this.setRolling(true);
-            return true;
-        }
-        return false;
+        return this.turnState < 2 && this.rolling != true;
     },
 
-    setRolling: function (isRolling) {
-        this.rolling = isRolling;
-        this._view.setRolling(isRolling);
-    },
+    // setRolling: function (isRolling) {
+    //     this.rolling = isRolling;
+    //     this._view.setRolling(isRolling);
+    // },
 
     sendLuotMoiRequest: function () {
         SmartfoxClient.getInstance().sendExtensionRequest(-1, "409", null);
         this._view.setTipString("");
         this.turnState = 0;
-        this.setRolling(false);
+        // this.setRolling(false);
         this._view.clearTurn();
     },
 
