@@ -95,6 +95,12 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\Socket\LobbyClient.cpp">
       <Filter>Classes\Socket</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\Plugin\ResourcesDownloader.cpp">
+      <Filter>Classes\Plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\Plugin\jsb_quyetnd_resourcedownloader.cpp">
+      <Filter>Classes\Plugin</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="$(MSBuildThisFileDirectory)App.xaml" />
@@ -208,6 +214,12 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\Socket\jsb_quyetnd_sfssocket.hpp">
       <Filter>Classes\Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\Plugin\jsb_quyetnd_resourcedownloader.hpp">
+      <Filter>Classes\Plugin</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\Plugin\ResourcesDownloader.h">
+      <Filter>Classes\Plugin</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
