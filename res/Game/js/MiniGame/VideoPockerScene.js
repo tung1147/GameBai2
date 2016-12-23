@@ -351,6 +351,7 @@ var VideoPockerScene = MiniGameScene.extend({
     nhanthuongClick: function () {
         this._controller.sendGetRewardRequest();
     },
+
     holdClick: function (holdIndex) {
         if (this.turnState == 1) {
             this.setHoldCard(holdIndex, !this.holdingList[holdIndex]);

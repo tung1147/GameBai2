@@ -30,7 +30,7 @@
                 <key>spriteSourceSize</key>
                 <string>{95,26}</string>
                 <key>textureRect</key>
-                <string>{{862,1086},{95,26}}</string>
+                <string>{{968,1133},{95,26}}</string>
                 <key>textureRotated</key>
                 <true/>
             </dict>
@@ -60,9 +60,9 @@
                 <key>spriteSourceSize</key>
                 <string>{240,9}</string>
                 <key>textureRect</key>
-                <string>{{993,681},{240,9}}</string>
+                <string>{{1,1300},{240,9}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>quayBtmParticle2.png</key>
             <dict>
@@ -75,9 +75,9 @@
                 <key>spriteSourceSize</key>
                 <string>{240,9}</string>
                 <key>textureRect</key>
-                <string>{{490,1283},{240,9}}</string>
+                <string>{{993,681},{240,9}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>quayTopParticle1.png</key>
             <dict>
@@ -90,9 +90,9 @@
                 <key>spriteSourceSize</key>
                 <string>{208,9}</string>
                 <key>textureRect</key>
-                <string>{{986,933},{208,9}}</string>
+                <string>{{454,1306},{208,9}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>quayTopParticle2.png</key>
             <dict>
@@ -105,9 +105,9 @@
                 <key>spriteSourceSize</key>
                 <string>{208,9}</string>
                 <key>textureRect</key>
-                <string>{{851,1086},{208,9}}</string>
+                <string>{{742,1246},{208,9}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>rewardIcon.png</key>
             <dict>
@@ -150,7 +150,7 @@
                 <key>spriteSourceSize</key>
                 <string>{57,57}</string>
                 <key>textureRect</key>
-                <string>{{936,1143},{57,57}}</string>
+                <string>{{742,1257},{57,57}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -240,7 +240,7 @@
                 <key>spriteSourceSize</key>
                 <string>{88,115}</string>
                 <key>textureRect</key>
-                <string>{{863,952},{88,115}}</string>
+                <string>{{761,1086},{88,115}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -255,9 +255,9 @@
                 <key>spriteSourceSize</key>
                 <string>{163,31}</string>
                 <key>textureRect</key>
-                <string>{{953,952},{163,31}}</string>
+                <string>{{289,1285},{163,31}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>videopoker_rewardLayer.png</key>
             <dict>
@@ -270,9 +270,24 @@
                 <key>spriteSourceSize</key>
                 <string>{88,115}</string>
                 <key>textureRect</key>
-                <string>{{761,1086},{88,115}}</string>
+                <string>{{851,1133},{88,115}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
+            </dict>
+            <key>videopoker_x2Button.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{179,132}</string>
+                <key>spriteSourceSize</key>
+                <string>{179,132}</string>
+                <key>textureRect</key>
+                <string>{{863,952},{179,132}}</string>
+                <key>textureRotated</key>
+                <true/>
             </dict>
             <key>x2BtmParticle1.png</key>
             <dict>
@@ -315,9 +330,9 @@
                 <key>spriteSourceSize</key>
                 <string>{218,21}</string>
                 <key>textureRect</key>
-                <string>{{890,1069},{218,21}}</string>
+                <string>{{490,1283},{218,21}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>x2TopParticle2.png</key>
             <dict>
@@ -330,9 +345,9 @@
                 <key>spriteSourceSize</key>
                 <string>{218,21}</string>
                 <key>textureRect</key>
-                <string>{{913,1069},{218,21}}</string>
+                <string>{{742,1223},{218,21}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
         </dict>
         <key>metadata</key>
@@ -344,13 +359,13 @@
             <key>premultiplyAlpha</key>
             <false/>
             <key>realTextureFileName</key>
-            <string>videopoker.png</string>
+            <string>VideoPoker.png</string>
             <key>size</key>
-            <string>{1003,1299}</string>
+            <string>{1003,1317}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:ccd3ac092b835c8984352c1a446ae279:6a55392ba607b43bc5f0ae4b3a453d59:c70cc4318f13c2e33275e0aabd693fbc$</string>
+            <string>$TexturePacker:SmartUpdate:8131d47fc31d2d8f65902ad18c6be286:1cb27cdb7cb800cfce072dc2597a097b:d2bba86845957aa962731167dc482917$</string>
             <key>textureFileName</key>
-            <string>videopoker.png</string>
+            <string>VideoPoker.png</string>
         </dict>
     </dict>
 </plist>

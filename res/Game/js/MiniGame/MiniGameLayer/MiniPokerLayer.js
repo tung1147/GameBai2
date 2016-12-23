@@ -1,7 +1,7 @@
 /**
  * Created by QuyetNguyen on 12/20/2016.
  */
-
+var s_MiniPokerLayer = null;
 var MiniPokerLayer = MiniGamePopup.extend({
     ctor: function () {
         this._super();
@@ -9,8 +9,12 @@ var MiniPokerLayer = MiniGamePopup.extend({
         this.cardSprites = [];
         this.autoRoll = false;
         this.rolling = false;
+        this.baseCardHeight = 0;
+        this.cardHeight = 0;
+        this.rollHeight = 0;
         this.rewards = [];
         this.rewardLayer = [];
+        this.cardRollingSprites = [];
 
         this.initRewards();
 
@@ -47,17 +51,18 @@ var MiniPokerLayer = MiniGamePopup.extend({
         this.addChild(autoRollButton);
 
         var clippingCardLayout = new ccui.Layout();
-        clippingCardLayout.setContentSize(750,170);
+        clippingCardLayout.setContentSize(750, 170);
         clippingCardLayout.setClippingEnabled(true);
         clippingCardLayout.setClippingType(ccui.Layout.CLIPPING_SCISSOR);
-        clippingCardLayout.setPosition(180,170);
-        cc.Global.ccl = clippingCardLayout;
+        clippingCardLayout.setPosition(180, 170);
         this.addChild(clippingCardLayout);
+        this.cardHeight = clippingCardLayout.height;
+        this.baseCardHeight = clippingCardLayout.height / 2;
 
         for (var i = 0; i < 5; i++) {
             var sprite = new cc.Sprite("#gp_card_up.png");
             sprite.setScale(1.4);
-            sprite.setPosition(60 + 135 * i, clippingCardLayout.height/2);
+            sprite.setPosition(60 + 135 * i, clippingCardLayout.height / 2);
             clippingCardLayout.addChild(sprite);
             this.cardSprites.push(sprite);
 
@@ -67,6 +72,17 @@ var MiniPokerLayer = MiniGamePopup.extend({
             rewardSprite.setVisible(false);
             clippingCardLayout.addChild(rewardSprite);
             this.rewardLayer.push(rewardSprite);
+        }
+
+        for (var i = 0; i < 15; i++) {
+            var rollingSprite = new cc.Sprite("#card-motion" + (i % 3 + 1) + ".png");
+            rollingSprite.setPosition(this.cardSprites[i % 5].x,
+                clippingCardLayout.height / 2 + (i % 3 - 1) * clippingCardLayout.height);
+            clippingCardLayout.addChild(rollingSprite, 4);
+            rollingSprite.setOpacity(128);
+            rollingSprite.setVisible(false);
+            rollingSprite.setScale(1.4);
+            this.cardRollingSprites.push(rollingSprite);
         }
         //    this.setScale(0.5);
 
@@ -90,6 +106,33 @@ var MiniPokerLayer = MiniGamePopup.extend({
         this.rewards.push("SÂM");
         this.rewards.push("HAI ĐÔI");
         this.rewards.push("ĐÔI");
+    },
+
+    update: function (dt) {
+        if (!this.baseCardHeight || !this.cardHeight || !this.rolling)
+            return;
+        this.rollHeight -= 40;
+
+        this.rollHeight = this.rollHeight > 0 ? this.rollHeight : this.rollHeight + this.cardHeight * 3;
+        for (i = 0; i < 15; i++) {
+            this.cardRollingSprites[i].visible = true;
+            var newY = this.baseCardHeight + (i % 3 - 1) * this.cardHeight + this.rollHeight;
+            newY = newY > this.baseCardHeight + this.cardHeight ? newY - 2 * this.cardHeight
+                : newY;
+            this.cardRollingSprites[i].setPositionY(newY);
+        }
+    },
+
+    onEnter: function () {
+        this._super();
+        this.scheduleUpdate();
+        s_MiniPokerLayer = this;
+    },
+
+    onExit: function () {
+        this._super();
+        this.unscheduleUpdate();
+        s_MiniPokerLayer = null;
     },
 
     onAutoRollClick: function () {
@@ -155,7 +198,11 @@ var MiniPokerLayer = MiniGamePopup.extend({
     },
 
     onRollClick: function () {
-        this._controller.sendRollRequest(this.chipGroup.chipSelected.chipIndex);
+        var thiz = this;
+        this.setRolling(true);
+        setTimeout(function () {
+            thiz._controller.sendRollRequest(thiz.chipGroup.chipSelected.chipIndex);
+        }, 1000);
     },
 
     initController: function () {
@@ -167,11 +214,32 @@ var MiniPokerLayer = MiniGamePopup.extend({
             var card = this.getCardWithId(cardArray[i]);
             this.cardSprites[i].setSpriteFrame("" + card.rank + s_card_suit[card.suit] + ".png");
         }
-        if (this.autoRoll){
+        this.setRolling(false);
+        if (this.autoRoll) {
             var thiz = this;
             setTimeout(function () {
                 thiz.onRollClick();
-            },500);
+            }, 500);
+        }
+    },
+
+    setRolling: function (isRolling) {
+        this.rolling = isRolling;
+        if (isRolling)
+            for (var i = 0; i < 5; i++)
+                this.rewardLayer[i].visible = false;
+        for (var i = 0; i < 15; i++) {
+            this.cardSprites[i % 5].visible = !isRolling;
+            this.cardRollingSprites[i].visible = isRolling;
         }
     }
 });
+
+MiniPokerLayer.showPopup = function () {
+    if(s_MiniPokerLayer){
+        return null;
+    }
+    var popup = new MiniPokerLayer();
+    popup.show();
+    return popup;
+};

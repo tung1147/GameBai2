@@ -344,16 +344,19 @@ var SmartfoxClient = (function () {
                     var gameScene;
                     var group = contents.p["group"];
                     if (group == "mini.caothap") {
-                        gameScene = new CaoThapScene();
-                        PlayerMe.gameType = GameType.MiniGame_CaoThap;
+                        //gameScene = new CaoThapScene();
+                        // PlayerMe.gameType = GameType.MiniGame_CaoThap;
+                        SceneNavigator.toMiniGame(GameType.MiniGame_VideoPoker,true);
+                        LoadingDialog.getInstance().hide();
                     }
                     else if (group == "mini.videopoker") {
-                        gameScene = new VideoPockerScene();
-                        PlayerMe.gameType = GameType.MiniGame_VideoPoker;
+                        //gameScene = new VideoPockerScene();
+                        //PlayerMe.gameType = GameType.MiniGame_VideoPoker;
+                        SceneNavigator.toMiniGame(GameType.MiniGame_VideoPoker,true);
+                        LoadingDialog.getInstance().hide();
                     }
                     if (gameScene) {
                         gameScene.isReconnect = true;
-                        LoadingDialog.getInstance().hide();
                         cc.director.replaceScene(gameScene);
                     }
                 }

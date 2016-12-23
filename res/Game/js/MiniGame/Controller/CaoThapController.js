@@ -156,13 +156,11 @@ var CaoThapController = MiniGameController.extend({
     },
 
     sendInitGame: function (betType) {
-        if (!this.checkRequestRolling()) return;
         if (this.turnState != 0) return;
         SmartfoxClient.getInstance().sendExtensionRequest(-1, "407", {1: betType});
     },
 
     sendHighPredict: function () {
-        if (!this.checkRequestRolling()) return;
         if (this.turnState != 1) return;
         SmartfoxClient.getInstance().sendExtensionRequest(-1, "408", {1: 1});
         //this.setRolling(true);
@@ -170,15 +168,14 @@ var CaoThapController = MiniGameController.extend({
     },
 
     sendLowPredict: function () {
-        if (!this.checkRequestRolling()) return;
         if (this.turnState != 1) return;
         SmartfoxClient.getInstance().sendExtensionRequest(-1, "408", {1: 2});
         //this.setRolling(true);
         this._view.addHistory(this.result);
     },
 
-    checkRequestRolling: function () {
-        return this.turnState < 2 && this.rolling != true;
+    getTurnState: function () {
+        return this.turnState;
     },
 
     // setRolling: function (isRolling) {

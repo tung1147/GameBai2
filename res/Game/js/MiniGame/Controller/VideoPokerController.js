@@ -44,6 +44,7 @@ var VideoPokerController = MiniGameController.extend({
         var resultId = param["3"]["2"];
 
         var holdArray = [];
+        this.setTurnState(1);
         for (var i = 0; i < 5; i++)
             holdArray.push((holdValue >> i) & 1);
 
@@ -67,7 +68,6 @@ var VideoPokerController = MiniGameController.extend({
         //     this._view.setRollCard(i, false);
         this._view.setHoldArray(holdArray);
         this._view.setCardArray(cardArray);
-        this.setTurnState(1);
         //this.setRolling(false);
         this._view.setFlashing(false, false);
     },
@@ -78,6 +78,7 @@ var VideoPokerController = MiniGameController.extend({
         var bankValue = param["6"];
         var rewardIndexes = param["5"]["1"];
         var rewardArray = [];
+        this.setTurnState(resultId < 9 ? 2 : 0);
         for (var i = 0; i < 5; i++)
             rewardArray.push((rewardIndexes >> i) & 1);
 
@@ -113,16 +114,16 @@ var VideoPokerController = MiniGameController.extend({
         this._view.setHoldArray([0, 0, 0, 0, 0]);
         this._view.setCardArray(cardArray);
         this._view.setBankValue(bankValue);
-        this.setTurnState(resultId < 9 ? 2 : 0);
         this._view.setFlashing(resultId < 9, resultId < 9);
     },
 
     onRequestDoubleResult: function (param) {
         var firstCardId = param["1"];
+        this.setTurnState(3);
         this._view.showDoubleTurn(firstCardId);
+        this._view.activateReward(11);
         this._view.setFlashing(true, false);
         this._view.setRewardCards([0, 0, 0, 0, 0]);
-        this.setTurnState(3);
     },
 
     onDoubleResult: function (param) {
@@ -137,7 +138,7 @@ var VideoPokerController = MiniGameController.extend({
             this.setTurnState(2);
             this._view.setFlashing(true, true);
         } else {
-            this.setTurnState(4);
+            this.setTurnState(0);
             this._view.setFlashing(false, false);
         }
         this._view.setHoldCard(choosenPos, true);
@@ -170,7 +171,6 @@ var VideoPokerController = MiniGameController.extend({
     },
 
     sendDoubleRequest: function () {
-        this._view.activateReward(10); // clear reward indicator
         SmartfoxClient.getInstance().sendExtensionRequest(-1, "254", null);
     },
 
@@ -179,8 +179,6 @@ var VideoPokerController = MiniGameController.extend({
     },
 
     checkRequestRolling: function () {
-        if (this.isRolling)
-            return false;
         //this.setRolling(this.turnState <= 1);
         return this.turnState <= 1;
     },
@@ -195,6 +193,10 @@ var VideoPokerController = MiniGameController.extend({
             this.setTurnState(0);
             this._view.resetBoard();
         }
+    },
+
+    getTurnState : function () {
+        return this.turnState
     },
 
     sendJoinGame: function () {
@@ -260,11 +262,6 @@ var VideoPokerController = MiniGameController.extend({
 
     sendGetUserHistory: function () {
         SmartfoxClient.getInstance().sendExtensionRequest(-1, "257", null);
-    },
-
-    setRolling: function (isRolling) {
-        this.isRolling = isRolling;
-        this._view.setRolling(isRolling);
     },
 
     setTurnState: function (state) {

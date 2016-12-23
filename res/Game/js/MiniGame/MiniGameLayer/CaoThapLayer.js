@@ -2,10 +2,13 @@
  * Created by QuyetNguyen on 12/20/2016.
  */
 
+var s_CaoThapLayer = null;
+
 var CaoThapLayer = MiniGamePopup.extend({
     ctor: function () {
         this._super();
         this._boudingRect = cc.rect(30, 47, 930, 510);
+        this.rolling = false;
 
         var bg = new cc.Sprite("#caothap_bg.png");
         bg.setAnchorPoint(cc.p(0, 0));
@@ -89,20 +92,50 @@ var CaoThapLayer = MiniGamePopup.extend({
 
         var thiz = this;
         lowButton.addClickEventListener(function () {
-            thiz._controller.sendLowPredict();
+            thiz.onLowPredictClick();
         });
 
         highButton.addClickEventListener(function () {
-            thiz._controller.sendHighPredict();
+            thiz.onHighPredictClick();
         });
 
         startButton.addClickEventListener(function () {
-            thiz._controller.sendInitGame(thiz.chipGroup.chipSelected.chipIndex);
+            thiz.onStartClick();
         });
 
         nextButton.addClickEventListener(function () {
             thiz._controller.sendLuotMoiRequest();
         });
+    },
+
+    onLowPredictClick: function () {
+        if (this._controller.getTurnState() != 1)
+            return;
+        var thiz = this;
+        this.rolling = true;
+        setTimeout(function () {
+            thiz._controller.sendLowPredict();
+        }, 1000);
+    },
+
+    onHighPredictClick: function () {
+        if (this._controller.getTurnState() != 1)
+            return;
+        var thiz = this;
+        this.rolling = true;
+        setTimeout(function () {
+            thiz._controller.sendHighPredict();
+        }, 1000);
+    },
+
+    onStartClick: function () {
+        if (this._controller.getTurnState() != 0)
+            return;
+        var thiz = this;
+        this.rolling = true;
+        setTimeout(function () {
+            thiz._controller.sendInitGame(thiz.chipGroup.chipSelected.chipIndex);
+        }, 1000);
     },
 
     initNoHu: function () {
@@ -120,6 +153,7 @@ var CaoThapLayer = MiniGamePopup.extend({
     },
 
     showResultCard: function (cardId) {
+        this.rolling = false;
         var card = this.getCardWithId(cardId);
         this.card.setSpriteFrame(card.rank + s_card_suit[card.suit] + ".png");
     },
@@ -158,6 +192,25 @@ var CaoThapLayer = MiniGamePopup.extend({
                 i++;
             this._kingCards[i].setSpriteFrame("caothap_kingCard_2.png");
             this._kingCards[i].activated = true;
+        }
+    },
+
+    setRolling: function (isRolling) {
+        this.rolling = isRolling;
+    },
+
+    update: function (dt) {
+        if (this.rolling) {
+            // dang quay
+            this.delta += dt;
+            // if (this.delta < 0.1)
+            //     return;
+            var randNum = Math.floor(Math.random() * 51 + 4);
+            var thiz = this;
+            var texture = "" + Math.floor(randNum / 4) +
+                s_card_suit[randNum % 4] + ".png";
+            this.card.setSpriteFrame(texture);
+            this.delta = 0;
         }
     },
 
@@ -215,5 +268,26 @@ var CaoThapLayer = MiniGamePopup.extend({
         this.historyList.removeAllItems();
         this.card.setSpriteFrame("gp_card_up.png");
         this.timeLabel.setString("");
+    },
+
+    onEnter: function () {
+        this._super();
+        this.scheduleUpdate();
+        s_CaoThapLayer = this;
+    },
+
+    onExit: function () {
+        this._super();
+        this.unscheduleUpdate();
+        s_CaoThapLayer = null;
     }
 });
+
+CaoThapLayer.showPopup = function () {
+    if (s_CaoThapLayer) {
+        return null;
+    }
+    var popup = new CaoThapLayer();
+    popup.show();
+    return popup;
+};

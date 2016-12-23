@@ -265,7 +265,8 @@ cc.Global.SetSetting = function (setting, value) {
 
 var ApplicationConfig = ApplicationConfig || {};
 ApplicationConfig.VERSION = "1.0.0";
-ApplicationConfig.BUNBLE = "com.iluckystarvn.daisiu";
+// ApplicationConfig.BUNBLE = "com.iluckystarvn.daisiu";
+ApplicationConfig.BUNBLE = "com.songbaivip.fullhd";
 ApplicationConfig.DISPLAY_TYPE = "room"; //room - betting
 (function () {
     if(cc.sys.isNative){

@@ -92,15 +92,18 @@ SceneNavigator.toMiniGame = function (gameId, isReconnect) {
         cc.director.replaceScene(new cc.TransitionFade(0.5, vongquay, cc.color("#000000")));
     }
     if (gameId == GameType.MiniGame_CaoThap) {
-        var popup = new CaoThapLayer();
-        popup.show();
+        // var popup = new CaoThapLayer();
+        // popup.show();
+        CaoThapLayer.showPopup();
     }
     else if (gameId == GameType.MiniGame_Poker) {
-        var popup = new MiniPokerLayer();
-        popup.show();
+        // var popup = new MiniPokerLayer();
+        // popup.show();
+        MiniPokerLayer.showPopup();
     }
     else if (gameId == GameType.MiniGame_VideoPoker) {
-        var popup = new VideoPokerLayer();
-        popup.show();
+        // var popup = new VideoPokerLayer();
+        // popup.show();
+        VideoPokerLayer.showPopup();
     }
 };

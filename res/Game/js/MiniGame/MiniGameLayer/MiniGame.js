@@ -11,7 +11,7 @@ var MiniGamePopup = cc.Node.extend({
 
         var closeButton = new ccui.Button("caothap_closeBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
         closeButton.setPosition(895, 407);
-        this.addChild(closeButton,5);
+        this.addChild(closeButton, 5);
 
         var tutorialButton = new ccui.Button("caothap_tutorialBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
         tutorialButton.setPosition(769, 426);
@@ -56,7 +56,7 @@ var MiniGamePopup = cc.Node.extend({
         }, this);
     },
 
-    initController : function () {
+    initController: function () {
 
     },
 
@@ -84,7 +84,7 @@ var MiniGamePopup = cc.Node.extend({
 
     initChip: function (centerPosition) {
         var chipGroup = new ChipGroup();
-        this.addChild(chipGroup,5);
+        this.addChild(chipGroup, 5);
         this.chipGroup = chipGroup;
 
         var thiz = this;
@@ -144,6 +144,9 @@ var MiniGamePopup = cc.Node.extend({
     },
 
     onTouchMoved: function (touch, event) {
+        if (!this._touchStartPoint) {
+            return;
+        }
         var p = touch.getLocation();
         this.moveNode(cc.p(p.x - this._touchStartPoint.x, p.y - this._touchStartPoint.y));
         this._touchStartPoint = p;
