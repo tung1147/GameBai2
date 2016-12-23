@@ -261,7 +261,7 @@ var TaiXiuScene = XocDiaScene.extend({
         var timer = new cc.ProgressTimer(new cc.Sprite("#xocdia_timer_2.png"));
         timer.setType(cc.ProgressTimer.TYPE_RADIAL);
         timer.setReverseDirection(true);
-        timer.setPosition(cc.winSize.width - 200, cc.winSize.height - 70);
+        timer.setPosition(cc.winSize.width - 165, cc.winSize.height - 70);
         timer.setPercentage(30.0);
         timer.setScale(0.65);
         this.sceneLayer.addChild(timer);
