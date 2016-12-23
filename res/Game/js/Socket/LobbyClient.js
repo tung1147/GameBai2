@@ -14,8 +14,8 @@ var LobbyClient = (function () {
                 throw "Cannot create new instance for Singleton Class";
             } else {
                 this.allListener = {};
-                this.host = "42.112.25.169";//"uat1.puppetserver.com";
-              //  this.host = "42.112.25.164";
+              //  this.host = "42.112.25.169";//"uat1.puppetserver.com";
+                this.host = "42.112.25.164";
                 if(cc.sys.isNative){
                     this.port = 9999;
                 }
@@ -47,6 +47,7 @@ var LobbyClient = (function () {
         },
         send: function (message) {
             if (this.lobbySocket) {
+                cc.log(message);
                 this.lobbySocket.send(JSON.stringify(message));
             }
         },
@@ -499,13 +500,25 @@ var LobbyClient = (function () {
                 SmartfoxClient.getInstance().connect(host, port);
             }
         },
-        subscribe: function (gameId) {
-            cc.log("send subscribeChannel: "+gameId);
+        subscribe: function (gameId, group) {
+      //      cc.log("send subscribeChannel: "+gameId);
             PlayerMe.gameType = s_games_chanel[gameId];
             var request = {
                 command: "subscribeChannel",
                 gameType: PlayerMe.gameType
             };
+            if(PlayerMe.gameType == "ShakeDisk" || PlayerMe.gameType == "TaiXiu"){
+
+            }
+            else{
+                if(group){
+                    PlayerMe.lastGroupSelected = group;
+                }
+                if(PlayerMe.lastGroupSelected){
+                    request.group = PlayerMe.lastGroupSelected;
+                }
+            }
+
             this.send(request);
         },
         unSubscribe: function () {

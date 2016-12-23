@@ -70,7 +70,7 @@ socket.SmartfoxClient.CreateSFSGame = 302;
 socket.SmartfoxClient.QuickJoinGame = 303;
 //only reponse code
 socket.SmartfoxClient.UserEnterRoom = 1000,
-    socket.SmartfoxClient.UserCountChange = 1001;
+socket.SmartfoxClient.UserCountChange = 1001;
 socket.SmartfoxClient.UserLost  = 1002;
 socket.SmartfoxClient.RoomLost = 1003;
 socket.SmartfoxClient.UserExitRoom = 1004;

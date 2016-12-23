@@ -93,7 +93,11 @@ var LobbyLayer = cc.Node.extend({
 
                 var toggleItem = new ToggleNodeItem(cc.size(dx, 58.0));
                 toggleItem.setPosition(icon1.x, icon1.y - icon1.getContentSize().height/2 + toggleItem.getContentSize().height/2);
-                toggleItem.onSelect = function (isForce) {
+                toggleItem.onSelect = function (isForce, byUpdateAll) {
+                    if(byUpdateAll){
+                        return;
+                    }
+
                     icon1.visible = false;
                     icon2.visible = true;
                     listGame.visible = true;
@@ -103,6 +107,11 @@ var LobbyLayer = cc.Node.extend({
                     }
                     else{
                         selectedSprite.runAction(new cc.MoveTo(0.1, toggleItem.getPosition()));
+                    }
+
+                    if(!isForce){
+                        var gameId = s_games_chanel_id[PlayerMe.gameType];
+                        LobbyClient.getInstance().subscribe(gameId, listGame.groupName);
                     }
                 };
                 toggleItem.onUnSelect = function () {
@@ -116,7 +125,11 @@ var LobbyLayer = cc.Node.extend({
         }
     },
 
-    addRoomCell : function (roomList, serverId, roomId, betting, minMoney, userCount) {
+    addRoomCell : function (roomList, serverId, roomId, betting, minMoney, userCount, metadata) {
+        if(this.updateRoomCell(roomList, serverId, roomId, userCount, metadata)){
+            return;
+        }
+
         if(this.gameId == GameType.GAME_XocDia){
             var roomCell = new LobbyXocDiaCell();
         }
@@ -129,11 +142,13 @@ var LobbyLayer = cc.Node.extend({
 
       //  var roomCell = LobbyRoomCell.createCell(this.maxUsers);
 
-
         roomCell.serverId = serverId;
         roomCell.roomId = roomId;
         roomCell.setBetting(betting);
         roomCell.setUserCount(userCount);
+        if(metadata){
+            roomCell.setMetadata(metadata);
+        }
         roomList.pushItem(roomCell);
 
         roomCell.addTouchCell(function () {
@@ -165,9 +180,11 @@ var LobbyLayer = cc.Node.extend({
                 if(metadata){
                     item.setMetadata(metadata);
                 }
-                return;
+                return true;
             }
         }
+
+        return false;
     },
 
     getRoomList : function (groupName) {
@@ -241,10 +258,7 @@ var LobbyLayer = cc.Node.extend({
                         var userCount = roomData[j].userCount;
                         var metadata = roomData[j].metadata;
 
-                        var roomCell = this.addRoomCell(roomList, serverId, roomId, betting, minMoney, userCount);
-                        if(metadata){
-                            roomCell.setMetadata(metadata);
-                        }
+                        var roomCell = this.addRoomCell(roomList, serverId, roomId, betting, minMoney, userCount, metadata);
                     }
                 }
 
@@ -255,18 +269,6 @@ var LobbyLayer = cc.Node.extend({
                 this.mToggle.selectItem(roomList.idx);
             }
             roomList.runMoveEffect(3000,0.1,0.1);
-
-            // if(this.gameId == GameType.GAME_TaiXiu || this.gameId == GameType.GAME_XocDia){
-            //
-            // }
-            // else{
-            //     for(var i=0;i<this.listGame.length;i++){
-            //         if(this.listGame[i].visible){
-            //             this.listGame[i].runMoveEffect(3000,0.1,0.1);
-            //             break;
-            //         }
-            //     }
-            // }
         }
     },
 

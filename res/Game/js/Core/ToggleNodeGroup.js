@@ -10,16 +10,16 @@ var ToggleNodeItem = ccui.Widget.extend({
         this.onSelect = null;
         this.onUnSelect = null;
     },
-    select : function (isForce) {
+    select : function (isForce, ext) {
         if(this.onSelect){
-            this.onSelect(isForce);
+            this.onSelect(isForce, ext);
         }
         this.setTouchEnabled(false);
     },
 
-    unSelect : function (isForce) {
+    unSelect : function (isForce, ext) {
         if(this.onUnSelect){
-            this.onUnSelect(isForce);
+            this.onUnSelect(isForce, ext);
         }
         this.setTouchEnabled(true);
     }
@@ -50,14 +50,14 @@ var ToggleNodeGroup = ccui.Widget.extend({
         this.itemClicked.select(false);
     },
     
-    selectItem : function (index) {
+    selectItem : function (index, ext) {
         var item = this.mItem[index]
         if(this.itemClicked){
-            this.itemClicked.unSelect(true);
+            this.itemClicked.unSelect(true, ext);
             this.itemClicked = null;
         }
         this.itemClicked = item;
-        this.itemClicked.select(true);
+        this.itemClicked.select(true, ext);
     },
 
     onEnter : function () {
