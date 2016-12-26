@@ -45,15 +45,19 @@ var MiniGameController = cc.Class.extend({
 
             case "0": // thay doi vang
                 this.onChangeAssets(content.p["2"], content.p["1"]);
+                break;
+            case "___err___":
+                this._view.onError(content.p);
+                break;
         }
     },
 
-    onReconnect : function (param) {
+    onReconnect: function (param) {
 
     },
 
     onChangeAssets: function (gold, changeAmount) {
-        this._view.onChangeAssets(gold,changeAmount);
+        this._view.onChangeAssets(gold, changeAmount);
     },
 
     onGetLastSessionInfo: function (command, eventData) {

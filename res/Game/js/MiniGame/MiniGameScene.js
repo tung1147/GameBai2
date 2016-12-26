@@ -116,7 +116,7 @@ var MiniGameScene = IScene.extend({
     onEnter: function () {
         this._super();
         this.chipGroup.selectChipAtIndex(0, true);
-        if(this.isReconnect)
+        if (this.isReconnect)
             return;
         this._controller.sendJoinGame();
     },
@@ -142,6 +142,10 @@ var MiniGameScene = IScene.extend({
     },
     backToHomeScene: function () {
         this.backButtonHandler();
+    },
+
+    onError : function (param) {
+        MessageNode.getInstance().show(param.msg);
     },
 
     getCardWithId: function (cardId) {

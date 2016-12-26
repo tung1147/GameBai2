@@ -15,10 +15,9 @@ var MiniPokerController = MiniGameController.extend({
         var thiz = this;
         switch (content.c) {
             case "351": // ket qua luot roll
-                // setTimeout(function () {
-                //     thiz.onRollResult(content.p.data);
-                // }, 500);
-                this.onRollResult(content.p.data);
+                setTimeout(function () {
+                    thiz.onRollResult(content.p.data);
+                },1000);
                 break;
         }
     },

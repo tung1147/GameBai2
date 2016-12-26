@@ -5,10 +5,12 @@ var StatisticBoard = IDialog.extend({
     ctor: function (gameType) {
         this._super();
         this.command = [];
-        this.command[GameType.MiniGame_CaoThap] = {getTop:"402",getExplosion:"403",getHistory:"401"};
-        this.command[GameType.MiniGame_Poker] = {getTop:"353",getExplosion:"354",getHistory:"352"};
-        this.command[GameType.MiniGame_VideoPoker] = {getTop:"258",getExplosion:"259",getHistory:"257"};
+        this.command[GameType.MiniGame_CaoThap] = {getTop: "402", getExplosion: "403", getHistory: "401"};
+        this.command[GameType.MiniGame_Poker] = {getTop: "353", getExplosion: "354", getHistory: "352"};
+        this.command[GameType.MiniGame_VideoPoker] = {getTop: "258", getExplosion: "259", getHistory: "257"};
         this.gameType = gameType;
+        this.rewards = [];
+        this.initRewards();
 
         var board_bg = ccui.Scale9Sprite.createWithSpriteFrameName("board_bg.png", cc.rect(105, 105, 147, 147));
         board_bg.setAnchorPoint(cc.p(0, 0));
@@ -22,6 +24,20 @@ var StatisticBoard = IDialog.extend({
         this.initPlayHistoryTable();
         this.initNavBar();
     },
+
+    initRewards: function () {
+        this.rewards.push("HŨ THƯỞNG");
+        this.rewards.push("THÙNG PHÁ SẢNH");
+        this.rewards.push("TỨ QUÝ");
+        this.rewards.push("CỦ LŨ");
+        this.rewards.push("THÙNG");
+        this.rewards.push("SẢNH");
+        this.rewards.push("SÂM");
+        this.rewards.push("HAI ĐÔI");
+        this.rewards.push("ĐÔI");
+    },
+
+
     initWithSize: function (mSize) {
         this.board_bg.setPreferredSize(cc.size(mSize.width, mSize.height));
         this.dialogNode.setContentSize(this.board_bg.getContentSize());
@@ -59,20 +75,20 @@ var StatisticBoard = IDialog.extend({
         SmartfoxClient.getInstance().removeListener(this);
     },
 
-    addTopPlayersData : function (data) {
+    addTopPlayersData: function (data) {
         for (var i = 0; i < data.length; i++) {
             this.addTopEarningEntry(i + 1, data[i]["1"], data[i]["2"]);
         }
     },
 
-    addExplosionHistoryData : function (data) {
+    addExplosionHistoryData: function (data) {
         for (var i = 0; i < data.length; i++) {
             this.addRewardFundEntry(data[i]["1"], data[i]["2"],
                 data[i]["3"], data[i]["4"]);
         }
     },
 
-    addHistoryData : function (data) {
+    addHistoryData: function (data) {
         for (var i = 0; i < data.length; i++) {
             this.addHistoryEntry(data[i]["2"], data[i]["3"],
                 data[i]["4"], data[i]["5"]);
@@ -375,6 +391,13 @@ var StatisticBoard = IDialog.extend({
         // betAmountLabel.setColor(cc.color("#ffde00"));
         // container.addChild(betAmountLabel);
 
+        if (this.gameType == GameType.MiniGame_Poker || this.gameType == GameType.MiniGame_VideoPoker) {
+            if (rewardName >= 9) {
+                rewardName = "KHÔNG ĂN";
+            } else {
+                rewardName = this.rewards[rewardName];
+            }
+        }
         var rewardNameLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, rewardName);
         rewardNameLabel.setPosition(bg3.getPosition());
         container.addChild(rewardNameLabel);

@@ -314,6 +314,13 @@ var CaoThapLayer = MiniGamePopup.extend({
         this._super();
         this.unscheduleUpdate();
         s_CaoThapLayer = null;
+    },
+
+    onError: function (param) {
+        this._super(param);
+
+        //het tien
+        this.setRolling(false);
     }
 });
 

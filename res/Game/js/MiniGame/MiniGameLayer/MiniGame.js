@@ -65,6 +65,10 @@ var MiniGamePopup = cc.Node.extend({
 
     },
 
+    onError : function (param) {
+        MessageNode.getInstance().show(param.msg);
+    },
+
     performChangeRewardFund: function (data) {
         this.rewardFund = data;
         var betAmountID = this.chipGroup.chipSelected.chipIndex;

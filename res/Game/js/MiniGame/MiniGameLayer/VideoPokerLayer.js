@@ -330,6 +330,13 @@ var VideoPokerLayer = MiniGamePopup.extend({
         this.rewards.push("SÂM");
         this.rewards.push("HAI ĐÔI");
         this.rewards.push("ĐÔI");
+    },
+
+    onError: function (param) {
+        this._super(param);
+
+        //het tien
+        this.setRolling(false);
     }
 });
 

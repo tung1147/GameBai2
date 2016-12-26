@@ -197,7 +197,7 @@ var MiniPokerLayer = MiniGamePopup.extend({
 
     onChangeAssets: function (gold, changeAmount) {
         changeAmount = changeAmount > 0 ? changeAmount : 0;
-        this._super(gold,changeAmount);
+        this._super(gold, changeAmount);
     },
 
     setRewardCards: function (rewardArrayIndex) {
@@ -207,11 +207,8 @@ var MiniPokerLayer = MiniGamePopup.extend({
     },
 
     onRollClick: function () {
-        var thiz = this;
         this.setRolling(true);
-        setTimeout(function () {
-            thiz._controller.sendRollRequest(thiz.chipGroup.chipSelected.chipIndex);
-        }, 1000);
+        this._controller.sendRollRequest(this.chipGroup.chipSelected.chipIndex);
     },
 
     initController: function () {
@@ -241,11 +238,18 @@ var MiniPokerLayer = MiniGamePopup.extend({
             this.cardSprites[i % 5].visible = !isRolling;
             this.cardRollingSprites[i].visible = isRolling;
         }
+    },
+
+    onError: function (param) {
+        this._super(param);
+
+        //het tien
+        this.setRolling(false);
     }
 });
 
 MiniPokerLayer.showPopup = function () {
-    if(s_MiniPokerLayer){
+    if (s_MiniPokerLayer) {
         return null;
     }
     var popup = new MiniPokerLayer();
