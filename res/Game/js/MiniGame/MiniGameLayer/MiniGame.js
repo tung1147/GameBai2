@@ -205,8 +205,8 @@ var MiniGamePopup = cc.Node.extend({
 
         var runningScene = cc.director.getRunningScene();
         if (runningScene) {
-            if (runningScene.popupLayer) {
-                runningScene.popupLayer.addChild(bg)
+            if (runningScene.miniGameLayer) {
+                runningScene.miniGameLayer.addChild(bg)
             }
             else {
                 runningScene.addChild(bg);

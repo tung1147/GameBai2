@@ -16,6 +16,9 @@ var IScene = cc.Scene.extend({
         this.sceneLayer = new cc.Node();
         this.addChild(this.sceneLayer);
 
+        this.miniGameLayer = new cc.Node();
+        this.addChild(this.miniGameLayer);
+
         this.popupLayer = new cc.Node();
         this.addChild(this.popupLayer);
     },

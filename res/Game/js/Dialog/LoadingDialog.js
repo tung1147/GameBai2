@@ -52,7 +52,7 @@ var LoadingDialog = (function() {
 
             var mScene = cc.director.getRunningScene();
             if(mScene.popupLayer){
-                mScene.popupLayer.addChild(this,2);
+                mScene.popupLayer.addChild(this,10);
                 //mScene.addChild(this,10);
             }
             else{

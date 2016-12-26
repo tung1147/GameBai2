@@ -90,6 +90,7 @@ SceneNavigator.toMiniGame = function (gameId, isReconnect) {
     if (gameId == GameType.GAME_VongQuayMayMan) {
         var vongquay = new VongQuayScene();
         cc.director.replaceScene(new cc.TransitionFade(0.5, vongquay, cc.color("#000000")));
+        return;
     }
     if (gameId == GameType.MiniGame_CaoThap) {
         // var popup = new CaoThapLayer();
@@ -105,5 +106,9 @@ SceneNavigator.toMiniGame = function (gameId, isReconnect) {
         // var popup = new VideoPokerLayer();
         // popup.show();
         VideoPokerLayer.showPopup();
+    }
+
+    if(isReconnect){
+        LobbyClient.getInstance().postEvent("miniGameReconnect", null);
     }
 };

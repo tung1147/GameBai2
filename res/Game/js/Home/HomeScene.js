@@ -15,6 +15,7 @@ var HomeScene = IScene.extend({
         LobbyClient.getInstance().addListener("inventory", this.onChangeRefeshUserInfo, this);
         LobbyClient.getInstance().addListener("markReadedMessageInbox", this.onChangeRefeshUserInfo, this);
         LobbyClient.getInstance().addListener("news", this.onNewsMessage, this);
+        LobbyClient.getInstance().addListener("miniGameReconnect", this.onMiniGameReconnect, this);
 
         var bg = new cc.Sprite("res/game-bg.jpg");
         bg.x = cc.winSize.width / 2;
@@ -74,6 +75,11 @@ var HomeScene = IScene.extend({
         this.homeLayer.loginBt.addClickEventListener(function () {
             var loginDialog = new LoginDialog();
             thiz.popupLayer.addChild(loginDialog);
+            loginDialog.regButton.addClickEventListener(function () {
+                loginDialog.removeFromParent(true);
+                var signupDialog = new SignupDialog();
+                thiz.popupLayer.addChild(signupDialog);
+            });
         });
 
         this.homeLayer.signupBt.addClickEventListener(function () {
@@ -151,6 +157,11 @@ var HomeScene = IScene.extend({
             LobbyClient.getInstance().send({command: "subscribeMiniGame", gameType: "Video_Poker"});
         }
     },
+
+    onMiniGameReconnect : function () {
+        this.startGame();
+    },
+
     onLobbyStatusHandler: function () {
         //  cc.log("onLobbyStatusHandler");
     },
