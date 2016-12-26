@@ -15,21 +15,9 @@ var CaoThapController = MiniGameController.extend({
         this.turnState = 0;
         this.result = -1;
         this.rolling = false;
-        // this.onCooldown = false;
         this.timeRemaining = 0;
-        // var thiz = this;
-        // this.intervalTimer = setInterval(function () {
-        //     thiz.onTimer();
-        // }, 1000);
     },
 
-    // releaseController : function () {
-    //     this._super();
-    //     if(this.intervalTimer != undefined){
-    //         clearInterval(this.intervalTimer);
-    //         this.intervalTimer = undefined;
-    //     }
-    // },
 
     onSFSExtension: function (messageType, content) {
         this._super(messageType, content);
@@ -37,23 +25,15 @@ var CaoThapController = MiniGameController.extend({
         // var interval = null;
         switch (content.c) {
             case "407": // nhan thong tin la dau tien
-                // interval = setInterval(function () {
-                //     if (!thiz.onCooldown) {
-                //         thiz.onInitGame(content.p.data);
-                //         clearInterval(interval);
-                //     }
-                // }, 100);
-                this.onInitGame(content.p.data);
+                setTimeout(function () {
+                    thiz.onInitGame(content.p.data);
+                }, 1000);
                 break;
 
             case "408": // nhan ket qua cao thap
-                // interval = setInterval(function () {
-                //     if (!thiz.onCooldown) {
-                //         thiz.onPredictResult(content.p.data);
-                //         clearInterval(interval);
-                //     }
-                // }, 100);
-                this.onPredictResult(content.p.data);
+                setTimeout(function () {
+                    thiz.onPredictResult(content.p.data);
+                }, 1000);
                 break;
         }
     },
@@ -88,15 +68,6 @@ var CaoThapController = MiniGameController.extend({
         for (var i = 0; i < kingCount; i++)
             this._view.pushKing(true);
     },
-
-    // onTimer: function () {
-    //     if (this.turnState == 1 && this.timeRemaining > 0) {
-    //         this.timeRemaining -= 1;
-    //         this._view.setTimeRemaining(this.timeRemaining > 0 ? this.timeRemaining : 0);
-    //     }
-    //     else
-    //         this._view.setTimeRemaining(0);
-    // },
 
     processData: function (data) {
         var gameId = data["1"];

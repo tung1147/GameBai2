@@ -20,11 +20,15 @@ var VideoPokerController = MiniGameController.extend({
                 break;
 
             case "252": // ket qua luot dau tien
-                this.onFirstRollResult(content.p.data);
+                setTimeout(function () {
+                    thiz.onFirstRollResult(content.p.data);
+                },1000);
                 break;
 
             case "253":
-                this.onNextRollResult(content.p.data);
+                setTimeout(function () {
+                    thiz.onNextRollResult(content.p.data);
+                },1000);
                 break;
 
             case "254":
@@ -47,28 +51,8 @@ var VideoPokerController = MiniGameController.extend({
         this.setTurnState(1);
         for (var i = 0; i < 5; i++)
             holdArray.push((holdValue >> i) & 1);
-
-        // var index = 0;
-        // var thiz = this;
-        // setTimeout(function () {
-        //     var rollingInterval = setInterval(function () {
-        //         thiz._view.setRollCard(index, false);
-        //         index++;
-        //         if (index >= 5) {
-        //             thiz._view.setHoldArray(holdArray);
-        //             thiz.setTurnState(1);
-        //             thiz.setRolling(false);
-        //             thiz._view.setFlashing(false, false);
-        //             clearInterval(rollingInterval);
-        //         }
-        //     }, 500);
-        // }, 500);
-
-        // for (var i = 0; i < 5; i++)
-        //     this._view.setRollCard(i, false);
         this._view.setHoldArray(holdArray);
         this._view.setCardArray(cardArray);
-        //this.setRolling(false);
         this._view.setFlashing(false, false);
     },
 
@@ -84,31 +68,6 @@ var VideoPokerController = MiniGameController.extend({
 
         var thiz = this;
         var index = 0;
-        // setTimeout(function () {
-        //     var rollingInterval = setInterval(function () {
-        //         while (thiz.holdingList[index] && index < 5)
-        //             index++;
-        //         if (index >= 5) {
-        //             thiz.setRolling(false);
-        //             thiz._view.activateReward(resultId);
-        //             thiz._view.setRewardCards(rewardArray);
-        //             thiz._view.setHoldArray([0, 0, 0, 0, 0]);
-        //             thiz._view.setBankValue(bankValue);
-        //             thiz.setTurnState(resultId < 9 ? 2 : 0);
-        //             thiz._view.setFlashing(resultId < 9, resultId < 9);
-        //             clearInterval(rollingInterval);
-        //             return;
-        //         }
-        //         thiz._view.setRollCard(index, false);
-        //         index++;
-        //     }, 500);
-        // }, 500);
-        // for (var i = 0; i < 5; i++) {
-        //     if (!this.holdingList[i])
-        //         this._view.setRollCard(i, false);
-        // }
-
-        //this.setRolling(false);
         this._view.activateReward(resultId);
         this._view.setRewardCards(rewardArray);
         this._view.setHoldArray([0, 0, 0, 0, 0]);

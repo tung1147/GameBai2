@@ -113,31 +113,22 @@ var CaoThapLayer = MiniGamePopup.extend({
     onLowPredictClick: function () {
         if (this._controller.getTurnState() != 1)
             return;
-        var thiz = this;
         this.rolling = true;
-        setTimeout(function () {
-            thiz._controller.sendLowPredict();
-        }, 1000);
+        this._controller.sendLowPredict();
     },
 
     onHighPredictClick: function () {
         if (this._controller.getTurnState() != 1)
             return;
-        var thiz = this;
         this.rolling = true;
-        setTimeout(function () {
-            thiz._controller.sendHighPredict();
-        }, 1000);
+        this._controller.sendHighPredict();
     },
 
     onStartClick: function () {
         if (this._controller.getTurnState() != 0)
             return;
-        var thiz = this;
         this.rolling = true;
-        setTimeout(function () {
-            thiz._controller.sendInitGame(thiz.chipGroup.chipSelected.chipIndex);
-        }, 1000);
+        this._controller.sendInitGame(this.chipGroup.chipSelected.chipIndex);
     },
 
     initNoHu: function () {
@@ -229,7 +220,7 @@ var CaoThapLayer = MiniGamePopup.extend({
         var container = new ccui.Widget();
         container.setContentSize(39, 48);
 
-        var cardString  = "";
+        var cardString = "";
         if (cardIndex == 1)
             cardString = "A";
         else if (cardIndex == 11)
@@ -269,7 +260,7 @@ var CaoThapLayer = MiniGamePopup.extend({
     setTimeRemaining: function (timeRemaining) {
         var thiz = this;
         this.timeRemaining = timeRemaining;
-        if (this.timeRemainingInterval){
+        if (this.timeRemainingInterval) {
             clearInterval(this.timeRemainingInterval);
         }
         this.timeRemainingInterval = setInterval(function () {

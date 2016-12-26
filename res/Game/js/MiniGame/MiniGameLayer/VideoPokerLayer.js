@@ -115,7 +115,7 @@ var VideoPokerLayer = MiniGamePopup.extend({
         //   this.setScale(0.5);
     },
 
-    onGetRewardButtonClick : function () {
+    onGetRewardButtonClick: function () {
         this._controller.sendGetRewardRequest();
     },
 
@@ -123,22 +123,17 @@ var VideoPokerLayer = MiniGamePopup.extend({
         if (this.rolling)
             return;
         var betType = this.chipGroup.chipSelected.chipIndex;
-        var thiz = this;
         switch (this._controller.getTurnState()) {
             case 0:
             case 4:
-                this.setHoldArray([0,0,0,0,0]);
+                this.setHoldArray([0, 0, 0, 0, 0]);
                 this.setRolling(true);
-                setTimeout(function () {
-                    thiz._controller.sendRollRequest(betType);
-                },1000);
+                this._controller.sendRollRequest(betType);
                 break;
 
             case 1:
                 this.setRolling(true);
-                setTimeout(function () {
-                    thiz._controller.sendNextRollRequest(thiz.holdingList);
-                },1000);
+                this._controller.sendNextRollRequest(this.holdingList);
                 break;
 
             case 2:
@@ -287,9 +282,9 @@ var VideoPokerLayer = MiniGamePopup.extend({
             for (var i = 0; i < 5; i++)
                 this.rewardLayer[i].visible = false;
         for (var i = 0; i < 15; i++) {
-            this.cardSprites[i % 5].visible = (!isRolling || this.holdingList[i%5]);
-            this.cardRollingSprites[i].visible = (isRolling && !this.holdingList[i%5]);
-            cc.log((isRolling && !this.holdingList[i%5]));
+            this.cardSprites[i % 5].visible = (!isRolling || this.holdingList[i % 5]);
+            this.cardRollingSprites[i].visible = (isRolling && !this.holdingList[i % 5]);
+            cc.log((isRolling && !this.holdingList[i % 5]));
         }
     },
 
@@ -338,7 +333,7 @@ var VideoPokerLayer = MiniGamePopup.extend({
 });
 
 VideoPokerLayer.showPopup = function () {
-    if(s_VideoPokerLayer){
+    if (s_VideoPokerLayer) {
         return null;
     }
     var popup = new VideoPokerLayer();
