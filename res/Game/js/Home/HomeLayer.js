@@ -76,12 +76,12 @@ var LoginDialog = cc.Node.extend({
         this.layerBg.addChild(resetPassword,1);
 
         var loginBt = new ccui.Button("login-okBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        loginBt.setPosition(this.layerBg.getContentSize().width/2, 200.0);
+        loginBt.setPosition(this.layerBg.getContentSize().width/2, 180.0);
         this.layerBg.addChild(loginBt);
 
-        var playButton = new ccui.Button("login-playBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        playButton.setPosition(this.layerBg.getContentSize().width/2, 130.0);
-        this.layerBg.addChild(playButton);
+        // var playButton = new ccui.Button("login-playBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        // playButton.setPosition(this.layerBg.getContentSize().width/2, 130.0);
+        // this.layerBg.addChild(playButton);
 
         var margin = 100.0;
         var mTouch = cc.rect(margin, margin, this.layerBg.getContentSize().width - margin * 2, this.layerBg.getContentSize().height - margin * 2);

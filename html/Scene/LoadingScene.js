@@ -5,7 +5,7 @@
 var LoadingScene = cc.Scene.extend({
     ctor : function () {
         this._super();
-        var label = new ccui.Text("Quyết đẹp trai", "arial", 30);
+        var label = new ccui.Text("Game bài C567", "arial", 30);
         label.x = cc.winSize.width/2;
         label.y = cc.winSize.height/2;
         this.title = label;

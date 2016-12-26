@@ -126,6 +126,7 @@ var LobbyBottomBar = cc.Node.extend({
     },
 
     refreshView : function () {
+        this.avatar.serAvatarId(PlayerMe.avatar);
         this.nameLabel.setString(PlayerMe.username);
         this.goldLabel.setString(cc.Global.NumberFormat1(PlayerMe.gold) +" V");
         if(PlayerMe.messageCount <= 0){

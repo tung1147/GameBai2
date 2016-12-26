@@ -81,9 +81,7 @@ var HomeScene = IScene.extend({
             thiz.popupLayer.addChild(signupDialog);
         });
         this.homeLayer.fbButton.addClickEventListener(function () {
-           // FacebookPlugin.getInstance().showLogin();
-            var dialog = new ChatDialog();
-            dialog.show();
+            FacebookPlugin.getInstance().showLogin();
         });
 
         this.startHome();
@@ -279,7 +277,12 @@ var HomeScene = IScene.extend({
             var dialog = new MessageConfirmDialog();
             dialog.setMessage("Bạn muốn thoát game ?");
             dialog.okButtonHandler = function () {
-                SystemPlugin.getInstance().exitApp();
+                if(cc.sys.isNative){
+                    SystemPlugin.getInstance().exitApp();
+                }
+                else{
+                    SceneNavigator.toHome();
+                }
             };
             dialog.cancelButtonHandler = function () {
                 dialog.hide();
