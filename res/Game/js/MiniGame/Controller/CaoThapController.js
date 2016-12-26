@@ -73,6 +73,8 @@ var CaoThapController = MiniGameController.extend({
 
         this._view.setBankValue(parseInt(bankString));
         this._view.showResultCard(resultCard);
+        this._view.setGameId(gameId);
+        this.result = resultCard;
         this._view.setReward(lowReward, highReward);
         this._view.setTimeRemaining(this.timeRemaining);
         this._view.setTipString(gameEnded ? "Bạn chọn sai, chúc bạn may mắn lần sau!" :
@@ -104,6 +106,7 @@ var CaoThapController = MiniGameController.extend({
         var timeRemaining = data["6"];
         //this._view.pushKing((resultCard % 13) == 10);
         this._view.setReward(lowReward, highReward);
+        this._view.setGameId(gameId);
         this._view.setBankValue(bankValue);
         this.timeRemaining = Math.floor(timeRemaining / 1000);
         this._view.setTimeRemaining(this.timeRemaining);
@@ -130,6 +133,9 @@ var CaoThapController = MiniGameController.extend({
         }
         var resultCard = data["8"];
         this._view.showResultCard(resultCard);
+        // in case out of time
+        if (this.result != -1)
+            this._view.addHistory(this.result);
         this._view.pushKing((resultCard % 13) == 10);
         this.result = resultCard;
         if (data["7"] == 1) {
@@ -165,6 +171,7 @@ var CaoThapController = MiniGameController.extend({
         SmartfoxClient.getInstance().sendExtensionRequest(-1, "408", {1: 1});
         //this.setRolling(true);
         this._view.addHistory(this.result);
+        this.result = -1;
     },
 
     sendLowPredict: function () {
@@ -172,6 +179,7 @@ var CaoThapController = MiniGameController.extend({
         SmartfoxClient.getInstance().sendExtensionRequest(-1, "408", {1: 2});
         //this.setRolling(true);
         this._view.addHistory(this.result);
+        this.result = -1;
     },
 
     getTurnState: function () {

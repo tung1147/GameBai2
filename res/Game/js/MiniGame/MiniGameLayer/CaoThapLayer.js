@@ -9,6 +9,8 @@ var CaoThapLayer = MiniGamePopup.extend({
         this._super();
         this._boudingRect = cc.rect(30, 47, 930, 510);
         this.rolling = false;
+        this.timeRemainingInterval = null;
+        this.timeRemaining = 0;
 
         var bg = new cc.Sprite("#caothap_bg.png");
         bg.setAnchorPoint(cc.p(0, 0));
@@ -40,14 +42,14 @@ var CaoThapLayer = MiniGamePopup.extend({
         coinIcon.setPosition(749, 90);
         this.addChild(coinIcon);
 
-        var bankLabel = new cc.LabelBMFont("100.000", cc.res.font.Roboto_CondensedBold_30);
+        var bankLabel = new cc.LabelBMFont("0", cc.res.font.Roboto_CondensedBold_30);
         bankLabel.setColor(cc.color("#ffea00"));
         bankLabel.setAnchorPoint(cc.p(1.0, 0.5));
         bankLabel.setPosition(725, 90);
         this.bankLabel = bankLabel;
         this.addChild(bankLabel, 1);
 
-        var timeLabel = new cc.LabelBMFont("05:00", cc.res.font.Roboto_CondensedBold_30);
+        var timeLabel = new cc.LabelBMFont("", cc.res.font.Roboto_CondensedBold_30);
         timeLabel.setPosition(500, 415);
         this.timeLabel = timeLabel;
         this.addChild(timeLabel, 1);
@@ -62,13 +64,13 @@ var CaoThapLayer = MiniGamePopup.extend({
         lowLabel.setPosition(lowButton.x, highLabel.y);
         this.addChild(lowLabel, 1);
 
-        var highValueLabel = new cc.LabelBMFont("10.000.000", cc.res.font.Roboto_Condensed_25);
+        var highValueLabel = new cc.LabelBMFont("0", cc.res.font.Roboto_Condensed_25);
         highValueLabel.setColor(cc.color("#ffea00"));
         highValueLabel.setPosition(highButton.x, 160);
         this.highValueLabel = highValueLabel;
         this.addChild(highValueLabel, 2);
 
-        var lowValueLabel = new cc.LabelBMFont("10.000.000", cc.res.font.Roboto_Condensed_25);
+        var lowValueLabel = new cc.LabelBMFont("0", cc.res.font.Roboto_Condensed_25);
         lowValueLabel.setColor(cc.color("#ffea00"));
         lowValueLabel.setPosition(lowButton.x, highValueLabel.y);
         this.lowValueLabel = lowValueLabel;
@@ -80,7 +82,7 @@ var CaoThapLayer = MiniGamePopup.extend({
         this.addChild(card);
         this.card = card;
 
-        var gameIdLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "ID : 1231231233", cc.TEXT_ALIGNMENT_LEFT);
+        var gameIdLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "", cc.TEXT_ALIGNMENT_LEFT);
         gameIdLabel.setColor(cc.color("#5366cb"));
         gameIdLabel.setScale(0.8);
         gameIdLabel.setPosition(lowButton.x, lowValueLabel.y - 25);
@@ -227,7 +229,19 @@ var CaoThapLayer = MiniGamePopup.extend({
         var container = new ccui.Widget();
         container.setContentSize(39, 48);
 
-        var label = new cc.LabelBMFont(cardIndex.toString(), cc.res.font.Roboto_CondensedBold_30);
+        var cardString  = "";
+        if (cardIndex == 1)
+            cardString = "A";
+        else if (cardIndex == 11)
+            cardString = "J";
+        else if (cardIndex == 12)
+            cardString = "Q";
+        else if (cardIndex == 13)
+            cardString = "K";
+        else
+            cardString = cardIndex.toString();
+
+        var label = new cc.LabelBMFont(cardString, cc.res.font.Roboto_CondensedBold_30);
         label.setColor(cc.color("#7adfff"));
         label.setPosition(container.getContentSize().width / 2, container.getContentSize().height / 2);
         container.addChild(label);
@@ -248,8 +262,34 @@ var CaoThapLayer = MiniGamePopup.extend({
         this.highValueLabel.setString(cc.Global.NumberFormat1(highReward));
     },
 
-    setTimeRemaining: function (timeRemaining) {
+    setGameId: function (gameId) {
+        this.gameIdLabel.setString("ID: " + gameId);
+    },
 
+    setTimeRemaining: function (timeRemaining) {
+        var thiz = this;
+        this.timeRemaining = timeRemaining;
+        if (this.timeRemainingInterval){
+            clearInterval(this.timeRemainingInterval);
+        }
+        this.timeRemainingInterval = setInterval(function () {
+            if (thiz.timeRemaining <= 0) {
+                thiz.timeLabel.setString("");
+                clearInterval(thiz.timeRemainingInterval);
+                thiz.timeRemainingInterval = null;
+            } else {
+                thiz.timeLabel.setString(thiz.formatTime(thiz.timeRemaining));
+                thiz.timeRemaining--;
+            }
+        }, 1000);
+    },
+
+    formatTime: function (timeRemaining) {
+        var minute = Math.floor(timeRemaining / 60);
+        if (minute < 10) minute = "0" + minute;
+        var second = timeRemaining % 60;
+        if (second < 10) second = "0" + second;
+        return minute + " : " + second;
     },
 
     setTipString: function (str) {
@@ -267,6 +307,8 @@ var CaoThapLayer = MiniGamePopup.extend({
         this.startButton.visible = true;
         this.historyList.removeAllItems();
         this.card.setSpriteFrame("gp_card_up.png");
+        if (this.timeRemainingInterval)
+            clearInterval(this.timeRemainingInterval);
         this.timeLabel.setString("");
     },
 

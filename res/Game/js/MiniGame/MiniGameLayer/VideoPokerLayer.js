@@ -93,7 +93,7 @@ var VideoPokerLayer = MiniGamePopup.extend({
         coinIcon.setPosition(549, 90);
         this.addChild(coinIcon);
 
-        var bankLabel = new cc.LabelBMFont("100.000", cc.res.font.Roboto_CondensedBold_30);
+        var bankLabel = new cc.LabelBMFont("", cc.res.font.Roboto_CondensedBold_30);
         bankLabel.setColor(cc.color("#ffea00"));
         bankLabel.setAnchorPoint(cc.p(1.0, 0.5));
         bankLabel.setPosition(520, 90);
@@ -127,6 +127,7 @@ var VideoPokerLayer = MiniGamePopup.extend({
         switch (this._controller.getTurnState()) {
             case 0:
             case 4:
+                this.setHoldArray([0,0,0,0,0]);
                 this.setRolling(true);
                 setTimeout(function () {
                     thiz._controller.sendRollRequest(betType);

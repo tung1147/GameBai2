@@ -316,6 +316,10 @@ var CaoThapScene = MiniGameScene.extend({
             this.timeLabel.setString("");
     },
 
+    setGameId : function (gameId) {
+
+    },
+
     performChangeRewardFund: function (data) {
         this._super(data);
         var betAmountID = this.chipGroup.chipSelected.chipIndex;

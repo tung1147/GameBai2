@@ -139,6 +139,9 @@ var MiniPokerLayer = MiniGamePopup.extend({
         this.autoRoll = !this.autoRoll;
         this.autoRollButton.loadTextureNormal(this.autoRoll ? "minipoker_quaytudong_active.png"
             : "minipoker_quaytudong.png", ccui.Widget.PLIST_TEXTURE);
+        var thiz = this;
+        if (!this.rolling && this.autoRoll)
+            thiz.onRollClick();
     },
 
     activateReward: function (id, rank) {

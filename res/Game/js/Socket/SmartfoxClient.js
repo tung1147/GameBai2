@@ -346,7 +346,7 @@ var SmartfoxClient = (function () {
                     if (group == "mini.caothap") {
                         //gameScene = new CaoThapScene();
                         // PlayerMe.gameType = GameType.MiniGame_CaoThap;
-                        SceneNavigator.toMiniGame(GameType.MiniGame_VideoPoker,true);
+                        SceneNavigator.toMiniGame(GameType.MiniGame_CaoThap,true);
                         LoadingDialog.getInstance().hide();
                     }
                     else if (group == "mini.videopoker") {

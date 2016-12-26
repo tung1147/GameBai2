@@ -80,6 +80,21 @@ var MiniGamePopup = cc.Node.extend({
     },
     onChangeAssets: function (gold, changeAmount) {
         PlayerMe.gold = gold;
+        if (changeAmount == 0)
+            return;
+
+        var parent = this.getParent();
+
+        var changeSprite = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, "");
+        var changeText = (changeAmount >= 0 ? "+" : "") + changeAmount;
+        changeSprite.setString(changeText);
+        changeSprite.setColor(cc.color(changeAmount >= 0 ? "#ffde00" : "#ff0000"));
+        changeSprite.setPosition(50,70);
+        parent.addChild(changeSprite, 420);
+
+        changeSprite.runAction(new cc.Sequence(new cc.MoveTo(1.0, changeSprite.x, changeSprite.y + 50), new cc.CallFunc(function () {
+            changeSprite.removeFromParent(true);
+        })));
     },
 
     initChip: function (centerPosition) {

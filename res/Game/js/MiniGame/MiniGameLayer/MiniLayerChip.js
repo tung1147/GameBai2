@@ -15,7 +15,7 @@ var MiniLayerChip = ChipButton.extend({
         this.chipIndex = index;
 
         var s = normalSprite.getContentSize();
-        this.rectTouch = cc.rect(-s.width/2, -s.height/2, s.width, s.height);
+        this.rectTouch = cc.rect(-s.width/3, -s.height/4, s.width, s.height/2);
 
         selectedSprite.visible = false;
     },
