@@ -6,8 +6,8 @@ var StatisticBoard = IDialog.extend({
         this._super();
         this.command = [];
         this.command[GameType.MiniGame_CaoThap] = {getTop:"402",getExplosion:"403",getHistory:"401"};
-        this.command[GameType.MiniGame_CaoThap] = {getTop:"353",getExplosion:"354",getHistory:"352"};
-        this.command[GameType.MiniGame_CaoThap] = {getTop:"258",getExplosion:"259",getHistory:"257"};
+        this.command[GameType.MiniGame_Poker] = {getTop:"353",getExplosion:"354",getHistory:"352"};
+        this.command[GameType.MiniGame_VideoPoker] = {getTop:"258",getExplosion:"259",getHistory:"257"};
         this.gameType = gameType;
 
         var board_bg = ccui.Scale9Sprite.createWithSpriteFrameName("board_bg.png", cc.rect(105, 105, 147, 147));

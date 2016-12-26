@@ -35,7 +35,8 @@ var MiniGamePopup = cc.Node.extend({
         });
 
         historyButton.addClickEventListener(function () {
-            thiz.stat_board.showWithAnimationScale();
+            var stat_board = new StatisticBoard(thiz.gameType);
+            stat_board.showWithAnimationScale();
         });
 
         this._controller.sendJoinGame();
