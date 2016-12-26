@@ -15,12 +15,12 @@ s_card_suit[CardSuit.Clubs] = "t";
 s_card_suit[CardSuit.Spades] = "b";
 
 var Card = cc.Sprite.extend({
-    ctor : function (rank, suit) {
+    ctor: function (rank, suit) {
         this.canTouch = true;
         this.rank = rank;
         this.suit = suit;
-        this._super("#"+rank + s_card_suit[suit] +".png");
-        this.touchRect = cc.rect(0,0,this.getContentSize().width, this.getContentSize().height);
+        this._super("#" + rank + s_card_suit[suit] + ".png");
+        this.touchRect = cc.rect(0, 0, this.getContentSize().width, this.getContentSize().height);
         this.cardDistance = this.getContentSize().width;
 
         this.origin = cc.p();
@@ -29,20 +29,20 @@ var Card = cc.Sprite.extend({
         var thiz = this;
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
-            swallowTouches:true,
-            onTouchBegan : function (touch, event) {
+            swallowTouches: true,
+            onTouchBegan: function (touch, event) {
                 return thiz.onTouchBegan(touch, event);
             },
-            onTouchEnded : function (touch, event) {
+            onTouchEnded: function (touch, event) {
                 thiz.onTouchEnded(touch, event);
             },
-            onTouchMoved :  function (touch, event){
+            onTouchMoved: function (touch, event) {
                 thiz.onTouchMoved(touch, event);
             }
         }, this);
     },
-    moveToOriginPosition : function () {
-        if(!this.isTouched){
+    moveToOriginPosition: function () {
+        if (!this.isTouched) {
             this.stopAllActions();
             var thiz = this;
             var beforeMove = new cc.CallFunc(function () {
@@ -52,19 +52,19 @@ var Card = cc.Sprite.extend({
                 thiz.getParent().reorderChild(thiz, thiz.cardIndex);
             });
             var move = new cc.MoveTo(0.1, cc.p(this.origin.x, this.origin.y));
-            this.runAction(new cc.Sequence(beforeMove,move,afterMove));
+            this.runAction(new cc.Sequence(beforeMove, move, afterMove));
 
             this._cardSelected = false;
         }
     },
-    setSelected : function (selected, force) {
-        if(force){
+    setSelected: function (selected, force) {
+        if (force) {
             this.stopAllActions();
             this.setPosition(this.origin);
         }
 
         this._cardSelected = selected;
-        if(selected){
+        if (selected) {
             this.y = this.origin.y + 50;
         }
         else {
@@ -72,15 +72,15 @@ var Card = cc.Sprite.extend({
         }
 
     },
-    isSelected : function () {
-       // return (this.y > this.origin.y);
+    isSelected: function () {
+        // return (this.y > this.origin.y);
         return this._cardSelected;
     },
-    onTouchBegan : function (touch, event) {
-        if(this.canTouch && !this.isTouched){
+    onTouchBegan: function (touch, event) {
+        if (this.canTouch && !this.isTouched) {
             var p = this.convertToNodeSpace(touch.getLocation());
-           // var rect = this.getBoundingBox();
-            if(cc.rectContainsPoint(this.touchRect, p)){
+            // var rect = this.getBoundingBox();
+            if (cc.rectContainsPoint(this.touchRect, p)) {
                 this.isTouched = true;
                 this.isMoved = false;
                 this.preTouchPoint = touch.getLocation();
@@ -89,14 +89,14 @@ var Card = cc.Sprite.extend({
         }
         return false;
     },
-    onTouchEnded : function (touch, event) {
+    onTouchEnded: function (touch, event) {
         this.isTouched = false;
 
-        if(this.isMoved){
+        if (this.isMoved) {
             this.moveToOriginPosition();
             this.getParent().reorderChild(this, this.cardIndex);
         }
-        else{
+        else {
             // if(this.y > this.origin.y){
             //     this.y = this.origin.y;
             // }
@@ -107,13 +107,13 @@ var Card = cc.Sprite.extend({
             this.setSelected(!this._cardSelected);
         }
     },
-    onTouchMoved : function (touch, event) {
+    onTouchMoved: function (touch, event) {
         var p = touch.getLocation();
-        if(!this.isMoved){
-            if(cc.pDistance(this.preTouchPoint, p) < 5.0){
+        if (!this.isMoved) {
+            if (cc.pDistance(this.preTouchPoint, p) < 5.0) {
                 return;
             }
-            else{
+            else {
                 this.getParent().reorderChild(this, 200);
                 this.isMoved = true;
             }
@@ -124,11 +124,11 @@ var Card = cc.Sprite.extend({
         this.preTouchPoint = p;
 
         var dx = this.x - this.origin.x;
-        if(Math.abs(dx) > this.cardDistance){
-            if(dx > 0){
+        if (Math.abs(dx) > this.cardDistance) {
+            if (dx > 0) {
                 this.getParent().swapCardRight(this.cardIndex);
             }
-            else{
+            else {
                 this.getParent().swapCardLeft(this.cardIndex);
             }
         }
@@ -136,13 +136,13 @@ var Card = cc.Sprite.extend({
 });
 
 var CardList = cc.Node.extend({
-    ctor : function (size) {
+    ctor: function (size) {
         this.canTouch = true;
 
         this._super();
         this.cardList = [];
         this.setContentSize(size);
-        this.setAnchorPoint(cc.p(0.5,0.5));
+        this.setAnchorPoint(cc.p(0.5, 0.5));
     },
     removeCardById: function (id) {
         var card = this.getCardWithId(id);
@@ -155,7 +155,7 @@ var CardList = cc.Node.extend({
                 this.cardList.splice(i, 1);
                 return retVal;
             }
-            cc.log("card id " + id + " " + JSON.stringify(card));
+        cc.log("card id " + id + " " + JSON.stringify(card));
         return null;
     },
     getCardWithId: function (cardId) {
@@ -168,16 +168,24 @@ var CardList = cc.Node.extend({
             suit: Math.floor(cardId / 13)
         };
     },
-    reOrder : function () {
-        if(this.cardList.length > 0){
+
+    reArrangeCards: function () {
+        this.cardList.sort(function (a, b) {
+            return a.rank - b.rank;
+        });
+        this.reOrder();
+    },
+
+    reOrder: function () {
+        if (this.cardList.length > 0) {
             var width = this.cardSize.width * this.cardList.length;
-            if(width > this.getContentSize().width){
+            if (width > this.getContentSize().width) {
                 width = this.getContentSize().width;
             }
             var dx = width / this.cardList.length;
-            var x = this.getContentSize().width/2 - width/2 + dx/2;
-            var y = this.getContentSize().height/2;
-            for(var i=0;i<this.cardList.length;i++){
+            var x = this.getContentSize().width / 2 - width / 2 + dx / 2;
+            var y = this.getContentSize().height / 2;
+            for (var i = 0; i < this.cardList.length; i++) {
                 var card = this.cardList[i];
                 card.origin = cc.p(x, y);
                 card.cardIndex = i;
@@ -188,49 +196,49 @@ var CardList = cc.Node.extend({
             }
         }
     },
-    reOrderWithoutAnimation : function () {
-        if(this.cardList.length > 0){
+    reOrderWithoutAnimation: function () {
+        if (this.cardList.length > 0) {
             var width = this.cardSize.width * this.cardList.length;
-            if(width > this.getContentSize().width){
+            if (width > this.getContentSize().width) {
                 width = this.getContentSize().width;
             }
             var dx = width / this.cardList.length;
-            var x = this.getContentSize().width/2 - width/2 + dx/2;
-            var y = this.getContentSize().height/2;
-            for(var i=0;i<this.cardList.length;i++){
+            var x = this.getContentSize().width / 2 - width / 2 + dx / 2;
+            var y = this.getContentSize().height / 2;
+            for (var i = 0; i < this.cardList.length; i++) {
                 var card = this.cardList[i];
                 card.origin = cc.p(x, y);
                 card.cardIndex = i;
                 card.cardDistance = dx;
                 this.reorderChild(card, i);
                 //card.moveToOriginPosition();
-                card.setPosition(x,y);
+                card.setPosition(x, y);
                 x += dx;
             }
         }
     },
-    onEnter : function () {
+    onEnter: function () {
         this._super();
-        this.deckPoint = this.convertToNodeSpace(cc.p(cc.winSize.width/2, cc.winSize.height/2));
+        this.deckPoint = this.convertToNodeSpace(cc.p(cc.winSize.width / 2, cc.winSize.height / 2));
     },
-    addNewCard : function (cardId) {
-        for(var i =0;i<cardId.length;i++){
+    addNewCard: function (cardId) {
+        for (var i = 0; i < cardId.length; i++) {
             var card = new Card(cardId[i].rank, cardId[i].suit);
             this.addCard(card);
         }
         this.reOrderWithoutAnimation();
     },
-    addCard : function (card) {
-        if(!this.cardSize){
+    addCard: function (card) {
+        if (!this.cardSize) {
             this.cardSize = card.getContentSize();
-            if(this.cardSize.height > this.getContentSize().height){
+            if (this.cardSize.height > this.getContentSize().height) {
                 var ratio = this.getContentSize().height / this.cardSize.height;
                 this.cardSize.width *= ratio;
                 this.cardSize.height *= ratio;
             }
         }
-        if(card.getContentSize().height > this.cardSize.height){
-            card.setScale(this.cardSize.height/card.getContentSize().height);
+        if (card.getContentSize().height > this.cardSize.height) {
+            card.setScale(this.cardSize.height / card.getContentSize().height);
         }
         card.cardIndex = this.cardList.length;
         //card.origin = cc.p(0, 0);
@@ -238,33 +246,33 @@ var CardList = cc.Node.extend({
         this.addChild(card, this.cardList.length);
         this.cardList.push(card);
     },
-    setTouchEnable : function (touch) {
+    setTouchEnable: function (touch) {
         this.canTouch = touch;
-        for(var i=0;i<this.cardList.length;i++) {
+        for (var i = 0; i < this.cardList.length; i++) {
             this.cardList[i].canTouch = this.canTouch;
         }
     },
-    dealCards : function (cards, animation) {
+    dealCards: function (cards, animation) {
         this.removeAll();
-        for(var i=0;i<cards.length;i++){
+        for (var i = 0; i < cards.length; i++) {
             var card = new Card(cards[i].rank, cards[i].suit);
             card.setPosition(this.deckPoint);
             this.addCard(card);
         }
 
         var width = this.cardSize.width * this.cardList.length;
-        if(width > this.getContentSize().width){
+        if (width > this.getContentSize().width) {
             width = this.getContentSize().width;
         }
         var dx = width / this.cardList.length;
-        var x = this.getContentSize().width/2 - width/2 + dx/2;
-        var y = this.getContentSize().height/2;
-        for(var i=0;i<this.cardList.length;i++){
+        var x = this.getContentSize().width / 2 - width / 2 + dx / 2;
+        var y = this.getContentSize().height / 2;
+        for (var i = 0; i < this.cardList.length; i++) {
             this.reorderChild(this.cardList[i], i);
             var card = this.cardList[i];
             card.origin = cc.p(x, y);
             card.cardDistance = dx;
-            if(animation){
+            if (animation) {
                 card.visible = false;
                 var delayAction = new cc.DelayTime(0.02 * i);
                 var beforeAction = new cc.CallFunc(function (target) {
@@ -273,41 +281,41 @@ var CardList = cc.Node.extend({
                 var moveAction = new cc.MoveTo(0.2, cc.p(x, y));
                 card.runAction(new cc.Sequence(delayAction, beforeAction, moveAction));
             }
-            else{
-                card.setPosition(x,y);
+            else {
+                card.setPosition(x, y);
             }
 
             x += dx;
         }
     },
-    containsWithCard : function (card) {
+    containsWithCard: function (card) {
         var cardRect = card.getCardBounding();
 
-        for(var i=0;i<this.cardList.length;i++){
-            if(this.cardList[i] != card){
+        for (var i = 0; i < this.cardList.length; i++) {
+            if (this.cardList[i] != card) {
                 var rect = this.cardList[i].getCardBounding();
-                if(cc.rectIntersectsRect(cardRect, rect)){
+                if (cc.rectIntersectsRect(cardRect, rect)) {
                     return this.cardList[i];
                 }
             }
         }
         return null;
     },
-    swapCardLeft : function (index) {
-        if(index > 0){
+    swapCardLeft: function (index) {
+        if (index > 0) {
             var cardMove = this.cardList[index];
-            var cardSwap = this.cardList[index-1];
+            var cardSwap = this.cardList[index - 1];
             this.swapCard(cardMove, cardSwap);
         }
     },
-    swapCardRight : function (index) {
-        if(index < this.cardList.length - 1){
+    swapCardRight: function (index) {
+        if (index < this.cardList.length - 1) {
             var cardMove = this.cardList[index];
-            var cardSwap = this.cardList[index+1];
+            var cardSwap = this.cardList[index + 1];
             this.swapCard(cardMove, cardSwap);
         }
     },
-    swapCard : function (card1, card2) {
+    swapCard: function (card1, card2) {
         var _origin = card1.origin;
         var _cardIndex = card1.cardIndex;
 
@@ -323,14 +331,14 @@ var CardList = cc.Node.extend({
         this.cardList[card1.cardIndex] = card1;
         this.cardList[card2.cardIndex] = card2;
     },
-    removeCard : function (cards) {
+    removeCard: function (cards) {
         var arrCard = [];
-        for(var i=0;i<cards.length;i++){
-            var rank  = cards[i].rank;
+        for (var i = 0; i < cards.length; i++) {
+            var rank = cards[i].rank;
             var suit = cards[i].suit;
-            for(var j=0;j<this.cardList.length;j++){
+            for (var j = 0; j < this.cardList.length; j++) {
                 var card = this.cardList[j];
-                if(card.rank == rank && card.suit == suit){
+                if (card.rank == rank && card.suit == suit) {
                     var p = this.convertToWorldSpace(card.getPosition());
                     card.setPosition(p);
 
@@ -344,20 +352,20 @@ var CardList = cc.Node.extend({
         }
         return arrCard;
     },
-    removeAll : function () {
+    removeAll: function () {
         this.removeAllChildren(true);
         this.cardList = [];
     },
-    getCardAtIndex : function (index) {
+    getCardAtIndex: function (index) {
         return this.cardList[index];
     },
-    getCardByRank : function (rank, suit) {
+    getCardByRank: function (rank, suit) {
 
     },
-    getCardSelected : function () {
+    getCardSelected: function () {
         var cardSelected = [];
-        for(var i=0;i<this.cardList.length;i++){
-            if(this.cardList[i].isSelected()){
+        for (var i = 0; i < this.cardList.length; i++) {
+            if (this.cardList[i].isSelected()) {
                 cardSelected.push(this.cardList[i]);
             }
         }
@@ -366,61 +374,61 @@ var CardList = cc.Node.extend({
 });
 
 var CardOnTable = cc.Node.extend({
-    ctor : function () {
+    ctor: function () {
         this._super();
         this.cardList = [];
         this.cardSize = null;
         this.cardScale = 0.5;
-        this.cardPosition = cc.p(cc.winSize.width/2, cc.winSize.height/2);
+        this.cardPosition = cc.p(cc.winSize.width / 2, cc.winSize.height / 2);
     },
-    moveOldCard : function () {
-        if(this.cardList.length == 2){
+    moveOldCard: function () {
+        if (this.cardList.length == 2) {
             var arr = this.cardList[0];
-            for(var i=0;i<arr.length;i++){
+            for (var i = 0; i < arr.length; i++) {
                 arr[i].removeFromParent(true);
             }
-            this.cardList.splice(0,1);
+            this.cardList.splice(0, 1);
         }
-        if(this.cardList.length == 1){
+        if (this.cardList.length == 1) {
             var arr = this.cardList[0];
-            for(var i=0;i<arr.length;i++){
+            for (var i = 0; i < arr.length; i++) {
                 arr[i].y += 40.0;
-                arr[i].setColor(cc.color(100,100,100));
+                arr[i].setColor(cc.color(100, 100, 100));
             }
         }
     },
-    addNewCardList : function (cards,startPosition) {
+    addNewCardList: function (cards, startPosition) {
         //add
         var arrCard = [];
-        for(var i=0;i<cards.length;i++){
-            var card = new cc.Sprite("#"+cards[i].rank + s_card_suit[cards[i].suit] +".png");
+        for (var i = 0; i < cards.length; i++) {
+            var card = new cc.Sprite("#" + cards[i].rank + s_card_suit[cards[i].suit] + ".png");
             card.setPosition(startPosition);
             arrCard.push(card);
         }
         this.addCard(arrCard);
         return arrCard;
     },
-    addCardReconnect : function (cards) {
+    addCardReconnect: function (cards) {
         var arrCard = [];
-        for(var i=0;i<cards.length;i++){
-            var card = new cc.Sprite("#"+cards[i].rank + s_card_suit[cards[i].suit] +".png");
+        for (var i = 0; i < cards.length; i++) {
+            var card = new cc.Sprite("#" + cards[i].rank + s_card_suit[cards[i].suit] + ".png");
             arrCard.push(card);
         }
         this.addCardWithoutAnimation(arrCard);
         return arrCard;
     },
-    addCard : function (cards) {
+    addCard: function (cards) {
         var animationDuration = 0.3;
-        if(!this.cardSize){
+        if (!this.cardSize) {
             this.cardSize = cards[0].getContentSize();
         }
         this.cardList.push(cards);
 
         var dx = this.cardSize.width * this.cardScale;
         var width = cards.length * dx;
-        var x = this.cardPosition.x - width/2 +  dx/2;
+        var x = this.cardPosition.x - width / 2 + dx / 2;
 
-        for(var i=0;i<cards.length;i++){
+        for (var i = 0; i < cards.length; i++) {
             var card = cards[i];
             var moveAction = new cc.MoveTo(animationDuration, cc.p(x, this.cardPosition.y));
             var scaleAction = new cc.ScaleTo(animationDuration, 0.5);
@@ -428,32 +436,32 @@ var CardOnTable = cc.Node.extend({
             //card.setScale(card.getScale() * this.cardScale);
             var rotate = 20.0 - Math.random() * 40.0;
             card.setRotation(rotate);
-            this.addChild(card,0);
+            this.addChild(card, 0);
             x += dx;
         }
     },
-    addCardWithoutAnimation : function (cards) {
-        if(!this.cardSize){
+    addCardWithoutAnimation: function (cards) {
+        if (!this.cardSize) {
             this.cardSize = cards[0].getContentSize();
         }
         this.cardList.push(cards);
 
         var dx = this.cardSize.width * this.cardScale;
         var width = cards.length * dx;
-        var x = this.cardPosition.x - width/2 +  dx/2;
+        var x = this.cardPosition.x - width / 2 + dx / 2;
 
-        for(var i=0;i<cards.length;i++){
+        for (var i = 0; i < cards.length; i++) {
             var card = cards[i];
             card.setPosition(x, this.cardPosition.y);
             card.setScale(0.5);
             var rotate = 20.0 - Math.random() * 40.0;
             card.setRotation(rotate);
-            this.addChild(card,0);
+            this.addChild(card, 0);
             x += dx;
         }
     },
 
-    removeAll : function () {
+    removeAll: function () {
         this.cardList = [];
         this.removeAllChildren(true);
     }

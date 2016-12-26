@@ -84,7 +84,9 @@ var PhomController = GameController.extend({
 
     onGameStatus: function (param) {
         // this._view.onGameStatus(param);
-        this._view.hideAllButton();
+        if (param != 2) {
+            this._view.hideAllButton();
+        }
         this._view.setDeckVisible(false);
         switch (param) {
             case 0: // waiting
@@ -103,7 +105,7 @@ var PhomController = GameController.extend({
         }
     },
 
-    onJoinRoom : function (params) {
+    onJoinRoom: function (params) {
         this._super(params);
         this.onGameStatus(params["1"]);
         this.timeTurn = params["7"];
@@ -239,8 +241,8 @@ var PhomController = GameController.extend({
         var stealerBalance = param["m1"];
         var stolenBalance = param["m2"];
 
-        this._view.performAssetChange(stealer,stealerAmount,stealerBalance);
-        this._view.performAssetChange(stolenUser,-stolenAmount,stolenBalance);
+        this._view.performAssetChange(stealer, stealerAmount, stealerBalance);
+        this._view.performAssetChange(stolenUser, -stolenAmount, stolenBalance);
     },
 
     onDelegateCard: function (param) {

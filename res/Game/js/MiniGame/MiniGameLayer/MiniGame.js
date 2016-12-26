@@ -34,6 +34,10 @@ var MiniGamePopup = cc.Node.extend({
             thiz.hide();
         });
 
+        historyButton.addClickEventListener(function () {
+            thiz.stat_board.showWithAnimationScale();
+        });
+
         this._controller.sendJoinGame();
     },
 

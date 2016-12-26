@@ -577,7 +577,7 @@ var Phom = IGameScene.extend({
         this.sceneLayer.addChild(xepBaiBt);
 
         var uBt = new ccui.Button("game-uBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        uBt.setPosition(danhbaiBt.getPosition());
+        uBt.setPosition(cc.winSize.width - 510,danhbaiBt.y);
         this.sceneLayer.addChild(uBt);
 
         var drawBt = new ccui.Button("game-bocbaiBt.png", "", "", ccui.Widget.PLIST_TEXTURE);

@@ -16,6 +16,7 @@ var VideoPokerLayer = MiniGamePopup.extend({
         this.cardRollingSprites = [];
         this.holdingList = [0, 0, 0, 0, 0];
         this.holdLayers = [];
+        this.stat_board = new StatisticBoard(GameType.MiniGame_VideoPoker);
 
         var thiz = this;
 

@@ -9,6 +9,7 @@ var CaoThapScene = MiniGameScene.extend({
         this.initAvatarMe();
         this.initButton();
         this.initChip(cc.winSize.width / 2);
+        this.stat_board = new StatisticBoard(GameType.MiniGame_CaoThap);
 
         this.initScene();
         this.delta = 0;

@@ -19,6 +19,7 @@ var MiniPokerScene = MiniGameScene.extend({
         this.activeReward = {};
         this.rewardGroup = [];
         this.rewardCardSprites = [];
+        this.stat_board = new StatisticBoard(GameType.MiniGame_Poker);
 
         this.initAvatarMe();
         this.initButton();

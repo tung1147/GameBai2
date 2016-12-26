@@ -2,8 +2,13 @@
  * Created by VGA10 on 9/15/2016.
  */
 var StatisticBoard = IDialog.extend({
-    ctor: function () {
+    ctor: function (gameType) {
         this._super();
+        this.command = [];
+        this.command[GameType.MiniGame_CaoThap] = {getTop:"402",getExplosion:"403",getHistory:"401"};
+        this.command[GameType.MiniGame_CaoThap] = {getTop:"353",getExplosion:"354",getHistory:"352"};
+        this.command[GameType.MiniGame_CaoThap] = {getTop:"258",getExplosion:"259",getHistory:"257"};
+        this.gameType = gameType;
 
         var board_bg = ccui.Scale9Sprite.createWithSpriteFrameName("board_bg.png", cc.rect(105, 105, 147, 147));
         board_bg.setAnchorPoint(cc.p(0, 0));
@@ -11,29 +16,11 @@ var StatisticBoard = IDialog.extend({
         this.board_bg = board_bg;
 
         this.initWithSize(cc.size(1080, 720));
-        this.retain();
-
-        // var colorLayer = new cc.LayerColor(cc.color(255, 255, 255, 255), 50000, 50000);
-        // this.rewardFundTableLayout.addChild(colorLayer);
 
         this.initRewardFundTable();
         this.initTopEarningTable();
         this.initPlayHistoryTable();
         this.initNavBar();
-
-        // var sttLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25,
-        //     "STT", cc.TEXT_ALIGNMENT_CENTER);
-        // sttLabel.setPosition(160, 590);
-        // sttLabel.setColor(cc.color("#8ba1bc"));
-        // sttLabel.setScale(0.8);
-        // board_bg.addChild(sttLabel);
-        //
-        // var taikhoanLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25,
-        //     "Tài khoản", cc.TEXT_ALIGNMENT_CENTER);
-        // taikhoanLabel.setPosition(420,590);
-        // taikhoanLabel.setColor(cc.color("#8ba1bc"));
-        // taikhoanLabel.setScale(0.8);
-        // board_bg.addChild(taikhoanLabel);
     },
     initWithSize: function (mSize) {
         this.board_bg.setPreferredSize(cc.size(mSize.width, mSize.height));
@@ -43,6 +30,55 @@ var StatisticBoard = IDialog.extend({
         this.topEarningTableLayout = this.initClippingTable(mSize, false);
         this.historyTableLayout = this.initClippingTable(mSize, false);
     },
+
+    onSFSExtension: function (messageType, content) {
+        switch (content.c) {
+            case "100002": // danh sach cao thu
+                this.addTopPlayersData(content.p.data["1"]);
+                break;
+
+            case "100001": // lich su no hu
+                this.addExplosionHistoryData(content.p.data["1"]);
+                break;
+
+            case "100003": // lich su nguoi choi
+                this.addHistoryData(content.p.data["1"]);
+        }
+    },
+
+    onEnter: function () {
+        this._super();
+        SmartfoxClient.getInstance().addListener(socket.SmartfoxClient.CallExtension, this.onSFSExtension, this);
+        SmartfoxClient.getInstance().sendExtensionRequest(-1, this.command[this.gameType]["getTop"], null);
+        SmartfoxClient.getInstance().sendExtensionRequest(-1, this.command[this.gameType]["getExplosion"], null);
+        SmartfoxClient.getInstance().sendExtensionRequest(-1, this.command[this.gameType]["getHistory"], null);
+    },
+
+    onExit: function () {
+        this._super();
+        SmartfoxClient.getInstance().removeListener(this);
+    },
+
+    addTopPlayersData : function (data) {
+        for (var i = 0; i < data.length; i++) {
+            this.addTopEarningEntry(i + 1, data[i]["1"], data[i]["2"]);
+        }
+    },
+
+    addExplosionHistoryData : function (data) {
+        for (var i = 0; i < data.length; i++) {
+            this.addRewardFundEntry(data[i]["1"], data[i]["2"],
+                data[i]["3"], data[i]["4"]);
+        }
+    },
+
+    addHistoryData : function (data) {
+        for (var i = 0; i < data.length; i++) {
+            this.addHistoryEntry(data[i]["2"], data[i]["3"],
+                data[i]["4"], data[i]["5"]);
+        }
+    },
+
     initRewardFundTable: function () {
         var thoigianLabel = this.rewardFundTableLayout.createLabel("Thời gian", 40, 385);
         this.rewardFundTableLayout.addChild(thoigianLabel);
@@ -357,7 +393,7 @@ var StatisticBoard = IDialog.extend({
 
             var cardSprite = new cc.Sprite("#" + rank + s_card_suit[suit] + ".png");
             cardSprite.setScale(0.3);
-            cardSprite.setPosition(baseX + i * 32 * cc.winSize.screenScale,baseY);
+            cardSprite.setPosition(baseX + i * 32 * cc.winSize.screenScale, baseY);
             container.addChild(cardSprite);
         }
 

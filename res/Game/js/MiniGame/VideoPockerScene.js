@@ -75,6 +75,7 @@ var VideoPockerScene = MiniGameScene.extend({
         this.activeReward = {};
         this.rewardCardSprites = [];
         this.cards = [];
+        this.stat_board = new StatisticBoard(GameType.MiniGame_VideoPoker);
         for (var i = 0; i < 5; i++)
             this.cards.push({rolling: false});
 

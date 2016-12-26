@@ -43,18 +43,6 @@ var MiniGameController = cc.Class.extend({
                 this.onReconnect(content.p);
                 break;
 
-            case "100002": // danh sach cao thu
-                this._view.showTopPlayersDialog(content.p.data["1"]);
-                break;
-
-            case "100001": // lich su no hu
-                this._view.showExplosionHistoryDialog(content.p.data["1"]);
-                break;
-
-            case "100003": // lich su nguoi choi
-                this._view.showHistoryDialog(content.p.data["1"]);
-                break;
-
             case "0": // thay doi vang
                 this.onChangeAssets(content.p["2"], content.p["1"]);
         }

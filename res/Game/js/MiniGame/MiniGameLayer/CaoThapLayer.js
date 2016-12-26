@@ -11,6 +11,7 @@ var CaoThapLayer = MiniGamePopup.extend({
         this.rolling = false;
         this.timeRemainingInterval = null;
         this.timeRemaining = 0;
+        this.stat_board = new StatisticBoard(GameType.MiniGame_CaoThap);
 
         var bg = new cc.Sprite("#caothap_bg.png");
         bg.setAnchorPoint(cc.p(0, 0));

@@ -106,6 +106,9 @@ var TienLen = IGameScene.extend({
         danhbaiBt.addClickEventListener(function () {
             thiz.sendDanhBai();
         });
+        xepBaiBt.addClickEventListener(function () {
+            thiz.onXepBaiBtClick();
+        });
 
         //danhbaiBt.visible = false;
         xepBaiBt.visible = false;
@@ -117,6 +120,11 @@ var TienLen = IGameScene.extend({
         this.boluotBt = boluotBt;
         this.startBt = startBt;
     },
+
+    onXepBaiBtClick : function () {
+        this.cardList.reArrangeCards();
+    },
+
     initPlayer: function () {
         var playerMe = new GamePlayerMe();
         playerMe.setPosition(150, 50.0);

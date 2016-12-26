@@ -9,7 +9,6 @@ var MiniGameScene = IScene.extend({
         bg.x = cc.winSize.width / 2;
         bg.y = cc.winSize.height / 2;
         this.sceneLayer.addChild(bg);
-        this.stat_board = new StatisticBoard();
         this.initController();
     },
     initAvatarMe: function () {
@@ -139,33 +138,12 @@ var MiniGameScene = IScene.extend({
         cc.director.replaceScene(homeScene);
     },
     rankButtonHandler: function () {
-        this._controller.sendGetTopRequest();
-        this._controller.sendGetExplosionHistory();
-        this._controller.sendGetUserHistory();
         this.stat_board.showWithAnimationScale();
     },
     backToHomeScene: function () {
         this.backButtonHandler();
     },
 
-    showTopPlayersDialog: function (data) {
-        for (var i = 0; i < data.length; i++) {
-            this.stat_board.addTopEarningEntry(i + 1, data[i]["1"], data[i]["2"]);
-        }
-    },
-
-    showExplosionHistoryDialog: function (data) {
-        for (var i = 0; i < data.length; i++) {
-            this.stat_board.addRewardFundEntry(data[i]["1"], data[i]["2"],
-                data[i]["3"], data[i]["4"]);
-        }
-    },
-    showHistoryDialog: function (data) {
-        for (var i = 0; i < data.length; i++) {
-            this.stat_board.addHistoryEntry(data[i]["2"], data[i]["3"],
-                data[i]["4"], data[i]["5"]);
-        }
-    },
     getCardWithId: function (cardId) {
         var rankCard = (cardId % 13) + 3;
         if (rankCard > 13) {

@@ -15,6 +15,7 @@ var MiniPokerLayer = MiniGamePopup.extend({
         this.rewards = [];
         this.rewardLayer = [];
         this.cardRollingSprites = [];
+        this.stat_board = new StatisticBoard(GameType.MiniGame_Poker);
 
         this.initRewards();
 
