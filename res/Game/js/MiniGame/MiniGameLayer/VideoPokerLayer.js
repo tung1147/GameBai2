@@ -44,6 +44,7 @@ var VideoPokerLayer = MiniGamePopup.extend({
 
         var rollButton = new ccui.Button("minipoker_rollButton.png", "", "", ccui.Widget.PLIST_TEXTURE);
         rollButton.setZoomScale(0.0);
+        rollButton.setScale9Enabled(true);
         rollButton.setPosition(870, 114);
         this.addChild(rollButton);
         this.rollButton = rollButton;
@@ -285,7 +286,6 @@ var VideoPokerLayer = MiniGamePopup.extend({
         for (var i = 0; i < 15; i++) {
             this.cardSprites[i % 5].visible = (!isRolling || this.holdingList[i % 5]);
             this.cardRollingSprites[i].visible = (isRolling && !this.holdingList[i % 5]);
-            cc.log((isRolling && !this.holdingList[i % 5]));
         }
     },
 
@@ -337,6 +337,16 @@ var VideoPokerLayer = MiniGamePopup.extend({
 
         //het tien
         this.setRolling(false);
+    },
+
+    setQuayBtEnable: function (enabled) {
+        this.rollButton.enabled = enabled;
+        this.rollButton.setBright(enabled);
+    },
+
+    showJackpot : function () {
+        var layer = new JackpotLayer();
+        layer.show();
     }
 });
 

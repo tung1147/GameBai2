@@ -54,6 +54,7 @@ var VideoPokerController = MiniGameController.extend({
         this._view.setHoldArray(holdArray);
         this._view.setCardArray(cardArray);
         this._view.setFlashing(false, false);
+        this._view.setQuayBtEnable(true);
     },
 
     onNextRollResult: function (param) {
@@ -69,11 +70,15 @@ var VideoPokerController = MiniGameController.extend({
         var thiz = this;
         var index = 0;
         this._view.activateReward(resultId);
+        if (resultId == 0){
+            this._view.showJackpot();
+        }
         this._view.setRewardCards(rewardArray);
         this._view.setHoldArray([0, 0, 0, 0, 0]);
         this._view.setCardArray(cardArray);
         this._view.setBankValue(bankValue);
         this._view.setFlashing(resultId < 9, resultId < 9);
+        this._view.setQuayBtEnable(true);
     },
 
     onRequestDoubleResult: function (param) {
@@ -83,6 +88,7 @@ var VideoPokerController = MiniGameController.extend({
         this._view.activateReward(11);
         this._view.setFlashing(true, false);
         this._view.setRewardCards([0, 0, 0, 0, 0]);
+        this._view.setQuayBtEnable(false);
     },
 
     onDoubleResult: function (param) {
@@ -102,6 +108,7 @@ var VideoPokerController = MiniGameController.extend({
         }
         this._view.setHoldCard(choosenPos, true);
         this._view.setCardArray(cardArray);
+        this._view.setQuayBtEnable(true);
     },
 
     sendRollRequest: function (betType) {
@@ -110,6 +117,7 @@ var VideoPokerController = MiniGameController.extend({
         //     this._view.setRollCard(i, true);
         this._view.setHoldArray([0, 0, 0, 0, 0]);
         this._view.setFlashing(false, true);
+        this._view.setQuayBtEnable(false);
         SmartfoxClient.getInstance().sendExtensionRequest(-1, "251", {1: betType});
     },
 
@@ -125,6 +133,7 @@ var VideoPokerController = MiniGameController.extend({
             }
             //this.setRolling(true);
             this._view.setFlashing(false, true);
+            this._view.setQuayBtEnable(false);
             SmartfoxClient.getInstance().sendExtensionRequest(-1, "253", {1: holdValue});
         }
     },

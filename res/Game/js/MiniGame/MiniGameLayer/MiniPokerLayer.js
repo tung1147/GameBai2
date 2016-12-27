@@ -42,8 +42,10 @@ var MiniPokerLayer = MiniGamePopup.extend({
 
         var rollButton = new ccui.Button("minipoker_rollButton.png", "", "", ccui.Widget.PLIST_TEXTURE);
         rollButton.setZoomScale(0.0);
+        rollButton.setScale9Enabled(true);
         rollButton.setPosition(870, 114);
         this.addChild(rollButton);
+        this.rollButton = rollButton;
 
         var autoRollButton = new ccui.Button("minipoker_quaytudong.png", "", "", ccui.Widget.PLIST_TEXTURE);
         autoRollButton.setZoomScale(0.0);
@@ -245,6 +247,16 @@ var MiniPokerLayer = MiniGamePopup.extend({
 
         //het tien
         this.setRolling(false);
+    },
+
+    setQuayBtEnable : function (enabled) {
+        this.rollButton.enabled = enabled;
+        this.rollButton.setBright(enabled);
+    },
+
+    showJackpot : function () {
+        var layer = new JackpotLayer();
+        layer.show();
     }
 });
 

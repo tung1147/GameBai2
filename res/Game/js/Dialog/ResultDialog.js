@@ -41,13 +41,13 @@ var ResultDialog = Dialog.extend({
 
             var label1 = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "username");
             label1.setAnchorPoint(cc.p(0.0, 0.5));
-            label1.setPosition(130, y + h/2 - label1.getLineHeight()/2);
+            label1.setPosition(130, y + h/2 - 15);
             this.dialogBg.addChild(label1, 1);
             userLabel.push(label1);
 
             var label2 = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Thắng trắng");
             label2.setAnchorPoint(cc.p(0.0, 0.5));
-            label2.setPosition(420, y + h/2 - label2.getLineHeight()/2);
+            label2.setPosition(420, y + h/2 - 15);
             this.dialogBg.addChild(label2, 1);
             contentLabel.push(label2);
 

@@ -43,34 +43,16 @@ var MiniPokerController = MiniGameController.extend({
         this._view.setCardArray(cardArray);
         var thiz = this;
         var index = 0;
-        // var rollingInterval = setInterval(function () {
-        //     thiz._view.setRollCard(index, false);
-        //     index++;
-        //     if (index >= 5) {
-        //         thiz.setRolling(false);
-        //         thiz._view.activateReward(result, rewardCardRank);
-        //         thiz._view.setRewardCards(rewardIndexesArray);
-        //         if (thiz.changeAmount) {
-        //             thiz._view.onChangeAssets(thiz.goldAfter, thiz.changeAmount);
-        //             thiz.goldAfter = thiz.changeAmount = null;
-        //         }
-        //         if (thiz.autoRoll)
-        //             setTimeout(function () {
-        //                 thiz.sendRollRequest(thiz.lastBetType);
-        //             }, 1000);
-        //
-        //         clearInterval(rollingInterval);
-        //     }
-        // }, 500);
-        // for (var i = 0;i<5;i++)
-        //     this._view.setRollCard(i,false);
-        //this.setRolling(false);
         this._view.activateReward(result, rewardCardRank);
+        if (result == 0){
+            this._view.showJackpot();
+        }
         this._view.setRewardCards(rewardIndexesArray);
         if (this.changeAmount) {
             this._view.onChangeAssets(this.goldAfter, this.changeAmount);
             this.goldAfter = this.changeAmount = null;
         }
+        this._view.setQuayBtEnable(true);
         if (this.autoRoll)
             this.sendRollRequest(this.lastBetType);
     },
@@ -81,8 +63,8 @@ var MiniPokerController = MiniGameController.extend({
     },
 
     sendRollRequest: function (betType) {
-        cc.log("What the actual fuck ? ");
         SmartfoxClient.getInstance().sendExtensionRequest(-1, "351", {1: betType});
+        this._view.setQuayBtEnable(false);
         this.lastBetType = betType;
     },
 

@@ -21,19 +21,26 @@ var CaoThapLayer = MiniGamePopup.extend({
 
         var highButton = new ccui.Button("caothap_up.png", "", "", ccui.Widget.PLIST_TEXTURE);
         highButton.setPosition(270, 292);
+        highButton.setScale9Enabled(true);
         this.addChild(highButton);
+        this.highButton = highButton;
 
         var lowButton = new ccui.Button("caothap_down.png", "", "", ccui.Widget.PLIST_TEXTURE);
         lowButton.setPosition(730, 292);
+        lowButton.setScale9Enabled(true);
         this.addChild(lowButton);
+        this.lowButton = lowButton;
 
         var startButton = new ccui.Button("caothap_startButton.png", "", "", ccui.Widget.PLIST_TEXTURE);
         startButton.setZoomScale(0.0);
+        startButton.setScale9Enabled(true);
         startButton.setPosition(871.5, 114);
         this.addChild(startButton);
         this.startButton = startButton;
 
-        var nextButton = new ccui.Button("caothap_nextButton.png", "caothap_nextButton.png", "caothap_nextButton_off.png", ccui.Widget.PLIST_TEXTURE);
+        var nextButton = new ccui.Button("caothap_nextButton.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        nextButton.setZoomScale(0.0);
+        nextButton.setScale9Enabled(true);
         nextButton.setPosition(startButton.getPosition());
         nextButton.setVisible(false);
         this.addChild(nextButton);
@@ -293,12 +300,32 @@ var CaoThapLayer = MiniGamePopup.extend({
         this.nextButton.visible = visible;
     },
 
+    setLuotMoiBtEnable : function (enabled) {
+        this.nextButton.enabled = enabled;
+        this.startButton.enabled = enabled;
+        this.nextButton.setBright(enabled);
+        this.startButton.setBright(enabled);
+    },
+
+    setHighLowBtEnable : function (enabled) {
+        this.highButton.enabled = enabled;
+        this.lowButton.enabled = enabled;
+        this.highButton.setBright(enabled);
+        this.lowButton.setBright(enabled);
+    },
+
+    showJackpot:  function () {
+        var layer = new JackpotLayer();
+        layer.show();
+    },
+
     clearTurn: function () {
         this.bankLabel.setString("0");
         this.nextButton.visible = false;
         this.startButton.visible = true;
         this.historyList.removeAllItems();
         this.card.setSpriteFrame("gp_card_up.png");
+        this.setHighLowBtEnable(false);
         if (this.timeRemainingInterval)
             clearInterval(this.timeRemainingInterval);
         this.timeLabel.setString("");

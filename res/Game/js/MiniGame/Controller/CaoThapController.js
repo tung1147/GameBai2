@@ -98,7 +98,7 @@ var CaoThapController = MiniGameController.extend({
                 this.turnState = 2;
                 break;
             case 3:
-                this._view.setTipString("Nổ hũ rồi, nhận thưởng xóa game thôi");
+                this._view.showJackpot();
                 this.turnState = 1;
                 break;
         }
@@ -112,14 +112,17 @@ var CaoThapController = MiniGameController.extend({
         if (data["7"] == 1) {
             this.turnState = 1;
             this.result = data["8"];
+            this._view.setHighLowBtEnable(true);
         }
         else {
             this.turnState = 2;
             this.result = -1;
             this.timeRemaining = 0;
             this._view.setTimeRemaining(0);
+            this._view.setHighLowBtEnable(false);
         }
         this._view.setLuotMoiBtVisible(true);
+        this._view.setLuotMoiBtEnable(true);
     },
 
     onInitGame: function (data) {
@@ -130,17 +133,23 @@ var CaoThapController = MiniGameController.extend({
         this.result = resultCard;
         this.turnState = 1;
         this._view.setTipString("Quân tiếp theo cao hơn hay thấp hơn?");
+        this._view.setLuotMoiBtEnable(false);
+        this._view.setHighLowBtEnable(true);
     },
 
     sendInitGame: function (betType) {
         if (this.turnState != 0) return;
         SmartfoxClient.getInstance().sendExtensionRequest(-1, "407", {1: betType});
+        this._view.setLuotMoiBtEnable(false);
+        this._view.setHighLowBtEnable(false);
     },
 
     sendHighPredict: function () {
         if (this.turnState != 1) return;
         SmartfoxClient.getInstance().sendExtensionRequest(-1, "408", {1: 1});
         //this.setRolling(true);
+        this._view.setLuotMoiBtEnable(false);
+        this._view.setHighLowBtEnable(false);
         this._view.addHistory(this.result);
         this.result = -1;
     },
@@ -149,6 +158,8 @@ var CaoThapController = MiniGameController.extend({
         if (this.turnState != 1) return;
         SmartfoxClient.getInstance().sendExtensionRequest(-1, "408", {1: 2});
         //this.setRolling(true);
+        this._view.setLuotMoiBtEnable(false);
+        this._view.setHighLowBtEnable(false);
         this._view.addHistory(this.result);
         this.result = -1;
     },
