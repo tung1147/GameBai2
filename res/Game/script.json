@@ -7,6 +7,7 @@
 	"js/Core/WebSprite.js",
 	"js/Socket/LobbyClient.js",
 	"js/Socket/LobbyError.js",
+	"js/Socket/SmartfoxUtils.js",
 	"js/Socket/SmartfoxClient.js",
 	"js/Global/UserAvatar.js",
 	"js/Dialog/Dialog.js",

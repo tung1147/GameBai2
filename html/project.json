@@ -32,6 +32,7 @@
         "res/Game/js/Core/WebSprite.js",
         "res/Game/js/Socket/LobbyClient.js",
         "res/Game/js/Socket/LobbyError.js",
+        "res/Game/js/Socket/SmartfoxUtils.js",
         "res/Game/js/Socket/SmartfoxClient.js",
         "res/Game/js/Global/UserAvatar.js",
         "res/Game/js/Global/SoundPlayer.js",

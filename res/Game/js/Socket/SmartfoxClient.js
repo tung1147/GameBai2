@@ -22,6 +22,7 @@ var SmartfoxClient = (function () {
                 }
             }
         },
+
         isConnected: function () {
             if (this.sfsSocket) {
                 return (this.sfsSocket.getStatus() == socket.SmartfoxClient.Connected);
@@ -134,6 +135,8 @@ var SmartfoxClient = (function () {
         },
 
         connect: function (host, port, afterLoginCallback) {
+            this.lastRoomInfo = null;
+
             this._loginHandler = afterLoginCallback;
 
             if (this.sfsSocket) {
@@ -295,10 +298,34 @@ var SmartfoxClient = (function () {
             }
             else if (messageType === socket.SmartfoxClient.JoinRoom) {
                 PlayerMe.SFS.roomId = contents.r[0];
+                contents.roomData = SmartfoxUtils.getRoomInfo(contents.r);
+                contents.userList = [];
+                var ul = contents["ul"];
+                for(var i=0;i<ul.length;i++){
+                    contents.userList.push(SmartfoxUtils.getUserInfo(ul[i]));
+                }
+
+                this.lastRoomInfo = contents.roomData;
+                this.lastRoomInfo.userList = contents.userList;
+            }
+            else if(messageType === socket.SmartfoxClient.UserEnterRoom){
+                contents.userInfo = SmartfoxUtils.getUserInfo(contents.u);
+                this.lastRoomInfo.userList.push(contents.userInfo);
             }
             else if (messageType === socket.SmartfoxClient.UserExitRoom) {
-                if (PlayerMe.SFS.userId == contents.u) {
+                var userId = contents.u;
+                if (PlayerMe.SFS.userId == userId) {
                     PlayerMe.SFS.roomId = -1;
+                    this.lastRoomInfo = null;
+                }
+                else{
+                    var userList = this.lastRoomInfo.userList;
+                    for(var i=0;i<userList.length;i++){
+                        if(userList[i].userId === userId){
+                            userList.splice(i, 1);
+                            break;
+                        }
+                    }
                 }
             }
             else if (messageType === socket.SmartfoxClient.CallExtension) {
