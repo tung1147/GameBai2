@@ -88,6 +88,8 @@ var HomeScene = IScene.extend({
         });
         this.homeLayer.fbButton.addClickEventListener(function () {
             FacebookPlugin.getInstance().showLogin();
+            // var layer = new JackpotLayer();
+            // layer.show();
         });
 
         this.startHome();
@@ -95,7 +97,7 @@ var HomeScene = IScene.extend({
         //this.startLobby();
 
         //
-        FloatButton.getInstance().show(this);
+        FloatButton.getInstance().show(this.sceneLayer);
 
        // LobbyClient.getInstance().addListener("fetchProducts", this.onFetchProduct, this);
        // LobbyClient.getInstance().addListener("fetchCashinProductItems", this.onFetchCashin, this);

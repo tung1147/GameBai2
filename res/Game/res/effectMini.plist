@@ -4,6 +4,21 @@
     <dict>
         <key>frames</key>
         <dict>
+            <key>coin.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{71,71}</string>
+                <key>spriteSourceSize</key>
+                <string>{71,71}</string>
+                <key>textureRect</key>
+                <string>{{1,1},{71,71}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
             <key>nohu_fr1.png</key>
             <dict>
                 <key>aliases</key>
@@ -15,9 +30,9 @@
                 <key>spriteSourceSize</key>
                 <string>{1280,720}</string>
                 <key>textureRect</key>
-                <string>{{447,1385},{394,388}}</string>
+                <string>{{74,1},{394,388}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>nohu_fr2.png</key>
             <dict>
@@ -30,9 +45,9 @@
                 <key>spriteSourceSize</key>
                 <string>{1280,720}</string>
                 <key>textureRect</key>
-                <string>{{447,591},{792,642}}</string>
+                <string>{{1097,447},{792,642}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>nohu_fr3.png</key>
             <dict>
@@ -45,7 +60,7 @@
                 <key>spriteSourceSize</key>
                 <string>{1280,720}</string>
                 <key>textureRect</key>
-                <string>{{1,1},{1094,588}}</string>
+                <string>{{1,447},{1094,588}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -60,9 +75,9 @@
                 <key>spriteSourceSize</key>
                 <string>{1280,720}</string>
                 <key>textureRect</key>
-                <string>{{1,591},{1280,444}}</string>
+                <string>{{470,1},{1280,444}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
         </dict>
         <key>metadata</key>
@@ -76,9 +91,9 @@
             <key>realTextureFileName</key>
             <string>effectMini.png</string>
             <key>size</key>
-            <string>{1096,1872}</string>
+            <string>{1890,1090}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:bbb3d54716783a99c40e4576cc5e6ef3:5f474898da5e7be64e07c3f566c4d2ab:b9c1bb8cdb873c95b2bbef2b19c8a971$</string>
+            <string>$TexturePacker:SmartUpdate:b7a5555617300721d3708cfbd85ba69d:ca43efbf692f8e49b110598ac7f71725:0fa5826f5dc7832516a3a60c11f6edc3$</string>
             <key>textureFileName</key>
             <string>effectMini.png</string>
         </dict>

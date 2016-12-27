@@ -8,7 +8,7 @@
     "id" : "gameCanvas",
     "renderMode" : 2,
     "engineDir":"frameworks/cocos2d-html5",
-    "modules" : ["cocos2d", "extensions"],
+    "modules" : ["cocos2d", "extensions", "chipmunk"],
 
     "jsList" : [
         "html/resource.js",
@@ -24,6 +24,7 @@
         "html/Socket/LobbySocket.js",
         "html/Socket/SFSSocket.js",
         "html/Scene/LoadingScene.js",
+        "res/Game/js/MiniGame/JackpotLayer.js",
         "res/Game/js/Global/Global.js",
         "res/Game/js/Core/NewAction.js",
         "res/Game/js/Core/ToggleNodeGroup.js",

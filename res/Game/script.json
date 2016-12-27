@@ -64,6 +64,7 @@
 	"js/FloatButton/FloatButton.js",
 	"js/FloatButton/FloatButtonAnimation.js",
 	"js/FloatButton/FloatButtonComponent.js",
+	"js/MiniGame/JackpotLayer.js",
 	"js/MiniGame/Controller/MiniGameController.js",
 	"js/MiniGame/Controller/CaoThapController.js",
 	"js/MiniGame/Controller/MiniPokerController.js",
