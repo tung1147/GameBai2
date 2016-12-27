@@ -88,6 +88,7 @@ var HomeScene = IScene.extend({
         });
         this.homeLayer.fbButton.addClickEventListener(function () {
             FacebookPlugin.getInstance().showLogin();
+
             // var layer = new JackpotLayer();
             // layer.show();
         });
@@ -161,7 +162,9 @@ var HomeScene = IScene.extend({
     },
 
     onMiniGameReconnect : function () {
-        this.startGame();
+        if(this.homeLocation == 0 || this.homeLocation == 1){
+            this.startGame();
+        }
     },
 
     onLobbyStatusHandler: function () {
