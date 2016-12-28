@@ -36,11 +36,20 @@ newui.TableView = ccui.ScrollView.extend({
         cc.eventManager.addListener({
             event: cc.EventListener.MOUSE,
             onMouseScroll: function (event) {
-                if(thiz._checkViewVisible() && thiz.isRunning() && !thiz._isInterceptTouch && !this._moveByTouch){
+                if(event._eventAlready === true){
+                    return false;
+                }
+
+                var location = event.getLocation();
+                if(thiz._testPointInView(location) && thiz.isRunning() && !thiz._isInterceptTouch && !this._moveByTouch){
                     var delta = cc.sys.isNative ? event.getScrollY() * 6 : -event.getScrollY();
-                    var p = thiz.convertToNodeSpace(event.getLocation());
+                    var p = thiz.convertToNodeSpace(location);
                     if(cc.rectContainsPoint(thiz._contentRect, p)){
-                        return thiz.onMouseScrolling(delta);
+                        var ret = thiz.onMouseScrolling(delta);
+                        if(ret){
+                            event._eventAlready = true;
+                        }
+                        return ret;
                     }
                 }
                 return false;
@@ -59,7 +68,22 @@ newui.TableView = ccui.ScrollView.extend({
         return true;
     },
 
+    _testPointInView : function (p) {
+        if(this._checkViewVisible() == false){
+            return false;
+        }
+
+        if(this.hitTest(p) && this.isClippingParentContainsPoint(p)){
+            return true;
+        }
+        return false;
+    },
+
     onMouseScrolling : function (delta) {
+        if(!this._enabled){
+            return false;
+        }
+
         if(this._direction == ccui.ScrollView.DIR_VERTICAL){
             var maxDelta = this.getContentSize().height/10;
         }
@@ -78,22 +102,20 @@ newui.TableView = ccui.ScrollView.extend({
 
         if(this._direction == ccui.ScrollView.DIR_VERTICAL){
             var pDelta = cc.p(0, delta);
-            // var outOfBoundary = this._getHowMuchOutOfBoundary(pDelta);
-            // if(!this._fltEqualZero(outOfBoundary)) {
-            //     pDelta.x += outOfBoundary.x;
-            //     pDelta.y += outOfBoundary.y;
-            // }
-            this._moveInnerContainer(pDelta, true);
         }
         else{
             var pDelta = cc.p(delta, 0);
-            // var outOfBoundary = this._getHowMuchOutOfBoundary(pDelta);
-            // if(!this._fltEqualZero(outOfBoundary)) {
-            //     pDelta.x += outOfBoundary.x;
-            //     pDelta.y += outOfBoundary.y;
-            // }
-            this._moveInnerContainer(pDelta, true);
         }
+
+        // var outOfBoundary = this._getHowMuchOutOfBoundary(pDelta);
+        // if(!this._fltEqualZero(outOfBoundary)) {
+        //     pDelta.x += outOfBoundary.x;
+        //     pDelta.y += outOfBoundary.y;
+        // }
+
+        this._autoScrolling = false;
+        this._moveInnerContainer(pDelta, true);
+
         return true;
     },
 
