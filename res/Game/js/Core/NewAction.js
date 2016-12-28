@@ -40,6 +40,10 @@ quyetnd.ActionNumber = cc.CustomAction.extend({
 
     onUpdate : function (dt) {
         var number = Math.floor((this._targetNumber - this._startNumber) * dt + this._startNumber);
+        if(this._currentNumber == number){
+            return;
+        }
+        this._currentNumber = number;
         this._target.setString(cc.Global.NumberFormat1(number));
     },
 
@@ -47,6 +51,7 @@ quyetnd.ActionNumber = cc.CustomAction.extend({
         this._target = target;
         var str = this._target.getString().replace(/[.]/g,'');
         this._startNumber = parseInt(str);
+        this._currentNumber = this._startNumber;
     }
 });
 
@@ -60,6 +65,10 @@ quyetnd.ActionNumber2 = cc.CustomAction.extend({
 
     onUpdate : function (dt) {
         var number = Math.floor((this._targetNumber - this._startNumber) * dt + this._startNumber);
+        if(this._currentNumber == number){
+            return;
+        }
+        this._currentNumber = number;
         this._target.setString(cc.Global.NumberFormat2(number));
     },
 
@@ -67,6 +76,7 @@ quyetnd.ActionNumber2 = cc.CustomAction.extend({
         this._target = target;
         var str = this._target.getString().replace(/[.]/g,'');
         this._startNumber = parseInt(str);
+        this._currentNumber = this._startNumber;
     }
 });
 
@@ -74,11 +84,16 @@ quyetnd.ActionTimeRemaining = cc.CustomAction.extend({
     ctor : function (duration) {
         this._super();
         this._fromNumber = duration;
+        this._currentNumber = this._fromNumber;
         this.initWithDuration(duration);
     },
 
     onUpdate : function (dt) {
         var number = Math.ceil((1.0 - dt) * this._fromNumber);
+        if(number == this._currentNumber){
+            return;
+        }
+        this._currentNumber = number;
         this._target.setString(number.toString());
     },
 
