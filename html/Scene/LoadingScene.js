@@ -9,7 +9,7 @@ var LoadingScene = cc.Scene.extend({
         bg.setPosition(cc.winSize.width/2, cc.winSize.height/2);
         this.addChild(bg);
 
-        var logo = new cc.Sprite("#loading_logo");
+        var logo = new cc.Sprite("#loading_logo.png");
         logo.setPosition(bg.getPosition());
         this.addChild(logo);
 
@@ -17,12 +17,19 @@ var LoadingScene = cc.Scene.extend({
         loadingText.setPosition(bg.getPosition());
         this.addChild(loadingText);
 
-        var label = new ccui.Text("Game bài C567", "arial", 30);
-        label.x = cc.winSize.width/2;
-        label.y = cc.winSize.height/2;
+        var frames = [];
+        for(var i=0;i<20;i++){
+            var spiteFrame = cc.spriteFrameCache.getSpriteFrame("loading_text_" + i + ".png");
+            frames.push(spiteFrame);
+        }
+        var animation = new cc.Animation(frames, 0.1, 1);
+        loadingText.runAction(new cc.RepeatForever(new cc.Animate(animation)));
+
+
+        var label = new cc.LabelTTF("", "arial", 20);
+        label.setPosition(cc.winSize.width/2, 100);
         this.title = label;
         this.addChild(label);
-        label.visible = false;
 
         this.gameLaucher = new GameLaucher();
     },
