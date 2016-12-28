@@ -114,29 +114,39 @@ var CaoThapLayer = MiniGamePopup.extend({
         });
 
         nextButton.addClickEventListener(function () {
-            thiz._controller.sendLuotMoiRequest();
+            thiz.onLuotMoiBtClick();
         });
+
+        this.setHighLowBtEnable(false);
+    },
+
+    onLuotMoiBtClick : function () {
+        this._controller.sendLuotMoiRequest();
+        SoundPlayer.playSound("mini_clickButton");
     },
 
     onLowPredictClick: function () {
         if (this._controller.getTurnState() != 1)
             return;
-        this.rolling = true;
+        this.setRolling(true);
         this._controller.sendLowPredict();
+        SoundPlayer.playSound("mini_clickButton");
     },
 
     onHighPredictClick: function () {
         if (this._controller.getTurnState() != 1)
             return;
-        this.rolling = true;
+        this.setRolling(true);
         this._controller.sendHighPredict();
+        SoundPlayer.playSound("mini_clickButton");
     },
 
     onStartClick: function () {
         if (this._controller.getTurnState() != 0)
             return;
-        this.rolling = true;
+        this.setRolling(true);
         this._controller.sendInitGame(this.chipGroup.chipSelected.chipIndex);
+        SoundPlayer.playSound("mini_clickButton");
     },
 
     initNoHu: function () {
@@ -154,9 +164,13 @@ var CaoThapLayer = MiniGamePopup.extend({
     },
 
     showResultCard: function (cardId) {
-        this.rolling = false;
+        this.setRolling(false);
         var card = this.getCardWithId(cardId);
         this.card.setSpriteFrame(card.rank + s_card_suit[card.suit] + ".png");
+    },
+
+    playSoundLost : function () {
+        SoundPlayer.playSound("thuaroi");
     },
 
     initHistory: function () {
@@ -198,6 +212,11 @@ var CaoThapLayer = MiniGamePopup.extend({
 
     setRolling: function (isRolling) {
         this.rolling = isRolling;
+        if (isRolling) {
+            SoundPlayer.playSound("lucky_wheel", true);
+        } else {
+            SoundPlayer.stopSound("lucky_wheel");
+        }
     },
 
     update: function (dt) {
@@ -300,21 +319,21 @@ var CaoThapLayer = MiniGamePopup.extend({
         this.nextButton.visible = visible;
     },
 
-    setLuotMoiBtEnable : function (enabled) {
+    setLuotMoiBtEnable: function (enabled) {
         this.nextButton.enabled = enabled;
         this.startButton.enabled = enabled;
         this.nextButton.setBright(enabled);
         this.startButton.setBright(enabled);
     },
 
-    setHighLowBtEnable : function (enabled) {
+    setHighLowBtEnable: function (enabled) {
         this.highButton.enabled = enabled;
         this.lowButton.enabled = enabled;
         this.highButton.setBright(enabled);
         this.lowButton.setBright(enabled);
     },
 
-    showJackpot:  function () {
+    showJackpot: function () {
         var layer = new JackpotLayer();
         layer.show();
     },

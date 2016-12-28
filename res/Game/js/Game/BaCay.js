@@ -13,7 +13,7 @@ var BaCayCardList = CardList.extend({
         }
     },
 
-    overrideReveal : function (card) {
+    overrideReveal: function (card) {
         card.setSelected = function (selected, force) {
             if (force) {
                 card.stopAllActions();
@@ -36,10 +36,11 @@ var BaCayCardList = CardList.extend({
             var scaleUp = new cc.ScaleTo(duration, oldScaleX, card.scaleY);
 
             card.runAction(new cc.Sequence(scaleDown, revealAction, scaleUp));
+            SoundPlayer.playSound("open_card");
         }
     },
 
-    addCard : function (card) {
+    addCard: function (card) {
         this._super(card);
         this.overrideReveal(card);
     },
@@ -162,6 +163,10 @@ var BaCay = IGameScene.extend({
         this.revealBt.addClickEventListener(function () {
             thiz.onRevealBtClick();
         });
+    },
+
+    playResultSound: function (winner) {
+        SoundPlayer.playSound(winner == PlayerMe.username ? "winning" : "losing");
     },
 
     onRevealBtClick: function () {

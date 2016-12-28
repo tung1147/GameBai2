@@ -259,6 +259,12 @@ var VideoPokerLayer = MiniGamePopup.extend({
         this.holdLayers[index].visible = isHold;
     },
 
+    revealDoubleResult : function (cardArray,choosenPos) {
+        this.setCardArray(cardArray);
+        this.setHoldCard(choosenPos,true);
+        SoundPlayer.playSound("open_card");
+    },
+
     setFlashing: function (isX2enabled) {
         this.rollButton.loadTextureNormal(isX2enabled ? "videopoker_x2Button.png" : "minipoker_rollButton.png"
             , ccui.Widget.PLIST_TEXTURE);
@@ -286,6 +292,11 @@ var VideoPokerLayer = MiniGamePopup.extend({
         for (var i = 0; i < 15; i++) {
             this.cardSprites[i % 5].visible = (!isRolling || this.holdingList[i % 5]);
             this.cardRollingSprites[i].visible = (isRolling && !this.holdingList[i % 5]);
+        }
+        if (isRolling) {
+            SoundPlayer.playSound("lucky_wheel", true);
+        } else {
+            SoundPlayer.stopSound("lucky_wheel");
         }
     },
 
@@ -344,7 +355,7 @@ var VideoPokerLayer = MiniGamePopup.extend({
         this.rollButton.setBright(enabled);
     },
 
-    showJackpot : function () {
+    showJackpot: function () {
         var layer = new JackpotLayer();
         layer.show();
     }

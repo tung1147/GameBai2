@@ -15,12 +15,12 @@ var LobbyClient = (function () {
             } else {
                 this.allListener = {};
                 this.host = "42.112.25.169";//"uat1.puppetserver.com";
-               // this.host = "42.112.25.164";
-               // this.host = "vuabaivip.com";
-                if(cc.sys.isNative){
+                //this.host = "42.112.25.164";
+                // this.host = "vuabaivip.com";
+                if (cc.sys.isNative) {
                     this.port = 9999;
                 }
-                else{
+                else {
                     this.port = 8887;
                 }
                 this.isKicked = false;
@@ -41,7 +41,7 @@ var LobbyClient = (function () {
                     this.reconnectTimeout -= dt;
                 }
                 else {
-                  //  this.onRequestTimeout();
+                    //  this.onRequestTimeout();
                     this.isReconnected = false;
                 }
             }
@@ -61,10 +61,10 @@ var LobbyClient = (function () {
         connect: function () {
             if (this.lobbySocket) {
                 this.isKicked = false;
-                if(cc.sys.isNative){
+                if (cc.sys.isNative) {
                     this.lobbySocket.connect(this.host, this.port);
                 }
-                else{
+                else {
                     var url = "ws://" + this.host + ":" + this.port + "/websocket";
                     this.lobbySocket.connect(url);
                 }
@@ -149,10 +149,10 @@ var LobbyClient = (function () {
                     PlayerMe.SFS.betting = data.betting;
                     PlayerMe.gameType = data.gameType;
 
-                    if(cc.sys.isNative){
+                    if (cc.sys.isNative) {
                         var _port = data.port;
                     }
-                    else{
+                    else {
                         var _port = data.webSocketPort;
                     }
                     SmartfoxClient.getInstance().findAndJoinRoom(data.host, _port, data.betting, data.gameType);
@@ -166,38 +166,38 @@ var LobbyClient = (function () {
                 PlayerMe.verify = true;
                 PlayerMe.phoneNumber = event.data.telephone;
             }
-            else if (command === "changeAsset"){
+            else if (command === "changeAsset") {
                 PlayerMe.gold = event["data"]["userAssets"]["gold"];
-               // cc.log("Lobbyclient : " + PlayerMe.gold);
+                // cc.log("Lobbyclient : " + PlayerMe.gold);
             }
-            else if(command === "inventory"){
+            else if (command === "inventory") {
                 var items = event["data"];
-                for(var i=0;i<items.length;i++){
-                    if(items[i].id == 1){
+                for (var i = 0; i < items.length; i++) {
+                    if (items[i].id == 1) {
                         PlayerMe.avatar = items[i]["avtId"];
                     }
                 }
             }
-            else if(command === "inboxMessage"){
+            else if (command === "inboxMessage") {
                 PlayerMe.messageCount = event["data"]["numberMessUnread"];
             }
-            else if(command === "news"){
+            else if (command === "news") {
                 var broadcast = event["data"]["broadcast"];
-                if(broadcast){
+                if (broadcast) {
                     GameConfig.broadcastMessage = broadcast;
                 }
             }
-            else if(command === "markReadedMessageInbox"){
+            else if (command === "markReadedMessageInbox") {
                 var msgCount = event["data"]["numberMessUnread"];
                 PlayerMe.messageCount = msgCount;
             }
-            else if(command === "fetchProducts"){
+            else if (command === "fetchProducts") {
                 cc.Global.thecaoData = event["data"]["1"];
                 cc.Global.tienmatData = event["data"]["2"];
                 cc.Global.dailyData = event["data"]["3"];
                 cc.Global.vatphamData = event["data"]["4"];
             }
-            else if(command === "fetchCashinProductItems"){
+            else if (command === "fetchCashinProductItems") {
                 var data = event["data"]["2"];
                 cc.Global.SMSList = [];
                 for (var i = 0; i < data.length; i++) {
@@ -223,13 +223,13 @@ var LobbyClient = (function () {
             }
         },
         onLoginEvent: function (event) {
-          //  cc.log(event);
+            //  cc.log(event);
             PlayerMe.messageCount = 0;
 
             var data = event.data;
-         //   GameConfig.broadcastMessage = event.data.broadcast;
+            //   GameConfig.broadcastMessage = event.data.broadcast;
 //            LevelData = data.config.levelData;
- //           VipData = data.config.vipData;
+            //           VipData = data.config.vipData;
             PlayerMe.gold = data.userAssets.gold;
             PlayerMe.exp = data.userAssets.exp;
             PlayerMe.vipExp = data.userAssets.vipExp;
@@ -259,22 +259,22 @@ var LobbyClient = (function () {
             }
 
             var serverData = data["server"];
-            if(serverData){
+            if (serverData) {
                 this.SFSServerInfo = {};
-                for(var i=0;i<serverData.length;i++){
+                for (var i = 0; i < serverData.length; i++) {
                     var serverId = serverData[i].serverId;
                     var host = serverData[i].host;
-                    if(cc.sys.isNative){
+                    if (cc.sys.isNative) {
                         var port = serverData[i].port;
                     }
-                    else{
+                    else {
                         var port = serverData[i].websocketPort;
                     }
 
                     var serverInfo = {
-                        serverId : serverId,
-                        host : host,
-                        port : port
+                        serverId: serverId,
+                        host: host,
+                        port: port
                     };
                     this.SFSServerInfo[serverId] = serverInfo;
                 }
@@ -354,7 +354,7 @@ var LobbyClient = (function () {
                     bundleId: ApplicationConfig.BUNBLE,
                     version: ApplicationConfig.VERSION,
                     imei: PlayerMe.IMEI,
-                    displayType : ApplicationConfig.DISPLAY_TYPE,
+                    displayType: ApplicationConfig.DISPLAY_TYPE,
                     type: "normal",
                     username: username,
                     password: password
@@ -409,11 +409,11 @@ var LobbyClient = (function () {
                     bundleId: ApplicationConfig.BUNBLE,
                     version: ApplicationConfig.VERSION,
                     imei: PlayerMe.IMEI,
-                    displayType : ApplicationConfig.DISPLAY_TYPE,
+                    displayType: ApplicationConfig.DISPLAY_TYPE,
                     type: "facebook",
-                     username: "",
-                     password: "",
-                    accessToken : accessToken
+                    username: "",
+                    password: "",
+                    accessToken: accessToken
                 };
                 cc.log(loginRequest);
                 thiz.send(loginRequest);
@@ -492,30 +492,30 @@ var LobbyClient = (function () {
         //     LobbyClient.getInstance().close();
         //     SmartfoxClient.getInstance().close();
         // },
-        reconnectSmartfox : function (host, port) {
-            if(SmartfoxClient.getInstance().isConnected()){
+        reconnectSmartfox: function (host, port) {
+            if (SmartfoxClient.getInstance().isConnected()) {
                 LoadingDialog.getInstance().hide();
             }
-            else{
+            else {
                 LoadingDialog.getInstance().show("Đang kết nối lại máy chủ");
                 SmartfoxClient.getInstance().connect(host, port);
             }
         },
         subscribe: function (gameId, group) {
-      //      cc.log("send subscribeChannel: "+gameId);
+            //      cc.log("send subscribeChannel: "+gameId);
             PlayerMe.gameType = s_games_chanel[gameId];
             var request = {
                 command: "subscribeChannel",
                 gameType: PlayerMe.gameType
             };
-            if(PlayerMe.gameType == "ShakeDisk" || PlayerMe.gameType == "TaiXiu"){
+            if (PlayerMe.gameType == "ShakeDisk" || PlayerMe.gameType == "TaiXiu") {
 
             }
-            else{
-                if(group){
+            else {
+                if (group) {
                     PlayerMe.lastGroupSelected = group;
                 }
-                if(PlayerMe.lastGroupSelected){
+                if (PlayerMe.lastGroupSelected) {
                     request.group = PlayerMe.lastGroupSelected;
                 }
             }
@@ -538,7 +538,7 @@ var LobbyClient = (function () {
             };
             this.send(request);
         },
-        requestGetLastSessionInfo : function () {
+        requestGetLastSessionInfo: function () {
             var request = {
                 command: "getLastSessionInfo"
             };

@@ -208,6 +208,7 @@ var XocDiaController = GameController.extend({
                 this.slotGold = [];
                 this._view.hideDisk();
                 this._view.setTimeRemaining(currentTime, maxTime);
+                this._view.playSoundDatCuoc();
                 break;
             }
             case 4: //thời gian cái thừa thiếu

@@ -32,11 +32,13 @@ var MiniGamePopup = cc.Node.extend({
         var thiz = this;
         closeButton.addClickEventListener(function () {
             thiz.hide();
+            SoundPlayer.playSound("mini_clickButton");
         });
 
         historyButton.addClickEventListener(function () {
             var stat_board = new StatisticBoard(thiz.gameType);
             stat_board.showWithAnimationScale();
+            SoundPlayer.playSound("mini_clickButton");
         });
 
         this._controller.sendJoinGame();

@@ -2,49 +2,49 @@
  * Created by Quyet Nguyen on 7/25/2016.
  */
 
-var s_xocdia_slot_id = s_xocdia_slot_id || [0,1,4,2,6,5,3];
+var s_xocdia_slot_id = s_xocdia_slot_id || [0, 1, 4, 2, 6, 5, 3];
 var s_xocdia_slot_position = s_xocdia_slot_position || [
-        {x : 271, y : 407},
-        {x : 1011, y : 407},
-        {x : 150, y : 215},
-        {x : 395, y : 215},
-        {x : 640, y : 215},
-        {x : 885, y : 215},
-        {x : 1130, y : 215}
-];
+        {x: 271, y: 407},
+        {x: 1011, y: 407},
+        {x: 150, y: 215},
+        {x: 395, y: 215},
+        {x: 640, y: 215},
+        {x: 885, y: 215},
+        {x: 1130, y: 215}
+    ];
 
-var s_xocdia_result_position= s_xocdia_result_position ||
-[
-    {x : 218, y : 194},
-    {x : 161, y : 219},
-    {x : 175, y : 152},
-    {x : 235, y : 144},
-    {x : 276, y : 178},
-    {x : 291, y : 231},
-    {x : 190, y : 270},
-    {x : 242, y : 248},
-    {x : 278, y : 302},
-    {x : 333, y : 262},
-    {x : 342, y : 200},
-    {x : 342, y : 146},
-    {x : 289, y : 125},
-    {x : 282, y : 82},
-    {x : 231, y : 86},
-    {x : 175, y : 95},
-    {x : 125, y : 129},
-    {x : 117, y : 177},
-    {x : 99, y : 223},
-    {x : 116, y : 279},
-    {x : 180, y : 318},
-    {x : 232, y : 332}
+var s_xocdia_result_position = s_xocdia_result_position ||
+    [
+        {x: 218, y: 194},
+        {x: 161, y: 219},
+        {x: 175, y: 152},
+        {x: 235, y: 144},
+        {x: 276, y: 178},
+        {x: 291, y: 231},
+        {x: 190, y: 270},
+        {x: 242, y: 248},
+        {x: 278, y: 302},
+        {x: 333, y: 262},
+        {x: 342, y: 200},
+        {x: 342, y: 146},
+        {x: 289, y: 125},
+        {x: 282, y: 82},
+        {x: 231, y: 86},
+        {x: 175, y: 95},
+        {x: 125, y: 129},
+        {x: 117, y: 177},
+        {x: 99, y: 223},
+        {x: 116, y: 279},
+        {x: 180, y: 318},
+        {x: 232, y: 332}
 
-];
+    ];
 
-var _get_random_array = function(take, maxSize){
+var _get_random_array = function (take, maxSize) {
     var arr = [];
     var min = 0;
     var max = maxSize - take;
-    for(var i=0; i<take; i++){
+    for (var i = 0; i < take; i++) {
         var number = min + Math.floor(Math.random() * (max - min));
         min = number + 1;
         max++;
@@ -54,7 +54,7 @@ var _get_random_array = function(take, maxSize){
 };
 
 var XocDiaBettingSlot = cc.Node.extend({
-    ctor : function (idx, parentNode) {
+    ctor: function (idx, parentNode) {
         this._super();
         this._chips = [];
         this._chipNode = new cc.Node();
@@ -65,35 +65,35 @@ var XocDiaBettingSlot = cc.Node.extend({
         this.setAnchorPoint(cc.p(0.5, 0.5));
         this.setPosition(s_xocdia_slot_position[idx]);
 
-        var bg = new cc.Sprite("#xocdia_slot_" + (idx + 1)+".png");
+        var bg = new cc.Sprite("#xocdia_slot_" + (idx + 1) + ".png");
         this.bg = bg;
         this.setContentSize(bg.getContentSize());
-        bg.setPosition(this.getContentSize().width/2, this.getContentSize().height/2);
+        bg.setPosition(this.getContentSize().width / 2, this.getContentSize().height / 2);
         this.addChild(bg);
 
-        if(idx < 2){
+        if (idx < 2) {
             var slotGoldLabel = new cc.LabelBMFont("10.00.000", cc.res.font.Roboto_Condensed_25);
             slotGoldLabel.setColor(cc.color("#392d2e"));
-            slotGoldLabel.setPosition(this.x - this.getContentSize().width/4, this.y - this.getContentSize().height/2 + 25);
-            parentNode.addChild(slotGoldLabel,1);
+            slotGoldLabel.setPosition(this.x - this.getContentSize().width / 4, this.y - this.getContentSize().height / 2 + 25);
+            parentNode.addChild(slotGoldLabel, 1);
 
-            var userGoldLabel = new cc.LabelBMFont("1.00.000", cc.res.font.Roboto_CondensedBold_25 );
+            var userGoldLabel = new cc.LabelBMFont("1.00.000", cc.res.font.Roboto_CondensedBold_25);
             userGoldLabel.setColor(cc.color("#392d2e"));
-            userGoldLabel.setPosition(this.x + this.getContentSize().width/4, slotGoldLabel.y);
-            parentNode.addChild(userGoldLabel,1);
+            userGoldLabel.setPosition(this.x + this.getContentSize().width / 4, slotGoldLabel.y);
+            parentNode.addChild(userGoldLabel, 1);
         }
-        else{
+        else {
             var slotGoldLabel = new cc.LabelBMFont("100.000", cc.res.font.Roboto_Condensed_25);
             slotGoldLabel.setColor(cc.color("#767eb6"));
-            slotGoldLabel.setPosition(this.x - this.getContentSize().width/4, this.y - this.getContentSize().height/2 + 20);
-            slotGoldLabel.setScale(20.0/25.0);
-            parentNode.addChild(slotGoldLabel,1);
+            slotGoldLabel.setPosition(this.x - this.getContentSize().width / 4, this.y - this.getContentSize().height / 2 + 20);
+            slotGoldLabel.setScale(20.0 / 25.0);
+            parentNode.addChild(slotGoldLabel, 1);
 
             var userGoldLabel = new cc.LabelBMFont("100.000", cc.res.font.Roboto_CondensedBold_25);
             userGoldLabel.setColor(cc.color("#ffde00"));
-            userGoldLabel.setPosition(this.x + this.getContentSize().width/4, slotGoldLabel.y);
-            userGoldLabel.setScale(20.0/25.0);
-            parentNode.addChild(userGoldLabel,1);
+            userGoldLabel.setPosition(this.x + this.getContentSize().width / 4, slotGoldLabel.y);
+            userGoldLabel.setScale(20.0 / 25.0);
+            parentNode.addChild(userGoldLabel, 1);
         }
         this.slotGoldLabel = slotGoldLabel;
         this.userGoldLabel = userGoldLabel;
@@ -101,15 +101,15 @@ var XocDiaBettingSlot = cc.Node.extend({
         this.reset();
         //
         //add Touch
-        var rectTouch = cc.rect(0,0, this.getContentSize().width, this.getContentSize().height);
+        var rectTouch = cc.rect(0, 0, this.getContentSize().width, this.getContentSize().height);
         var thiz = this;
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
-            swallowTouches:true,
-            onTouchBegan : function (touch, event) {
+            swallowTouches: true,
+            onTouchBegan: function (touch, event) {
                 var p = thiz.convertToNodeSpace(touch.getLocation());
-                if(cc.rectContainsPoint(rectTouch, p)){
-                    if(thiz.onTouchSlot){
+                if (cc.rectContainsPoint(rectTouch, p)) {
+                    if (thiz.onTouchSlot) {
                         thiz.onTouchSlot();
                     }
                     return true;
@@ -118,70 +118,70 @@ var XocDiaBettingSlot = cc.Node.extend({
             },
         }, this);
     },
-    setOpacity : function (opacity) {
+    setOpacity: function (opacity) {
         this._super(opacity);
         this.bg.setOpacity(opacity);
         this.slotGoldLabel.setOpacity(opacity);
         this.userGoldLabel.setOpacity(opacity);
     },
-    reset : function () {
+    reset: function () {
         this._chipNode.removeAllChildren(true);
         this.removeChip();
         this.setOpacity(255);
 
-         this.setSlotGold(0);
-         this.setUserGold(0);
+        this.setSlotGold(0);
+        this.setUserGold(0);
     },
-    setSlotGold : function (gold) {
+    setSlotGold: function (gold) {
         this._slotGold = gold;
 
         this.slotGoldLabel.stopAllActions();
-        if(gold>0){
+        if (gold > 0) {
             this.slotGoldLabel.visible = true;
             this.slotGoldLabel.setOpacity(255);
             var action = new quyetnd.ActionNumber(0.5, gold);
             this.slotGoldLabel.runAction(action);
         }
-        else{
+        else {
 
             this.slotGoldLabel.setString("0");
             this.slotGoldLabel.visible = false;
         }
     },
-    setUserGold : function (gold) {
+    setUserGold: function (gold) {
         this._userGold = gold;
         this.userGoldLabel.stopAllActions();
-        if(gold>0){
+        if (gold > 0) {
             this.userGoldLabel.visible = true;
             this.userGoldLabel.setOpacity(255);
             var action = new quyetnd.ActionNumber(0.5, gold);
             this.userGoldLabel.runAction(action);
         }
-        else{
+        else {
             this.userGoldLabel.setString("0");
             this.userGoldLabel.visible = false;
         }
     },
-    getSlotPosition : function () {
-        var padding =50.0;
+    getSlotPosition: function () {
+        var padding = 50.0;
 
-        var w = Math.random() * (this.getContentSize().width - padding*2) + padding;
-        var h = Math.random() * (this.getContentSize().height - padding*2) + padding;
-        var x = this.x - this.getContentSize().width/2 + w;
-        var y = this.y - this.getContentSize().height/2 + h;
+        var w = Math.random() * (this.getContentSize().width - padding * 2) + padding;
+        var h = Math.random() * (this.getContentSize().height - padding * 2) + padding;
+        var x = this.x - this.getContentSize().width / 2 + w;
+        var y = this.y - this.getContentSize().height / 2 + h;
 
-        return cc.p(x,y);
+        return cc.p(x, y);
     },
-    addChip : function (chipSprite) {
+    addChip: function (chipSprite) {
         this._chips.push(chipSprite);
     },
-    removeChip : function () {
+    removeChip: function () {
         this._chips = [];
     }
 });
 
 var XocDiaScene = IGameScene.extend({
-    ctor : function () {
+    ctor: function () {
         this._super();
         this._historyData = [];
         this.chipTagMe = 100;
@@ -193,7 +193,7 @@ var XocDiaScene = IGameScene.extend({
 
         //chip button
         var chipNode = new cc.Node();
-        chipNode.setPosition(cc.p(0,0));
+        chipNode.setPosition(cc.p(0, 0));
         this.sceneLayer.addChild(chipNode);
         this.chipNode = chipNode;
         this.initChipButton();
@@ -204,10 +204,10 @@ var XocDiaScene = IGameScene.extend({
 
         this.setUserCount(0);
     },
-    initView : function () {
+    initView: function () {
         var playerMe = new GamePlayerMe();
         playerMe.setPosition(150, 50.0);
-        this.sceneLayer.addChild(playerMe,1);
+        this.sceneLayer.addChild(playerMe, 1);
         this.playerMe = playerMe;
 
         var playerButton = new ccui.Button("ingame-playerBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
@@ -221,40 +221,40 @@ var XocDiaScene = IGameScene.extend({
 
         var userLabel = new cc.LabelBMFont("30", cc.res.font.Roboto_CondensedBold_25);
         userLabel.setColor(cc.color("#ffcf00"));
-        userLabel.setPosition(playerButton.getContentSize().width/2, 22);
+        userLabel.setPosition(playerButton.getContentSize().width / 2, 22);
         playerButton.getRendererNormal().addChild(userLabel);
         this.userLabel = userLabel;
 
-        var datLaiButton = new ccui.Button("xocdia_batlaiBt.png","","", ccui.Widget.PLIST_TEXTURE);
+        var datLaiButton = new ccui.Button("xocdia_batlaiBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
         datLaiButton.setPosition(cc.winSize.width - 120, 50);
         this.sceneLayer.addChild(datLaiButton);
         this.datLaiButton = datLaiButton;
 
-        var huyCuocButton = new ccui.Button("xocdia_huyCuocButton.png","","", ccui.Widget.PLIST_TEXTURE);
+        var huyCuocButton = new ccui.Button("xocdia_huyCuocButton.png", "", "", ccui.Widget.PLIST_TEXTURE);
         huyCuocButton.setPosition(datLaiButton.getPosition());
         this.sceneLayer.addChild(huyCuocButton);
         this.huyCuocButton = huyCuocButton;
 
-        var resultBg1 = new ccui.Scale9Sprite("xocdia_result_bg_1.png", cc.rect(10,10,4,4));
+        var resultBg1 = new ccui.Scale9Sprite("xocdia_result_bg_1.png", cc.rect(10, 10, 4, 4));
         resultBg1.setPreferredSize(cc.size(220, 90));
         resultBg1.setPosition(950, 48);
         this.sceneLayer.addChild(resultBg1);
 
-        var resultBg2 = new ccui.Scale9Sprite("xocdia_result_bg_2.png", cc.rect(4,0,4,2));
+        var resultBg2 = new ccui.Scale9Sprite("xocdia_result_bg_2.png", cc.rect(4, 0, 4, 2));
         resultBg2.setPreferredSize(cc.size(218, 2));
         resultBg2.setPosition(resultBg1.getPosition());
         this.sceneLayer.addChild(resultBg2);
 
         var tongCuocLabal = new cc.LabelBMFont("Tổng cược : 1000", cc.res.font.Roboto_Condensed_25);
         tongCuocLabal.setColor(cc.color("#bac2f9"));
-        tongCuocLabal.setPosition(resultBg1.x, resultBg1.y + resultBg1.getContentSize().height/4);
+        tongCuocLabal.setPosition(resultBg1.x, resultBg1.y + resultBg1.getContentSize().height / 4);
         tongCuocLabal.setVisible(false);
         this.sceneLayer.addChild(tongCuocLabal, 1);
         this.tongCuocLabal = tongCuocLabal;
 
         var winLabel = new cc.LabelBMFont("Thắng : 1000", cc.res.font.Roboto_Condensed_25);
         winLabel.setColor(cc.color("#bac2f9"));
-        winLabel.setPosition(resultBg1.x, resultBg1.y - resultBg1.getContentSize().height/4);
+        winLabel.setPosition(resultBg1.x, resultBg1.y - resultBg1.getContentSize().height / 4);
         winLabel.setVisible(false);
         this.sceneLayer.addChild(winLabel, 1);
         this.winLabel = winLabel;
@@ -267,21 +267,24 @@ var XocDiaScene = IGameScene.extend({
             thiz._controller.requestHuyCuoc();
         })
     },
-    initController : function () {
+    initController: function () {
         this._controller = new XocDiaController(this);
     },
-    initBettingSlot : function () {
+    playSoundDatCuoc: function () {
+        SoundPlayer.playSound(Date.now() % 2 ? "moidatcuoc" : "batdaudatcuoc");
+    },
+    initBettingSlot: function () {
         this.bettingSlot = [];
 
         var slotNode = new cc.Node();
-        slotNode.setPosition(cc.p(0,0));
+        slotNode.setPosition(cc.p(0, 0));
         this.sceneLayer.addChild(slotNode);
 
-        for(var i=0;i<7;i++){
+        for (var i = 0; i < 7; i++) {
             var slot = new XocDiaBettingSlot(i, slotNode);
             slotNode.addChild(slot);
 
-            var thiz= this;
+            var thiz = this;
             (function () {
                 var slotIndex = s_xocdia_slot_id[i];
                 slot.onTouchSlot = function () {
@@ -301,8 +304,8 @@ var XocDiaScene = IGameScene.extend({
         this.timer = timer;
 
         var timerBg = new cc.Sprite("#xocdia_timer_1.png");
-        timerBg.setPosition(timer.getContentSize().width/2, timer.getContentSize().height/2);
-        timer.addChild(timerBg,-1);
+        timerBg.setPosition(timer.getContentSize().width / 2, timer.getContentSize().height / 2);
+        timer.addChild(timerBg, -1);
 
         var timeLabel = new cc.LabelTTF("100", cc.res.font.Roboto_CondensedBold, 60);
         timeLabel.setPosition(timer.getPosition());
@@ -310,7 +313,7 @@ var XocDiaScene = IGameScene.extend({
         slotNode.addChild(timeLabel);
         this.timeLabel = timeLabel;
     },
-    initChipButton : function () {
+    initChipButton: function () {
         var chipGroup = new ChipGroup();
         this.sceneLayer.addChild(chipGroup);
         this.chipGroup = chipGroup;
@@ -318,7 +321,7 @@ var XocDiaScene = IGameScene.extend({
         var dx = 110.0;
 
         var chip1 = new XocDiaChip(1);
-        chip1.setPosition(left + dx , 30.0 * cc.winSize.screenScale);
+        chip1.setPosition(left + dx, 30.0 * cc.winSize.screenScale);
         chip1.setScale(cc.winSize.screenScale);
         chip1.originPoint = chip1.getPosition();
         chipGroup.addChip(chip1);
@@ -342,30 +345,30 @@ var XocDiaScene = IGameScene.extend({
         chipGroup.addChip(chip4);
     },
 
-    initHistory : function () {
+    initHistory: function () {
         var padding = 2.0;
         var itemSize = cc.size(46.0, 46.0);
         var row = 4;
         var col = 16;
         var left = 52.0;
 
-        var historyBg = new ccui.Scale9Sprite("xocdia_history_bg1.png", cc.rect(4,4,4,4));
-        historyBg.setPreferredSize(cc.size((itemSize.width + padding) * col + left, itemSize.height * row + padding * (row+1)));
-        historyBg.setAnchorPoint(cc.p(0,0));
-       // historyBg.setPosition(cc.winSize.width/2, cc.winSize.height - historyBg.getContentSize().height/2);
-       // this.sceneLayer.addChild(historyBg);
+        var historyBg = new ccui.Scale9Sprite("xocdia_history_bg1.png", cc.rect(4, 4, 4, 4));
+        historyBg.setPreferredSize(cc.size((itemSize.width + padding) * col + left, itemSize.height * row + padding * (row + 1)));
+        historyBg.setAnchorPoint(cc.p(0, 0));
+        // historyBg.setPosition(cc.winSize.width/2, cc.winSize.height - historyBg.getContentSize().height/2);
+        // this.sceneLayer.addChild(historyBg);
 
         var clippingNode = new ccui.Layout();
         clippingNode.setClippingEnabled(true);
         clippingNode.setAnchorPoint(cc.p(0.5, 0.5));
         clippingNode.setContentSize(historyBg.getContentSize());
-        clippingNode.setPosition(cc.winSize.width/2, cc.winSize.height - clippingNode.getContentSize().height/2);
-        this.sceneLayer.addChild(clippingNode,1);
+        clippingNode.setPosition(cc.winSize.width / 2, cc.winSize.height - clippingNode.getContentSize().height / 2);
+        this.sceneLayer.addChild(clippingNode, 1);
         clippingNode.addChild(historyBg);
         this.historyBg = historyBg;
 
-        var historyBt = new ccui.Button("xocdia_history_bt.png","","", ccui.Widget.PLIST_TEXTURE);
-        historyBt.setPosition(left/2, historyBg.getContentSize().height/2);
+        var historyBt = new ccui.Button("xocdia_history_bt.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        historyBt.setPosition(left / 2, historyBg.getContentSize().height / 2);
         historyBt.setZoomScale(0.0);
         historyBg.addChild(historyBt);
         var thiz = this;
@@ -374,7 +377,7 @@ var XocDiaScene = IGameScene.extend({
         });
 
         var historyTouch = new ccui.Widget();
-        historyTouch.setAnchorPoint(cc.p(0.0,0.0));
+        historyTouch.setAnchorPoint(cc.p(0.0, 0.0));
         historyTouch.setContentSize(historyBg.getContentSize());
         historyTouch.setTouchEnabled(true);
         historyBg.addChild(historyTouch);
@@ -383,35 +386,35 @@ var XocDiaScene = IGameScene.extend({
         });
         this.historyTouch = historyTouch;
 
-        for(var i=0; i<col; i++){
-            for(var j=0; j<row; j++){
-                var x = left + itemSize.width/2 + (itemSize.width + padding) * i;
-                var y = padding + itemSize.height/2 + (itemSize.height + padding) *j ;
-                var bg = new ccui.Scale9Sprite("xocdia_history_bg2.png", cc.rect(4,4,4,4));
+        for (var i = 0; i < col; i++) {
+            for (var j = 0; j < row; j++) {
+                var x = left + itemSize.width / 2 + (itemSize.width + padding) * i;
+                var y = padding + itemSize.height / 2 + (itemSize.height + padding) * j;
+                var bg = new ccui.Scale9Sprite("xocdia_history_bg2.png", cc.rect(4, 4, 4, 4));
                 bg.setPreferredSize(itemSize);
-                bg.setPosition(x,y);
+                bg.setPosition(x, y);
                 historyBg.addChild(bg);
             }
         }
 
         this.historyNode = new cc.Node();
         this.historyNode.setContentSize(historyBg.getContentSize());
-        this.historyNode.setAnchorPoint(cc.p(0,0));
+        this.historyNode.setAnchorPoint(cc.p(0, 0));
         historyBg.addChild(this.historyNode);
 
         this._historyData = [];
     },
 
-    touchHistory : function () {
-        if(this.historyBg.showed){
+    touchHistory: function () {
+        if (this.historyBg.showed) {
             this.hideHistory();
         }
-        else{
+        else {
             this.showHistory();
         }
     },
 
-    showHistory : function () {
+    showHistory: function () {
         var thiz = this;
         var left = 52.0;
 
@@ -425,7 +428,7 @@ var XocDiaScene = IGameScene.extend({
         ));
     },
 
-    hideHistory : function () {
+    hideHistory: function () {
         var thiz = this;
         var left = 52.0;
         this.historyTouch.setTouchEnabled(false);
@@ -440,9 +443,9 @@ var XocDiaScene = IGameScene.extend({
         ));
     },
 
-    initDisk : function () {
+    initDisk: function () {
         var diskSprite = new cc.Sprite("#xocdia_dia.png");
-        diskSprite.setPosition(cc.winSize.width/2, cc.winSize.height + 100);
+        diskSprite.setPosition(cc.winSize.width / 2, cc.winSize.height + 100);
         this.sceneLayer.addChild(diskSprite);
         this.diskSprite = diskSprite;
 
@@ -451,22 +454,22 @@ var XocDiaScene = IGameScene.extend({
         this.diskNode = diskNode;
 
         var batSprite = new cc.Sprite("#xocdia_bat.png");
-        this.batSpritePosition = cc.p(diskSprite.getContentSize().width/2, diskSprite.getContentSize().height/2);
+        this.batSpritePosition = cc.p(diskSprite.getContentSize().width / 2, diskSprite.getContentSize().height / 2);
         batSprite.setPosition(this.batSpritePosition);
         diskSprite.addChild(batSprite);
         this.batSprite = batSprite;
     },
 
-    _setFinishedSlot : function (slotId, win) {
-        if(win){
+    _setFinishedSlot: function (slotId, win) {
+        if (win) {
             this.bettingSlot[slotId].setOpacity(255);
         }
-        else{
+        else {
             this.bettingSlot[slotId].setOpacity(100);
         }
     },
 
-    shakeDisk : function () {
+    shakeDisk: function () {
         this.stopAllActions();
         this.diskNode.removeAllChildren(true);
         this.diskSprite.stopAllActions();
@@ -477,26 +480,27 @@ var XocDiaScene = IGameScene.extend({
         var thiz = this;
         this.batSprite.runAction(new cc.MoveTo(1.0, this.batSpritePosition));
         this.diskSprite.runAction(new cc.Sequence(
-            new cc.EaseSineOut(new cc.MoveTo(1.0, cc.p(cc.winSize.width/2, cc.winSize.height/2))),
+            new cc.EaseSineOut(new cc.MoveTo(1.0, cc.p(cc.winSize.width / 2, cc.winSize.height / 2))),
             new cc.DelayTime(0.2),
             new quyetnd.ActionShake2D(3.0, cc.p(10.0, 10.0))
         ));
     },
 
-    hideDisk : function () {
-      //  this.stopAllActions();
+    hideDisk: function () {
+        //  this.stopAllActions();
         this.diskNode.removeAllChildren(true);
         this.diskSprite.stopAllActions();
         this.batSprite.stopAllActions();
 
         this.showHistory();
 
-        this.diskSprite.runAction(new cc.MoveTo(1.0, cc.p(cc.winSize.width/2, cc.winSize.height + 100)));
+        this.diskSprite.runAction(new cc.MoveTo(1.0, cc.p(cc.winSize.width / 2, cc.winSize.height + 100)));
         this.batSprite.runAction(new cc.MoveTo(1.0, this.batSpritePosition));
     },
 
-    openDisk : function (data) {
+    openDisk: function (data) {
         this.stopAllActions();
+        SoundPlayer.playSound(["bellopen","mobat"]);
         this.diskNode.removeAllChildren(true);
         this.diskSprite.stopAllActions();
         this.batSprite.stopAllActions();
@@ -506,11 +510,15 @@ var XocDiaScene = IGameScene.extend({
         var result = data.result;
         this._addResultSprite(result);
 
+        var sounds = this._getSoundOpenDisk(result);
         /* mở bát */
-        this.diskSprite.runAction(new cc.EaseSineOut(new cc.MoveTo(1.0, cc.p(cc.winSize.width/2, cc.winSize.height/2))));
+        this.diskSprite.runAction(new cc.EaseSineOut(new cc.MoveTo(1.0, cc.p(cc.winSize.width / 2, cc.winSize.height / 2))));
         this.batSprite.runAction(new cc.Sequence(
             new cc.DelayTime(1.2),
-            new cc.EaseSineIn(new cc.MoveBy(1.0, cc.p(0.0, 450.0)))
+            new cc.EaseSineIn(new cc.MoveBy(1.0, cc.p(0.0, 450.0))),
+            new cc.CallFunc(function () {
+                SoundPlayer.playSound(sounds);
+            })
         ));
 
         /* thu tiền */
@@ -518,46 +526,46 @@ var XocDiaScene = IGameScene.extend({
         var winSlot = data.winSlot;
         var loseSlot = data.loseSlot;
         this.runAction(new cc.Sequence(
-            new cc.DelayTime(3.0),
+            new cc.DelayTime(6.0),
             new cc.CallFunc(function () {
                 thiz.hideDisk();
 
-                for(var i=0;i<winSlot.length;i++){
+                for (var i = 0; i < winSlot.length; i++) {
                     thiz._setFinishedSlot(winSlot[i], true);
                 }
-                for(var i=0;i<loseSlot.length;i++){
+                for (var i = 0; i < loseSlot.length; i++) {
                     thiz._setFinishedSlot(loseSlot[i], false);
                 }
             }),
             new cc.DelayTime(1.0),
             new cc.CallFunc(function () {
-                for(var i=0;i<loseSlot.length;i++){
+                for (var i = 0; i < loseSlot.length; i++) {
                     thiz.thuTienSlot(loseSlot[i]);
                 }
             }),
             new cc.DelayTime(1.0),
             new cc.CallFunc(function () {
-                for(var i=0;i<winSlot.length;i++){
+                for (var i = 0; i < winSlot.length; i++) {
                     thiz.traTienSlot(winSlot[i]);
                 }
             }),
             new cc.DelayTime(1.0),
             new cc.CallFunc(function () {
-                for(var i=0;i<winSlot.length;i++){
+                for (var i = 0; i < winSlot.length; i++) {
                     thiz.traTienUser(winSlot[i]);
                 }
             })
         ));
     },
 
-    _addResultSprite : function (result) {
+    _addResultSprite: function (result) {
         /* add result */
         var arr = _get_random_array(4, s_xocdia_result_position.length);
-        for(var i=0; i<arr.length; i++){
-            if(i < result){
+        for (var i = 0; i < arr.length; i++) {
+            if (i < result) {
                 var sprite = new cc.Sprite("#xocdia_hat_do.png");
             }
-            else{
+            else {
                 var sprite = new cc.Sprite("#xocdia_hat_trang.png");
             }
 
@@ -566,49 +574,67 @@ var XocDiaScene = IGameScene.extend({
         }
     },
 
+    _getSoundOpenDisk: function (result) {
+        var soundArray = [];
+        if (result == 0) {
+            soundArray.push("ngua4");
+        } else if (result == 4) {
+            soundArray.push("xap4");
+        } else if (result == 2) {
+            soundArray.push("xap2");
+        } else if (result == 1) {
+            soundArray.push("xap1");
+        } else if (result == 3) {
+            soundArray.push("xap3");
+        }
+
+        soundArray.push(result % 2 ? "le" : "chan");
+        return soundArray;
+    },
+
     // _openDisk : function () {
     //     var thiz = this;
     //
     // },
 
-    onEnter : function () {
+    onEnter: function () {
         this._super();
         this.chipGroup.selectChipAtIndex(0, true);
     },
 
-    onTouchSlot : function (slotId) {
-        if(this.chipGroup.chipSelected){
-            var chipId = this.chipGroup.chipSelected.chipIndex -1;
+    onTouchSlot: function (slotId) {
+        if (this.chipGroup.chipSelected) {
+            var chipId = this.chipGroup.chipSelected.chipIndex - 1;
             this._controller.requestDatCuoc(slotId, chipId);
         }
-        else{
+        else {
             this.showErrorMessage("Bạn phải chọn mức cược");
         }
     },
 
-    addChipToSlot : function (slotIndex, chipIndex, from, tag) {
+    addChipToSlot: function (slotIndex, chipIndex, from, tag) {
         //me = 1
         //other = 2
         //host = 3
-        if(from == 1){ //me
+        if (from == 1) { //me
             var chipPosition = this.chipGroup.getChip(chipIndex).getPosition();
         }
-        else if(from == 2){ //other
+        else if (from == 2) { //other
             //from player button
             var chipPosition = this.playerButton.getWorldPosition();
         }
-        else{  //host
-            var chipPosition = cc.p(cc.winSize.width/2, cc.winSize.height);
+        else {  //host
+            var chipPosition = cc.p(cc.winSize.width / 2, cc.winSize.height);
         }
 
-        if(!tag){
-            if(from == 1){ //me
+        if (!tag) {
+            if (from == 1) { //me
                 tag = this.chipTagMe;
             }
-            else if(from == 2){ //other
+            else if (from == 2) { //other
                 tag = this.chipTagOther;
             }
-            else{
+            else {
                 tag = 0;
             }
         }
@@ -617,7 +643,7 @@ var XocDiaScene = IGameScene.extend({
         var thiz = this;
 
         var addChipHandler = function () {
-            var chip = new cc.Sprite("#xocdia-chipSelected-" + (chipIndex+1) + ".png");
+            var chip = new cc.Sprite("#xocdia-chipSelected-" + (chipIndex + 1) + ".png");
             chip.chipIndex = chipIndex;
             chip.chipTag = tag;
             chip.setPosition(chipPosition);
@@ -632,12 +658,14 @@ var XocDiaScene = IGameScene.extend({
                 new cc.ScaleTo(duration, 0.3)
             );
             chip.runAction(new cc.EaseSineOut(moveAction));
+
+            SoundPlayer.playSound("single");
         };
 
-        if(from == 1 || from == 3){ //me or host
+        if (from == 1 || from == 3) { //me or host
             addChipHandler();
         }
-        else{
+        else {
             var delayTime = 0.5 + Math.random() * 1.5;
             this.runAction(new cc.Sequence(
                 new cc.DelayTime(delayTime),
@@ -646,13 +674,13 @@ var XocDiaScene = IGameScene.extend({
         }
     },
 
-    thuTienSlot : function (slotId) {
+    thuTienSlot: function (slotId) {
         var chips = this.bettingSlot[slotId]._chips;
-        for(var i=0;i<chips.length;i++){
+        for (var i = 0; i < chips.length; i++) {
             (function () {
                 var chip = chips[i];
                 chips[i].runAction(new cc.Sequence(
-                    new cc.MoveTo(0.5, cc.p(cc.winSize.width/2, cc.winSize.height)),
+                    new cc.MoveTo(0.5, cc.p(cc.winSize.width / 2, cc.winSize.height)),
                     new cc.CallFunc(function () {
                         chip.removeFromParent(true);
                     })
@@ -662,32 +690,32 @@ var XocDiaScene = IGameScene.extend({
         this.bettingSlot[slotId]._chips = [];
     },
 
-    traTienSlot : function (slotId) {
+    traTienSlot: function (slotId) {
         var chips = this.bettingSlot[slotId]._chips;
         var length = chips.length;
-        for(var i=0;i<length;i++){
+        for (var i = 0; i < length; i++) {
             this.addChipToSlot(slotId, chips[i].chipIndex, 3, chips[i].chipTag);
         }
     },
 
-    traTienUser : function (slotId) {
+    traTienUser: function (slotId) {
         //cc.log("traTienUser: "+slotId);
         var chips = this.bettingSlot[slotId]._chips;
         var thiz = this;
 
-        for(var i=0;i<chips.length;i++){
+        for (var i = 0; i < chips.length; i++) {
             (function () {
                 var chip = chips[i];
-                if(chip.chipTag == thiz.chipTagMe){
+                if (chip.chipTag == thiz.chipTagMe) {
                     //to me
                     chip.runAction(new cc.Sequence(
-                        new cc.MoveTo(0.5, cc.p(50,50)),
+                        new cc.MoveTo(0.5, cc.p(50, 50)),
                         new cc.CallFunc(function () {
                             chip.removeFromParent(true);
                         })
                     ));
                 }
-                else{
+                else {
                     //to other
                     var p = thiz.playerButton.getWorldPosition();
                     chip.runAction(new cc.Sequence(
@@ -703,8 +731,8 @@ var XocDiaScene = IGameScene.extend({
         this.bettingSlot[slotId]._chips = [];
     },
 
-    resetGame : function () {
-        for(var i=0;i<this.bettingSlot.length;i++){
+    resetGame: function () {
+        for (var i = 0; i < this.bettingSlot.length; i++) {
             this.bettingSlot[i].reset();
         }
 
@@ -712,22 +740,22 @@ var XocDiaScene = IGameScene.extend({
         this.stopAllActions();
     },
 
-    datLaiThanhCong : function () {
+    datLaiThanhCong: function () {
 
     },
 
-    huyCuocThanhCong : function () {
+    huyCuocThanhCong: function () {
         var tagMe = this.chipTagMe;
 
-        for(var i=0;i<this.bettingSlot.length;i++){
+        for (var i = 0; i < this.bettingSlot.length; i++) {
             var chips = this.bettingSlot[i]._chips;
-            for(var j=0;j<chips.length;j++){
+            for (var j = 0; j < chips.length; j++) {
                 (function () {
                     var chip = chips[j];
-                    if(chip.chipTag == tagMe){
+                    if (chip.chipTag == tagMe) {
                         //to me
                         chip.runAction(new cc.Sequence(
-                            new cc.MoveTo(0.5, cc.p(50,50)),
+                            new cc.MoveTo(0.5, cc.p(50, 50)),
                             new cc.CallFunc(function () {
                                 chip.removeFromParent(true);
                             })
@@ -739,27 +767,27 @@ var XocDiaScene = IGameScene.extend({
         }
     },
 
-    updateSlotGold : function (slotId, gold) {
+    updateSlotGold: function (slotId, gold) {
         var slot = this.bettingSlot[slotId];
-        if(!slot){
+        if (!slot) {
             cc.log("slot null");
         }
         slot.setSlotGold(gold);
     },
 
-    updateUserGold : function (slotId, gold) {
+    updateUserGold: function (slotId, gold) {
         var slot = this.bettingSlot[slotId];
         slot.setUserGold(gold);
     },
 
-    updateUserCount : function (userCount) {
+    updateUserCount: function (userCount) {
         this.userLabel.setString(userCount);
     },
 
-    setTimeRemaining : function (currentTime, maxTime) {
+    setTimeRemaining: function (currentTime, maxTime) {
         this.timer.stopAllActions();
         this.timeLabel.stopAllActions();
-        if(maxTime <= 0.0){
+        if (maxTime <= 0.0) {
             this.timeLabel.setColor(cc.color("#ffcf00"));
             this.timer.setColor(cc.color("#ffcf00"));
             this.timeLabel.setString("0");
@@ -774,7 +802,7 @@ var XocDiaScene = IGameScene.extend({
         this.timeLabel.setVisible(true);
         this.timer.setVisible(true);
 
-        var timerProgress = 100.0* currentTime / maxTime;
+        var timerProgress = 100.0 * currentTime / maxTime;
         this.timer.runAction(new cc.ProgressFromTo(currentTime, timerProgress, 0.0));
 
         //this.timeLabel.setString(currentTime);
@@ -784,7 +812,7 @@ var XocDiaScene = IGameScene.extend({
         //this.timeLabel.runAction(new cc.RepeatForever(alertAction));
 
         var thiz = this;
-        if(currentTime > 5){
+        if (currentTime > 5) {
             this.timeLabel.setColor(cc.color("#ffcf00"));
             this.timer.setColor(cc.color("#ffcf00"));
 
@@ -792,8 +820,8 @@ var XocDiaScene = IGameScene.extend({
                 new cc.DelayTime(currentTime - 5),
                 new cc.CallFunc(function () {
                     var alertAction = new cc.Sequence(
-                        new cc.TintTo(0.2, 255,0,0),
-                        new cc.TintTo(0.2, 255,207,0)
+                        new cc.TintTo(0.2, 255, 0, 0),
+                        new cc.TintTo(0.2, 255, 207, 0)
                     );
                     thiz.timeLabel.runAction(new cc.RepeatForever(alertAction));
                 })
@@ -803,80 +831,82 @@ var XocDiaScene = IGameScene.extend({
                 new cc.DelayTime(currentTime - 5),
                 new cc.CallFunc(function () {
                     var alertAction = new cc.Sequence(
-                        new cc.TintTo(0.2, 255,0,0),
-                        new cc.TintTo(0.2, 255,207,0)
+                        new cc.TintTo(0.2, 255, 0, 0),
+                        new cc.TintTo(0.2, 255, 207, 0)
                     );
                     thiz.timer.runAction(new cc.RepeatForever(alertAction));
+                    SoundPlayer.playSound("countDownS");
                 })
             ));
         }
-        else{
+        else {
             var alertAction = new cc.Sequence(
-                new cc.TintTo(0.2, 255,0,0),
-                new cc.TintTo(0.2, 255,207,0)
+                new cc.TintTo(0.2, 255, 0, 0),
+                new cc.TintTo(0.2, 255, 207, 0)
             );
             this.timeLabel.runAction(new cc.RepeatForever(alertAction.clone()));
             this.timer.runAction(new cc.RepeatForever(alertAction));
+            SoundPlayer.playSound("countDownS");
         }
     },
 
-    setChipValue : function (chipId, gold) {
+    setChipValue: function (chipId, gold) {
         this.chipGroup.getChip(chipId).setGold(gold);
     },
 
-    setDatLaiButtonVisible : function (visible) {
+    setDatLaiButtonVisible: function (visible) {
         this.datLaiButton.setVisible(visible);
     },
 
-    setHuyCuocButtonVisible : function (visible) {
+    setHuyCuocButtonVisible: function (visible) {
         this.huyCuocButton.setVisible(visible);
     },
 
-    _addHistory : function (history) {
-        if(this._historyData.length == 0){
+    _addHistory: function (history) {
+        if (this._historyData.length == 0) {
             this._historyData.push(history);
             return;
         }
 
         var row = 4;
         var col = 16;
-        var maxItem = row*col;
+        var maxItem = row * col;
 
-        var lastHistory = this._historyData[this._historyData.length-1];
-        if((lastHistory%2) != (history%2)){
+        var lastHistory = this._historyData[this._historyData.length - 1];
+        if ((lastHistory % 2) != (history % 2)) {
             //fill empty
             var emptyCount = this._historyData.length % row;
-            if(emptyCount > 0){
+            if (emptyCount > 0) {
                 emptyCount = row - emptyCount;
-                for(var i=0;i<emptyCount;i++){
+                for (var i = 0; i < emptyCount; i++) {
                     this._historyData.push(-1);
                 }
             }
         }
         this._historyData.push(history);
 
-        if(this._historyData.length > maxItem){
+        if (this._historyData.length > maxItem) {
             this._historyData.splice(0, row);
         }
     },
-    _refreshHistory : function () {
+    _refreshHistory: function () {
         var padding = 2.0;
         var itemSize = cc.size(46.0, 46.0);
         var row = 4;
         var left = 52.0;
 
         this.historyNode.removeAllChildren(true);
-        for(var i=0; i<this._historyData.length; i++){
-            if(this._historyData[i] >= 0){
+        for (var i = 0; i < this._historyData.length; i++) {
+            if (this._historyData[i] >= 0) {
                 var label = new cc.LabelBMFont(this._historyData[i].toString(), cc.res.font.Roboto_CondensedBold_25);
 
-                var x = left + itemSize.width/2 + (itemSize.width + padding) * Math.floor(i / row);
-                var y =  this.historyNode.getContentSize().height - padding - itemSize.height/2 - (itemSize.height + padding) * (i % row) ;
-                if(this._historyData[i] % 2){
+                var x = left + itemSize.width / 2 + (itemSize.width + padding) * Math.floor(i / row);
+                var y = this.historyNode.getContentSize().height - padding - itemSize.height / 2 - (itemSize.height + padding) * (i % row);
+                if (this._historyData[i] % 2) {
                     var historyIcon = new cc.Sprite("#xocdia_history_1.png");
                     label.setColor(cc.color("#ffffff"));
                 }
-                else{
+                else {
                     var historyIcon = new cc.Sprite("#xocdia_history_2.png");
                     label.setColor(cc.color("#333333"));
                 }
@@ -889,50 +919,50 @@ var XocDiaScene = IGameScene.extend({
         }
     },
 
-    setHistory : function (history) {
+    setHistory: function (history) {
         this._historyData = [];
 
-        for(var i=0;i<history.length;i++){
+        for (var i = 0; i < history.length; i++) {
             this._addHistory(history[i]);
         }
         //cc.log(this._historyData);
         this._refreshHistory();
     },
 
-    setTongCuocLabel : function (gold) {
-        if(gold < 0){
+    setTongCuocLabel: function (gold) {
+        if (gold < 0) {
             this.tongCuocLabal.setVisible(false);
         }
-        else{
+        else {
             this.tongCuocLabal.setVisible(true);
             this.tongCuocLabal.setString("Tổng cược: " + cc.Global.NumberFormat1(gold));
         }
     },
 
-    setWinLabel : function (gold) {
-        if(gold < 0){
+    setWinLabel: function (gold) {
+        if (gold < 0) {
             this.winLabel.setVisible(false);
         }
-        else{
+        else {
             this.winLabel.setVisible(true);
             this.winLabel.setString("Thắng: " + cc.Global.NumberFormat1(gold));
         }
     },
 
-    updateGold : function (username, gold) {
+    updateGold: function (username, gold) {
         this.playerMe.setGold(gold);
     },
 
-    setUserCount : function (count) {
+    setUserCount: function (count) {
         this.userLabel.setString(count);
     },
 
 
     /*ignore*/
-    processPlayerPosition : function () {
+    processPlayerPosition: function () {
 
     },
-    updateOwner : function () {
+    updateOwner: function () {
 
     }
 });

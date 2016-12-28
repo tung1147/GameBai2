@@ -186,6 +186,7 @@ var IGameScene = IScene.extend({
                 return;
             }
         }
+        SoundPlayer.playSound("join_room");
 
         // var meIndex = this.allSlot[0].userIndex;
         // var slot = info.index - meIndex;

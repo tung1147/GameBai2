@@ -279,7 +279,10 @@ var CardList = cc.Node.extend({
                     target.visible = true;
                 }, card);
                 var moveAction = new cc.MoveTo(0.2, cc.p(x, y));
-                card.runAction(new cc.Sequence(delayAction, beforeAction, moveAction));
+                var soundAction = new cc.CallFunc(function () {
+                    SoundPlayer.playSound("chia_bai");
+                });
+                card.runAction(new cc.Sequence(delayAction,soundAction, beforeAction, moveAction));
             }
             else {
                 card.setPosition(x, y);

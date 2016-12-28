@@ -85,8 +85,8 @@ var BaCayController = GameController.extend({
             var userInfo = param["1"]["5"];
             for (var i = 0; i < userInfo.length; i++) {
                 var username = userInfo[i]["u"];
-                this._view.revealCards(userInfo[i]["9"],username);
-                this._view.setResultString(userInfo[i]["10"],username);
+                this._view.revealCards(userInfo[i]["9"], username);
+                this._view.setResultString(userInfo[i]["10"], username);
             }
         }
     },
@@ -116,6 +116,7 @@ var BaCayController = GameController.extend({
             this._view.revealCards(cardArray, username);
             this._view.setResultString(resultString, username);
             this._view.performAssetChange(goldChange, goldAfter, username);
+            this._view.playResultSound(winner);
         }
 
         this._view.setRevealBtVisible(false);

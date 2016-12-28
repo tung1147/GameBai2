@@ -106,8 +106,7 @@ var VideoPokerController = MiniGameController.extend({
             this.setTurnState(0);
             this._view.setFlashing(false, false);
         }
-        this._view.setHoldCard(choosenPos, true);
-        this._view.setCardArray(cardArray);
+        this._view.revealDoubleResult (cardArray,choosenPos);
         this._view.setQuayBtEnable(true);
     },
 

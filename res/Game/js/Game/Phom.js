@@ -269,6 +269,9 @@ var Phom = IGameScene.extend({
 
         for (var i = 0; i < resultData.length; i++) {
             dialog.userLabel[i].setString(resultData[i].username);
+            if (resultData[i].username = PlayerMe.username) {
+                SoundPlayer.playSound(resultData[i].isWinner ? "winning" : "losing");
+            }
             var goldStr = resultData[i].gold >= 0 ? "+" : "-";
             goldStr += (cc.Global.NumberFormat1(Math.abs(resultData[i].gold)) + " V");
             dialog.goldLabel[i].setString(goldStr);
@@ -387,9 +390,9 @@ var Phom = IGameScene.extend({
         var changeSprite = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, "");
         var changeText = (changeAmount >= 0 ? "+" : "") + changeAmount;
         changeSprite.setString(changeText);
-        changeSprite.setColor(cc.color(changeAmount>=0 ? "#ffde00" : "#ff0000"));
+        changeSprite.setColor(cc.color(changeAmount >= 0 ? "#ffde00" : "#ff0000"));
         changeSprite.setPosition(slot.avt.getPosition());
-        slot.addChild(changeSprite,420);
+        slot.addChild(changeSprite, 420);
 
         changeSprite.runAction(new cc.Sequence(new cc.DelayTime(1.0), new cc.CallFunc(function () {
             changeSprite.removeFromParent(true);
@@ -521,7 +524,7 @@ var Phom = IGameScene.extend({
         player1.addChild(player1.dropCards);
         player1.addChild(player1.trashCards);
         this.sceneLayer.addChild(player1, 1);
-        player1.chatView.setAnchorPoint(cc.p(1.0,0.0));
+        player1.chatView.setAnchorPoint(cc.p(1.0, 0.0));
 
         var player2 = new GamePlayer();
         player2.setPosition(cc.winSize.width / 2, 650.0 * cc.winSize.screenScale);
@@ -532,8 +535,8 @@ var Phom = IGameScene.extend({
         player2.addChild(player2.trashCards);
         player2.addChild(player2.dropCards);
         this.sceneLayer.addChild(player2, 1);
-       // this.sceneLayer.addChild(player1, 1);
-        player2.chatView.setAnchorPoint(cc.p(0.0,1.0));
+        // this.sceneLayer.addChild(player1, 1);
+        player2.chatView.setAnchorPoint(cc.p(0.0, 1.0));
 
         var player3 = new GamePlayer();
         player3.setPosition(120.0 / cc.winSize.screenScale, 360.0);
@@ -545,7 +548,7 @@ var Phom = IGameScene.extend({
         player3.dropCards.setAnchorPoint(cc.p(0.0, 0.5));
         player3.addChild(player3.trashCards);
         player3.addChild(player3.dropCards);
-        player3.chatView.setAnchorPoint(cc.p(0.0,0.0));
+        player3.chatView.setAnchorPoint(cc.p(0.0, 0.0));
 
         this.sceneLayer.addChild(player3, 1);
         this.playerView = [playerMe, player1, player2, player3];
@@ -577,7 +580,7 @@ var Phom = IGameScene.extend({
         this.sceneLayer.addChild(xepBaiBt);
 
         var uBt = new ccui.Button("game-uBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        uBt.setPosition(cc.winSize.width - 510,danhbaiBt.y);
+        uBt.setPosition(cc.winSize.width - 510, danhbaiBt.y);
         this.sceneLayer.addChild(uBt);
 
         var drawBt = new ccui.Button("game-bocbaiBt.png", "", "", ccui.Widget.PLIST_TEXTURE);

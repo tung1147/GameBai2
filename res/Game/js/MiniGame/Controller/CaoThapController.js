@@ -95,6 +95,7 @@ var CaoThapController = MiniGameController.extend({
                 break;
             case 2:
                 this._view.setTipString("Bạn chọn sai, chúc bạn may mắn lần sau!");
+                this._view.playSoundLost();
                 this.turnState = 2;
                 break;
             case 3:

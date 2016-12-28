@@ -283,7 +283,8 @@ var TLMNGameController = GameController.extend({
                 username : username,
                 title : title,
                 gold : gold,
-                cardList : cardList
+                cardList : cardList,
+                isWinner : username == winPlayer
             };
 
             //update gold

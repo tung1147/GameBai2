@@ -145,6 +145,8 @@ var MiniPokerLayer = MiniGamePopup.extend({
         var thiz = this;
         if (!this.rolling && this.autoRoll)
             thiz.onRollClick();
+
+        SoundPlayer.playSound("mini_clickButton");
     },
 
     activateReward: function (id, rank) {
@@ -195,6 +197,7 @@ var MiniPokerLayer = MiniGamePopup.extend({
         }
 
         this.resultLabel.setString(str);
+        SoundPlayer.playSound(this.rewards[id] ? "NormalWin" : "mini_slotLost");
     },
 
     onChangeAssets: function (gold, changeAmount) {
@@ -211,6 +214,7 @@ var MiniPokerLayer = MiniGamePopup.extend({
     onRollClick: function () {
         this.setRolling(true);
         this._controller.sendRollRequest(this.chipGroup.chipSelected.chipIndex);
+        SoundPlayer.playSound("mini_clickButton");
     },
 
     initController: function () {
@@ -240,6 +244,12 @@ var MiniPokerLayer = MiniGamePopup.extend({
             this.cardSprites[i % 5].visible = !isRolling;
             this.cardRollingSprites[i].visible = isRolling;
         }
+        if (isRolling) {
+            SoundPlayer.playSound("lucky_wheel", true);
+        }
+        else {
+            SoundPlayer.stopSound("lucky_wheel");
+        }
     },
 
     onError: function (param) {
@@ -249,12 +259,12 @@ var MiniPokerLayer = MiniGamePopup.extend({
         this.setRolling(false);
     },
 
-    setQuayBtEnable : function (enabled) {
+    setQuayBtEnable: function (enabled) {
         this.rollButton.enabled = enabled;
         this.rollButton.setBright(enabled);
     },
 
-    showJackpot : function () {
+    showJackpot: function () {
         var layer = new JackpotLayer();
         layer.show();
     }
