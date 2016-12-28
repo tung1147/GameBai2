@@ -58,14 +58,7 @@
         }
     ],
     "texture": [
-        {"img": "res/bg-minigame-1.png"},
-        {"img": "res/bg_xocdia.png"},
-        {"img": "res/bigsmall_bg.png"},
         {"img": "res/game-bg.jpg"},
-        {"img": "res/gold-icon.png"},
-        {"img": "res/gp_table.png"},
-        {"img": "res/hilo_bg.png"},
-        {"img": "res/mnpk_bg.png"},
         {
             "img": "res/avatar.png",
             "plist": "res/avatar.plist"

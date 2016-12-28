@@ -30,7 +30,7 @@
                 <key>spriteSourceSize</key>
                 <string>{95,26}</string>
                 <key>textureRect</key>
-                <string>{{863,862},{95,26}}</string>
+                <string>{{1,795},{95,26}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -45,9 +45,9 @@
                 <key>spriteSourceSize</key>
                 <string>{210,36}</string>
                 <key>textureRect</key>
-                <string>{{960,862},{210,36}}</string>
+                <string>{{239,681},{210,36}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>minipoker_quaytudong_active.png</key>
             <dict>
@@ -60,9 +60,9 @@
                 <key>spriteSourceSize</key>
                 <string>{210,36}</string>
                 <key>textureRect</key>
-                <string>{{910,890},{210,36}}</string>
+                <string>{{451,681},{210,36}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>minipoker_rollButton.png</key>
             <dict>
@@ -75,9 +75,9 @@
                 <key>spriteSourceSize</key>
                 <string>{179,132}</string>
                 <key>textureRect</key>
-                <string>{{863,681},{179,132}}</string>
+                <string>{{239,719},{179,132}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>poker_cards_border.png</key>
             <dict>
@@ -90,7 +90,7 @@
                 <key>spriteSourceSize</key>
                 <string>{199,197}</string>
                 <key>textureRect</key>
-                <string>{{1,1086},{199,197}}</string>
+                <string>{{663,681},{199,197}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -105,9 +105,9 @@
                 <key>spriteSourceSize</key>
                 <string>{236,65}</string>
                 <key>textureRect</key>
-                <string>{{863,1074},{208,45}}</string>
+                <string>{{1,748},{208,45}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>quaytudong_active.png</key>
             <dict>
@@ -120,7 +120,7 @@
                 <key>spriteSourceSize</key>
                 <string>{236,65}</string>
                 <key>textureRect</key>
-                <string>{{202,1086},{236,65}}</string>
+                <string>{{1,681},{236,65}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -135,9 +135,9 @@
                 <key>spriteSourceSize</key>
                 <string>{21,22}</string>
                 <key>textureRect</key>
-                <string>{{863,917},{21,22}}</string>
+                <string>{{98,822},{21,22}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>reward_bg.png</key>
             <dict>
@@ -150,22 +150,7 @@
                 <key>spriteSourceSize</key>
                 <string>{25,25}</string>
                 <key>textureRect</key>
-                <string>{{863,890},{25,25}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>roll_bg.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{860,403}</string>
-                <key>spriteSourceSize</key>
-                <string>{860,403}</string>
-                <key>textureRect</key>
-                <string>{{1,681},{860,403}}</string>
+                <string>{{98,795},{25,25}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -181,9 +166,9 @@
             <key>realTextureFileName</key>
             <string>MiniPoker.png</string>
             <key>size</key>
-            <string>{1003,1284}</string>
+            <string>{1003,879}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:d8441d7ac0403f09948826d9721e26f4:de4f4a27d7a5a17d126ff8561f65fa59:d990f13b2a1691f7864a053834297b87$</string>
+            <string>$TexturePacker:SmartUpdate:c8e60d875d289efc111b158cbaf4f3b5:abbd1c1ff01b74de33d9a026fdddecdc:d990f13b2a1691f7864a053834297b87$</string>
             <key>textureFileName</key>
             <string>MiniPoker.png</string>
         </dict>
