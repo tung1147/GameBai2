@@ -5,8 +5,13 @@
 var SoundPlayer = SoundPlayer || {};
 var s_sound_loop = s_sound_loop || {};
 
-SoundPlayer._playSingleSound = function (sound, loop, cb) {
+SoundPlayer._createURL = function (sound) {
     var soundUrl = "res/Sound/" + sound + ".mp3";
+    return soundUrl;
+}
+
+SoundPlayer._playSingleSound = function (sound, loop, cb) {
+    var soundUrl = SoundPlayer._createURL(sound);
 
     if(cc.sys.isNative){
         var audio = jsb.AudioEngine.play2d(soundUrl, loop);
@@ -56,6 +61,23 @@ SoundPlayer.stopSound = function (sound) {
         }
         else{
             cc.audioEngine.stopEffect(soundId);
+        }
+    }
+    else{
+        if(!cc.sys.isNative){
+            //stop for web
+            var soundUrl = SoundPlayer._createURL(sound); 
+            var ap = cc.audioEngine._audioPool;
+            for(var p in ap){
+                var list = ap[p];
+                for(var i=0; i<list.length; i++){
+                    var sound = list[i];
+                    if(sound.src.endsWith(soundUrl)){
+                        sound.stop();
+                        return;
+                    }
+                }
+            }
         }
     }
     s_sound_loop[sound] = null;
