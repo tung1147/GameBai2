@@ -126,12 +126,26 @@ cc.game.onStart = function(){
     // The game will be resized when browser size change
     cc.view.resizeWithBrowserSize(true);
 
+    if(cc.game.CC_DEBUG_ENABLE){
+        cc.loader.resPath = "res/Game";
+    }
+    else{
+        cc.loader.resPath = "";
+    }
+    var loading_texture = [
+        "res/game-bg.jpg",
+        "res/loading.plist",
+        "res/loading.png"
+    ];
+    cc.loader.load(loading_texture,
+        function (result, count, loadedCount) { //load
 
-    //load resources
-    // cc.LoaderScene.preload(g_resources, function () {
-    //     cc.director.runScene(new HelloWorldScene());
-    // }, this);
+        }, function () { //finished
+            cc.spriteFrameCache.addSpriteFrames("res/loading.plist", "res/loading.png");
+            cc.director.runScene(new LoadingScene());
+        });
+
     _resumeMethod();
-    cc.director.runScene(new LoadingScene());
+
 };
 cc.game.run();

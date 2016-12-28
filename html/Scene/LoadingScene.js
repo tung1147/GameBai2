@@ -5,11 +5,24 @@
 var LoadingScene = cc.Scene.extend({
     ctor : function () {
         this._super();
+        var bg = new cc.Sprite("res/game-bg.jpg");
+        bg.setPosition(cc.winSize.width/2, cc.winSize.height/2);
+        this.addChild(bg);
+
+        var logo = new cc.Sprite("#loading_logo");
+        logo.setPosition(bg.getPosition());
+        this.addChild(logo);
+
+        var loadingText = new cc.Sprite("#loading_text_0.png");
+        loadingText.setPosition(bg.getPosition());
+        this.addChild(loadingText);
+
         var label = new ccui.Text("Game bài C567", "arial", 30);
         label.x = cc.winSize.width/2;
         label.y = cc.winSize.height/2;
         this.title = label;
         this.addChild(label);
+        label.visible = false;
 
         this.gameLaucher = new GameLaucher();
     },
@@ -20,12 +33,6 @@ var LoadingScene = cc.Scene.extend({
         };
 
         this._super();
-        if(cc.game.CC_DEBUG_ENABLE){
-            cc.loader.resPath = "res/Game";
-        }
-        else{
-            cc.loader.resPath = "";
-        }
         this.schedule(this.startLoadResources, 0.3);
     },
     onExit : function () {

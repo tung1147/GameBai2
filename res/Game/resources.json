@@ -59,6 +59,7 @@
     ],
     "texture": [
         {"img": "res/game-bg.jpg"},
+        {"img": "res/gp_table.png"},
         {
             "img": "res/avatar.png",
             "plist": "res/avatar.plist"

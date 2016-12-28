@@ -1,4 +1,5 @@
 var s_resource = s_resource || [
+	"res/gp_table.png",
 	"res/avatar.plist",
 	"res/avatar.png",
 	"res/CaoThap.plist",
@@ -44,7 +45,7 @@ var s_resource = s_resource || [
 	"res/fonts/UTMAvoBold_40.png",
 	"res/fonts/videoPokerRewardFont.fnt",
 	"res/fonts/videoPokerRewardFont.png",
-	"res/game-bg.jpg",
+	//"res/game-bg.jpg",
 	"res/GameList.plist",
 	"res/GameList.png",
 	"res/gamemini.plist",

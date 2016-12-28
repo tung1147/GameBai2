@@ -66,7 +66,7 @@ SoundPlayer.stopSound = function (sound) {
     else{
         if(!cc.sys.isNative){
             //stop for web
-            var soundUrl = SoundPlayer._createURL(sound); 
+            var soundUrl = SoundPlayer._createURL(sound);
             var ap = cc.audioEngine._audioPool;
             for(var p in ap){
                 var list = ap[p];
