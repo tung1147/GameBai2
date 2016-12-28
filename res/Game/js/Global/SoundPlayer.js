@@ -3,6 +3,7 @@
  */
 
 var SoundPlayer = SoundPlayer || {};
+var s_sound_loop = s_sound_loop || {};
 
 SoundPlayer._playSingleSound = function (sound, loop, cb) {
     var soundUrl = "res/Sound/" + sound + ".mp3";
@@ -40,11 +41,28 @@ SoundPlayer.playSound = function (sound, loop) {
     }
     else{
         var soundLoop = loop ? true : false;
-        SoundPlayer._playSingleSound(sound, soundLoop);
+        var soundID = SoundPlayer._playSingleSound(sound, soundLoop);
+        if(soundLoop){
+            s_sound_loop[sound] = soundID;
+        }
     }
 };
 
+SoundPlayer.stopSound = function (sound) {
+    var soundId = s_sound_loop[sound];
+    if(soundId){
+        if(cc.sys.isNative){
+            jsb.AudioEngine.stop(soundId);
+        }
+        else{
+            cc.audioEngine.stopEffect(soundId);
+        }
+    }
+    s_sound_loop[sound] = null;
+};
+
 SoundPlayer.stopAllSound = function () {
+    s_sound_loop = {};
     if(cc.sys.isNative){
         jsb.AudioEngine.stopAll();
     }
