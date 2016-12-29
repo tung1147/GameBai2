@@ -22,38 +22,47 @@ var XocDiaController = GameController.extend({
         this.bettingSlotCount = 7;
         this.initWithView(view);
         this.slotGold = [];
+
+        SmartfoxClient.getInstance().addExtensionListener("8", this._onOpenDiskHandler, this);
+        SmartfoxClient.getInstance().addExtensionListener("10", this._onUpdateStatusHandler, this);
+        SmartfoxClient.getInstance().addExtensionListener("14", this._onDatCuocThanhCongHandler, this);
+        SmartfoxClient.getInstance().addExtensionListener("15", this._onHuyCuocThanhCongHandler, this);
+        SmartfoxClient.getInstance().addExtensionListener("21", this._onUpdateUserCountHandler, this);
+        SmartfoxClient.getInstance().addExtensionListener("202", this._onUpdateTongCuocHandler, this);
+        SmartfoxClient.getInstance().addExtensionListener("203", this._onFinishedGameHandler, this);
+        SmartfoxClient.getInstance().addExtensionListener("205", this._onDatLaiThanhCongHandler, this);
     },
     getMaxSlot : function () {
         return 1;
     },
 
-    onSFSExtension : function (messageType, content) {
-        this._super(messageType, content);
-        if(content.c == "10"){ //update status
-            this._updateStatus(content.p);
-        }
-        else if(content.c == "14"){ // dat cuoc thanh cong
-            this.onDatCuocThanhCong(content.p);
-        }
-        else if(content.c == "202"){ //tong cua
-            this._updateTongCuoc(content.p["1"]);
-        }
-        else if(content.c == "21") { //update userCount
-            this._updateUserCount(content.p["1"]);
-        }
-        else if(content.c == "8"){ //mở bát
-            this.openDisk(content.p);
-        }
-        else if(content.c == "203"){ //thu tiền
-            this.finishGame(content.p);
-        }
-        else if(content.c == "205"){ // đặt lại
-            this.datLaiThanhCong(content.p);
-        }
-        else if(content.c == "15"){ // huy cuoc thanh cong
-            this.huyCuocThanhCong(content.p);
-        }
-    },
+    // onSFSExtension : function (messageType, content) {
+    //     this._super(messageType, content);
+    //     if(content.c == "10"){ //update status
+    //         this._updateStatus(content.p);
+    //     }
+    //     else if(content.c == "14"){ // dat cuoc thanh cong
+    //         this.onDatCuocThanhCong(content.p);
+    //     }
+    //     // else if(content.c == "202"){ //tong cua
+    //     //     this._updateTongCuoc(content.p["1"]);
+    //     // }
+    //     else if(content.c == "21") { //update userCount
+    //         this._updateUserCount(content.p["1"]);
+    //     }
+    //     else if(content.c == "8"){ //mở bát
+    //         this.openDisk(content.p);
+    //     }
+    //     else if(content.c == "203"){ //thu tiền
+    //         this.finishGame(content.p);
+    //     }
+    //     else if(content.c == "205"){ // đặt lại
+    //         this.datLaiThanhCong(content.p);
+    //     }
+    //     else if(content.c == "15"){ // huy cuoc thanh cong
+    //         this.huyCuocThanhCong(content.p);
+    //     }
+    // },
 
     onJoinRoom : function (params) {
         this._updateChipValue(params["14"]);
@@ -73,6 +82,39 @@ var XocDiaController = GameController.extend({
         this._updateUserCount(params["1"]["uc"]);
         this._updateTongCuoc(params["1"]["16"]);
         this._updateStatus(params["2"]);
+    },
+
+    /* handler */
+    _onUpdateStatusHandler : function(cmd, content){
+        this._updateStatus(content.p);
+    },
+
+    _onDatCuocThanhCongHandler : function(cmd, content){
+        this.onDatCuocThanhCong(content.p);
+    },
+
+    _onUpdateTongCuocHandler : function (cmd, content) {
+        this._updateTongCuoc(content.p["1"]);
+    },
+
+    _onUpdateUserCountHandler : function(cmd, content){
+        this._updateUserCount(content.p["1"]);
+    },
+
+    _onOpenDiskHandler : function(cmd, content){
+        this.openDisk(content.p);
+    },
+
+    _onFinishedGameHandler : function(cmd, content){
+        this.finishGame(content.p);
+    },
+
+    _onDatLaiThanhCongHandler : function(cmd, content){
+        this.datLaiThanhCong(content.p);
+    },
+
+    _onHuyCuocThanhCongHandler : function(cmd, content){
+        this.huyCuocThanhCong(content.p);
     },
 
     openDisk : function (params) {

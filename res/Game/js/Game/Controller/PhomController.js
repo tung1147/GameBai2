@@ -13,6 +13,21 @@ var PhomController = GameController.extend({
         this._super();
         this.initWithView(view);
         this.timeTurn = 15;
+
+
+        SmartfoxClient.getInstance().addExtensionListener("3", this._onStartGameHandler, this);
+        SmartfoxClient.getInstance().addExtensionListener("4", this._onDanhBaiThanhCongHandler, this);
+        SmartfoxClient.getInstance().addExtensionListener("7", this._onTurnChangedHandler, this);
+        SmartfoxClient.getInstance().addExtensionListener("8", this._onGameFinishedHandler, this);
+        SmartfoxClient.getInstance().addExtensionListener("10", this._onGameStatusHandler, this);
+        SmartfoxClient.getInstance().addExtensionListener("46", this._onStealAssetUpdate, this);
+        SmartfoxClient.getInstance().addExtensionListener("101", this._onDrawDeckHandler, this);
+        SmartfoxClient.getInstance().addExtensionListener("103", this._onStealCardHandler, this);
+        SmartfoxClient.getInstance().addExtensionListener("104", this._onBalanceCardHandler, this);
+        SmartfoxClient.getInstance().addExtensionListener("106", this._onDelegateCard, this);
+        SmartfoxClient.getInstance().addExtensionListener("108", this._onHaBaiHandler, this);
+        SmartfoxClient.getInstance().addExtensionListener("109", this._onStatusChangedHandler, this);
+        SmartfoxClient.getInstance().addExtensionListener("110", this._onUpdateDrawDeckHandler, this);
     },
 
     getMaxSlot: function () {
@@ -38,48 +53,101 @@ var PhomController = GameController.extend({
         return ((suit * 13) + rankCard);
     },
 
-    onSFSExtension: function (messageType, content) {
-        this._super(messageType, content);
-        cc.log("mysfs : " + JSON.stringify(content));
-        if (content.c == "10") {//update status
-            this.onGameStatus(content.p["1"]);
-        }
-        else if (content.c == "3") { //start game
-            this.onStartGame(content.p);
-        }
-        else if (content.c == "4") { // danh bai thanh cong
-            this.onDanhBaiThanhCong(content.p);
-        }
-        else if (content.c == "7") { // change turn
-            this.onTurnChanged(content.p);
-        }
-        else if (content.c == "103") { // an bai`
-            this.onStealCard(content.p);
-        }
-        else if (content.c == "104") { // can bang bai
-            this.onBalanceCard(content.p);
-        }
-        else if (content.c == "46") { // cong, tru tien an
-            this.onStealAssetUpdate(content.p);
-        }
-        else if (content.c == "106") {// gui bai
-            this.onDelegateCard(content.p);
-        }
-        else if (content.c == "108") {// ha bai
-            this.onHaBai(content.p);
-        }
-        else if (content.c == "8") { // ket thuc van choi
-            this.onGameFinished(content.p);
-        }
-        else if (content.c == "109") { // thay doi trang thai
-            this.onStatusChanged(content.p);
-        }
-        else if (content.c == "101") { //boc bai
-            this.onDrawDeck(content.p);
-        }
-        else if (content.c == "110") { // thong bao so bai boc con lai
-            this.onUpdateDrawDeck(content.p);
-        }
+    // onSFSExtension: function (messageType, content) {
+    //     this._super(messageType, content);
+    //     cc.log("mysfs : " + JSON.stringify(content));
+    //     if (content.c == "10") {//update status
+    //         this.onGameStatus(content.p["1"]);
+    //     }
+    //     else if (content.c == "3") { //start game
+    //         this.onStartGame(content.p);
+    //     }
+    //     else if (content.c == "4") { // danh bai thanh cong
+    //         this.onDanhBaiThanhCong(content.p);
+    //     }
+    //     else if (content.c == "7") { // change turn
+    //         this.onTurnChanged(content.p);
+    //     }
+    //     else if (content.c == "103") { // an bai`
+    //         this.onStealCard(content.p);
+    //     }
+    //     else if (content.c == "104") { // can bang bai
+    //         this.onBalanceCard(content.p);
+    //     }
+    //     else if (content.c == "46") { // cong, tru tien an
+    //         this.onStealAssetUpdate(content.p);
+    //     }
+    //     else if (content.c == "106") {// gui bai
+    //         this.onDelegateCard(content.p);
+    //     }
+    //     else if (content.c == "108") {// ha bai
+    //         this.onHaBai(content.p);
+    //     }
+    //     else if (content.c == "8") { // ket thuc van choi
+    //         this.onGameFinished(content.p);
+    //     }
+    //     else if (content.c == "109") { // thay doi trang thai
+    //         this.onStatusChanged(content.p);
+    //     }
+    //     else if (content.c == "101") { //boc bai
+    //         this.onDrawDeck(content.p);
+    //     }
+    //     else if (content.c == "110") { // thong bao so bai boc con lai
+    //         this.onUpdateDrawDeck(content.p);
+    //     }
+    // },
+
+    /* handler */
+    _onGameStatusHandler : function (cmd, content) {
+        this.onGameStatus(content.p["1"]);
+    },
+
+    _onStartGameHandler : function(cmd, content){
+        this.onStartGame(content.p);
+    },
+
+    _onDanhBaiThanhCongHandler : function(cmd, content){
+        this.onDanhBaiThanhCong(content.p);
+    },
+
+    _onTurnChangedHandler : function(cmd, content){
+        this.onTurnChanged(content.p);
+    },
+
+    _onStealCardHandler : function(cmd, content){
+        this.onStealCard(content.p);
+    },
+
+    _onBalanceCardHandler : function(cmd, content){
+        this.onBalanceCard(content.p);
+    },
+
+    _onStealAssetUpdate : function(cmd, content){
+        this.onStealAssetUpdate(content.p);
+    },
+
+    _onDelegateCard : function(cmd, content){
+        this.onDelegateCard(content.p);
+    },
+
+    _onHaBaiHandler : function(cmd, content){
+        this.onHaBai(content.p);
+    },
+
+    _onGameFinishedHandler : function(cmd, content){
+        this.onGameFinished(content.p);
+    },
+
+    _onStatusChangedHandler : function(cmd, content){
+        this.onStatusChanged(content.p);
+    },
+
+    _onDrawDeckHandler : function(cmd, content){
+        this.onDrawDeck(content.p);
+    },
+
+    _onUpdateDrawDeckHandler : function(cmd, content){
+        this.onUpdateDrawDeck(content.p);
     },
 
     onGameStatus: function (param) {

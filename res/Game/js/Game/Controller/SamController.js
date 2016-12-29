@@ -5,6 +5,11 @@ var SamController = TLMNGameController.extend({
     ctor : function (view) {
         this._super();
         this.initWithView(view);
+
+        SmartfoxClient.getInstance().addExtensionListener("51", this._onUserCallSamHandler, this);
+        SmartfoxClient.getInstance().addExtensionListener("52", this._onUserFoldSamHandler, this);
+        SmartfoxClient.getInstance().addExtensionListener("53", this._onChangeSamStateHandler, this);
+        SmartfoxClient.getInstance().addExtensionListener("54", this._onNotifiOneHandler, this);
     },
 
     getMaxSlot : function () {
@@ -14,21 +19,37 @@ var SamController = TLMNGameController.extend({
         return 5;
     },
 
-    onSFSExtension: function (messageType, content) {
-        this._super(messageType, content);
-        cc.log(JSON.stringify(content));
-        if (content.c == "51") {
-            this.onUserCallSam(content.p.u);
-        }
-        else if (content.c == "52") {
-            this.onUserFoldSam(content.p.u);
-        }
-        else if (content.c == "53") {
-            this.onChangeSamState(content.p["1"],content.p["2"]);
-        }
-        else if (content.c == "54") {
-            this.onNotifiOne(content.p.u);
-        }
+    // onSFSExtension: function (messageType, content) {
+    //     this._super(messageType, content);
+    //   //  cc.log(JSON.stringify(content));
+    //     if (content.c == "51") {
+    //         this.onUserCallSam(content.p.u);
+    //     }
+    //     else if (content.c == "52") {
+    //         this.onUserFoldSam(content.p.u);
+    //     }
+    //     else if (content.c == "53") {
+    //         this.onChangeSamState(content.p["1"],content.p["2"]);
+    //     }
+    //     else if (content.c == "54") {
+    //         this.onNotifiOne(content.p.u);
+    //     }
+    // },
+
+    _onUserCallSamHandler : function (cmd, content) {
+        this.onUserCallSam(content.p.u);
+    },
+
+    _onUserFoldSamHandler : function (cmd, content) {
+        this.onUserFoldSam(content.p.u);
+    },
+
+    _onChangeSamStateHandler : function (cmd, content) {
+        this.onChangeSamState(content.p["1"],content.p["2"]);
+    },
+
+    _onNotifiOneHandler : function (cmd, content) {
+        this.onNotifiOne(content.p.u);
     },
 
     onUserCallSam : function (username) {

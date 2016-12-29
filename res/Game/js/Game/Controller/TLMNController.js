@@ -17,7 +17,51 @@ var TLMNGameController = GameController.extend({
     ctor : function (view) {
         this._super();
         this.initWithView(view);
+
+        SmartfoxClient.getInstance().addExtensionListener("3", this._onStartGameHandler, this);
+        SmartfoxClient.getInstance().addExtensionListener("4", this._onDanhBaiThanhCongHandler, this);
+        SmartfoxClient.getInstance().addExtensionListener("5", this._onBoLuotHandler, this);
+        SmartfoxClient.getInstance().addExtensionListener("6", this._onNewTurnHandler, this);
+        SmartfoxClient.getInstance().addExtensionListener("7", this._onNextTurnHandler, this);
+        SmartfoxClient.getInstance().addExtensionListener("8", this._onGameFinishedHandler, this);
+        SmartfoxClient.getInstance().addExtensionListener("10", this._updateStatusHandler, this);
+        SmartfoxClient.getInstance().addExtensionListener("12", this._onChatChemHandler, this);
+        SmartfoxClient.getInstance().addExtensionListener("50", this._onUpdateCardReamin, this);
     },
+
+    // onSFSExtension: function (messageType, content) {
+    //     this._super(messageType, content);
+    //     if (content.c == "10") {//update status
+    //         this.onGameStatus(content.p["1"]);
+    //     }
+    //     else if (content.c == "3") { //start game
+    //         this.onStartGame(content.p);
+    //     }
+    //     else if (content.c == "6") { //new turn
+    //         this._view.removeCardOnTable();
+    //         this.onUpdateTurn(content.p.u, this.timeTurn, true);
+    //     }
+    //     else if (content.c == "7") { //next turn
+    //         this.onUpdateTurn(content.p.u, this.timeTurn, false);
+    //     }
+    //     else if (content.c == "5") { //bo luot
+    //         var user = content.p.u;
+    //         this._view.onBoLuot(user);
+    //     }
+    //     else if (content.c == "4") { //danh bai thanh cong
+    //         this.onDanhBaiThanhCong(content.p);
+    //     }
+    //     else if (content.c == "8") { //ket qua
+    //         this.onGameFinished(content.p);
+    //     }
+    //     else if (content.c == "12") { //chat chem
+    //         this._view.onChatChem(content.p);
+    //     }
+    //     else if(content.c == "50") { // update card remain
+    //         this.onUpdateCardReamain(content.p);
+    //     }
+    // },
+
     getMaxSlot : function () {
         if(this.isSolo){
             return 2;
@@ -42,43 +86,6 @@ var TLMNGameController = GameController.extend({
             rankCard = 13 + rankCard;
         }
         return ((suit * 13) + rankCard);
-    },
-
-    onSFSExtension: function (messageType, content) {
-        this._super(messageType, content);
-        if (content.c == "10") {//update status
-            this.onGameStatus(content.p["1"]);
-        }
-        else if (content.c == "3") { //start game
-            this.onStartGame(content.p);
-        }
-        else if (content.c == "6") { //new turn
-            this._view.removeCardOnTable();
-            this.onUpdateTurn(content.p.u, this.timeTurn, true);
-        }
-        else if (content.c == "7") { //next turn
-            this.onUpdateTurn(content.p.u, this.timeTurn, false);
-        }
-        else if (content.c == "5") { //bo luot
-            var user = content.p.u;
-            this._view.onBoLuot(user);
-        }
-        else if (content.c == "4") { //danh bai thanh cong
-            this.onDanhBaiThanhCong(content.p);
-        }
-        else if (content.c == "8") { //ket qua
-            this.onGameFinished(content.p);
-        }
-        else if (content.c == "12") { //chat chem
-            this._view.onChatChem(content.p);
-        }
-        else if(content.c == "50") { // update card remain
-            this.onUpdateCardReamain(content.p);
-        }
-    },
-
-    onUpdateCardReamain : function (param) {
-        this._view.updateCardRemaining(param.u, param["1"]);
     },
 
     onJoinRoom : function (params) {
@@ -129,6 +136,50 @@ var TLMNGameController = GameController.extend({
         if (this.gameStatus == 1 && this.isOwnerMe) {
             this._view.setStartBtVisible(true);
         }
+    },
+
+    //handler
+    _updateStatusHandler : function(cmd, content){
+        this.onGameStatus(content.p["1"]);
+    },
+
+    _onStartGameHandler : function(cmd, content){
+        this.onStartGame(content.p);
+    },
+
+    _onNewTurnHandler : function(cmd, content){
+        this._view.removeCardOnTable();
+        this.onUpdateTurn(content.p.u, this.timeTurn, true);
+    },
+
+    _onNextTurnHandler : function(cmd, content){
+        this.onUpdateTurn(content.p.u, this.timeTurn, false);
+    },
+
+    _onBoLuotHandler : function(cmd, content){
+        var user = content.p.u;
+        this._view.onBoLuot(user);
+    },
+
+    _onDanhBaiThanhCongHandler : function(cmd, content){
+        this.onDanhBaiThanhCong(content.p);
+    },
+
+    _onGameFinishedHandler : function(cmd, content){
+        this.onGameFinished(content.p);
+    },
+
+    _onChatChemHandler : function(cmd, content){
+        this._view.onChatChem(content.p);
+    },
+
+    _onUpdateCardReamin : function(cmd, content){
+        this.onUpdateCardReamain(content.p);
+    },
+
+    //process event
+    onUpdateCardReamain : function (param) {
+        this._view.updateCardRemaining(param.u, param["1"]);
     },
 
     updateGameInfo : function (params) {
