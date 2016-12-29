@@ -3,18 +3,11 @@
  */
 
 var s_chat_message = s_chat_message || [
-        "message 1",
-        "message 2",
-        "message 3",
-        "message 4",
-        "message 5",
-        "message 6",
-        "message 7",
-        "message 8",
-        "message 9",
-        "message 10",
-        "message 11",
-        "message 12"
+        "Nhanh đi má !!!", "Chết nè cưng !!!", "Mày hả bưởi ???",
+        "Lại phải chia bài!", "Tới luôn!", "Nhanh cmml!",
+        "Bình tĩnh em eei", "Vô tư đê !!!", "Đen vd",
+        " Đừng vội mừng!", "Lâu vồn", "Nhào zo !!!",
+        "Mình xin!", "Đệch!", "Ngu vồn!"
 ];
 
 var ChatDialog = IDialog.extend({
