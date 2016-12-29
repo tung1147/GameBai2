@@ -500,7 +500,7 @@ var XocDiaScene = IGameScene.extend({
 
     openDisk: function (data) {
         this.stopAllActions();
-        SoundPlayer.playSound(["bellopen","mobat"]);
+        SoundPlayer.playSound(["bellopen", "mobat"]);
         this.diskNode.removeAllChildren(true);
         this.diskSprite.stopAllActions();
         this.batSprite.stopAllActions();
@@ -659,7 +659,7 @@ var XocDiaScene = IGameScene.extend({
             );
             chip.runAction(new cc.EaseSineOut(moveAction));
 
-            SoundPlayer.playSound("single");
+            SoundPlayer.playSound("singlechip");
         };
 
         if (from == 1 || from == 3) { //me or host
