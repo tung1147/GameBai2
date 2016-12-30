@@ -62,14 +62,14 @@ var MiniGameController = cc.Class.extend({
 
     onGetLastSessionInfo: function (command, eventData) {
         var info = eventData.data.lastSessionInfo;
-        if (info) {
-            var host = info.ip;
-            var port = info.port;
-            if (host && port) {
-                LoadingDialog.getInstance().show("Đang kết nối lại máy chủ");
-                SmartfoxClient.getInstance().connect(host, port);
-                return;
-            }
+        if(info && info.ip && info.port){
+            var serverInfo = LobbyClient.getInstance().createServerInfo(info);
+            LoadingDialog.getInstance().show("Đang kết nối lại máy chủ");
+            SmartfoxClient.getInstance().connect(serverInfo);
+            return;
+        }
+        else{
+            LoadingDialog.getInstance().hide();
         }
         this._view.backToHomeScene();
     },
