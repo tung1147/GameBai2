@@ -122,7 +122,16 @@ var TienLen = IGameScene.extend({
     },
 
     onXepBaiBtClick: function () {
-        this.cardList.reArrangeCards();
+        this.cardList.reArrangeCards(function (a, b) {
+            var operatorA = a.rank, operatorB = b.rank;
+            if (operatorA < 3) {
+                operatorA += 13;
+            }
+            if (operatorB < 3) {
+                operatorB += 13;
+            }
+            return operatorA - operatorB;
+        });
     },
 
     initPlayer: function () {

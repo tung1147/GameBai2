@@ -59,6 +59,7 @@ var CaoThapController = MiniGameController.extend({
         this._view.setTimeRemaining(this.timeRemaining);
         this._view.setTipString(gameEnded ? "Bạn chọn sai, chúc bạn may mắn lần sau!" :
             "Quân tiếp theo cao hơn hay thấp hơn?");
+        this._view.setHighLowBtEnable(!gameEnded);
         this._view.setLuotMoiBtVisible(true);
         this.turnState = gameEnded ? 2 : 1;
         this.result = gameEnded ? -1 : resultCard;

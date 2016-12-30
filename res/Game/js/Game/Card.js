@@ -169,10 +169,14 @@ var CardList = cc.Node.extend({
         };
     },
 
-    reArrangeCards: function () {
-        this.cardList.sort(function (a, b) {
-            return a.rank - b.rank;
-        });
+    reArrangeCards: function (sortFunc) {
+        if (!sortFunc){
+            this.cardList.sort(function (a, b) {
+                return a.rank - b.rank;
+            });
+        }else {
+            this.cardList.sort(sortFunc);
+        }
         this.reOrder();
     },
 
