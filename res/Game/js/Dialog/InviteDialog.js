@@ -157,10 +157,8 @@ var RecvInviteDialog = (function(){
                 this.setInfoWithoutSender(gameName, betting);
             }
         },
-        setRoomInfo: function (room, host, port) {
-            this.room = room;
-            this.host = host;
-            this.port = port;
+        setRoomInfo: function (serverInfo) {
+            this.serverInfo = serverInfo;
         },
         setInfoWithSender: function (username, gameName, betting) {
             var label1 = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Bạn nhận được lời mời chơi từ");
@@ -206,7 +204,7 @@ var RecvInviteDialog = (function(){
         },
         okButtonHandler: function () {
             PlayerMe.SFS.roomId = this.room;
-            SmartfoxClient.getInstance().findAndJoinRoom(this.host, this.port, null, null, this.room);
+            SmartfoxClient.getInstance().findAndJoinRoom(this.serverInfo, null, null, this.serverInfo.roomId);
             LoadingDialog.getInstance().show("Đang tìm phòng chơi");
             this.hide();
         }

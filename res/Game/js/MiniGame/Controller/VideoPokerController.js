@@ -167,7 +167,7 @@ var VideoPokerController = MiniGameController.extend({
     },
 
     sendJoinGame: function () {
-        SmartfoxClient.getInstance().joinMiniGame(PlayerMe.miniGameInfo.ip, PlayerMe.miniGameInfo.port, "260");
+        SmartfoxClient.getInstance().joinMiniGame(PlayerMe.miniGameInfo, "260");
     },
 
     onReconnect: function (param) {

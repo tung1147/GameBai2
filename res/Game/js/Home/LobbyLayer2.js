@@ -159,7 +159,7 @@ var LobbyLayer = cc.Node.extend({
                 var serverInfo = LobbyClient.getInstance().SFSServerInfo[serverId];
                 if(serverInfo){
                     PlayerMe.SFS.roomId = roomId;
-                    SmartfoxClient.getInstance().findAndJoinRoom(serverInfo.host, serverInfo.port, null, null, roomId);
+                    SmartfoxClient.getInstance().findAndJoinRoom(serverInfo, null, null, roomId);
                 }
                 else{
                     MessageNode.getInstance().show("Không có thông tin máy chủ");
@@ -224,15 +224,12 @@ var LobbyLayer = cc.Node.extend({
         if (RecvInviteDialog.getInstance().isShow())
             return;
         RecvInviteDialog.getInstance().setInfo(data["userInvite"],s_games_display_name[s_games_chanel_id[data["gameType"]]],data["betting"]);
+
         var roomId = data["roomId"];
-        var host = data["ip"];
-        if(cc.sys.isNative){
-            var port = data["port"];
-        }
-        else{
-            var port = data["webSocketPort"];
-        }
-        RecvInviteDialog.getInstance().setRoomInfo(roomId, host, port);
+        var serverInfo = LobbyClient.getInstance().createServerInfo(data);
+        serverInfo.roomId = roomId;
+        RecvInviteDialog.getInstance().setRoomInfo(serverInfo);
+
         RecvInviteDialog.getInstance().showWithAnimationScale();
     },
 

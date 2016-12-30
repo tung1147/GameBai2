@@ -130,27 +130,26 @@ var SmartfoxClient = (function () {
                 this.sfsSocket.close();
             }
         },
-        findAndJoinRoom: function (host, port, gameType, betting, roomId) {
+        findAndJoinRoom: function (serverInfo, gameType, betting, roomId) {
             var thiz = this;
-            this.connect(host,port, function () {
+            this.connect(serverInfo, function () {
                 thiz._sendFindAndJoinRoom(gameType, betting, roomId);
             });
         },
-        joinMiniGame: function (host, port, joinCommand) {
+        joinMiniGame: function (serverInfo, joinCommand) {
             var thiz = this;
-            this.connect(host,port, function () {
+            this.connect(serverInfo, function () {
                 thiz.sendExtensionRequest(-1, joinCommand, null);
             });
         },
 
-        connect: function (host, port, afterLoginCallback) {
+        connect: function (serverInfo, afterLoginCallback) {
             this.lastRoomInfo = null;
-
             this._loginHandler = afterLoginCallback;
 
             if (this.sfsSocket) {
                 if(this.sfsSocket.getStatus() == socket.SmartfoxClient.Connected){
-                    if (this.currentHost == host && this.currentPort == port) {
+                    if (this.currentServer == serverInfo.serverUrl) {
                         if (this._loginHandler) {
                             this._loginHandler();
                             this._loginHandler = null;
@@ -162,14 +161,13 @@ var SmartfoxClient = (function () {
                     }
                 }
 
-                this.currentHost = host;
-                this.currentPort = port;
+                this.currentServer = serverInfo.serverUrl;
                 if (cc.sys.isNative) {
-                    this.sfsSocket.connect(host, port);
+                    this.sfsSocket.connect(serverInfo.host, serverInfo.port);
                 }
                 else {
-                    var url = "ws://" + host + ":" + port + "/websocket";
-                    this.sfsSocket.connect(url);
+                    //var url = "ws://" + host + ":" + port + "/websocket";
+                    this.sfsSocket.connect(serverInfo.webSocketUrl);
                 }
             }
         },

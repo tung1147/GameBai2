@@ -183,7 +183,7 @@ var CaoThapController = MiniGameController.extend({
     },
 
     sendJoinGame: function () {
-        SmartfoxClient.getInstance().joinMiniGame(PlayerMe.miniGameInfo.ip, PlayerMe.miniGameInfo.port, "404");
+        SmartfoxClient.getInstance().joinMiniGame(PlayerMe.miniGameInfo, "404");
     },
 
     requestQuitRoom: function () {

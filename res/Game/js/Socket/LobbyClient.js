@@ -166,16 +166,29 @@ var LobbyClient = (function () {
                 PlayerMe.phoneNumber = data.telephone;
                 PlayerMe.SFS.info = data.info;
                 PlayerMe.SFS.signature = event.signature;
-                PlayerMe.miniGameInfo = data.miniGameInfo;
-
                 var userinfo = JSON.parse(data.info);
                 PlayerMe.username = userinfo.username;
-
-                var lastSessionInfo = data.lastSessionInfo;
                 PlayerMe.gameType = "";
                 PlayerMe.SFS.betting = 0;
+
+                //server list
+                var serverData = data["server"];
+                if (serverData) {
+                    this.SFSServerInfo = {};
+                    for (var i = 0; i < serverData.length; i++) {
+                        var serverInfo = this.createServerInfo(serverData[i]);
+                        serverInfo.serverId = serverData[i].serverId;
+                        this.SFSServerInfo[serverInfo.serverId] = serverInfo;
+                    }
+                }
+
+                //minigame server
+                var miniGameServer = data["miniGameInfo"];
+                PlayerMe.miniGameInfo = this.createServerInfo(miniGameServer);
+
+                var lastSessionInfo = data.lastSessionInfo;
                 if (lastSessionInfo.ip && lastSessionInfo.port) { // reconnect
-                    this.reconnectSmartfox(lastSessionInfo.ip, lastSessionInfo.port);
+                    this.reconnectSmartfox(this.createServerInfo(lastSessionInfo));
                 }
                 else { // to Home
                     LoadingDialog.getInstance().hide();
@@ -184,28 +197,6 @@ var LobbyClient = (function () {
                         if (runningScene.homeLocation == 1) {
                             runningScene.startGame();
                         }
-                    }
-                }
-
-                var serverData = data["server"];
-                if (serverData) {
-                    this.SFSServerInfo = {};
-                    for (var i = 0; i < serverData.length; i++) {
-                        var serverId = serverData[i].serverId;
-                        var host = serverData[i].host;
-                        if (cc.sys.isNative) {
-                            var port = serverData[i].port;
-                        }
-                        else {
-                            var port = serverData[i].websocketPort;
-                        }
-
-                        var serverInfo = {
-                            serverId: serverId,
-                            host: host,
-                            port: port
-                        };
-                        this.SFSServerInfo[serverId] = serverInfo;
                     }
                 }
 
@@ -701,31 +692,14 @@ var LobbyClient = (function () {
             this.isReconnected = true;
             this.connect();
         },
-        // onRequestTimeout: function () {
-        //     LoadingDialog.getInstance().hide();
-        //     var runningScene = cc.director.getRunningScene();
-        //     if (runningScene.type == "HomeScene") {
-        //         if (runningScene.homeLocation != 1) {
-        //             runningScene.startHome();
-        //         }
-        //         MessageNode.getInstance().show("Hết thời gian kết nối máy chủ");
-        //     }
-        //     else {
-        //         var scene = new HomeScene();
-        //         scene.startHome();
-        //         MessageNode.getInstance().showWithParent("Hết thời gian kết nối máy chủ", scene.popupLayer);
-        //         cc.director.replaceScene(scene);
-        //     }
-        //     LobbyClient.getInstance().close();
-        //     SmartfoxClient.getInstance().close();
-        // },
-        reconnectSmartfox: function (host, port) {
+
+        reconnectSmartfox: function (serverInfo) {
             if (SmartfoxClient.getInstance().isConnected()) {
                 LoadingDialog.getInstance().hide();
             }
             else {
                 LoadingDialog.getInstance().show("Đang kết nối lại máy chủ");
-                SmartfoxClient.getInstance().connect(host, port);
+                SmartfoxClient.getInstance().connect(serverInfo);
             }
         },
         subscribe: function (gameId, group) {
@@ -770,7 +744,46 @@ var LobbyClient = (function () {
                 command: "getLastSessionInfo"
             };
             this.send(request);
-        }
+        },
+
+        createServerInfo : function (serverData) {
+            var serverInfo = {};
+            var host = serverData["host"];
+            if(!host){
+                host = serverData["ip"];
+            }
+
+            if (cc.sys.isNative) {
+                var port = serverData.port;
+                serverInfo.host = host;
+                serverInfo.host = port;
+                serverInfo.serverUrl = host + ":" + port;
+            }
+            else {
+                var url = serverData["wssPath"];
+                if(!url){
+                    var port = serverData["websocketPort"];
+                    if(!port){
+                        port = serverData.port;
+                    }
+                    url = "ws://" + host + ":" + port + "/websocket";
+                }
+                serverInfo.webSocketUrl = url;
+                serverInfo.serverUrl = url;
+
+                // var port = serverData["websocketPort"];
+                // if(!port){
+                //     port = serverData["webSocketPort"];
+                // }
+                // if(!port){
+                //     port = serverData["port"];
+                // }
+                // var url = "ws://" + host + ":" + port + "/websocket";
+                // serverInfo.webSocketUrl = url;
+                // serverInfo.serverUrl = url;
+            }
+            return serverInfo;
+        },
     });
 
     Clazz.getInstance = function () {
