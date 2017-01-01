@@ -25,7 +25,7 @@ var IScene = cc.Scene.extend({
 
     onExit : function () {
         this._super();
-        SoundPlayer.stopAllSound();
+        //SoundPlayer.stopAllSound();
         this.popupLayer.removeAllChildren(true);
     }
 })

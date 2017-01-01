@@ -105,6 +105,7 @@ var IGameScene = IScene.extend({
     },
     onExit : function () {
         this._super();
+        SoundPlayer.stopAllSound();
         if(this._controller){
             this._controller.releaseController();
             this._controller = null;
