@@ -228,7 +228,7 @@ var SmartfoxClient = (function () {
                 if (!this.allListener.hasOwnProperty(key)) continue;
                 var arr = this.allListener[key];
                 for (var i = 0; i < arr.length;) {
-                    if (arr[i].target == target) {
+                    if (arr[i]&& arr[i].target == target) {
                         if (this.isBlocked) {
                             arr[i] = null;
                         }
