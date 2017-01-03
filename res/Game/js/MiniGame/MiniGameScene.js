@@ -21,8 +21,6 @@ var MiniGameScene = IScene.extend({
         this.playerMe.setGold(PlayerMe.gold);
     },
     onChangeAssets: function (gold, changeAmount) {
-        PlayerMe.gold = gold;
-        this.playerMe.setGold(PlayerMe.gold);
         if (changeAmount == 0)
             return;
         var changeSprite = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, "");

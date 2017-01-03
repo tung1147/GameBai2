@@ -200,11 +200,6 @@ var MiniPokerLayer = MiniGamePopup.extend({
         SoundPlayer.playSound(this.rewards[id] ? "NormalWin" : "mini_slotLost");
     },
 
-    onChangeAssets: function (gold, changeAmount) {
-        changeAmount = changeAmount > 0 ? changeAmount : 0;
-        this._super(gold, changeAmount);
-    },
-
     setRewardCards: function (rewardArrayIndex) {
         for (var i = 0; i < rewardArrayIndex.length; i++) {
             this.rewardLayer[i].setVisible(rewardArrayIndex[i]);

@@ -14,6 +14,7 @@ var VideoPokerController = MiniGameController.extend({
     onSFSExtension: function (messageType, content) {
         this._super(messageType, content);
         var thiz = this;
+        cc.log(content);
         switch (content.c) {
             case "251":
                 this._view.setBankValue(parseInt(content.p["data"]["2"]));

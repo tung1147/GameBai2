@@ -91,7 +91,6 @@ var MiniGamePopup = cc.Node.extend({
         };
     },
     onChangeAssets: function (gold, changeAmount) {
-        PlayerMe.gold = gold;
         if (changeAmount == 0)
             return;
 

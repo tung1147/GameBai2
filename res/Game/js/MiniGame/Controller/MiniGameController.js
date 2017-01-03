@@ -45,6 +45,7 @@ var MiniGameController = cc.Class.extend({
 
             case "0": // thay doi vang
                 this.onChangeAssets(content.p["2"], content.p["1"]);
+                cc.log(content);
                 break;
             case "___err___":
                 this._view.onError(content.p);
@@ -57,18 +58,21 @@ var MiniGameController = cc.Class.extend({
     },
 
     onChangeAssets: function (gold, changeAmount) {
+        if (changeAmount < 0 ){
+            return;
+        }
         this._view.onChangeAssets(gold, changeAmount);
     },
 
     onGetLastSessionInfo: function (command, eventData) {
         var info = eventData.data.lastSessionInfo;
-        if(info && info.ip && info.port){
+        if (info && info.ip && info.port) {
             var serverInfo = LobbyClient.getInstance().createServerInfo(info);
             LoadingDialog.getInstance().show("Đang kết nối lại máy chủ");
             SmartfoxClient.getInstance().connect(serverInfo);
             return;
         }
-        else{
+        else {
             LoadingDialog.getInstance().hide();
         }
         this._view.backToHomeScene();
