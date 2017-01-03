@@ -93,6 +93,11 @@ var RewardBankDialog = Dialog.extend({
         textInput4.setPosition(bg4.getPosition());
         this.dialogNode.addChild(textInput4, 2);
 
+        textInput1.nextTextField = textInput2;
+        textInput2.nextTextField = textInput3;
+        textInput3.nextTextField = textInput4;
+        textInput4.nextTextField = textInput1;
+
         this.tenTaiKhoan = textInput1;
         this.soTaiKhoan = textInput2;
         this.nganHang = textInput3;

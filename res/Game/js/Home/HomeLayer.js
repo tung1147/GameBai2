@@ -46,6 +46,9 @@ var LoginDialog = cc.Node.extend({
         this.passwordText.setPosition(passwordBg.getPosition());
         this.layerBg.addChild(this.passwordText,1);
 
+        this.userText.nextTextField = this.passwordText;
+        this.passwordText.nextTextField = this.userText;
+
         this.userText.setText(cc.Global.GetSetting("username", ""));
         this.passwordText.setText(cc.Global.GetSetting("password", ""));
 
@@ -190,6 +193,10 @@ var SignupDialog = cc.Node.extend({
         this.phoneText.setMaxLength(30);
         this.phoneText.setPosition(phoneBg.getPosition());
         bg.addChild(this.phoneText,1);
+
+        this.userText.nextTextField = this.passwordText;
+        this.passwordText.nextTextField = this.phoneText;
+        this.phoneText.nextTextField = this.userText;
 
         var signupBt = new ccui.Button("signup-okBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
         signupBt.setPosition(this.layerBg.getContentSize().width/2, 190.0);
