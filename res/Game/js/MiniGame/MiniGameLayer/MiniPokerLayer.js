@@ -257,6 +257,7 @@ var MiniPokerLayer = MiniGamePopup.extend({
 
         //het tien
         this.setRolling(false);
+        this.setQuayBtEnable(true);
     },
 
     setQuayBtEnable: function (enabled) {

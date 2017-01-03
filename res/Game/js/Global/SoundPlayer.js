@@ -8,7 +8,7 @@ var s_sound_loop = s_sound_loop || {};
 SoundPlayer._createURL = function (sound) {
     var soundUrl = "res/Sound/" + sound + ".mp3";
     return soundUrl;
-}
+};
 
 SoundPlayer._playSingleSound = function (sound, loop, cb) {
     var soundUrl = SoundPlayer._createURL(sound);

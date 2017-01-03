@@ -345,6 +345,7 @@ var CaoThapLayer = MiniGamePopup.extend({
         this.historyList.removeAllItems();
         this.card.setSpriteFrame("gp_card_up.png");
         this.setHighLowBtEnable(false);
+        this.setLuotMoiBtEnable(true);
         if (this.timeRemainingInterval)
             clearInterval(this.timeRemainingInterval);
         this.timeLabel.setString("");
@@ -367,6 +368,7 @@ var CaoThapLayer = MiniGamePopup.extend({
 
         //het tien
         this.setRolling(false);
+        this.clearTurn();
     }
 });
 

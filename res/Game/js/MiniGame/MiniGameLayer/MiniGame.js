@@ -69,6 +69,7 @@ var MiniGamePopup = cc.Node.extend({
 
     onError : function (param) {
         MessageNode.getInstance().show(param.msg);
+        SoundPlayer.stopSound("lucky_wheel");
     },
 
     performChangeRewardFund: function (data) {
