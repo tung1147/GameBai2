@@ -191,7 +191,7 @@ var VerifySendSMSLayer = cc.Node.extend({
             })();
         }
 
-      //  if(cc.sys.isNative){
+        if(cc.sys.isNative){
             var okButton = new ccui.Button("dialog-button-1.png","","", ccui.Widget.PLIST_TEXTURE);
             okButton.setScale9Enabled(true);
             okButton.setZoomScale(0.03);
@@ -208,7 +208,7 @@ var VerifySendSMSLayer = cc.Node.extend({
             okButton.addClickEventListener(function () {
 
             });
-     //   }
+        }
     },
     setVisible : function (visible) {
         this._super(visible);
