@@ -26,6 +26,10 @@ var Card = cc.Sprite.extend({
         this.origin = cc.p();
         this.isTouched = false;
         this._cardSelected = false;
+    },
+    onEnter : function () {
+        this._super();
+
         var thiz = this;
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -41,6 +45,12 @@ var Card = cc.Sprite.extend({
             }
         }, this);
     },
+
+    onExit : function () {
+        this._super();
+        cc.eventManager.removeListeners(this);
+    },
+
     moveToOriginPosition: function () {
         if (!this.isTouched) {
             this.stopAllActions();
