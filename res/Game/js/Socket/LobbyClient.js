@@ -136,6 +136,12 @@ var LobbyClient = (function () {
             if (event.code == 1) {
                 message = "Tài khoản đăng nhập tại thiết bị khác";
             }
+            else if(event.code == 2){
+                message = "Bạn bị kicked bởi admin";
+            }
+            else if(event.code == 5){
+                message = "Tài khoản đã bị khóa";
+            }
             if (runningScene.type == "HomeScene") {
                 runningScene.startHome();
                 MessageNode.getInstance().show(message);
