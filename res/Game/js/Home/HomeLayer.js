@@ -5,6 +5,8 @@
 var LoginDialog = cc.Node.extend({
     ctor : function () {
         this._super();
+        var thiz = this;
+
         var blackLayer = new cc.LayerColor(cc.color(0,0,0,0.8 * 255), cc.winSize.width, cc.winSize.height);
         this.addChild(blackLayer);
 
@@ -19,12 +21,12 @@ var LoginDialog = cc.Node.extend({
         this.layerBg.addChild(title);
 
         /* login text field */
-        var userNameBg = ccui.Scale9Sprite.createWithSpriteFrameName("home-text-bg.png", cc.rect(12,12,4,4));
+        var userNameBg = new ccui.Scale9Sprite("home-text-bg.png", cc.rect(12,12,4,4));
         userNameBg.setPreferredSize(cc.size(500, 70));
         userNameBg.setPosition(cc.p(this.layerBg.getContentSize().width/2, 450));
         this.layerBg.addChild(userNameBg);
 
-        var passwordBg = ccui.Scale9Sprite.createWithSpriteFrameName("home-text-bg.png", cc.rect(12,12,4,4));
+        var passwordBg = new ccui.Scale9Sprite("home-text-bg.png", cc.rect(12,12,4,4));
         passwordBg.setPreferredSize(cc.size(500, 70));
         passwordBg.setPosition(cc.p(this.layerBg.getContentSize().width/2, 350));
         this.layerBg.addChild(passwordBg);
@@ -35,6 +37,10 @@ var LoginDialog = cc.Node.extend({
         this.userText.setPlaceHolderColor(cc.color(144, 144, 144));
         this.userText.setMaxLength(32);
         this.userText.setPosition(userNameBg.getPosition());
+        this.userText.setReturnCallback(function () {
+            thiz.onLoginButonHandler();
+            return false;
+        });
         this.layerBg.addChild(this.userText,1);
 
         this.passwordText = new newui.TextField(cc.size(470, 70), cc.res.font.Roboto_Condensed_25);
@@ -44,6 +50,10 @@ var LoginDialog = cc.Node.extend({
         this.passwordText.setPlaceHolderColor(cc.color(144, 144, 144));
         this.passwordText.setMaxLength(30);
         this.passwordText.setPosition(passwordBg.getPosition());
+        this.passwordText.setReturnCallback(function () {
+            thiz.onLoginButonHandler();
+            return false;
+        });
         this.layerBg.addChild(this.passwordText,1);
 
         this.userText.nextTextField = this.passwordText;
@@ -99,7 +109,6 @@ var LoginDialog = cc.Node.extend({
         var margin = 100.0;
         var mTouch = cc.rect(margin, margin, this.layerBg.getContentSize().width - margin * 2, this.layerBg.getContentSize().height - margin * 2);
         //touch
-        var thiz = this;
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches:true,
@@ -116,19 +125,23 @@ var LoginDialog = cc.Node.extend({
         }, this);
 
         loginBt.addClickEventListener(function () {
-            var username = thiz.userText.getText();
-            var password = thiz.passwordText.getText();
-            if(!username && username.length == 0){
-                MessageNode.getInstance().show("Bạn phải nhập tên tài khoản");
-                return;
-            }
-            if(!password && password.length == 0){
-                MessageNode.getInstance().show("Bạn phải nhập mật khẩu");
-                return;
-            }
-            LoadingDialog.getInstance().show("Đang đăng nhập");
-            LobbyClient.getInstance().loginNormal(username, password, thiz.checkBox.isSelected());
+           thiz.onLoginButonHandler();
         });
+    },
+
+    onLoginButonHandler : function () {
+        var username = this.userText.getText();
+        var password = this.passwordText.getText();
+        if(!username && username.length == 0){
+            MessageNode.getInstance().show("Bạn phải nhập tên tài khoản");
+            return;
+        }
+        if(!password && password.length == 0){
+            MessageNode.getInstance().show("Bạn phải nhập mật khẩu");
+            return;
+        }
+        LoadingDialog.getInstance().show("Đang đăng nhập");
+        LobbyClient.getInstance().loginNormal(username, password, this.checkBox.isSelected());
     }
 });
 
@@ -139,7 +152,7 @@ var SignupDialog = cc.Node.extend({
         var blackLayer = new cc.LayerColor(cc.color(0,0,0,0.8 * 255), cc.winSize.width, cc.winSize.height);
         this.addChild(blackLayer);
 
-        var bg = ccui.Scale9Sprite.createWithSpriteFrameName("home-layer-bg.png", cc.rect(124,186,4,4));
+        var bg = new ccui.Scale9Sprite("home-layer-bg.png", cc.rect(124,186,4,4));
         bg.setPreferredSize(cc.size(900.0, 800.0));
         bg.setPosition(cc.winSize.width / 2, cc.winSize.height/2);
         this.addChild(bg);
