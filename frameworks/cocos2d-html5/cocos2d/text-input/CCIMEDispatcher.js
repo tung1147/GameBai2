@@ -176,6 +176,7 @@ cc.IMEDispatcher = cc.Class.extend(/**  @lends cc.imeDispatcher# */{
         this._domInputControl.addEventListener("keydown", function (e) {
             // ignore tab key
             if (e.keyCode === cc.KEY.tab) {
+                selfPointer.dispatchTabKey();
                 e.stopPropagation();
                 e.preventDefault();
             } else if (e.keyCode === cc.KEY.enter) {
@@ -249,6 +250,22 @@ cc.IMEDispatcher = cc.Class.extend(/**  @lends cc.imeDispatcher# */{
             return;
 
         this.impl._delegateWithIme.deleteBackward();
+    },
+
+    /**
+     * Dispatch the delete backward operation
+     */
+    dispatchTabKey:function () {
+        if (!this.impl) {
+            return;
+        }
+
+        // there is no delegate attach with ime
+        if (!this.impl._delegateWithIme)
+            return;
+        if(this.impl._delegateWithIme.tabKeyPressed){
+            this.impl._delegateWithIme.tabKeyPressed();
+        }
     },
 
     /**
