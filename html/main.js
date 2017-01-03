@@ -89,6 +89,77 @@ var _resumeMethod = function () {
     // cc.eventManager.addListener(_listener2, 1);
 };
 
+var _resumeMethod2 = function () {
+    quyetnd.startUpdateBackground = function () {
+        quyetnd._lastUpdateTime = Date.now();
+        var frame_rate = 1000.0 / 60;
+
+        var cb = function () {
+            if(quyetnd._updateBackgroundFunc){
+                window.clearTimeout(quyetnd._updateBackgroundFunc);
+            }
+            quyetnd.updateBackground();
+            quyetnd._updateBackgroundFunc = window.setTimeout(cb, frame_rate);
+        };
+        quyetnd._updateBackgroundFunc = window.setTimeout(cb, frame_rate);
+    };
+
+    quyetnd.stopUpdateBackground = function () {
+        if(quyetnd._updateBackgroundFunc){
+            window.clearTimeout(quyetnd._updateBackgroundFunc);
+            quyetnd.updateBackground();
+        }
+    };
+
+    quyetnd.updateBackground = function () {
+        var now = Date.now();
+        var dt = (now - quyetnd._lastUpdateTime) / 1000;
+        quyetnd._lastUpdateTime = now;
+        var frame_rate = 1.0/ 60.0;
+
+        while(dt > 0){
+            cc.director._scheduler.update(dt < frame_rate ? dt : frame_rate);
+            dt -= frame_rate;
+            cc.eventManager.dispatchEvent(cc.director._eventAfterUpdate);
+        }
+    };
+
+    cc.director.pause = function () {
+        //nothing
+    };
+
+    cc.game.pause = function () {
+        quyetnd.startUpdateBackground();
+
+        // engine
+        // if (this._paused) return;
+        // this._paused = true;
+        // // Pause audio engine
+        // if (cc.audioEngine) {
+        //     cc.audioEngine.stopAllEffects();
+        //     cc.audioEngine.pauseMusic();
+        // }
+        // // Pause main loop
+        // if (this._intervalId)
+        //     window.cancelAnimationFrame(this._intervalId);
+        // this._intervalId = 0;
+    };
+
+    cc.game.resume =  function () {
+        quyetnd.stopUpdateBackground();
+
+        //engine
+        if (!this._paused) return;
+        this._paused = false;
+        // Resume audio engine
+        if (cc.audioEngine) {
+            cc.audioEngine.resumeMusic();
+        }
+        // Resume main loop
+        this._runMainLoop();
+    };
+};
+
 
 cc.game.onStart = function(){
     if(!cc.sys.isNative && document.getElementById("cocosLoading")) //If referenced loading.js, please remove it
@@ -145,7 +216,7 @@ cc.game.onStart = function(){
             cc.director.runScene(new LoadingScene());
         });
 
-    _resumeMethod();
+    _resumeMethod2();
 
 };
 cc.game.run();

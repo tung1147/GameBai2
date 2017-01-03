@@ -240,15 +240,11 @@ var GameController = cc.Class.extend({
     //lobby client
     onGetLastSessionInfo : function (command, eventData) {
         var info = eventData.data.lastSessionInfo;
-        if(info){
-            var host = info.ip;
-            var port = info.port;
-            if(host && port){
-                //LoadingDialog.getInstance().show("Đang kết nối lại máy chủ");
-                this._view.showLoading("Đang kết nối lại máy chủ");
-                SmartfoxClient.getInstance().connect(host, port);
-                return;
-            }
+        if(info && info.ip && info.port){
+            var serverInfo = LobbyClient.getInstance().createServerInfo(info);
+            this._view.showLoading("Đang kết nối lại máy chủ");
+            SmartfoxClient.getInstance().connect(serverInfo);
+            return;
         }
         this._view.exitToLobby();
     },

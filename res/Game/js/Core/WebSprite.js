@@ -26,7 +26,7 @@ var WebSprite = cc.Node.extend({
 
         if(this._fixSize){
             var ratioX = this.getContentSize().width / sprite.getContentSize().width;
-            var ratioY = this.getContentSize().width / sprite.getContentSize().width;
+            var ratioY = this.getContentSize().height / sprite.getContentSize().height;
             var ratio = ratioX < ratioY ? ratioX : ratioY;
             if(ratio < 1.0){
                 sprite.setScale(ratio);
