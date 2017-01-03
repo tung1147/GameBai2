@@ -327,6 +327,13 @@ newui.TextField = cc.Node.extend({
         return ret;
     },
 
+    tabKeyPressed : function () {
+        if(this.nextTextField && this.nextTextField instanceof  newui.TextField){
+            this.detachWithIME();
+            this.nextTextField.attachWithIME();
+        }
+    },
+
     canAttachWithIME:function () {
         return this._canAttachIME;
     },
