@@ -22,6 +22,7 @@ var XocDiaController = GameController.extend({
         this.bettingSlotCount = 7;
         this.initWithView(view);
         this.slotGold = [];
+        this.userGoldSlot = [];
 
         SmartfoxClient.getInstance().addExtensionListener("8", this._onOpenDiskHandler, this);
         SmartfoxClient.getInstance().addExtensionListener("10", this._onUpdateStatusHandler, this);
@@ -65,10 +66,11 @@ var XocDiaController = GameController.extend({
     // },
 
     onJoinRoom : function (params) {
+        this._updateStatus(params["cs"]);
+
         this._updateChipValue(params["14"]);
         this._updateHistory(params["15"]);
         this._updateUserCount(params["uc"]);
-        this._updateStatus(params["cs"]);
         this._updateTongCuoc(params["16"]);
         var status = params["cs"]["1"];
         if(status == 5 || status == 1){
@@ -77,11 +79,24 @@ var XocDiaController = GameController.extend({
     },
 
     onReconnect : function(params){
+        this._updateStatus(params["2"]);
+
         this._updateChipValue(params["1"]["14"]);
         this._updateHistory(params["1"]["15"]);
         this._updateUserCount(params["1"]["uc"]);
         this._updateTongCuoc(params["1"]["16"]);
-        this._updateStatus(params["2"]);
+
+        var slotData = params["3"];
+        if(slotData){
+            for(var i=0;i<slotData.length;i++){
+                var slotId = slotData[i]["1"];
+                var userGold = slotData[i]["3"];
+                this._updateUserGoldSlot(slotId, userGold);
+                if(userGold > 0){
+                    this._addFakeChip(slotId, userGold);
+                }
+            }
+        }
     },
 
     /* handler */
@@ -153,7 +168,7 @@ var XocDiaController = GameController.extend({
         var allSlot = params["6"];
         for(var i=0; i<allSlot.length; i++){
             this._updateGoldSlot(allSlot[i]["1"], allSlot[i]["2"]);
-            this._view.updateUserGold(allSlot[i]["1"], allSlot[i]["3"]);
+            this._updateUserGoldSlot(allSlot[i]["1"], allSlot[i]["3"]);
         }
 
         this._view.setHuyCuocButtonVisible(true);
@@ -170,9 +185,8 @@ var XocDiaController = GameController.extend({
             var slotId = slots[i]["1"];
             var slotGold = slots[i]["2"];
             var userGold = slots[i]["3"];
-
             this._updateGoldSlot(slotId, slotGold);
-            this._view.updateUserGold(slotId, userGold);
+            this._updateUserGoldSlot(slotId, userGold);
 
             if(userGold > 0){
                this._addFakeChip(slotId, userGold);
@@ -201,7 +215,7 @@ var XocDiaController = GameController.extend({
         this._view.setDatLaiButtonVisible(false);
         this._view.huyCuocThanhCong();
         for(var i=0;i<this.bettingSlotCount;i++){
-            this._view.updateUserGold(i, 0);
+            this._updateUserGoldSlot(i, 0);
         }
     },
 
@@ -232,6 +246,7 @@ var XocDiaController = GameController.extend({
             case 1: //chuẩn bị ván mới
             {
                 this.slotGold = [];
+                this.userGoldSlot = [];
                 this._view.setTimeRemaining(0, 0);
                 this._view.hideDisk();
                 this._view.resetGame();
@@ -240,6 +255,7 @@ var XocDiaController = GameController.extend({
             case 2: //xóc đĩa
             {
                 this.slotGold = [];
+                this.userGoldSlot = [];
                 this._view.setTimeRemaining(0, 0);
                 this._view.shakeDisk();
                 this._view.resetGame();
@@ -248,6 +264,7 @@ var XocDiaController = GameController.extend({
             case 3: //đặt cược
             {
                 this.slotGold = [];
+                this.userGoldSlot = [];
                 this._view.hideDisk();
                 this._view.setTimeRemaining(currentTime, maxTime);
                 this._view.playSoundDatCuoc();
@@ -290,6 +307,24 @@ var XocDiaController = GameController.extend({
     _updateGoldSlot : function (slotId, gold) {
         this._view.updateSlotGold(slotId, gold);
         this.slotGold[slotId] = gold;
+    },
+
+    _updateUserGoldSlot : function (slotId, gold) {
+        this._view.updateUserGold(slotId, gold);
+        this.userGoldSlot[slotId] = gold;
+
+        var totalGold = 0;
+        for(var i=0; i<this.bettingSlotCount; i++){
+            if(this.userGoldSlot[i]){
+                totalGold += this.userGoldSlot[i];
+            }
+        }
+        if(totalGold > 0){
+            this._view.setTongCuocLabel(totalGold);
+        }
+        else{
+            this._view.setTongCuocLabel(-1);
+        }
     },
     
     _updateHistory : function (historyList) {

@@ -242,7 +242,9 @@ var SmartfoxClient = (function () {
             }
         },
         postEvent: function (messageType, params) {
-            //this.prePostEvent(messageType, params);
+            cc.log("messageType : " + messageType);
+            cc.log(params);
+
             var arr = this.allListener[messageType];
             if (arr) {
                 this.isBlocked = true;

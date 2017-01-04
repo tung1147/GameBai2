@@ -738,6 +738,9 @@ var XocDiaScene = IGameScene.extend({
 
         this.chipNode.removeAllChildren(true);
         this.stopAllActions();
+
+        this.setTongCuocLabel(-1);
+        this.setWinLabel(-1);
     },
 
     datLaiThanhCong: function () {
