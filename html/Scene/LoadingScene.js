@@ -81,6 +81,6 @@ var LoadingScene = cc.Scene.extend({
                 }, function () {
 
                 });
-        }, 3000);
+        }, 1000);
     },
 });
