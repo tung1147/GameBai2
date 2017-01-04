@@ -5,6 +5,8 @@ var Sam = TienLen.extend({
     ctor: function () {
         this._super();
 
+        this.timeRemaining = 0;
+        this.timeInterval = null;
         var baosamBt = new ccui.Button("game-baosamBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
         baosamBt.setPosition(cc.winSize.width - 910, 50);
         this.sceneLayer.addChild(baosamBt);
@@ -17,6 +19,12 @@ var Sam = TienLen.extend({
         huysamBt.visible = false;
         this.huysamBt = huysamBt;
 
+        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_BoldCondensed_36_Glow,"");
+        timeLabel.setPosition(cc.winSize.width/2, 425);
+        timeLabel.setScale(2.0);
+        this.sceneLayer.addChild(timeLabel);
+        this.timeLabel = timeLabel;
+
         var thiz = this;
         baosamBt.addClickEventListener(function () {
             thiz.sendBaoSamRequest();
@@ -24,7 +32,7 @@ var Sam = TienLen.extend({
 
         huysamBt.addClickEventListener(function () {
             thiz.sendHuySamRequest();
-        })
+        });
     },
     initController : function () {
         this._controller = new SamController(this);
@@ -97,8 +105,26 @@ var Sam = TienLen.extend({
     },
 
     showBaoSamTimeRemaining: function (timeRemaining) {
-        this.progressTimerBaoSam.visible = true;
-        this.playerView[0].setProgressPercentage(timeRemaining/10000.0);
+        if (timeRemaining > 0) {
+            this.timeRemaining = timeRemaining;
+            if (this.timeInterval) {
+                clearInterval(this.timeInterval)
+            }
+            var thiz = this;
+            thiz.timeLabel.setString(timeRemaining);
+            thiz.timeRemaining--;
+            this.timeInterval = setInterval(function () {
+                if (thiz.timeRemaining <= 0){
+                    thiz.timeLabel.setString("");
+                    clearInterval(thiz.timeInterval);
+                }else{
+                    thiz.timeLabel.setString(thiz.timeRemaining);
+                    thiz.timeRemaining--;
+                }
+            }, 1000);
+        }else{
+            this.timeLabel.setString("");
+        }
     },
 
     sendBaoSamRequest: function () {

@@ -201,7 +201,7 @@ var BaCay = IGameScene.extend({
                 }
             }, 1000);
         }else{
-
+            this.timeLabel.setString("");
         }
     },
 

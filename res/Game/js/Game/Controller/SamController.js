@@ -1,6 +1,9 @@
 /**
  * Created by QuyetNguyen on 11/23/2016.
  */
+
+s_sfs_error_msg[34] = "Không được để 2 cuối";
+
 var SamController = TLMNGameController.extend({
     ctor : function (view) {
         this._super();
@@ -63,13 +66,17 @@ var SamController = TLMNGameController.extend({
         var msg = username == PlayerMe.username ? "Bạn" : ("Người chơi " + username);
         msg+= " đã hủy sâm thành công";
         this._view.alertMessage(msg);
-        this._view.setSamBtVisible(false);
+        if (PlayerMe.username == username){
+            this._view.setSamBtVisible(false);
+        }
     },
 
     onChangeSamState: function (state, timeRemaining) {
         this._view.setSamBtVisible(state == 1);
         if (state == 1)
-            this._view.showBaoSamTimeRemaining(timeRemaining);
+            this._view.showBaoSamTimeRemaining(Math.round(timeRemaining/1000));
+        else
+            this._view.showBaoSamTimeRemaining(0);
     },
 
     onNotifiOne: function (username) {
