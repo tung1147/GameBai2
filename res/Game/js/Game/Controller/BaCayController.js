@@ -75,7 +75,7 @@ var BaCayController = GameController.extend({
                 this._view.setStateString("Đang đợi người chơi");
                 break;
             case 1:
-                this._view.setStateString("Bàn chơi đã sẵn sàng");
+                this._view.setStateString("Chuẩn bị ván mới");
                 break;
             case 2:
                 this._view.setStateString("");
@@ -85,6 +85,7 @@ var BaCayController = GameController.extend({
                 break;
         }
         this._view.setRevealBtVisible(roomState == 2);
+        this._view.showTimeRemaining(remainingTime);
         if (roomState != 2)
             this._view.resetBoard();
     },

@@ -62,6 +62,8 @@ var BaCay = IGameScene.extend({
     ctor: function () {
         this._super();
         this.initScene();
+        this.timeRemaining = 0;
+        this.timeInterval = null;
     },
 
     initScene: function () {
@@ -94,6 +96,12 @@ var BaCay = IGameScene.extend({
         huThuongValueLabel.setColor(cc.color("#ffde00"));
         this.sceneLayer.addChild(huThuongValueLabel);
         this.huThuongValueLabel = huThuongValueLabel;
+
+        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_BoldCondensed_36_Glow,"");
+        timeLabel.setPosition(huThuongBg.x, huThuongBg.y - 100);
+        timeLabel.setScale(2.0);
+        this.sceneLayer.addChild(timeLabel);
+        this.timeLabel = timeLabel;
     },
 
     initPlayer: function () {
@@ -171,6 +179,30 @@ var BaCay = IGameScene.extend({
 
     onRevealBtClick: function () {
         this._controller.sendRevealCard();
+    },
+
+    //seconds
+    showTimeRemaining: function (timeRemaining) {
+        if (timeRemaining > 0) {
+            this.timeRemaining = timeRemaining;
+            if (this.timeInterval) {
+                clearInterval(this.timeInterval)
+            }
+            var thiz = this;
+            thiz.timeLabel.setString(timeRemaining);
+            thiz.timeRemaining--;
+            this.timeInterval = setInterval(function () {
+                if (thiz.timeRemaining <= 0){
+                    thiz.timeLabel.setString("");
+                    clearInterval(thiz.timeInterval);
+                }else{
+                    thiz.timeLabel.setString(thiz.timeRemaining);
+                    thiz.timeRemaining--;
+                }
+            }, 1000);
+        }else{
+
+        }
     },
 
     performAssetChange: function (amount, goldAfter, username) {

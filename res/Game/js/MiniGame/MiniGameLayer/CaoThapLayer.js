@@ -8,6 +8,8 @@ var CaoThapLayer = MiniGamePopup.extend({
     ctor: function () {
         this._super();
         this._boudingRect = cc.rect(30, 47, 930, 510);
+
+        this.gameGroup = "mini.caothap";
         this.rolling = false;
         this.timeRemainingInterval = null;
         this.timeRemaining = 0;

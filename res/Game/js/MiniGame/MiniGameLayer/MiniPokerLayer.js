@@ -6,6 +6,7 @@ var MiniPokerLayer = MiniGamePopup.extend({
     ctor: function () {
         this._super();
 
+        this.gameGroup = "mini.poker";
         this.cardSprites = [];
         this.autoRoll = false;
         this.rolling = false;

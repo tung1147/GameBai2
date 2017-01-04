@@ -72,7 +72,10 @@ var MiniGamePopup = cc.Node.extend({
         SoundPlayer.stopSound("lucky_wheel");
     },
 
-    performChangeRewardFund: function (data) {
+    performChangeRewardFund: function (data,group) {
+        if (this.gameGroup != group){
+            return;
+        }
         this.rewardFund = data;
         var betAmountID = this.chipGroup.chipSelected.chipIndex;
         if (!this.rewardFund || this.rewardFund.length < 3)

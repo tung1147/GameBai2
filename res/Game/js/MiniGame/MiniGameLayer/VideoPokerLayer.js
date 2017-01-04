@@ -6,6 +6,7 @@ var VideoPokerLayer = MiniGamePopup.extend({
     ctor: function () {
         this._super();
 
+        this.gameGroup = "mini.videopoker";
         this.cardSprites = [];
         this.rolling = false;
         this.baseCardHeight = 0;
