@@ -339,7 +339,8 @@ var TLMNGameController = GameController.extend({
             };
 
             //update gold
-            this._view.updateGold(username, gold);
+            var userGold = parseInt(playerData[i]["3"]);
+            this._view.updateGold(username, userGold);
         }
 
         this._view.showFinishedDialog(player);
