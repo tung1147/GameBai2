@@ -53,8 +53,8 @@ var LoadingScene = cc.Scene.extend({
     },
 
     nextScene : function () {
+        this.backgroundLoading();
         cc.director.replaceScene(new HomeScene());
-
         //cc.director.replaceScene(new XocDiaScene());
     },
 
@@ -71,5 +71,14 @@ var LoadingScene = cc.Scene.extend({
         if(status == LaucherStatus.OnLoadFinished){
             this.nextScene();
         }
-    }
+    },
+
+    backgroundLoading : function () {
+        cc.loader.load(s_sound,
+        function (result, count, loadedCount) {
+
+        }, function () {
+
+        });
+    },
 });

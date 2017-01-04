@@ -360,7 +360,7 @@ cc.Audio.WebAudio.prototype = {
 
         cache: {},
 
-        useWebAudio: false,
+        useWebAudio: SWA,
 
         loadBuffer: function (url, cb) {
             if (!SWA) return; // WebAudio Buffer
