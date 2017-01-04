@@ -74,11 +74,13 @@ var LoadingScene = cc.Scene.extend({
     },
 
     backgroundLoading : function () {
-        cc.loader.load(s_sound,
-        function (result, count, loadedCount) {
+        setTimeout(function () {
+            cc.loader.load(s_sound,
+                function (result, count, loadedCount) {
 
-        }, function () {
+                }, function () {
 
-        });
+                });
+        }, 3000);
     },
 });
