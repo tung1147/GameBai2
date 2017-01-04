@@ -50,6 +50,9 @@ var SettingDialog = Dialog.extend({
         soundOnOff.setPosition(550, soundLabel.y);
         soundOnOff.onSelect = function (target,selected) {
             cc.Global.SetSetting("sound",selected);
+            if (!selected){
+                SoundPlayer.stopAllSound();
+            }
         };
         this.dialogNode.addChild(soundOnOff);
         soundOnOff.select(cc.Global.GetSetting("sound",true));

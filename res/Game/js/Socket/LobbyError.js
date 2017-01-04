@@ -11,6 +11,10 @@ LobbyClient.Error = {
         message : "Sai mật khẩu", //change password
         logout : false,
     },
+    9 : {
+        message : "Không đủ tiền",
+        logout : false,
+    },
     10 : {
         message : "Tài khoản đã tồn tại",
         logout : true,

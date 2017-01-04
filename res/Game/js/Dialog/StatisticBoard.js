@@ -10,6 +10,7 @@ var StatisticBoard = IDialog.extend({
         this.command[GameType.MiniGame_VideoPoker] = {getTop: "258", getExplosion: "259", getHistory: "257"};
         this.gameType = gameType;
         this.rewards = [];
+        this.caoThapResults = ["Thắng","Hòa","Thua","Nổ hũ"];
         this.initRewards();
 
         var board_bg = ccui.Scale9Sprite.createWithSpriteFrameName("board_bg.png", cc.rect(105, 105, 147, 147));
@@ -397,6 +398,8 @@ var StatisticBoard = IDialog.extend({
             } else {
                 rewardName = this.rewards[rewardName];
             }
+        } else if (this.gameType == GameType.MiniGame_CaoThap){
+            rewardName = this.caoThapResults[rewardName];
         }
         var rewardNameLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, rewardName);
         rewardNameLabel.setPosition(bg3.getPosition());

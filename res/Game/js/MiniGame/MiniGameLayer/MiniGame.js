@@ -15,11 +15,11 @@ var MiniGamePopup = cc.Node.extend({
 
         var tutorialButton = new ccui.Button("caothap_tutorialBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
         tutorialButton.setPosition(769, 426);
-        this.addChild(tutorialButton);
+        this.addChild(tutorialButton,5);
 
         var historyButton = new ccui.Button("caothap_historyBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
         historyButton.setPosition(694, 430);
-        this.addChild(historyButton);
+        this.addChild(historyButton,5);
 
         var jackpotLabel = new cc.LabelBMFont("100.000", cc.res.font.Roboto_CondensedBold_30);
         jackpotLabel.setColor(cc.color("#ffea00"));
@@ -68,7 +68,7 @@ var MiniGamePopup = cc.Node.extend({
     },
 
     onError : function (param) {
-        MessageNode.getInstance().show(param.msg);
+        MessageNode.getInstance().show(LobbyClient.Error[param.code]["message"]);
         SoundPlayer.stopSound("lucky_wheel");
     },
 

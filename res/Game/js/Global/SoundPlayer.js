@@ -11,6 +11,13 @@ SoundPlayer._createURL = function (sound) {
 };
 
 SoundPlayer._playSingleSound = function (sound, loop, cb) {
+    if (cc.Global.GetSetting("sound",false) == false){
+        if(cb){
+            cb();
+        }
+        return;
+    }
+
     var soundUrl = SoundPlayer._createURL(sound);
 
     if(cc.sys.isNative){

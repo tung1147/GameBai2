@@ -55,7 +55,6 @@ var CaoThapController = MiniGameController.extend({
         this._view.showResultCard(resultCard);
         this._view.setGameId(gameId);
         this.result = resultCard;
-        this._view.setReward(lowReward, highReward);
         this._view.setTimeRemaining(this.timeRemaining);
         this._view.setTipString(gameEnded ? "Bạn chọn sai, chúc bạn may mắn lần sau!" :
             "Quân tiếp theo cao hơn hay thấp hơn?");
@@ -63,6 +62,7 @@ var CaoThapController = MiniGameController.extend({
         this._view.setLuotMoiBtVisible(true);
         this.turnState = gameEnded ? 2 : 1;
         this.result = gameEnded ? -1 : resultCard;
+        this._view.setReward(lowReward, highReward);
         for (var i = 0; i < oldCards.length - 1; i++)
             this._view.addHistory(oldCards[i], true);
 
@@ -86,7 +86,6 @@ var CaoThapController = MiniGameController.extend({
     },
 
     onPredictResult: function (data) {
-        this.processData(data);
         var winType = data["9"]; // win(0), same(1), lose(2), bigwin(3)
         switch (winType) {
             case 0: // win
@@ -123,6 +122,7 @@ var CaoThapController = MiniGameController.extend({
             this._view.setTimeRemaining(0);
             this._view.setHighLowBtEnable(false);
         }
+        this.processData(data);
         this._view.setLuotMoiBtVisible(true);
         this._view.setLuotMoiBtEnable(true);
     },
