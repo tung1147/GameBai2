@@ -180,7 +180,7 @@ var VideoPokerController = MiniGameController.extend({
         if (data["5"]) {
             this.setTurnState(1);
             this._view.setCardArray(data["5"]);
-            var holdIndexes = data["7"];
+            var holdIndexes = data["6"]["1"];
             for (var i = 0; i < 5; i++)
                 this.holdingList[i] = ((holdIndexes >> i) & 1);
             this._view.setHoldArray(this.holdingList);

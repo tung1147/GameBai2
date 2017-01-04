@@ -77,7 +77,7 @@ var MiniGamePopup = cc.Node.extend({
         var betAmountID = this.chipGroup.chipSelected.chipIndex;
         if (!this.rewardFund || this.rewardFund.length < 3)
             return;
-        this.jackpotLabel.setString(this.rewardFund[betAmountID - 1]["2"]);
+        this.jackpotLabel.setString(cc.Global.NumberFormat1(this.rewardFund[betAmountID - 1]["2"]));
     },
 
     getCardWithId: function (cardId) {

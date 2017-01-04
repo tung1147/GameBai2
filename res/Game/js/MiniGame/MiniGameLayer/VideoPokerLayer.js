@@ -76,6 +76,12 @@ var VideoPokerLayer = MiniGamePopup.extend({
             holdSprite.setPosition(sprite.getPosition());
             holdSprite.setScale(1.4);
             holdSprite.setVisible(false);
+
+            var holdLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25,"HOLD");
+            holdLabel.setColor(cc.color("#ffd509"));
+            holdLabel.setPosition(holdSprite.width / 2, holdSprite.height/2);
+            holdSprite.addChild(holdLabel);
+
             clippingCardLayout.addChild(holdSprite);
             this.holdLayers.push(holdSprite);
         }
