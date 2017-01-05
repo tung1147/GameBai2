@@ -8,9 +8,13 @@ var MiniPokerController = MiniGameController.extend({
         this.rolling = false;
         this.autoRoll = false;
         this.lastBetType = 1;
+        this.gameGroup = "mini.poker"
     },
 
     onSFSExtension: function (messageType, content) {
+        if (content.p.group != this.gameGroup){
+            return;
+        }
         this._super(messageType, content);
         var thiz = this;
         switch (content.c) {

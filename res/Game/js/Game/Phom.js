@@ -203,12 +203,13 @@ var Phom = IGameScene.extend({
         this.cardList = cardList;
 
         var drawDeck = new cc.Sprite("#gp_card_up.png");
-        drawDeck.setPosition(cc.winSize.width / 2, cc.winSize.height / 2);
-        var drawDeckLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "");
+        drawDeck.setPosition(cc.winSize.width / 2, cc.winSize.height / 2 + 10);
+        var drawDeckLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, "");
         drawDeckLabel.setPosition(drawDeck.width / 2, drawDeck.height / 2);
-        drawDeck.setScale(0.5);
         drawDeckLabel.setVisible(false);
         drawDeck.addChild(drawDeckLabel);
+        drawDeck.setScale(0.8);
+        cc.Global.deptrai = drawDeck;
         this.drawDeckLabel = drawDeckLabel;
         this.drawDeck = drawDeck;
         this.sceneLayer.addChild(drawDeck);
@@ -592,7 +593,7 @@ var Phom = IGameScene.extend({
         this.sceneLayer.addChild(startBt);
 
         var habaiBt = new ccui.Button("game-habaiBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        habaiBt.setPosition(cc.winSize.width - 310, danhbaiBt.y);
+        habaiBt.setPosition(cc.winSize.width - 510, danhbaiBt.y);
         this.sceneLayer.addChild(habaiBt);
 
         var anbaiBt = new ccui.Button("game-anbaiBt.png", "", "", ccui.Widget.PLIST_TEXTURE);

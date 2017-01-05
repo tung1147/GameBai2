@@ -16,10 +16,14 @@ var CaoThapController = MiniGameController.extend({
         this.result = -1;
         this.rolling = false;
         this.timeRemaining = 0;
+        this.gameGroup = "mini.caothap";
     },
 
 
     onSFSExtension: function (messageType, content) {
+        if (content.p.group != this.gameGroup){
+            return;
+        }
         this._super(messageType, content);
         var thiz = this;
         // var interval = null;
@@ -59,10 +63,11 @@ var CaoThapController = MiniGameController.extend({
         this._view.setTipString(gameEnded ? "Bạn chọn sai, chúc bạn may mắn lần sau!" :
             "Quân tiếp theo cao hơn hay thấp hơn?");
         this._view.setHighLowBtEnable(!gameEnded);
-        this._view.setLuotMoiBtVisible(true);
         this.turnState = gameEnded ? 2 : 1;
         this.result = gameEnded ? -1 : resultCard;
         this._view.setReward(lowReward, highReward);
+        this._view.setLuotMoiBtEnable(oldCards.length > 1);
+        this._view.setLuotMoiBtVisible(oldCards.length > 1);
         for (var i = 0; i < oldCards.length - 1; i++)
             this._view.addHistory(oldCards[i], true);
 

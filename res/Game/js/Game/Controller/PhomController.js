@@ -98,55 +98,55 @@ var PhomController = GameController.extend({
     // },
 
     /* handler */
-    _onGameStatusHandler : function (cmd, content) {
+    _onGameStatusHandler: function (cmd, content) {
         this.onGameStatus(content.p["1"]);
     },
 
-    _onStartGameHandler : function(cmd, content){
+    _onStartGameHandler: function (cmd, content) {
         this.onStartGame(content.p);
     },
 
-    _onDanhBaiThanhCongHandler : function(cmd, content){
+    _onDanhBaiThanhCongHandler: function (cmd, content) {
         this.onDanhBaiThanhCong(content.p);
     },
 
-    _onTurnChangedHandler : function(cmd, content){
+    _onTurnChangedHandler: function (cmd, content) {
         this.onTurnChanged(content.p);
     },
 
-    _onStealCardHandler : function(cmd, content){
+    _onStealCardHandler: function (cmd, content) {
         this.onStealCard(content.p);
     },
 
-    _onBalanceCardHandler : function(cmd, content){
+    _onBalanceCardHandler: function (cmd, content) {
         this.onBalanceCard(content.p);
     },
 
-    _onStealAssetUpdate : function(cmd, content){
+    _onStealAssetUpdate: function (cmd, content) {
         this.onStealAssetUpdate(content.p);
     },
 
-    _onDelegateCard : function(cmd, content){
+    _onDelegateCard: function (cmd, content) {
         this.onDelegateCard(content.p);
     },
 
-    _onHaBaiHandler : function(cmd, content){
+    _onHaBaiHandler: function (cmd, content) {
         this.onHaBai(content.p);
     },
 
-    _onGameFinishedHandler : function(cmd, content){
+    _onGameFinishedHandler: function (cmd, content) {
         this.onGameFinished(content.p);
     },
 
-    _onStatusChangedHandler : function(cmd, content){
+    _onStatusChangedHandler: function (cmd, content) {
         this.onStatusChanged(content.p);
     },
 
-    _onDrawDeckHandler : function(cmd, content){
+    _onDrawDeckHandler: function (cmd, content) {
         this.onDrawDeck(content.p);
     },
 
-    _onUpdateDrawDeckHandler : function(cmd, content){
+    _onUpdateDrawDeckHandler: function (cmd, content) {
         this.onUpdateDrawDeck(content.p);
     },
 
@@ -185,6 +185,7 @@ var PhomController = GameController.extend({
         var userData = param["1"]["5"];
 
         //update turn
+        this.onGameStatus(param["1"]["1"]);
         var turnInfo = param["1"]["12"];
         this._view.showTimeRemainUser(turnInfo["u"], turnInfo["2"] / 1000, 15);
         this._view.performDrawDeckUpdate(turnInfo["3"]);
@@ -266,6 +267,7 @@ var PhomController = GameController.extend({
                 break;
             case 5: // co luot ha bai
                 this._view.setHaBaiBtVisible(true);
+                this._view.setDanhBaiBtVisible(true);
                 break;
             case 6: // co luot gui bai
                 this._view.setGuiBaiBtVisible(true);

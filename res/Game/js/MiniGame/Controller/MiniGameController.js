@@ -32,11 +32,12 @@ var MiniGameController = cc.Class.extend({
     onSFSExtension: function (messageType, content) {
         switch (content.c) {
             case "100000":
-                this._view.performChangeRewardFund(content.p.data["1"],content.p.group);
+                // TODO : suar arhaiuwra
+                this._view.performChangeRewardFund(content.p.data["1"]);
                 break;
             case "260": // thong tin game
                 //this._view.setupMucCuoc(content.p.data["bts"]); // cac muc cuoc
-                this._view.performChangeRewardFund(content.p.data["pbs"],content.p.group); // thay doi hu thuong
+                this._view.performChangeRewardFund(content.p.data["pbs"]); // thay doi hu thuong
                 cc.log(content);
                 break;
 

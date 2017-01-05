@@ -9,9 +9,13 @@ var VideoPokerController = MiniGameController.extend({
         this.initWithView(view);
         this.turnState = 0;
         this.holdingList = [0, 0, 0, 0, 0];
+        this.gameGroup = "mini.videopoker";
     },
 
     onSFSExtension: function (messageType, content) {
+        if (content.p.group != this.gameGroup){
+            return;
+        }
         this._super(messageType, content);
         var thiz = this;
         cc.log(content);

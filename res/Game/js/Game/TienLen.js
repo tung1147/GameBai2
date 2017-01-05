@@ -81,15 +81,15 @@ var TienLen = IGameScene.extend({
     },
     initButton: function () {
         var danhbaiBt = new ccui.Button("game-danhbaiBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        danhbaiBt.setPosition(cc.winSize.width - 510, 50);
+        danhbaiBt.setPosition(cc.winSize.width - 110, 50);
         this.sceneLayer.addChild(danhbaiBt);
 
         var xepBaiBt = new ccui.Button("game-xepbaiBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        xepBaiBt.setPosition(cc.winSize.width - 310, danhbaiBt.y);
+        xepBaiBt.setPosition(cc.winSize.width - 510, danhbaiBt.y);
         this.sceneLayer.addChild(xepBaiBt);
 
         var boluotBt = new ccui.Button("game-boluotBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        boluotBt.setPosition(cc.winSize.width - 110, danhbaiBt.y);
+        boluotBt.setPosition(cc.winSize.width - 310, danhbaiBt.y);
         this.sceneLayer.addChild(boluotBt);
 
         var startBt = new ccui.Button("game-startBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
