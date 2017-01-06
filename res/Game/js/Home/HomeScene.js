@@ -348,7 +348,13 @@ var HomeScene = IScene.extend({
     },
 
     callButtonHandler: function () {
-        // SystemPlugin.getInstance().showCallPhone(GameConfig.hotline);
+        if(cc.sys.isNative){
+            SystemPlugin.getInstance().showCallPhone(GameConfig.hotline);
+        }
+        else{
+            var dialog = new ContactDialog();
+            dialog.showWithAnimationMove();
+        }
 
         // var request = cc.loader.getXMLHttpRequest();
         // request.open("GET", "google.com");

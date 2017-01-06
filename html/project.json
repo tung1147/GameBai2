@@ -45,6 +45,7 @@
         "res/Game/js/Dialog/SettingDialog.js",
         "res/Game/js/Dialog/UserDialog.js",
         "res/Game/js/Dialog/UserinfoDialog.js",
+        "res/Game/js/Dialog/ContactDialog.js",
         "res/Game/js/Dialog/UserListDialog.js",
         "res/Game/js/Dialog/RewardDialog.js",
         "res/Game/js/Dialog/RewardBankDialog.js",

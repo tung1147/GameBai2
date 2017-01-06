@@ -51,11 +51,11 @@ var LobbyLayer = cc.Node.extend({
 
         var left = 310.0 * cc.winSize.screenScale;
         var right = cc.winSize.width - 10.0 * cc.winSize.screenScale;
-        var bottom = 230.0;
+        var bottom = 215.0;
         var top = 590.0;
         var dx = (right - left)/5;
         var x = left + dx/2;
-        var y = 160;
+        var y = 180;
 
         var thiz = this;
         var mToggle = new ToggleNodeGroup();
