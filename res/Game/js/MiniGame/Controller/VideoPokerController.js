@@ -13,7 +13,7 @@ var VideoPokerController = MiniGameController.extend({
     },
 
     onSFSExtension: function (messageType, content) {
-        if (content.p.group != this.gameGroup){
+        if (content.p.group != this.gameGroup) {
             return;
         }
         this._super(messageType, content);
@@ -27,13 +27,13 @@ var VideoPokerController = MiniGameController.extend({
             case "252": // ket qua luot dau tien
                 setTimeout(function () {
                     thiz.onFirstRollResult(content.p.data);
-                },1000);
+                }, 1000);
                 break;
 
             case "253":
                 setTimeout(function () {
                     thiz.onNextRollResult(content.p.data);
-                },1000);
+                }, 1000);
                 break;
 
             case "254":
@@ -60,6 +60,7 @@ var VideoPokerController = MiniGameController.extend({
         this._view.setCardArray(cardArray);
         this._view.setFlashing(false, false);
         this._view.setQuayBtEnable(true);
+        this._view.setNhanThuongBtEnable(false);
     },
 
     onNextRollResult: function (param) {
@@ -69,13 +70,14 @@ var VideoPokerController = MiniGameController.extend({
         var rewardIndexes = param["5"]["1"];
         var rewardArray = [];
         this.setTurnState(resultId < 9 ? 2 : 0);
+        this._view.setNhanThuongBtEnable(resultId < 9);
         for (var i = 0; i < 5; i++)
             rewardArray.push((rewardIndexes >> i) & 1);
 
         var thiz = this;
         var index = 0;
         this._view.activateReward(resultId);
-        if (resultId == 0){
+        if (resultId == 0) {
             this._view.showJackpot();
         }
         this._view.setRewardCards(rewardArray);
@@ -94,6 +96,7 @@ var VideoPokerController = MiniGameController.extend({
         this._view.setFlashing(true, false);
         this._view.setRewardCards([0, 0, 0, 0, 0]);
         this._view.setQuayBtEnable(false);
+        this._view.setNhanThuongBtEnable(false);
     },
 
     onDoubleResult: function (param) {
@@ -107,11 +110,13 @@ var VideoPokerController = MiniGameController.extend({
         if (param["5"] != 2) {
             this.setTurnState(2);
             this._view.setFlashing(true, true);
+            this._view.setNhanThuongBtEnable(true);
         } else {
             this.setTurnState(0);
             this._view.setFlashing(false, false);
+            this._view.setNhanThuongBtEnable(false);
         }
-        this._view.revealDoubleResult (cardArray,choosenPos);
+        this._view.revealDoubleResult(cardArray, choosenPos);
         this._view.setQuayBtEnable(true);
     },
 
@@ -129,8 +134,8 @@ var VideoPokerController = MiniGameController.extend({
         if (!this.checkRequestRolling())
             return;
         var holdValue = 0;
-        this.holdingList = holdIndexes;
         if (holdIndexes.length == 5) {
+            this.holdingList = holdIndexes;
             for (var i = 0; i < 5; i++) {
                 holdValue = holdValue | (holdIndexes[i] << i);
                 // if (!holdIndexes[i]) this._view.setRollCard(i, true);
@@ -152,6 +157,9 @@ var VideoPokerController = MiniGameController.extend({
 
     checkRequestRolling: function () {
         //this.setRolling(this.turnState <= 1);
+        if (this.turnState <= 1) {
+            this._view.setNhanThuongBtEnable(false);
+        }
         return this.turnState <= 1;
     },
 
@@ -167,7 +175,7 @@ var VideoPokerController = MiniGameController.extend({
         }
     },
 
-    getTurnState : function () {
+    getTurnState: function () {
         return this.turnState
     },
 

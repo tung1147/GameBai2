@@ -49,14 +49,14 @@ var LobbyBottomBar = cc.Node.extend({
         var level = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, "Level 50");
         level.setAnchorPoint(0.0, 0.5);
         level.setPosition(330, 65);
-        level.setColor(cc.color.WHITE);
+        level.setColor(cc.color("#ffffff"));
         this.addChild(level, 1);
         this.levelLabel = level;
 
         var vip = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, "VIP 5");
         vip.setAnchorPoint(0.0, 0.5);
         vip.setPosition(330, 30);
-        vip.setColor(cc.color.WHITE);
+        vip.setColor(cc.color("#ffffff"));
         this.addChild(vip, 1);
         this.vipLabel = vip;
 

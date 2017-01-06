@@ -209,7 +209,6 @@ var Phom = IGameScene.extend({
         drawDeckLabel.setVisible(false);
         drawDeck.addChild(drawDeckLabel);
         drawDeck.setScale(0.8);
-        cc.Global.deptrai = drawDeck;
         this.drawDeckLabel = drawDeckLabel;
         this.drawDeck = drawDeck;
         this.sceneLayer.addChild(drawDeck);

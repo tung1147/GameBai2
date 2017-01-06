@@ -77,7 +77,7 @@ var FloatButton = (function() {
             if(currentParent){
                 currentParent.removeChild(this);
             }
-            parent.addChild(this);
+            parent.addChild(this,100);
             this.forceHide();
            // cc.log("show");
         },

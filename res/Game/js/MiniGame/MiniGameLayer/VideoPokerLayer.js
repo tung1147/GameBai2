@@ -110,7 +110,10 @@ var VideoPokerLayer = MiniGamePopup.extend({
 
         var nhanThuongBt = new ccui.Button("videopoker_nhanthuongBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
         nhanThuongBt.setPosition(685, 90);
+        nhanThuongBt.setScale9Enabled(true);
+        this.nhanThuongBt = nhanThuongBt;
         this.addChild(nhanThuongBt, 1);
+        this.setNhanThuongBtEnable(false);
 
         this._boudingRect = cc.rect(30, 47, 930, 510);
 
@@ -154,6 +157,7 @@ var VideoPokerLayer = MiniGamePopup.extend({
         this.setFlashing(false, false);
         this.resultLabel.setString("");
         this.bankLabel.setString("0");
+        this.setNhanThuongBtEnable(false);
 
         for (var i = 0; i < 5; i++) {
             this.holdingList[i] = false;
@@ -360,6 +364,11 @@ var VideoPokerLayer = MiniGamePopup.extend({
     setQuayBtEnable: function (enabled) {
         this.rollButton.enabled = enabled;
         this.rollButton.setBright(enabled);
+    },
+
+    setNhanThuongBtEnable : function(enabled){
+        this.nhanThuongBt.setBright(enabled);
+        this.nhanThuongBt.setEnabled(enabled);
     },
 
     showJackpot: function () {

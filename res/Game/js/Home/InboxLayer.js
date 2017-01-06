@@ -2,7 +2,7 @@
  * Created by Quyet Nguyen on 7/13/2016.
  */
 
-var s_text_color = s_text_color || cc.color.WHITE;
+var s_text_color = s_text_color || cc.color("#ffffff");
 var s_text_color_readed = s_text_color_readed || cc.color(120,120,120,255);
 
 var InboxLayer = LobbySubLayer.extend({

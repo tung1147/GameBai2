@@ -4,7 +4,7 @@
 var MiniGamePopup = cc.Node.extend({
     ctor: function () {
         this._super();
-        //  this.setScale(0.6);
+        this.setScale((1 + Math.sqrt(5)) / 2 - 1);
         this.initController();
 
         this.rewardFund = [];
@@ -15,11 +15,11 @@ var MiniGamePopup = cc.Node.extend({
 
         var tutorialButton = new ccui.Button("caothap_tutorialBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
         tutorialButton.setPosition(769, 426);
-        this.addChild(tutorialButton,5);
+        this.addChild(tutorialButton, 5);
 
         var historyButton = new ccui.Button("caothap_historyBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
         historyButton.setPosition(694, 430);
-        this.addChild(historyButton,5);
+        this.addChild(historyButton, 5);
 
         var jackpotLabel = new cc.LabelBMFont("100.000", cc.res.font.Roboto_CondensedBold_30);
         jackpotLabel.setColor(cc.color("#ffea00"));
@@ -67,7 +67,7 @@ var MiniGamePopup = cc.Node.extend({
 
     },
 
-    onError : function (param) {
+    onError: function (param) {
         MessageNode.getInstance().show(LobbyClient.Error[param.code]["message"]);
         SoundPlayer.stopSound("lucky_wheel");
     },
@@ -100,7 +100,7 @@ var MiniGamePopup = cc.Node.extend({
         var changeText = (changeAmount >= 0 ? "+" : "") + changeAmount;
         changeSprite.setString(changeText);
         changeSprite.setColor(cc.color(changeAmount >= 0 ? "#ffde00" : "#ff0000"));
-        changeSprite.setPosition(50,70);
+        changeSprite.setPosition(50, 70);
         parent.addChild(changeSprite, 420);
 
         changeSprite.runAction(new cc.Sequence(new cc.MoveTo(1.0, changeSprite.x, changeSprite.y + 50), new cc.CallFunc(function () {

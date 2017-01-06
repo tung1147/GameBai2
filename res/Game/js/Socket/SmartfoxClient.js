@@ -395,7 +395,7 @@ var SmartfoxClient = (function () {
 
         _onFullRoomHandler : function (cmd, contents) {
             LoadingDialog.getInstance().hide();
-            MessageNode.getInstance().show("Room đã đầy");
+            MessageNode.getInstance().show("Phòng đầy");
         },
 
 
