@@ -4,8 +4,8 @@
 
 var s_xocdia_slot_id = s_xocdia_slot_id || [0, 1, 4, 2, 6, 5, 3];
 var s_xocdia_slot_position = s_xocdia_slot_position || [
-        {x: 271, y: 407},
         {x: 1011, y: 407},
+        {x: 271, y: 407},
         {x: 150, y: 215},
         {x: 395, y: 215},
         {x: 640, y: 215},
@@ -712,6 +712,12 @@ var XocDiaScene = IGameScene.extend({
                         new cc.MoveTo(0.5, cc.p(50, 50)),
                         new cc.CallFunc(function () {
                             chip.removeFromParent(true);
+                        }),
+                        new cc.CallFunc(function () {
+                            if (thiz.pendingGoldChange > 0) {
+                                thiz.performChangeAsset(thiz.pendingGoldChange);
+                                thiz.pendingGoldChange = null;
+                            }
                         })
                     ));
                 }
@@ -729,6 +735,19 @@ var XocDiaScene = IGameScene.extend({
         }
 
         this.bettingSlot[slotId]._chips = [];
+    },
+
+    performChangeAsset: function (changeAmount) {
+        var changeSprite = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, "");
+        var changeText = (changeAmount >= 0 ? "+" : "") + changeAmount;
+        changeSprite.setString(changeText);
+        changeSprite.setColor(cc.color(changeAmount >= 0 ? "#ffde00" : "#ff0000"));
+        changeSprite.setPosition(50, 70);
+        this.sceneLayer.addChild(changeSprite, 420);
+
+        changeSprite.runAction(new cc.Sequence(new cc.MoveTo(1.0, changeSprite.x, changeSprite.y + 50), new cc.CallFunc(function () {
+            changeSprite.removeFromParent(true);
+        })));
     },
 
     resetGame: function () {
@@ -949,6 +968,7 @@ var XocDiaScene = IGameScene.extend({
         else {
             this.winLabel.setVisible(true);
             this.winLabel.setString("Thắng: " + cc.Global.NumberFormat1(gold));
+            this.pendingGoldChange = gold;
         }
     },
 
