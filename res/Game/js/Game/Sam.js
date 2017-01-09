@@ -123,6 +123,7 @@ var Sam = TienLen.extend({
                 }
             }, 1000);
         }else{
+            this.timeRemaining = 0;
             this.timeLabel.setString("");
         }
     },
