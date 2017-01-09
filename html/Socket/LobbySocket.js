@@ -102,7 +102,7 @@ socket.LobbyClient = cc.Class.extend({
                     ws.close();
                 };
             }
-            else{
+            else if(this.wsocket.readyState == 1){ //open
                 this.wsocket.close();
             }
             this.wsocket = null;
