@@ -52,7 +52,7 @@ var s_resource = s_resource || [
 	"res/gamemini.png",
 	"res/GameScene.plist",
 	"res/GameScene.png",
-	"res/HDList.plist",
+	"res/data/HDList.plist",
 	"res/home.plist",
 	"res/home.png",
 	"res/lobby.plist",
