@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>TLMNDEMLA</key>
+	<string>Bộ bài
+  - Game Tiến lên miền Nam đếm lá sử dụng cả bộ bài tú lơ khơ gồm 52 lá.
+  - Độ lớn các là bài được sắp xếp theo thứ tự 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K, A, 2. Trong đó nhỏ nhất là 3 và lớn nhất là 2.
+  - Độ lớn được sắp xếp từ bé đến lớn như sau: Bích ♠ - Chuồn ♣ - Rô ♦ - Cơ ♥.
+  - Số lượng người chơi được quy định trong luật chơi Tiến lên miền Nam đếm lá là từ 2 đến 4 người.
+
+Các thuật ngữ trong Game:
+  - Đôi: Bộ gồm 2 lá bài có cùng số.
+  - Sám cô: Bộ bao gồm 3 lá cùng số.
+  - Sảnh: Bộ gồm 3 quân liên tiếp trở lên không phân biệt Chất.
+  - Rác: Lưu ý: Không có Sảnh K-A-2 hoặc 1-2-3 hoặc 2-3-4.
+  - Tứ quý: Các lá bài lẻ, không thể ghép vào đôi, Sám Cô hoặc Sảnh.
+  - Đôi thông: Bộ gồm 4 lá bài cùng số có thể chặt được đôi 2. 3 đôi trở lên có thứ tự liên tiếp nhau.
+  - Đút mù: Người chơi đánh 3 bích cuối cùng.
+  - Thối: Khi người thắng cuộc kết thúc ván, người chơi khác còn lại lá 2, tứ quý hoặc đôi thông trên tay.
+  - Cóng: Người chơi đến cuối ván vẫn không đánh ra được lá bài nào.
+
+Quá trình chơi:
+  - Khi bắt đầu chơi, mỗi người chơi được chia 13 lá bài.
+  - Lượt chơi đánh bài ngược chiều kim đồng hồ.
+  - Ván đầu tiên người chơi có lá bài 3♠ Hođược đi trước và bắt buộc phải đánh ra lá 3♠ (có thể theo đôi hoặc sảnh). Từ ván sau trở đi người thắng sẽ được bắt đầu trước.
+  - Trường hợp có 2 người chơi,trong bộ bài không có 3♠ sẽ tính lá bài nhỏ nhất.
+  - Mỗi lượt chơi người chơi cần đánh ra lá bài ( hoặc bộ bài) có thể chặt được lá bài (hoặc bộ bài) của người chơi trước vừa đánh ra, trong trường hợp không thể chặt được thì người người chơi đó sẽ mất lượt.
+  - Khi không có người chơi chặt được lá bài vừa đánh thì lượt chơi kết thúc, người vừa đánh có thể tiếp tục đánh ra quân bài tùy ý.
+  - Ván bài kết thúc khi trong bàn có 1 người đánh hết bài.
+  
+Quy định về chặt hàng trong luật chơi Tiến lên miền Nam đếm lá
+  - 3 đôi thông chặt được: 1 cây 2 hoặc 3 đôi thông nhỏ hơn( 3 đôi thông đè).
+  - Tứ quý chặt được 3 đôi thông hoặc đôi 2,hoặc tứ quý nhỏ hơn(tứ quý đè)
+  - 4 đôi thông chặt được: 1 cây hoặc đôi 2 bất kì (đen, đỏ hoặc cả đen và đỏ), 3 hoặc 4 đôi thông nhỏ hơn (4 đôi thông đè) và tứ quý.
+  - 4 đôi thông chặt không cần vòng.
+  - Luật đặc biệt cho lá 2:
+  - Được đánh cuối.
+  - Không xếp vào dây (2-3-4).
+        
+  - Ăn trắng: Là trường hợp người chơi thắng luôn ngay sau khi chia bài nếu có 1 dây từ 3 đến A, 5 đôi thông, tứ quý 2, 6 đôi, hoặc 4 sám cô.
+
+Tính điểm thắng thua trong game:
+2 đen = 5 lá bài,2 đỏ = 10 lá bài,ba đôi thông = 10 lá.Tứ quý=20 lá.4 đôi thông = 30 lá.
+  - Nhất ăn tất
+  - Thua bị trừ số lá còn lại nhân với mức cược.
+  - Ăn trắng : người thua sẽ bị trừ 13 lá bài x 2 x mức cược.
+  - Thua cóng: người thua sẽ bị trừ tính theo hàng ( 3 đôi thông,4 đôi thông,tứ quý,2 ) các lá bài còn lại x2 x mức cược.
+        
+Các tình huống:
+  - Chủ bàn thoát game, quyền chủ bàn sẽ được trao cho người kế tiếp.
+  - Thời gian 1 lượt đánh người chơi thực hiện thao tác “Xếp bài” và “Đánh” hoặc “Thôi”. Hết thời gian  người chơi ko thực hiện bất cứ thao tác nào thì máy sẽ tự động “Thôi” và nhường quyền đánh cho người kế tiếp.
+    </string>
+	<key>XOCDIA</key>
+	<string>Luật chơi xóc đĩa rất đơn giản, về cơ bản thì trong trò xóc đĩa sẽ có 2 phần: bộ đồ để xóc đĩa và bàn cược. Đầu tiên người chơi sẽ đặt cược trên bàn cược, chủ sới sẽ bắt đầu xóc đĩa. Sau đó, mở đĩa ra để so sánh kết quả thắng thua bằng màu của 4 nút.
+Cược lẻ:
+  - 3 nút trắng, 1 nút đỏ
+  - 3 nút đỏ, 1 nút trắng
+Cược chẵn:
+  - 4 nút trắng
+  - 4 nút đỏ
+  - 2 nút trắng, 2 nút đỏ
+Tỷ lệ:
+  - Tỉ lệ trả thưởng thắng chẵn lẻ là 1:1(đặt 1 ăn 1)
+  - Tỉ lệ trả thưởng 3 trắng một đỏ là 1:3 ( đặt 1 ăn 3)
+  - Tỉ lệ trả thưởng 3 đỏ một trắng là 1:3 ( đặt 1 ăn 3)
+  - Tỉ lệ trả thưởng của 4 đỏ,4 trắng là 1:10( đặt 1 ăn 10).
+Người chơi có thể chơi với nhà cái tự động hoặc người chơi khác làm cái,bạn cũng có thể tự mình xin cái.Điều kiện xin cái như sau :
+  - Bàn chơi chưa có người chơi khác làm cái.
+  - Tài khoản phải có số vàng tương ứng với mức cược các bàn như sau :
+        + Bàn 10v : 100.000 vàng trở lên.
+        + Bàn 5000v: 300.000 vàng trở lên.
+        + Bàn 50.000 v: 1.500.000 vàng trở lên.
+        + Bàn 100.000 v : 5.000.000 vàng trở lên
+</string>
+	<key>TAIXIU</key>
+	<string>Luật chơi Tài xỉu rất đơn giản, người chơi chỉ cần đặt cược kết quả của các viên xúc xắc, mỗi kiểu cược sẽ có tỷ lệ thắng khác nhau được thể hiện rất cụ thể trong bảng xí ngầu.
+  - Điều đầu tiên bạn cần là trước khi đánh Tài xỉu là quan sát và làm quen với bảng Xí ngầu. Nhìn sơ qua có vẻ phức tạp nhưng thực tế mọi thông tin trong bảng Xí ngầu được trình bày khá đầy đủ và rõ ràng.
+  - Luật chơi cơ bản là bạn sẽ đặt cược để dự đoán kết quả của 3 viên xúc xắc được nhà cái gieo trong một hộp nhỏ.
+  - Bạn có thể đặt cược kết quả xúc xắc với nhiều kiểu cược khác nhau.
+  - Mỗi kiểu cược sẽ có tỷ lệ thắng thua và mức thưởng khác nhau.
+  - Trong mỗi ván chơi bạn có thể đặt cược bao nhiêu tùy ý.
+  
+CƯỢC TÀI XỈU
+  - Đây là kiểu cược cơ bản nhất trong lắc Tài xỉu. Cách cược rất đơn giản, bạn đặt cược Xỉu nếu dự đoán của bạn cho tổng số điểm của 3 viên xúc xắc là 4 đến 10 điểm và cược Tài nếu dự đoán của bạn là 11 đến 17 điểm.
+  - Nếu dự đoán đúng, bạn sẽ được thưởng theo tỷ lệ 1:1 cho mỗi đơn vị đặt cược. Nếu dự đoán sai bạn sẽ bị mất số tiền đã cược.
+  
+CƯỢC BỘ BA ĐỒNG NHẤT
+Đây là hình thức để bạn đặt cược khi bạn dự đoán kết quả quay là 3 viên xúc xắc giống nhau.
+  - Nếu bạn đặt cược kết quả là bộ ba đồng nhất BẤT KỲ, tỷ lệ trả thưởng sẽ là 1 ăn 24.
+  - Để nâng tỷ lệ trả thưởng lên gấp 6 lần, tức là 1:150, bạn cần phải chọn đặt cược bộ ba đồng nhất CỤ THỂ. Tỷ lệ 1:150 cũng là tỷ lệ trả thưởng lớn nhất trên bảng xí ngầu.
+    CƯỢC TỔNG
+  - Cược tổng là kiểu cược dự đoán số điểm tổng cụ thể của 3 viên xúc xắc.
+  - Đối với cược tổng bạn chỉ có thể đặt cho số điểm từ 4 đến 17, vì 3 và 18 nằm trong kết quả của cược bộ 3 đồng nhấ 1 và bộ 3 đồng nhất 6.
+  - Trong cược tổng, tỷ lệ trả thưởng cho mỗi cược là khác nhau tùy vào xác suất cho ra kết quả cao hay thấp. Tỷ lệ cụ thể này được thể hiện rõ trên từng khu vực đặt cược.
+    CƯỢC SỐ
+  - Cược số là đặt cược 1 con số cụ thể sẽ xuất hiện trong kết quả quay.
+    tỉ lệ trả thưởng cược số là 1:1
+CƯỢC CHẴN LẺ:
+Cược chẵn lẻ là cược tổng kết quả là số chẵn hay số lẻ,tỉ lệ trả thưởng cho cược này là 1:1
+  - Bạn có thể tham gia cược với nhà cái hoặc người chơi khác làm cái,và bạn cũng có thể tự mình xin cái.Điều kiện xin cái cụ thể như sau:
+      + Bàn chơi chưa có người chơi khác làm cái.
+      + Tài khoản phải có số vàng tương ứng với mức cược các bàn như sau :
+  - Bàn 10v : 100.000 vàng trở lên.
+  - Bàn 5000v: 300.000 vàng trở lên.
+  - Bàn 50.000 v: 1.500.000 vàng trở lên.
+  - Bàn 100.000 v : 5.000.000 vàng trở lên
+    
+</string>
+	<key>VQGD</key>
+	<string>
+  - Bạn dùng vàng để mua cái gói vòng quay với số vàng tương ứng.
+  - Khi quay trúng ô giá trị bất kỳ số vàng sẽ cộng trực tiếp vào tài khoản của bạn.
+  - Phần thưởng cho vòng quay may mắn từ 200 vàng đến 1.500.000 vàng.
+    </string>
+	<key>BACAYNHATANTAT</key>
+	<string>Game 3 cây là game dân gian quen thuộc, nhanh và dễ chơi. Mỗi người sẽ được chia 3 lá bài, sau khi đặt cược sẽ lật bài và so điểm với các người chơi khác để phân định thắng thua.
+  - Bộ bài để chơi gồm 36 lá gồm các quân từ Át tới 9 (bỏ các quân 10, J, Q, K). Trong đó Át được tính là 1 điểm.
+  - Trong game 3 cây tổng 10 điểm là cao nhất, trong trường hợp tổng 3 cây bài cộng lại lớn hơn 10 sẽ lấy hàng đơn vị làm kết quả để so bài ( 20 điểm được tính là 10 điểm).
+  - Sáp(Xám cô): 3 lá bài cùng bộ
+  - Liêng đồng chất: 3 lá bài cùng chất theo dây tiến (ví dụ : 2 3 4 .1 2 3 .6 7 8)
+  
+36 cây bài từ Át tới 9 được tính mức độ hơn thua theo thứ tự từ bé tới lớn như sau:
+  - Theo điểm: từ Át tới 9
+  - Theo chất: Bích, Tép, Cơ, Rô.
+Chú ý: Át rô là quân bài đặc biệt nhất vì không theo quy định theo điểm, quân bài Át rô là quân bài lớn nhất.Sau đó là quân 9 rô.
+Như vậy trong trường hợp ván bài có nhiều người chơi bằng điểm nhau thì sẽ lấy cây bài to nhất của các người chơi so với nhau, quân nào lớn hơn thì bài của người đó sẽ thắng.
+Cách tính tiền :
+
+
+          Điểm             |             Tiền ăn được
+           9               |              2 lần cược
+           10              |              2 lần cược
+        10 Át cụ           |              3 lần cược
+        Sáp(Xám cô)        |              4 lần cược
+     Liêng đồng chất       |              4 lần cược
+</string>
+	<key>PHOM</key>
+	<string>Giới thiệu
+    Trò chơi sử dụng bộ bài chuẩn 52 lá. Trong quá trình chơi mỗi người sẽ cố gắng tạo ra các phỏm. Các lá bài không thành phỏm sẽ được tính thành điểm, ai có ít điểm nhất thì thắng.
+    
+Lá bài
+    Bộ 52 lá bài, mỗi quân bài gồm 2 phần số và chất, VD: 6♣(tép) có số 6 và chất ♣(tép). Số của quân bài được tính thành số điểm. Xếp hạng điểm theo số như sau:
+    K (13 điểm) & Q (12 điểm) & J (11 điểm) & 10 & 9 & ... & 3 & 2 & A (1 điểm).
+    
+Xếp bài
+    Phỏm: Là bộ ba hoặc bộ 4 lá cùng số hoặc sảnh 3 lá trở lên (cùng chất và số liên tiếp nhau).
+    Cạ: Là 2 lá bài có thể thêm một lá tạo thành phỏm.
+    
+Đánh bài
+  - Quyền đánh trước: Ván khời đầu chủ phòng đánh trước, các ván tiếp theo người về nhất ở ván trước sẽ được đánh trước.
+  - Bốc bài: Bốc một lá trong lọc.
+  - Ăn bài: Ăn một lá bài người trước vừa đánh.
+  - Ăn chốt: Ăn từ lá bài cuối cùng của vòng đánh thứ 3 trở đi
+  - Tái phỏm: Người chơi đã hạ phỏm rồi, nhưng do có trường hợp bị ăn chốt nên vẫn được đánh tiếp.
+  - Ván bài kết thúc khi mỗi người hạ đủ 4 lá bài trên bàn. Khi một người ù, không còn lá bài rác. Không tính ù tròn (ù 10 lá).
+    
+Hạ bài
+  - Hạ tự động: Máy sẽ tự hạ các phỏm trên bài.
+  - Hạ bằng tay: Người chơi sẽ tự chọn phỏm hợp lệ để hạ. Phải hạ toàn bộ phỏm 1 lần.
+  - Gửi bài: Người hạ sau nếu có phỏm sẽ được gửi các lá bài hợp phỏm với người hạ trước nhằm giảm thiểu số điểm.
+    
+Kết quả
+  - Sau khi đã hạ phỏm, người chơi sẽ cộng điểm các lá bài rác. Ai ít điểm nhất sẽ thắng.
+  - Ù: Thắng tuyệt đối, đạt 0 điểm.
+  - Móm: Không có phỏm nào.
+  - Nếu 2 người cùng số điểm hoặc cùng móm: Ai hạ trước sẽ thắng.
+  - Ù đền: Nếu một người bị ăn 3 cây, hoặc là người cuối cùng ăn chốt trước khi  có người ù, người đó sẽ phải trả tiền thua cho toàn bàn (Số người chơi - 1) x 5 lần cược
+Cách tính tiền :
+         Nhì          |        1 lần cược
+         Ba           |        2 lần cược
+         Bét          |        3 lần cược
+         Móm          |        4 lần cược
+         Ù            |(Số người chơi - 1) x 5 lần cược
+     Chốt hạ 2/3      |        4 lần cược
+     ăn 1 cây         |        1 lần cược
+     ăn 2 cây         |        2 lần cược
+     ăn 3 cây         |        3 lần cược
+</string>
+	<key>Phom_String</key>
+	<array>
+		<string>NHÓM BÀI</string>
+		<string>Nổ hũ thưởng</string>
+		<string>Thùng phá sảnh</string>
+		<string>Tứ quý</string>
+		<string>Củ lũ</string>
+		<string>Thùng</string>
+		<string>Sảnh</string>
+		<string>Sám</string>
+		<string>Hai đôi</string>
+		<string>Đôi J trở lên</string>
+	</array>
+	<key>PhanThuong</key>
+	<array>
+		<string>PHẦN THƯỞNG</string>
+		<string>Quỹ Thưởng</string>
+		<string>x 1000 tiền cược</string>
+		<string>x 150 tiền cược</string>
+		<string>x 50 tiền cược</string>
+		<string>x 20 tiền cược</string>
+		<string>x 13 tiền cược</string>
+		<string>x 8 tiền cược</string>
+		<string>x 5 tiền cược</string>
+		<string>x 2,5 tiền cược</string>
+	</array>
+    <key>PhanThuong2</key>
+    <array>
+        <string>PHẦN THƯỞNG</string>
+        <string>Quỹ Thưởng</string>
+        <string>x 50 tiền cược</string>
+        <string>x 25 tiền cược</string>
+        <string>x 9 tiền cược</string>
+        <string>x 6 tiền cược</string>
+        <string>x 4 tiền cược</string>
+        <string>x 3 tiền cược</string>
+        <string>x 2 tiền cược</string>
+        <string>x 1 tiền cược</string>
+    </array>
+	<key>PokerMini1</key>
+	<string>B1 : Chọn mức cược
+B2 : Click “ QUAY “. Người chơi có thể chọn “quay tự động“ để hệ thống tự động quay và thông báo kết quả. Khi người chơi bỏ nút tick “quay tự động” thì sẽ dừng lại.
+- click biểu tượng “?“ để xem hướng dẫn chơi.
+- click biểu tượng “ cúp “ để xem lịch sử và bảng xếp hạng.
+ĐẶC BIỆT : 10-J-Q-K-A rô sẽ nổ hũ thưởng.
+Cách tính tiền theo mức cược như sau :
+    </string>
+	<key>PokerMini2</key>
+	<string>
+Hũ thưởng : hệ thống sẽ bỏ ra hũ thưởng khác nhau với từng mức cược : 1k, 10k, 100k, mỗi lần thắng sẽ trích 1% tiền cược vào hũ.
+Lịch sử :
+- Lịch sử chơi của mình trong 20 lần gần nhất.
+- Lịch sử những người nổ hũ thưởng.
+- Những người chơi thắng được nhiều tiền nhất trong game.
+    </string>
+    <key>PokerMini3</key>
+    <string>
+Bước 1: Người chơi chọn mức. Click [Quay]. Hệ thống sẽ trả về ngẫu nhiên các quân bài.Hệ thống sẽ trả về ngẫu nhiên các quân bài. Mỗi lượt chơi hệ thống sẽ bỏ 1% mức cược của người chơi cho vào hũ thưởng.
+Bước 2: Người chơi sẽ lựa chọn cây bài để giữ lại. Click[quay]. Hệ thống sẽ trả về ngẫu nhiên các quân bài mà người chơi không chọn.
+Nếu có kết quả như trong bảng dưới đây người chơi sẽ được nhận thưởng khi click[ Nhận thưởng].
+Cách tính tiền theo mức cược như sau:
+    </string>
+    <key>PokerMini4</key>
+    <string>
+ • Click biểu tượng ? để xem hướng dẫn chơi.
+ • Click [biểu tượng cúp] để xem lịch sử và bảng xếp hạng.
+    </string>
+
+	<key>ChanLe</key>
+	<string>B1 : Chọn cửa muốn đặt : chẵn/lẻ.
+B2 : Chọn mức cược muốn đặt : có 5 mức cược ( 1000, 10.000, 100.000, 1M, 10M).
+B3 : Theo dõi kết quả sau khi nhà cái mở bát để biết Thắng / Thua.
+
+Cách chơi game:
+- Tham gia dự đoán phiên chơi về chẵn / lẻ.
+- Người chơi dự đoán dựa theo các mức cược có sẵn.
+- Người chơi sẽ không dự đoán cả chẵn và lẻ trong một ván được (*).
+- Tỉ lệ thắng sẽ dựa trên tỉ lệ số lượng vàng đặt vào cửa chẵn và cửa lẻ.
+
+Trả thưởng khi có kết quả
+- Hệ thống sẽ cắt 5% phế số tiền thắng
+- Bạn có thể xem danh sách các người chơi kiếm tiền nhiều nhất từ chẵn lẽ ở mục Bảng Xếp Hạng</string>
+	<key>CaoThap</key>
+	<string>B1 : Chọn mức cược.
+B2 : Click “ Bốc Bài“ để tham gia chơi hệ thống sẽ ngẫu nhiên xuất hiện một lá bài, để người chơi đưa ra lựa chọn của mình.
+B3 : Dự đoán lá bài tiếp thep cao hay thấp hơn so với lá bài trước đó. Mỗi lượt dự đoán có tối đa 2 phút, hết thời gian mà chưa dự đoán thì thì hệ thống sẽ tự động chọn.
+B4 : Theo dõi kết quả thắng hay thua.
+Trường hợp người chơi bốc lại được đúng con vừa xuấn hiện trước đó, thì số tiền cược của người chơi sẽ bị trích 20% tiền đang có ở trong bank cho vào hũ thưởng, và có thể tiếp tục quay tiếp.
+- Nếu người chơi lúc này chọn chơi lượt mới, hệ thống sẽ trả luôn tiền trong bank về cho người chơi.
+- Nếu người chơi chọn cao hay thấp, hệ thống sẽ tiếp tục trả 1 con random cho người chơi.
+- Nếu trong thời gian 2 phút mà người chơi không chọn cao hay thấp, hết thời gian mà chưa dự đoán thì hệ thống sẽ random chọn cho bạn.
+Mỗi lần bốc bài, hệ thống tự động trích 1% tiền cược  ban đầu cho vào hũ thưởng. Tuy nhiên tiền người chơi vẫn giữ nguyên.
+Hũ thưởng :
+- Cứ mỗi lần bốc bài đầu tiên của lượt chơi, hũ thưởng sẽ được cộng thêm 1% số tiền mức cược
+- Nếu quân bài được trả về kể từ lượt thứ 2 trở đi mà bằng với quân bài của lượt thứ nhất (không tinh chất) thì người chơi sẽ bị mất 20% giá trị của bank đồng thời cho vào hũ thưởng.
+Quy tắc nổ hũ thưởng : Khi người chơi quay được vào con 3K bất kỳ chất gì trong 1 lượt chơi thì hũ thưởng sẽ nổ. Người chơi được 50% số tiền trong hũ và 50% còn lại sẽ đẩy về hệ thống.
+
+Bảng thành tích
+- Danh sách những người chơi nổ hũ thưởng.
+- Những người chơi đạt được số tiền cao nhất trong 1 lượt chơi.
+- Lịch sử vãn chơi của người dùng.</string>
+	<key>SAM</key>
+	<string>Thuật ngữ thưởng dùng:
+- Bài lẻ (rác): Là các quân bài đơn lẻ không nằm trong bộ nào được kể đến dưới dây. Trong luật chơi Sâm lốc, thứ tự các quân bài là 3, 4, 5, ..., J, Q, K, A, 2. Trong đó 3 là quân nhỏ nhất và 2 là quân lớn nhất.
+- Đôi: Là cặp bao gồm 2 quân bài cùng số. Đôi 3 là đôi nhỏ nhất và đôi 2 lớn nhất.
+- Sám: Bộ gồm 3 lá bài cùng số. Thứ tự lớn nhỏ tương tự như bài lẻ.
+- Tứ quý: Bộ gồm 4 là bài cùng số. Thứ tự nhỏ đến lớn cũng tính từ 3 đến 2.
+- Sảnh: Bộ gồm các quân bài có thứ tự liên tiếp. Độ dài của sảnh bắt buộc phải từ 3 lá trở lên. Độ lớn của sảnh được tính như sau: Sảnh nhỏ nhất bắt đầu từ A, sảnh lớn nhất kết thúc bởi A. Ví dụ: A23 - 234 - 345 - …….- JQK - QKA (lưu ý không có sảnh KA2).
+- Ăn trắng: Được tính khi người chơi sở hữu bài có:
+       + Sảnh 10 lá (Sảnh Rồng).
+       + Tứ quý 2.
+       + Cả 10 lá bài cùng màu (không cần cùng chất hoàn toàn).
+       + 3 sám cô.
+       + 5 đôi.
+- Thứ tự ưu tiên báo: Sảnh Rồng & Tứ quý 2 & Cùng màu & 3 sám cô & 5 đôi.
+- Báo Sâm (còn gọi là cướp cái, xin làng): Xem bài, nếu cảm thấy bài của mình có thể về nhất và không ai có thể chặn được thì người chơi có thể "Báo Sâm" để giành quyền ưu tiên đánh trước. Sau khi giành được cái, người chơi sẽ đánh lần lượt bài của mình xuống. Nếu "Báo Sâm" thành công, người chơi sẽ được tính là về nhất. Nếu thất bại, người chơi sẽ phải đền làng.
+            
+Ví dụ: Người chơi có 3, 6, 7, 8, 9, 10, J, Q, K, A thì có thể "Báo Sâm" rồi đánh sảnh 6, 7, 8, 9, 10, J, Q, K, A rồi đánh quân 3 để về.
+
+Cách chơi Sâm lốc:
+            
+Trong luật chơi Sâm, người đi sau sẽ lần lượt chặn bài người đi trước bằng quân bài/ bộ lớn hơn quân bài/bộ mà người đi trước đánh. Không phân biệt màu của bài lẻ (rác). Đôi chặn đôi, sám chặn sám, sảnh chặn sảnh (sảnh phải LỚN HƠN và có ĐỘ DÀI BẰNG sảnh của người đi trước mới có thể chặn).
+- Tứ quý bất kỳ có thể chặn được 2. Một tứ quý chỉ chặn được 1 quân 2.
+- Khi đánh ra một quân/ bộ mà không có ai trong bàn có thể chặn được, người chơi sẽ giành được cái cho lượt đi kế tiếp.
+- Không như luật chơi Tiến lên miền Nam là người chơi có thể về bằng bất cứ quân nào, trong Sâm lốc, nếu người chơi về nhất bằng quân 2 sẽ bị tính là "Thối 2".
+Lưu ý: Nếu chỉ còn 1 quân bài trên tay, người chơi phải "Báo" cho cả làng. Người chơi trước của người vừa "Báo" sẽ phải bằng mọi giá chặn không cho người đó "Về" bằng cách phán đoán hoặc đánh ra con bài lớn nhất của mình. Nếu người đã "Báo" về nhất mà trên tay của người giữ cửa trên vẫn còn bài hoặc bộ lớn hơn nhưng không đánh ra thì người đó sẽ phải đền. Mức đền = Tổng số là bài mà tất cả người chơi còn + 2 + Tứ quý.
+
+Cách tính tiền :
+          Heo đen      |      5 lá
+          Heo đỏ       |     10 lá
+        Ba đôi thông   |     10 lá
+          Tứ Quý       |     20 lá
+        Bốn đôi thông  |     30 lá
+           Cóng        |     20 lá
+        Thua trắng     |     10 lá
+    </string>
+	<key>BACAYCHUONG</key>
+	<string>1.Cách chơi:
+Game 3 cây chương:
+    - Mỗi ván bài có ít nhất là 2 người chơi trở lên.
+    - Sau khi người chơi đặt cược, ván bài được bắt đầu.
+    - Mỗi người sẽ nhận được 3 lá bài một cách ngẫu nhiên. Tính tổng điểm 3 lá bài và trừ đi bội số của 10 (lấy phân lẻ) làm kết quả tính điểm.
+    - Nếu điểm bằng nhau sẽ so sánh từng quân bài của hai bên. Trước tiên là so theo chất theo thứ tự từ thấp đến cao: Rô♦,Cơ♥ ,Tép♣, Bích♠. Sau đó so sánh theo thứ tự độ lớn tăng dần: 2, 3,… J, Q, K, A.
+2.Kiểu chơi:
+    - 3 cây chương: Một người chơi đứng ra làm người cầm cái (chương). Chương hơn điểm sẽ thắng số tiền người chơi đặt cược. Người chơi hơn điểm chương sẽ thắng số tiền cược. Nếu người chơi được 10 điểm sẽ làm chương (cướp chương).
+    - Hệ thống Game 3 Cây chương: quy định số tiền người chơi thắng được bằng số tiền thắng của người thua cược trừ đi 5% giá trị cho mỗi ván chơi.
+    - Trong mỗi ván người chơi được quyền chọn chơi ké cửa, đánh biên giới, vào gà.
+        +) Vào gà: Người chơi có thể đặt một số tiền bằng 3 lần số tiền cược của phòng để vào gà. Kết thúc ván chỉ tính những người vào gà thì người nào có điểm cao nhất sẽ được ăn toàn bộ số tiền của gà.
+        +) Đánh biên giới: Thách thức với người chơi bất kỳ một mức cược, trong ván đó nếu điểm của bạn cao hơn điểm của người đó thì bạn thắng số tiền đã thách – 5% tiền thuế. Nếu điểm của bạn thấp hơn thì bạn bị thua gấp đôi số tiền đã thách.
+        
+        +) Đánh ké cửa: Bạn cược vào bất kỳ ai (ngoại trừ chương) số tiền ít nhất bằng tiền cược của ván. Khi người đã được bạn đánh ké cửa có điểm cao hơn điểm của chương, bạn thắng số tiền đánh ké cửa – 5% tiền thuế. Khi người đó thua điểm chương, bạn thua số tiền đánh ké cửa.
+Lưu ý:
+        + Bạn không thể đánh biên giới khi đối tượng không đồng ý lời đề nghị.
+        + Bạn không thể đánh biên giới lẫn đánh ké cửa khi bạn hoặc đối tượng không có đủ tiền trả trong trường hợp thua cược hoặc chương cũng không đủ tiền trả.
+        + Bạn không thể đánh ké cửa khi bạn là chương.
+
+    </string>
+</dict>
+</plist>

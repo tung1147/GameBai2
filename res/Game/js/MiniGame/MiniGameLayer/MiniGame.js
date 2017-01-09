@@ -41,6 +41,12 @@ var MiniGamePopup = cc.Node.extend({
             SoundPlayer.playSound("mini_clickButton");
         });
 
+        tutorialButton.addClickEventListener(function () {
+            var tutorialDialog = new TutorialDialog();
+            tutorialDialog.showWithAnimationScale();
+            SoundPlayer.playSound("mini_clickButton");
+        });
+
         this._controller.sendJoinGame();
     },
 

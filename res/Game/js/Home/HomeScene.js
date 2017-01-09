@@ -331,7 +331,9 @@ var HomeScene = IScene.extend({
             MessageNode.getInstance().show("Bạn phải đăng nhập trước");
             return;
         }
-        this.addSubLayer(new NewsLayer());
+        //this.addSubLayer(new NewsLayer());
+        var gg = new TutorialDialog();
+        gg.showWithAnimationScale();
     },
 
     rankButtonHandler: function () {
