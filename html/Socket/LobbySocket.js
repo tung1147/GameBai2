@@ -96,7 +96,15 @@ socket.LobbyClient = cc.Class.extend({
     close : function () {
         if(this.wsocket){
             this.resetSocket();
-            this.wsocket.close();
+            if(this.wsocket.readyState == 0){ //connecting
+                var ws = this.wsocket;
+                ws.onopen = function () { //close when open
+                    ws.close();
+                };
+            }
+            else if(this.wsocket.readyState == 1){ //open
+                this.wsocket.close();
+            }
             this.wsocket = null;
 
             if(this.socketStatus == socket.LobbySocket.Connected){
