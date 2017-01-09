@@ -153,6 +153,9 @@ newui.TableView = ccui.ScrollView.extend({
 
         if(this._allItems.length > 0){
             var itemSize = this._allItems[0].getContentSize();
+            var itemScale = this._allItems[0].getScale();
+            itemSize = cc.size(itemSize.width* itemScale, itemSize.height*itemScale);
+
             var row = this._columnCount;
             var col = Math.ceil(this._allItems.length / row);
             containerWidth = itemSize.width * col + this._padding*(col - 1) + this._marginLeft + this._marginRight;
@@ -193,6 +196,9 @@ newui.TableView = ccui.ScrollView.extend({
 
         if(this._allItems.length > 0){
             var itemSize = this._allItems[0].getContentSize();
+            var itemScale = this._allItems[0].getScale();
+            itemSize = cc.size(itemSize.width* itemScale, itemSize.height*itemScale);
+
             var col = this._columnCount;
             var row = Math.ceil(this._allItems.length / this._columnCount);
             containerHeight = itemSize.height * row + this._padding*(row - 1) + this._marginTop + this._marginBottom;
