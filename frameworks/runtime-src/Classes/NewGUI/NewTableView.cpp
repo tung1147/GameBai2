@@ -75,7 +75,7 @@ void TableView::refreshViewVertical(){
 	float containerWidth = this->getContentSize().width;
 	float containerHeight = 0.0f;
 	if (_items.size() > 0){
-		Size itemSize = _items[0]->getContentSize();
+		Size itemSize = _items[0]->getContentSize() * _items[0]->getScale();
 		int col = this->columnSize;
 		int row = ceil(((float)_items.size()) / col);
 
@@ -113,11 +113,48 @@ void TableView::refreshViewVertical(){
 	this->setInnerContainerSize(Size(containerWidth, containerHeight));
 }
 
+
+void TableView::refreshViewVerticalListView(){
+	float containerWidth = this->getContentSize().width;
+	float containerHeight = 0.0f;
+	if (_items.size() > 0){
+		float totalItemHeight = 0;
+		for (int i = 0; i < _items.size(); i++){
+			totalItemHeight += _items[i]->getContentSize().width * _items[i]->getScale();
+		}
+		containerHeight = totalItemHeight + this->padding * (_items.size() - 1);
+		if (containerHeight < this->getContentSize().height){
+			containerHeight = this->getContentSize().height;
+		}
+
+		float y = containerHeight - this->marginTop;
+		if (this->_reverse){
+			y = this->marginBottom;
+		}
+
+		for (int i = 0; i < _items.size(); i++){
+			float itemHeight = _items[i]->getContentSize().width * _items[i]->getScale();
+			if (this->_reverse){
+				_items[i]->setPosition(containerWidth / 2, y + itemHeight/2);
+			}
+			else{
+				_items[i]->setPosition(containerWidth / 2, y - itemHeight / 2);
+			}
+		}
+	}
+
+	if (containerHeight < this->getContentSize().height){
+		containerHeight = this->getContentSize().height;
+	}
+	this->setInnerContainerSize(Size(containerWidth, containerHeight));
+}
+
+
 void TableView::refreshViewHorizontal(){
 	float containerWidth = 0.0f;
 	float containerHeight = this->getContentSize().height;
 	if (_items.size() > 0){
-		Size itemSize = _items[0]->getContentSize();
+		Size itemSize = _items[0]->getContentSize() * _items[0]->getScale();
 
 		int row = this->rowSize;
 		int col = ceil(((float)_items.size()) / row);
@@ -153,6 +190,10 @@ void TableView::refreshViewHorizontal(){
 		containerWidth = this->getContentSize().width;
 	}
 	this->setInnerContainerSize(Size(containerWidth, containerHeight));
+}
+
+void TableView::refreshViewHorizontalListView(){
+
 }
 
 void TableView::setPadding(float padding){
