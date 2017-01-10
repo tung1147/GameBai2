@@ -93,7 +93,7 @@ var TutorialDialog = IDialog.extend({
 
             var titleLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, data["Title"]);
             titleLabel.setPosition(i == 0 ? contentSize.width / 4 : contentSize.width / 8, contentSize.height / 2);
-            container.addChild(titleLabel);
+            container.addChild(titleLabel,1);
             //
             if (i != 0) {
                 var cardList = new CardList(cc.size(contentSize.width / 4, contentSize.height - 20));
@@ -112,12 +112,10 @@ var TutorialDialog = IDialog.extend({
             var rewardLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, data["Reward"]);
             rewardLabel.setPosition(contentSize.width * 3 / 4, contentSize.height / 2);
             container.addChild(rewardLabel);
-            this.contentTable.pushItem(container);
+            this.contentTable.pushItem(container,1);
         }
 
-        var miniLabel2 = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, this.HDList[dataField]["text2"]
-            , cc.TEXT_ALIGNMENT_LEFT);
-        miniLabel2.setBoundingWidth(this.bouldingWidth);
+        var miniLabel2 = new cc.LabelBMFont(this.HDList[dataField]["text2"], cc.res.font.Roboto_Condensed_25, this.bouldingWidth, cc.TEXT_ALIGNMENT_LEFT);
         this.contentTable.pushItem(miniLabel2);
     }
 });

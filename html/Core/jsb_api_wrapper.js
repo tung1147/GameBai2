@@ -5,7 +5,6 @@
 var cc = cc || {};
 cc.Label = cc.Label || {};
 cc.Label.createWithBMFont = function () {
-    //str, fntFile, alignment, width, imageOffset
     if(arguments.length == 2){
         return new cc.LabelBMFont(arguments[1], arguments[0]);
     }
