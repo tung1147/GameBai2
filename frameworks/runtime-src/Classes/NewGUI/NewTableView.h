@@ -46,7 +46,9 @@ protected:
 	Point _startPoint;
 	
 	void refreshViewVertical();
+	void refreshViewVerticalListView();
 	void refreshViewHorizontal();	
+	void refreshViewHorizontalListView();
 
 	bool getItemsRow(std::vector<Node*> &items, int index);
 	bool getItemsColumn(std::vector<Node*> &items, int index);
