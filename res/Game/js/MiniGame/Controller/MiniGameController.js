@@ -11,6 +11,7 @@ var MiniGameController = cc.Class.extend({
         this._view = view;
         SmartfoxClient.getInstance().addListener(socket.SmartfoxClient.SocketStatus, this.onSmartfoxSocketStatus, this);
         SmartfoxClient.getInstance().addListener(socket.SmartfoxClient.CallExtension, this.onSFSExtension, this);
+        SmartfoxClient.getInstance().addExtensionListener("___err___",this.onSFSError,this);
         LobbyClient.getInstance().addListener("getLastSessionInfo", this.onGetLastSessionInfo, this);
     },
 
@@ -22,6 +23,10 @@ var MiniGameController = cc.Class.extend({
         this.requestQuitRoom();
     },
 
+    onSFSError : function (messageType,content) {
+        this._view.onError(content.p);
+    },
+
     onSmartfoxSocketStatus: function (type, eventName) {
         if (eventName == "LostConnection") {
             LoadingDialog.getInstance().show("Đang kết nối lại máy chủ");
@@ -31,8 +36,8 @@ var MiniGameController = cc.Class.extend({
 
     onSFSExtension: function (messageType, content) {
         switch (content.c) {
+
             case "100000":
-                // TODO : suar arhaiuwra
                 this._view.performChangeRewardFund(content.p.data["1"]);
                 break;
             case "260": // thong tin game
@@ -49,9 +54,6 @@ var MiniGameController = cc.Class.extend({
                 this.onChangeAssets(content.p["2"], content.p["1"]);
                 cc.log(content);
                 break;
-            case "___err___":
-                this._view.onError(content.p);
-                break;
         }
     },
 
@@ -60,7 +62,7 @@ var MiniGameController = cc.Class.extend({
     },
 
     onChangeAssets: function (gold, changeAmount) {
-        if (changeAmount < 0 ){
+        if (changeAmount < 0) {
             return;
         }
         this._view.onChangeAssets(gold, changeAmount);

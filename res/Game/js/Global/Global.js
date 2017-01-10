@@ -179,7 +179,7 @@ PlayerMe.SFS = PlayerMe.SFS || {};
 
 var GameConfig = GameConfig || {};
 GameConfig.email = "c567vip@gmail.com";
-GameConfig.hotline = "09000123";
+GameConfig.hotline = "0903.229.747";
 GameConfig.broadcastMessage = "";
 GameConfig.DeviceIDKey = "";
 
