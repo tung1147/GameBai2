@@ -213,7 +213,7 @@ newui.TableView = ccui.ScrollView.extend({
                 totalItemWidth += this._allItems[i].getContentSize().width * this._allItems[i].getScale();
             }
 
-            containerWidth = totalItemWidth + (this._padding) * (this._allItems.length - 1);
+            containerWidth = totalItemWidth + (this._padding) * (this._allItems.length - 1) + this._marginLeft + this._marginRight;
             if(containerWidth < this.getContentSize().width){
                 containerWidth = this.getContentSize().width;
             }
@@ -302,7 +302,7 @@ newui.TableView = ccui.ScrollView.extend({
                 totalItemHeight += this._allItems[i].getContentSize().height * this._allItems[i].getScale();
             }
 
-            containerHeight = totalItemHeight + (this._padding) * (this._allItems.length - 1);
+            containerHeight = totalItemHeight + (this._padding) * (this._allItems.length - 1) + this._marginTop + this._marginBottom;
             if(containerHeight < this.getContentSize().height){
                 containerHeight = this.getContentSize().height;
             }
@@ -323,7 +323,7 @@ newui.TableView = ccui.ScrollView.extend({
                 }
                 else{
                     item.setPosition(containerWidth/2, y - itemHeight/2);
-                    y -= (itemHeight - this._padding);
+                    y -= (itemHeight + this._padding);
                 }
             }
         }
