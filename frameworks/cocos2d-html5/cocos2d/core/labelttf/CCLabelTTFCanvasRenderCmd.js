@@ -26,11 +26,18 @@ cc.LabelTTF.wrapInspection = true;
 
 //Support: English French German
 //Other as Oriental Language
-cc.LabelTTF._wordRex = /([a-zA-Z0-9ÄÖÜäöüßéèçàùêâîôû]+|\S)/;
+// cc.LabelTTF._wordRex = /([a-zA-Z0-9ÄÖÜäöüßéèçàùêâîôû]+|\S)/;
+// cc.LabelTTF._symbolRex = /^[!,.:;}\]%\?>、‘“》？。，！]/;
+// cc.LabelTTF._lastWordRex = /([a-zA-Z0-9ÄÖÜäöüßéèçàùêâîôû]+|\S)$/;
+// cc.LabelTTF._lastEnglish = /[a-zA-Z0-9ÄÖÜäöüßéèçàùêâîôû]+$/;
+// cc.LabelTTF._firsrEnglish = /^[a-zA-Z0-9ÄÖÜäöüßéèçàùêâîôû]/;
+
+/* Fix by quyetnguyen, bangmatiengviet */
+cc.LabelTTF._wordRex = /([a-zA-Z0-9đĐÁáÀàÃãẢảẠạÂâẤấẦầẪẫẨẩẬậĂăẮắẰằẴẵẲẳẶặÉéÈèẼẽẺẻẸẹêẾếỀềỄễỂểỆệÍíÌìĨĩỈỉỊịÓóÒòÕõỎỏỌọÔôỐốỒồỖỗỔổỘộƠơỚớỜờỠỡỞởỢợÚúÙùŨũỦủỤụƯưỨứỪừỮữỬửỰựÝýỲỳỸỹỶỷỴỵ]+|\S)/;
 cc.LabelTTF._symbolRex = /^[!,.:;}\]%\?>、‘“》？。，！]/;
-cc.LabelTTF._lastWordRex = /([a-zA-Z0-9ÄÖÜäöüßéèçàùêâîôû]+|\S)$/;
-cc.LabelTTF._lastEnglish = /[a-zA-Z0-9ÄÖÜäöüßéèçàùêâîôû]+$/;
-cc.LabelTTF._firsrEnglish = /^[a-zA-Z0-9ÄÖÜäöüßéèçàùêâîôû]/;
+cc.LabelTTF._lastWordRex = /([a-zA-Z0-9đĐÁáÀàÃãẢảẠạÂâẤấẦầẪẫẨẩẬậĂăẮắẰằẴẵẲẳẶặÉéÈèẼẽẺẻẸẹêẾếỀềỄễỂểỆệÍíÌìĨĩỈỉỊịÓóÒòÕõỎỏỌọÔôỐốỒồỖỗỔổỘộƠơỚớỜờỠỡỞởỢợÚúÙùŨũỦủỤụƯưỨứỪừỮữỬửỰựÝýỲỳỸỹỶỷỴỵ]+|\S)$/;
+cc.LabelTTF._lastEnglish = /[a-zA-Z0-9đĐÁáÀàÃãẢảẠạÂâẤấẦầẪẫẨẩẬậĂăẮắẰằẴẵẲẳẶặÉéÈèẼẽẺẻẸẹêẾếỀềỄễỂểỆệÍíÌìĨĩỈỉỊịÓóÒòÕõỎỏỌọÔôỐốỒồỖỗỔổỘộƠơỚớỜờỠỡỞởỢợÚúÙùŨũỦủỤụƯưỨứỪừỮữỬửỰựÝýỲỳỸỹỶỷỴỵ]+$/;
+cc.LabelTTF._firsrEnglish = /^[a-zA-Z0-9đĐÁáÀàÃãẢảẠạÂâẤấẦầẪẫẨẩẬậĂăẮắẰằẴẵẲẳẶặÉéÈèẼẽẺẻẸẹêẾếỀềỄễỂểỆệÍíÌìĨĩỈỉỊịÓóÒòÕõỎỏỌọÔôỐốỒồỖỗỔổỘộƠơỚớỜờỠỡỞởỢợÚúÙùŨũỦủỤụƯưỨứỪừỮữỬửỰựÝýỲỳỸỹỶỷỴỵ]/;
 
 (function() {
     cc.LabelTTF.RenderCmd = function () {
