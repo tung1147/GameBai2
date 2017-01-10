@@ -42,8 +42,10 @@ var MiniGamePopup = cc.Node.extend({
         });
 
         tutorialButton.addClickEventListener(function () {
-            var tutorialDialog = new TutorialDialog();
-            tutorialDialog.showWithAnimationScale();
+            if (thiz.gameType){
+                var tutorialDialog = new TutorialDialog(thiz.gameType);
+                tutorialDialog.showWithAnimationScale();
+            }
             SoundPlayer.playSound("mini_clickButton");
         });
 

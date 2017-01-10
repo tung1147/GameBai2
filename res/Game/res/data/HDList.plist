@@ -49,7 +49,7 @@ Tính điểm thắng thua trong game:
         
 Các tình huống:
   - Chủ bàn thoát game, quyền chủ bàn sẽ được trao cho người kế tiếp.
-  - Thời gian 1 lượt đánh người chơi thực hiện thao tác “Xếp bài” và “Đánh” hoặc “Thôi”. Hết thời gian  người chơi ko thực hiện bất cứ thao tác nào thì máy sẽ tự động “Thôi” và nhường quyền đánh cho người kế tiếp.
+  - Thời gian 1 lượt đánh người chơi thực hiện thao tác "Xếp bài" và "Đánh" hoặc "Thôi". Hết thời gian  người chơi ko thực hiện bất cứ thao tác nào thì máy sẽ tự động "Thôi" và nhường quyền đánh cho người kế tiếp.
     </string>
 	<key>XOCDIA</key>
 	<string>Luật chơi xóc đĩa rất đơn giản, về cơ bản thì trong trò xóc đĩa sẽ có 2 phần: bộ đồ để xóc đĩa và bàn cược. Đầu tiên người chơi sẽ đặt cược trên bàn cược, chủ sới sẽ bắt đầu xóc đĩa. Sau đó, mở đĩa ra để so sánh kết quả thắng thua bằng màu của 4 nút.
@@ -141,7 +141,7 @@ Cách tính tiền :
     
 Lá bài
     Bộ 52 lá bài, mỗi quân bài gồm 2 phần số và chất, VD: 6♣(tép) có số 6 và chất ♣(tép). Số của quân bài được tính thành số điểm. Xếp hạng điểm theo số như sau:
-    K (13 điểm) & Q (12 điểm) & J (11 điểm) & 10 & 9 & ... & 3 & 2 & A (1 điểm).
+    K (13 điểm) &gt; Q (12 điểm) &gt; J (11 điểm) &gt; 10 &gt; 9 &gt; ... &gt; 3 &gt; 2 &gt; A (1 điểm).
     
 Xếp bài
     Phỏm: Là bộ ba hoặc bộ 4 lá cùng số hoặc sảnh 3 lá trở lên (cùng chất và số liên tiếp nhau).
@@ -177,74 +177,6 @@ Cách tính tiền :
      ăn 2 cây         |        2 lần cược
      ăn 3 cây         |        3 lần cược
 </string>
-	<key>Phom_String</key>
-	<array>
-		<string>NHÓM BÀI</string>
-		<string>Nổ hũ thưởng</string>
-		<string>Thùng phá sảnh</string>
-		<string>Tứ quý</string>
-		<string>Củ lũ</string>
-		<string>Thùng</string>
-		<string>Sảnh</string>
-		<string>Sám</string>
-		<string>Hai đôi</string>
-		<string>Đôi J trở lên</string>
-	</array>
-	<key>PhanThuong</key>
-	<array>
-		<string>PHẦN THƯỞNG</string>
-		<string>Quỹ Thưởng</string>
-		<string>x 1000 tiền cược</string>
-		<string>x 150 tiền cược</string>
-		<string>x 50 tiền cược</string>
-		<string>x 20 tiền cược</string>
-		<string>x 13 tiền cược</string>
-		<string>x 8 tiền cược</string>
-		<string>x 5 tiền cược</string>
-		<string>x 2,5 tiền cược</string>
-	</array>
-    <key>PhanThuong2</key>
-    <array>
-        <string>PHẦN THƯỞNG</string>
-        <string>Quỹ Thưởng</string>
-        <string>x 50 tiền cược</string>
-        <string>x 25 tiền cược</string>
-        <string>x 9 tiền cược</string>
-        <string>x 6 tiền cược</string>
-        <string>x 4 tiền cược</string>
-        <string>x 3 tiền cược</string>
-        <string>x 2 tiền cược</string>
-        <string>x 1 tiền cược</string>
-    </array>
-	<key>PokerMini1</key>
-	<string>B1 : Chọn mức cược
-B2 : Click “ QUAY “. Người chơi có thể chọn “quay tự động“ để hệ thống tự động quay và thông báo kết quả. Khi người chơi bỏ nút tick “quay tự động” thì sẽ dừng lại.
-- click biểu tượng “?“ để xem hướng dẫn chơi.
-- click biểu tượng “ cúp “ để xem lịch sử và bảng xếp hạng.
-ĐẶC BIỆT : 10-J-Q-K-A rô sẽ nổ hũ thưởng.
-Cách tính tiền theo mức cược như sau :
-    </string>
-	<key>PokerMini2</key>
-	<string>
-Hũ thưởng : hệ thống sẽ bỏ ra hũ thưởng khác nhau với từng mức cược : 1k, 10k, 100k, mỗi lần thắng sẽ trích 1% tiền cược vào hũ.
-Lịch sử :
-- Lịch sử chơi của mình trong 20 lần gần nhất.
-- Lịch sử những người nổ hũ thưởng.
-- Những người chơi thắng được nhiều tiền nhất trong game.
-    </string>
-    <key>PokerMini3</key>
-    <string>
-Bước 1: Người chơi chọn mức. Click [Quay]. Hệ thống sẽ trả về ngẫu nhiên các quân bài.Hệ thống sẽ trả về ngẫu nhiên các quân bài. Mỗi lượt chơi hệ thống sẽ bỏ 1% mức cược của người chơi cho vào hũ thưởng.
-Bước 2: Người chơi sẽ lựa chọn cây bài để giữ lại. Click[quay]. Hệ thống sẽ trả về ngẫu nhiên các quân bài mà người chơi không chọn.
-Nếu có kết quả như trong bảng dưới đây người chơi sẽ được nhận thưởng khi click[ Nhận thưởng].
-Cách tính tiền theo mức cược như sau:
-    </string>
-    <key>PokerMini4</key>
-    <string>
- • Click biểu tượng ? để xem hướng dẫn chơi.
- • Click [biểu tượng cúp] để xem lịch sử và bảng xếp hạng.
-    </string>
-
 	<key>ChanLe</key>
 	<string>B1 : Chọn cửa muốn đặt : chẵn/lẻ.
 B2 : Chọn mức cược muốn đặt : có 5 mức cược ( 1000, 10.000, 100.000, 1M, 10M).
@@ -261,17 +193,16 @@ Trả thưởng khi có kết quả
 - Bạn có thể xem danh sách các người chơi kiếm tiền nhiều nhất từ chẵn lẽ ở mục Bảng Xếp Hạng</string>
 	<key>CaoThap</key>
 	<string>B1 : Chọn mức cược.
-B2 : Click “ Bốc Bài“ để tham gia chơi hệ thống sẽ ngẫu nhiên xuất hiện một lá bài, để người chơi đưa ra lựa chọn của mình.
-B3 : Dự đoán lá bài tiếp thep cao hay thấp hơn so với lá bài trước đó. Mỗi lượt dự đoán có tối đa 2 phút, hết thời gian mà chưa dự đoán thì thì hệ thống sẽ tự động chọn.
+B2 : Chọn [Bốc] để tham gia chơi hệ thống sẽ ngẫu nhiên xuất hiện một lá bài, để người chơi đưa ra lựa chọn của mình.
+B3 : Dự đoán lá bài tiếp theo cao hay thấp hơn so với lá bài trước đó. Mỗi lượt dự đoán có tối đa 2 phút, hết thời gian mà chưa dự đoán thì thì hệ thống sẽ tự động chọn.
 B4 : Theo dõi kết quả thắng hay thua.
 Trường hợp người chơi bốc lại được đúng con vừa xuấn hiện trước đó, thì số tiền cược của người chơi sẽ bị trích 20% tiền đang có ở trong bank cho vào hũ thưởng, và có thể tiếp tục quay tiếp.
 - Nếu người chơi lúc này chọn chơi lượt mới, hệ thống sẽ trả luôn tiền trong bank về cho người chơi.
 - Nếu người chơi chọn cao hay thấp, hệ thống sẽ tiếp tục trả 1 con random cho người chơi.
-- Nếu trong thời gian 2 phút mà người chơi không chọn cao hay thấp, hết thời gian mà chưa dự đoán thì hệ thống sẽ random chọn cho bạn.
-Mỗi lần bốc bài, hệ thống tự động trích 1% tiền cược  ban đầu cho vào hũ thưởng. Tuy nhiên tiền người chơi vẫn giữ nguyên.
+- Nếu trong thời gian 2 phút mà người chơi không chọn cao hay thấp, hết thời gian mà chưa dự đoán thì hệ thống sẽ tự động chọn cao cho bạn.
+
 Hũ thưởng :
-- Cứ mỗi lần bốc bài đầu tiên của lượt chơi, hũ thưởng sẽ được cộng thêm 1% số tiền mức cược
-- Nếu quân bài được trả về kể từ lượt thứ 2 trở đi mà bằng với quân bài của lượt thứ nhất (không tinh chất) thì người chơi sẽ bị mất 20% giá trị của bank đồng thời cho vào hũ thưởng.
+- Nếu quân bài được trả về kể từ lượt thứ 2 trở đi mà bằng với quân bài của lượt thứ nhất (không tính chất) thì người chơi sẽ bị mất 20% giá trị của bank đồng thời cho vào hũ thưởng.
 Quy tắc nổ hũ thưởng : Khi người chơi quay được vào con 3K bất kỳ chất gì trong 1 lượt chơi thì hũ thưởng sẽ nổ. Người chơi được 50% số tiền trong hũ và 50% còn lại sẽ đẩy về hệ thống.
 
 Bảng thành tích
@@ -291,18 +222,18 @@ Bảng thành tích
        + Cả 10 lá bài cùng màu (không cần cùng chất hoàn toàn).
        + 3 sám cô.
        + 5 đôi.
-- Thứ tự ưu tiên báo: Sảnh Rồng & Tứ quý 2 & Cùng màu & 3 sám cô & 5 đôi.
-- Báo Sâm (còn gọi là cướp cái, xin làng): Xem bài, nếu cảm thấy bài của mình có thể về nhất và không ai có thể chặn được thì người chơi có thể "Báo Sâm" để giành quyền ưu tiên đánh trước. Sau khi giành được cái, người chơi sẽ đánh lần lượt bài của mình xuống. Nếu "Báo Sâm" thành công, người chơi sẽ được tính là về nhất. Nếu thất bại, người chơi sẽ phải đền làng.
+- Thứ tự ưu tiên báo: Sảnh Rồng &gt; Tứ quý 2 &gt; Cùng màu &gt; 3 sám cô &gt; 5 đôi.
+- Báo Sâm (còn gọi là cướp cái, xin làng): Xem bài, nếu cảm thấy bài của mình có thể về nhất và không ai có thể chặn được thì người chơi có thể &quot;Báo Sâm&quot; để giành quyền ưu tiên đánh trước. Sau khi giành được cái, người chơi sẽ đánh lần lượt bài của mình xuống. Nếu &quot;Báo Sâm&quot; thành công, người chơi sẽ được tính là về nhất. Nếu thất bại, người chơi sẽ phải đền làng.
             
-Ví dụ: Người chơi có 3, 6, 7, 8, 9, 10, J, Q, K, A thì có thể "Báo Sâm" rồi đánh sảnh 6, 7, 8, 9, 10, J, Q, K, A rồi đánh quân 3 để về.
+Ví dụ: Người chơi có 3, 6, 7, 8, 9, 10, J, Q, K, A thì có thể &quot;Báo Sâm&quot; rồi đánh sảnh 6, 7, 8, 9, 10, J, Q, K, A rồi đánh quân 3 để về.
 
 Cách chơi Sâm lốc:
             
 Trong luật chơi Sâm, người đi sau sẽ lần lượt chặn bài người đi trước bằng quân bài/ bộ lớn hơn quân bài/bộ mà người đi trước đánh. Không phân biệt màu của bài lẻ (rác). Đôi chặn đôi, sám chặn sám, sảnh chặn sảnh (sảnh phải LỚN HƠN và có ĐỘ DÀI BẰNG sảnh của người đi trước mới có thể chặn).
 - Tứ quý bất kỳ có thể chặn được 2. Một tứ quý chỉ chặn được 1 quân 2.
 - Khi đánh ra một quân/ bộ mà không có ai trong bàn có thể chặn được, người chơi sẽ giành được cái cho lượt đi kế tiếp.
-- Không như luật chơi Tiến lên miền Nam là người chơi có thể về bằng bất cứ quân nào, trong Sâm lốc, nếu người chơi về nhất bằng quân 2 sẽ bị tính là "Thối 2".
-Lưu ý: Nếu chỉ còn 1 quân bài trên tay, người chơi phải "Báo" cho cả làng. Người chơi trước của người vừa "Báo" sẽ phải bằng mọi giá chặn không cho người đó "Về" bằng cách phán đoán hoặc đánh ra con bài lớn nhất của mình. Nếu người đã "Báo" về nhất mà trên tay của người giữ cửa trên vẫn còn bài hoặc bộ lớn hơn nhưng không đánh ra thì người đó sẽ phải đền. Mức đền = Tổng số là bài mà tất cả người chơi còn + 2 + Tứ quý.
+- Không như luật chơi Tiến lên miền Nam là người chơi có thể về bằng bất cứ quân nào, trong Sâm lốc, nếu người chơi về nhất bằng quân 2 sẽ bị tính là &quot;Thối 2&quot;.
+Lưu ý: Nếu chỉ còn 1 quân bài trên tay, người chơi phải &quot;Báo&quot; cho cả làng. Người chơi trước của người vừa &quot;Báo&quot; sẽ phải bằng mọi giá chặn không cho người đó &quot;Về&quot; bằng cách phán đoán hoặc đánh ra con bài lớn nhất của mình. Nếu người đã &quot;Báo&quot; về nhất mà trên tay của người giữ cửa trên vẫn còn bài hoặc bộ lớn hơn nhưng không đánh ra thì người đó sẽ phải đền. Mức đền = Tổng số là bài mà tất cả người chơi còn + 2 + Tứ quý.
 
 Cách tính tiền :
           Heo đen      |      5 lá
@@ -334,5 +265,205 @@ Lưu ý:
         + Bạn không thể đánh ké cửa khi bạn là chương.
 
     </string>
+	<key>VideoPoker</key>
+	<dict>
+		<key>text1</key>
+		<string>
+Bước 1: Người chơi chọn mức. Chọn [Quay]. Hệ thống sẽ trả về ngẫu nhiên các quân bài. Mỗi lượt chơi hệ thống sẽ bỏ 1% mức cược của người chơi cho vào hũ thưởng.
+Bước 2: Người chơi sẽ lựa chọn cây bài để giữ lại. Chọn[quay]. Hệ thống sẽ trả về ngẫu nhiên các quân bài mà người chơi không chọn.
+Nếu có kết quả như trong bảng dưới đây người chơi sẽ được nhận thưởng khi Chọn[ Nhận thưởng].
+Cách tính tiền theo mức cược như sau:
+    </string>
+		<key>text2</key>
+		<string>
+ - Chọn biểu tượng ? để xem hướng dẫn chơi.
+ - Chọn [biểu tượng cúp] để xem lịch sử và bảng xếp hạng.
+    </string>
+		<key>Result</key>
+		<array>
+			<dict>
+				<key>Title</key>
+				<string>NHÓM BÀI</string>
+				<key>Reward</key>
+				<string>PHẦN THƯỞNG</string>
+				<key>cards</key>
+				<string></string>
+			</dict>
+			<dict>
+				<key>Title</key>
+				<string>Nổ hũ thưởng</string>
+				<key>Reward</key>
+				<string>Quỹ Thưởng</string>
+				<key>cards</key>
+				<string>33,34,35,36,37</string>
+			</dict>
+			<dict>
+				<key>Title</key>
+				<string>Thùng phá sảnh</string>
+				<key>Reward</key>
+				<string>x 50 tiền cược</string>
+				<key>cards</key>
+				<string>39,40,41,42,43</string>
+			</dict>
+			<dict>
+				<key>Title</key>
+				<string>Tứ quý</string>
+				<key>Reward</key>
+				<string>x 25 tiền cược</string>
+				<key>cards</key>
+				<string>12,25,38,51,37</string>
+			</dict>
+			<dict>
+				<key>Title</key>
+				<string>Cù lũ</string>
+				<key>Reward</key>
+				<string>x 9 tiền cược</string>
+				<key>cards</key>
+				<string>16,3,42,26,0</string>
+			</dict>
+			<dict>
+				<key>Title</key>
+				<string>Thùng</string>
+				<key>Reward</key>
+				<string>x 6 tiền cược</string>
+				<key>cards</key>
+				<string>0,1,4,7,9</string>
+			</dict>
+			<dict>
+				<key>Title</key>
+				<string>Sảnh</string>
+				<key>Reward</key>
+				<string>x 4 tiền cược</string>
+				<key>cards</key>
+				<string>33,21,9,49,37</string>
+			</dict>
+			<dict>
+				<key>Title</key>
+				<string>Sám</string>
+				<key>Reward</key>
+				<string>x 3 tiền cược</string>
+				<key>cards</key>
+				<string>14,1,40,29,30</string>
+			</dict>
+			<dict>
+				<key>Title</key>
+				<string>Hai đôi</string>
+				<key>Reward</key>
+				<string>x 2 tiền cược</string>
+				<key>cards</key>
+				<string>20,7,45,32,4</string>
+			</dict>
+			<dict>
+				<key>Title</key>
+				<string>Đôi J trở lên</string>
+				<key>Reward</key>
+				<string>x 1 tiền cược</string>
+				<key>cards</key>
+				<string>34,47,42,15,6</string>
+			</dict>
+		</array>
+	</dict>
+	<key>MiniPoker</key>
+	<dict>
+		<key>text1</key>
+		<string>B1 : Chọn mức cược
+B2 : Chọn " QUAY ". Người chơi có thể chọn "quay tự động" để hệ thống tự động quay và thông báo kết quả. Khi người chơi bỏ nút tick "quay tự động" thì sẽ dừng lại.
+- Chọn biểu tượng "?" để xem hướng dẫn chơi.
+- Chọn biểu tượng " cúp " để xem lịch sử và bảng xếp hạng.
+ĐẶC BIỆT : 10-J-Q-K-A rô sẽ nổ hũ thưởng.
+Cách tính tiền theo mức cược như sau :
+    </string>
+		<key>text2</key>
+		<string>
+Hũ thưởng : hệ thống sẽ bỏ ra hũ thưởng khác nhau với từng mức cược : 1k, 10k, 100k, mỗi lần thắng sẽ trích 1% tiền cược vào hũ.
+Lịch sử :
+- Lịch sử chơi của mình trong 20 lần gần nhất.
+- Lịch sử những người nổ hũ thưởng.
+- Những người chơi thắng được nhiều tiền nhất trong game.
+    </string>
+		<key>Result</key>
+		<array>
+			<dict>
+				<key>Title</key>
+				<string>NHÓM BÀI</string>
+				<key>Reward</key>
+				<string>PHẦN THƯỞNG</string>
+				<key>cards</key>
+				<string></string>
+			</dict>
+			<dict>
+				<key>Title</key>
+				<string>Nổ hũ thưởng</string>
+				<key>Reward</key>
+				<string>Quỹ Thưởng</string>
+				<key>cards</key>
+				<string>33,34,35,36,37</string>
+			</dict>
+			<dict>
+				<key>Title</key>
+				<string>Thùng phá sảnh</string>
+				<key>Reward</key>
+				<string>x 1000 tiền cược</string>
+				<key>cards</key>
+				<string>39,40,41,42,43</string>
+			</dict>
+			<dict>
+				<key>Title</key>
+				<string>Tứ quý</string>
+				<key>Reward</key>
+				<string>x 150 tiền cược</string>
+				<key>cards</key>
+				<string>12,25,38,51,37</string>
+			</dict>
+			<dict>
+				<key>Title</key>
+				<string>Cù lũ</string>
+				<key>Reward</key>
+				<string>x 50 tiền cược</string>
+				<key>cards</key>
+				<string>16,3,42,26,0</string>
+			</dict>
+			<dict>
+				<key>Title</key>
+				<string>Thùng</string>
+				<key>Reward</key>
+				<string>x 20 tiền cược</string>
+				<key>cards</key>
+				<string>0,1,4,7,9</string>
+			</dict>
+			<dict>
+				<key>Title</key>
+				<string>Sảnh</string>
+				<key>Reward</key>
+				<string>x 13 tiền cược</string>
+				<key>cards</key>
+				<string>33,21,9,49,37</string>
+			</dict>
+			<dict>
+				<key>Title</key>
+				<string>Sám</string>
+				<key>Reward</key>
+				<string>x 8 tiền cược</string>
+				<key>cards</key>
+				<string>14,1,40,29,30</string>
+			</dict>
+			<dict>
+				<key>Title</key>
+				<string>Hai đôi</string>
+				<key>Reward</key>
+				<string>x 5 tiền cược</string>
+				<key>cards</key>
+				<string>20,7,45,32,4</string>
+			</dict>
+			<dict>
+				<key>Title</key>
+				<string>Đôi J trở lên</string>
+				<key>Reward</key>
+				<string>x 2.5 tiền cược</string>
+				<key>cards</key>
+				<string>34,47,42,15,6</string>
+			</dict>
+		</array>
+	</dict>
 </dict>
 </plist>

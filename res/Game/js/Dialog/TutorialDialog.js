@@ -19,28 +19,29 @@ var TutorialDialog = IDialog.extend({
         title.setColor(cc.color("#ffde00"));
         this.dialogNode.addChild(title);
 
-        var clippingLayout = new ccui.Layout();
-        clippingLayout.setContentSize(this.dialogNode.getContentSize().width, this.dialogNode.getContentSize().height - 275);
-        clippingLayout.setAnchorPoint(cc.p(0.5, 0.5));
-        clippingLayout.setPosition(this.dialogNode.getContentSize().width / 2, this.dialogNode.getContentSize().height / 2 - 25);
-        clippingLayout.setClippingEnabled(true);
-        clippingLayout.setClippingType(ccui.Layout.CLIPPING_SCISSOR);
-        this.dialogNode.addChild(clippingLayout);
+        // var clippingLayout = new ccui.Layout();
+        // clippingLayout.setContentSize(this.dialogNode.getContentSize().width, this.dialogNode.getContentSize().height - 275);
+        // clippingLayout.setAnchorPoint(cc.p(0.5, 0.5));
+        // clippingLayout.setPosition(this.dialogNode.getContentSize().width / 2, this.dialogNode.getContentSize().height / 2 - 25);
+        // clippingLayout.setClippingEnabled(true);
+        // clippingLayout.setClippingType(ccui.Layout.CLIPPING_SCISSOR);
+        // this.dialogNode.addChild(clippingLayout);
 
         var contentTable = new newui.TableView(cc.size(this.bouldingWidth, 470), 1);
         contentTable.setDirection(ccui.ScrollView.DIR_VERTICAL);
         contentTable.setScrollBarEnabled(false);
-        contentTable.setPadding(10);
+        contentTable.setPadding(0);
         contentTable.setMargin(10, 10, 0, 0);
         contentTable.setAnchorPoint(cc.p(0.5, 0.5));
-        contentTable.setPosition(clippingLayout.getContentSize().width / 2,
-            clippingLayout.getContentSize().height / 2);
-        clippingLayout.addChild(contentTable);
+        contentTable.setPosition(this.dialogNode.getContentSize().width / 2, this.dialogNode.getContentSize().height / 2 - 25);
+        this.dialogNode.addChild(contentTable);
+        // contentTable.setPosition(clippingLayout.getContentSize().width / 2,
+        //     clippingLayout.getContentSize().height / 2);
+        // clippingLayout.addChild(contentTable);
         this.contentTable = contentTable;
         this.HDList = cc.loader.getRes("res/data/HDList.plist");
-        this.rewardCardList = [[], [8,9,10,11,12], [39,40,41,42,43], [12,25,38,51,37], [16,3,42,26,0], [0,1,4,7,9], [21,9,49,37,38], [14,1,40,29,30], [20,7,45,32,4], [9,22,42,15,6]];
 
-        switch (gameType){
+        switch (gameType) {
             case GameType.MiniGame_CaoThap:
                 this.initCaoThapTutorial();
                 break;
@@ -61,24 +62,62 @@ var TutorialDialog = IDialog.extend({
     },
 
     initCaoThapTutorial: function () {
-        var tutorialLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25,this.HDList["CaoThap"]);
+        var tutorialLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, this.HDList["CaoThap"]);
         tutorialLabel.setBoundingWidth(this.bouldingWidth);
         this.contentTable.pushItem(tutorialLabel);
     },
 
     initMiniPokerTutorial: function () {
-        var miniLabel1 = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25,this.HDList["PokerMini1"]);
+        this.initPokerTutorial("MiniPoker");
+    },
+
+    initVideoPokerTutorial: function () {
+        this.initPokerTutorial("VideoPoker");
+    },
+
+    initPokerTutorial: function (dataField) {
+        var miniLabel1 = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, this.HDList[dataField]["text1"]
+            , cc.TEXT_ALIGNMENT_LEFT);
         miniLabel1.setBoundingWidth(this.bouldingWidth);
         this.contentTable.pushItem(miniLabel1);
 
+        // result table
+        for (var i = 0; i < this.HDList[dataField]["Result"].length; i++) {
+            var container = new ccui.Widget();
+            var contentSize = cc.size(this.contentTable.getContentSize().width, 60);
+            container.setContentSize(contentSize);
+            var data = this.HDList[dataField]["Result"][i];
 
+            var rowBg = new cc.LayerColor(cc.color(74,142,211,i%2 ? 128 : 255),contentSize.width,contentSize.height);
+            container.addChild(rowBg);
 
-        var miniLabel2 = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25,this.HDList["PokerMini2"]);
+            var titleLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, data["Title"]);
+            titleLabel.setPosition(i == 0 ? contentSize.width / 4 : contentSize.width / 8, contentSize.height / 2);
+            container.addChild(titleLabel);
+            //
+            if (i != 0) {
+                var cardList = new CardList(cc.size(contentSize.width / 4, contentSize.height - 20));
+                cardList.setPosition(contentSize.width * 3 / 8, contentSize.height / 2);
+                var cards = data["cards"];
+                cards = cards.split(',');
+                for (var j = 0; j < cards.length; j++) {
+                    var cardObj = cardList.getCardWithId(parseInt(cards[j]));
+                    cardList.addCard(new Card(cardObj.rank, cardObj.suit));
+                }
+                cardList.reOrderWithoutAnimation();
+                container.addChild(cardList);
+            }
+
+            //
+            var rewardLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, data["Reward"]);
+            rewardLabel.setPosition(contentSize.width * 3 / 4, contentSize.height / 2);
+            container.addChild(rewardLabel);
+            this.contentTable.pushItem(container);
+        }
+
+        var miniLabel2 = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, this.HDList[dataField]["text2"]
+            , cc.TEXT_ALIGNMENT_LEFT);
         miniLabel2.setBoundingWidth(this.bouldingWidth);
         this.contentTable.pushItem(miniLabel2);
-    },
-    
-    initVideoPokerTutorial : function () {
-
     }
 });
