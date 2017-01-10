@@ -139,20 +139,34 @@ newui.TableView = ccui.ScrollView.extend({
     },
     forceRefreshView : function () {
         if(this._direction == ccui.ScrollView.DIR_VERTICAL){
-            this.refreshViewVertical();
+            if(this._columnCount == 1){
+                this._refreshViewVerticalListView();
+            }
+            else{
+                this._refreshViewVertical();
+            }
         }
         else{
-            this.refreshViewHorizontal();
+            if(this._columnCount == 1){
+                this._refreshViewHorizontalListView();
+            }
+            else{
+                this._refreshViewHorizontal();
+            }
         }
         this._refreshView = false;
     },
-    refreshViewHorizontal : function () {
+
+    _refreshViewHorizontal : function () {
         cc.log("refreshViewVertical");
         var containerWidth = 0.0;
         var containerHeight = this.getContentSize().height;
 
         if(this._allItems.length > 0){
             var itemSize = this._allItems[0].getContentSize();
+            var itemScale = this._allItems[0].getScale();
+            itemSize = cc.size(itemSize.width* itemScale, itemSize.height*itemScale);
+
             var row = this._columnCount;
             var col = Math.ceil(this._allItems.length / row);
             containerWidth = itemSize.width * col + this._padding*(col - 1) + this._marginLeft + this._marginRight;
@@ -187,12 +201,58 @@ newui.TableView = ccui.ScrollView.extend({
         }
         this.setInnerContainerSize(cc.size(containerWidth, containerHeight));
     },
-    refreshViewVertical : function () {
+
+    _refreshViewHorizontalListView: function () {
+        cc.log("_refreshViewHorizontalListView");
+        var containerWidth = 0.0;
+        var containerHeight = this.getContentSize().height;
+
+        if(this._allItems.length > 0){
+            var totalItemWidth = 0;
+            for(var i=0;i<this._allItems.length;i++){
+                totalItemWidth += this._allItems[i].getContentSize().width * this._allItems[i].getScale();
+            }
+
+            containerWidth = totalItemWidth + (this._padding) * (this._allItems.length - 1);
+            if(containerWidth < this.getContentSize().width){
+                containerWidth = this.getContentSize().width;
+            }
+
+            if(this._isReverse){
+                var x = containerWidth - this._marginRight;
+            }
+            else{
+                var x = this._marginLeft;
+            }
+            for(var i=0; i<this._allItems.length;i++){
+                var item = this._allItems[i];
+                var itemWidth = item.getContentSize().width * item.getScale();
+                if(this._isReverse){
+                    item.setPosition(x - itemWidth/2 , containerHeight/2);
+                    x -= (itemWidth + this._padding);
+                }
+                else{
+                    item.setPosition(x + itemWidth/2 , containerHeight/2);
+                    x += (itemWidth + this._padding);
+                }
+            }
+        }
+
+        if(containerWidth < this.getContentSize().width){
+            containerWidth = this.getContentSize().width;
+        }
+        this.setInnerContainerSize(cc.size(containerWidth, containerHeight));
+    },
+
+    _refreshViewVertical : function () {
         var containerWidth = this.getContentSize().width;
         var containerHeight = 0.0;
 
         if(this._allItems.length > 0){
             var itemSize = this._allItems[0].getContentSize();
+            var itemScale = this._allItems[0].getScale();
+            itemSize = cc.size(itemSize.width* itemScale, itemSize.height*itemScale);
+
             var col = this._columnCount;
             var row = Math.ceil(this._allItems.length / this._columnCount);
             containerHeight = itemSize.height * row + this._padding*(row - 1) + this._marginTop + this._marginBottom;
@@ -230,6 +290,50 @@ newui.TableView = ccui.ScrollView.extend({
         }
         this.setInnerContainerSize(cc.size(containerWidth, containerHeight));
     },
+
+    _refreshViewVerticalListView : function () {
+        cc.log("_refreshViewVerticalListView");
+        var containerWidth = this.getContentSize().width;
+        var containerHeight = 0.0;
+
+        if(this._allItems.length > 0){
+            var totalItemHeight = 0;
+            for(var i=0;i<this._allItems.length;i++){
+                totalItemHeight += this._allItems[i].getContentSize().height * this._allItems[i].getScale();
+            }
+
+            containerHeight = totalItemHeight + (this._padding) * (this._allItems.length - 1);
+            if(containerHeight < this.getContentSize().height){
+                containerHeight = this.getContentSize().height;
+            }
+
+            if(this._isReverse){
+                var y = this._marginBottom;
+            }
+            else{
+                var y = containerHeight - this._marginTop;
+            }
+
+            for(var i=0; i<this._allItems.length;i++){
+                var item = this._allItems[i];
+                var itemHeight = item.getContentSize().height * item.getScale();
+                if(this._isReverse){
+                    item.setPosition(containerWidth/2, y + itemHeight/2);
+                    y += (itemHeight + this._padding);
+                }
+                else{
+                    item.setPosition(containerWidth/2, y - itemHeight/2);
+                    y -= (itemHeight - this._padding);
+                }
+            }
+        }
+
+        if(containerHeight < this.getContentSize().height){
+            containerHeight = this.getContentSize().height;
+        }
+        this.setInnerContainerSize(cc.size(containerWidth, containerHeight));
+    },
+
     getRowItems :function(rowIndex){
         var items = [];
         if(this._direction == ccui.ScrollView.DIR_VERTICAL){
