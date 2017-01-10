@@ -164,8 +164,7 @@ newui.TableView = ccui.ScrollView.extend({
 
         if(this._allItems.length > 0){
             var itemSize = this._allItems[0].getContentSize();
-            var itemScale = this._allItems[0].getScale();
-            itemSize = cc.size(itemSize.width* itemScale, itemSize.height*itemScale);
+            itemSize = cc.size(itemSize.width * this._allItems[0].getScaleX(), itemSize.height * this._allItems[0].getScaleY());
 
             var row = this._columnCount;
             var col = Math.ceil(this._allItems.length / row);
@@ -187,6 +186,7 @@ newui.TableView = ccui.ScrollView.extend({
             for(var i=0; i<this._allItems.length;i++){
                 var colIdx = Math.floor(i/row);
                 var rowIdx = i % row;
+                this._allItems[i].setAnchorPoint(cc.p(0.5, 0.5));
                 if(this._isReverse){
                     this._allItems[i].setPosition(x - colIdx * (this._padding + itemSize.width), y - rowIdx * (rowPadding + itemSize.height));
                 }
@@ -210,7 +210,7 @@ newui.TableView = ccui.ScrollView.extend({
         if(this._allItems.length > 0){
             var totalItemWidth = 0;
             for(var i=0;i<this._allItems.length;i++){
-                totalItemWidth += this._allItems[i].getContentSize().width * this._allItems[i].getScale();
+                totalItemWidth += this._allItems[i].getContentSize().width * this._allItems[i].getScaleX();
             }
 
             containerWidth = totalItemWidth + (this._padding) * (this._allItems.length - 1) + this._marginLeft + this._marginRight;
@@ -226,7 +226,8 @@ newui.TableView = ccui.ScrollView.extend({
             }
             for(var i=0; i<this._allItems.length;i++){
                 var item = this._allItems[i];
-                var itemWidth = item.getContentSize().width * item.getScale();
+                item.setAnchorPoint(cc.p(0.5, 0.5));
+                var itemWidth = item.getContentSize().width * item.getScaleX();
                 if(this._isReverse){
                     item.setPosition(x - itemWidth/2 , containerHeight/2);
                     x -= (itemWidth + this._padding);
@@ -250,8 +251,7 @@ newui.TableView = ccui.ScrollView.extend({
 
         if(this._allItems.length > 0){
             var itemSize = this._allItems[0].getContentSize();
-            var itemScale = this._allItems[0].getScale();
-            itemSize = cc.size(itemSize.width* itemScale, itemSize.height*itemScale);
+            itemSize = cc.size(itemSize.width * this._allItems[0].getScaleX(), itemSize.height * this._allItems[0].getScaleY());
 
             var col = this._columnCount;
             var row = Math.ceil(this._allItems.length / this._columnCount);
@@ -275,7 +275,7 @@ newui.TableView = ccui.ScrollView.extend({
             for(var i=0; i<this._allItems.length;i++){
                 var colIdx = i % col;
                 var rowIdx = Math.floor(i / col);
-
+                this._allItems[i].setAnchorPoint(cc.p(0.5, 0.5));
                 if(this._isReverse){
                     this._allItems[i].setPosition(x + colIdx * (itemSize.width + colPadding), y + rowIdx * (itemSize.height + this._padding));
                 }
@@ -299,7 +299,7 @@ newui.TableView = ccui.ScrollView.extend({
         if(this._allItems.length > 0){
             var totalItemHeight = 0;
             for(var i=0;i<this._allItems.length;i++){
-                totalItemHeight += this._allItems[i].getContentSize().height * this._allItems[i].getScale();
+                totalItemHeight += this._allItems[i].getContentSize().height * this._allItems[i].getScaleY();
             }
 
             containerHeight = totalItemHeight + (this._padding) * (this._allItems.length - 1) + this._marginTop + this._marginBottom;
@@ -316,7 +316,8 @@ newui.TableView = ccui.ScrollView.extend({
 
             for(var i=0; i<this._allItems.length;i++){
                 var item = this._allItems[i];
-                var itemHeight = item.getContentSize().height * item.getScale();
+                item.setAnchorPoint(cc.p(0.5, 0.5));
+                var itemHeight = item.getContentSize().height * item.getScaleY();
                 if(this._isReverse){
                     item.setPosition(containerWidth/2, y + itemHeight/2);
                     y += (itemHeight + this._padding);

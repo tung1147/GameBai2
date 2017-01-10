@@ -98,6 +98,7 @@ void TableView::refreshViewVertical(){
 		for (int i = 0; i < _items.size(); i++){
 			int colIdx = i % col;
 			int rowIdx = i / col;
+			_items[i]->setAnchorPoint(Point(0.5, 0.5));
 			if (this->_reverse){
 				_items[i]->setPosition(x + colIdx * (itemSize.width + paddingWidth), y + rowIdx * (itemSize.height + this->padding));
 			}
@@ -120,9 +121,9 @@ void TableView::refreshViewVerticalListView(){
 	if (_items.size() > 0){
 		float totalItemHeight = 0;
 		for (int i = 0; i < _items.size(); i++){
-			totalItemHeight += _items[i]->getContentSize().width * _items[i]->getScale();
+			totalItemHeight += _items[i]->getContentSize().height * _items[i]->getScaleY();
 		}
-		containerHeight = totalItemHeight + this->padding * (_items.size() - 1);
+		containerHeight = totalItemHeight + this->padding * (_items.size() - 1) + this->marginTop + this->marginBottom;
 		if (containerHeight < this->getContentSize().height){
 			containerHeight = this->getContentSize().height;
 		}
@@ -133,12 +134,15 @@ void TableView::refreshViewVerticalListView(){
 		}
 
 		for (int i = 0; i < _items.size(); i++){
-			float itemHeight = _items[i]->getContentSize().width * _items[i]->getScale();
+			float itemHeight = _items[i]->getContentSize().height * _items[i]->getScaleY();
+			_items[i]->setAnchorPoint(Point(0.5, 0.5));
 			if (this->_reverse){
 				_items[i]->setPosition(containerWidth / 2, y + itemHeight/2);
+				y += (itemHeight + this->padding);
 			}
 			else{
 				_items[i]->setPosition(containerWidth / 2, y - itemHeight / 2);
+				y -= (itemHeight + this->padding);
 			}
 		}
 	}
@@ -177,6 +181,7 @@ void TableView::refreshViewHorizontal(){
 		for (int i = 0; i < _items.size(); i++){
 			int colIdx = i / row;
 			int rowIdx = i % row;
+			_items[i]->setAnchorPoint(Point(0.5, 0.5));
 			if (this->_reverse){
 				_items[i]->setPosition(x - colIdx * (itemSize.width + this->padding), y - rowIdx * (itemSize.height + paddingHeight));
 			}
@@ -193,7 +198,42 @@ void TableView::refreshViewHorizontal(){
 }
 
 void TableView::refreshViewHorizontalListView(){
+	float containerWidth = 0.0f;
+	float containerHeight = this->getContentSize().height;
+	if (_items.size() > 0){
+		float totalItemItemWidth = 0.0;
+		for (int i = 0; i < _items.size(); i++){
+			totalItemItemWidth += _items[i]->getContentSize().width * _items[i]->getScaleX();
+		}
 
+		containerWidth = totalItemItemWidth + (_items.size() - 1) * (this->padding) + this->marginLeft + this->marginRight;
+		if (containerWidth < this->getContentSize().width){
+			containerWidth = this->getContentSize().width;
+		}
+
+		float x = this->marginLeft;
+		if (this->_reverse){
+			x = containerWidth - this->marginRight;
+		}
+
+		for (int i = 0; i < _items.size(); i++){
+			_items[i]->setAnchorPoint(Point(0.5, 0.5));
+			float itemWidth = _items[i]->getContentSize().width * _items[i]->getScaleX();
+			if (this->_reverse){
+				_items[i]->setPosition(x - itemWidth/2, containerHeight / 2);
+				x -= (itemWidth + this->padding);
+			}
+			else{
+				_items[i]->setPosition(x + itemWidth/2, containerHeight / 2);
+				x += (itemWidth + this->padding);
+			}
+		}
+	}
+
+	if (containerWidth < this->getContentSize().width){
+		containerWidth = this->getContentSize().width;
+	}
+	this->setInnerContainerSize(Size(containerWidth, containerHeight));
 }
 
 void TableView::setPadding(float padding){
@@ -452,10 +492,20 @@ void TableView::refreshView(){
 
 void TableView::forceRefreshView(){
 	if (_direction == ui::ScrollView::Direction::VERTICAL){
-		refreshViewVertical();
+		if (this->columnSize == 1){
+			refreshViewVerticalListView();
+		}
+		else{
+			refreshViewVertical();
+		}	
 	}
 	else if (_direction == ui::ScrollView::Direction::HORIZONTAL){
-		refreshViewHorizontal();
+		if (this->rowSize == 1){
+			refreshViewHorizontalListView();
+		}
+		else{
+			refreshViewHorizontal();
+		}	
 	}
 	_isUpdateView = false;
 }
