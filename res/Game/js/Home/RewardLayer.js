@@ -394,7 +394,8 @@ var RewardHistoryLayer = RewardSublayer.extend({
         }
     },
     addItem: function (time, type, info, status) {
-        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, time, cc.TEXT_ALIGNMENT_CENTER, this.width1 - 20);
+        var d = new Date(time);
+        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, cc.Global.DateToString(d), cc.TEXT_ALIGNMENT_CENTER, this.width1);
         var typeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, type);
         var infoLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, info);
         var statusLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Thành công");
@@ -412,22 +413,22 @@ var RewardHistoryLayer = RewardSublayer.extend({
         container.setContentSize(cc.size(this.itemList.getContentSize().width, height));
         this.itemList.pushItem(container);
 
-        var bg1 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png", cc.rect(10, 0, 4, 80));
+        var bg1 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 80));
         bg1.setPreferredSize(cc.size(this.width1, container.getContentSize().height));
         bg1.setPosition(this.x1, container.getContentSize().height / 2);
         container.addChild(bg1);
 
-        var bg2 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png", cc.rect(10, 0, 4, 80));
+        var bg2 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 80));
         bg2.setPreferredSize(cc.size(this.width2, container.getContentSize().height));
         bg2.setPosition(this.x2, container.getContentSize().height / 2);
         container.addChild(bg2);
 
-        var bg3 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png", cc.rect(10, 0, 4, 80));
+        var bg3 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 80));
         bg3.setPreferredSize(cc.size(this.width3, container.getContentSize().height));
         bg3.setPosition(this.x3, container.getContentSize().height / 2);
         container.addChild(bg3);
 
-        var bg4 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png", cc.rect(10, 0, 4, 80));
+        var bg4 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 80));
         bg4.setPreferredSize(cc.size(this.width4, container.getContentSize().height));
         bg4.setPosition(this.x4, container.getContentSize().height / 2);
         container.addChild(bg4);
