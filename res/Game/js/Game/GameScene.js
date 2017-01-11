@@ -3,7 +3,7 @@
  */
 
 var GameTopBar = cc.Node.extend({
-    ctor : function () {
+    ctor: function () {
         this._super();
         SmartfoxClient.getInstance().addListener(socket.SmartfoxClient.CallExtension, this.onExtensionCommand, this);
 
@@ -25,15 +25,15 @@ var GameTopBar = cc.Node.extend({
             thiz.onSettingButtonHandler();
         });
     },
-    onExit : function () {
+    onExit: function () {
         this._super();
         SmartfoxClient.getInstance().removeListener(this);
     },
-    onSettingButtonHandler : function () {
+    onSettingButtonHandler: function () {
         var dialog = new SettingDialog();
         dialog.showWithAnimationMove();
     },
-    onExtensionCommand : function (messageType, contents) {
+    onExtensionCommand: function (messageType, contents) {
 
     }
 });
@@ -57,15 +57,15 @@ var GameTopBar = cc.Node.extend({
 // s_sfs_error_msg[64] = "Không thể bốc bài";
 
 var IGameScene = IScene.extend({
-    ctor : function () {
+    ctor: function () {
         this._super();
         this.initController();
         this.type = "GameScene";
         this.isOwnerMe = false;
 
         var bg = new cc.Sprite("res/game-bg.jpg");
-        bg.x = cc.winSize.width/2;
-        bg.y = cc.winSize.height/2;
+        bg.x = cc.winSize.width / 2;
+        bg.y = cc.winSize.height / 2;
         this.sceneLayer.addChild(bg);
 
         var gameTopBar = new GameTopBar();
@@ -73,98 +73,98 @@ var IGameScene = IScene.extend({
         this.sceneLayer.addChild(gameTopBar);
 
         var thiz = this;
-        gameTopBar.backBt.addClickEventListener(function(){
+        gameTopBar.backBt.addClickEventListener(function () {
             thiz.backButtonClickHandler();
         });
     },
-    initController : function () {
+    initController: function () {
 
     },
-    getMaxSlot : function () {
-        if(this.playerView){
+    getMaxSlot: function () {
+        if (this.playerView) {
             return this.playerView.length;
         }
         return 0;
     },
 
-    backButtonClickHandler : function () {
-        if(this._controller){
+    backButtonClickHandler: function () {
+        if (this._controller) {
             this._controller.requestQuitRoom();
         }
     },
-    exitToLobby : function () {
+    exitToLobby: function () {
         var homeScene = new HomeScene();
         var gameId = s_games_chanel_id[PlayerMe.gameType];
         homeScene.startLobby(gameId);
         cc.director.replaceScene(homeScene);
     },
-    exitToGame : function () {
+    exitToGame: function () {
         var homeScene = new HomeScene();
         homeScene.startGame();
         cc.director.replaceScene(homeScene);
     },
-    onExit : function () {
+    onExit: function () {
         this._super();
         SoundPlayer.stopAllSound();
-        if(this._controller){
+        if (this._controller) {
             this._controller.releaseController();
             this._controller = null;
         }
     },
 
-    showErrorMessage : function (message, scene) {
-        if(scene){
-            MessageNode.getInstance().show(message,null,scene);
+    showErrorMessage: function (message, scene) {
+        if (scene) {
+            MessageNode.getInstance().show(message, null, scene);
         }
-        else{
+        else {
             MessageNode.getInstance().show(message);
         }
     },
 
-    sendChatMessage : function (message) {
-        if(this._controller){
+    sendChatMessage: function (message) {
+        if (this._controller) {
             this._controller.sendChat(message);
         }
     },
 
-    showLoading : function (message) {
+    showLoading: function (message) {
 
     },
-    updateGold : function (username, gold) {
+    updateGold: function (username, gold) {
         var goldNumber = gold;
-        if(typeof gold === "string"){
+        if (typeof gold === "string") {
             goldNumber = parseInt(gold);
         }
-        for(var i=0;i<this.allSlot.length;i++){
-            if(this.allSlot[i].username == username){
+        for (var i = 0; i < this.allSlot.length; i++) {
+            if (this.allSlot[i].username == username) {
                 this.allSlot[i].setGold(goldNumber);
                 return;
             }
         }
     },
 
-    getSlotByUsername : function (username) {
-        for(var i=0;i<this.allSlot.length;i++){
-            if(this.allSlot[i].username == username){
+    getSlotByUsername: function (username) {
+        for (var i = 0; i < this.allSlot.length; i++) {
+            if (this.allSlot[i].username == username) {
                 return this.allSlot[i];
             }
         }
         return null;
     },
 
-    fillPlayerToSlot : function (playerList) {
+    fillPlayerToSlot: function (playerList) {
         this.allSlot = this.playerView;
-        for(var i=0;i<this.allSlot.length;i++){
+        for (var i = 0; i < this.allSlot.length; i++) {
             this.allSlot[i] = this.playerView[i];
             var data = playerList[i];
 
             this.allSlot[i].stopTimeRemain();
             this.allSlot[i].userIndex = data.userIndex;
 
-            if(data.username == ""){
+            if (data.username == "") {
                 this.allSlot[i].setEnable(false);
             }
-            else{
+            else {
                 this.allSlot[i].setEnable(true);
                 this.allSlot[i].setUsername(data.username);
                 this.allSlot[i].setGold(data.gold);
@@ -174,9 +174,9 @@ var IGameScene = IScene.extend({
         }
     },
 
-    userJoinRoom : function (info) {
-        for(var i=0;i<this.allSlot.length;i++){
-            if(info.index == this.allSlot[i].userIndex){
+    userJoinRoom: function (info) {
+        for (var i = 0; i < this.allSlot.length; i++) {
+            if (info.index == this.allSlot[i].userIndex) {
                 this.allSlot[i].setEnable(true);
                 this.allSlot[i].userIndex = info.index;
                 this.allSlot[i].stopTimeRemain();
@@ -202,9 +202,9 @@ var IGameScene = IScene.extend({
         // this.allSlot[slot].setGold(info.gold);
     },
 
-    userExitRoom : function (username) {
-        for(var i=0;i<this.allSlot.length;i++){
-            if(this.allSlot[i].username == username){
+    userExitRoom: function (username) {
+        for (var i = 0; i < this.allSlot.length; i++) {
+            if (this.allSlot[i].username == username) {
                 this.allSlot[i].setEnable(false);
                 this.allSlot[i].stopTimeRemain();
                 break;
@@ -212,27 +212,32 @@ var IGameScene = IScene.extend({
         }
     },
 
-    updateRegExitRoom : function (exit) {
-        if(exit){
+    updateRegExitRoom: function (exit) {
+        if (exit) {
             this.gameTopBar.backBt.loadTextureNormal("ingame-backBt-active.png", ccui.Widget.PLIST_TEXTURE);
         }
-        else{
+        else {
             this.gameTopBar.backBt.loadTextureNormal("ingame-backBt.png", ccui.Widget.PLIST_TEXTURE);
         }
 
     },
 
-    onChatMessage : function (username, message) {
-        cc.log("chat: "+username + " - "+message);
-        for(var i=0;i<this.allSlot.length;i++){
-            if(this.allSlot[i].username == username){
+    onChatMessage: function (username, message) {
+        cc.log("chat: " + username + " - " + message);
+        for (var i = 0; i < this.allSlot.length; i++) {
+            if (this.allSlot[i].username == username) {
                 this.allSlot[i].chatView.show(message);
                 break;
             }
         }
     },
 
-    onSFSExtension : function () {
-        
+    onSFSExtension: function () {
+
+    },
+    performChangeRewardFund: function (value) {
+        if (this.huThuongValueLabel) {
+            this.huThuongValueLabel.setString(cc.Global.NumberFormat1(value));
+        }
     }
 });

@@ -290,9 +290,5 @@ var BaCay = IGameScene.extend({
             rank: rankCard,
             suit: Math.floor(cardId / 13)
         };
-    },
-
-    performChangeRewardFund: function (value) {
-        this.huThuongValueLabel.setString(cc.Global.NumberFormat1(value));
     }
 });
