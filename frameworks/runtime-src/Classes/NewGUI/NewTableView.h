@@ -38,7 +38,6 @@ protected:
     ItemAnimationHandler _handler;
 	std::vector<Node*> _items;
 
-	bool _checkParentPageView;
 	bool _parentIsPageView;
 	bool _moveThis;
 	bool _moveParent;
@@ -106,10 +105,16 @@ public:
 	virtual void jumpToLeft();
 	virtual void jumpToRight();
 
-	virtual bool onTouchBegan(Touch *touch, Event *unusedEvent) override;
-	virtual void onTouchMoved(Touch *touch, Event *unusedEvent) override;
-	virtual void onTouchEnded(Touch *touch, Event *unusedEvent) override;
-	virtual void onTouchCancelled(Touch *touch, Event *unusedEvent) override;
+	//virtual bool onTouchBegan(Touch *touch, Event *unusedEvent) override;
+	//virtual void onTouchMoved(Touch *touch, Event *unusedEvent) override;
+	//virtual void onTouchEnded(Touch *touch, Event *unusedEvent) override;
+	//virtual void onTouchCancelled(Touch *touch, Event *unusedEvent) override;
+	
+	virtual void setParent(Node* parent);
+	virtual void interceptTouchEvent(Widget::TouchEventType event, Widget* sender, Touch *touch);
+	virtual void handlePressLogic(Touch *touch);
+	virtual void handleMoveLogic(Touch *touch);
+	virtual void handleReleaseLogic(Touch *touch);
 
 	static TableView* create(const Size& size, int columnOrRow);
 };

@@ -23,6 +23,7 @@ newui.TableView = ccui.ScrollView.extend({
         this.setContentSize(size);
         this.setBounceEnabled(true);
         this.setScrollBarEnabled(false);
+        this._propagateTouchEvents = false;
 
         this._contentRect = cc.rect(0,0,size.width, size.height);
 
@@ -481,88 +482,62 @@ newui.TableView = ccui.ScrollView.extend({
         else
             return new newui.TableView.CanvasRenderCmd(this);
     },
-    onTouchBegan: function (touch, event) {
-        if (!this._checkParentPageView){
-            if (this._direction == ccui.ScrollView.DIR_VERTICAL){
-                var parent = this.getParent();
-                if (parent instanceof ccui.Layout){
-                    parent = parent.getParent();
-                    if (parent instanceof ccui.PageView){
-                        this._parentIsPageView = true;
-                    }
+
+    setParent : function (parent) {
+        this._super(parent);
+        this._parentIsPageView = false;
+        if (this._direction == ccui.ScrollView.DIR_VERTICAL){
+            if (parent instanceof ccui.Layout){
+                parent = parent.getParent();
+                if (parent instanceof ccui.PageView){
+                    this._parentIsPageView = true;
                 }
             }
-            this._checkParentPageView = true;
         }
+    },
 
-        if (!this._parentIsPageView){
-            var ret = ccui.ScrollView.prototype.onTouchBegan.call(this,touch,event);
-            if(ret){
-                this._moveByTouch = true;
-            }
-            return ret;
-        }
+    _handlePressLogic: function (touch) {
+        this._super(touch);
+        if (this._parentIsPageView){
+            ccui.Layout.prototype.interceptTouchEvent.call(this, ccui.Widget.TOUCH_BEGAN, this, touch);
 
-        this._propagateTouchEvents = true;
-        var bret = ccui.ScrollView.prototype.onTouchBegan.call(this,touch,event);
-        this._propagateTouchEvents = false;
-        if (bret){
             this._startPoint = touch.getLocation();
             this._moveThis = false;
             this._moveParent = false;
             this._moveByTouch = true;
         }
-        return bret;
     },
 
-    onTouchMoved: function (touch, event) {
+    _handleMoveLogic: function (touch) {
         if (this._parentIsPageView){
             if (!this._moveThis && !this._moveParent){
                 var p =  cc.pSub(touch.getLocation(), this._startPoint);
-                if (cc.pLength(p) > 10.0){
-                    if (Math.abs(p.x) > Math.abs(p.y)){
-                        this._moveParent = true;
-                    }
-                    else{
-                        this._moveThis = true;
-                    }
+                if (Math.abs(p.x) > Math.abs(p.y)){
+                    this._moveParent = true;
+                }
+                else{
+                    this._moveThis = true;
                 }
             }
-
             if (this._moveThis){
-                ccui.ScrollView.prototype.onTouchMoved.call(this,touch,event);
+                this._super(touch);
             }
             else if (this._moveParent){
-                this._propagateTouchEvents = true;
-                ccui.Layout.prototype.onTouchMoved.call(this,touch,event);
-                this._propagateTouchEvents = false;
+                ccui.Layout.prototype.interceptTouchEvent.call(this, ccui.Widget.TOUCH_MOVED, this, touch);
             }
         }
         else{
-            ccui.ScrollView.prototype.onTouchMoved.call(this,touch,event);
+            this._super(touch);
         }
     },
-    onTouchEnded: function (touch, event) {
-        this._moveByTouch = false;
+
+    _handleReleaseLogic: function (touch) {
         if (this._parentIsPageView){
-            this._propagateTouchEvents = true;
-            ccui.ScrollView.prototype.onTouchEnded.call(this,touch,event);
-            this._propagateTouchEvents = false;
+            ccui.Layout.prototype.interceptTouchEvent.call(this, ccui.Widget.TOUCH_ENDED, this, touch);
         }
-        else{
-            ccui.ScrollView.prototype.onTouchEnded.call(this,touch,event);
-        }
+        this._super(touch);
     },
-    onTouchCancelled: function (touch, event) {
-        if (this._parentIsPageView){
-            this._propagateTouchEvents = true;
-            ccui.ScrollView.prototype.onTouchCancelled.call(this,touch,event);
-            this._propagateTouchEvents = false;
-        }
-        else{
-            ccui.ScrollView.prototype.onTouchCancelled.call(this,touch,event);
-        }
-    },
+
     visit : function (parentCmd) {
         if (!this._visible){
             return;
