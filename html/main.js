@@ -196,13 +196,7 @@ cc.game.onStart = function(){
     // cc.view.setRealPixelResolution(960, 640, cc.ResolutionPolicy.SHOW_ALL);
     // The game will be resized when browser size change
     cc.view.resizeWithBrowserSize(true);
-
-    if(cc.game.CC_DEBUG_ENABLE){
-        cc.loader.resPath = "res/Game";
-    }
-    else{
-        cc.loader.resPath = "";
-    }
+    cc.loader.resPath = window.cc_resources_search_path;
     var loading_texture = [
         "res/game-bg.jpg",
         "res/loading.plist",
