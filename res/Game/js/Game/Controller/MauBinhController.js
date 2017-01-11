@@ -44,6 +44,7 @@ var MauBinhController = GameController.extend({
 
             case 3:
                 // xep xong
+                this._view.showTimeRemaining(0);
                 this._view.onTimeOut();
                 break;
         }

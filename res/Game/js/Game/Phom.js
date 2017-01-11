@@ -145,7 +145,7 @@ var PhomCardList = CardList.extend({
             cardSprite.setSelected(selected, true);
         }
     },
-    
+
     processGroupedCard: function (param) {
         var groupedCard = [];
         for (var i = 0; i < param.length; i++)
