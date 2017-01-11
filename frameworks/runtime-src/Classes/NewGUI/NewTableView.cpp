@@ -17,6 +17,9 @@ TableView* TableView::create(const Size& size, int columnSize){
 
 TableView::TableView() {
 	// TODO Auto-generated constructor stub
+	this->_propagateTouchEvents = false;
+	this->setScrollBarEnabled(false);
+
 	columnSize = 1;
 	marginTop = 0.0f;
 	marginBottom = 0.0f;
@@ -27,7 +30,6 @@ TableView::TableView() {
 
 	_runningEffect = false;
 	_updateEffect = false;
-	_checkParentPageView = false;
 
 	effectMoveSpeed = 4000.0f;
 	effectTimeDelayPerColumn = 0.05f;
@@ -35,7 +37,6 @@ TableView::TableView() {
     
     _handler = nullptr;
 
-	_checkParentPageView = false;
 	_parentIsPageView = false;
 	_moveThis = false;
 	_moveParent = false;
@@ -590,83 +591,191 @@ void TableView::jumpToRight(){
 	ui::ScrollView::jumpToRight();
 }
 
-bool TableView::onTouchBegan(Touch *touch, Event *unusedEvent){
-	if (!_checkParentPageView){
-		if (_direction == ui::ScrollView::Direction::VERTICAL){
-			auto parent = this->getParent();
-			if (dynamic_cast<ui::Layout*>(parent)){
-				parent = parent->getParent();
-				if (dynamic_cast<ui::PageView*>(parent)){
-					_parentIsPageView = true;
-				}
+//bool TableView::onTouchBegan(Touch *touch, Event *unusedEvent){
+//	if (!_checkParentPageView){
+//		if (_direction == ui::ScrollView::Direction::VERTICAL){
+//			auto parent = this->getParent();
+//			if (dynamic_cast<ui::Layout*>(parent)){
+//				parent = parent->getParent();
+//				if (dynamic_cast<ui::PageView*>(parent)){
+//					_parentIsPageView = true;
+//				}
+//			}
+//		}	
+//		_checkParentPageView = true;
+//	}
+//
+//	if (!_parentIsPageView){
+//		return ui::ScrollView::onTouchBegan(touch, unusedEvent);
+//	}
+//
+//	_propagateTouchEvents = true;
+//	bool bret = ui::ScrollView::onTouchBegan(touch, unusedEvent);
+//	_propagateTouchEvents = false;
+//	if (bret){
+//		_startPoint = touch->getLocation();
+//		_moveThis = false;
+//		_moveParent = false;
+//	}
+//	return bret;
+//}
+//
+//void TableView::onTouchMoved(Touch *touch, Event *unusedEvent){	
+//	if (_parentIsPageView){
+//		if (!_moveThis && !_moveParent){
+//			Point p = touch->getLocation() - _startPoint;
+//			if (p.length() > 10.0){
+//				if (abs(p.x) > abs(p.y)){
+//					_moveParent = true;
+//				}
+//				else{
+//					_moveThis = true;
+//				}
+//			}
+//		}
+//
+//		if (_moveThis){
+//			ui::ScrollView::onTouchMoved(touch, unusedEvent);
+//		}
+//		else if (_moveParent){
+//			_propagateTouchEvents = true;
+//			Layout::onTouchMoved(touch, unusedEvent);
+//			_propagateTouchEvents = false;
+//		}
+//	}
+//	else{
+//		ui::ScrollView::onTouchMoved(touch, unusedEvent);
+//	}
+//}
+//
+//void TableView::onTouchEnded(Touch *touch, Event *unusedEvent){	
+//	if (_parentIsPageView){
+//		_propagateTouchEvents = true;
+//		ui::ScrollView::onTouchEnded(touch, unusedEvent);
+//		_propagateTouchEvents = false;
+//	}
+//	else{
+//		ui::ScrollView::onTouchEnded(touch, unusedEvent);
+//	}
+//}
+//
+//void TableView::onTouchCancelled(Touch *touch, Event *unusedEvent){
+//	if (_parentIsPageView){
+//		_propagateTouchEvents = true;
+//		ui::ScrollView::onTouchCancelled(touch, unusedEvent);
+//		_propagateTouchEvents = false;
+//	}
+//	else{
+//		ui::ScrollView::onTouchCancelled(touch, unusedEvent);
+//	}
+//}
+
+void TableView::setParent(Node* parent){
+	ui::ScrollView::setParent(parent);
+	
+	_parentIsPageView = false;
+	if (_direction == ui::ScrollView::Direction::VERTICAL){
+		auto parent = this->getParent();
+		if (dynamic_cast<ui::Layout*>(parent)){
+			parent = parent->getParent();
+			if (dynamic_cast<ui::PageView*>(parent)){
+				_parentIsPageView = true;
 			}
-		}	
-		_checkParentPageView = true;
-	}
-
-	if (!_parentIsPageView){
-		return ui::ScrollView::onTouchBegan(touch, unusedEvent);
-	}
-
-	_propagateTouchEvents = true;
-	bool bret = ui::ScrollView::onTouchBegan(touch, unusedEvent);
-	_propagateTouchEvents = false;
-	if (bret){
-		_startPoint = touch->getLocation();
-		_moveThis = false;
-		_moveParent = false;
-	}
-	return bret;
+		}
+	}	
 }
 
-void TableView::onTouchMoved(Touch *touch, Event *unusedEvent){	
+void TableView::interceptTouchEvent(Widget::TouchEventType event, Widget *sender, Touch* touch){
+	if (!_parentIsPageView){
+		ui::ScrollView::interceptTouchEvent(event, sender, touch);
+		return;
+	}
+	/* fix by quyetnguyen vi cocos2dx sida*/
+	if (!_touchEnabled){
+		Layout::interceptTouchEvent(event, sender, touch);
+		return;
+	}
+	if (_direction == Direction::NONE)
+		return;
+	Vec2 touchPoint = touch->getLocation();
+	switch (event){
+		case TouchEventType::BEGAN:{
+			_isInterceptTouch = true;
+			_touchBeganPosition = touch->getLocation();
+			handlePressLogic(touch);
+		}
+		break;
+		case TouchEventType::MOVED:{
+			_touchMovePosition = touch->getLocation();
+			/* fix by quyetnguyen vi cocos2dx sida*/
+
+			// calculates move offset in points
+			auto dis = sender->getTouchBeganPosition() - touchPoint;
+			auto glview = Director::getInstance()->getOpenGLView();
+			int dpi = Device::getDPI();
+			float offsetInInch = Vec2(dis.x * glview->getScaleX() / dpi, dis.y * glview->getScaleY() / dpi).getLength();
+
+			if (offsetInInch > _childFocusCancelOffsetInInch)
+			{
+				sender->setHighlighted(false);
+				handleMoveLogic(touch);
+			}
+		}
+		break;
+
+		case TouchEventType::CANCELED:
+		case TouchEventType::ENDED:{
+			_touchEndPosition = touch->getLocation();
+			handleReleaseLogic(touch);
+			if (sender->isSwallowTouches())
+			{
+				_isInterceptTouch = false;
+			}
+		}
+		break;
+	}
+}
+
+void TableView::handlePressLogic(Touch *touch){
+	ui::ScrollView::handlePressLogic(touch);
+
+	if (_parentIsPageView){
+		ui::Layout::interceptTouchEvent(ui::Widget::TouchEventType::BEGAN, this, touch);
+		_moveParent = false;
+		_moveThis = false;
+		_startPoint = touch->getLocation();
+	}
+}
+
+void TableView::handleMoveLogic(Touch *touch){
 	if (_parentIsPageView){
 		if (!_moveThis && !_moveParent){
-			Point p = touch->getLocation() - _startPoint;
-			if (p.length() > 10.0){
-				if (abs(p.x) > abs(p.y)){
-					_moveParent = true;
-				}
-				else{
-					_moveThis = true;
-				}
+			auto p = touch->getLocation() - _startPoint;
+			if (abs(p.x) > abs(p.y)){			
+				this->_moveParent = true;
+			}
+			else{
+				this->_moveThis = true;
 			}
 		}
 
 		if (_moveThis){
-			ui::ScrollView::onTouchMoved(touch, unusedEvent);
+			ui::ScrollView::handleMoveLogic(touch);
 		}
 		else if (_moveParent){
-			_propagateTouchEvents = true;
-			Layout::onTouchMoved(touch, unusedEvent);
-			_propagateTouchEvents = false;
+			ui::Layout::interceptTouchEvent(ui::Widget::TouchEventType::MOVED, this, touch);
 		}
 	}
 	else{
-		ui::ScrollView::onTouchMoved(touch, unusedEvent);
+		ui::ScrollView::handleMoveLogic(touch);
 	}
 }
 
-void TableView::onTouchEnded(Touch *touch, Event *unusedEvent){	
+void TableView::handleReleaseLogic(Touch *touch){
 	if (_parentIsPageView){
-		_propagateTouchEvents = true;
-		ui::ScrollView::onTouchEnded(touch, unusedEvent);
-		_propagateTouchEvents = false;
+		ui::Layout::interceptTouchEvent(ui::Widget::TouchEventType::ENDED, this, touch);
 	}
-	else{
-		ui::ScrollView::onTouchEnded(touch, unusedEvent);
-	}
-}
-
-void TableView::onTouchCancelled(Touch *touch, Event *unusedEvent){
-	if (_parentIsPageView){
-		_propagateTouchEvents = true;
-		ui::ScrollView::onTouchCancelled(touch, unusedEvent);
-		_propagateTouchEvents = false;
-	}
-	else{
-		ui::ScrollView::onTouchCancelled(touch, unusedEvent);
-	}
+	ui::ScrollView::handleReleaseLogic(touch);
 }
 
 }
