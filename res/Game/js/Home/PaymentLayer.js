@@ -410,9 +410,8 @@ var PaymentHistoryLayer = cc.Node.extend({
             this.itemList.removeAllItems();
 
             for (var i = 0; i < data.length; i++) {
-                var timeInMs = new Date(data[i]["createdTime"] * 1000);
-                var timeString = timeInMs.getHours() + ":" + timeInMs.getMinutes() + ":" + timeInMs.getSeconds()
-                    + "\n" + timeInMs.getDate() + "/" + (timeInMs.getMonth() + 1) + "/" + timeInMs.getFullYear();
+                var d = new Date(data[i]["createdTime"] * 1000);
+                var timeString = cc.Global.DateToString(d);
                 var type = data[i]["cashInType"];
                 var info = data[i]["detail"];
                 var gold = data[i]["gold"];

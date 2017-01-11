@@ -54,24 +54,23 @@ var InboxLayer = LobbySubLayer.extend({
         container.setContentSize(cc.size(this.messageList.getContentSize().width, 80));
         this.messageList.pushItem(container);
 
-        var bg1 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png",cc.rect(10, 0, 4, 80));
+        var bg1 = new ccui.Scale9Sprite("sublobby-cell-bg.png",cc.rect(10, 0, 4, 80));
         bg1.setPreferredSize(cc.size(250 * cc.winSize.screenScale, 80));
         bg1.setPosition(185.0 * cc.winSize.screenScale, bg1.getContentSize().height/2);
         container.addChild(bg1);
 
-        var bg2 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png",cc.rect(10, 0, 4, 80));
+        var bg2 = new ccui.Scale9Sprite("sublobby-cell-bg.png",cc.rect(10, 0, 4, 80));
         bg2.setPreferredSize(cc.size(250 * cc.winSize.screenScale, 80));
         bg2.setPosition(437.0 * cc.winSize.screenScale, bg1.y);
         container.addChild(bg2);
 
-        var bg3 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png",cc.rect(10, 0, 4, 80));
+        var bg3 = new ccui.Scale9Sprite("sublobby-cell-bg.png",cc.rect(10, 0, 4, 80));
         bg3.setPreferredSize(cc.size(656 * cc.winSize.screenScale, 80));
         bg3.setPosition(892.0 * cc.winSize.screenScale, bg1.y);
         container.addChild(bg3);
 
         var d = new Date(time);
-        var timeString = "" + d.getDate() + "/" + (d.getMonth() + 1) + "/" + (1900 + d.getYear()) + "\n" +
-                            d.getHours() + ":"+ d.getMinutes();
+        var timeString = cc.Global.DateToString(d);
         var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, timeString, cc.TEXT_ALIGNMENT_CENTER, bg1.getContentSize().width);
         timeLabel.setPosition(bg1.getPosition());
         timeLabel.setColor(textColor);
