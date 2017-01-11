@@ -166,7 +166,7 @@ var CaoThapLayer = MiniGamePopup.extend({
 
     showResultCard: function (cardId) {
         this.setRolling(false);
-        var card = this.getCardWithId(cardId);
+        var card = CardList.prototype.getCardWithId(cardId);
         this.card.setSpriteFrame(card.rank + s_card_suit[card.suit] + ".png");
     },
 
@@ -236,7 +236,7 @@ var CaoThapLayer = MiniGamePopup.extend({
     },
 
     addHistory: function (cardValue, enforce) {
-        var card = this.getCardWithId(cardValue);
+        var card = CardList.prototype.getCardWithId(cardValue);
         var cardIndex = card.rank;
         if (this.historyList.size() > 0) {
             var item = this.historyList.getItem(0);

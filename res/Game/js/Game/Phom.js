@@ -17,7 +17,7 @@ var TrashCardOnTable = cc.Node.extend({
     },
 
     removeCardById: function (id) {
-        var card = this.getCardWithId(id);
+        var card = CardList.prototype.getCardWithId(id);
         for (var i = 0; i < this.cardList.length; i++)
             if (this.cardList[i].rank == card.rank && this.cardList[i].suit == card.suit) {
                 var retVal = this.cardList[i];
@@ -50,17 +50,6 @@ var TrashCardOnTable = cc.Node.extend({
         this.cardList.push(card);
         this.addChild(card, 0);
         this.reOrder();
-    },
-
-    getCardWithId: function (cardId) {
-        var rankCard = (cardId % 13) + 3;
-        if (rankCard > 13) {
-            rankCard -= 13;
-        }
-        return {
-            rank: rankCard,
-            suit: Math.floor(cardId / 13)
-        };
     },
 
     reOrder: function (noAnimation) {
@@ -132,7 +121,7 @@ var PhomCardList = CardList.extend({
         var groupedCard = [];
         var ungroupedCard = [];
         for (var i = 0; i < this.cardList.length; i++) {
-            var cardId = this.getCardIdWithRank(this.cardList[i].rank, this.cardList[i].suit);
+            var cardId = CardList.prototype.getCardIdWithRank(this.cardList[i].rank, this.cardList[i].suit);
             var index = this.groupedCard.indexOf(cardId);
             if (index != -1)
                 groupedCard[index] = this.cardList[i];
@@ -151,18 +140,12 @@ var PhomCardList = CardList.extend({
     suggestCards: function (cards) {
         for (var i = 0; i < this.cardList.length; i++) {
             var cardSprite = this.cardList[i];
-            var selected = cards.indexOf(this.getCardIdWithRank(cardSprite.rank,
+            var selected = cards.indexOf(CardList.prototype.getCardIdWithRank(cardSprite.rank,
                     cardSprite.suit)) != -1;
             cardSprite.setSelected(selected, true);
         }
     },
-    getCardIdWithRank: function (rank, suit) {
-        var rankCard = rank - 3;
-        if (rankCard < 0) {
-            rankCard = 13 + rankCard;
-        }
-        return ((suit * 13) + rankCard);
-    },
+    
     processGroupedCard: function (param) {
         var groupedCard = [];
         for (var i = 0; i < param.length; i++)
@@ -170,7 +153,7 @@ var PhomCardList = CardList.extend({
         this.groupedCard = groupedCard;
 
         for (var i = 0; i < this.cardList.length; i++) {
-            var id = this.getCardIdWithRank(this.cardList[i].rank,
+            var id = CardList.prototype.getCardIdWithRank(this.cardList[i].rank,
                 this.cardList[i].suit);
             if (groupedCard.indexOf(id) != -1) {
                 var dotSprite = new cc.Sprite("#card-dot.png");
@@ -220,7 +203,7 @@ var Phom = IGameScene.extend({
         var slot = this.getSlotByUsername(username);
         slot.trashCards.removeAll();
         for (var j = 0; j < cards.length; j++) {
-            var card = this.getCardWithId(cards[j]);
+            var card = CardList.prototype.getCardWithId(cards[j]);
             slot.trashCards.addCard(new Card(card.rank, card.suit));
         }
     },
@@ -228,7 +211,7 @@ var Phom = IGameScene.extend({
     setCardList: function (cards) {
         this.cardList.removeAll();
         for (var i = 0; i < cards.length; i++) {
-            var card = this.getCardWithId(cards[i]);
+            var card = CardList.prototype.getCardWithId(cards[i]);
             this.cardList.addCard(new Card(card.rank, card.suit));
         }
         this.cardList.reOrderWithoutAnimation();
@@ -237,7 +220,7 @@ var Phom = IGameScene.extend({
     setStolenCardsMe: function (cards) {
         for (var i = 0; i < this.cardList.cardList.length; i++) {
             var card = this.cardList.cardList[i];
-            var cardId = this.getCardIdWithRank(card.rank, card.suit);
+            var cardId = CardList.prototype.getCardIdWithRank(card.rank, card.suit);
             if (cards.indexOf(cardId) != -1) {
                 var borderSprite = new cc.Sprite("#boder_do.png");
                 borderSprite.setPosition(card.width / 2, card.height / 2);
@@ -251,7 +234,7 @@ var Phom = IGameScene.extend({
         slot.dropCards.removeAll();
 
         for (var i = 0; i < cards.length; i++) {
-            var card = this.getCardWithId(cards[i]);
+            var card = CardList.prototype.getCardWithId(cards[i]);
             var cardSprite = new Card(card.rank, card.suit);
             var redBorder = new cc.Sprite("#boder_do.png");
             redBorder.setPosition(cardSprite.width / 2, cardSprite.height / 2);
@@ -280,7 +263,7 @@ var Phom = IGameScene.extend({
             dialog.contentLabel[i].setString(resultData[i].resultString);
 
             for (var j = 0; j < resultData[i].cardList.length; j++) {
-                var cardData = this.getCardWithId(resultData[i].cardList[j]);
+                var cardData = CardList.prototype.getCardWithId(resultData[i].cardList[j]);
                 var card = new Card(cardData.rank, cardData.suit);
                 dialog.cardList[i].addCard(card);
             }
@@ -296,7 +279,7 @@ var Phom = IGameScene.extend({
         for (var i = 0; i < groupedCards.length; i++) {
             var list = groupedCards[i];
             for (var j = 0; j < list.length; j++) {
-                removeList.push(this.getCardWithId(list[j]));
+                removeList.push(CardList.prototype.getCardWithId(list[j]));
             }
         }
 
@@ -317,7 +300,7 @@ var Phom = IGameScene.extend({
         //index stolen cards
         for (var i = 0; i < slot.dropCards.cardList.length; i++) {
             stolenCardsId.push(
-                this.getCardIdWithRank(slot.dropCards.cardList[i].rank,
+                CardList.prototype.getCardIdWithRank(slot.dropCards.cardList[i].rank,
                     slot.dropCards.cardList[i].suit)
             );
             slot.dropCards.cardList[i].retain();
@@ -330,7 +313,7 @@ var Phom = IGameScene.extend({
             for (var j = 0; j < groupedCards[i].length; j++) {
                 var index = stolenCardsId.indexOf(groupedCards[i][j]);
                 if (index == -1) {// from hands, create new sprite
-                    var card = this.getCardWithId(groupedCards[i][j]);
+                    var card = CardList.prototype.getCardWithId(groupedCards[i][j]);
                     slot.dropCards.addCard(new Card(card.rank, card.suit));
                 }
                 else { // from exist drop card
@@ -366,7 +349,7 @@ var Phom = IGameScene.extend({
                 }
                 // from someone's deck
                 else {
-                    var card = this.getCardWithId(groupedCardAfter[j]);
+                    var card = CardList.prototype.getCardWithId(groupedCardAfter[j]);
                     var cardSprite = new Card(card.rank, card.suit);
                     cardSprite.setPosition(this.getSlotByUsername(sender).getPosition());
                     finalList.push(cardSprite);
@@ -429,7 +412,7 @@ var Phom = IGameScene.extend({
         }
     },
     performDrawCardMe: function (cardId, groupedCard) {
-        var card = this.getCardWithId(cardId);
+        var card = CardList.prototype.getCardWithId(cardId);
         var cardSprite = new Card(card.rank, card.suit);
         cardSprite.setPosition(cc.winSize.width / 2, cc.winSize.height / 2);
         this.cardList.addCard(cardSprite);
@@ -553,23 +536,6 @@ var Phom = IGameScene.extend({
         this.sceneLayer.addChild(player3, 1);
         this.playerView = [playerMe, player1, player2, player3];
     },
-    getCardWithId: function (cardId) {
-        var rankCard = (cardId % 13) + 3;
-        if (rankCard > 13) {
-            rankCard -= 13;
-        }
-        return {
-            rank: rankCard,
-            suit: Math.floor(cardId / 13)
-        };
-    },
-    getCardIdWithRank: function (rank, suit) {
-        var rankCard = rank - 3;
-        if (rankCard < 0) {
-            rankCard = 13 + rankCard;
-        }
-        return ((suit * 13) + rankCard);
-    },
     initButton: function () {
         var danhbaiBt = new ccui.Button("game-danhbaiBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
         danhbaiBt.setPosition(cc.winSize.width - 310, 50);
@@ -663,7 +629,7 @@ var Phom = IGameScene.extend({
         var guibaiList = this.cardList.getCardSelected();
         var data = [];
         for (var i = 0; i < guibaiList.length; i++) {
-            data.push(this.getCardIdWithRank(guibaiList[i].rank, guibaiList[i].suit));
+            data.push(CardList.prototype.getCardIdWithRank(guibaiList[i].rank, guibaiList[i].suit));
         }
         this._controller.sendGuiBaiRequest(data);
     },
@@ -671,7 +637,7 @@ var Phom = IGameScene.extend({
         var habaiList = this.cardList.getCardSelected();
         var data = [];
         for (var i = 0; i < habaiList.length; i++) {
-            data.push(this.getCardIdWithRank(habaiList[i].rank, habaiList[i].suit));
+            data.push(CardList.prototype.getCardIdWithRank(habaiList[i].rank, habaiList[i].suit));
         }
         this._controller.sendHaBaiRequest(data);
     },
@@ -681,7 +647,7 @@ var Phom = IGameScene.extend({
     sendDanhBai: function () {
         var cards = this.cardList.getCardSelected();
         if (cards.length > 0) {
-            var cardId = this.getCardIdWithRank(cards[0].rank, cards[0].suit);
+            var cardId = CardList.prototype.getCardIdWithRank(cards[0].rank, cards[0].suit);
             this._controller.sendDanhBai(cardId);
         } else
             MessageNode.getInstance().show("Bạn phải chọn 1 quân bài");

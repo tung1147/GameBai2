@@ -34,25 +34,6 @@ var PhomController = GameController.extend({
         return 4;
     },
 
-    getCardWithId: function (cardId) {
-        var rankCard = (cardId % 13) + 3;
-        if (rankCard > 13) {
-            rankCard -= 13;
-        }
-        return {
-            rank: rankCard,
-            suit: Math.floor(cardId / 13)
-        };
-    },
-
-    getCardIdWithRank: function (rank, suit) {
-        var rankCard = rank - 3;
-        if (rankCard < 0) {
-            rankCard = 13 + rankCard;
-        }
-        return ((suit * 13) + rankCard);
-    },
-
     // onSFSExtension: function (messageType, content) {
     //     this._super(messageType, content);
     //     cc.log("mysfs : " + JSON.stringify(content));
@@ -225,14 +206,14 @@ var PhomController = GameController.extend({
         var cardData = param["1"];
         var groupCardData = param["2"];
         for (var i = 0; i < cardData.length; i++)
-            cards.push(this.getCardWithId(cardData[i]));
+            cards.push(CardList.prototype.getCardWithId(cardData[i]));
         this._view.performDealCards(cards, groupCardData);
     },
 
     onDanhBaiThanhCong: function (param) {
         //this._view.onDanhBaiThanhCong(param);
         var username = param.u;
-        var card = this.getCardWithId(param["1"]);
+        var card = CardList.prototype.getCardWithId(param["1"]);
         if (PlayerMe.username == username)
             this._view.performDanhBaiMe(card);
         else

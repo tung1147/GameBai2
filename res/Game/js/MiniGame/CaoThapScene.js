@@ -217,7 +217,7 @@ var CaoThapScene = MiniGameScene.extend({
         var thiz = this;
 
         var duration = 0.5;
-        data = this.getCardWithId(data);
+        data = CardList.prototype.getCardWithId(data);
         var cardImg = "#" + data.rank + s_card_suit[data.suit] + ".png";
 
         if (force){
@@ -352,7 +352,7 @@ var CaoThapScene = MiniGameScene.extend({
         this.highValueLabel.setString(cc.Global.NumberFormat1(highValue));
     },
     showResultCard: function (cardId) {
-        var card = this.getCardWithId(cardId);
+        var card = CardList.prototype.getCardWithId(cardId);
         this.card.setSpriteFrame(card.rank + s_card_suit[card.suit] + ".png");
     },
     setLuotMoiBtVisible: function (visible) {

@@ -20,19 +20,37 @@ var MauBinhController = GameController.extend({
     },
 
     onStartGame : function (param) {
-        cc.log(param);
+        var cards = [];
+        for (var i = 0;i<param["1"].length;i++){
+            cards.push(CardList.prototype.getCardWithId(param["1"][i]));
+        }
+        // param["1"].forEach(function (item,index) {
+        //     cards.push(CardList.prototype.getCardWithId(item));
+        // });
+        this._view.performDealCards(cards);
     },
 
     onGameStatus: function(param){
+        this._view.hideAllButton();
         switch (param["1"]){
             case 1:
                 this._view.setStartBtVisible(this.isOwnerMe);
                 break;
 
             case 2:
+                this._view.setIngameButtonVisible(true);
+                this._view.showTimeRemaining(param["2"]);
+                break;
 
+            case 3:
+                // xep xong
+                this._view.onTimeOut();
                 break;
         }
+    },
+
+    sendXepBaiXong : function (cards) {
+        SmartfoxClient.getInstance().sendExtensionRequestCurrentRoom("451",{1:cards});
     },
 
     getMaxSlot: function () {

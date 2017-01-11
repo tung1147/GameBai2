@@ -256,7 +256,7 @@ var VideoPokerLayer = MiniGamePopup.extend({
     },
 
     showDoubleTurn: function (firstCardId) {
-        var card = this.getCardWithId(firstCardId);
+        var card = CardList.prototype.getCardWithId(firstCardId);
         this.cardSprites[0].setSpriteFrame("" + card.rank + s_card_suit[card.suit] + ".png");
         for (var i = 1; i < 5; i++) {
             this.cardSprites[i].setSpriteFrame("gp_card_up.png");
@@ -288,7 +288,7 @@ var VideoPokerLayer = MiniGamePopup.extend({
 
     setCardArray: function (cardArray) {
         for (var i = 0; i < cardArray.length; i++) {
-            var card = this.getCardWithId(cardArray[i]);
+            var card = CardList.prototype.getCardWithId(cardArray[i]);
             this.cardSprites[i].setSpriteFrame("" + card.rank + s_card_suit[card.suit] + ".png");
         }
         this.setRolling(false);

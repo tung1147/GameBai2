@@ -69,25 +69,6 @@ var TLMNGameController = GameController.extend({
         return 4;
     },
 
-    getCardWithId: function (cardId) {
-        var rankCard = (cardId % 13) + 3;
-        if (rankCard > 13) {
-            rankCard -= 13;
-        }
-        return {
-            rank: rankCard,
-            suit: Math.floor(cardId / 13)
-        };
-    },
-
-    getCardIdWithRank: function (rank, suit) {
-        var rankCard = rank - 3;
-        if (rankCard < 0) {
-            rankCard = 13 + rankCard;
-        }
-        return ((suit * 13) + rankCard);
-    },
-
     onJoinRoom : function (params) {
         this._super(params);
         this.updateGameInfo(params);
@@ -109,7 +90,7 @@ var TLMNGameController = GameController.extend({
             var cardData = params["3"];
             var cards = [];
             for (var i = 0; i < cardData.length; i++) {
-                cards.push(this.getCardWithId(cardData[i]));
+                cards.push(CardList.prototype.getCardWithId(cardData[i]));
             }
             this._view.setCardMe(cards);
         }
@@ -194,7 +175,7 @@ var TLMNGameController = GameController.extend({
             if (cardData.length > 0) {
                 var cards = [];
                 for (var i = 0; i < cardData.length; i++) {
-                    cards.push(this.getCardWithId(cardData[i]));
+                    cards.push(CardList.prototype.getCardWithId(cardData[i]));
                 }
                 this._view.setCardOnTable(cards);
             }
@@ -211,7 +192,7 @@ var TLMNGameController = GameController.extend({
         var cards = [];
         var cardData = params["1"];
         for (var i = 0; i < cardData.length; i++) {
-            cards.push(this.getCardWithId(cardData[i]));
+            cards.push(CardList.prototype.getCardWithId(cardData[i]));
         }
         this._view.dealCards(cards);
 
@@ -295,7 +276,7 @@ var TLMNGameController = GameController.extend({
         var cards = [];
         var cardData = param["2"];
         for (var i = 0; i < cardData.length; i++) {
-            cards.push(this.getCardWithId(cardData[i]));
+            cards.push(CardList.prototype.getCardWithId(cardData[i]));
         }
 
         if(PlayerMe.username == username){
@@ -320,7 +301,7 @@ var TLMNGameController = GameController.extend({
             var cardListData = playerData[i]["2"];
             var cardList = [];
             for(var j=0;j<cardListData.length;j++){
-                cardList.push(this.getCardWithId(cardListData[j]));
+                cardList.push(CardList.prototype.getCardWithId(cardListData[j]));
             }
 
             if(username == winPlayer){
@@ -358,7 +339,7 @@ var TLMNGameController = GameController.extend({
         if (cards.length > 0) {
             var cardId = [];
             for (var i = 0; i < cards.length; i++) {
-                cardId.push(this.getCardIdWithRank(cards[i].rank, cards[i].suit));
+                cardId.push(CardList.prototype.getCardIdWithRank(cards[i].rank, cards[i].suit));
             }
             var param = {
                 2: cardId

@@ -145,15 +145,4 @@ var MiniGameScene = IScene.extend({
     onError : function (param) {
         MessageNode.getInstance().show(param.msg);
     },
-
-    getCardWithId: function (cardId) {
-        var rankCard = (cardId % 13) + 3;
-        if (rankCard > 13) {
-            rankCard -= 13;
-        }
-        return {
-            rank: rankCard,
-            suit: Math.floor(cardId / 13)
-        };
-    },
 });

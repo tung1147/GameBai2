@@ -48,7 +48,7 @@ var BaCayCardList = CardList.extend({
     revealAll: function (cards) {
         if (cards) {
             for (var i = 0; i < cards.length; i++) {
-                var card = this.getCardWithId(cards[i]);
+                var card = CardList.prototype.getCardWithId(cards[i]);
                 this.cardList[i].rank = card.rank;
                 this.cardList[i].suit = card.suit;
             }
@@ -201,6 +201,7 @@ var BaCay = IGameScene.extend({
                 }
             }, 1000);
         }else{
+            this.timeRemaining = 0;
             this.timeLabel.setString("");
         }
     },
@@ -248,7 +249,7 @@ var BaCay = IGameScene.extend({
     dealCard: function (cards) {
         var cardArray = [];
         for (var i = 0; i < cards.length; i++)
-            cardArray.push(this.getCardWithId(cards[i]));
+            cardArray.push(CardList.prototype.getCardWithId(cards[i]));
         this.playerView[0].cardList.dealCards(cardArray, true);
 
         for (var j = 1; j < this.playerView.length; j++) // dummy cards for other players
@@ -260,7 +261,7 @@ var BaCay = IGameScene.extend({
         for (var j = 0; j < this.playerView.length; j++)
             if (this.playerView[j].username != "") {
                 for (var i = 0; i < cards.length; i++) {
-                    var card = this.getCardWithId(cards[i]);
+                    var card = CardList.prototype.getCardWithId(cards[i]);
                     var cardObject = new Card(card.rank, card.suit);
                     cardObject.setSpriteFrame("gp_card_up.png");
                     this.playerView[j].cardList.addCard(cardObject);
@@ -280,15 +281,4 @@ var BaCay = IGameScene.extend({
     setStateString: function (str) {
         this.stateString.setString(str);
     },
-
-    getCardWithId: function (cardId) {
-        var rankCard = (cardId % 13) + 3;
-        if (rankCard > 13) {
-            rankCard -= 13;
-        }
-        return {
-            rank: rankCard,
-            suit: Math.floor(cardId / 13)
-        };
-    }
 });

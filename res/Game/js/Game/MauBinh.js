@@ -33,6 +33,12 @@ var MauBinh = IGameScene.extend({
         huThuongValueLabel.setColor(cc.color("#ffde00"));
         this.sceneLayer.addChild(huThuongValueLabel);
         this.huThuongValueLabel = huThuongValueLabel;
+
+        var timeLabel = new cc.LabelBMFont("", cc.res.font.Roboto_BoldCondensed_36_Glow);
+        timeLabel.setPosition(huThuongBg.x, huThuongBg.y - 100);
+        timeLabel.setScale(2.0);
+        this.sceneLayer.addChild(timeLabel);
+        this.timeLabel = timeLabel;
     },
 
     initPlayer: function () {
@@ -46,7 +52,7 @@ var MauBinh = IGameScene.extend({
 
         var player1 = new GamePlayer();
         player1.setPosition(cc.winSize.width - 120 / cc.winSize.screenScale, 360);
-        player1.cardList = new CardList(cc.size(cc.winSize.width / 3), 100);
+        player1.cardList = new CardList(cc.size(cc.winSize.width / 3,100));
         player1.cardList.setPosition(player1.getPosition());
         this.sceneLayer.addChild(player1.cardList, 2);
         this.sceneLayer.addChild(player1, 1);
@@ -90,12 +96,27 @@ var MauBinh = IGameScene.extend({
             thiz._controller.sendStartRequest();
         });
 
+        xongBt.addClickEventListener(function () {
+            thiz.xepBaiXong();
+        });
+
         this.setIngameButtonVisible(false);
-        this.setStartButtonVisible(false);
+        this.setStartBtVisible(false);
+
+        this.allButtons = [xepbaiBt, xongBt, startBt];
     },
 
     initController: function () {
         this._controller = new MauBinhController(this);
+    },
+
+    xepBaiXong:  function () {
+        var cards = [];
+        for (var i =0 ;i<this.playerView[0].cardList.cardList.length;i++){
+            var cardObj = this.playerView[0].cardList.cardList[i];
+            cards.push(CardList.prototype.getCardByRank(cardObj.rank,cardObj.suit));
+        }
+        this._controller.sendXepBaiXong(cards);
     },
 
     setIngameButtonVisible: function (visible) {
@@ -103,10 +124,10 @@ var MauBinh = IGameScene.extend({
         this.xongBt.visible = visible;
     },
 
-    setStartButtonVisible: function (visible) {
+    setStartBtVisible: function (visible) {
         this.startBt.visible = visible;
     },
-    
+
     showTimeRemaining: function (timeRemaining) {
         if (timeRemaining > 0) {
             this.timeRemaining = timeRemaining;
@@ -117,16 +138,30 @@ var MauBinh = IGameScene.extend({
             thiz.timeLabel.setString(timeRemaining);
             thiz.timeRemaining--;
             this.timeInterval = setInterval(function () {
-                if (thiz.timeRemaining <= 0){
+                if (thiz.timeRemaining <= 0) {
                     thiz.timeLabel.setString("");
                     clearInterval(thiz.timeInterval);
-                }else{
+                } else {
                     thiz.timeLabel.setString(thiz.timeRemaining);
                     thiz.timeRemaining--;
                 }
             }, 1000);
-        }else{
+        } else {
             this.timeLabel.setString("");
+            this.timeRemaining = null;
         }
     },
+
+    onTimeOut: function () {
+
+    },
+    performDealCards: function (cards) {
+        this.playerView[0].cardList.dealCards(cards);
+    },
+
+    hideAllButton: function () {
+        this.allButtons.forEach(function (item, index) {
+            item.setVisible(false);
+        })
+    }
 });

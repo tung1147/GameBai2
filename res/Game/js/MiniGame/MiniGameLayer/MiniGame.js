@@ -88,16 +88,6 @@ var MiniGamePopup = cc.Node.extend({
         this.jackpotLabel.setString(cc.Global.NumberFormat1(this.rewardFund[betAmountID - 1]["2"]));
     },
 
-    getCardWithId: function (cardId) {
-        var rankCard = (cardId % 13) + 3;
-        if (rankCard > 13) {
-            rankCard -= 13;
-        }
-        return {
-            rank: rankCard,
-            suit: Math.floor(cardId / 13)
-        };
-    },
     onChangeAssets: function (gold, changeAmount) {
         if (changeAmount == 0)
             return;
@@ -241,5 +231,6 @@ var MiniGamePopup = cc.Node.extend({
 
     hide: function () {
         this.getParent().removeFromParent(true);
+        SoundPlayer.stopAllSound();
     }
 });

@@ -178,6 +178,13 @@ var CardList = cc.Node.extend({
             suit: Math.floor(cardId / 13)
         };
     },
+    getCardIdWithRank: function (rank, suit) {
+        var rankCard = rank - 3;
+        if (rankCard < 0) {
+            rankCard = 13 + rankCard;
+        }
+        return ((suit * 13) + rankCard);
+    },
 
     reArrangeCards: function (sortFunc) {
         if (!sortFunc){

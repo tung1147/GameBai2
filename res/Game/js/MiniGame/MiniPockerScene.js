@@ -397,7 +397,7 @@ var MiniPokerScene = MiniGameScene.extend({
 
     setCardArray: function (cardArray) {
         for (var i = 0; i < cardArray.length; i++) {
-            var card = this.getCardWithId(cardArray[i]);
+            var card = CardList.prototype.getCardWithId(cardArray[i]);
             this.cardSprites[i].setSpriteFrame("" + card.rank + s_card_suit[card.suit] + ".png");
         }
         this.setRolling(false);
