@@ -14,9 +14,7 @@ var LobbyClient = (function () {
                 throw "Cannot create new instance for Singleton Class";
             } else {
                 this.allListener = {};
-                this.host = "42.112.25.164";//"uat1.puppetserver.com";
-                // this.host = "42.112.25.164";
-                // this.host = "vuabaivip.com";
+                this.host = "42.112.25.169";
                 if (cc.sys.isNative) {
                     this.port = 9999;
                 }

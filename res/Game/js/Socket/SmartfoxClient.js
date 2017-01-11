@@ -289,6 +289,9 @@ var SmartfoxClient = (function () {
             else if (gameType == s_games_chanel[GameType.GAME_BaCay]) {
                 return new BaCay();
             }
+            else if (gameType == s_games_chanel[GameType.GAME_MauBinh]){
+                return new MauBinh();
+            }
             return null;
         },
 

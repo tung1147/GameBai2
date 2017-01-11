@@ -3,6 +3,10 @@
  */
 //var LobbyClient = LobbyClient || {};
 LobbyClient.Error = {
+    1 : {
+        message: "Lỗi không xác định",
+        logout : false,
+    },
     6 : {
         message : "Tài khoản không tồn tại",
         logout : true,

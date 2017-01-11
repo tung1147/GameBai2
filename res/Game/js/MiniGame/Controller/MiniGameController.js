@@ -11,7 +11,8 @@ var MiniGameController = cc.Class.extend({
         this._view = view;
         SmartfoxClient.getInstance().addListener(socket.SmartfoxClient.SocketStatus, this.onSmartfoxSocketStatus, this);
         SmartfoxClient.getInstance().addListener(socket.SmartfoxClient.CallExtension, this.onSFSExtension, this);
-        SmartfoxClient.getInstance().addExtensionListener("___err___",this.onSFSError,this);
+        SmartfoxClient.getInstance().addExtensionListener("___err___", this.onSFSError, this);
+        SmartfoxClient.getInstance().addExtensionListener("0", this.onSFSChangeAssets, this);
         LobbyClient.getInstance().addListener("getLastSessionInfo", this.onGetLastSessionInfo, this);
     },
 
@@ -23,8 +24,12 @@ var MiniGameController = cc.Class.extend({
         this.requestQuitRoom();
     },
 
-    onSFSError : function (messageType,content) {
+    onSFSError: function (messageType, content) {
         this._view.onError(content.p);
+    },
+
+    onSFSChangeAssets: function (messageType, content) {
+        this.onChangeAssets(content.p["2"], content.p["1"]);
     },
 
     onSmartfoxSocketStatus: function (type, eventName) {
@@ -48,11 +53,6 @@ var MiniGameController = cc.Class.extend({
 
             case "262": // reconnect
                 this.onReconnect(content.p);
-                break;
-
-            case "0": // thay doi vang
-                this.onChangeAssets(content.p["2"], content.p["1"]);
-                cc.log(content);
                 break;
         }
     },

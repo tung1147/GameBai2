@@ -2,7 +2,7 @@
  * Created by Quyet Nguyen on 7/25/2016.
  */
 
-var s_xocdia_slot_id = s_xocdia_slot_id || [0, 1, 4, 2, 6, 5, 3];
+var s_xocdia_slot_id = s_xocdia_slot_id || [1, 0, 4, 2, 6, 5, 3];
 var s_xocdia_slot_position = s_xocdia_slot_position || [
         {x: 1011, y: 407},
         {x: 271, y: 407},

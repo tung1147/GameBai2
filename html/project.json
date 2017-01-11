@@ -72,6 +72,7 @@
         "res/Game/js/Game/Controller/GameController.js",
         "res/Game/js/Game/Controller/TLMNController.js",
         "res/Game/js/Game/Controller/PhomController.js",
+        "res/Game/js/Game/Controller/MauBinhController.js",
         "res/Game/js/Game/Controller/BaCayController.js",
         "res/Game/js/Game/Controller/SamController.js",
         "res/Game/js/Game/Controller/XocDiaController.js",
