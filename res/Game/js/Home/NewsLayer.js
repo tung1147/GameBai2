@@ -43,7 +43,7 @@ var NewsNotificationLayer = NewsSubLayer.extend({
         if (!events)
             return;
         for (var i = 0; i < events.length; i++) {
-            this.addMessage(events[i]["title"], "", events[i]["content"]);
+            this.addMessage(events[i]["title"], events[i]["createTime"], events[i]["content"]);
         }
     },
 
@@ -65,12 +65,12 @@ var NewsNotificationLayer = NewsSubLayer.extend({
         container.setContentSize(cc.size(this.itemList.getContentSize().width, 80));
         this.itemList.pushItem(container);
 
-        var bg1 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png", cc.rect(10, 0, 4, 80));
+        var bg1 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 80));
         bg1.setPreferredSize(cc.size(858 * cc.winSize.screenScale, 80));
         bg1.setPosition(489.0 * cc.winSize.screenScale, bg1.getContentSize().height / 2);
         container.addChild(bg1);
 
-        var bg2 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png", cc.rect(10, 0, 4, 80));
+        var bg2 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 80));
         bg2.setPreferredSize(cc.size(300 * cc.winSize.screenScale, 80));
         bg2.setPosition(1070.0 * cc.winSize.screenScale, bg1.y);
         container.addChild(bg2);
@@ -78,7 +78,9 @@ var NewsNotificationLayer = NewsSubLayer.extend({
         var titleLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, title);
         titleLabel.setPosition(bg1.getPosition());
         container.addChild(titleLabel);
-        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, time);
+
+        var d = new Date(time);
+        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, cc.Global.DateToString(d), cc.TEXT_ALIGNMENT_CENTER, 1000);
         timeLabel.setPosition(bg2.getPosition());
         container.addChild(timeLabel);
 
@@ -105,7 +107,7 @@ var NewsTutorialLayer = NewsNotificationLayer.extend({
         if (!guides)
             return;
         for (var i = 0;i<guides.length;i++){
-            this.addMessage(guides[i]["title"],"",guides[i]["content"]);
+            this.addMessage(guides[i]["title"], guides[i]["createTime"], guides[i]["content"]);
         }
     }
 });
@@ -151,13 +153,13 @@ var NewsLevelLayer = NewsSubLayer.extend({
         }
         container.setContentSize(cc.size(this.itemList.getContentSize().width, containerHeight));
 
-        var bg1 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png", cc.rect(10, 0, 4, 80));
+        var bg1 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 80));
         bg1.setPreferredSize(cc.size(this.width1, container.getContentSize().height));
 
-        var bg2 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png", cc.rect(10, 0, 4, 80));
+        var bg2 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 80));
         bg2.setPreferredSize(cc.size(this.width2, container.getContentSize().height));
 
-        var bg3 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png", cc.rect(10, 0, 4, 80));
+        var bg3 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 80));
         bg3.setPreferredSize(cc.size(this.width3, container.getContentSize().height));
 
         bg1.setPosition(this.levelLabel.x, bg1.getContentSize().height / 2);
@@ -217,7 +219,7 @@ var NewsLayer = LobbySubLayer.extend({
         this.addChild(bottomBar);
         bottomBar.setScale(cc.winSize.screenScale);
 
-        var tabBg = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-tab-bg.png", cc.rect(10, 0, 4, 82));
+        var tabBg = new ccui.Scale9Sprite("sublobby-tab-bg.png", cc.rect(10, 0, 4, 82));
         tabBg.setPreferredSize(cc.size(1000, 82));
         tabBg.setPosition(1280.0 / 2, tabBg.getContentSize().height / 2);
         bottomBar.addChild(tabBg);
@@ -225,7 +227,7 @@ var NewsLayer = LobbySubLayer.extend({
         var dx = tabBg.getContentSize().width / 4;
         var x = tabBg.x - tabBg.getContentSize().width / 2 + dx / 2;
 
-        var selectBg = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-tab-selected-bg.png", cc.rect(10, 10, 4, 4));
+        var selectBg = new ccui.Scale9Sprite("sublobby-tab-selected-bg.png", cc.rect(10, 10, 4, 4));
         selectBg.setPreferredSize(cc.size(dx, tabBg.getContentSize().height));
         bottomBar.addChild(selectBg);
 

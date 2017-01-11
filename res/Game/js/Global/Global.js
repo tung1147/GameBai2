@@ -30,6 +30,30 @@ cc.Global.NumberFormat2 = function (number) {
     return (number.toString() + Number_Format_Type[i]);
 };
 
+cc.Global.NumberFormatWithPadding = function (number, size) {
+    if(size == undefined){
+        size = 2;
+    }
+    if(number < 0){
+        return number.toString();
+    }
+    var str = number.toString();
+    while(str.length < size){
+        str = "0"+str;
+    }
+    return str;
+};
+
+cc.Global.DateToString = function (d) {
+    var timeString = cc.Global.NumberFormatWithPadding(d.getDate()) + "/" +
+        cc.Global.NumberFormatWithPadding(d.getMonth() + 1) + "/" +
+        (1900 + d.getYear()).toString() + "\n" +
+        cc.Global.NumberFormatWithPadding(d.getHours()) + ":" +
+        cc.Global.NumberFormatWithPadding(d.getMinutes()) + ":" +
+        cc.Global.NumberFormatWithPadding(d.getSeconds());
+    return timeString;
+};
+
 //cc.winSize.screenScale = cc.winSize.width / 1280.0;
 cc.res = cc.res || {};
 cc.res.font = cc.res.font || {};
