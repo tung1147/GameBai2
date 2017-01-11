@@ -16,6 +16,7 @@ var HomeScene = IScene.extend({
         LobbyClient.getInstance().addListener("markReadedMessageInbox", this.onChangeRefeshUserInfo, this);
         LobbyClient.getInstance().addListener("news", this.onNewsMessage, this);
         LobbyClient.getInstance().addListener("miniGameReconnect", this.onMiniGameReconnect, this);
+        SmartfoxClient.getInstance().addExtensionListener("0", this.onSFSChangeGold, this);
 
         var bg = new cc.Sprite("res/game-bg.jpg");
         bg.x = cc.winSize.width / 2;
@@ -134,6 +135,14 @@ var HomeScene = IScene.extend({
         //         price: parseInt(price)
         //     });
         // }
+    },
+    onSFSChangeGold : function (messageType, data) {
+        if(data.p.reason == 1){
+            var goldChange = data["p"]["1"];
+            if(goldChange < 0){
+                MessageNode.getInstance().show("Bạn vừa bị trừ "+Math.abs(goldChange) + " Vàng vì thoát khỏi phòng", null, this);
+            }
+        }
     },
     onChangeRefeshUserInfo : function (command, data) {
         this.userInfo.refreshView();
@@ -412,5 +421,6 @@ var HomeScene = IScene.extend({
     onExit: function () {
         this._super();
         LobbyClient.getInstance().removeListener(this);
+        SmartfoxClient.getInstance().removeListener(this);
     }
 });

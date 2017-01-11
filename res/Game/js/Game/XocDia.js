@@ -204,6 +204,17 @@ var XocDiaScene = IGameScene.extend({
 
         this.setUserCount(0);
     },
+    backButtonClickHandler : function () {
+        var thiz = this;
+        var dialog = new MessageConfirmDialog();
+        dialog.setMessage("Bạn có muốn thoát game không ? \nNếu THOÁT bạn sẽ bị mất số vàng đã đặt cược");
+        dialog.showWithAnimationScale();
+        dialog.okButtonHandler = function () {
+            if (thiz._controller) {
+                thiz._controller.requestQuitRoom();
+            }
+        };
+    },
     initView: function () {
         var playerMe = new GamePlayerMe();
         playerMe.setPosition(150, 50.0);

@@ -86,10 +86,19 @@ var MiniGameLayer = cc.Node.extend({
 
             var iconNormal = new cc.Sprite("#home-minigamebar-" + (i + 1) + "-1.png");
             var iconSelect = new cc.Sprite("#home-minigamebar-" + (i + 1) + "-2.png");
-            iconNormal.setPosition(iconNormal.getContentSize().width / 2, iconNormal.getContentSize().height / 2);
-            iconSelect.setPosition(iconNormal.getPosition());
 
-            var container = new newui.Widget(iconNormal.getContentSize());
+
+            if(cc.sys.isNative){
+                var container = new newui.Widget(iconNormal.getContentSize());
+                iconNormal.setPosition(iconNormal.getContentSize().width / 2, iconNormal.getContentSize().height / 2);
+            }
+            else{
+                var container = new ccui.Widget();
+                container.setContentSize(miniGameToggle.getContentSize().width, iconNormal.getContentSize().height);
+                iconNormal.setPosition(container.getContentSize().width / 2, iconNormal.getContentSize().height / 2);
+            }
+
+            iconSelect.setPosition(iconNormal.getPosition());
             container.iconNormal = iconNormal;
             container.iconSelect = iconSelect;
             container.addChild(iconNormal);
