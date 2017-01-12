@@ -35,7 +35,7 @@ var MiniGameCell = ccui.Widget.extend({
 
 var MiniGameLayer = cc.Node.extend({
     ctor: function () {
-        this.miniGameTab = [];
+      //  this.miniGameTab = [];
         this.allMiniLayer = [];
 
         this._super();
@@ -68,13 +68,13 @@ var MiniGameLayer = cc.Node.extend({
         this.addChild(miniGameLayer);
         this.miniGameLayer = miniGameLayer;
 
-        var miniGameToggle = new ccui.PageView();
-        miniGameToggle.setContentSize(cc.size(miniGameBar.getContentSize().width - 10, miniGameBar.getContentSize().height));
-        miniGameToggle.setAnchorPoint(cc.p(0.5, 0.5));
-        miniGameToggle.setPosition(miniGameBar.getPosition());
-        miniGameToggle.setScale(cc.winSize.screenScale);
-        this.addChild(miniGameToggle);
-        this.miniGameToggle = miniGameToggle;
+        // var miniGameToggle = new ccui.PageView();
+        // miniGameToggle.setContentSize(cc.size(miniGameBar.getContentSize().width - 10, miniGameBar.getContentSize().height));
+        // miniGameToggle.setAnchorPoint(cc.p(0.5, 0.5));
+        // miniGameToggle.setPosition(miniGameBar.getPosition());
+        // miniGameToggle.setScale(cc.winSize.screenScale);
+        // this.addChild(miniGameToggle);
+        // this.miniGameToggle = miniGameToggle;
 
         for (var i = 0; i < 3; i++) {
             var listGame = new newui.TableView(miniGameLayer.getContentSize(), 1);
@@ -84,47 +84,52 @@ var MiniGameLayer = cc.Node.extend({
             miniGameLayer.addPage(listGame);
             this.allMiniLayer.push(listGame);
 
-            var iconNormal = new cc.Sprite("#home-minigamebar-" + (i + 1) + "-1.png");
-            var iconSelect = new cc.Sprite("#home-minigamebar-" + (i + 1) + "-2.png");
+            // var iconNormal = new cc.Sprite("#home-minigamebar-" + (i + 1) + "-1.png");
+            // var iconSelect = new cc.Sprite("#home-minigamebar-" + (i + 1) + "-2.png");
 
 
-            if(cc.sys.isNative){
-                var container = new newui.Widget(iconNormal.getContentSize());
-                iconNormal.setPosition(iconNormal.getContentSize().width / 2, iconNormal.getContentSize().height / 2);
-            }
-            else{
-                var container = new ccui.Widget();
-                container.setContentSize(miniGameToggle.getContentSize().width, iconNormal.getContentSize().height);
-                iconNormal.setPosition(container.getContentSize().width / 2, iconNormal.getContentSize().height / 2);
-            }
+            // if(cc.sys.isNative){
+            //     var container = new newui.Widget(iconNormal.getContentSize());
+            //     iconNormal.setPosition(iconNormal.getContentSize().width / 2, iconNormal.getContentSize().height / 2);
+            // }
+            // else{
+            //     var container = new ccui.Widget();
+            //     container.setContentSize(miniGameToggle.getContentSize().width, iconNormal.getContentSize().height);
+            //     iconNormal.setPosition(container.getContentSize().width / 2, iconNormal.getContentSize().height / 2);
+            // }
 
-            iconSelect.setPosition(iconNormal.getPosition());
-            container.iconNormal = iconNormal;
-            container.iconSelect = iconSelect;
-            container.addChild(iconNormal);
-            container.addChild(iconSelect);
+            // var container = new newui.Widget(iconNormal.getContentSize());
+            // iconNormal.setPosition(iconNormal.getContentSize().width / 2, iconNormal.getContentSize().height / 2);
+            //
+            // iconSelect.setPosition(iconNormal.getPosition());
+            // container.iconNormal = iconNormal;
+            // container.iconSelect = iconSelect;
+            // container.addChild(iconNormal);
+            // container.addChild(iconSelect);
 
-            miniGameToggle.addPage(container);
-            this.miniGameTab.push(container);
+           // miniGameToggle.addPage(container);
+         //   this.miniGameTab.push(container);
 
             for (var j = 0; j < s_mini_game_id.length; j++) {
                 this.addMiniGame(s_mini_game_id[j], listGame);
             }
         }
+     //   miniGameToggle.forceDoLayout();
 
         LobbyClient.getInstance().addListener("miniGame", this.onSocketMessage, this);
         this.fetchHuThuong();
 
+
         var thiz = this;
-        miniGameToggle.addEventListener(function () {
-            var i = miniGameToggle.getCurrentPageIndex();
-            thiz.selectTab(i);
-            thiz.miniGameLayer.scrollToItem(i);
-        });
+        // miniGameToggle.addEventListener(function () {
+        //     var i = miniGameToggle.getCurrentPageIndex();
+        //     thiz.selectTab(i);
+        //     thiz.miniGameLayer.scrollToItem(i);
+        // });
 
         miniGameLayer.addEventListener(function () {
             var i = miniGameLayer.getCurrentPageIndex();
-            thiz.miniGameToggle.setCurrentPageIndex(i);
+           // thiz.miniGameToggle.setCurrentPageIndex(i);
             thiz.selectTab(i);
         });
 
@@ -180,21 +185,20 @@ var MiniGameLayer = cc.Node.extend({
     },
 
     selectTab: function (index) {
-        for (var i = 0; i < this.miniGameTab.length; i++) {
-            if (i == index) {
-                this.miniGameTab[i].iconNormal.visible = false;
-                this.miniGameTab[i].iconSelect.visible = true;
-            }
-            else {
-                this.miniGameTab[i].iconNormal.visible = true;
-                this.miniGameTab[i].iconSelect.visible = false;
-            }
-        }
+        // for (var i = 0; i < this.miniGameTab.length; i++) {
+        //     if (i == index) {
+        //         this.miniGameTab[i].iconNormal.visible = false;
+        //         this.miniGameTab[i].iconSelect.visible = true;
+        //     }
+        //     else {
+        //         this.miniGameTab[i].iconNormal.visible = true;
+        //         this.miniGameTab[i].iconSelect.visible = false;
+        //     }
+        // }
     },
 
     onEnter: function () {
         this._super();
-        this.miniGameToggle.setCurrentPageIndex(0);
         this.miniGameLayer.setCurrentPageIndex(0);
         this.selectTab(0);
         LobbyClient.getInstance().send({command: "subscribeMiniGame", gameType: "Mini_Poker"});
@@ -211,7 +215,6 @@ var MiniGameLayer = cc.Node.extend({
     },
 
     startAnimation: function () {
-        this.miniGameToggle.setCurrentPageIndex(0);
         this.selectTab(0);
         this.allMiniLayer[0].runMoveEffect(-2000, 0.1, 0.1);
     }
