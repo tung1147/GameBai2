@@ -35,7 +35,7 @@ var MiniGameCell = ccui.Widget.extend({
 
 var MiniGameLayer = cc.Node.extend({
     ctor: function () {
-      //  this.miniGameTab = [];
+        this.tabSelectedIndex = 0;
         this.allMiniLayer = [];
 
         this._super();
@@ -43,38 +43,47 @@ var MiniGameLayer = cc.Node.extend({
     },
 
     initMiniGame: function () {
+        var thiz = this;
+        LobbyClient.getInstance().addListener("miniGame", this.onSocketMessage, this);
+
         var miniGameBar = new cc.Sprite("#home-minigame-bar.png");
         miniGameBar.setPosition(162.0 * cc.winSize.screenScale, 170.0);
         miniGameBar.setScale(cc.winSize.screenScale);
         this.addChild(miniGameBar);
 
-        var miniGame_top = 580.0;
-        var miniGame_bottom = miniGameBar.y + miniGameBar.getContentSize().height / 2 * miniGameBar.getScaleY();
-        var miniGame_left = 20.0 * cc.winSize.screenScale;
-        var miniGame_right = 300.0 * cc.winSize.screenScale;
+        var goldTitle = new cc.Sprite("#home-minigamebar-text1.png");
+        goldTitle.setPosition(miniGameBar.getContentSize().width/2, miniGameBar.getContentSize().height/2);
+        miniGameBar.addChild(goldTitle);
+        this.goldTitle = goldTitle;
 
-        var minigameBg = ccui.Scale9Sprite.createWithSpriteFrameName("home-minigame-bg.png", cc.rect(8, 0, 4, 384));
-        minigameBg.setPreferredSize(cc.size(miniGame_right - miniGame_left + 4.0, 384));
-        minigameBg.setAnchorPoint(cc.p(0, 0));
-        minigameBg.setPosition(miniGame_left, miniGame_bottom);
-        this.addChild(minigameBg);
+        var leftBt = new ccui.Button("home-minigame-leftBt.png","","", ccui.Widget.PLIST_TEXTURE);
+        leftBt.setPosition(28.0, 34.0);
+        miniGameBar.addChild(leftBt);
+
+        var rightBt = new ccui.Button("home-minigame-leftBt.png","","", ccui.Widget.PLIST_TEXTURE);
+        rightBt.setPosition(miniGameBar.getContentSize().width - leftBt.x, leftBt.y);
+        rightBt.setFlippedX(true);
+        miniGameBar.addChild(rightBt);
+
+        var miniGame_top = 580.0;
+        var bottom = miniGameBar.y + (miniGameBar.getContentSize().height / 2 - 6) * miniGameBar.getScaleY();
+        var left = 20.0 * cc.winSize.screenScale;
+        var right = 300.0 * cc.winSize.screenScale;
+
+        var bg = new ccui.Scale9Sprite("home-minigame-bg.png", cc.rect(8, 0, 4, 384));
+        bg.setPreferredSize(cc.size(right - left + 4.0, 384));
+        bg.setAnchorPoint(cc.p(0, 0));
+        bg.setPosition(left, bottom);
+        this.addChild(bg);
 
         //add pageview
         var miniGameLayer = new ccui.PageView();
-        miniGameLayer.setContentSize(cc.size(miniGame_right - miniGame_left, minigameBg.getContentSize().height - 4));
+        miniGameLayer.setContentSize(cc.size(right - left, bg.getContentSize().height - 4));
         miniGameLayer.setAnchorPoint(cc.p(0.0, 0.0));
         miniGameLayer.setBounceEnabled(true);
-        miniGameLayer.setPosition(miniGame_left + 2, miniGame_bottom + 2);
+        miniGameLayer.setPosition(left + 2, bottom + 2);
         this.addChild(miniGameLayer);
         this.miniGameLayer = miniGameLayer;
-
-        // var miniGameToggle = new ccui.PageView();
-        // miniGameToggle.setContentSize(cc.size(miniGameBar.getContentSize().width - 10, miniGameBar.getContentSize().height));
-        // miniGameToggle.setAnchorPoint(cc.p(0.5, 0.5));
-        // miniGameToggle.setPosition(miniGameBar.getPosition());
-        // miniGameToggle.setScale(cc.winSize.screenScale);
-        // this.addChild(miniGameToggle);
-        // this.miniGameToggle = miniGameToggle;
 
         for (var i = 0; i < 3; i++) {
             var listGame = new newui.TableView(miniGameLayer.getContentSize(), 1);
@@ -84,60 +93,23 @@ var MiniGameLayer = cc.Node.extend({
             miniGameLayer.addPage(listGame);
             this.allMiniLayer.push(listGame);
 
-            // var iconNormal = new cc.Sprite("#home-minigamebar-" + (i + 1) + "-1.png");
-            // var iconSelect = new cc.Sprite("#home-minigamebar-" + (i + 1) + "-2.png");
-
-
-            // if(cc.sys.isNative){
-            //     var container = new newui.Widget(iconNormal.getContentSize());
-            //     iconNormal.setPosition(iconNormal.getContentSize().width / 2, iconNormal.getContentSize().height / 2);
-            // }
-            // else{
-            //     var container = new ccui.Widget();
-            //     container.setContentSize(miniGameToggle.getContentSize().width, iconNormal.getContentSize().height);
-            //     iconNormal.setPosition(container.getContentSize().width / 2, iconNormal.getContentSize().height / 2);
-            // }
-
-            // var container = new newui.Widget(iconNormal.getContentSize());
-            // iconNormal.setPosition(iconNormal.getContentSize().width / 2, iconNormal.getContentSize().height / 2);
-            //
-            // iconSelect.setPosition(iconNormal.getPosition());
-            // container.iconNormal = iconNormal;
-            // container.iconSelect = iconSelect;
-            // container.addChild(iconNormal);
-            // container.addChild(iconSelect);
-
-           // miniGameToggle.addPage(container);
-         //   this.miniGameTab.push(container);
-
             for (var j = 0; j < s_mini_game_id.length; j++) {
                 this.addMiniGame(s_mini_game_id[j], listGame);
             }
         }
-     //   miniGameToggle.forceDoLayout();
-
-        LobbyClient.getInstance().addListener("miniGame", this.onSocketMessage, this);
-        this.fetchHuThuong();
-
-
-        var thiz = this;
-        // miniGameToggle.addEventListener(function () {
-        //     var i = miniGameToggle.getCurrentPageIndex();
-        //     thiz.selectTab(i);
-        //     thiz.miniGameLayer.scrollToItem(i);
-        // });
 
         miniGameLayer.addEventListener(function () {
             var i = miniGameLayer.getCurrentPageIndex();
-           // thiz.miniGameToggle.setCurrentPageIndex(i);
-            thiz.selectTab(i);
+            thiz.selectTab(i, false);
         });
 
+        leftBt.addClickEventListener(function () {
+            thiz.selectTab(thiz.tabSelectedIndex - 1, true);
+        });
 
-        var shadow = new cc.Sprite("#home-minigame-bar-2.png");
-        shadow.setPosition(miniGameBar.getPosition());
-        shadow.setScale(cc.winSize.screenScale);
-        this.addChild(shadow);
+        rightBt.addClickEventListener(function () {
+            thiz.selectTab(thiz.tabSelectedIndex + 1, true);
+        });
     },
 
     fetchHuThuong: function () {
@@ -184,23 +156,26 @@ var MiniGameLayer = cc.Node.extend({
         });
     },
 
-    selectTab: function (index) {
-        // for (var i = 0; i < this.miniGameTab.length; i++) {
-        //     if (i == index) {
-        //         this.miniGameTab[i].iconNormal.visible = false;
-        //         this.miniGameTab[i].iconSelect.visible = true;
-        //     }
-        //     else {
-        //         this.miniGameTab[i].iconNormal.visible = true;
-        //         this.miniGameTab[i].iconSelect.visible = false;
-        //     }
-        // }
+    selectTab: function (index, selectTab) {
+        this.tabSelectedIndex = index;
+        if(this.tabSelectedIndex < 0){
+            this.tabSelectedIndex = 2;
+        }
+        else if(this.tabSelectedIndex > 2){
+            this.tabSelectedIndex = 0;
+        }
+
+        if(selectTab){
+            this.miniGameLayer.scrollToPage(this.tabSelectedIndex);
+        }
+
+        this.goldTitle.setSpriteFrame("home-minigamebar-text" + (this.tabSelectedIndex + 1) + ".png");
     },
 
     onEnter: function () {
         this._super();
-        this.miniGameLayer.setCurrentPageIndex(0);
-        this.selectTab(0);
+        this.fetchHuThuong();
+        this.selectTab(0, true);
         LobbyClient.getInstance().send({command: "subscribeMiniGame", gameType: "Mini_Poker"});
         LobbyClient.getInstance().send({command: "subscribeMiniGame", gameType: "Mini_Cao_Thap"});
         LobbyClient.getInstance().send({command: "subscribeMiniGame", gameType: "Video_Poker"});
@@ -215,7 +190,6 @@ var MiniGameLayer = cc.Node.extend({
     },
 
     startAnimation: function () {
-        this.selectTab(0);
-        this.allMiniLayer[0].runMoveEffect(-2000, 0.1, 0.1);
+        this.allMiniLayer[this.tabSelectedIndex].runMoveEffect(-2000, 0.1, 0.1);
     }
 });
