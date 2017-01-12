@@ -145,7 +145,7 @@ var MiniGamePopup = cc.Node.extend({
     onSelectChip: function (chipIndex) {
         if (this.rewardFund.length < 3)
             return;
-        this.jackpotLabel.setString("" + this.rewardFund[chipIndex - 1]["2"]);
+        this.jackpotLabel.setString("" + cc.Global.NumberFormat1(this.rewardFund[chipIndex - 1]["2"]));
     },
 
     onExit: function () {
