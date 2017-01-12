@@ -338,6 +338,8 @@ var SmartfoxClient = (function () {
         },
 
         _onStartGameHandler : function (cmd, contents) {
+            LoadingDialog.getInstance().hide();
+
             var scene = cc.director.getRunningScene();
             if (scene.type == "GameScene") {
                 cc.log("return");
@@ -354,6 +356,8 @@ var SmartfoxClient = (function () {
         },
 
         _onReconnectHandler : function (cmd, contents) {
+            LoadingDialog.getInstance().hide();
+
             var scene = cc.director.getRunningScene();
             if (scene.type == "GameScene") {
                 return false;
@@ -372,6 +376,8 @@ var SmartfoxClient = (function () {
         },
 
         _onReconnectMiniGameHandler : function (cmd, contents) {
+            LoadingDialog.getInstance().hide();
+
             var scene = cc.director.getRunningScene();
             if (scene.type == "GameScene") {
                 return false;
