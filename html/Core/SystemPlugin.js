@@ -1,11 +1,11 @@
 /**
  * Created by QuyetNguyen on 11/9/2016.
  */
-var SystemPlugin = (function() {
+var SystemPlugin = (function () {
     var instance = null;
     var Clazz = cc.Class.extend({
         plugin: null,
-        ctor: function() {
+        ctor: function () {
             if (instance) {
                 throw "Cannot create new instance for Singleton Class";
             } else {
@@ -13,27 +13,37 @@ var SystemPlugin = (function() {
             }
         },
 
-        getPackageName :function () {
+        getPackageName: function () {
             return "gamebai.com"
         },
 
-        getVersionName : function () {
+        getVersionName: function () {
             return "1.0.0";
         },
 
-        getDeviceUUID : function () {
-            return "web_test";
+        getDeviceUUID: function () {
+            var uniqueId = localStorage.getItem("___uniqueId___");
+            if (!uniqueId) {
+                function s4() {
+                    return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+                }
+                uniqueId = (function () {
+                    return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+                })();
+                localStorage.setItem("___uniqueId___", uniqueId);
+            }
+            return uniqueId;
         },
 
-        getDeviceUUIDWithKey : function (key) {
-            return "web_test";
+        getDeviceUUIDWithKey: function (key) {
+            return this.getDeviceUUID();
         },
 
-        buyIAPItem : function (itemBundle) {
+        buyIAPItem: function (itemBundle) {
 
         },
 
-        iOSInitStore : function (itemList) {
+        iOSInitStore: function (itemList) {
 
         },
 
@@ -49,42 +59,42 @@ var SystemPlugin = (function() {
         // onRegisterNotificationSuccess : function (deviceId, token) {
         //
         // },
-        exitApp : function () {
+        exitApp: function () {
 
         },
-        enableMipmapTexture : function (texture) {
+        enableMipmapTexture: function (texture) {
 
         },
-        showCallPhone : function (phoneNumber) {
+        showCallPhone: function (phoneNumber) {
 
         },
-        androidRequestPermission : function (permissions, requestCode) {
+        androidRequestPermission: function (permissions, requestCode) {
 
         },
-        androidCheckPermission : function (permission) {
+        androidCheckPermission: function (permission) {
 
         },
-        startLaucher : function () {
+        startLaucher: function () {
 
         },
-        checkFileValidate : function (file) {
+        checkFileValidate: function (file) {
 
         },
-        showSMS : function (smsNumber, smsContent) {
+        showSMS: function (smsNumber, smsContent) {
 
         },
-        getCarrierName : function () {
+        getCarrierName: function () {
 
         },
-        getPushNotificationToken : function () {
+        getPushNotificationToken: function () {
 
         },
-        downloadFile : function (url, savePath, callback) {
+        downloadFile: function (url, savePath, callback) {
 
         }
     });
 
-    Clazz.getInstance = function() {
+    Clazz.getInstance = function () {
         if (!instance) {
             instance = new Clazz();
         }

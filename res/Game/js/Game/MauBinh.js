@@ -39,12 +39,24 @@ var MauBinh = IGameScene.extend({
         timeLabel.setScale(2.0);
         this.sceneLayer.addChild(timeLabel);
         this.timeLabel = timeLabel;
+
+        var chatBt = new ccui.Button("ingame-chatBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        chatBt.setPosition(1120, 653);
+        this.gameTopBar.addChild(chatBt);
+        var thiz = this;
+        chatBt.addClickEventListener(function () {
+            var dialog = new ChatDialog();
+            dialog.onTouchMessage = function (message) {
+                thiz.sendChatMessage(message);
+            };
+            dialog.show();
+        });
     },
 
     initPlayer: function () {
         var playerMe = new GamePlayerMe();
         playerMe.setPosition(150, 50);
-        playerMe.cardList = new CardList(cc.size(cc.winSize.width - 100), 100);
+        playerMe.cardList = new CardList(cc.size(cc.winSize.width - 100,100));
         playerMe.cardList.setAnchorPoint(cc.p(0.5, 0.0));
         playerMe.cardList.setPosition(cc.winSize.width / 2, 100);
         this.sceneLayer.addChild(playerMe.cardList, 2);
@@ -59,14 +71,14 @@ var MauBinh = IGameScene.extend({
 
         var player2 = new GamePlayer();
         player2.setPosition(cc.winSize.width / 2, 650);
-        player2.cardList = new CardList(cc.size(cc.winSize.width / 3), 100);
+        player2.cardList = new CardList(cc.size(cc.winSize.width / 3,100));
         player2.cardList.setPosition(player2.getPosition());
         this.sceneLayer.addChild(player2.cardList, 2);
         this.sceneLayer.addChild(player2, 1);
 
         var player3 = new GamePlayer();
         player3.setPosition(120 * cc.winSize.screenScale, 360);
-        player3.cardList = new CardList(cc.size(cc.winSize.width / 3), 100);
+        player3.cardList = new CardList(cc.size(cc.winSize.width / 3,100));
         player3.cardList.setPosition(player3.getPosition());
         this.sceneLayer.addChild(player3.cardList, 2);
         this.sceneLayer.addChild(player3, 1);
@@ -114,7 +126,7 @@ var MauBinh = IGameScene.extend({
         var cards = [];
         for (var i =0 ;i<this.playerView[0].cardList.cardList.length;i++){
             var cardObj = this.playerView[0].cardList.cardList[i];
-            cards.push(CardList.prototype.getCardByRank(cardObj.rank,cardObj.suit));
+            cards.push(CardList.prototype.getCardIdWithRank(cardObj.rank,cardObj.suit));
         }
         this._controller.sendXepBaiXong(cards);
     },

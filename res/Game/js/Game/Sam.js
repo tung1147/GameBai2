@@ -14,13 +14,13 @@ var Sam = TienLen.extend({
         this.baosamBt = baosamBt;
 
         var huysamBt = new ccui.Button("game-huysamBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        huysamBt.setPosition(cc.winSize.width - 710,50);
+        huysamBt.setPosition(cc.winSize.width - 710, 50);
         this.sceneLayer.addChild(huysamBt);
         huysamBt.visible = false;
         this.huysamBt = huysamBt;
 
-        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_BoldCondensed_36_Glow,"");
-        timeLabel.setPosition(cc.winSize.width/2, 425);
+        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_BoldCondensed_36_Glow, "");
+        timeLabel.setPosition(cc.winSize.width / 2, 425);
         timeLabel.setScale(2.0);
         this.sceneLayer.addChild(timeLabel);
         this.timeLabel = timeLabel;
@@ -34,7 +34,7 @@ var Sam = TienLen.extend({
             thiz.sendHuySamRequest();
         });
     },
-    initController : function () {
+    initController: function () {
         this._controller = new SamController(this);
     },
     initPlayer: function () {
@@ -54,53 +54,64 @@ var Sam = TienLen.extend({
         var player1 = new GamePlayer();
         player1.setPosition(cc.winSize.width - 120.0 / cc.winSize.screenScale, 360.0);
         this.sceneLayer.addChild(player1, 1);
-        player1.chatView.setAnchorPoint(cc.p(1.0,0.0));
+        player1.chatView.setAnchorPoint(cc.p(1.0, 0.0));
         player1.chatView.y += 20;
 
         var player2 = new GamePlayer();
         player2.setPosition(cc.winSize.width / 2 - 220, 650.0 * cc.winSize.screenScale);
         this.sceneLayer.addChild(player2, 1);
-        player2.chatView.setAnchorPoint(cc.p(1.0,1.0));
+        player2.chatView.setAnchorPoint(cc.p(1.0, 1.0));
 
         var player3 = new GamePlayer();
         player3.setPosition(cc.winSize.width / 2 + 220, 650.0 * cc.winSize.screenScale);
         this.sceneLayer.addChild(player3, 1);
-        player3.chatView.setAnchorPoint(cc.p(1.0,1.0));
+        player3.chatView.setAnchorPoint(cc.p(1.0, 1.0));
 
         var player4 = new GamePlayer();
         player4.setPosition(120.0 / cc.winSize.screenScale, 360.0);
         this.sceneLayer.addChild(player4, 1);
-        player4.chatView.setAnchorPoint(cc.p(0.0,0.0));
+        player4.chatView.setAnchorPoint(cc.p(0.0, 0.0));
         player4.chatView.y += 20;
 
-        this.playerView = [playerMe, player1, player2, player3,player4];
+        this.playerView = [playerMe, player1, player2, player3, player4];
 
         var cardRemaining1 = new CardRemaining();
-        cardRemaining1.setPosition(30,100);
+        cardRemaining1.setPosition(30, 100);
         player1.infoLayer.addChild(cardRemaining1);
         player1.cardRemaining = cardRemaining1;
 
         var cardRemaining2 = new CardRemaining();
-        cardRemaining2.setPosition(130,100);
+        cardRemaining2.setPosition(130, 100);
         player2.infoLayer.addChild(cardRemaining2);
         player2.cardRemaining = cardRemaining2;
 
         var cardRemaining3 = new CardRemaining();
-        cardRemaining3.setPosition(130,100);
+        cardRemaining3.setPosition(130, 100);
         player3.infoLayer.addChild(cardRemaining3);
         player3.cardRemaining = cardRemaining3;
 
         var cardRemaining4 = new CardRemaining();
-        cardRemaining4.setPosition(130,100);
+        cardRemaining4.setPosition(130, 100);
         player4.infoLayer.addChild(cardRemaining4);
         player4.cardRemaining = cardRemaining4;
+
+        for (var i = 1; i < this.playerView.length; i++) {
+            var oneCardNotify = new cc.LabelBMFont("Báo 1", cc.res.font.Roboto_CondensedBold_30);
+            oneCardNotify.setColor(cc.color("#ff0000"));
+            oneCardNotify.setPosition(110, 110);
+            this.playerView[i].infoLayer.addChild(oneCardNotify);
+            oneCardNotify.setVisible(false);
+            this.playerView[i].oneCardNotify = oneCardNotify;
+
+            this.playerView[i].cardRemaining.setVisible(false);
+        }
     },
 
-    setSamBtVisible :function(visible){
+    setSamBtVisible: function (visible) {
         this.baosamBt.visible = this.huysamBt.visible = visible;
     },
 
-    alertMessage : function (msg) {
+    alertMessage: function (msg) {
         MessageNode.getInstance().show(msg);
     },
 
@@ -114,15 +125,15 @@ var Sam = TienLen.extend({
             thiz.timeLabel.setString(timeRemaining);
             thiz.timeRemaining--;
             this.timeInterval = setInterval(function () {
-                if (thiz.timeRemaining <= 0){
+                if (thiz.timeRemaining <= 0) {
                     thiz.timeLabel.setString("");
                     clearInterval(thiz.timeInterval);
-                }else{
+                } else {
                     thiz.timeLabel.setString(thiz.timeRemaining);
                     thiz.timeRemaining--;
                 }
             }, 1000);
-        }else{
+        } else {
             this.timeRemaining = 0;
             this.timeLabel.setString("");
         }
@@ -133,5 +144,18 @@ var Sam = TienLen.extend({
     },
     sendHuySamRequest: function () {
         this._controller.sendHuySamRequest();
+    },
+
+    notifyOne: function (username) {
+        this.alertMessage("Người chơi " + username + " chỉ còn lại 1 lá");
+        var slot = this.getSlotByUsername(username);
+        if (slot) {
+            slot.oneCardNotify.setVisible(true);
+        }
+    },
+    hideAllNotifyOne: function () {
+        for (var i = 1; i < this.playerView.length; i++) {
+            this.playerView[i].oneCardNotify.setVisible(false);
+        }
     }
 });

@@ -27,5 +27,14 @@ var SamSolo = Sam.extend({
         player1.chatView.setAnchorPoint(cc.p(0.0,1.0));
 
         this.playerView = [playerMe, player1];
+
+        for (var i = 1; i < this.playerView.length; i++) {
+            var oneCardNotify = new cc.LabelBMFont("Báo 1", cc.res.font.Roboto_CondensedBold_30);
+            oneCardNotify.setColor(cc.color("#ff0000"));
+            oneCardNotify.setPosition(110, 110);
+            this.playerView[i].infoLayer.addChild(oneCardNotify);
+            oneCardNotify.setVisible(false);
+            this.playerView[i].oneCardNotify = oneCardNotify;
+        }
     }
 });

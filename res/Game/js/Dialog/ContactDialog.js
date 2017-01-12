@@ -37,7 +37,7 @@ var ContactDialog = Dialog.extend({
         this.dialogNode.addChild(facebookLabel);
 
         contactFacebook.addClickEventListener(function () {
-            var win = window.open("https://www.youtube.com/watch?v=Llw9Q6akRo4", '_blank');
+            var win = window.open(GameConfig.fanpage, '_blank');
             win.focus();
         });
 

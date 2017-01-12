@@ -79,9 +79,15 @@ var SamController = TLMNGameController.extend({
             this._view.showBaoSamTimeRemaining(0);
     },
 
+    onGameFinished : function (params) {
+        this._super(params);
+        this._view.hideAllNotifyOne();
+    },
+
     onNotifiOne: function (username) {
-        if (username != PlayerMe.username)
-            this._view.alertMessage("Người chơi " + username + " chỉ còn lại 1 lá");
+        if (username != PlayerMe.username){
+            this._view.notifyOne(username);
+        }
     },
 
     sendBaoSamRequest:function () {

@@ -140,7 +140,8 @@ var s_game_id = s_game_id || [
         /*GameType.MiniGame_ChanLe*/GameType.MiniGame_VideoPoker
     ],
     [
-        GameType.GAME_VongQuayMayMan,GameType.GAME_MauBinh
+        GameType.GAME_VongQuayMayMan,
+        GameType.GAME_MauBinh
     ],
     [
         GameType.GAME_TLMN_Solo, GameType.GAME_TienLenMN,
@@ -204,6 +205,7 @@ PlayerMe.SFS = PlayerMe.SFS || {};
 var GameConfig = GameConfig || {};
 GameConfig.email = "c567vip@gmail.com";
 GameConfig.hotline = "0903.229.747";
+GameConfig.fanpage = "https://www.facebook.com/C567gamebaidoithuong/";
 GameConfig.broadcastMessage = "";
 GameConfig.DeviceIDKey = "";
 
@@ -289,8 +291,8 @@ cc.Global.SetSetting = function (setting, value) {
 
 var ApplicationConfig = ApplicationConfig || {};
 ApplicationConfig.VERSION = "1.0.0";
-// ApplicationConfig.BUNBLE = "com.iluckystarvn.daisiu";
-ApplicationConfig.BUNBLE = "com.songbaivip.fullhd";
+ApplicationConfig.BUNDLE = "com.songbaivip.fullhd";
+// ApplicationConfig.BUNDLE = "com.c567.webv2";
 ApplicationConfig.DISPLAY_TYPE = "room"; //room - betting
 (function () {
     if(cc.sys.isNative){

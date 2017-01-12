@@ -573,7 +573,7 @@ var LobbyClient = (function () {
                 var loginRequest = {
                     command: "login",
                     platformId: ApplicationConfig.PLATFORM,
-                    bundleId: ApplicationConfig.BUNBLE,
+                    bundleId: ApplicationConfig.BUNDLE,
                     version: ApplicationConfig.VERSION,
                     imei: PlayerMe.IMEI,
                     displayType: ApplicationConfig.DISPLAY_TYPE,
@@ -628,7 +628,7 @@ var LobbyClient = (function () {
                 var loginRequest = {
                     command: "login",
                     platformId: ApplicationConfig.PLATFORM,
-                    bundleId: ApplicationConfig.BUNBLE,
+                    bundleId: ApplicationConfig.BUNDLE,
                     version: ApplicationConfig.VERSION,
                     imei: PlayerMe.IMEI,
                     displayType: ApplicationConfig.DISPLAY_TYPE,
@@ -660,7 +660,7 @@ var LobbyClient = (function () {
                 var loginRequest = {
                     command: "register",
                     platformId: ApplicationConfig.PLATFORM,
-                    bundleId: ApplicationConfig.BUNBLE,
+                    bundleId: ApplicationConfig.BUNDLE,
                     version: ApplicationConfig.VERSION,
                     imei: PlayerMe.IMEI,
                     username: username,
