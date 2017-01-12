@@ -4,6 +4,21 @@
  *
  *
  */
+
+if (cc.sys.isNative) { //mobile
+    var s_lobbyServer = s_lobbyServer || [
+        {
+            host: "42.112.25.169",
+            port: 9999
+        }
+    ];
+}
+else { //websocket
+    var s_lobbyServer = s_lobbyServer || [
+        "ws://42.112.25.169:8887/websocket"
+    ];
+}
+
 var LobbyClient = (function () {
     var instance = null;
 
@@ -13,20 +28,15 @@ var LobbyClient = (function () {
             if (instance) {
                 throw "Cannot create new instance for Singleton Class";
             } else {
+                var thiz = this;
+
                 this.allListener = {};
-                this.host = "42.112.25.169";
-                if (cc.sys.isNative) {
-                    this.port = 9999;
-                }
-                else {
-                    this.port = 8887;
-                }
+                this.serverIndex = 0;
                 this.isKicked = false;
-                this.lobbySocket = new socket.LobbyClient(socket.LobbyClient.TCP);
                 this.loginHandler = null;
                 this.isReconnected = false;
 
-                var thiz = this;
+                this.lobbySocket = new socket.LobbyClient(socket.LobbyClient.TCP);
                 this.lobbySocket.onEvent = function (messageName, data) {
                     thiz.onEvent(messageName, data);
                 };
@@ -74,15 +84,19 @@ var LobbyClient = (function () {
         },
         connect: function () {
             if (this.lobbySocket) {
-                this.isKicked = false;
-                if (cc.sys.isNative) {
-                    this.lobbySocket.connect(this.host, this.port);
-                }
-                else {
-                    var url = "ws://" + this.host + ":" + this.port + "/websocket";
-                    this.lobbySocket.connect(url);
+                if(this.serverIndex >= s_lobbyServer.length){
+                    this.serverIndex = 0;
                 }
 
+                this.isKicked = false;
+                if (cc.sys.isNative) {
+                    this.lobbySocket.connect(s_lobbyServer[this.serverIndex].host, s_lobbyServer[this.serverIndex].port);
+                }
+                else {
+                    this.lobbySocket.connect(s_lobbyServer[this.serverIndex]);
+                }
+
+                this.serverIndex++;
             }
         },
         onEvent: function (messageName, data) {
