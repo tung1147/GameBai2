@@ -31,6 +31,18 @@ SceneNavigator.toHome = function (message) {
             MessageNode.getInstance().showWithParent(message, homeScene.popupLayer);
         }
     }
+
+    if(s_MiniPokerLayer){
+        s_MiniPokerLayer.hide();
+    }
+
+    if(s_VideoPokerLayer){
+        s_VideoPokerLayer.hide();
+    }
+
+    if(s_CaoThapLayer){
+        s_CaoThapLayer.hide();
+    }
 };
 
 SceneNavigator.toGame = function (message) {
