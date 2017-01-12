@@ -38,8 +38,8 @@ socket.LobbyClient = cc.Class.extend({
             if(this._waitingPing){
                 //lost ping
                 cc.log("[Lobby] lost PING");
+                this.closeSocket();
                 this.setSocketStatus(socket.LobbySocket.LostConnection);
-                this.close();
             }
             else{
                 //send ping
@@ -75,25 +75,31 @@ socket.LobbyClient = cc.Class.extend({
             thiz.onRecvMessage(event.data);
         };
         this.wsocket.onerror = function (event) {
+            thiz.closeSocket();
             if(thiz.socketStatus == socket.LobbySocket.Connecting){
                 thiz.setSocketStatus(socket.LobbySocket.ConnectFailure);
             }
             else if(thiz.socketStatus == socket.LobbySocket.Connected){
                 thiz.setSocketStatus(socket.LobbySocket.LostConnection);
             }
-            thiz.close();
         };
         this.wsocket.onclose = function (event) {
+            thiz.closeSocket();
             if(thiz.socketStatus == socket.LobbySocket.Connecting){
                 thiz.setSocketStatus(socket.LobbySocket.ConnectFailure);
             }
             else if(thiz.socketStatus == socket.LobbySocket.Connected){
                 thiz.setSocketStatus(socket.LobbySocket.LostConnection);
             }
-            thiz.close();
         };
     },
     close : function () {
+        this.closeSocket();
+        if(this.socketStatus == socket.LobbySocket.Connected){
+            this.setSocketStatus(socket.LobbySocket.Closed);
+        }
+    },
+    closeSocket : function () {
         if(this.wsocket){
             this.resetSocket();
             if(this.wsocket.readyState == 0){ //connecting
@@ -106,10 +112,6 @@ socket.LobbyClient = cc.Class.extend({
                 this.wsocket.close();
             }
             this.wsocket = null;
-
-            if(this.socketStatus == socket.LobbySocket.Connected){
-                this.setSocketStatus(socket.LobbySocket.Closed);
-            }
         }
     },
     resetSocket : function () {
