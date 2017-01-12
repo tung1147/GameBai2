@@ -37,8 +37,8 @@ socket.SmartfoxClient = cc.Class.extend({
             if(this._waitingPing){
                 //lost ping
                 cc.log("[SFS] lost PING");
+                this.closeSocket();
                 this.setSocketStatus(socket.SFSSocket.LostConnection);
-                this.close();
             }
             else{
                 this.send(socket.SmartfoxClient.PingPong, null);
@@ -72,25 +72,32 @@ socket.SmartfoxClient = cc.Class.extend({
             thiz.onRecvMessage(event.data);
         };
         this.wsocket.onerror = function (event) {
+            thiz.closeSocket();
             if(thiz.socketStatus == socket.SFSSocket.Connecting){
                 thiz.setSocketStatus(socket.SFSSocket.ConnectFailure);
             }
             else if(thiz.socketStatus == socket.SFSSocket.Connected){
                 thiz.setSocketStatus(socket.SFSSocket.LostConnection);
             }
-            thiz.close();
         };
         this.wsocket.onclose = function (event) {
+            thiz.closeSocket();
             if(thiz.socketStatus == socket.SFSSocket.Connecting){
                 thiz.setSocketStatus(socket.SFSSocket.ConnectFailure);
             }
             else if(thiz.socketStatus == socket.SFSSocket.Connected){
                 thiz.setSocketStatus(socket.SFSSocket.LostConnection);
             }
-            thiz.close();
         };
     },
     close : function () {
+        this.closeSocket();
+        if(this.socketStatus == socket.SFSSocket.Connected){
+            this.setSocketStatus(socket.SFSSocket.Closed);
+        }
+    },
+
+    closeSocket : function () {
         if(this.wsocket){
             this.resetSocket();
             if(this.wsocket.readyState == 0){ //connecting
@@ -103,12 +110,9 @@ socket.SmartfoxClient = cc.Class.extend({
                 this.wsocket.close();
             }
             this.wsocket = null;
-
-            if(this.socketStatus == socket.SFSSocket.Connected){
-                this.setSocketStatus(socket.SFSSocket.Closed);
-            }
         }
     },
+
     resetSocket : function () {
         if(this.wsocket){
             this.wsocket.onopen = 0;
