@@ -203,6 +203,7 @@ var HomeScene = IScene.extend({
         FloatButton.getInstance().setVisible(false);
     },
     startGame: function () {
+        PlayerMe.lastGroupSelected = null;
         this.popupLayer.removeAllChildren();
         if (this.homeLocation == 0 || this.homeLocation == 1) {
             this.userInfo.y = -100.0;
