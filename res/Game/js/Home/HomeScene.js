@@ -5,6 +5,12 @@
 var HomeScene = IScene.extend({
     ctor: function () {
         this._super();
+        this.miniGameLayer = new cc.Node();
+        this.addChild(this.miniGameLayer, 1);
+
+        this.floatButtonLayer = new cc.Node();
+        this.addChild(this.floatButtonLayer, 2);
+
         this.type = "HomeScene";
         this.homeLocation = 0;
 
@@ -82,7 +88,7 @@ var HomeScene = IScene.extend({
         //this.startLobby();
 
         //
-        FloatButton.getInstance().show(this.sceneLayer);
+        FloatButton.getInstance().show(this.floatButtonLayer);
 
        // LobbyClient.getInstance().addListener("fetchProducts", this.onFetchProduct, this);
        // LobbyClient.getInstance().addListener("fetchCashinProductItems", this.onFetchCashin, this);

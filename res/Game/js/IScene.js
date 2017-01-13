@@ -14,18 +14,14 @@ var IScene = cc.Scene.extend({
         this.screenScale = this.winSize.width / 1280.0;
 
         this.sceneLayer = new cc.Node();
-        this.addChild(this.sceneLayer);
-
-        this.miniGameLayer = new cc.Node();
-        this.addChild(this.miniGameLayer);
+        this.addChild(this.sceneLayer, 0);
 
         this.popupLayer = new cc.Node();
-        this.addChild(this.popupLayer);
+        this.addChild(this.popupLayer, 100);
     },
 
     onExit : function () {
         this._super();
-        //SoundPlayer.stopAllSound();
         this.popupLayer.removeAllChildren(true);
     }
 })
