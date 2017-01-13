@@ -332,4 +332,21 @@ if(!cc.sys.isNative){
         SmartfoxClient.getInstance().close();
         LobbyClient.getInstance().close();
     };
+
+    //fix mouse move out canvas (iframe)
+    cc._canvas.addEventListener("mouseout", function (event) {
+        var selfPointer = cc.inputManager;
+
+        selfPointer._mousePressed = false;
+        var pos = selfPointer.getHTMLElementPosition(cc._canvas);
+        var location = selfPointer.getPointByEvent(event, pos);
+        selfPointer.handleTouchesEnd([selfPointer.getTouchByXY(location.x, location.y, pos)]);
+
+        var mouseEvent = selfPointer.getMouseEvent(location,pos,cc.EventMouse.UP);
+        mouseEvent.setButton(event.button);
+        cc.eventManager.dispatchEvent(mouseEvent);
+
+        event.stopPropagation();
+        event.preventDefault();
+    }, false);
 }
