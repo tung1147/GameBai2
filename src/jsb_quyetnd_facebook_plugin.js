@@ -23,6 +23,7 @@ var FacebookPlugin = (function() {
             cc.log(returnCode + " " + userId + " "+ accessToken);
 
             if(returnCode == 0){
+                LoadingDialog.getInstance().show("Đang đăng nhập");
                 LobbyClient.getInstance().loginFacebook(accessToken);
             }
             else{

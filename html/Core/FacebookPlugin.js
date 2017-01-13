@@ -27,6 +27,7 @@ var FacebookPlugin = (function() {
 
         onLoginFinished : function (returnCode, userId, accessToken) {
             if(returnCode == 0){
+                LoadingDialog.getInstance().show("Đang đăng nhập");
                 LobbyClient.getInstance().loginFacebook(accessToken);
             }
             else{

@@ -75,9 +75,6 @@ var HomeScene = IScene.extend({
 
         this.homeLayer.fbButton.addClickEventListener(function () {
             FacebookPlugin.getInstance().showLogin();
-
-            // var layer = new JackpotLayer();
-            // layer.show();
         });
 
         this.startHome();
@@ -130,6 +127,17 @@ var HomeScene = IScene.extend({
             }
         }
     },
+
+    _checkLogin : function () {
+        if(this.homeLocation == 1){
+            //MessageNode.getInstance().show("Bạn phải đăng nhập trước");
+            var dialog = new LoginDialog();
+            dialog.show();
+            return false;
+        }
+        return true;
+    },
+
     onChangeRefeshUserInfo : function (command, data) {
         this.userInfo.refreshView();
     },
@@ -230,8 +238,7 @@ var HomeScene = IScene.extend({
         FloatButton.getInstance().setVisible(true);
     },
     onTouchGame: function (gameId) {
-        if (this.homeLocation == 1) {
-            MessageNode.getInstance().show("Bạn phải đăng nhập trước");
+        if (this._checkLogin() == false) {
             return;
         }
 
@@ -323,16 +330,14 @@ var HomeScene = IScene.extend({
     },
 
     newsButtonhandler: function () {
-        if (this.homeLocation == 1) {
-            MessageNode.getInstance().show("Bạn phải đăng nhập trước");
+        if (this._checkLogin() == false) {
             return;
         }
         this.addSubLayer(new NewsLayer());
     },
 
     rankButtonHandler: function () {
-        if (this.homeLocation == 1) {
-            MessageNode.getInstance().show("Bạn phải đăng nhập trước");
+        if (this._checkLogin() == false) {
             return;
         }
         this.addSubLayer(new RankLayer());
@@ -367,8 +372,7 @@ var HomeScene = IScene.extend({
     },
 
     newsMesasgeButtonHandler: function () {
-        if (this.homeLocation == 1) {
-            MessageNode.getInstance().show("Bạn phải đăng nhập trước");
+        if (this._checkLogin() == false) {
             return;
         }
         this.addSubLayer(new InboxLayer());
