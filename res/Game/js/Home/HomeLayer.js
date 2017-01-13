@@ -183,6 +183,7 @@ var SignupDialog = cc.Node.extend({
     ctor : function () {
         this._super();
         _createDialogFunction(this);
+        var thiz = this;
 
         var blackLayer = new cc.LayerColor(cc.color(0,0,0,0.8 * 255), cc.winSize.width, cc.winSize.height);
         this.addChild(blackLayer);
@@ -234,7 +235,6 @@ var SignupDialog = cc.Node.extend({
         bg.addChild(this.passwordText,1);
 
         this.phoneText = new newui.TextField(cc.size(470, 70), cc.res.font.Roboto_Condensed_25);
-        this.phoneText.setPasswordEnable(true);
         this.phoneText.setPlaceHolder("Số điện thoại");
         this.phoneText.setTextColor(cc.color(255,255,255));
         this.phoneText.setPlaceHolderColor(cc.color("#c4e1ff"));
@@ -273,22 +273,24 @@ var SignupDialog = cc.Node.extend({
         this.layerBg.addChild(toggleSelected);
 
         var toggleIcon = [toggleIcon1, toggleIcon2];
-        var mToggle = new ToggleNodeGroup();
-        this.mToggle = mToggle;
-        this.layerBg.addChild(mToggle);
+        var genderToggle = new ToggleNodeGroup();
+        this.genderToggle = genderToggle;
+        this.layerBg.addChild(genderToggle);
         for(var i=0;i<toggleIcon.length;i++){
             (function () {
+                var itemIdx = i;
+
                 var toggleItem = new ToggleNodeItem(toggleIcon[i].getContentSize());
                 toggleItem.setPosition(toggleIcon[i].getPosition());
                 toggleItem.onSelect = function () {
                     toggleSelected.setPosition(toggleItem.getPosition());
+                    thiz._male = (itemIdx == 0) ? true : false;
                 };
-                mToggle.addItem(toggleItem);
+                genderToggle.addItem(toggleItem);
             })();
         }
 
         //touch
-        var thiz = this;
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches:true,
@@ -319,8 +321,9 @@ var SignupDialog = cc.Node.extend({
                 MessageNode.getInstance().show("Bạn phải nhập mật khẩu");
                 return;
             }
+            var phoneNumber = thiz.phoneText.getText();
             LoadingDialog.getInstance().show("Đang đăng ký");
-            LobbyClient.getInstance().signup(username, password);
+            LobbyClient.getInstance().signup(username, password, phoneNumber, thiz._male);
         });
 
 
@@ -343,7 +346,7 @@ var SignupDialog = cc.Node.extend({
 
     onEnter : function () {
         this._super();
-        this.mToggle.selectItem(0);
+        this.genderToggle.selectItem(0);
     }
 });
 

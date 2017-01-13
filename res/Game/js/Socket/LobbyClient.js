@@ -657,30 +657,39 @@ var LobbyClient = (function () {
 
             this.connect();
         },
-        signup: function (username, password) {
+        signup: function (username, password, telephone, gender) {
             if (!this.checkIMEI()) {
                 return;
             }
             this.loginSuccessHandler = null;
             var thiz = this;
+            var _username = username;
+            var _password = password;
+            var _telephone = telephone;
+            var _gender =  gender;
+
             this.loginHandler = function () {
                 thiz.loginSuccessHandler = function () {
                     thiz.login(username, password, true);
                     if (cc.Global.GetSetting("savePassword", true)) {
-                        cc.Global.SetSetting("username", username);
-                        cc.Global.SetSetting("password", password);
+                        cc.Global.SetSetting("username", _username);
+                        cc.Global.SetSetting("password", _password);
                     }
                 };
-                var loginRequest = {
+                var signupRequest = {
                     command: "register",
                     platformId: ApplicationConfig.PLATFORM,
                     bundleId: ApplicationConfig.BUNDLE,
                     version: ApplicationConfig.VERSION,
                     imei: PlayerMe.IMEI,
-                    username: username,
-                    password: password
+                    username: _username,
+                    password: _password
                 };
-                thiz.send(loginRequest);
+                if(_telephone && _telephone != ""){
+                    signupRequest.telephone = _telephone;
+                }
+                signupRequest.gender = _gender ? "male" : "female";
+                thiz.send(signupRequest);
             };
             this.connect();
         },
