@@ -2,9 +2,27 @@
  * Created by Quyet Nguyen on 6/30/2016.
  */
 
+var _createDialogFunction = function (obj) {
+    obj.show = function () {
+        var runningScene = cc.director.getRunningScene();
+        if(runningScene.popupLayer){
+            var parentNode = runningScene.popupLayer;
+        }
+        else{
+            var parentNode = runningScene;
+        }
+        parentNode.addChild(obj);
+    };
+
+    obj.hide = function () {
+        obj.removeFromParent(true);
+    }
+};
+
 var LoginDialog = cc.Node.extend({
     ctor : function () {
         this._super();
+        _createDialogFunction(this);
         var thiz = this;
 
         var blackLayer = new cc.LayerColor(cc.color(0,0,0,0.8 * 255), cc.winSize.width, cc.winSize.height);
@@ -89,6 +107,12 @@ var LoginDialog = cc.Node.extend({
         resetPassword.setPosition(this.layerBg.getContentSize().width/2 + 15, label1.y);
         this.layerBg.addChild(resetPassword,1);
 
+        var resetPasswordBt = new ccui.Widget();
+        resetPasswordBt.setContentSize(resetPassword.getContentSize());
+        resetPasswordBt.setPosition(resetPassword.x + resetPassword.getContentSize().width/2, resetPassword.y);
+        resetPasswordBt.setTouchEnabled(true);
+        this.layerBg.addChild(resetPasswordBt);
+
         var loginBt = new ccui.Button("login-okBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
         loginBt.setPosition(this.layerBg.getContentSize().width/2, 200.0);
         loginBt.setZoomScale(0.02);
@@ -103,7 +127,6 @@ var LoginDialog = cc.Node.extend({
         regButton.setContentSize(regLabel.getContentSize());
         regButton.setPosition(regLabel.getPosition());
         regButton.setTouchEnabled(true);
-        this.regButton = regButton;
         this.layerBg.addChild(regButton);
 
         var margin = 100.0;
@@ -127,6 +150,17 @@ var LoginDialog = cc.Node.extend({
         loginBt.addClickEventListener(function () {
            thiz.onLoginButonHandler();
         });
+
+        regButton.addClickEventListener(function () {
+            var dialog = new SignupDialog();
+            dialog.show();
+            thiz.hide();
+        });
+        resetPasswordBt.addClickEventListener(function () {
+            var dialog = new ContactDialog();
+            dialog.show();
+            thiz.hide();
+        });
     },
 
     onLoginButonHandler : function () {
@@ -142,12 +176,13 @@ var LoginDialog = cc.Node.extend({
         }
         LoadingDialog.getInstance().show("Đang đăng nhập");
         LobbyClient.getInstance().loginNormal(username, password, this.checkBox.isSelected());
-    }
+    },
 });
 
 var SignupDialog = cc.Node.extend({
     ctor : function () {
         this._super();
+        _createDialogFunction(this);
 
         var blackLayer = new cc.LayerColor(cc.color(0,0,0,0.8 * 255), cc.winSize.width, cc.winSize.height);
         this.addChild(blackLayer);
@@ -212,7 +247,7 @@ var SignupDialog = cc.Node.extend({
         this.phoneText.nextTextField = this.userText;
 
         var signupBt = new ccui.Button("signup-okBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        signupBt.setPosition(this.layerBg.getContentSize().width/2, 190.0);
+        signupBt.setPosition(this.layerBg.getContentSize().width/2, 210.0);
         this.layerBg.addChild(signupBt);
 
         var toggleIcon1 = new cc.Sprite("#home_toggle.png");
@@ -287,6 +322,23 @@ var SignupDialog = cc.Node.extend({
             LoadingDialog.getInstance().show("Đang đăng ký");
             LobbyClient.getInstance().signup(username, password);
         });
+
+
+        var loginLabel = new cc.LabelBMFont("Đăng nhập", cc.res.font.Roboto_Condensed_25);
+        loginLabel.setColor(cc.color("#4c6080"));
+        loginLabel.setPosition(this.layerBg.getContentSize().width/2, 140.0);
+        this.layerBg.addChild(loginLabel, 1);
+
+        var loginBt = new ccui.Widget();
+        loginBt.setContentSize(loginLabel.getContentSize());
+        loginBt.setPosition(loginLabel.getPosition());
+        loginBt.setTouchEnabled(true);
+        this.layerBg.addChild(loginBt);
+        loginBt.addClickEventListener(function () {
+            var dialog = new LoginDialog();
+            dialog.show();
+            thiz.hide();
+        });
     },
 
     onEnter : function () {
@@ -322,18 +374,14 @@ var HomeLayer = cc.Node.extend({
         this.signupBt.setPosition(cc.p(440.0, this.fbButton.y));
         homeBar.addChild(this.signupBt);
 
-        // var thiz = this;
-        // this.loginBt.addClickEventListener(function () {
-        //     var loginDialog  = new LoginDialog();
-        //     thiz.popupLayer.addChild(loginDialog);
-        // });
-        //
-        // this.signupBt.addClickEventListener(function () {
-        //     var signupDialog = new SignupDialog();
-        //     thiz.popupLayer.addChild(signupDialog);
-        // });
-        // this.fbButton.addClickEventListener(function () {
-        //     FacebookPlugin.getInstance().showLogin();
-        // });
+        this.loginBt.addClickEventListener(function () {
+            var dialog = new LoginDialog();
+            dialog.show();
+        });
+
+        this.signupBt.addClickEventListener(function () {
+            var dialog = new SignupDialog();
+            dialog.show();
+        });
     }
 });

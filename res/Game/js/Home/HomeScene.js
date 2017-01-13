@@ -73,20 +73,6 @@ var HomeScene = IScene.extend({
             thiz.userInfoButtonHandler();
         });
 
-        this.homeLayer.loginBt.addClickEventListener(function () {
-            var loginDialog = new LoginDialog();
-            thiz.popupLayer.addChild(loginDialog);
-            loginDialog.regButton.addClickEventListener(function () {
-                loginDialog.removeFromParent(true);
-                var signupDialog = new SignupDialog();
-                thiz.popupLayer.addChild(signupDialog);
-            });
-        });
-
-        this.homeLayer.signupBt.addClickEventListener(function () {
-            var signupDialog = new SignupDialog();
-            thiz.popupLayer.addChild(signupDialog);
-        });
         this.homeLayer.fbButton.addClickEventListener(function () {
             FacebookPlugin.getInstance().showLogin();
 
