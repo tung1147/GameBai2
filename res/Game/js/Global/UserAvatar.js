@@ -13,7 +13,7 @@ var UserAvatar = cc.Node.extend({
         this.avatarImg = avatarImg;
     },
 
-    setAvatar : function (avatarImg) {
+    _setAvatar : function (avatarImg) {
         this.avatarImg.setSpriteFrame(avatarImg);
         this.setContentSize(this.avatarImg.getContentSize());
         this.avatarImg.setPosition(this.getContentSize().width/2, this.getContentSize().height/2);
@@ -22,10 +22,10 @@ var UserAvatar = cc.Node.extend({
     serAvatarId : function (avatarId) {
         this.avatarId = avatarId;
         if(avatarId >= 1 && avatarId <= 20){
-            this.setAvatar("avatar"+ avatarId+".png");
+            this._setAvatar("avatar"+ avatarId+".png");
         }
         else{
-            this.setAvatar("avatarDefault.png");
+            this._setAvatar("avatarDefault.png");
         }
     }
 });
@@ -33,19 +33,17 @@ var UserAvatar = cc.Node.extend({
 UserAvatar.createMe = function () {
     var avt = new UserAvatar();
     avt.serAvatarId(PlayerMe.avatar);
-   // avt.setAvatar("lobby-avt.png");
     return avt;
 };
 
 UserAvatar.createAvatar = function () {
     var avt = new UserAvatar();
-    avt.setAvatar("lobby-avt.png");
+    avt.serAvatarId(0);
     return avt;
 };
 
 UserAvatar.createAvatarWithId = function (avatarId) {
     var avt = new UserAvatar();
     avt.serAvatarId(avatarId);
-   // avt.setAvatar("lobby-avt.png");
     return avt;
 };
