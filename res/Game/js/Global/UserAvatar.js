@@ -21,8 +21,12 @@ var UserAvatar = cc.Node.extend({
 
     serAvatarId : function (avatarId) {
         this.avatarId = avatarId;
-        var idx = 1 + (avatarId % 20);
-        this.setAvatar("avatar"+ idx+".png");
+        if(avatarId >= 1 && avatarId <= 20){
+            this.setAvatar("avatar"+ avatarId+".png");
+        }
+        else{
+            this.setAvatar("avatarDefault.png");
+        }
     }
 });
 
