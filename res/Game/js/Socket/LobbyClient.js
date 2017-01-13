@@ -8,14 +8,14 @@
 if (cc.sys.isNative) { //mobile
     var s_lobbyServer = s_lobbyServer || [
         {
-            host: "42.112.25.169",
+            host: "42.112.25.164",
             port: 9999
         }
     ];
 }
 else { //websocket
     var s_lobbyServer = s_lobbyServer || [
-        "ws://vuabaivip.com:8887/websocket"
+        "ws://42.112.25.164:8887/websocket"
     ];
 }
 
