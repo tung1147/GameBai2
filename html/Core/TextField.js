@@ -1,31 +1,6 @@
 /**
  * Created by QuyetNguyen on 11/9/2016.
  */
-var newui = newui || {};
-// newui.TextField = ccui.TextField;
-// newui.TextField.prototype.setAlignment = function () {
-//
-// };
-// newui.TextField.prototype.setReturnCallback = function () {
-//
-// };
-
-// newui.TextField = ccui.TextField;
-// newui.TextField.prototype.setAlignment = function () {
-//
-// };
-//
-// newui.TextField.prototype.setReturnCallback = function () {
-//
-// };
-//
-// newui.TextField.prototype.setPasswordEnable = function (isPassword) {
-//     ccui.TextField.prototype.setPasswordEnabled(isPassword);
-// };
-//
-// newui.TextField.prototype._ctor = function () {
-//     ccui.TextField.prototype.ctor.call(this, "placehold",cc.res.font.Roboto_Condensed, 30);
-// };
 
 newui.TextField = cc.Node.extend({
     ctor : function (size, fontName, arg3, arg4,arg5) {
@@ -348,7 +323,7 @@ newui.TextField = cc.Node.extend({
      //   this._updateText = true;
 
         this.textCursor.setVisible(true);
-        var action = new cc.Sequence(new cc.Blink(0.3, 0), new cc.Blink(0.3, 1));
+        var action = new cc.Sequence(new cc.Blink(0.3, 1), new cc.Blink(0.3, 0));
         this.textCursor.runAction(new cc.RepeatForever(action));
         this.updateText();
     },
