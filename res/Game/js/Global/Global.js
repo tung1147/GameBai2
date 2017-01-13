@@ -326,3 +326,10 @@ cc.Global.NodeIsVisible = function (node) {
     }
     return true;
 };
+
+if(!cc.sys.isNative){
+    window.onbeforeunload = function () {
+        SmartfoxClient.getInstance().close();
+        LobbyClient.getInstance().close();
+    };
+}
