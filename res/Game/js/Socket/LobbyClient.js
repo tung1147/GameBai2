@@ -15,7 +15,7 @@ if (cc.sys.isNative) { //mobile
 }
 else { //websocket
     var s_lobbyServer = s_lobbyServer || [
-        "ws://42.112.25.164:8887/websocket"
+        "ws://vuabaivip.com:8887/websocket"
     ];
 }
 
@@ -52,6 +52,7 @@ var LobbyClient = (function () {
                 this.addListener("verifyCodeBySms", this._onVerifyCodeBySmsHandler, this);
                 this.addListener("changeAsset", this._onChangeAssetHandler, this);
                 this.addListener("inventory", this._onInventoryHandler, this);
+                this.addListener("updateItem", this._onUpdateItemHandler, this);
                 this.addListener("inboxMessage", this._onInboxMessageHandler, this);
                 this.addListener("news", this._onNewsHandler, this);
                 this.addListener("markReadedMessageInbox", this._onMarkReadedMessageInboxHandler, this);
@@ -268,6 +269,13 @@ var LobbyClient = (function () {
                 if (items[i].id == 1) {
                     PlayerMe.avatar = items[i]["avtId"];
                 }
+            }
+        },
+
+        _onUpdateItemHandler : function (cmd, event) {
+            var data = event["data"];
+            if(data && data.avatar){
+                PlayerMe.avatar = data.avatar;
             }
         },
 
