@@ -2,6 +2,8 @@
  * Created by Quyet Nguyen on 7/25/2016.
  */
 
+s_sfs_error_msg[212] = "Không phải lượt xếp bài";
+
 var MauBinhCard = Card.extend({
     setSelected: null,
     isSelected: null,
