@@ -19,7 +19,7 @@ var SmartfoxClient = (function () {
                 };
                 this.sfsSocket.onMessage = function (messageType, data) {
                     thiz.onMessage(messageType, data);
-                }
+                };
 
                 this.addListener(socket.SmartfoxClient.Handshake, this._onHankShakeHandler, this);
                 this.addListener(socket.SmartfoxClient.Login, this._onLoginHandler, this);

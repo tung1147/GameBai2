@@ -198,6 +198,10 @@ var TienLen = IGameScene.extend({
     showFinishedDialog: function (player) {
         var dialog = new ResultDialog(player.length);
         for (var i = 0; i < player.length; i++) {
+            var username = player[i].username;
+            if (username.length > 3 && (username != PlayerMe.username)) {
+                username = username.substring(0, username.length - 3) + "***";
+            }
             dialog.userLabel[i].setString(player[i].username);
             if (player[i].username == PlayerMe.username) {
                 SoundPlayer.playSound(player[i].isWinner ? "winning" : "losing");

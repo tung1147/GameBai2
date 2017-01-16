@@ -2,9 +2,9 @@
  * Created by Quyet Nguyen on 7/27/2016.
  */
 var GamePlayer = cc.Node.extend({
-    ctor : function () {
+    ctor: function () {
         this._super();
-        this.setContentSize(cc.size(158,184));
+        this.setContentSize(cc.size(158, 184));
         this.setAnchorPoint(cc.p(0.5, 0.5));
         this.isMe = false;
         this.username = "";
@@ -14,7 +14,7 @@ var GamePlayer = cc.Node.extend({
         this.addChild(this.infoLayer);
 
         var avt = UserAvatar.createAvatar();
-        avt.setPosition(this.getContentSize().width/2, 110);
+        avt.setPosition(this.getContentSize().width / 2, 110);
         this.infoLayer.addChild(avt);
 
         var chatView = new PlayerMessageView();
@@ -37,20 +37,20 @@ var GamePlayer = cc.Node.extend({
         this.infoLayer.addChild(timer2);
         this.timer2 = timer2;
 
-        var inviteBt = new ccui.Button("ingame_inviteBt.png","","", ccui.Widget.PLIST_TEXTURE);
+        var inviteBt = new ccui.Button("ingame_inviteBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
         inviteBt.setPosition(avt.getPosition());
         this.addChild(inviteBt);
 
         var userLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, "Player", cc.TEXT_ALIGNMENT_CENTER);
         userLabel.setLineBreakWithoutSpace(true);
         userLabel.setDimensions(this.getContentSize().width, userLabel.getLineHeight());
-        userLabel.setPosition(this.getContentSize().width/2, 50);
-        this.infoLayer.addChild(userLabel,1);
+        userLabel.setPosition(this.getContentSize().width / 2, 50);
+        this.infoLayer.addChild(userLabel, 1);
 
         var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "1.000V", cc.TEXT_ALIGNMENT_CENTER);
         goldLabel.setColor(cc.color("#ffde00"));
-        goldLabel.setPosition(this.getContentSize().width/2, 20);
-        this.infoLayer.addChild(goldLabel,1);
+        goldLabel.setPosition(this.getContentSize().width / 2, 20);
+        this.infoLayer.addChild(goldLabel, 1);
 
         this.userLabel = userLabel;
         this.goldLabel = goldLabel;
@@ -71,67 +71,69 @@ var GamePlayer = cc.Node.extend({
         });
         this.setEnable(true);
     },
-    showChatMessage : function (message) {
+    showChatMessage: function (message) {
 
     },
-    setGold : function (gold) {
+    setGold: function (gold) {
         this.goldLabel.setString(cc.Global.NumberFormat1(gold));
         this.gold = gold;
     },
-    setUsername : function (name) {
+    setUsername: function (name) {
         this.username = name;
+        if (name.length > 3 && this.isMe == false)
+            name = name.substring(0, name.length - 3) + "***";
         this.userLabel.setString(name);
     },
-    setEnable : function (enable) {
-       // this._isEnable = enable;
-        if(enable){
+    setEnable: function (enable) {
+        // this._isEnable = enable;
+        if (enable) {
             this.infoLayer.visible = true;
             this.inviteBt.visible = false;
         }
-        else{
+        else {
             this.username = "";
             this.spectator = false;
             this.infoLayer.visible = false;
             this.inviteBt.visible = true;
         }
     },
-    showInviteDialog : function () {
-       // cc.log("showInviteDialog");
+    showInviteDialog: function () {
+        // cc.log("showInviteDialog");
         var dialog = new InviteDialog();
         dialog.show();
     },
-    showInfoDialog : function () {
-       // cc.log("showInfoDialog");
+    showInfoDialog: function () {
+        // cc.log("showInfoDialog");
         var dialog = new UserDialog();
         dialog.setUsername(this.username);
         dialog.setGold(this.gold);
-        if(this.avt){
+        if (this.avt) {
             dialog.setAvatar(this.avt.avatarId);
         }
         dialog.showWithAnimationScale();
     },
-    setAvatar : function (avtId) {
-        if(this.avt){
+    setAvatar: function (avtId) {
+        if (this.avt) {
             this.avt.serAvatarId(avtId);
         }
     },
-    runChangeGoldEffect : function (gold) {
+    runChangeGoldEffect: function (gold) {
         var goldNumber = gold;
-        if(typeof gold === "string"){
+        if (typeof gold === "string") {
             goldNumber = parseInt(gold);
         }
-        var strGold = cc.Global.NumberFormat1(Math.abs(goldNumber)) +"V";
-        if(gold >= 0){
+        var strGold = cc.Global.NumberFormat1(Math.abs(goldNumber)) + "V";
+        if (gold >= 0) {
             strGold = "+" + strGold;
         }
-        else{
+        else {
             strGold = "-" + strGold;
         }
         var labelEffect = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, strGold);
-        if(gold >=0){
+        if (gold >= 0) {
             labelEffect.setColor(cc.color("#ffde00"));
         }
-        else{
+        else {
             labelEffect.setColor(cc.color("#ff0000"));
         }
         labelEffect.setPosition(this.userLabel.getPosition());
@@ -144,25 +146,25 @@ var GamePlayer = cc.Node.extend({
         });
         labelEffect.runAction(new cc.Sequence(moveAction, finishedAction));
     },
-    showTimeRemain : function (currentTime, maxTime) {
+    showTimeRemain: function (currentTime, maxTime) {
         var startValue = 100.0 * (currentTime / maxTime);
-       // var deltaValue = 100.0 - startValue;
+        // var deltaValue = 100.0 - startValue;
         this.setProgressPercentage(startValue);
         var thiz = this;
         var action = new quyetnd.ActionTimer(currentTime, function (dt) {
             thiz.setProgressPercentage((1.0 - dt) * startValue);
         });
-        if(this.timer){
+        if (this.timer) {
             this.timer.stopAllActions();
             this.timer.runAction(action);
         }
     },
-    setProgressPercentage : function (percentage) {
+    setProgressPercentage: function (percentage) {
         this.timer.setPercentage(100.0 - percentage);
         this.timer2.setPercentage(percentage);
     },
-    stopTimeRemain : function () {
-        if(this.timer){
+    stopTimeRemain: function () {
+        if (this.timer) {
             this.timer.stopAllActions();
             this.setProgressPercentage(0.0);
         }
@@ -170,7 +172,7 @@ var GamePlayer = cc.Node.extend({
 });
 
 var GamePlayerMe = GamePlayer.extend({
-    ctor : function () {
+    ctor: function () {
         cc.Node.prototype.ctor.call(this);
         this.isMe = true;
         this.infoLayer = new cc.Node();
@@ -180,7 +182,7 @@ var GamePlayerMe = GamePlayer.extend({
         this.setAnchorPoint(cc.p(0.5, 0.5));
 
         var avt = UserAvatar.createMe();
-        avt.setPosition(60,50);
+        avt.setPosition(60, 50);
         this.infoLayer.addChild(avt);
 
         var chatView = new PlayerMessageView();
@@ -225,25 +227,25 @@ var GamePlayerMe = GamePlayer.extend({
         this.goldLabel = goldLabel;
         this.avt = avt;
     },
-    onEnter : function () {
+    onEnter: function () {
         this._super();
         this.setGold(PlayerMe.gold);
     },
-    setEnable : function (enable) {
+    setEnable: function (enable) {
 
     }
 });
 
 var PlayerMessageView = cc.Node.extend({
-    ctor : function () {
+    ctor: function () {
         this._super();
-        this.setAnchorPoint(cc.p(0.5,0.5));
+        this.setAnchorPoint(cc.p(0.5, 0.5));
 
-        var bg = new ccui.Scale9Sprite("ingame-chat-bg.png", cc.rect(20,20,4,4));
-        bg.setPreferredSize(cc.size(100,100));
+        var bg = new ccui.Scale9Sprite("ingame-chat-bg.png", cc.rect(20, 20, 4, 4));
+        bg.setPreferredSize(cc.size(100, 100));
         this.setContentSize(bg.getContentSize());
         this.addChild(bg);
-        bg.setPosition(this.getContentSize().width/2, this.getContentSize().height/2);
+        bg.setPosition(this.getContentSize().width / 2, this.getContentSize().height / 2);
         this.bg = bg;
 
         var label = new cc.LabelBMFont("Message", cc.res.font.Roboto_Condensed_25, 300, cc.TEXT_ALIGNMENT_CENTER);
@@ -253,8 +255,8 @@ var PlayerMessageView = cc.Node.extend({
 
         this.setVisible(false);
     },
-    
-    show : function (message) {
+
+    show: function (message) {
         this.setVisible(true);
         this.stopAllActions();
 
@@ -269,7 +271,7 @@ var PlayerMessageView = cc.Node.extend({
         this.label.setString(message);
         this.bg.setPreferredSize(cc.size(this.label.getContentSize().width + 40, this.label.getContentSize().height + 20));
         this.setContentSize(this.bg.getContentSize());
-        this.bg.setPosition(this.getContentSize().width/2, this.getContentSize().height/2);
+        this.bg.setPosition(this.getContentSize().width / 2, this.getContentSize().height / 2);
         this.label.setPosition(this.bg.getPosition());
     }
 });

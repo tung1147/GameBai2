@@ -102,6 +102,16 @@ var GameController = cc.Class.extend({
         var params = content.p
         if(params.u != PlayerMe.username){
             this._view.userExitRoom(params.u);
+        }else{
+            var message = null;
+            switch (params.reason){
+                case 3:
+                    message = "Bạn bị kick do không bắt đầu ván chơi";
+                    break;
+            }
+            if (message){
+                MessageNode.getInstance().show(message);
+            }
         }
     },
 

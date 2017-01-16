@@ -40,14 +40,16 @@ var MauBinhController = GameController.extend({
     },
 
     onStartGame: function (param) {
-        this._view.performDealCards(param["1"]);
+        this._view.performDealCards(param["1"], true);
     },
 
     onGameStatus: function (param) {
         this._view.hideAllButton();
+        cc.log(param);
         switch (param["1"]) {
             case 1:
                 this._view.setStartBtVisible(this.isOwnerMe);
+                this._view.cleanBoard();
                 break;
 
             case 2:
@@ -61,6 +63,7 @@ var MauBinhController = GameController.extend({
                 this._view.onTimeOut();
                 break;
         }
+        this._view.setArrangeEnable(param["1"] == 2);
     },
 
     onXepXong: function (param) {
@@ -76,15 +79,27 @@ var MauBinhController = GameController.extend({
         }
     },
 
+    onReconnect: function (param) {
+        this._super(param);
+        this._view.performChangeRewardFund(param["1"]["11"]["2"]);
+        this._view.performDealCards(param["3"]);
+        this.onGameStatus({1: param["1"]["1"], 2: Math.floor(param["1"]["13"] / 1000)});
+
+        if (param["1"]["1"] == 3 && param["1"]["14"]) {
+            // ket qua
+            this.onGameFinish(param["1"]["14"], true);
+        }
+    },
+
     onXepLai: function (param) {
         var user = param["u"];
         this._view.onUserXepBaiStatus(user, false);
         this._view.setArrangeEnable(true);
     },
 
-    onGameFinish: function (param) {
+    onGameFinish: function (param, isReconnect) {
         var currentPhaseId = param["2"]["1"];
-        var currentPhaseTime = Math.floor(param["2"]["2"] / 1000);
+        var currentPhaseTime = Math.floor(param["2"]["2"]);
         var subPhases = param["1"];
         var delayCount = 0;
 
@@ -92,7 +107,13 @@ var MauBinhController = GameController.extend({
             // sp = subPhase
             var sp = subPhases[i];
             var spId = sp["1"];
-            delayCount += Math.floor(sp["2"] / 1000);
+            if (isReconnect && spId < currentPhaseId) {
+            }
+            else if (isReconnect && spId == currentPhaseId) {
+                delayCount += currentPhaseTime;
+            } else {
+                delayCount += sp["2"];
+            }
 
             var matches = sp["3"];
             for (var j = 0; j < matches.length; j++) {
@@ -113,21 +134,21 @@ var MauBinhController = GameController.extend({
                     case 2: // so chi
                     case 3:
                     case 4:
-                        this._view.performSoChi(username, spId - 2, rankChi, exMoney,cardArray, delayCount);
+                        this._view.performSoChi(username, spId - 2, rankChi, exMoney, cardArray, delayCount);
                         break;
                     case 5 : // thang trang 2
                         this._view.performSummaryChange(username, winType, exMoney, delayCount);
                         break;
                     case 6 : // hien thi bang ket qua
-                        this._view.addResultEntry(username, winType, soChiWin, newMoney, moneyChange);
+                        this._view.addResultEntry(username, winType, soChiWin, wholeCards, newMoney, moneyChange);
                         break;
                 }
             }
         }
 
-        delayCount += 5;
+        delayCount += 2000;
         this._view.performShowResult(delayCount);
-        this._view.cleanBoardDelay(delayCount += 5);
+        this._view.cleanBoard(delayCount += 2000);
     },
 
     sendXepBaiXong: function (cards) {

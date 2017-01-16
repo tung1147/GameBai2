@@ -251,7 +251,11 @@ var Phom = IGameScene.extend({
         var dialog = new ResultDialog(resultData.length);
 
         for (var i = 0; i < resultData.length; i++) {
-            dialog.userLabel[i].setString(resultData[i].username);
+            var username = resultData[i].username;
+            if (username.length > 3 && (username != PlayerMe.username)){
+                username = username.substring(0,username.length - 3) + "***";
+            }
+            dialog.userLabel[i].setString(username);
             if (resultData[i].username = PlayerMe.username) {
                 SoundPlayer.playSound(resultData[i].isWinner ? "winning" : "losing");
             }
