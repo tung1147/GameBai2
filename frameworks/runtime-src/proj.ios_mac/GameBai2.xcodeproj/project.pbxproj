@@ -119,6 +119,17 @@
 		56A4483B1E2E712000999418 /* libElectroSocket_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56A448311E2E6FAA00999418 /* libElectroSocket_ios.a */; };
 		56A4483C1E2E712000999418 /* libLobbySocket_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56A447EA1E2E6D9600999418 /* libLobbySocket_ios.a */; };
 		56A4483D1E2E712000999418 /* libSmartfoxSocket_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56A447F31E2E6E1600999418 /* libSmartfoxSocket_ios.a */; };
+		56A449731E2E7A4600999418 /* AccountKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56A4495F1E2E7A4600999418 /* AccountKit.framework */; };
+		56A449741E2E7A4600999418 /* AccountKitStrings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 56A449601E2E7A4600999418 /* AccountKitStrings.bundle */; };
+		56A449751E2E7A4600999418 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56A449611E2E7A4600999418 /* Bolts.framework */; };
+		56A4497A1E2E7A4600999418 /* FacebookPlugin_iOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 56A449681E2E7A4600999418 /* FacebookPlugin_iOS.mm */; };
+		56A4497B1E2E7A4600999418 /* FacebookSDKStrings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 56A4496A1E2E7A4600999418 /* FacebookSDKStrings.bundle */; };
+		56A4497C1E2E7A4600999418 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56A4496B1E2E7A4600999418 /* FBAudienceNetwork.framework */; };
+		56A4497D1E2E7A4600999418 /* FBNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56A4496C1E2E7A4600999418 /* FBNotifications.framework */; };
+		56A4497E1E2E7A4600999418 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56A4496D1E2E7A4600999418 /* FBSDKCoreKit.framework */; };
+		56A4497F1E2E7A4600999418 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56A4496E1E2E7A4600999418 /* FBSDKLoginKit.framework */; };
+		56A449801E2E7A4600999418 /* FBSDKMessengerShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56A4496F1E2E7A4600999418 /* FBSDKMessengerShareKit.framework */; };
+		56A449811E2E7A4600999418 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56A449701E2E7A4600999418 /* FBSDKShareKit.framework */; };
 		9FA3AE461BE9BBCA00FC9645 /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FA3AE451BE9BBCA00FC9645 /* GameController.framework */; };
 		A92275421517C094001B78AA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A92275411517C094001B78AA /* QuartzCore.framework */; };
 		A92275441517C094001B78AA /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A92275431517C094001B78AA /* OpenGLES.framework */; };
@@ -416,6 +427,19 @@
 		56A448261E2E6F8500999418 /* MacOS_native_linker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MacOS_native_linker.h; sourceTree = "<group>"; };
 		56A448271E2E6F8500999418 /* MacOS_native_linker.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MacOS_native_linker.mm; sourceTree = "<group>"; };
 		56A448291E2E6FAA00999418 /* libElectroSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libElectroSocket.xcodeproj; path = ../libs/ElectroClient/proj.ios_mac/libElectroSocket.xcodeproj; sourceTree = "<group>"; };
+		56A4495F1E2E7A4600999418 /* AccountKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AccountKit.framework; sourceTree = "<group>"; };
+		56A449601E2E7A4600999418 /* AccountKitStrings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AccountKitStrings.bundle; sourceTree = "<group>"; };
+		56A449611E2E7A4600999418 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		56A449671E2E7A4600999418 /* FacebookPlugin_iOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookPlugin_iOS.h; sourceTree = "<group>"; };
+		56A449681E2E7A4600999418 /* FacebookPlugin_iOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FacebookPlugin_iOS.mm; sourceTree = "<group>"; };
+		56A449691E2E7A4600999418 /* FacebookPlugin_iOS_link.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookPlugin_iOS_link.h; sourceTree = "<group>"; };
+		56A4496A1E2E7A4600999418 /* FacebookSDKStrings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FacebookSDKStrings.bundle; sourceTree = "<group>"; };
+		56A4496B1E2E7A4600999418 /* FBAudienceNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBAudienceNetwork.framework; sourceTree = "<group>"; };
+		56A4496C1E2E7A4600999418 /* FBNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBNotifications.framework; sourceTree = "<group>"; };
+		56A4496D1E2E7A4600999418 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		56A4496E1E2E7A4600999418 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		56A4496F1E2E7A4600999418 /* FBSDKMessengerShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKMessengerShareKit.framework; sourceTree = "<group>"; };
+		56A449701E2E7A4600999418 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		9FA3AE451BE9BBCA00FC9645 /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.0.sdk/System/Library/Frameworks/GameController.framework; sourceTree = DEVELOPER_DIR; };
 		A922753D1517C094001B78AA /* GameBai2-mobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GameBai2-mobile.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A92275411517C094001B78AA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -482,12 +506,20 @@
 				C037820C18BF77C500FE4F13 /* libjscocos2d iOS.a in Frameworks */,
 				1A676839180E9C1E0076BC67 /* libcocos2d iOS.a in Frameworks */,
 				D6B061241803AB9F0077942B /* CoreMotion.framework in Frameworks */,
+				56A4497F1E2E7A4600999418 /* FBSDKLoginKit.framework in Frameworks */,
 				1A82F5FB169AC92500C4B13A /* libsqlite3.dylib in Frameworks */,
 				D454520C156E22BD00887EB5 /* libz.dylib in Frameworks */,
+				56A449811E2E7A4600999418 /* FBSDKShareKit.framework in Frameworks */,
+				56A449731E2E7A4600999418 /* AccountKit.framework in Frameworks */,
+				56A4497D1E2E7A4600999418 /* FBNotifications.framework in Frameworks */,
 				A92275421517C094001B78AA /* QuartzCore.framework in Frameworks */,
+				56A4497C1E2E7A4600999418 /* FBAudienceNetwork.framework in Frameworks */,
+				56A449751E2E7A4600999418 /* Bolts.framework in Frameworks */,
 				A92275441517C094001B78AA /* OpenGLES.framework in Frameworks */,
+				56A449801E2E7A4600999418 /* FBSDKMessengerShareKit.framework in Frameworks */,
 				A92275461517C094001B78AA /* OpenAL.framework in Frameworks */,
 				A92275481517C094001B78AA /* AudioToolbox.framework in Frameworks */,
+				56A4497E1E2E7A4600999418 /* FBSDKCoreKit.framework in Frameworks */,
 				A922754A1517C094001B78AA /* AVFoundation.framework in Frameworks */,
 				A922754C1517C094001B78AA /* UIKit.framework in Frameworks */,
 				A922754E1517C094001B78AA /* Foundation.framework in Frameworks */,
@@ -686,9 +718,31 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		56A4495E1E2E7A4600999418 /* FacebookSDK */ = {
+			isa = PBXGroup;
+			children = (
+				56A4495F1E2E7A4600999418 /* AccountKit.framework */,
+				56A449601E2E7A4600999418 /* AccountKitStrings.bundle */,
+				56A449611E2E7A4600999418 /* Bolts.framework */,
+				56A449671E2E7A4600999418 /* FacebookPlugin_iOS.h */,
+				56A449681E2E7A4600999418 /* FacebookPlugin_iOS.mm */,
+				56A449691E2E7A4600999418 /* FacebookPlugin_iOS_link.h */,
+				56A4496A1E2E7A4600999418 /* FacebookSDKStrings.bundle */,
+				56A4496B1E2E7A4600999418 /* FBAudienceNetwork.framework */,
+				56A4496C1E2E7A4600999418 /* FBNotifications.framework */,
+				56A4496D1E2E7A4600999418 /* FBSDKCoreKit.framework */,
+				56A4496E1E2E7A4600999418 /* FBSDKLoginKit.framework */,
+				56A4496F1E2E7A4600999418 /* FBSDKMessengerShareKit.framework */,
+				56A449701E2E7A4600999418 /* FBSDKShareKit.framework */,
+			);
+			name = FacebookSDK;
+			path = ../libs/FacebookSDK/proj.ios;
+			sourceTree = "<group>";
+		};
 		A92275321517C094001B78AA = {
 			isa = PBXGroup;
 			children = (
+				56A4495E1E2E7A4600999418 /* FacebookSDK */,
 				56A448291E2E6FAA00999418 /* libElectroSocket.xcodeproj */,
 				56A447EB1E2E6E1600999418 /* libSmartfoxSocket.xcodeproj */,
 				56A447E21E2E6D9600999418 /* libLobbySocket.xcodeproj */,
@@ -1004,6 +1058,8 @@
 				509D4ABE17EBB2AB00697056 /* Default.png in Resources */,
 				56A448151E2E6F6500999418 /* Icon-144.png in Resources */,
 				C03780EB18BEE0E400FE4F13 /* src in Resources */,
+				56A4497B1E2E7A4600999418 /* FacebookSDKStrings.bundle in Resources */,
+				56A449741E2E7A4600999418 /* AccountKitStrings.bundle in Resources */,
 				56A448171E2E6F6500999418 /* Icon-180.png in Resources */,
 				56A448161E2E6F6500999418 /* Icon-152.png in Resources */,
 				56A4480D1E2E6F6500999418 /* Icon-58.png in Resources */,
@@ -1074,6 +1130,7 @@
 				56A439AC1E2E5D8A00999418 /* sha1.cpp in Sources */,
 				56A439A21E2E5D8A00999418 /* jsb_quyetnd_resourcedownloader.cpp in Sources */,
 				56A439A81E2E5D8A00999418 /* MD5.cpp in Sources */,
+				56A4497A1E2E7A4600999418 /* FacebookPlugin_iOS.mm in Sources */,
 				56A439A41E2E5D8A00999418 /* jsb_quyetnd_systemplugin.cpp in Sources */,
 				509D4AC917EBB2AB00697056 /* RootViewController.mm in Sources */,
 				56A4399A1E2E5D8A00999418 /* CRC32.cpp in Sources */,
@@ -1271,7 +1328,7 @@
 				SDKROOT = iphoneos;
 				STRIP_PNG_TEXT = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../../cocos2d-x/external/spidermonkey/include/ios $(SRCROOT)/../../cocos2d-x/plugin/jsbindings/auto $(SRCROOT)/../../cocos2d-x/plugin/jsbindings/manual $(SRCROOT)/../../cocos2d-x/cocos";
+				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../../cocos2d-x/external/spidermonkey/include/ios $(SRCROOT)/../../cocos2d-x/plugin/jsbindings/auto $(SRCROOT)/../../cocos2d-x/plugin/jsbindings/manual $(SRCROOT)/../../cocos2d-x/cocos $(SRCROOT)/../libs/LobbyClient/src $(SRCROOT)/../libs/ElectroClient $(SRCROOT)/../libs/SmartfoxClient/src $(SRCROOT)/../../cocos2d-x/external/curl/include/ios";
 				VALID_ARCHS = "arm64 armv7";
 			};
 			name = Debug;
@@ -1296,7 +1353,7 @@
 				SDKROOT = iphoneos;
 				STRIP_PNG_TEXT = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../../cocos2d-x/external/spidermonkey/include/ios $(SRCROOT)/../../cocos2d-x/plugin/jsbindings/auto $(SRCROOT)/../../cocos2d-x/plugin/jsbindings/manual $(SRCROOT)/../../cocos2d-x/cocos";
+				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../../cocos2d-x/external/spidermonkey/include/ios $(SRCROOT)/../../cocos2d-x/plugin/jsbindings/auto $(SRCROOT)/../../cocos2d-x/plugin/jsbindings/manual $(SRCROOT)/../../cocos2d-x/cocos $(SRCROOT)/../libs/LobbyClient/src $(SRCROOT)/../libs/ElectroClient $(SRCROOT)/../libs/SmartfoxClient/src $(SRCROOT)/../../cocos2d-x/external/curl/include/ios";
 				VALID_ARCHS = "arm64 armv7";
 			};
 			name = Release;

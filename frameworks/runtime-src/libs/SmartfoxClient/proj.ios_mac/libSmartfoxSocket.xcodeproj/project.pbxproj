@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4BE089EC1ADF967400D65D4B /* jsb_cocos2dx_experimental_webView_manual.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BE089EA1ADF967400D65D4B /* jsb_cocos2dx_experimental_webView_manual.h */; };
 		56A442A11E2E6A7D00999418 /* BaseMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56A4421C1E2E6A7D00999418 /* BaseMessage.cpp */; };
 		56A442A21E2E6A7D00999418 /* BaseMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56A4421C1E2E6A7D00999418 /* BaseMessage.cpp */; };
 		56A442A31E2E6A7D00999418 /* BaseMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 56A4421D1E2E6A7D00999418 /* BaseMessage.h */; };
@@ -139,7 +138,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4BE089EA1ADF967400D65D4B /* jsb_cocos2dx_experimental_webView_manual.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jsb_cocos2dx_experimental_webView_manual.h; sourceTree = "<group>"; };
 		56A440641E2E673200999418 /* libSmartfoxSocket_mac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSmartfoxSocket_mac.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		56A440651E2E673A00999418 /* libSmartfoxSocket_ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSmartfoxSocket_ios.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		56A4421C1E2E6A7D00999418 /* BaseMessage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BaseMessage.cpp; sourceTree = "<group>"; };
@@ -431,7 +429,6 @@
 				56A442D41E2E6A7D00999418 /* stack.h in Headers */,
 				56A443201E2E6A7D00999418 /* SFSTcpClient.h in Headers */,
 				56A442FE1E2E6A7D00999418 /* SFSEntity.h in Headers */,
-				4BE089EC1ADF967400D65D4B /* jsb_cocos2dx_experimental_webView_manual.h in Headers */,
 				56A442BA1E2E6A7D00999418 /* en.h in Headers */,
 				56A442FA1E2E6A7D00999418 /* SFSArray.h in Headers */,
 				56A443241E2E6A7D00999418 /* SocketAdapter.h in Headers */,
@@ -589,11 +586,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"COCOS2D_DEBUG=1",
-					USE_FILE32API,
-					"CC_ENABLE_CHIPMUNK_INTEGRATION=1",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = USE_FILE32API;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
 				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
@@ -610,7 +603,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../../../.. $(SRCROOT)/../../../../cocos $(SRCROOT)/../../../../cocos/base $(SRCROOT)/../../../../cocos/3d $(SRCROOT)/../../../../cocos/2d $(SRCROOT)/../../../../cocos/physics3d $(SRCROOT)/../../../../cocos/navmesh $(SRCROOT)/../../../../cocos/platform $(SRCROOT)/../../../../cocos/audio/include $(SRCROOT)/../../../../cocos/editor-support $(SRCROOT)/../../../../cocos/editor-support/cocosbuilder $(SRCROOT)/../../../../cocos/editor-support/cocostudio $(SRCROOT)/../../../../cocos/editor-support/spine $(SRCROOT)/../../../../cocos/ui $(SRCROOT)/../../../../cocos/storage $(SRCROOT)/../../../../extensions $(SRCROOT)/../../../../external/chipmunk/include $(SRCROOT)/../../../../external $(SRCROOT)/../auto $(SRCROOT)/../manual";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../src";
 			};
 			name = Debug;
 		};
@@ -624,7 +617,6 @@
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"CC_ENABLE_CHIPMUNK_INTEGRATION=1",
 					NDEBUG,
 					USE_FILE32API,
 				);
@@ -642,7 +634,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../../../.. $(SRCROOT)/../../../../cocos $(SRCROOT)/../../../../cocos/base $(SRCROOT)/../../../../cocos/3d $(SRCROOT)/../../../../cocos/2d $(SRCROOT)/../../../../cocos/physics3d $(SRCROOT)/../../../../cocos/navmesh $(SRCROOT)/../../../../cocos/platform $(SRCROOT)/../../../../cocos/audio/include $(SRCROOT)/../../../../cocos/editor-support $(SRCROOT)/../../../../cocos/editor-support/cocosbuilder $(SRCROOT)/../../../../cocos/editor-support/cocostudio $(SRCROOT)/../../../../cocos/editor-support/spine $(SRCROOT)/../../../../cocos/ui $(SRCROOT)/../../../../cocos/storage $(SRCROOT)/../../../../extensions $(SRCROOT)/../../../../external/chipmunk/include $(SRCROOT)/../../../../external $(SRCROOT)/../auto $(SRCROOT)/../manual";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../src";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -652,7 +644,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				EXECUTABLE_PREFIX = "";
-				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					SFS_LOGGER,
+				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../src";
 			};
@@ -677,7 +672,10 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ENABLE_BITCODE = NO;
 				EXECUTABLE_PREFIX = "";
-				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					SFS_LOGGER,
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				SDKROOT = iphoneos;
