@@ -2602,7 +2602,7 @@ cc.game = /** @lends cc.game# */{
                 }
                 cc.loader.loadTxt(_src, loaded);
             }
-            if (!txt) {
+            if (!_src) {
                 cc.loader.loadTxt("project.json", loaded);
             }
         }
