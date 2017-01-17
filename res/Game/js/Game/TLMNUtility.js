@@ -1,3 +1,7 @@
+/**
+ * Created by anhvt on 11/17/2017.
+ */
+
 var TLMNUtility = {
     HAI: 0,
     DOI: 1,
@@ -90,14 +94,14 @@ var TLMNUtility = {
     getSuggestedCards: function (cards, handCards) {
         var suggestGroups = [];
         if (!cards) {
+            for (var i = 3; i < 13; i++) {
+                suggestGroups = suggestGroups.concat(this.findDay(handCards, null, null, i));
+            }
             suggestGroups = suggestGroups.concat(this.findSameCards(handCards, null, null, 2));
             suggestGroups = suggestGroups.concat(this.findSameCards(handCards, null, null, 3));
             suggestGroups = suggestGroups.concat(this.findSameCards(handCards, null, null, 4));
             suggestGroups = suggestGroups.concat(this.findDoiThong(handCards, null, null, 3));
             suggestGroups = suggestGroups.concat(this.findDoiThong(handCards, null, null, 4));
-            for (var i = 3; i < 13; i++) {
-                suggestGroups = suggestGroups.concat(this.findDay(handCards, null, null, i));
-            }
 
             return suggestGroups;
         }
@@ -113,33 +117,43 @@ var TLMNUtility = {
             suitFreq[handCards[i].suit]++;
         }
         var preventableGroupType = this.preventable[groupType];
+        var minRank = cards[0].rank;
+        for (var i = 1; i < cards.length; i++) {
+            minRank = cards[i].rank < minRank ? cards[i].rank : minRank;
+        }
         for (var i = 0; i < preventableGroupType.length; i++) {
             switch (preventableGroupType[i]) {
                 case TLMNUtility.DOI:
-                    suggestGroups = suggestGroups.concat(this.findSameCards(handCards, rankFreq, suitFreq, 2));
+                    suggestGroups = suggestGroups.concat(this.findSameCards(handCards, rankFreq, suitFreq, 2, minRank));
                     break;
                 case TLMNUtility.BA:
-                    suggestGroups = suggestGroups.concat(this.findSameCards(handCards, rankFreq, suitFreq, 3));
+                    suggestGroups = suggestGroups.concat(this.findSameCards(handCards, rankFreq, suitFreq, 3, minRank));
                     break;
                 case TLMNUtility.TUQUY:
-                    suggestGroups = suggestGroups.concat(this.findSameCards(handCards, rankFreq, suitFreq, 4));
+                    suggestGroups = suggestGroups.concat(this.findSameCards(handCards, rankFreq, suitFreq, 4,
+                        groupType == TLMNUtility.TUQUY ? minRank : 0));
                     break;
                 case TLMNUtility.BADOITHONG:
-                    suggestGroups = suggestGroups.concat(this.findDoiThong(handCards, rankFreq, suitFreq, 3));
+                    suggestGroups = suggestGroups.concat(this.findDoiThong(handCards, rankFreq, suitFreq, 3,
+                        groupType == TLMNUtility.BADOITHONG ? minRank : 0));
                     break;
                 case TLMNUtility.BONDOITHONG:
-                    suggestGroups = suggestGroups.concat(this.findDoiThong(handCards, rankFreq, suitFreq, 4));
+                    suggestGroups = suggestGroups.concat(this.findDoiThong(handCards, rankFreq, suitFreq, 4,
+                        groupType == TLMNUtility.BONDOITHONG ? minRank : 0));
                     break;
                 case TLMNUtility.DAY:
-                    suggestGroups = suggestGroups.concat(this.findDay(handCards, rankFreq, suitFreq, cards.length));
+                    suggestGroups = suggestGroups.concat(this.findDay(handCards, rankFreq, suitFreq, cards.length, minRank));
                     break;
             }
         }
         return suggestGroups;
     },
 
-    findDay: function (handCards, rankFreq, suitFreq, length) {
+    findDay: function (handCards, rankFreq, suitFreq, length, minRank) {
         if (length > handCards.length)
+            return [];
+
+        if (length < 3)
             return [];
 
         if ((!rankFreq) || (!suitFreq)) {
@@ -160,6 +174,7 @@ var TLMNUtility = {
         }
 
         rankFreq[14] = rankFreq[1];
+        sameCards[14] = sameCards[1];
         for (var i = 3; i <= 15 - length; i++) {
             var isLegal = true;
             for (var j = 0; j < length; j++) {
@@ -169,6 +184,9 @@ var TLMNUtility = {
                 }
             }
 
+            if (minRank)
+                isLegal = isLegal && (i > minRank);
+
             if (isLegal) {
                 var fcallStr = "this.getCombination(";
                 for (var j = 0; j < length; j++) {
@@ -177,6 +195,7 @@ var TLMNUtility = {
                 fcallStr += ");";
                 fcallStr = fcallStr.replace(",)", ")");
 
+                //console.log(fcallStr);
                 result = result.concat(eval(fcallStr));
             }
         }
@@ -185,7 +204,7 @@ var TLMNUtility = {
     },
 
     // tim doi, bo ba, tu quy
-    findSameCards: function (handCards, rankFreq, suitFreq, length) {
+    findSameCards: function (handCards, rankFreq, suitFreq, length, minRank) {
         if ((!rankFreq) || (!suitFreq)) {
             rankFreq = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
             suitFreq = [0, 0, 0, 0];
@@ -199,6 +218,8 @@ var TLMNUtility = {
         var result = [];
         for (var i = 0; i < handCards.length; i++) {
             if (rankFreq[handCards[i].rank] >= length) {
+                if (handCards[i].rank > 2 && handCards[i].rank < minRank)
+                    continue;
                 if (!sameCards[handCards[i].rank])
                     sameCards[handCards[i].rank] = [];
                 sameCards[handCards[i].rank].push(handCards[i]);
@@ -207,8 +228,18 @@ var TLMNUtility = {
 
         // tach cac bo, them vao ket qua
         for (var i = 0; i < sameCards.length; i++) {
-            if (!sameCards[i])
+            if ((!sameCards[i]))
                 continue;
+
+            // truong hop dung 2 doi cung rank chan nhau, doi chan phai co chat co* ( heart )
+            if (length == 2 && sameCards[i][0].suit != 3
+                && sameCards[i][1].suit != 3 && i == minRank)
+                continue;
+
+            // A 2 la to nhat
+            if (minRank <= 2 && i >= 3)
+                continue;
+
             for (var j = 0; j <= sameCards[i].length - length; j++) {
                 result.push(sameCards[i].slice(j, length + j));
             }
@@ -217,7 +248,7 @@ var TLMNUtility = {
         return result;
     },
 
-    findDoiThong: function (handCards, rankFreq, suitFreq, length) {
+    findDoiThong: function (handCards, rankFreq, suitFreq, length, minRank) {
         if (length != 3 && length != 4) {
             return [];
         }
@@ -242,8 +273,11 @@ var TLMNUtility = {
         }
 
         rankFreq[14] = rankFreq[1];// A
+        sameCards[14] = sameCards[1];
         if (length == 3) {
             for (var i = 3; i < 13; i++) {
+                if (i <= minRank)
+                    continue;
                 if (rankFreq[i] >= 2 && rankFreq[i + 1] >= 2 && rankFreq[i + 2] >= 2) {
                     result = result.concat(this.getCombination(
                         this.getSubGroup(sameCards[i], 2),
@@ -256,6 +290,8 @@ var TLMNUtility = {
 
         if (length == 4) {
             for (var i = 3; i < 12; i++) {
+                if (i <= minRank)
+                    continue;
                 if (rankFreq[i] >= 2 && rankFreq[i + 1] >= 2 && rankFreq[i + 2] >= 2 && rankFreq[i + 3] >= 2) {
                     result = result.concat(this.getCombination(
                         this.getSubGroup(sameCards[i], 2),
@@ -294,8 +330,8 @@ var TLMNUtility = {
         fcallStr += ");";
         fcallStr = fcallStr.replace(",)", ")");
 
+        var recursionResult = eval(fcallStr);
         for (var i = 0; i < pre.length; i++) {
-            var recursionResult = eval(fcallStr);
             for (var j = 0; j < recursionResult.length; j++) {
                 if (pre[i].length)
                     result.push(pre[i].concat(recursionResult[j]));
