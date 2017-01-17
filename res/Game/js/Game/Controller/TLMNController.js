@@ -126,11 +126,13 @@ var TLMNGameController = GameController.extend({
 
     _onStartGameHandler : function(cmd, content){
         this.onStartGame(content.p);
+        this._view.suggestCard();
     },
 
     _onNewTurnHandler : function(cmd, content){
         this._view.removeCardOnTable();
         this.onUpdateTurn(content.p.u, this.timeTurn, true);
+        this._view.suggestCard();
     },
 
     _onNextTurnHandler : function(cmd, content){

@@ -115,6 +115,7 @@ var Card = cc.Sprite.extend({
             // }
 
             this.setSelected(!this._cardSelected);
+            this.getParent().onSelected(this,this.isSelected());
         }
     },
     onTouchMoved: function (touch, event) {

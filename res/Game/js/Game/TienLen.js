@@ -4,7 +4,7 @@
 
 var CardRemaining = cc.Node.extend({
     ctor: function () {
-        this._super()
+        this._super();
         this.setAnchorPoint(cc.p(0.5, 0.5));
 
         var bg = new cc.Sprite("#card_remain_bg_1.png");
@@ -68,6 +68,17 @@ var TienLen = IGameScene.extend({
         cardList.setPosition(cc.winSize.width / 2, 100.0);
         this.sceneLayer.addChild(cardList);
         this.cardList = cardList;
+        //implement select handler
+
+        cardList.onSelected = function (card, isSelected) {
+            if (!isSelected)
+                return;
+
+            if (thiz.cardList.getCardSelected().length != 1)
+                return;
+
+            thiz.handleSelectSuggest(card);
+        };
 
         var cardOnTable = new CardOnTable();
         cardOnTable.setPosition(cc.p(0, 0));
@@ -76,6 +87,22 @@ var TienLen = IGameScene.extend({
 
         //test
     },
+
+    handleSelectSuggest: function (card) {
+        console.log("dep trai nhat vu tru");
+        if (!this.suggestGroups)
+            return;
+
+        for (var i = this.suggestGroups.length - 1; i >= 0; i--) {
+            if (this.suggestGroups[i].indexOf(card) != -1) {
+                for (var j = 0; j < this.suggestGroups[i].length; j++) {
+                    this.suggestGroups[i][j].setSelected(true);
+                }
+                return;
+            }
+        }
+    },
+
     initController: function () {
         this._controller = new TLMNGameController(this);
     },
@@ -259,6 +286,10 @@ var TienLen = IGameScene.extend({
         this.setCardList(this.cardList, cardList);
     },
 
+    suggestCard : function () {
+        this.suggestGroups = TLMNUtility.getSuggestedCards(null,this.cardList.cardList);
+    },
+
     setCardList: function (list, data) {
         list.removeAll();
         for (var i = 0; i < data.length; i++) {
@@ -317,12 +348,14 @@ var TienLen = IGameScene.extend({
             arr[i].release();
         }
         SoundPlayer.playSound("danh_bai");
+        this.suggestGroups = null;
     },
 
     onDanhbaiOther: function (username, cards) {
         var slot = this.getSlotByUsername(username);
         this.cardOnTable.moveOldCard();
         this.cardOnTable.addNewCardList(cards, slot.getPosition());
+        this.suggestGroups = TLMNUtility.getSuggestedCards(cards, this.cardList.cardList);
         SoundPlayer.playSound("danh_bai");
     },
 

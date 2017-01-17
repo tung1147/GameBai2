@@ -84,6 +84,7 @@
     "res/Game/js/Game/XocDiaChip.js",
     "res/Game/js/Game/GamePlayer.js",
     "res/Game/js/Game/GameScene.js",
+    "res/Game/js/Game/TLMNUtility.js",
     "res/Game/js/Game/TienLen.js",
     "res/Game/js/Game/TLMNSolo.js",
     "res/Game/js/Game/BaCay.js",

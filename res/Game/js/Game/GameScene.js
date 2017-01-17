@@ -92,16 +92,22 @@ var IGameScene = IScene.extend({
             this._controller.requestQuitRoom();
         }
     },
-    exitToLobby: function () {
+    exitToLobby: function (message) {
         var homeScene = new HomeScene();
         var gameId = s_games_chanel_id[PlayerMe.gameType];
         homeScene.startLobby(gameId);
         cc.director.replaceScene(homeScene);
+        if(message){
+            MessageNode.getInstance().show(message, null, homeScene);
+        }
     },
-    exitToGame: function () {
+    exitToGame: function (message) {
         var homeScene = new HomeScene();
         homeScene.startGame();
         cc.director.replaceScene(homeScene);
+        if(message){
+            MessageNode.getInstance().show(message, null, homeScene);
+        }
     },
     onExit: function () {
         this._super();

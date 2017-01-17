@@ -5,10 +5,10 @@
 var s_sfs_error_msg = s_sfs_error_msg || [];
 
 var GameController = cc.Class.extend({
-    ctor : function () {
+    ctor: function () {
 
     },
-    initWithView : function (view) {
+    initWithView: function (view) {
         this._view = view;
         SmartfoxClient.getInstance().addListener(socket.SmartfoxClient.SocketStatus, this.onSmartfoxSocketStatus, this);
         SmartfoxClient.getInstance().addListener(socket.SmartfoxClient.UserExitRoom, this.onSmartfoxUserExitRoom, this);
@@ -29,30 +29,30 @@ var GameController = cc.Class.extend({
         LobbyClient.getInstance().addListener("getLastSessionInfo", this.onGetLastSessionInfo, this);
     },
 
-    releaseController : function () {
+    releaseController: function () {
         SmartfoxClient.getInstance().removeListener(this);
         LobbyClient.getInstance().removeListener(this);
         this._view = null;
     },
 
-    onSmartfoxSocketStatus : function (type, eventName) {
-        if(eventName == "LostConnection"){
+    onSmartfoxSocketStatus: function (type, eventName) {
+        if (eventName == "LostConnection") {
             LoadingDialog.getInstance().show("Đang kết nối lại máy chủ");
             LobbyClient.getInstance().requestGetLastSessionInfo();
         }
     },
 
-    onSmartfoxUserExitRoom : function (messageType, contents) {
-        if(PlayerMe.SFS.userId ==  contents.u){
-            this._view.exitToLobby();
-        }
+    onSmartfoxUserExitRoom: function (messageType, contents) {
+        // if(PlayerMe.SFS.userId ==  contents.u){
+        //     this._view.exitToLobby();
+        // }
     },
 
-    onSmartfoxRecvChatMessage : function (event, data) {
+    onSmartfoxRecvChatMessage: function (event, data) {
         this._view.onChatMessage(data.p.userName, data.m);
     },
 
-    onSFSExtension : function (messageType, content) {
+    onSFSExtension: function (messageType, content) {
         // if(content.c == "ping"){
         //     SmartfoxClient.getInstance().sendExtensionRequestCurrentRoom("ping", null);
         // }
@@ -86,107 +86,105 @@ var GameController = cc.Class.extend({
         // }
     },
 
-    onPingHandler : function (cmd, content) {
+    onPingHandler: function (cmd, content) {
         SmartfoxClient.getInstance().sendExtensionRequestCurrentRoom("ping", null);
     },
 
-    onUpdateGold : function (cmd, content) {
+    onUpdateGold: function (cmd, content) {
         var params = content.p;
 
         this._view.updateGold(params.u, params["2"]);
-        if(params.u == PlayerMe.username){
+        if (params.u == PlayerMe.username) {
             PlayerMe.gold = parseInt(params["2"]);
         }
     },
-    onUserExit : function (cmd, content) {
+    onUserExit: function (cmd, content) {
         var params = content.p
-        if(params.u != PlayerMe.username){
+        if (params.u != PlayerMe.username) {
             this._view.userExitRoom(params.u);
-        }else{
+        } else {
             var message = null;
-            switch (params.reason){
+            switch (params.reason) {
                 case 3:
                     message = "Bạn bị kick do không bắt đầu ván chơi";
                     break;
             }
-            if (message){
-                MessageNode.getInstance().show(message);
-            }
+            this._view.exitToLobby(message);
         }
     },
 
-    onError : function (cmd, content) {
+    onError: function (cmd, content) {
         var params = content.p;
         var ec = params.code;
         var msg = s_sfs_error_msg[ec];
-        if(msg){
+        if (msg) {
             this._view.showErrorMessage(msg);
         }
-        else{
+        else {
             this._view.showErrorMessage("Mã lỗi không xác định[" + ec + "]");
         }
     },
 
-    onExitGame : function (cmd, content) {
+    onExitGame: function (cmd, content) {
         var param = content.p;
         this._view.updateRegExitRoom(param["1"]);
-        if(param["1"]){
+        if (param["1"]) {
             MessageNode.getInstance().show("Bạn đã đăng ký thoát phòng thành công !");
         }
-        else{
+        else {
             MessageNode.getInstance().show("Bạn đã hủy đăng ký thoát phòng thành công !");
         }
     },
 
-    _onJoinRoomHandler : function (cmd, content) {
+    _onJoinRoomHandler: function (cmd, content) {
         this.onJoinRoom(content.p);
     },
 
-    _onReconnectHandler : function (cmd, content) {
+    _onReconnectHandler: function (cmd, content) {
         this.onReconnect(content.p);
     },
-    
-    _onUpdateOwnerHandler : function (cmd, content) {
+
+    _onUpdateOwnerHandler: function (cmd, content) {
         this.onUpdateOwner(content.p.u);
     },
 
-    _onUserJoinRoomHandler : function (cmd, content) {
+    _onUserJoinRoomHandler: function (cmd, content) {
         this.onUserJoinRoom(content.p);
     },
 
-    onJoinRoom : function (params) {
+    onJoinRoom: function (params) {
         this._processPlayerPosition(params["5"]);
     },
 
-    onReconnect : function(params){
+    onReconnect: function (params) {
         this._processPlayerPosition(params["1"]["5"]);
     },
 
-    onUpdateOwner : function (params) {
-        if(PlayerMe.username == params){
+    onUpdateOwner: function (params) {
+        if (PlayerMe.username == params) {
             this.isOwnerMe = true;
         }
-        else{
+        else {
             this.isOwnerMe = false;
         }
     },
 
-    onUserJoinRoom : function (p) {
+    onUserJoinRoom: function (p) {
         var userInfo = {
             index: p["4"],
             username: p["u"],
             gold: p["3"],
-            avt : p["avtId"]
+            avt: p["avtId"]
         };
         this._view.userJoinRoom(userInfo);
     },
 
-    _processPlayerPosition : function (players) {
+    _processPlayerPosition: function (players) {
         //find me
         var meIndex = 0;
         this.isSpectator = false;
-        for(var i=0;i<players.length;i++){
-            if(players[i].u == PlayerMe.username){
+        for (var i = 0; i < players.length; i++) {
+            if (players[i].u == PlayerMe.username) {
                 meIndex = players[i]["4"];
                 this.isSpectator = players[i]["2"];
                 var regExt = players[i]["regExt"];
@@ -197,20 +195,20 @@ var GameController = cc.Class.extend({
 
         this.playerSlot = [];
         var maxSlot = this.getMaxSlot();
-        for(var i=0;i<maxSlot;i++){
+        for (var i = 0; i < maxSlot; i++) {
             var slot = i - meIndex;
-            if(slot < 0){
+            if (slot < 0) {
                 slot += maxSlot;
             }
             this.playerSlot[slot] = {
-                userIndex : i,
-                username : ""
+                userIndex: i,
+                username: ""
             };
         }
 
-        for(var i=0;i<players.length;i++){
+        for (var i = 0; i < players.length; i++) {
             var slot = players[i]["4"] - meIndex;
-            if(slot < 0){
+            if (slot < 0) {
                 slot += maxSlot;
             }
 
@@ -231,13 +229,13 @@ var GameController = cc.Class.extend({
 
         //update owner
         var ownerPlayer = null;
-        for(var i=0;i<players.length;i++){
-            if(players[i]["1"] == true){
+        for (var i = 0; i < players.length; i++) {
+            if (players[i]["1"] == true) {
                 ownerPlayer = players[i].u;
-                if(PlayerMe.username == ownerPlayer){
+                if (PlayerMe.username == ownerPlayer) {
                     this.isOwnerMe = true;
                 }
-                else{
+                else {
                     this.isOwnerMe = false;
                 }
                 break;
@@ -248,9 +246,9 @@ var GameController = cc.Class.extend({
     },
 
     //lobby client
-    onGetLastSessionInfo : function (command, eventData) {
+    onGetLastSessionInfo: function (command, eventData) {
         var info = eventData.data.lastSessionInfo;
-        if(info && info.ip && info.port){
+        if (info && info.ip && info.port) {
             var serverInfo = LobbyClient.getInstance().createServerInfo(info);
             this._view.showLoading("Đang kết nối lại máy chủ");
             SmartfoxClient.getInstance().connect(serverInfo);
@@ -260,18 +258,18 @@ var GameController = cc.Class.extend({
     },
 
     //request
-    requestQuitRoom : function () {
-        SmartfoxClient.getInstance().sendExtensionRequest(PlayerMe.SFS.roomId,"19", null);
+    requestQuitRoom: function () {
+        SmartfoxClient.getInstance().sendExtensionRequest(PlayerMe.SFS.roomId, "19", null);
     },
 
-    sendChat : function (message) {
+    sendChat: function (message) {
         var content = {
-            t : 0, //public message
-            r : PlayerMe.SFS.roomId,
-            u : PlayerMe.SFS.userId,
-            m : message,
-            p : {
-                userName : PlayerMe.username
+            t: 0, //public message
+            r: PlayerMe.SFS.roomId,
+            u: PlayerMe.SFS.userId,
+            m: message,
+            p: {
+                userName: PlayerMe.username
             }
         };
         SmartfoxClient.getInstance().send(socket.SmartfoxClient.GenericMessage, content);
