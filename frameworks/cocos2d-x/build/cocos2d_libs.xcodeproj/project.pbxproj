@@ -4031,6 +4031,24 @@
 		52B47A301A5349A3004E4C60 /* HttpClient-apple.mm in Sources */ = {isa = PBXBuildFile; fileRef = 52B47A2B1A5349A3004E4C60 /* HttpClient-apple.mm */; };
 		52B47A311A5349A3004E4C60 /* HttpCookie.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52B47A2C1A5349A3004E4C60 /* HttpCookie.cpp */; };
 		52B47A321A5349A3004E4C60 /* HttpCookie.h in Headers */ = {isa = PBXBuildFile; fileRef = 52B47A2D1A5349A3004E4C60 /* HttpCookie.h */; };
+		56A441F61E2E68DB00999418 /* crypt_aes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56A441F01E2E68DB00999418 /* crypt_aes.cpp */; };
+		56A441F71E2E68DB00999418 /* crypt_aes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56A441F01E2E68DB00999418 /* crypt_aes.cpp */; };
+		56A441F81E2E68DB00999418 /* crypt_aes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56A441F01E2E68DB00999418 /* crypt_aes.cpp */; };
+		56A441F91E2E68DB00999418 /* crypt_aes.h in Headers */ = {isa = PBXBuildFile; fileRef = 56A441F11E2E68DB00999418 /* crypt_aes.h */; };
+		56A441FA1E2E68DB00999418 /* crypt_aes.h in Headers */ = {isa = PBXBuildFile; fileRef = 56A441F11E2E68DB00999418 /* crypt_aes.h */; };
+		56A441FB1E2E68DB00999418 /* crypt_aes.h in Headers */ = {isa = PBXBuildFile; fileRef = 56A441F11E2E68DB00999418 /* crypt_aes.h */; };
+		56A441FC1E2E68DB00999418 /* Decryptor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56A441F21E2E68DB00999418 /* Decryptor.cpp */; };
+		56A441FD1E2E68DB00999418 /* Decryptor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56A441F21E2E68DB00999418 /* Decryptor.cpp */; };
+		56A441FE1E2E68DB00999418 /* Decryptor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56A441F21E2E68DB00999418 /* Decryptor.cpp */; };
+		56A441FF1E2E68DB00999418 /* Decryptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 56A441F31E2E68DB00999418 /* Decryptor.h */; };
+		56A442001E2E68DB00999418 /* Decryptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 56A441F31E2E68DB00999418 /* Decryptor.h */; };
+		56A442011E2E68DB00999418 /* Decryptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 56A441F31E2E68DB00999418 /* Decryptor.h */; };
+		56A442021E2E68DB00999418 /* MD5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56A441F41E2E68DB00999418 /* MD5.cpp */; };
+		56A442031E2E68DB00999418 /* MD5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56A441F41E2E68DB00999418 /* MD5.cpp */; };
+		56A442041E2E68DB00999418 /* MD5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56A441F41E2E68DB00999418 /* MD5.cpp */; };
+		56A442051E2E68DB00999418 /* MD5.h in Headers */ = {isa = PBXBuildFile; fileRef = 56A441F51E2E68DB00999418 /* MD5.h */; };
+		56A442061E2E68DB00999418 /* MD5.h in Headers */ = {isa = PBXBuildFile; fileRef = 56A441F51E2E68DB00999418 /* MD5.h */; };
+		56A442071E2E68DB00999418 /* MD5.h in Headers */ = {isa = PBXBuildFile; fileRef = 56A441F51E2E68DB00999418 /* MD5.h */; };
 		5E9F61261A3FFE3D0038DE01 /* CCFrustum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5E9F61221A3FFE3D0038DE01 /* CCFrustum.cpp */; };
 		5E9F61271A3FFE3D0038DE01 /* CCFrustum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5E9F61221A3FFE3D0038DE01 /* CCFrustum.cpp */; };
 		5E9F61281A3FFE3D0038DE01 /* CCFrustum.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E9F61231A3FFE3D0038DE01 /* CCFrustum.h */; };
@@ -6909,6 +6927,12 @@
 		52B47A2B1A5349A3004E4C60 /* HttpClient-apple.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "HttpClient-apple.mm"; sourceTree = "<group>"; };
 		52B47A2C1A5349A3004E4C60 /* HttpCookie.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HttpCookie.cpp; sourceTree = "<group>"; };
 		52B47A2D1A5349A3004E4C60 /* HttpCookie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpCookie.h; sourceTree = "<group>"; };
+		56A441F01E2E68DB00999418 /* crypt_aes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = crypt_aes.cpp; sourceTree = "<group>"; };
+		56A441F11E2E68DB00999418 /* crypt_aes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypt_aes.h; sourceTree = "<group>"; };
+		56A441F21E2E68DB00999418 /* Decryptor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Decryptor.cpp; sourceTree = "<group>"; };
+		56A441F31E2E68DB00999418 /* Decryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Decryptor.h; sourceTree = "<group>"; };
+		56A441F41E2E68DB00999418 /* MD5.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MD5.cpp; sourceTree = "<group>"; };
+		56A441F51E2E68DB00999418 /* MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MD5.h; sourceTree = "<group>"; };
 		5E9F61221A3FFE3D0038DE01 /* CCFrustum.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCFrustum.cpp; sourceTree = "<group>"; };
 		5E9F61231A3FFE3D0038DE01 /* CCFrustum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCFrustum.h; sourceTree = "<group>"; };
 		5E9F61241A3FFE3D0038DE01 /* CCPlane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCPlane.cpp; sourceTree = "<group>"; };
@@ -9965,6 +9989,7 @@
 		50ABBEDB1926664700A911A9 /* platform */ = {
 			isa = PBXGroup;
 			children = (
+				56A441EF1E2E68DB00999418 /* decryptor */,
 				503DD8CD1926736A00CD74DD /* ios */,
 				50ABBF2D1926664700A911A9 /* desktop */,
 				50ABBF4E1926664700A911A9 /* mac */,
@@ -10231,6 +10256,19 @@
 				50FCEB8F18C72017004AD434 /* TextReader.h */,
 			);
 			path = TextReader;
+			sourceTree = "<group>";
+		};
+		56A441EF1E2E68DB00999418 /* decryptor */ = {
+			isa = PBXGroup;
+			children = (
+				56A441F01E2E68DB00999418 /* crypt_aes.cpp */,
+				56A441F11E2E68DB00999418 /* crypt_aes.h */,
+				56A441F21E2E68DB00999418 /* Decryptor.cpp */,
+				56A441F31E2E68DB00999418 /* Decryptor.h */,
+				56A441F41E2E68DB00999418 /* MD5.cpp */,
+				56A441F51E2E68DB00999418 /* MD5.h */,
+			);
+			path = decryptor;
 			sourceTree = "<group>";
 		};
 		68B39B391B1C5C670084F72C /* clipper */ = {
@@ -11393,6 +11431,7 @@
 				292DB14B19B4574100A80320 /* UIEditBoxImpl-mac.h in Headers */,
 				B6CAB39D1AF9AA1A00B9B856 /* btCharacterControllerInterface.h in Headers */,
 				B6CAB50F1AF9AA1A00B9B856 /* btList.h in Headers */,
+				56A441F91E2E68DB00999418 /* crypt_aes.h in Headers */,
 				D0FD03591A3B51AA00825BB5 /* CCAllocatorStrategyDefault.h in Headers */,
 				B665E2901AA80A6500DDB1C5 /* CCPUDynamicAttributeTranslator.h in Headers */,
 				B6CAB3531AF9AA1A00B9B856 /* gim_hash_table.h in Headers */,
@@ -11631,6 +11670,7 @@
 				1A57009A180BC5C10088DEC7 /* CCAtlasNode.h in Headers */,
 				B6CAB3211AF9AA1A00B9B856 /* btGenericPoolAllocator.h in Headers */,
 				D0FD035B1A3B51AA00825BB5 /* CCAllocatorStrategyFixedBlock.h in Headers */,
+				56A441FF1E2E68DB00999418 /* Decryptor.h in Headers */,
 				B6CAB5031AF9AA1A00B9B856 /* btDefaultMotionState.h in Headers */,
 				15AE190819AAD35000C27E9E /* CCDatas.h in Headers */,
 				B665E3281AA80A6500DDB1C5 /* CCPUOnCollisionObserverTranslator.h in Headers */,
@@ -12349,6 +12389,7 @@
 				50ABBE2D1925AB6F00A911A9 /* ccCArray.h in Headers */,
 				50ABBD5E1925AB0000A911A9 /* Vec3.h in Headers */,
 				15AE188919AAD33D00C27E9E /* CCControlButtonLoader.h in Headers */,
+				56A442051E2E68DB00999418 /* MD5.h in Headers */,
 				15AE189119AAD33D00C27E9E /* CCLayerColorLoader.h in Headers */,
 				50ABBE211925AB6F00A911A9 /* atitc.h in Headers */,
 				15AE19A519AAD39600C27E9E /* TextFieldReader.h in Headers */,
@@ -12450,6 +12491,7 @@
 				507B3D1B1C31BDD30067B53E /* btMatrixX.h in Headers */,
 				507B3D1C1C31BDD30067B53E /* CCCamera.h in Headers */,
 				507B3D1E1C31BDD30067B53E /* b2GearJoint.h in Headers */,
+				56A441FB1E2E68DB00999418 /* crypt_aes.h in Headers */,
 				507B3D1F1C31BDD30067B53E /* CCPULinearForceAffectorTranslator.h in Headers */,
 				507B3D201C31BDD30067B53E /* btOverlappingPairCallback.h in Headers */,
 				507B3D211C31BDD30067B53E /* CCGroupCommand.h in Headers */,
@@ -12688,6 +12730,7 @@
 				507B3E031C31BDD30067B53E /* CCPUObserver.h in Headers */,
 				5020A21B1D49912500E80C72 /* spine-cocos2dx.h in Headers */,
 				507B3E041C31BDD30067B53E /* CCBSequenceProperty.h in Headers */,
+				56A442011E2E68DB00999418 /* Decryptor.h in Headers */,
 				507B3E051C31BDD30067B53E /* CCPUBoxColliderTranslator.h in Headers */,
 				507B3E061C31BDD30067B53E /* BoneNodeReader.h in Headers */,
 				5020A1F11D49912500E80C72 /* SkeletonBounds.h in Headers */,
@@ -13406,6 +13449,7 @@
 				507B40A91C31BDD30067B53E /* gim_hash_table.h in Headers */,
 				507B40AA1C31BDD30067B53E /* btCompoundShape.h in Headers */,
 				507B40AB1C31BDD30067B53E /* CCSpriteFrameCacheHelper.h in Headers */,
+				56A442071E2E68DB00999418 /* MD5.h in Headers */,
 				507B40AC1C31BDD30067B53E /* atitc.h in Headers */,
 				507B40AD1C31BDD30067B53E /* CCPUSimpleSpline.h in Headers */,
 				507B40AE1C31BDD30067B53E /* btJacobianEntry.h in Headers */,
@@ -14032,6 +14076,7 @@
 				5020A21A1D49912500E80C72 /* spine-cocos2dx.h in Headers */,
 				1A570217180BCBF40088DEC7 /* CCRenderTexture.h in Headers */,
 				B603F1AB1AC8EA0900A9579C /* CCTerrain.h in Headers */,
+				56A442061E2E68DB00999418 /* MD5.h in Headers */,
 				B6CAB5461AF9AA1A00B9B856 /* MiniCLTask.h in Headers */,
 				15AE1ABB19AAD40300C27E9E /* b2EdgeAndPolygonContact.h in Headers */,
 				15AE198719AAD36400C27E9E /* WidgetReaderProtocol.h in Headers */,
@@ -14115,6 +14160,7 @@
 				1A57028D180BCC900088DEC7 /* CCSpriteFrameCache.h in Headers */,
 				1A570295180BCCAB0088DEC7 /* CCAnimation.h in Headers */,
 				B6CAB21E1AF9AA1A00B9B856 /* btBoxBoxCollisionAlgorithm.h in Headers */,
+				56A442001E2E68DB00999418 /* Decryptor.h in Headers */,
 				B6CAB50A1AF9AA1A00B9B856 /* btGrahamScan2dConvexHull.h in Headers */,
 				B665E2D11AA80A6500DDB1C5 /* CCPUInterParticleCollider.h in Headers */,
 				50ABBDB81925AB4100A911A9 /* CCTexture2D.h in Headers */,
@@ -14324,6 +14370,7 @@
 				50ABBD921925AB4100A911A9 /* CCGLProgramCache.h in Headers */,
 				B6CAB30E1AF9AA1A00B9B856 /* btTriangleMeshShape.h in Headers */,
 				50864CCB1C7BC1B100B3BAB1 /* cpRobust.h in Headers */,
+				56A441FA1E2E68DB00999418 /* crypt_aes.h in Headers */,
 				50ABBE961925AB6F00A911A9 /* CCProfiling.h in Headers */,
 				15AE19B519AAD39700C27E9E /* TextAtlasReader.h in Headers */,
 				15AE18D619AAD33D00C27E9E /* CCScale9SpriteLoader.h in Headers */,
@@ -14919,6 +14966,7 @@
 				B665E2CA1AA80A6500DDB1C5 /* CCPUGravityAffectorTranslator.cpp in Sources */,
 				1A5701BD180BCB5A0088DEC7 /* CCLabelAtlas.cpp in Sources */,
 				15AE1B5319AADA9900C27E9E /* UIRichText.cpp in Sources */,
+				56A442021E2E68DB00999418 /* MD5.cpp in Sources */,
 				B665E3121AA80A6500DDB1C5 /* CCPUObserverManager.cpp in Sources */,
 				292DB13D19B4574100A80320 /* UIEditBox.cpp in Sources */,
 				5020A1861D49912500E80C72 /* BoneData.c in Sources */,
@@ -14994,6 +15042,7 @@
 				15B3708819EE414C00ABE682 /* Manifest.cpp in Sources */,
 				C5F516121C8216660013B695 /* UITabControl.cpp in Sources */,
 				B665E27E1AA80A6500DDB1C5 /* CCPUDoScaleEventHandlerTranslator.cpp in Sources */,
+				56A441F61E2E68DB00999418 /* crypt_aes.cpp in Sources */,
 				B63990CC1A490AFE00B07923 /* CCAsyncTaskPool.cpp in Sources */,
 				1A41ABC21DF00CEC00B5584C /* AudioDecoder.mm in Sources */,
 				182C5CE51A9D725400C30D34 /* UserCameraReader.cpp in Sources */,
@@ -15413,6 +15462,7 @@
 				B6CAB3811AF9AA1A00B9B856 /* btMinkowskiPenetrationDepthSolver.cpp in Sources */,
 				B6CAB4AD1AF9AA1A00B9B856 /* SpuCollisionTaskProcess.cpp in Sources */,
 				50ABBE9F1925AB6F00A911A9 /* CCScheduler.cpp in Sources */,
+				56A441FC1E2E68DB00999418 /* Decryptor.cpp in Sources */,
 				B6DD2FC31B04825B00E47F5F /* DetourNavMesh.cpp in Sources */,
 				B6DD2FCF1B04825B00E47F5F /* DetourNode.cpp in Sources */,
 				15AE1C1119AAE2C600C27E9E /* CCPhysicsDebugNode.cpp in Sources */,
@@ -15725,6 +15775,7 @@
 				507B3A9D1C31BDD30067B53E /* CCControlColourPicker.cpp in Sources */,
 				507B3A9E1C31BDD30067B53E /* btCompoundCollisionAlgorithm.cpp in Sources */,
 				507B3A9F1C31BDD30067B53E /* idl_gen_text.cpp in Sources */,
+				56A442041E2E68DB00999418 /* MD5.cpp in Sources */,
 				507B3AA01C31BDD30067B53E /* ComAudioReader.cpp in Sources */,
 				507B3AA11C31BDD30067B53E /* btConvexPolyhedron.cpp in Sources */,
 				507B3AA21C31BDD30067B53E /* CCValue.cpp in Sources */,
@@ -15752,6 +15803,7 @@
 				507B3AB71C31BDD30067B53E /* b2EdgeAndCircleContact.cpp in Sources */,
 				507B3AB81C31BDD30067B53E /* CCActionProgressTimer.cpp in Sources */,
 				507B3AB91C31BDD30067B53E /* btConvexHullComputer.cpp in Sources */,
+				56A441F81E2E68DB00999418 /* crypt_aes.cpp in Sources */,
 				507B3ABA1C31BDD30067B53E /* CCPUSlaveBehaviourTranslator.cpp in Sources */,
 				507B3ABB1C31BDD30067B53E /* CCBKeyframe.cpp in Sources */,
 				507B3ABD1C31BDD30067B53E /* SpuLibspe2Support.cpp in Sources */,
@@ -15826,6 +15878,7 @@
 				507B3AFF1C31BDD30067B53E /* CCNavMeshDebugDraw.cpp in Sources */,
 				507B3B001C31BDD30067B53E /* CCActionTimelineNode.cpp in Sources */,
 				507B3B011C31BDD30067B53E /* WidgetReader.cpp in Sources */,
+				56A441FE1E2E68DB00999418 /* Decryptor.cpp in Sources */,
 				507B3B021C31BDD30067B53E /* CCPUOnVelocityObserver.cpp in Sources */,
 				507B3B031C31BDD30067B53E /* SpuSampleTaskProcess.cpp in Sources */,
 				507B3B041C31BDD30067B53E /* CCPUObserverTranslator.cpp in Sources */,
@@ -16594,6 +16647,7 @@
 				85505F041B60E3AB003F2CD4 /* CCBoneNode.cpp in Sources */,
 				50ABBE421925AB6F00A911A9 /* CCDirector.cpp in Sources */,
 				15AE1C0319AAE01E00C27E9E /* CCTableView.cpp in Sources */,
+				56A442031E2E68DB00999418 /* MD5.cpp in Sources */,
 				B6CAB5361AF9AA1A00B9B856 /* btVector3.cpp in Sources */,
 				B665E39F1AA80A6500DDB1C5 /* CCPUPositionEmitter.cpp in Sources */,
 				1A57007E180BC5A10088DEC7 /* CCActionInterval.cpp in Sources */,
@@ -16608,6 +16662,7 @@
 				1A570086180BC5A10088DEC7 /* CCActionPageTurn3D.cpp in Sources */,
 				15AE1AB819AAD40300C27E9E /* b2EdgeAndCircleContact.cpp in Sources */,
 				1A57008A180BC5A10088DEC7 /* CCActionProgressTimer.cpp in Sources */,
+				56A441FD1E2E68DB00999418 /* Decryptor.cpp in Sources */,
 				B6CAB5001AF9AA1A00B9B856 /* btConvexHullComputer.cpp in Sources */,
 				B665E3EF1AA80A6600DDB1C5 /* CCPUSlaveBehaviourTranslator.cpp in Sources */,
 				15AE18AF19AAD33D00C27E9E /* CCBKeyframe.cpp in Sources */,
@@ -17058,6 +17113,7 @@
 				50ABBDA81925AB4100A911A9 /* CCRenderCommand.cpp in Sources */,
 				B665E1FB1AA80A6500DDB1C5 /* CCPUAffectorTranslator.cpp in Sources */,
 				B665E3931AA80A6500DDB1C5 /* CCPUPlaneColliderTranslator.cpp in Sources */,
+				56A441F71E2E68DB00999418 /* crypt_aes.cpp in Sources */,
 				382383F71A258FA7002C4610 /* idl_gen_fbs.cpp in Sources */,
 				B5A738971BB0051F00BAAEF8 /* UIPageViewIndicator.cpp in Sources */,
 				5020A1B71D49912500E80C72 /* Json.c in Sources */,
