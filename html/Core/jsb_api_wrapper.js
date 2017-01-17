@@ -41,5 +41,5 @@ cc.PointZero = function () {
 }
 
 ccui.Button.prototype.getRendererNormal = function () {
-    return this._buttonNormalRenderer;
+    return this._buttonScale9Renderer;
 };
