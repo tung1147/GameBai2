@@ -289,9 +289,6 @@
     <Filter Include="vr">
       <UniqueIdentifier>{5cbd879f-02ae-4f28-af33-2c4f980dd6f0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="platform\decryptor">
-      <UniqueIdentifier>{52546a15-910b-4f7a-afe2-ff3d303da810}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\physics\CCPhysicsBody.cpp">
@@ -1974,14 +1971,17 @@
     <ClCompile Include="..\vr\CCVRGenericRenderer.cpp">
       <Filter>vr</Filter>
     </ClCompile>
-    <ClCompile Include="..\platform\decryptor\crypt_aes.cpp">
-      <Filter>platform\decryptor</Filter>
+    <ClCompile Include="..\audio\win32\AudioDecoder.cpp">
+      <Filter>audioengine</Filter>
     </ClCompile>
-    <ClCompile Include="..\platform\decryptor\Decryptor.cpp">
-      <Filter>platform\decryptor</Filter>
+    <ClCompile Include="..\audio\win32\AudioDecoderMp3.cpp">
+      <Filter>audioengine</Filter>
     </ClCompile>
-    <ClCompile Include="..\platform\decryptor\MD5.cpp">
-      <Filter>platform\decryptor</Filter>
+    <ClCompile Include="..\audio\win32\AudioDecoderOgg.cpp">
+      <Filter>audioengine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\audio\win32\AudioDecoderManager.cpp">
+      <Filter>audioengine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -3863,14 +3863,20 @@
     <ClInclude Include="..\vr\CCVRGenericRenderer.h">
       <Filter>vr</Filter>
     </ClInclude>
-    <ClInclude Include="..\platform\decryptor\crypt_aes.h">
-      <Filter>platform\decryptor</Filter>
+    <ClInclude Include="..\audio\win32\AudioDecoder.h">
+      <Filter>audioengine</Filter>
     </ClInclude>
-    <ClInclude Include="..\platform\decryptor\Decryptor.h">
-      <Filter>platform\decryptor</Filter>
+    <ClInclude Include="..\audio\win32\AudioMacros.h">
+      <Filter>audioengine</Filter>
     </ClInclude>
-    <ClInclude Include="..\platform\decryptor\MD5.h">
-      <Filter>platform\decryptor</Filter>
+    <ClInclude Include="..\audio\win32\AudioDecoderMp3.h">
+      <Filter>audioengine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\audio\win32\AudioDecoderOgg.h">
+      <Filter>audioengine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\audio\win32\AudioDecoderManager.h">
+      <Filter>audioengine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

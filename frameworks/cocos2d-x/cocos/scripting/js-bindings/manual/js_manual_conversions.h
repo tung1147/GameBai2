@@ -1,7 +1,7 @@
 /*
  * Created by Rohan Kuruvilla
  * Copyright (c) 2012 Zynga Inc.
- * Copyright (c) 2013-2014 Chukong Technologies Inc.
+ * Copyright (c) 2013-2016 Chukong Technologies Inc.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -85,6 +85,7 @@ private:
     JS::Heap<JSObject*> _jsthis;
     JS::Heap<JS::Value> _fval;
     JS::Heap<JS::Value> _owner;
+    bool _rooted;
 private:
     CC_DISALLOW_COPY_AND_ASSIGN(JSFunctionWrapper);
 };

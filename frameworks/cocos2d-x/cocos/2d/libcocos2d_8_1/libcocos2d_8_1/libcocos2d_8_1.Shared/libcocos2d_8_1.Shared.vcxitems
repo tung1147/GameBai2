@@ -494,9 +494,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\platform\CCSAXParser.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\platform\CCStdC.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\platform\CCThread.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\platform\decryptor\crypt_aes.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\platform\decryptor\Decryptor.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\platform\decryptor\MD5.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\platform\winrt\CCApplication.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\platform\winrt\CCFileUtilsWinRT.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\platform\winrt\CCFreeTypeFont.h" />
@@ -1099,9 +1096,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\platform\CCImage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\platform\CCSAXParser.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\platform\CCThread.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\platform\decryptor\crypt_aes.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\platform\decryptor\Decryptor.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\platform\decryptor\MD5.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\platform\winrt\CCApplication.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\platform\winrt\CCCommon.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\platform\winrt\CCDevice.cpp" />

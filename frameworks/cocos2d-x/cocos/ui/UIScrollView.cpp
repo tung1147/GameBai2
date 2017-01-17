@@ -1,5 +1,5 @@
 /****************************************************************************
-Copyright (c) 2013-2014 Chukong Technologies Inc.
+Copyright (c) 2013-2016 Chukong Technologies Inc.
 
 http://www.cocos2d-x.org
 
@@ -861,7 +861,7 @@ void ScrollView::gatherTouchMove(const Vec2& delta)
     _touchMovePreviousTimestamp = timestamp;
 }
 
-void ScrollView::handlePressLogic(Touch *touch)
+void ScrollView::handlePressLogic(Touch* /*touch*/)
 {
     _bePressed = true;
     _autoScrolling = false;

@@ -231,21 +231,30 @@ bool UTF32ToUTF16(const std::u32string& utf32, std::u16string& outUtf16)
 std::string getStringUTFCharsJNI(JNIEnv* env, jstring srcjStr, bool* ret)
 {
     std::string utf8Str;
-    const unsigned short * unicodeChar = ( const unsigned short *)env->GetStringChars(srcjStr, nullptr);
-    size_t unicodeCharLength = env->GetStringLength(srcjStr);
-    const std::u16string unicodeStr((const char16_t *)unicodeChar, unicodeCharLength);
-    bool flag = UTF16ToUTF8(unicodeStr, utf8Str);
-
-    if (ret)
+    if(srcjStr != nullptr)
     {
-        *ret = flag;
+        const unsigned short * unicodeChar = ( const unsigned short *)env->GetStringChars(srcjStr, nullptr);
+        size_t unicodeCharLength = env->GetStringLength(srcjStr);
+        const std::u16string unicodeStr((const char16_t *)unicodeChar, unicodeCharLength);
+        bool flag = UTF16ToUTF8(unicodeStr, utf8Str);
+        if (ret)
+        {
+            *ret = flag;
+        }
+        if (!flag)
+        {
+            utf8Str = "";
+        }
+        env->ReleaseStringChars(srcjStr, unicodeChar);
     }
-
-    if (!flag)
+    else
     {
+        if (ret)
+        {
+            *ret = false;
+        }
         utf8Str = "";
     }
-    env->ReleaseStringChars(srcjStr, unicodeChar);
     return utf8Str;
 }
 
@@ -413,9 +422,8 @@ bool iscjk_unicode(unsigned short ch)
 }
 
 
-long cc_utf8_strlen (const char * p, int max)
+long cc_utf8_strlen (const char * p, int /*max*/)
 {
-    CC_UNUSED_PARAM(max);
     if (p == nullptr)
         return -1;
     return StringUtils::getCharacterCountInUTF8String(p);
@@ -475,8 +483,8 @@ unsigned short* cc_utf8_to_utf16(const char* str_old, int length/* = -1*/, int* 
 
 char * cc_utf16_to_utf8 (const unsigned short  *str,
                   int             len,
-                  long            *items_read,
-                  long            *items_written)
+                  long            * /*items_read*/,
+                  long            * /*items_written*/)
 {
     if (str == nullptr)
         return nullptr;

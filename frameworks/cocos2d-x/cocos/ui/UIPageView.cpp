@@ -110,7 +110,7 @@ void PageView::setDirection(PageView::Direction direction)
     }
 }
 
-void PageView::addWidgetToPage(Widget *widget, ssize_t pageIdx, bool forceCreate)
+void PageView::addWidgetToPage(Widget *widget, ssize_t pageIdx, bool /*forceCreate*/)
 {
     insertCustomItem(widget, pageIdx);
 }
@@ -154,13 +154,23 @@ void PageView::scrollToPage(ssize_t idx)
 {
     scrollToItem(idx);
 }
+    
+void PageView::scrollToPage(ssize_t idx, float time)
+{
+    scrollToItem(idx, time);
+}
 
 void PageView::scrollToItem(ssize_t itemIndex)
 {
     ListView::scrollToItem(itemIndex, Vec2::ANCHOR_MIDDLE, Vec2::ANCHOR_MIDDLE);
 }
 
-void PageView::setCustomScrollThreshold(float threshold)
+void PageView::scrollToItem(ssize_t itemIndex, float time)
+{
+    ListView::scrollToItem(itemIndex, Vec2::ANCHOR_MIDDLE, Vec2::ANCHOR_MIDDLE, time >= 0 ? time : _scrollTime);
+}
+
+void PageView::setCustomScrollThreshold(float /*threshold*/)
 {
     CCLOG("PageView::setCustomScrollThreshold() has no effect!");
 }
@@ -170,7 +180,7 @@ float PageView::getCustomScrollThreshold()const
     return 0;
 }
 
-void PageView::setUsingCustomScrollThreshold(bool flag)
+void PageView::setUsingCustomScrollThreshold(bool /*flag*/)
 {
     CCLOG("PageView::setUsingCustomScrollThreshold() has no effect!");
 }
@@ -288,7 +298,7 @@ void PageView::addEventListenerPageView(Ref *target, SEL_PageViewEvent selector)
     _pageViewEventListener = target;
     _pageViewEventSelector = selector;
 
-    ccScrollViewCallback scrollViewCallback = [=](Ref* ref, ScrollView::EventType type) -> void{
+    ccScrollViewCallback scrollViewCallback = [=](Ref* /*ref*/, ScrollView::EventType type) -> void{
         if (type == ScrollView::EventType::AUTOSCROLL_ENDED && _previousPageIndex != _currentPageIndex) {
             pageTurningEvent();
         }
@@ -318,7 +328,7 @@ void PageView::pageTurningEvent()
 void PageView::addEventListener(const ccPageViewCallback& callback)
 {
     _eventCallback = callback;
-    ccScrollViewCallback scrollViewCallback = [=](Ref* ref, ScrollView::EventType type) -> void{
+    ccScrollViewCallback scrollViewCallback = [=](Ref* /*ref*/, ScrollView::EventType type) -> void{
         if (type == ScrollView::EventType::AUTOSCROLL_ENDED && _previousPageIndex != _currentPageIndex) {
             pageTurningEvent();
         }

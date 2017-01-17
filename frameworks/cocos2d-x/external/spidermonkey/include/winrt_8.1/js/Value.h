@@ -1334,7 +1334,7 @@ class Value
         JS_STATIC_ASSERT(sizeof(Value) == 8);
     }
 
-    friend jsval_layout (JSVAL_TO_IMPL)(Value);
+    friend jsval_layout (::JSVAL_TO_IMPL)(Value);
     friend Value JS_VALUE_CONSTEXPR (::IMPL_TO_JSVAL)(jsval_layout l);
     friend Value JS_VALUE_CONSTEXPR (JS::UndefinedValue)();
 };

@@ -26,7 +26,6 @@ package org.cocos2dx.lib;
 import android.app.Activity;
 import android.content.Context;
 import android.opengl.GLSurfaceView;
-import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
@@ -34,7 +33,6 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 
 public class Cocos2dxGLSurfaceView extends GLSurfaceView {
@@ -60,6 +58,9 @@ public class Cocos2dxGLSurfaceView extends GLSurfaceView {
     private Cocos2dxRenderer mCocos2dxRenderer;
     private Cocos2dxEditBox mCocos2dxEditText;
 
+    private boolean mSoftKeyboardShown = false;
+    private boolean mMultipleTouchEnabled = true;
+
     public boolean isSoftKeyboardShown() {
         return mSoftKeyboardShown;
     }
@@ -68,8 +69,13 @@ public class Cocos2dxGLSurfaceView extends GLSurfaceView {
         this.mSoftKeyboardShown = softKeyboardShown;
     }
 
-    private boolean mSoftKeyboardShown = false;
+    public boolean isMultipleTouchEnabled() {
+        return mMultipleTouchEnabled;
+    }
 
+    public void setMultipleTouchEnabled(boolean multipleTouchEnabled) {
+        this.mMultipleTouchEnabled = multipleTouchEnabled;
+    }
 
     // ===========================================================
     // Constructors
@@ -161,15 +167,6 @@ public class Cocos2dxGLSurfaceView extends GLSurfaceView {
 
     public void setCocos2dxEditText(final Cocos2dxEditBox pCocos2dxEditText) {
         this.mCocos2dxEditText = pCocos2dxEditText;
-        /*mob by quyetnd*/
-        int currentImeOption = this.mCocos2dxEditText.getImeOptions();
-        int sdkVersion = Build.VERSION.SDK_INT;
-        if (sdkVersion >= 11) {
-        	this.mCocos2dxEditText.setImeOptions(currentImeOption | EditorInfo.IME_FLAG_NO_EXTRACT_UI | EditorInfo.IME_FLAG_NO_FULLSCREEN );
-        } else {
-            this.mCocos2dxEditText.setImeOptions(currentImeOption | EditorInfo.IME_FLAG_NO_FULLSCREEN);
-        }
-        /**/
         if (null != this.mCocos2dxEditText && null != Cocos2dxGLSurfaceView.sCocos2dxTextInputWraper) {
             this.mCocos2dxEditText.setOnEditorActionListener(Cocos2dxGLSurfaceView.sCocos2dxTextInputWraper);
             this.requestFocus();
@@ -229,6 +226,9 @@ public class Cocos2dxGLSurfaceView extends GLSurfaceView {
         switch (pMotionEvent.getAction() & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_POINTER_DOWN:
                 final int indexPointerDown = pMotionEvent.getAction() >> MotionEvent.ACTION_POINTER_INDEX_SHIFT;
+                if (!mMultipleTouchEnabled && indexPointerDown != 0) {
+                    break;
+                }
                 final int idPointerDown = pMotionEvent.getPointerId(indexPointerDown);
                 final float xPointerDown = pMotionEvent.getX(indexPointerDown);
                 final float yPointerDown = pMotionEvent.getY(indexPointerDown);
@@ -256,16 +256,37 @@ public class Cocos2dxGLSurfaceView extends GLSurfaceView {
                 break;
 
             case MotionEvent.ACTION_MOVE:
-                this.queueEvent(new Runnable() {
-                    @Override
-                    public void run() {
-                        Cocos2dxGLSurfaceView.this.mCocos2dxRenderer.handleActionMove(ids, xs, ys);
+                if (!mMultipleTouchEnabled) {
+                    // handle only touch with id == 0
+                    for (int i = 0; i < pointerNumber; i++) {
+                        if (ids[i] == 0) {
+                            final int[] idsMove = new int[]{0};
+                            final float[] xsMove = new float[]{xs[i]};
+                            final float[] ysMove = new float[]{ys[i]};
+                            this.queueEvent(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Cocos2dxGLSurfaceView.this.mCocos2dxRenderer.handleActionMove(idsMove, xsMove, ysMove);
+                                }
+                            });
+                            break;
+                        }
                     }
-                });
+                } else {
+                    this.queueEvent(new Runnable() {
+                        @Override
+                        public void run() {
+                            Cocos2dxGLSurfaceView.this.mCocos2dxRenderer.handleActionMove(ids, xs, ys);
+                        }
+                    });
+                }
                 break;
 
             case MotionEvent.ACTION_POINTER_UP:
                 final int indexPointUp = pMotionEvent.getAction() >> MotionEvent.ACTION_POINTER_INDEX_SHIFT;
+                if (!mMultipleTouchEnabled && indexPointUp != 0) {
+                    break;
+                }
                 final int idPointerUp = pMotionEvent.getPointerId(indexPointUp);
                 final float xPointerUp = pMotionEvent.getX(indexPointUp);
                 final float yPointerUp = pMotionEvent.getY(indexPointUp);
@@ -293,12 +314,30 @@ public class Cocos2dxGLSurfaceView extends GLSurfaceView {
                 break;
 
             case MotionEvent.ACTION_CANCEL:
-                this.queueEvent(new Runnable() {
-                    @Override
-                    public void run() {
-                        Cocos2dxGLSurfaceView.this.mCocos2dxRenderer.handleActionCancel(ids, xs, ys);
+                if (!mMultipleTouchEnabled) {
+                    // handle only touch with id == 0
+                    for (int i = 0; i < pointerNumber; i++) {
+                        if (ids[i] == 0) {
+                            final int[] idsCancel = new int[]{0};
+                            final float[] xsCancel = new float[]{xs[i]};
+                            final float[] ysCancel = new float[]{ys[i]};
+                            this.queueEvent(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Cocos2dxGLSurfaceView.this.mCocos2dxRenderer.handleActionCancel(idsCancel, xsCancel, ysCancel);
+                                }
+                            });
+                            break;
+                        }
                     }
-                });
+                } else {
+                    this.queueEvent(new Runnable() {
+                        @Override
+                        public void run() {
+                            Cocos2dxGLSurfaceView.this.mCocos2dxRenderer.handleActionCancel(ids, xs, ys);
+                        }
+                    });
+                }
                 break;
         }
 

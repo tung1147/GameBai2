@@ -1349,6 +1349,16 @@ getTitleText : function (
 },
 
 /**
+ * @method setTitleLabel
+ * @param {cc.Label} arg0
+ */
+setTitleLabel : function (
+label 
+)
+{
+},
+
+/**
  * @method setTitleFontSize
  * @param {float} arg0
  */
@@ -1652,6 +1662,16 @@ getPressedFile : function (
 )
 {
     return cc.ResourceData;
+},
+
+/**
+ * @method getTitleLabel
+ * @return {cc.Label}
+ */
+getTitleLabel : function (
+)
+{
+    return cc.Label;
 },
 
 /**
@@ -2175,7 +2195,7 @@ int
 
 /**
  * @method getNumberOfRadioButtons
- * @return {long}
+ * @return {int}
  */
 getNumberOfRadioButtons : function (
 )
@@ -2521,7 +2541,7 @@ size
 
 /**
  * @method getStringLength
- * @return {long}
+ * @return {int}
  */
 getStringLength : function (
 )
@@ -2695,7 +2715,7 @@ ccui.TextAtlas = {
 
 /**
  * @method getStringLength
- * @return {long}
+ * @return {int}
  */
 getStringLength : function (
 )
@@ -3535,7 +3555,7 @@ getCenterItemInCurrentView : function (
 
 /**
  * @method getCurSelectedIndex
- * @return {long}
+ * @return {int}
  */
 getCurSelectedIndex : function (
 )
@@ -3565,12 +3585,12 @@ getItemsMargin : function (
 
 /**
  * @method jumpToItem
- * @param {long} arg0
+ * @param {int} arg0
  * @param {vec2_object} arg1
  * @param {vec2_object} arg2
  */
 jumpToItem : function (
-long, 
+int, 
 vec2, 
 vec2 
 )
@@ -3590,7 +3610,7 @@ magnetictype
 /**
  * @method getIndex
  * @param {ccui.Widget} arg0
- * @return {long}
+ * @return {int}
  */
 getIndex : function (
 widget 
@@ -3621,10 +3641,10 @@ int
 
 /**
  * @method insertDefaultItem
- * @param {long} arg0
+ * @param {int} arg0
  */
 insertDefaultItem : function (
-long 
+int 
 )
 {
 },
@@ -3727,11 +3747,11 @@ getMagneticType : function (
 
 /**
  * @method getItem
- * @param {long} arg0
+ * @param {int} arg0
  * @return {ccui.Widget}
  */
 getItem : function (
-long 
+int 
 )
 {
     return ccui.Widget;
@@ -3739,23 +3759,23 @@ long
 
 /**
  * @method removeItem
- * @param {long} arg0
+ * @param {int} arg0
  */
 removeItem : function (
-long 
+int 
 )
 {
 },
 
 /**
  * @method scrollToItem
-* @param {long|long} long
+* @param {int|int} int
 * @param {vec2_object|vec2_object} vec2
 * @param {vec2_object|vec2_object} vec2
 * @param {float} float
 */
 scrollToItem : function(
-long,
+int,
 vec2,
 vec2,
 float 
@@ -3842,11 +3862,11 @@ widget
 /**
  * @method insertCustomItem
  * @param {ccui.Widget} arg0
- * @param {long} arg1
+ * @param {int} arg1
  */
 insertCustomItem : function (
 widget, 
-long 
+int 
 )
 {
 },
@@ -3932,6 +3952,16 @@ getBallNormalFile : function (
 },
 
 /**
+ * @method getSlidBallDisabledRenderer
+ * @return {cc.Sprite}
+ */
+getSlidBallDisabledRenderer : function (
+)
+{
+    return cc.Sprite;
+},
+
+/**
  * @method setScale9Enabled
  * @param {bool} arg0
  */
@@ -3985,6 +4015,16 @@ str,
 texturerestype 
 )
 {
+},
+
+/**
+ * @method getSlidBallRenderer
+ * @return {cc.Node}
+ */
+getSlidBallRenderer : function (
+)
+{
+    return cc.Node;
 },
 
 /**
@@ -4047,6 +4087,16 @@ getCapInsetsProgressBarRenderer : function (
 )
 {
     return cc.Rect;
+},
+
+/**
+ * @method getSlidBallPressedRenderer
+ * @return {cc.Sprite}
+ */
+getSlidBallPressedRenderer : function (
+)
+{
+    return cc.Sprite;
 },
 
 /**
@@ -4131,6 +4181,16 @@ str,
 texturerestype 
 )
 {
+},
+
+/**
+ * @method getSlidBallNormalRenderer
+ * @return {cc.Sprite}
+ */
+getSlidBallNormalRenderer : function (
+)
+{
+    return cc.Sprite;
 },
 
 /**
@@ -4951,7 +5011,7 @@ ccui.TextBMFont = {
 
 /**
  * @method getStringLength
- * @return {long}
+ * @return {int}
  */
 getStringLength : function (
 )
@@ -5129,10 +5189,10 @@ getIndicatorPosition : function (
 
 /**
  * @method setCurrentPageIndex
- * @param {long} arg0
+ * @param {int} arg0
  */
 setCurrentPageIndex : function (
-long 
+int 
 )
 {
 },
@@ -5179,10 +5239,12 @@ vec2
 
 /**
  * @method scrollToPage
- * @param {long} arg0
- */
-scrollToPage : function (
-long 
+* @param {int|int} int
+* @param {float} float
+*/
+scrollToPage : function(
+int,
+float 
 )
 {
 },
@@ -5199,10 +5261,12 @@ vec2
 
 /**
  * @method scrollToItem
- * @param {long} arg0
- */
-scrollToItem : function (
-long 
+* @param {int|int} int
+* @param {float} float
+*/
+scrollToItem : function(
+int,
+float 
 )
 {
 },
@@ -5229,7 +5293,7 @@ getIndicatorPositionAsAnchorPoint : function (
 
 /**
  * @method getCurrentPageIndex
- * @return {long}
+ * @return {int}
  */
 getCurrentPageIndex : function (
 )
@@ -5271,10 +5335,10 @@ getIndicatorEnabled : function (
 
 /**
  * @method removePageAtIndex
- * @param {long} arg0
+ * @param {int} arg0
  */
 removePageAtIndex : function (
-long 
+int 
 )
 {
 },
@@ -6379,14 +6443,6 @@ RelativeBox : function (
 ccui.Scale9Sprite = {
 
 /**
- * @method disableCascadeColor
- */
-disableCascadeColor : function (
-)
-{
-},
-
-/**
  * @method updateWithSprite
 * @param {cc.Sprite|cc.Sprite} sprite
 * @param {rect_object|rect_object} rect
@@ -6409,46 +6465,6 @@ rect
 },
 
 /**
- * @method isFlippedX
- * @return {bool}
- */
-isFlippedX : function (
-)
-{
-    return false;
-},
-
-/**
- * @method setScale9Enabled
- * @param {bool} arg0
- */
-setScale9Enabled : function (
-bool 
-)
-{
-},
-
-/**
- * @method setFlippedY
- * @param {bool} arg0
- */
-setFlippedY : function (
-bool 
-)
-{
-},
-
-/**
- * @method setFlippedX
- * @param {bool} arg0
- */
-setFlippedX : function (
-bool 
-)
-{
-},
-
-/**
  * @method resizableSpriteWithCapInsets
  * @param {rect_object} arg0
  * @return {ccui.Scale9Sprite}
@@ -6461,21 +6477,13 @@ rect
 },
 
 /**
- * @method disableCascadeOpacity
+ * @method getCapInsets
+ * @return {rect_object}
  */
-disableCascadeOpacity : function (
+getCapInsets : function (
 )
 {
-},
-
-/**
- * @method getState
- * @return {ccui.Scale9Sprite::State}
- */
-getState : function (
-)
-{
-    return 0;
+    return cc.Rect;
 },
 
 /**
@@ -6500,12 +6508,12 @@ float
 
 /**
  * @method initWithSpriteFrameName
-* @param {String|String} str
-* @param {rect_object} rect
-* @return {bool|bool}
-*/
-initWithSpriteFrameName : function(
-str,
+ * @param {String} arg0
+ * @param {rect_object} arg1
+ * @return {bool}
+ */
+initWithSpriteFrameName : function (
+str, 
 rect 
 )
 {
@@ -6575,6 +6583,16 @@ size
 },
 
 /**
+ * @method copyTo
+ * @param {ccui.Scale9Sprite} arg0
+ */
+copyTo : function (
+scale9sprite 
+)
+{
+},
+
+/**
  * @method setSpriteFrame
  * @param {cc.SpriteFrame} arg0
  * @param {rect_object} arg1
@@ -6587,13 +6605,13 @@ rect
 },
 
 /**
- * @method getBlendFunc
- * @return {cc.BlendFunc}
+ * @method getState
+ * @return {ccui.Scale9Sprite::State}
  */
-getBlendFunc : function (
+getState : function (
 )
 {
-    return cc.BlendFunc;
+    return 0;
 },
 
 /**
@@ -6607,13 +6625,13 @@ getInsetBottom : function (
 },
 
 /**
- * @method getCapInsets
- * @return {rect_object}
+ * @method setScale9Enabled
+ * @param {bool} arg0
  */
-getCapInsets : function (
+setScale9Enabled : function (
+bool 
 )
 {
-    return cc.Rect;
 },
 
 /**
@@ -6666,10 +6684,10 @@ getOriginalSize : function (
 
 /**
  * @method initWithFile
-* @param {String|String|rect_object|String} str
-* @param {rect_object|rect_object|String} rect
+* @param {rect_object|String} rect
+* @param {String|rect_object} str
 * @param {rect_object} rect
-* @return {bool|bool|bool|bool}
+* @return {bool|bool}
 */
 initWithFile : function(
 str,
@@ -6678,16 +6696,6 @@ rect
 )
 {
     return false;
-},
-
-/**
- * @method setBlendFunc
- * @param {cc.BlendFunc} arg0
- */
-setBlendFunc : function (
-blendfunc 
-)
-{
 },
 
 /**
@@ -6712,12 +6720,12 @@ float
 
 /**
  * @method initWithSpriteFrame
-* @param {cc.SpriteFrame|cc.SpriteFrame} spriteframe
-* @param {rect_object} rect
-* @return {bool|bool}
-*/
-initWithSpriteFrame : function(
-spriteframe,
+ * @param {cc.SpriteFrame} arg0
+ * @param {rect_object} arg1
+ * @return {bool}
+ */
+initWithSpriteFrame : function (
+spriteframe, 
 rect 
 )
 {
@@ -6742,16 +6750,6 @@ setCapInsets : function (
 rect 
 )
 {
-},
-
-/**
- * @method isFlippedY
- * @return {bool}
- */
-isFlippedY : function (
-)
-{
-    return false;
 },
 
 /**
@@ -7020,6 +7018,16 @@ int
 setFont : function (
 char, 
 int 
+)
+{
+},
+
+/**
+ * @method setTextHorizontalAlignment
+ * @param {cc.TextHAlignment} arg0
+ */
+setTextHorizontalAlignment : function (
+texthalignment 
 )
 {
 },

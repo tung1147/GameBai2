@@ -1,6 +1,6 @@
 /****************************************************************************
 Copyright (c) 2010-2013 cocos2d-x.org
-Copyright (c) 2013-2014 Chukong Technologies Inc.
+Copyright (c) 2013-2016 Chukong Technologies Inc.
 
 http://www.cocos2d-x.org
 
@@ -40,9 +40,6 @@ THE SOFTWARE.
 #include "unzip.h"
 #endif
 #include <sys/stat.h>
-
-/* mod by quyetnguyen */
-#include "decryptor/Decryptor.h"
 
 NS_CC_BEGIN
 
@@ -134,8 +131,6 @@ public:
 
     void startElement(void *ctx, const char *name, const char **atts)
     {
-        CC_UNUSED_PARAM(ctx);
-        CC_UNUSED_PARAM(atts);
         const std::string sName(name);
         if( sName == "dict" )
         {
@@ -225,7 +220,6 @@ public:
 
     void endElement(void *ctx, const char *name)
     {
-        CC_UNUSED_PARAM(ctx);
         SAXState curState = _stateStack.empty() ? SAX_DICT : _stateStack.top();
         const std::string sName((char*)name);
         if( sName == "dict" )
@@ -295,9 +289,8 @@ public:
         _state = SAX_NONE;
     }
 
-    void textHandler(void *ctx, const char *ch, int len)
+    void textHandler(void *ctx, const char *ch, size_t len) override
     {
-        CC_UNUSED_PARAM(ctx);
         if (_state == SAX_NONE)
         {
             return;
@@ -533,10 +526,10 @@ static tinyxml2::XMLElement* generateElementForArray(const ValueVector& array, t
 #else
 
 /* The subclass FileUtilsApple should override these two method. */
-ValueMap FileUtils::getValueMapFromFile(const std::string& filename) {return ValueMap();}
-ValueMap FileUtils::getValueMapFromData(const char* filedata, int filesize) {return ValueMap();}
-ValueVector FileUtils::getValueVectorFromFile(const std::string& filename) {return ValueVector();}
-bool FileUtils::writeToFile(const ValueMap& dict, const std::string &fullPath) {return false;}
+ValueMap FileUtils::getValueMapFromFile(const std::string& /*filename*/) {return ValueMap();}
+ValueMap FileUtils::getValueMapFromData(const char* /*filedata*/, int /*filesize*/) {return ValueMap();}
+ValueVector FileUtils::getValueVectorFromFile(const std::string& /*filename*/) {return ValueVector();}
+bool FileUtils::writeToFile(const ValueMap& /*dict*/, const std::string &/*fullPath*/) {return false;}
 
 #endif /* (CC_TARGET_PLATFORM != CC_PLATFORM_IOS) && (CC_TARGET_PLATFORM != CC_PLATFORM_MAC) */
 
@@ -617,33 +610,13 @@ std::string FileUtils::getStringFromFile(const std::string& filename)
 {
     std::string s;
     getContents(filename, &s);
-	/* mod by quyetnguyen */
-	bool b = decryptor::Decryptor::getInstance()->isDataEncrypted(s.data(), s.size());
-	if (b){
-		//CCLOG("encrypted: %s", filename.c_str());
-		std::vector<char> outBuffer;
-		decryptor::Decryptor::getInstance()->decyrpt(outBuffer, s.data(), s.size());
-		s.assign(outBuffer.begin(), outBuffer.end());
-	}
-	else{
-		//CCLOG("rawFile: %s", filename.c_str());
-	}
-	/* mod by quyetnguyen end*/
     return s;
 }
 
 Data FileUtils::getDataFromFile(const std::string& filename)
-{	
+{
     Data d;
     getContents(filename, &d);
-	/* mod by quyetnguyen */
-	bool b = decryptor::Decryptor::getInstance()->isDataEncrypted((char*)d.getBytes(), d.getSize());
-	if (b){
-		std::vector<char> outBuffer;
-		decryptor::Decryptor::getInstance()->decyrpt(outBuffer, (char*)d.getBytes(), d.getSize());
-		d.copy((const unsigned char*)outBuffer.data(), outBuffer.size());
-	}
-	/* mod by quyetnguyen end*/
     return d;
 }
 
@@ -697,14 +670,7 @@ unsigned char* FileUtils::getFileData(const std::string& filename, const char* m
         *size = 0;
         return nullptr;
     }
-	/* mod by quyetnguyen */
-	bool b = decryptor::Decryptor::getInstance()->isDataEncrypted((char*)d.getBytes(), d.getSize());
-	if (b){
-		std::vector<char> outBuffer;
-		decryptor::Decryptor::getInstance()->decyrpt(outBuffer, (char*)d.getBytes(), d.getSize());
-		d.copy((const unsigned char*)outBuffer.data(), outBuffer.size());
-	}
-	/* mod by quyetnguyen end*/
+
     return d.takeBuffer(size);
 }
 
@@ -825,7 +791,7 @@ std::string FileUtils::fullPathForFilename(const std::string &filename) const
             if (!fullpath.empty())
             {
                 // Using the filename passed in as key.
-                _fullPathCache.insert(std::make_pair(filename, fullpath));
+                _fullPathCache.emplace(filename, fullpath);
                 return fullpath;
             }
 
@@ -1045,7 +1011,7 @@ bool FileUtils::isDirectoryExist(const std::string& dirPath) const
             fullpath = fullPathForFilename(searchIt + dirPath + resolutionIt);
             if (isDirectoryExistInternal(fullpath))
             {
-                _fullPathCache.insert(std::make_pair(dirPath, fullpath));
+                _fullPathCache.emplace(dirPath, fullpath);
                 return true;
             }
         }
@@ -1156,7 +1122,7 @@ bool FileUtils::createDirectory(const std::string& path)
 
     // Create path recursively
     subpath = "";
-    for (int i = 0; i < dirs.size(); ++i)
+    for (int i = 0, size = dirs.size(); i < size; ++i)
     {
         subpath += dirs[i];
         dir = opendir(subpath.c_str());
@@ -1290,11 +1256,11 @@ std::string FileUtils::getFileExtension(const std::string& filePath) const
     return fileExtension;
 }
 
-void FileUtils::valueMapCompact(ValueMap& valueMap)
+void FileUtils::valueMapCompact(ValueMap& /*valueMap*/)
 {
 }
 
-void FileUtils::valueVectorCompact(ValueVector& valueVector)
+void FileUtils::valueVectorCompact(ValueVector& /*valueVector*/)
 {
 }
 

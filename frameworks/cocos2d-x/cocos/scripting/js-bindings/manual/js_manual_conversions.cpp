@@ -1,7 +1,7 @@
 /*
  * Created by Rohan Kuruvilla
  * Copyright (c) 2012 Zynga Inc.
- * Copyright (c) 2013-2014 Chukong Technologies Inc.
+ * Copyright (c) 2013-2016 Chukong Technologies Inc.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -107,6 +107,7 @@ const char* JSStringWrapper::get()
 // JSFunctionWrapper
 JSFunctionWrapper::JSFunctionWrapper(JSContext* cx, JS::HandleObject jsthis, JS::HandleValue fval)
 : _cx(cx)
+, _rooted(false)
 {
     _jsthis = jsthis;
     _fval = fval;
@@ -128,10 +129,12 @@ JSFunctionWrapper::JSFunctionWrapper(JSContext* cx, JS::HandleObject jsthis, JS:
         {
             js_add_object_reference(valRoot, funcVal);
         }
+        _rooted = true;
     }
 }
 JSFunctionWrapper::JSFunctionWrapper(JSContext* cx, JS::HandleObject jsthis, JS::HandleValue fval, JS::HandleValue owner)
 : _cx(cx)
+, _rooted(false)
 {
     _jsthis = jsthis;
     _fval = fval;
@@ -154,7 +157,7 @@ JSFunctionWrapper::~JSFunctionWrapper()
 {
     JS::RootedValue ownerVal(_cx, _owner);
 
-    if (!ownerVal.isNullOrUndefined())
+    if (_rooted && !ownerVal.isNullOrUndefined())
     {
         JS::RootedValue thisVal(_cx, OBJECT_TO_JSVAL(_jsthis));
         if (!thisVal.isNullOrUndefined())

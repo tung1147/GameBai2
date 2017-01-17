@@ -398,6 +398,10 @@ xcopy /Y /Q "$(ProjectDir)..\..\external\chipmunk\prebuilt\win32\release-lib\*.*
     <ClCompile Include="..\3d\CCTerrain.cpp" />
     <ClCompile Include="..\audio\AudioEngine.cpp" />
     <ClCompile Include="..\audio\win32\AudioCache.cpp" />
+    <ClCompile Include="..\audio\win32\AudioDecoder.cpp" />
+    <ClCompile Include="..\audio\win32\AudioDecoderManager.cpp" />
+    <ClCompile Include="..\audio\win32\AudioDecoderMp3.cpp" />
+    <ClCompile Include="..\audio\win32\AudioDecoderOgg.cpp" />
     <ClCompile Include="..\audio\win32\AudioEngine-win32.cpp" />
     <ClCompile Include="..\audio\win32\AudioPlayer.cpp" />
     <ClCompile Include="..\audio\win32\MciPlayer.cpp" />
@@ -602,9 +606,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\external\chipmunk\prebuilt\win32\release-lib\*.*
     <ClCompile Include="..\platform\CCImage.cpp" />
     <ClCompile Include="..\platform\CCSAXParser.cpp" />
     <ClCompile Include="..\platform\CCThread.cpp" />
-    <ClCompile Include="..\platform\decryptor\crypt_aes.cpp" />
-    <ClCompile Include="..\platform\decryptor\Decryptor.cpp" />
-    <ClCompile Include="..\platform\decryptor\MD5.cpp" />
     <ClCompile Include="..\platform\desktop\CCGLViewImpl-desktop.cpp" />
     <ClCompile Include="..\platform\win32\CCApplication-win32.cpp" />
     <ClCompile Include="..\platform\win32\CCCommon-win32.cpp" />
@@ -982,7 +983,12 @@ xcopy /Y /Q "$(ProjectDir)..\..\external\chipmunk\prebuilt\win32\release-lib\*.*
     <ClInclude Include="..\audio\include\Export.h" />
     <ClInclude Include="..\audio\include\SimpleAudioEngine.h" />
     <ClInclude Include="..\audio\win32\AudioCache.h" />
+    <ClInclude Include="..\audio\win32\AudioDecoder.h" />
+    <ClInclude Include="..\audio\win32\AudioDecoderManager.h" />
+    <ClInclude Include="..\audio\win32\AudioDecoderMp3.h" />
+    <ClInclude Include="..\audio\win32\AudioDecoderOgg.h" />
     <ClInclude Include="..\audio\win32\AudioEngine-win32.h" />
+    <ClInclude Include="..\audio\win32\AudioMacros.h" />
     <ClInclude Include="..\audio\win32\AudioPlayer.h" />
     <ClInclude Include="..\audio\win32\MciPlayer.h" />
     <ClInclude Include="..\base\allocator\CCAllocatorBase.h" />
@@ -1233,9 +1239,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\external\chipmunk\prebuilt\win32\release-lib\*.*
     <ClInclude Include="..\platform\CCPlatformMacros.h" />
     <ClInclude Include="..\platform\CCSAXParser.h" />
     <ClInclude Include="..\platform\CCThread.h" />
-    <ClInclude Include="..\platform\decryptor\crypt_aes.h" />
-    <ClInclude Include="..\platform\decryptor\Decryptor.h" />
-    <ClInclude Include="..\platform\decryptor\MD5.h" />
     <ClInclude Include="..\platform\desktop\CCGLViewImpl-desktop.h" />
     <ClInclude Include="..\platform\win32\CCApplication-win32.h" />
     <ClInclude Include="..\platform\win32\CCFileUtils-win32.h" />
