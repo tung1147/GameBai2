@@ -28,6 +28,9 @@
 #import "AppDelegate.h"
 #import "RootViewController.h"
 
+#import "FacebookPlugin_iOS.h"
+#import "iOS_native_linker.h"
+
 @implementation AppController
 
 @synthesize window;
@@ -71,6 +74,17 @@ static AppDelegate s_sharedApplication;
     [window makeKeyAndVisible];
 
     [[UIApplication sharedApplication] setStatusBarHidden:true];
+    [[UIApplication sharedApplication] setIdleTimerDisabled:true];
+    
+    //notification
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0){
+        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
+        [[UIApplication sharedApplication] registerForRemoteNotifications];
+    }
+    else{
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
+         (UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert)];
+    }
     
     // IMPORTANT: Setting the GLView should be done after creating the RootViewController
     cocos2d::GLView *glview = cocos2d::GLViewImpl::createWithEAGLView((__bridge void *)_viewController.view);
@@ -78,10 +92,22 @@ static AppDelegate s_sharedApplication;
     
     //run the cocos2d-x game scene
     app->run();
-
-    return YES;
+    
+    [[FacebookPlugin_iOS getInstance]initWithView:_viewController];
+    return [[FacebookPlugin_iOS getInstance] application:application didFinishLaunchingWithOptions:launchOptions];
+    //return YES;
 }
 
+- (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken{
+    NSString  *token = [[[[deviceToken description]    stringByReplacingOccurrencesOfString:@"<" withString:@""]
+                         stringByReplacingOccurrencesOfString:@">" withString:@""]
+                        stringByReplacingOccurrencesOfString: @" " withString: @""];
+    NSString* uniqueIdentifier = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    objC_to_c_registedNotificationSuccess([token UTF8String], [uniqueIdentifier UTF8String]);
+}
+- (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error{
+    NSLog(@"didFailToRegisterForRemoteNotificationsWithError");
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     /*
@@ -98,6 +124,8 @@ static AppDelegate s_sharedApplication;
      */
     // We don't need to call this method any more. It will interrupt user defined game pause&resume logic
     /* cocos2d::Director::getInstance()->resume(); */
+    
+    [[FacebookPlugin_iOS getInstance] applicationDidBecomeActive:application];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
@@ -122,6 +150,9 @@ static AppDelegate s_sharedApplication;
      */
 }
 
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    return [[FacebookPlugin_iOS getInstance] application:application openURL:url sourceApplication:sourceApplication annotation:annotation];
+}
 
 #pragma mark -
 #pragma mark Memory management
