@@ -791,7 +791,7 @@ var LobbyClient = (function () {
             if (cc.sys.isNative) {
                 var port = serverData.port;
                 serverInfo.host = host;
-                serverInfo.host = port;
+                serverInfo.port = port;
                 serverInfo.serverUrl = host + ":" + port;
             }
             else {

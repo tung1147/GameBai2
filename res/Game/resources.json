@@ -101,10 +101,6 @@
             "plist": "res/home.plist"
         },
         {
-            "img": "res/lobby.png",
-            "plist": "res/lobby.plist"
-        },
-        {
             "img": "res/MiniPoker.png",
             "plist": "res/MiniPoker.plist"
         },

@@ -39,7 +39,13 @@ var TutorialDialog = IDialog.extend({
         //     clippingLayout.getContentSize().height / 2);
         // clippingLayout.addChild(contentTable);
         this.contentTable = contentTable;
-        this.HDList = cc.loader.getRes("res/data/HDList.plist");
+        if(cc.sys.isNative){
+            this.HDList = jsb.fileUtils.getValueMapFromFile("res/data/HDList.plist");
+        }
+        else{
+            this.HDList = cc.loader.getRes("res/data/HDList.plist");
+        }
+
 
         switch (gameType) {
             case GameType.MiniGame_CaoThap:
@@ -112,10 +118,45 @@ var TutorialDialog = IDialog.extend({
             var rewardLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, data["Reward"]);
             rewardLabel.setPosition(contentSize.width * 3 / 4, contentSize.height / 2);
             container.addChild(rewardLabel);
-            this.contentTable.pushItem(container,1);
+            this.contentTable.pushItem(container);
         }
 
         var miniLabel2 = new cc.LabelBMFont(this.HDList[dataField]["text2"], cc.res.font.Roboto_Condensed_25, this.bouldingWidth, cc.TEXT_ALIGNMENT_LEFT);
         this.contentTable.pushItem(miniLabel2);
     }
 });
+
+var s_MiniPockerTutorialDialog = null;
+var s_VideoPockerTutorialDialog = null;
+var s_CaoThapTutorialDialog = null;
+
+TutorialDialog.getTutorial = function (gameType) {
+    switch (gameType) {
+        case GameType.MiniGame_CaoThap:{
+            if(!s_CaoThapTutorialDialog){
+                s_CaoThapTutorialDialog = new TutorialDialog(gameType);
+                s_CaoThapTutorialDialog.retain();
+            }
+            return s_CaoThapTutorialDialog;
+            break;
+        }
+
+        case GameType.MiniGame_Poker:{
+            if(!s_MiniPockerTutorialDialog){
+                s_MiniPockerTutorialDialog = new TutorialDialog(gameType);
+                s_MiniPockerTutorialDialog.retain();
+            }
+            return s_MiniPockerTutorialDialog;
+            break;
+        }
+
+        case GameType.MiniGame_VideoPoker:{
+            if(!s_VideoPockerTutorialDialog){
+                s_VideoPockerTutorialDialog = new TutorialDialog(gameType);
+                s_VideoPockerTutorialDialog.retain();
+            }
+            return s_VideoPockerTutorialDialog;
+            break;
+        }
+    }
+};
