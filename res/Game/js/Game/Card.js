@@ -155,6 +155,10 @@ var CardList = cc.Node.extend({
         this.setContentSize(size);
         this.setAnchorPoint(cc.p(0.5, 0.5));
     },
+    onSelected : function (card, isSelected){
+
+    },
+    
     removeCardById: function (id) {
         var card = this.getCardWithId(id);
         for (var i = 0; i < this.cardList.length; i++)
