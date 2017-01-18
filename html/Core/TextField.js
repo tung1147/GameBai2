@@ -64,7 +64,7 @@ newui.TextField = cc.Node.extend({
         if(!placeHolderFont){
             placeHolderFont = textFont;
         }
-        if(placeHolderSize){
+        if(!placeHolderSize){
             placeHolderSize = textSize;
         }
         var textLabel = new cc.LabelTTF(this._inputText, textFont, textSize);
