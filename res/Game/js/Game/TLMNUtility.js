@@ -276,9 +276,15 @@ var TLMNUtility = {
         sameCards[14] = sameCards[1];
         if (length == 3) {
             for (var i = 3; i < 13; i++) {
-                if (i <= minRank)
+                if (i < minRank)
                     continue;
                 if (rankFreq[i] >= 2 && rankFreq[i + 1] >= 2 && rankFreq[i + 2] >= 2) {
+                    var isLegal = i > minRank;
+                    for (var j = 0; j < sameCards[i + 2].length; j++) {
+                        isLegal = isLegal || (sameCards[i + 2][j].suit == 3);
+                    }
+                    if (!isLegal)
+                        continue;
                     result = result.concat(this.getCombination(
                         this.getSubGroup(sameCards[i], 2),
                         this.getSubGroup(sameCards[i + 1], 2),
@@ -290,9 +296,15 @@ var TLMNUtility = {
 
         if (length == 4) {
             for (var i = 3; i < 12; i++) {
-                if (i <= minRank)
+                if (i < minRank)
                     continue;
                 if (rankFreq[i] >= 2 && rankFreq[i + 1] >= 2 && rankFreq[i + 2] >= 2 && rankFreq[i + 3] >= 2) {
+                    var isLegal = i > minRank;
+                    for (var j = 0; j < sameCards[i + 3].length; j++) {
+                        isLegal = isLegal || (sameCards[i + 3][j].suit == 3);
+                    }
+                    if (!isLegal)
+                        continue;
                     result = result.concat(this.getCombination(
                         this.getSubGroup(sameCards[i], 2),
                         this.getSubGroup(sameCards[i + 1], 2),
