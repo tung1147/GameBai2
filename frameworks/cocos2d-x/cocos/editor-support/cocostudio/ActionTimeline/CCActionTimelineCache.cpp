@@ -504,7 +504,7 @@ ActionTimeline* ActionTimelineCache::createActionWithDataBuffer(const cocos2d::D
         Timeline* timeline = loadTimelineWithFlatBuffers(timelineFlatBuf);
         if (timeline)
         {
-            properTimelineMap.insert(std::make_pair(timelineFlatBuf->property()->c_str(), timeline));
+            properTimelineMap.emplace(timelineFlatBuf->property()->c_str(), timeline);
         }
     }
 
@@ -640,7 +640,7 @@ Frame* ActionTimelineCache::loadPositionFrameWithFlatBuffers(const flatbuffers::
 {
     PositionFrame* frame = PositionFrame::create();
     
-    auto f_position = flatbuffers->postion();
+    auto f_position = flatbuffers->position();
     Vec2 position(f_position->x(), f_position->y());
     frame->setPosition(position);
     
@@ -998,7 +998,7 @@ ActionTimeline* ActionTimelineCache::createActionWithFlatBuffersForSimulator(con
         Timeline* timeline = loadTimelineWithFlatBuffers(timelineFlatBuf);
         if (timeline)
         {
-            properTimelineMap.insert(std::make_pair(timelineFlatBuf->property()->c_str(), timeline));
+            properTimelineMap.emplace(timelineFlatBuf->property()->c_str(), timeline);
         }
     }
 
