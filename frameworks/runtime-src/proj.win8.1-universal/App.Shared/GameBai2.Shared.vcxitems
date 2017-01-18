@@ -16,7 +16,37 @@
     <ApplicationDefinition Include="$(MSBuildThisFileDirectory)App.xaml">
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\Action\ActionNumber.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\Action\ActionShake2D.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\Action\CustomAction.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\Action\jsb_quyetnd_action.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\AppDelegate.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\GameLaucher\GameLaucher.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\GameLaucher\GameResource.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\GameLaucher\ResourceLoader.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\NewGUI\jsb_quyetnd_newui.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\NewGUI\NewTableView.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\NewGUI\NewTextField.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\NewGUI\NewTextInput.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\NewGUI\NewWidget.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\Plugin\base64.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\Plugin\CRC32.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\Plugin\crypt_aes.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\Plugin\FacebookPlugin.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\Plugin\jsb_quyetnd_facebook_plugin.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\Plugin\jsb_quyetnd_resourcedownloader.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\Plugin\jsb_quyetnd_systemplugin.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\Plugin\MD5.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\Plugin\ResourcesDownloader.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\Plugin\sha1.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\Plugin\SystemPlugin.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\Plugin\UUIDEncrypt.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\Socket\ElectroClient.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\Socket\jsb_quyetnd_electro_socket.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\Socket\jsb_quyetnd_lobbysocket.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\Socket\jsb_quyetnd_sfssocket.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\Socket\LobbyClient.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\Socket\SmartfoxClient.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)App.xaml.cpp">
       <DependentUpon>$(MSBuildThisFileDirectory)App.xaml</DependentUpon>
     </ClCompile>
@@ -25,7 +55,37 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)OpenGLESPage.xaml.cpp">
       <DependentUpon>$(MSBuildThisFileDirectory)OpenGLESPage.xaml</DependentUpon>
     </ClCompile>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\Action\ActionNumber.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\Action\ActionShake2D.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\Action\CustomAction.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\Action\jsb_quyetnd_action.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\AppDelegate.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\GameLaucher\GameLaucher.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\GameLaucher\GameResource.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\GameLaucher\ResourceLoader.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\NewGUI\jsb_quyetnd_newui.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\NewGUI\NewTableView.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\NewGUI\NewTextField.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\NewGUI\NewTextInput.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\NewGUI\NewWidget.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\Plugin\base64.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\Plugin\CRC32.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\Plugin\crypt_aes.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\Plugin\FacebookPlugin.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\Plugin\jsb_quyetnd_facebook_plugin.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\Plugin\jsb_quyetnd_resourcedownloader.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\Plugin\jsb_quyetnd_systemplugin.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\Plugin\MD5.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\Plugin\ResourcesDownloader.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\Plugin\sha1.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\Plugin\SystemPlugin.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\Plugin\UUIDEncrypt.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\Socket\ElectroClient.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\Socket\jsb_quyetnd_electro_socket.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\Socket\jsb_quyetnd_lobbysocket.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\Socket\jsb_quyetnd_sfssocket.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\Socket\LobbyClient.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\Socket\SmartfoxClient.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)App.xaml.h">
       <DependentUpon>$(MSBuildThisFileDirectory)App.xaml</DependentUpon>
     </ClInclude>

@@ -289,6 +289,9 @@
     <Filter Include="vr">
       <UniqueIdentifier>{5cbd879f-02ae-4f28-af33-2c4f980dd6f0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="platform\decryptor">
+      <UniqueIdentifier>{1253953b-7b44-44f7-9e19-ab8849b1268a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\physics\CCPhysicsBody.cpp">
@@ -1982,6 +1985,15 @@
     </ClCompile>
     <ClCompile Include="..\audio\win32\AudioDecoderManager.cpp">
       <Filter>audioengine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\platform\decryptor\Decryptor.cpp">
+      <Filter>platform\decryptor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\platform\decryptor\MD5.cpp">
+      <Filter>platform\decryptor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\platform\decryptor\crypt_aes.cpp">
+      <Filter>platform\decryptor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -3877,6 +3889,15 @@
     </ClInclude>
     <ClInclude Include="..\audio\win32\AudioDecoderManager.h">
       <Filter>audioengine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\platform\decryptor\Decryptor.h">
+      <Filter>platform\decryptor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\platform\decryptor\MD5.h">
+      <Filter>platform\decryptor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\platform\decryptor\crypt_aes.h">
+      <Filter>platform\decryptor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

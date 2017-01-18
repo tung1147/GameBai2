@@ -121,9 +121,10 @@
       <AdditionalOptions>/bigobj /Zm200 %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204;4756;4800;4101;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\Classes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\Classes;$(ProjectDir)..\..\libs\ElectroClient;$(ProjectDir)..\..\libs\SmartfoxClient\src;$(ProjectDir)..\..\libs\LobbyClient\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>CC_ENABLE_CHIPMUNK_INTEGRATION=1;COCOS2D_DEBUG=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
     </ClCompile>
     <Link>
       <IgnoreSpecificDefaultLibraries>MSVCRT;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -134,7 +135,7 @@
       <AdditionalOptions>/bigobj /Zm200 %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204;4756;4800;4101;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\Classes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\Classes;$(ProjectDir)..\..\libs\ElectroClient;$(ProjectDir)..\..\libs\SmartfoxClient\src;$(ProjectDir)..\..\libs\LobbyClient\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>CC_ENABLE_CHIPMUNK_INTEGRATION=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
@@ -144,9 +145,10 @@
       <AdditionalOptions>/bigobj /Zm200 %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204;4756;4800;4101;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\Classes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\Classes;$(ProjectDir)..\..\libs\ElectroClient;$(ProjectDir)..\..\libs\SmartfoxClient\src;$(ProjectDir)..\..\libs\LobbyClient\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>CC_ENABLE_CHIPMUNK_INTEGRATION=1;COCOS2D_DEBUG=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
     </ClCompile>
     <Link>
       <IgnoreSpecificDefaultLibraries>MSVCRT;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -157,7 +159,7 @@
       <AdditionalOptions>/bigobj /Zm200 %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204;4756;4800;4101;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\Classes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\Classes;$(ProjectDir)..\..\libs\ElectroClient;$(ProjectDir)..\..\libs\SmartfoxClient\src;$(ProjectDir)..\..\libs\LobbyClient\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>CC_ENABLE_CHIPMUNK_INTEGRATION=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
@@ -167,9 +169,10 @@
       <AdditionalOptions>/bigobj /Zm200 %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204;4756;4800;4101;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\Classes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\Classes;$(ProjectDir)..\..\libs\ElectroClient;$(ProjectDir)..\..\libs\SmartfoxClient\src;$(ProjectDir)..\..\libs\LobbyClient\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>CC_ENABLE_CHIPMUNK_INTEGRATION=1;COCOS2D_DEBUG=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
     </ClCompile>
     <Link>
       <IgnoreSpecificDefaultLibraries>MSVCRT;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -180,7 +183,7 @@
       <AdditionalOptions>/bigobj /Zm200 %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204;4756;4800;4101;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\Classes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\Classes;$(ProjectDir)..\..\libs\ElectroClient;$(ProjectDir)..\..\libs\SmartfoxClient\src;$(ProjectDir)..\..\libs\LobbyClient\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>CC_ENABLE_CHIPMUNK_INTEGRATION=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
@@ -214,6 +217,18 @@
     </ProjectReference>
     <ProjectReference Include="..\..\..\cocos2d-x\external\recast\proj.win8.1-universal\librecast.Windows\librecast.Windows.vcxproj">
       <Project>{19e35654-a3ec-48fa-bb21-082a2356c87c}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\libs\ElectroClient\proj.win8.1-universal\libElectroClient.Windows\libElectroClient.Windows.vcxproj">
+      <Project>{1c1b4c99-bdfb-450a-8bf4-5c258a04efcc}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\libs\LobbyClient\libs\udt4\winrt\libUDT.Windows\libUDT.Windows.vcxproj">
+      <Project>{fa1f56d3-830b-46fb-b173-1f6be6252e6f}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\libs\LobbyClient\proj.win8.1-universal\libLobbyClient.Windows\libLobbyClient.Windows.vcxproj">
+      <Project>{bdd6b30d-73d0-4a2d-a140-e476f01976e9}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\libs\SmartfoxClient\proj.win8.1-universal\libSmartfoxClient.Windows\libSmartfoxClient.Windows.vcxproj">
+      <Project>{bd661141-80b1-4aab-97df-c229bbd075f8}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
