@@ -13,6 +13,7 @@
     "chipmunk"
   ],
   "jsList": [
+    "html/GameHotfix.js",
     "html/resource.js",
     "html/Core/GameLaucher.js",
     "html/Core/jsb_api_wrapper.js",
