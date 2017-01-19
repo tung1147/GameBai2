@@ -68,7 +68,16 @@ task copyAssets(type: Copy) {
 }
 
 task buildNative << {
-    def ndkDir = System.getenv("NDK_ROOT");
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+    def ndkDir = properties.getProperty('ndk.dir')
+    if(!ndkDir){
+        ndkDir = System.getenv("NDK_ROOT");
+    }
+    if(!ndkDir){
+        println 'NDK_ROOT not define !!!';
+        ndkDir = "";
+    }
     println 'NDK_ROOT: '+ndkDir
 
     def pythonPath = new File(System.getProperty("user.dir"), "build_native.py")
