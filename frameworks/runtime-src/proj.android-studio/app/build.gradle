@@ -68,8 +68,11 @@ task copyAssets(type: Copy) {
 }
 
 task buildNative << {
+    def ndkDir = System.getenv("NDK_ROOT");
+    println 'NDK_ROOT: '+ndkDir
+
     def pythonPath = new File(System.getProperty("user.dir"), "build_native.py")
-    def command = ["python",pythonPath.getAbsolutePath()]
+    def command = ["python",pythonPath.getAbsolutePath(), "--ndkDir="+ndkDir]
     println "Python: " + pythonPath
     def process = new ProcessBuilder(command)
             .redirectErrorStream(true)
