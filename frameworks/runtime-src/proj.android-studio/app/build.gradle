@@ -67,22 +67,59 @@ task copyAssets(type: Copy) {
     into 'assets'
 }
 
+import org.apache.tools.ant.taskdefs.condition.Os
 task buildNative << {
     Properties properties = new Properties()
     properties.load(project.rootProject.file('local.properties').newDataInputStream())
     def ndkDir = properties.getProperty('ndk.dir')
     if(!ndkDir){
+        println 'ndk.dir not define, get NDK_ROOT from os variables';
         ndkDir = System.getenv("NDK_ROOT");
     }
     if(!ndkDir){
         println 'NDK_ROOT not define !!!';
         ndkDir = "";
+        return;
     }
     println 'NDK_ROOT: '+ndkDir
 
-    def pythonPath = new File(System.getProperty("user.dir"), "build_native.py")
-    def command = ["python",pythonPath.getAbsolutePath(), "--ndkDir="+ndkDir]
-    println "Python: " + pythonPath
+    def projectDir = new File(System.getProperty("user.dir"));
+    def projectAppDir = new File(projectDir, "app");
+    println 'projectDir: ' + projectDir.getAbsolutePath();
+
+    def rootDir = projectDir.getParentFile().getParentFile();
+    println 'rootDir: ' + rootDir.getAbsolutePath();
+
+    def engineDir = new File(rootDir, "cocos2d-x")
+    println 'engineDir: ' + engineDir.getAbsolutePath();
+
+    def externalDir = new File(engineDir, "external");
+    println 'externalDir: ' + externalDir.getAbsolutePath();
+
+    def cocosDir = new File(engineDir, "cocos");
+    println 'cocosDir: ' + cocosDir.getAbsolutePath();
+
+    def ndk_builder_file = null;
+    if(Os.isFamily(Os.FAMILY_WINDOWS)){
+        ndk_builder_file = new File(ndkDir, "ndk-build.cmd");
+    }
+    else{
+        ndk_builder_file = new File(ndkDir, "ndk-build");
+    }
+    println 'ndk_builder_file: ' + ndk_builder_file;
+
+    def TOOLCHAIN = "4.9"
+    def DEBUG = "0"
+    def buid_thread = "4"
+
+    def command = [ndk_builder_file.getAbsolutePath(),
+            "-j"+buid_thread,
+            "-C",
+            projectAppDir.getAbsolutePath(),
+            "NDK_DEBUG="+DEBUG,
+            "NDK_TOOLCHAIN_VERSION=" + TOOLCHAIN,
+            "NDK_MODULE_PATH=" + rootDir.getAbsolutePath() + ";" + engineDir.getAbsolutePath() + ";" + externalDir.getAbsolutePath() + ";" + cocosDir.getAbsolutePath()
+    ];
     def process = new ProcessBuilder(command)
             .redirectErrorStream(true)
             .start()
