@@ -5,6 +5,7 @@
 var quyetnd = quyetnd || {};
 quyetnd.hotfixFunction = function () {
     cc.log("hotfixFunction");
+    quyetnd.GamePaused = false;
     quyetnd.startUpdateBackground = function () {
         quyetnd._lastUpdateTime = Date.now();
         var frame_rate = 1000.0 / 60;
@@ -46,8 +47,12 @@ quyetnd.hotfixFunction = function () {
     };
 
     cc.game.pause = function () {
-        quyetnd.startUpdateBackground();
-        cc.log("pause");
+        if(quyetnd.GamePaused == false){
+            quyetnd.GamePaused = true;
+            quyetnd.startUpdateBackground();
+            cc.log("pause");
+        }
+
         // engine
         // if (this._paused) return;
         // this._paused = true;
@@ -63,8 +68,11 @@ quyetnd.hotfixFunction = function () {
     };
 
     cc.game.resume =  function () {
-        quyetnd.stopUpdateBackground();
-        cc.log("resume");
+        if(quyetnd.GamePaused == true){
+            quyetnd.GamePaused = false;
+            quyetnd.stopUpdateBackground();
+            cc.log("resume");
+        }
 
         //engine
         if (!this._paused) return;
