@@ -67,5 +67,16 @@ task copyAssets(type: Copy) {
     into 'assets'
 }
 
+task buildNative << {
+    def pythonPath = new File(System.getProperty("user.dir"), "build_native.py")
+    def command = ["python",pythonPath.getAbsolutePath()]
+    println "Python: " + pythonPath
+    def process = new ProcessBuilder(command)
+            .redirectErrorStream(true)
+            .start()
+    process.inputStream.eachLine {println it}
+    process.waitFor();
+}
+
 clean.dependsOn cleanAssets
-preBuild.dependsOn copyAssets
+preBuild.dependsOn ("buildNative", "copyAssets")
