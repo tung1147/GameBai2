@@ -1898,15 +1898,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\vr\CCVRGenericRenderer.h">
       <Filter>vr</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\platform\decryptor\Decryptor.h">
-      <Filter>platform\decryptor</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\platform\decryptor\MD5.h">
-      <Filter>platform\decryptor</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\platform\decryptor\crypt_aes.h">
-      <Filter>platform\decryptor</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\cocos2d.cpp">
@@ -3641,15 +3632,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\vr\CCVRGenericRenderer.cpp">
       <Filter>vr</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\platform\decryptor\MD5.cpp">
-      <Filter>platform\decryptor</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\platform\decryptor\crypt_aes.cpp">
-      <Filter>platform\decryptor</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\platform\decryptor\Decryptor.cpp">
-      <Filter>platform\decryptor</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="2d">
@@ -3933,9 +3915,6 @@
     </Filter>
     <Filter Include="vr">
       <UniqueIdentifier>{485c9ff1-3f65-46dc-a4ee-4eeb3f6d31f1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="platform\decryptor">
-      <UniqueIdentifier>{22a15dcd-ebfa-452d-8f3c-59fa730496e2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

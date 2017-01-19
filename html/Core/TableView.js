@@ -548,11 +548,11 @@ newui.TableView = ccui.ScrollView.extend({
 });
 
 /* create render cmd */
-(function(){
-    if(!ccui.ProtectedNode.CanvasRenderCmd)
+(function () {
+    if (!ccui.ProtectedNode.CanvasRenderCmd)
         return;
-    newui.TableView.CanvasRenderCmd = function(renderable){
-        ccui.ScrollView.CanvasRenderCmd.call(this, renderable);
+    newui.TableView.CanvasRenderCmd = function (renderable) {
+        this._layoutCmdCtor(renderable);
         //this._needDraw = true;
         this._dirty = false;
     };
@@ -560,25 +560,9 @@ newui.TableView = ccui.ScrollView.extend({
     var proto = newui.TableView.CanvasRenderCmd.prototype = Object.create(ccui.ScrollView.CanvasRenderCmd.prototype);
     proto.constructor = newui.TableView.CanvasRenderCmd;
 
-    proto.visit = function(parentCmd) {
-        var node = this._node;
-        if (!node._visible)
-            return;
-        var currentID = node.__instanceId;
-
-        cc.renderer.pushRenderCommand(this);
-        //cc.renderer._turnToCacheMode(currentID);
-
-        node.visit(parentCmd);
-        this.layoutVisit(parentCmd);
-
-        this._dirtyFlag = 0;
-        //cc.renderer._turnToNormalMode();
-    };
-
     proto.rendering = function (ctx) {
         var currentID = this._node.__instanceId;
-        var locCmds = cc.renderer._cacheToCanvasCmds[currentID], i, len,
+        var i, locCmds = cc.renderer._cacheToCanvasCmds[currentID], len,
             scaleX = cc.view.getScaleX(),
             scaleY = cc.view.getScaleY();
         var context = ctx || cc._renderContext;
@@ -588,20 +572,21 @@ newui.TableView = ccui.ScrollView.extend({
 
         for (i = 0, len = locCmds.length; i < len; i++) {
             var checkNode = locCmds[i]._node;
-            if(checkNode instanceof newui.TableView)
+            if (checkNode instanceof newui.TableView)
                 continue;
-            if(checkNode && checkNode._parent && checkNode._parent._inViewRect === false)
+            if (checkNode && checkNode._parent && checkNode._parent._inViewRect === false)
                 continue;
             locCmds[i].rendering(context, scaleX, scaleY);
         }
     };
 })();
 
-(function(){
-    if(!ccui.ProtectedNode.WebGLRenderCmd)
+
+(function () {
+    if (!ccui.ProtectedNode.WebGLRenderCmd)
         return;
-    newui.TableView.WebGLRenderCmd = function(renderable){
-        ccui.ScrollView.WebGLRenderCmd.call(this, renderable);
+    newui.TableView.WebGLRenderCmd = function (renderable) {
+        this._layoutCmdCtor(renderable);
         this._needDraw = true;
         this._dirty = false;
     };
@@ -609,25 +594,7 @@ newui.TableView = ccui.ScrollView.extend({
     var proto = newui.TableView.WebGLRenderCmd.prototype = Object.create(ccui.ScrollView.WebGLRenderCmd.prototype);
     proto.constructor = newui.TableView.WebGLRenderCmd;
 
-    proto.visit = function(parentCmd) {
-        var node = this._node;
-        if (!node._visible)
-            return;
-        var currentID = this._node.__instanceId;
-
-        cc.renderer.pushRenderCommand(this);
-        cc.renderer._turnToCacheMode(currentID);
-
-        node.visit(parentCmd);
-        this.layoutVisit(parentCmd);
-        // Need to update children after do layout
-        node.updateChildren();
-
-        this._dirtyFlag = 0;
-        cc.renderer._turnToNormalMode();
-    };
-
-    proto.rendering = function(ctx){
+    proto.rendering = function (ctx) {
         var currentID = this._node.__instanceId,
             locCmds = cc.renderer._cacheToBufferCmds[currentID],
             i, len, checkNode, cmd,
@@ -643,11 +610,8 @@ newui.TableView = ccui.ScrollView.extend({
 
         for (i = 0, len = locCmds.length; i < len; i++) {
             cmd = locCmds[i];
-
             checkNode = cmd._node;
-            if(checkNode instanceof newui.TableView)
-                continue;
-            if(checkNode && checkNode._parent && checkNode._parent._inViewRect === false)
+            if (checkNode && checkNode._parent && checkNode._parent._inViewRect === false)
                 continue;
 
             if (cmd.uploadData) {
