@@ -67,5 +67,28 @@ task copyAssets(type: Copy) {
     into 'assets'
 }
 
+task buildNative << {
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+    def ndkDir = properties.getProperty('ndk.dir')
+    if(!ndkDir){
+        ndkDir = System.getenv("NDK_ROOT");
+    }
+    if(!ndkDir){
+        println 'NDK_ROOT not define !!!';
+        ndkDir = "";
+    }
+    println 'NDK_ROOT: '+ndkDir
+
+    def pythonPath = new File(System.getProperty("user.dir"), "build_native.py")
+    def command = ["python",pythonPath.getAbsolutePath(), "--ndkDir="+ndkDir]
+    println "Python: " + pythonPath
+    def process = new ProcessBuilder(command)
+            .redirectErrorStream(true)
+            .start()
+    process.inputStream.eachLine {println it}
+    process.waitFor();
+}
+
 clean.dependsOn cleanAssets
-preBuild.dependsOn copyAssets
+preBuild.dependsOn ("buildNative", "copyAssets")

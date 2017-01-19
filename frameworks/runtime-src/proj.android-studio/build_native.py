@@ -107,9 +107,12 @@ def copy_resources(app_android_root):
     resources_dir = os.path.join(app_android_root, "../../../frameworks/cocos2d-x/cocos/scripting/js-bindings/script")
     copy_files(resources_dir, assets_jsb_dir)
 
-def build(targets,ndk_build_param,build_mode):
-
-    ndk_root = check_environment_variables()
+def build(targets,ndk_build_param,build_mode, ndkDir):
+    if ndkDir is None:
+        print('get NDK_ROOT')
+        ndk_root = check_environment_variables()
+    else:
+        ndk_root = ndkDir
     sdk_root = None
 
     project_root = os.path.dirname(os.path.realpath(__file__))
@@ -139,9 +142,10 @@ if __name__ == '__main__':
     help='Parameter for ndk-build')
     parser.add_option("-b", "--build", dest="build_mode",
     help='The build mode for NDK project, debug or release')
+    parser.add_option('--ndkDir', dest='ndk_dir', help='NDK_ROOT Path')
     (opts, args) = parser.parse_args()
     try:
-        build(args, opts.ndk_build_param,opts.build_mode)
+        build(args, opts.ndk_build_param,opts.build_mode, opts.ndk_dir)
     except Exception as e:
         print e
         sys.exit(1)
