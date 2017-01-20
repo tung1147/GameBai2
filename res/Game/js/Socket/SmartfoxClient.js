@@ -292,6 +292,9 @@ var SmartfoxClient = (function () {
             else if (gameType == s_games_chanel[GameType.GAME_MauBinh]){
                 return new MauBinh();
             }
+            else if (gameType == s_games_chanel[GameType.GAME_Poker]){
+                return new Poker();
+            }
             return null;
         },
 

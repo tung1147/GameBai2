@@ -186,6 +186,9 @@ var GameController = cc.Class.extend({
         for (var i = 0; i < players.length; i++) {
             if (players[i].u == PlayerMe.username) {
                 meIndex = players[i]["4"];
+                if (meIndex < 0){
+                    meIndex = 0;
+                }
                 this.isSpectator = players[i]["2"];
                 var regExt = players[i]["regExt"];
                 this._view.updateRegExitRoom(regExt);
@@ -207,6 +210,9 @@ var GameController = cc.Class.extend({
         }
 
         for (var i = 0; i < players.length; i++) {
+            if (players[i]["4"] < 0){
+                continue;
+            }
             var slot = players[i]["4"] - meIndex;
             if (slot < 0) {
                 slot += maxSlot;

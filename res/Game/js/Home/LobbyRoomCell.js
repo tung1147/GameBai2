@@ -46,10 +46,14 @@ var LobbyRoomCell = ccui.Widget.extend({
     },
 
     setMaxSlot : function (maxSlot) {
+        var _maxSlot = maxSlot;
+        if(_maxSlot > 9){
+            _maxSlot = 9;
+        }
         this.slot = null;
 
         for(var i=0;i<this.allSlot.length;i++){
-            if(this.allSlot[i].maxSlot == maxSlot){
+            if(this.allSlot[i].maxSlot == _maxSlot){
                 this.slot = this.allSlot[i].allSlot;
                 this.allSlot[i].visible = true;
             }

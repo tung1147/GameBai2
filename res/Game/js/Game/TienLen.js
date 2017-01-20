@@ -74,9 +74,6 @@ var TienLen = IGameScene.extend({
             if (!isSelected)
                 return;
 
-            if (thiz.cardList.getCardSelected().length != 1)
-                return;
-
             thiz.handleSelectSuggest(card);
         };
 
@@ -89,12 +86,22 @@ var TienLen = IGameScene.extend({
     },
 
     handleSelectSuggest: function (card) {
-        console.log("dep trai nhat vu tru");
-        if (!this.suggestGroups)
+        var selectedCard = this.cardList.getCardSelected();
+        if ((!this.suggestGroups) || this.suggestGroups.length == 0) {
+            for (var i = 0; i < selectedCard.length; i++) {
+                selectedCard[i].setSelected(selectedCard[i] == card);
+            }
             return;
+        }
 
         for (var i = this.suggestGroups.length - 1; i >= 0; i--) {
             if (this.suggestGroups[i].indexOf(card) != -1) {
+                //deselect current
+                for (var j = 0; j < selectedCard.length; j++) {
+                    selectedCard[j].setSelected(false);
+                }
+
+                //select grouped card
                 for (var j = 0; j < this.suggestGroups[i].length; j++) {
                     this.suggestGroups[i][j].setSelected(true);
                 }
@@ -286,8 +293,8 @@ var TienLen = IGameScene.extend({
         this.setCardList(this.cardList, cardList);
     },
 
-    suggestCard : function () {
-        this.suggestGroups = TLMNUtility.getSuggestedCards(null,this.cardList.cardList);
+    suggestCard: function () {
+        this.suggestGroups = TLMNUtility.getSuggestedCards(null, this.cardList.cardList);
     },
 
     setCardList: function (list, data) {
