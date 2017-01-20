@@ -15,25 +15,6 @@ var IDialog = cc.Node.extend({
         dialogNode.setPosition(cc.winSize.width/2, cc.winSize.height/2);
         this.addChild(dialogNode);
         this.dialogNode = dialogNode;
-
-        var thiz = this;
-        cc.eventManager.addListener({
-            event: cc.EventListener.TOUCH_ONE_BY_ONE,
-            swallowTouches:true,
-            onTouchBegan : function (touch, event) {
-                var p = thiz.convertToNodeSpace(touch.getLocation());
-                if(cc.rectContainsPoint(thiz.mTouch, p)){
-                    thiz.adjustlel();
-                }
-                return true;
-            },
-            onTouchEnded : function (touch, event) {
-                var p = thiz.convertToNodeSpace(touch.getLocation());
-                if(!cc.rectContainsPoint(thiz.mTouch, p)){
-                    thiz.hide();
-                }
-            }
-        }, this);
     },
     adjustlel : function () {
 
@@ -86,6 +67,29 @@ var IDialog = cc.Node.extend({
         }
         return false;
     },
+
+    onEnter : function () {
+        this._super();
+
+        var thiz = this;
+        cc.eventManager.addListener({
+            event: cc.EventListener.TOUCH_ONE_BY_ONE,
+            swallowTouches:true,
+            onTouchBegan : function (touch, event) {
+                var p = thiz.convertToNodeSpace(touch.getLocation());
+                if(cc.rectContainsPoint(thiz.mTouch, p)){
+                    thiz.adjustlel();
+                }
+                return true;
+            },
+            onTouchEnded : function (touch, event) {
+                var p = thiz.convertToNodeSpace(touch.getLocation());
+                if(!cc.rectContainsPoint(thiz.mTouch, p)){
+                    thiz.hide();
+                }
+            }
+        }, this);
+    }
 });
 
 var Dialog = IDialog.extend({
