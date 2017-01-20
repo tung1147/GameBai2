@@ -358,7 +358,7 @@ var HomeLayer = cc.Node.extend({
         homeBar.setScale(cc.winSize.screenScale);
         this.addChild(homeBar);
 
-        this.barBg = ccui.Scale9Sprite.createWithSpriteFrameName("home-bar-bg.png", cc.rect(8,8,4,4));
+        this.barBg = new ccui.Scale9Sprite("home-bar-bg.png", cc.rect(8,8,4,4));
         this.barBg.setPreferredSize(cc.size(1280.0, 100.0));
         this.barBg.setAnchorPoint(cc.PointZero());
         this.barBg.setPosition(cc.PointZero());

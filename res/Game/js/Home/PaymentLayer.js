@@ -18,12 +18,13 @@ var PaymentCardLayer = cc.Node.extend({
     ctor: function () {
         this._super();
 
-        var bg1 = ccui.Scale9Sprite.createWithSpriteFrameName("lobby-text-input.png", cc.rect(10, 10, 4, 4));
+
+        var bg1 = new ccui.Scale9Sprite("lobby-text-input.png", cc.rect(10, 10, 4, 4));
         bg1.setPreferredSize(cc.size(420 * cc.winSize.screenScale, 60));
         bg1.setPosition(920.0 * cc.winSize.screenScale, 390);
         this.addChild(bg1);
 
-        var bg2 = ccui.Scale9Sprite.createWithSpriteFrameName("lobby-text-input.png", cc.rect(10, 10, 4, 4));
+        var bg2 = new ccui.Scale9Sprite("lobby-text-input.png", cc.rect(10, 10, 4, 4));
         bg2.setPreferredSize(bg1.getContentSize());
         bg2.setPosition(bg1.x, 302);
         this.addChild(bg2);
@@ -155,7 +156,7 @@ var PaymentCardLayer = cc.Node.extend({
         this.type = this.cardSelected.type;
     },
     initTiGia: function () {
-        var bg = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png", cc.rect(10, 0, 4, 80));
+        var bg = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
         bg.setPreferredSize(cc.size(420, 260));
         bg.setAnchorPoint(cc.p(0.5, 0.5));
         bg.setPosition(370 * cc.winSize.screenScale, 290);
@@ -292,7 +293,7 @@ var PaymentSMSLayer = PaymentInAppLayer.extend({
 var PaymentGiftcode = cc.Node.extend({
     ctor: function () {
         this._super();
-        var bg = ccui.Scale9Sprite.createWithSpriteFrameName("lobby-text-input.png", cc.rect(10, 10, 4, 4));
+        var bg = new ccui.Scale9Sprite("lobby-text-input.png", cc.rect(10, 10, 4, 4));
         bg.setPreferredSize(cc.size(420, 60));
         bg.setPosition(cc.winSize.width / 2, 420);
         this.addChild(bg);
@@ -440,27 +441,27 @@ var PaymentHistoryLayer = cc.Node.extend({
         container.setContentSize(cc.size(this.itemList.getContentSize().width, height));
         this.itemList.pushItem(container);
 
-        var bg1 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 80));
+        var bg1 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
         bg1.setPreferredSize(cc.size(this.width1, container.getContentSize().height));
         bg1.setPosition(this.x1, container.getContentSize().height / 2);
         container.addChild(bg1);
 
-        var bg2 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 80));
+        var bg2 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
         bg2.setPreferredSize(cc.size(this.width2, container.getContentSize().height));
         bg2.setPosition(this.x2, container.getContentSize().height / 2);
         container.addChild(bg2);
 
-        var bg3 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 80));
+        var bg3 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
         bg3.setPreferredSize(cc.size(this.width3, container.getContentSize().height));
         bg3.setPosition(this.x3, container.getContentSize().height / 2);
         container.addChild(bg3);
 
-        var bg4 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 80));
+        var bg4 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
         bg4.setPreferredSize(cc.size(this.width4, container.getContentSize().height));
         bg4.setPosition(this.x4, container.getContentSize().height / 2);
         container.addChild(bg4);
 
-        var bg5 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 80));
+        var bg5 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
         bg5.setPreferredSize(cc.size(this.width5, container.getContentSize().height));
         bg5.setPosition(this.x5, container.getContentSize().height / 2);
         container.addChild(bg5);
@@ -535,7 +536,7 @@ var PaymentLayer = LobbySubLayer.extend({
         this.addChild(bottomBar);
         bottomBar.setScale(cc.winSize.screenScale);
 
-        var tabBg = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-tab-bg.png", cc.rect(10, 0, 4, 82));
+        var tabBg = new ccui.Scale9Sprite("sublobby-tab-bg.png", cc.rect(10, 0, 4, 82));
         tabBg.setPreferredSize(cc.size(1100, 82));
         tabBg.setPosition(1280.0 / 2, tabBg.getContentSize().height / 2);
         bottomBar.addChild(tabBg);
@@ -543,7 +544,7 @@ var PaymentLayer = LobbySubLayer.extend({
         var dx = tabBg.getContentSize().width / allLayer.length;
         var x = tabBg.x - tabBg.getContentSize().width / 2 + dx / 2;
 
-        var selectBg = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-tab-selected-bg.png", cc.rect(10, 10, 4, 4));
+        var selectBg = new ccui.Scale9Sprite("sublobby-tab-selected-bg.png", cc.rect(10, 10, 4, 4));
         selectBg.setPreferredSize(cc.size(dx, tabBg.getContentSize().height));
         bottomBar.addChild(selectBg);
 

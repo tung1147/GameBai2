@@ -50,7 +50,7 @@ var UserListDialog = Dialog.extend({
         SmartfoxClient.getInstance().removeListener(this);
     },
     addItem : function (avtId, username, gold) {
-        var bg1 = ccui.Scale9Sprite.createWithSpriteFrameName("dialob-invite-bg1.png", cc.rect(14,14,4,4));
+        var bg1 = new ccui.Scale9Sprite("dialob-invite-bg1.png", cc.rect(14,14,4,4));
         bg1.setPreferredSize(cc.size(286, 80));
         bg1.setPosition(bg1.getContentSize().width/2, bg1.getContentSize().height/2);
         bg1.visible = true;

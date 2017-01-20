@@ -155,17 +155,17 @@ var CaoThapScene = MiniGameScene.extend({
         this.sceneLayer.addChild(card);
         this.card = card;
 
-        var bg1 = ccui.Scale9Sprite.createWithSpriteFrameName("minigame-bg1.png", cc.rect(20, 20, 4, 4));
+        var bg1 = new ccui.Scale9Sprite("minigame-bg1.png", cc.rect(20, 20, 4, 4));
         bg1.setPosition(cc.winSize.width / 2, 655);
         bg1.setPreferredSize(cc.size(350, 94));
         this.sceneLayer.addChild(bg1);
 
-        var bg2 = ccui.Scale9Sprite.createWithSpriteFrameName("minigame-bg1.png", cc.rect(20, 20, 4, 4));
+        var bg2 = new ccui.Scale9Sprite("minigame-bg1.png", cc.rect(20, 20, 4, 4));
         bg2.setPreferredSize(cc.size(94, 350));
         bg2.setPosition(100, 323);
         this.sceneLayer.addChild(bg2);
 
-        var bg3 = ccui.Scale9Sprite.createWithSpriteFrameName("minigame-bg1.png", cc.rect(20, 20, 4, 4));
+        var bg3 = new ccui.Scale9Sprite("minigame-bg1.png", cc.rect(20, 20, 4, 4));
         bg3.setPreferredSize(bg2.getPreferredSize());
         bg3.setPosition(cc.winSize.width - 100, bg2.y);
         this.sceneLayer.addChild(bg3);

@@ -17,22 +17,22 @@ var RewardBankDialog = Dialog.extend({
         var textBgSize = cc.size(420, 60);
         var dy = 85.0;
 
-        var bg1 = ccui.Scale9Sprite.createWithSpriteFrameName("lobby-text-input.png",textBgCapInsets);
+        var bg1 = new ccui.Scale9Sprite("lobby-text-input.png",textBgCapInsets);
         bg1 .setPreferredSize(textBgSize);
         bg1.setPosition(this.dialogNode.getContentSize().width/2, this.dialogNode.getContentSize().height/2 + 120);
         this.dialogNode.addChild(bg1);
 
-        var bg2 = ccui.Scale9Sprite.createWithSpriteFrameName("lobby-text-input.png",textBgCapInsets);
+        var bg2 = new ccui.Scale9Sprite("lobby-text-input.png",textBgCapInsets);
         bg2 .setPreferredSize(textBgSize);
         bg2.setPosition(bg1.x, bg1.y - dy);
         this.dialogNode.addChild(bg2);
 
-        var bg3 = ccui.Scale9Sprite.createWithSpriteFrameName("lobby-text-input.png",textBgCapInsets);
+        var bg3 = new ccui.Scale9Sprite("lobby-text-input.png",textBgCapInsets);
         bg3 .setPreferredSize(textBgSize);
         bg3.setPosition(bg1.x, bg2.y - dy);
         this.dialogNode.addChild(bg3);
 
-        var bg4 = ccui.Scale9Sprite.createWithSpriteFrameName("lobby-text-input.png",textBgCapInsets);
+        var bg4 = new ccui.Scale9Sprite("lobby-text-input.png",textBgCapInsets);
         bg4 .setPreferredSize(textBgSize);
         bg4.setPosition(bg1.x, bg3.y - dy);
         this.dialogNode.addChild(bg4);

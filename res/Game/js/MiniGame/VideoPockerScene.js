@@ -9,12 +9,12 @@ var rewardItem = cc.Node.extend({
         this.initItem.apply(this, arguments);
     },
     initItem: function () {
-        var bg = ccui.Scale9Sprite.createWithSpriteFrameName("reward_bg.png", cc.rect(12, 12, 1, 1));
+        var bg = new ccui.Scale9Sprite("reward_bg.png", cc.rect(12, 12, 1, 1));
         bg.setPreferredSize(cc.size(this.widthInPixel, 40));
         this.bg = bg;
         this.addChild(bg);
 
-        var bg_active = ccui.Scale9Sprite.createWithSpriteFrameName("reward_bg_active.png", cc.rect(28, 28, 1, 1));
+        var bg_active = new ccui.Scale9Sprite("reward_bg_active.png", cc.rect(28, 28, 1, 1));
         bg_active.setPreferredSize(cc.size(this.widthInPixel + 15, 40 + 15));
         var fadeIn = new cc.FadeIn(0.5, cc.p(0, 0));
         var faceOut = new cc.FadeOut(0.5, cc.p(300, 300));
@@ -140,7 +140,7 @@ var VideoPockerScene = MiniGameScene.extend({
         this.sceneLayer.addChild(rollLayer);
 
 
-        var cards_border = ccui.Scale9Sprite.createWithSpriteFrameName("poker_cards_border.png", cc.rect(97, 97, 5, 3));
+        var cards_border = new ccui.Scale9Sprite("poker_cards_border.png", cc.rect(97, 97, 5, 3));
         cards_border.setPreferredSize(cc.size(870 * cc.winSize.screenScale, 325));
         cards_border.setPosition(cc.winSize.width / 2 + 167 * cc.winSize.screenScale, cc.winSize.height / 2 + 25);
         this.sceneLayer.addChild(cards_border);

@@ -7,17 +7,17 @@ var UserinfoPasswordLayer = cc.Node.extend({
         this._super();
         LobbyClient.getInstance().addListener("changePassword", this.onRecvChangePassword, this);
 
-        var bg1 = ccui.Scale9Sprite.createWithSpriteFrameName("dialog-textinput-bg.png", cc.rect(10,10,4,4));
+        var bg1 = new ccui.Scale9Sprite("dialog-textinput-bg.png", cc.rect(10,10,4,4));
         bg1.setPreferredSize(cc.size(384, 60));
         bg1.setPosition(777, 434);
         this.addChild(bg1);
 
-        var bg2 = ccui.Scale9Sprite.createWithSpriteFrameName("dialog-textinput-bg.png", cc.rect(10,10,4,4));
+        var bg2 = new ccui.Scale9Sprite("dialog-textinput-bg.png", cc.rect(10,10,4,4));
         bg2.setPreferredSize(cc.size(384, 60));
         bg2.setPosition(bg1.x, 356);
         this.addChild(bg2);
 
-        var bg3 = ccui.Scale9Sprite.createWithSpriteFrameName("dialog-textinput-bg.png", cc.rect(10,10,4,4));
+        var bg3 = new ccui.Scale9Sprite("dialog-textinput-bg.png", cc.rect(10,10,4,4));
         bg3.setPreferredSize(cc.size(384, 60));
         bg3.setPosition(bg1.x, 278);
         this.addChild(bg3);
@@ -319,13 +319,13 @@ var UserinfoDialog = IDialog.extend({
         var thiz = this;
         this.selectTab = 0;
 
-        var dialogBg = ccui.Scale9Sprite.createWithSpriteFrameName("dialog-bg-2.png", cc.rect(114, 114, 4, 4));
+        var dialogBg = new ccui.Scale9Sprite("dialog-bg-2.png", cc.rect(114, 114, 4, 4));
         dialogBg.setPreferredSize(cc.size(1120, 748));
         dialogBg.setAnchorPoint(cc.p(0.0,0.0));
         this.dialogNode.setContentSize(dialogBg.getContentSize());
         this.dialogNode.addChild(dialogBg);
 
-        var userinfoBg = ccui.Scale9Sprite.createWithSpriteFrameName("userinfo-bg.png", cc.rect(10, 10, 4, 4));
+        var userinfoBg = new ccui.Scale9Sprite("userinfo-bg.png", cc.rect(10, 10, 4, 4));
         userinfoBg.setPreferredSize(cc.size(874, 380));
         userinfoBg.setPosition(this.dialogNode.getContentSize().width/2, this.dialogNode.getContentSize().height/2 - 52);
         this.dialogNode.addChild(userinfoBg);

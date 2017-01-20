@@ -10,7 +10,7 @@ var RewardDialog = Dialog.extend({
         this.okTitle.setString("Nhận thưởng");
         this.cancelTitle.setString("Hủy");
 
-        var bg = ccui.Scale9Sprite.createWithSpriteFrameName("lobby-text-input.png",cc.rect(10,10,4,4));
+        var bg = new ccui.Scale9Sprite("lobby-text-input.png",cc.rect(10,10,4,4));
         bg.setPreferredSize(cc.size(420, 60));
         bg.setPosition(this.dialogNode.getContentSize().width/2, this.dialogNode.getContentSize().height/2 - 30);
         this.dialogNode.addChild(bg);

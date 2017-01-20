@@ -7,7 +7,7 @@ var TutorialDialog = IDialog.extend({
         this._super();
 
         this.bouldingWidth = 800;
-        var board_bg = ccui.Scale9Sprite.createWithSpriteFrameName("board_bg.png", cc.rect(105, 105, 147, 147));
+        var board_bg = new ccui.Scale9Sprite("board_bg.png", cc.rect(105, 105, 147, 147));
         board_bg.setAnchorPoint(cc.p(0, 0));
         this.dialogNode.addChild(board_bg);
         this.board_bg = board_bg;

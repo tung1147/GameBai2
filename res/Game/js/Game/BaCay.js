@@ -81,7 +81,7 @@ var BaCay = IGameScene.extend({
         this.sceneLayer.addChild(stateString);
         this.stateString = stateString;
 
-        var huThuongBg = ccui.Scale9Sprite.createWithSpriteFrameName("bacayhuthuong_bg.png", cc.rect(15, 15, 4, 4));
+        var huThuongBg = new ccui.Scale9Sprite("bacayhuthuong_bg.png", cc.rect(15, 15, 4, 4));
         huThuongBg.setPreferredSize(cc.size(322, 47));
         huThuongBg.setPosition(cc.winSize.width / 2, 525);
         this.sceneLayer.addChild(huThuongBg);

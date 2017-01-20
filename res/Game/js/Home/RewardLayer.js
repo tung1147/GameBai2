@@ -52,7 +52,7 @@ var RewardCardLayer = RewardSublayer.extend({
         if (goldBgWidth < 170.0) {
             goldBgWidth = 170.0;
         }
-        var goldBg = ccui.Scale9Sprite.createWithSpriteFrameName("reward-gold-bg.png", cc.rect(50, 0, 4, 44));
+        var goldBg = new ccui.Scale9Sprite("reward-gold-bg.png", cc.rect(50, 0, 4, 44));
         goldBg.setPreferredSize(cc.size(goldBgWidth, 44));
 
         // var cardMoney = null;
@@ -157,10 +157,10 @@ var RewardItemLayer = RewardSublayer.extend({
         if (goldBgWidth < 170.0) {
             goldBgWidth = 170.0;
         }
-        var goldBg = ccui.Scale9Sprite.createWithSpriteFrameName("reward-gold-bg.png", cc.rect(50, 0, 4, 44));
+        var goldBg = new ccui.Scale9Sprite("reward-gold-bg.png", cc.rect(50, 0, 4, 44));
         goldBg.setPreferredSize(cc.size(goldBgWidth, 44));
 
-        var itemBg = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png", cc.rect(10, 0, 4, 80));
+        var itemBg = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
         itemBg.setPreferredSize(cc.size(210, 276));
         var itemBgPadding = new cc.Sprite("#reward-item-bg-2.png");
 
@@ -413,22 +413,22 @@ var RewardHistoryLayer = RewardSublayer.extend({
         container.setContentSize(cc.size(this.itemList.getContentSize().width, height));
         this.itemList.pushItem(container);
 
-        var bg1 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 80));
+        var bg1 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
         bg1.setPreferredSize(cc.size(this.width1, container.getContentSize().height));
         bg1.setPosition(this.x1, container.getContentSize().height / 2);
         container.addChild(bg1);
 
-        var bg2 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 80));
+        var bg2 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
         bg2.setPreferredSize(cc.size(this.width2, container.getContentSize().height));
         bg2.setPosition(this.x2, container.getContentSize().height / 2);
         container.addChild(bg2);
 
-        var bg3 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 80));
+        var bg3 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
         bg3.setPreferredSize(cc.size(this.width3, container.getContentSize().height));
         bg3.setPosition(this.x3, container.getContentSize().height / 2);
         container.addChild(bg3);
 
-        var bg4 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 80));
+        var bg4 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
         bg4.setPreferredSize(cc.size(this.width4, container.getContentSize().height));
         bg4.setPosition(this.x4, container.getContentSize().height / 2);
         container.addChild(bg4);
@@ -486,7 +486,7 @@ var RewardLayer = LobbySubLayer.extend({
         this.addChild(bottomBar);
         bottomBar.setScale(cc.winSize.screenScale);
 
-        var tabBg = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-tab-bg.png", cc.rect(10, 0, 4, 82));
+        var tabBg = new ccui.Scale9Sprite("sublobby-tab-bg.png", cc.rect(10, 0, 4, 82));
         tabBg.setPreferredSize(cc.size(960, 82));
         tabBg.setPosition(1280.0 / 2, tabBg.getContentSize().height / 2);
         bottomBar.addChild(tabBg);
@@ -494,7 +494,7 @@ var RewardLayer = LobbySubLayer.extend({
         var dx = tabBg.getContentSize().width / 5;
         var x = tabBg.x - tabBg.getContentSize().width / 2 + dx / 2;
 
-        var selectBg = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-tab-selected-bg.png", cc.rect(10, 10, 4, 4));
+        var selectBg = new ccui.Scale9Sprite("sublobby-tab-selected-bg.png", cc.rect(10, 10, 4, 4));
         selectBg.setPreferredSize(cc.size(dx, tabBg.getContentSize().height));
         bottomBar.addChild(selectBg);
 

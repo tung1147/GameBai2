@@ -36,7 +36,7 @@ var LobbyLayer = cc.Node.extend({
         var _right = cc.winSize.width - (20.0 * cc.winSize.screenScale);
         var _left =  cc.winSize.width -  (300.0 * cc.winSize.screenScale);
 
-        var chatBg = ccui.Scale9Sprite.createWithSpriteFrameName("home-minigame-bg.png", cc.rect(8, 0, 4, 384));
+        var chatBg = new ccui.Scale9Sprite("home-minigame-bg.png", cc.rect(8, 0, 4, 384));
         chatBg.setPreferredSize(cc.size(_right - _left + 4.0, 384));
         chatBg.setAnchorPoint(cc.p(1.0, 0));
         chatBg.setPosition(_right, _bottom);

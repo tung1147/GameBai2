@@ -84,7 +84,7 @@ var MiniPokerScene = MiniGameScene.extend({
         this.sceneLayer.addChild(rollLayer);
 
 
-        var cards_border = ccui.Scale9Sprite.createWithSpriteFrameName("poker_cards_border.png", cc.rect(97, 97, 5, 3));
+        var cards_border = new ccui.Scale9Sprite("poker_cards_border.png", cc.rect(97, 97, 5, 3));
         cards_border.setPreferredSize(cc.size(870 * cc.winSize.screenScale, 275));
         cards_border.setPosition(cc.winSize.width / 2 + 167 * cc.winSize.screenScale, cc.winSize.height / 2 + 20);
         this.sceneLayer.addChild(cards_border);

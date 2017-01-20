@@ -13,7 +13,7 @@ var StatisticBoard = IDialog.extend({
         this.caoThapResults = ["Thắng","Hòa","Thua","Nổ hũ"];
         this.initRewards();
 
-        var board_bg = ccui.Scale9Sprite.createWithSpriteFrameName("board_bg.png", cc.rect(105, 105, 147, 147));
+        var board_bg = new ccui.Scale9Sprite("board_bg.png", cc.rect(105, 105, 147, 147));
         board_bg.setAnchorPoint(cc.p(0, 0));
         this.dialogNode.addChild(board_bg);
         this.board_bg = board_bg;
@@ -271,22 +271,22 @@ var StatisticBoard = IDialog.extend({
         container.setContentSize(cc.size(this.rewardFundTableLayout.statisticList.getContentSize().width, 60));
         this.rewardFundTableLayout.statisticList.pushItem(container);
 
-        var bg1 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png", cc.rect(10, 0, 4, 80));
+        var bg1 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
         bg1.setPreferredSize(cc.size(280 * cc.winSize.screenScale, 60));
         bg1.setPosition(140 * cc.winSize.screenScale, bg1.getContentSize().height / 2);
         container.addChild(bg1);
 
-        var bg2 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png", cc.rect(10, 0, 4, 80));
+        var bg2 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
         bg2.setPreferredSize(cc.size(180 * cc.winSize.screenScale, 60));
         bg2.setPosition(370.0 * cc.winSize.screenScale, bg1.y);
         container.addChild(bg2);
 
-        var bg3 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png", cc.rect(10, 0, 4, 80));
+        var bg3 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
         bg3.setPreferredSize(cc.size(180 * cc.winSize.screenScale, 60));
         bg3.setPosition(550.0 * cc.winSize.screenScale, bg1.y);
         container.addChild(bg3);
 
-        var bg4 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png", cc.rect(10, 0, 4, 80));
+        var bg4 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
         bg4.setPreferredSize(cc.size(150 * cc.winSize.screenScale, 60));
         bg4.setPosition(715.0 * cc.winSize.screenScale, bg1.y);
         container.addChild(bg4);
@@ -322,17 +322,17 @@ var StatisticBoard = IDialog.extend({
         container.setContentSize(cc.size(this.rewardFundTableLayout.statisticList.getContentSize().width, 60));
         this.topEarningTableLayout.statisticList.pushItem(container);
 
-        var bg1 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png", cc.rect(10, 0, 4, 80));
+        var bg1 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
         bg1.setPreferredSize(cc.size(320 * cc.winSize.screenScale, 60));
         bg1.setPosition(160 * cc.winSize.screenScale, bg1.getContentSize().height / 2);
         container.addChild(bg1);
 
-        var bg2 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png", cc.rect(10, 0, 4, 80));
+        var bg2 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
         bg2.setPreferredSize(cc.size(250 * cc.winSize.screenScale, 60));
         bg2.setPosition(445.0 * cc.winSize.screenScale, bg1.y);
         container.addChild(bg2);
 
-        var bg3 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png", cc.rect(10, 0, 4, 80));
+        var bg3 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
         bg3.setPreferredSize(cc.size(230 * cc.winSize.screenScale, 60));
         bg3.setPosition(685.0 * cc.winSize.screenScale, bg1.y);
         container.addChild(bg3);
@@ -363,22 +363,22 @@ var StatisticBoard = IDialog.extend({
         container.setContentSize(cc.size(this.rewardFundTableLayout.statisticList.getContentSize().width, 60));
         this.historyTableLayout.statisticList.pushItem(container);
 
-        var bg1 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png", cc.rect(10, 0, 4, 80));
+        var bg1 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
         bg1.setPreferredSize(cc.size(255 * cc.winSize.screenScale, 60));
         bg1.setPosition(127.5 * cc.winSize.screenScale, bg1.getContentSize().height / 2);
         container.addChild(bg1);
 
-        var bg2 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png", cc.rect(10, 0, 4, 80));
+        var bg2 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
         bg2.setPreferredSize(cc.size(215 * cc.winSize.screenScale, 60));
         bg2.setPosition(362.5 * cc.winSize.screenScale, bg1.y);
         container.addChild(bg2);
 
-        var bg3 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png", cc.rect(10, 0, 4, 80));
+        var bg3 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
         bg3.setPreferredSize(cc.size(185 * cc.winSize.screenScale, 60));
         bg3.setPosition(562.5 * cc.winSize.screenScale, bg1.y);
         container.addChild(bg3);
 
-        var bg4 = ccui.Scale9Sprite.createWithSpriteFrameName("sublobby-cell-bg.png", cc.rect(10, 0, 4, 80));
+        var bg4 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
         bg4.setPreferredSize(cc.size(145 * cc.winSize.screenScale, 60));
         bg4.setPosition(727.5 * cc.winSize.screenScale, bg1.y);
         container.addChild(bg4);
