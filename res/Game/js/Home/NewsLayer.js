@@ -219,7 +219,7 @@ var NewsLayer = LobbySubLayer.extend({
         this.addChild(bottomBar);
         bottomBar.setScale(cc.winSize.screenScale);
 
-        var tabBg = new ccui.Scale9Sprite("sublobby-tab-bg.png", cc.rect(10, 0, 4, 82));
+        var tabBg = new ccui.Scale9Sprite("sublobby-tab-bg.png", cc.rect(10, 0, 4, 80));
         tabBg.setPreferredSize(cc.size(1000, 82));
         tabBg.setPosition(1280.0 / 2, tabBg.getContentSize().height / 2);
         bottomBar.addChild(tabBg);
@@ -247,7 +247,7 @@ var NewsLayer = LobbySubLayer.extend({
             var icon2 = new cc.Sprite(icon_img2[i]);
             icon1.setAnchorPoint(cc.p(0.5, 0.0));
             icon2.setAnchorPoint(cc.p(0.5, 0.0));
-            icon1.setPosition(x, 10);
+            icon1.setPosition(x, 0);
             icon2.setPosition(icon1.getPosition());
             bottomBar.addChild(icon1);
             bottomBar.addChild(icon2);

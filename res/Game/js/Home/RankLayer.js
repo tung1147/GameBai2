@@ -349,7 +349,7 @@ var RankLayer = LobbySubLayer.extend({
         this.addChild(bottomBar);
         bottomBar.setScale(cc.winSize.screenScale);
 
-        var tabBg = new ccui.Scale9Sprite("sublobby-tab-bg.png", cc.rect(10, 0, 4, 82));
+        var tabBg = new ccui.Scale9Sprite("sublobby-tab-bg.png", cc.rect(10, 0, 4, 80));
         tabBg.setPreferredSize(cc.size(960, 82));
         tabBg.setPosition(1280.0 / 2, tabBg.getContentSize().height / 2);
         bottomBar.addChild(tabBg);
