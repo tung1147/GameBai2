@@ -26,7 +26,10 @@ newui.TableView = ccui.ScrollView.extend({
         this._propagateTouchEvents = false;
 
         this._contentRect = cc.rect(0,0,size.width, size.height);
+    },
 
+    onEnter : function () {
+        this._super();
         if ('mouse' in cc.sys.capabilities) {
             this._initMouseScrollEvent();
         }
