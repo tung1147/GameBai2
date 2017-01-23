@@ -521,7 +521,11 @@ static bool _window_ratio_init = true;
 
 void SystemPlugin::android_onWindowsVisibleChange(int bottom ,int left, int top, int right){
 	if(_window_ratio_init){
-		Size frameSize = Director::getInstance()->getOpenGLView()->getFrameSize();
+	    auto glView = Director::getInstance()->getOpenGLView();
+	    if(!glView){
+	        return;
+	    }
+		Size frameSize = glView->getFrameSize();
 		Size winSize = Director::getInstance()->getWinSize();
 		_window_ratioX = winSize.width / frameSize.width;
 		_window_ratioY = winSize.height / frameSize.height;
