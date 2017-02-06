@@ -100,7 +100,7 @@ var Dialog = IDialog.extend({
         this._marginTop = 98.0;
         this._marginBottom = 98.0;
 
-        var dialogBg = new ccui.Scale9Sprite("dialog-bg.png", cc.rect(124,186,4,4));
+        var dialogBg = new ccui.Scale9Sprite("dialog-bg.png", cc.rect(120,186,4,4));
         dialogBg.setAnchorPoint(cc.p(0.0,0.0));
         this.dialogNode.addChild(dialogBg);
 
