@@ -174,6 +174,9 @@ var RecvInviteDialog = (function () {
             this.serverInfo = serverInfo;
         },
         setInfoWithSender: function (username, gameName, betting) {
+            if (username.length > 3 && (username != PlayerMe.username)) {
+                username = username.substring(0, username.length - 3) + "***";
+            }
             var label1 = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Bạn nhận được lời mời chơi từ");
             label1.setPosition(this.dialogNode.getContentSize().width / 2, 340);
             this.messageNode.addChild(label1);

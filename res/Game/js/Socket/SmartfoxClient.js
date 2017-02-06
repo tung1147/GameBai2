@@ -61,13 +61,13 @@ var SmartfoxClient = (function () {
         },
         _sendFindAndJoinRoom: function (gameType, betting, roomId) {
             var params = {};
-            if(gameType){
+            if (gameType) {
                 params.gameType = gameType;
             }
-            if(betting){
+            if (betting) {
                 params.betting = betting;
             }
-            if(roomId){
+            if (roomId) {
                 params.roomId = roomId;
             }
             this.sendExtensionRequest(-1, "findAndJoinGame", params);
@@ -148,7 +148,7 @@ var SmartfoxClient = (function () {
             this._loginHandler = afterLoginCallback;
 
             if (this.sfsSocket) {
-                if(this.sfsSocket.getStatus() == socket.SmartfoxClient.Connected){
+                if (this.sfsSocket.getStatus() == socket.SmartfoxClient.Connected) {
                     if (this.currentServer == serverInfo.serverUrl) {
                         if (this._loginHandler) {
                             this._loginHandler();
@@ -194,7 +194,7 @@ var SmartfoxClient = (function () {
             var content = JSON.parse(data);
 
             //ext
-            if(messageType === socket.SmartfoxClient.CallExtension){
+            if (messageType === socket.SmartfoxClient.CallExtension) {
                 var cmd = "ext_" + content.c;
                 this.postEvent(cmd, content);
             }
@@ -218,7 +218,7 @@ var SmartfoxClient = (function () {
             });
         },
 
-        addExtensionListener : function (command, _listener, _target) {
+        addExtensionListener: function (command, _listener, _target) {
             var msgType = "ext_" + command;
             this.addListener(msgType, _listener, _target);
         },
@@ -228,7 +228,7 @@ var SmartfoxClient = (function () {
                 if (!this.allListener.hasOwnProperty(key)) continue;
                 var arr = this.allListener[key];
                 for (var i = 0; i < arr.length;) {
-                    if (arr[i]&& arr[i].target == target) {
+                    if (arr[i] && arr[i].target == target) {
                         if (this.isBlocked) {
                             arr[i] = null;
                         }
@@ -262,49 +262,55 @@ var SmartfoxClient = (function () {
                 this.isBlocked = false;
             }
         },
-        _createGameSceneWithGameType: function (gameType) {
+        _createGameSceneWithGameType: function (gameType, betAmount) {
             PlayerMe.gameType = gameType;
+            var retVal = null;
+            var game = null;
 
-            if (gameType == s_games_chanel[GameType.GAME_TienLenMN]) {
-                return new TienLen();
+            if (gameType == (s_games_chanel[game = GameType.GAME_TienLenMN])) {
+                retVal = new TienLen();
             }
-            else if (gameType == s_games_chanel[GameType.GAME_Sam]) {
-                return new Sam();
+            else if (gameType == (s_games_chanel[game = GameType.GAME_Sam])) {
+                retVal = new Sam();
             }
-            else if (gameType == s_games_chanel[GameType.GAME_Phom]) {
-                return new Phom();
+            else if (gameType == (s_games_chanel[game = GameType.GAME_Phom])) {
+                retVal = new Phom();
             }
-            else if (gameType == s_games_chanel[GameType.GAME_TLMN_Solo]) {
-                return new TLMNSolo();
+            else if (gameType == (s_games_chanel[game = GameType.GAME_TLMN_Solo])) {
+                retVal = new TLMNSolo();
             }
-            else if (gameType == s_games_chanel[GameType.GAME_Sam_Solo]) {
-                return new SamSolo();
+            else if (gameType == (s_games_chanel[game = GameType.GAME_Sam_Solo])) {
+                retVal = new SamSolo();
             }
-            else if (gameType == s_games_chanel[GameType.GAME_XocDia]) {
-                return new XocDiaScene();
+            else if (gameType == (s_games_chanel[game = GameType.GAME_XocDia])) {
+                retVal = new XocDiaScene();
             }
-            else if (gameType == s_games_chanel[GameType.GAME_TaiXiu]) {
-                return new TaiXiuScene();
+            else if (gameType == (s_games_chanel[game = GameType.GAME_TaiXiu])) {
+                retVal = new TaiXiuScene();
             }
-            else if (gameType == s_games_chanel[GameType.GAME_BaCay]) {
-                return new BaCay();
+            else if (gameType == (s_games_chanel[game = GameType.GAME_BaCay])) {
+                retVal = new BaCay();
             }
-            else if (gameType == s_games_chanel[GameType.GAME_MauBinh]){
-                return new MauBinh();
+            else if (gameType == (s_games_chanel[game = GameType.GAME_MauBinh])) {
+                retVal = new MauBinh();
             }
-            else if (gameType == s_games_chanel[GameType.GAME_Poker]){
-                return new Poker();
+            // else if (gameType == s_games_chanel[GameType.GAME_Poker]){
+            //     return new Poker();
+            // }
+            if (retVal) {
+                cc.log(game);
+                retVal.showGameInfo(s_games_display_name[game], betAmount);
             }
-            return null;
+            return retVal;
         },
 
-        _onHankShakeHandler : function (messageType, contents) {
+        _onHankShakeHandler: function (messageType, contents) {
             if (contents.tk && contents.tk.length > 0) {
                 this.sendLogin();
             }
         },
 
-        _onLoginHandler : function (messageType, contents) {
+        _onLoginHandler: function (messageType, contents) {
             if (contents.ec) { //login error
                 LoadingDialog.getInstance().hide();
                 var scene = cc.director.getRunningScene();
@@ -324,23 +330,23 @@ var SmartfoxClient = (function () {
             }
         },
 
-        _onJoinRoomHandler : function (messageType, contents) {
-            if(contents.ec){
+        _onJoinRoomHandler: function (messageType, contents) {
+            if (contents.ec) {
 
             }
-            else{
+            else {
                 PlayerMe.SFS.roomId = contents.r[0];
             }
         },
 
-        _onUserExitRoomHandler : function (messageType, contents) {
+        _onUserExitRoomHandler: function (messageType, contents) {
             var userId = contents.u;
             if (PlayerMe.SFS.userId == userId) {
                 PlayerMe.SFS.roomId = -1;
             }
         },
 
-        _onStartGameHandler : function (cmd, contents) {
+        _onStartGameHandler: function (cmd, contents) {
             LoadingDialog.getInstance().hide();
 
             var scene = cc.director.getRunningScene();
@@ -351,14 +357,15 @@ var SmartfoxClient = (function () {
             var gameInfo = contents.p;
             var gameName = gameInfo["r"];
             var gameType = gameInfo["g"];
-            var gameScene = this._createGameSceneWithGameType(gameType);
+            var gameBetAmount = gameInfo["8"];
+            var gameScene = this._createGameSceneWithGameType(gameType, gameBetAmount);
             if (gameScene) {
                 LoadingDialog.getInstance().hide();
                 cc.director.replaceScene(new cc.TransitionFade(0.5, gameScene, cc.color("#000000")));
             }
         },
 
-        _onReconnectHandler : function (cmd, contents) {
+        _onReconnectHandler: function (cmd, contents) {
             LoadingDialog.getInstance().hide();
 
             var scene = cc.director.getRunningScene();
@@ -368,8 +375,9 @@ var SmartfoxClient = (function () {
             var gameInfo = contents.p["1"];
             var gameName = gameInfo["r"];
             var gameType = gameInfo["g"];
+            var gameBetAmount = gameInfo["8"];
 
-            var gameScene = this._createGameSceneWithGameType(gameType);
+            var gameScene = this._createGameSceneWithGameType(gameType, gameBetAmount);
 
             if (gameScene) {
                 cc.director.replaceScene(gameScene);
@@ -378,7 +386,7 @@ var SmartfoxClient = (function () {
             PlayerMe.gameType = gameType;
         },
 
-        _onReconnectMiniGameHandler : function (cmd, contents) {
+        _onReconnectMiniGameHandler: function (cmd, contents) {
             LoadingDialog.getInstance().hide();
 
             var scene = cc.director.getRunningScene();
@@ -390,13 +398,13 @@ var SmartfoxClient = (function () {
             if (group == "mini.caothap") {
                 //gameScene = new CaoThapScene();
                 // PlayerMe.gameType = GameType.MiniGame_CaoThap;
-                SceneNavigator.toMiniGame(GameType.MiniGame_CaoThap,true);
+                SceneNavigator.toMiniGame(GameType.MiniGame_CaoThap, true);
                 LoadingDialog.getInstance().hide();
             }
             else if (group == "mini.videopoker") {
                 //gameScene = new VideoPockerScene();
                 //PlayerMe.gameType = GameType.MiniGame_VideoPoker;
-                SceneNavigator.toMiniGame(GameType.MiniGame_VideoPoker,true);
+                SceneNavigator.toMiniGame(GameType.MiniGame_VideoPoker, true);
                 LoadingDialog.getInstance().hide();
             }
             if (gameScene) {
@@ -405,7 +413,7 @@ var SmartfoxClient = (function () {
             }
         },
 
-        _onFullRoomHandler : function (cmd, contents) {
+        _onFullRoomHandler: function (cmd, contents) {
             LoadingDialog.getInstance().hide();
             MessageNode.getInstance().show("Phòng đầy");
         },

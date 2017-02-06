@@ -67,6 +67,7 @@ var IGameScene = IScene.extend({
         bg.x = cc.winSize.width / 2;
         bg.y = cc.winSize.height / 2;
         this.sceneLayer.addChild(bg);
+        this.bg = bg;
 
         var gameTopBar = new GameTopBar();
         this.gameTopBar = gameTopBar;
@@ -80,6 +81,19 @@ var IGameScene = IScene.extend({
     initController: function () {
 
     },
+
+    showGameInfo: function (gameName, betAmount) {
+        var nameTitle = new cc.LabelBMFont(gameName, cc.res.font.Roboto_CondensedBold_30);
+        nameTitle.setAnchorPoint(cc.p(0.0, 0.5));
+        nameTitle.setPosition(15 + 105 * cc.winSize.screenScale, 720 - 48 * cc.winSize.screenScale);
+        this.sceneLayer.addChild(nameTitle);
+
+        var betTitle = new cc.LabelBMFont(cc.Global.NumberFormat1(betAmount) + " V", cc.res.font.Roboto_CondensedBold_25);
+        betTitle.setAnchorPoint(cc.p(0.0, 0.5));
+        betTitle.setPosition(15 + 105 * cc.winSize.screenScale, 720 - 15 - 70 * cc.winSize.screenScale);
+        this.sceneLayer.addChild(betTitle);
+    },
+
     getMaxSlot: function () {
         if (this.playerView) {
             return this.playerView.length;
@@ -97,7 +111,7 @@ var IGameScene = IScene.extend({
         var gameId = s_games_chanel_id[PlayerMe.gameType];
         homeScene.startLobby(gameId);
         cc.director.replaceScene(homeScene);
-        if(message){
+        if (message) {
             MessageNode.getInstance().show(message, null, homeScene);
         }
     },
@@ -105,7 +119,7 @@ var IGameScene = IScene.extend({
         var homeScene = new HomeScene();
         homeScene.startGame();
         cc.director.replaceScene(homeScene);
-        if(message){
+        if (message) {
             MessageNode.getInstance().show(message, null, homeScene);
         }
     },

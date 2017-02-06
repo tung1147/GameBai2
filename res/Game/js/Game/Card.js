@@ -27,7 +27,7 @@ var Card = cc.Sprite.extend({
         this.isTouched = false;
         this._cardSelected = false;
     },
-    onEnter : function () {
+    onEnter: function () {
         this._super();
 
         var thiz = this;
@@ -46,7 +46,7 @@ var Card = cc.Sprite.extend({
         }, this);
     },
 
-    onExit : function () {
+    onExit: function () {
         this._super();
         cc.eventManager.removeListeners(this);
     },
@@ -115,7 +115,7 @@ var Card = cc.Sprite.extend({
             // }
 
             this.setSelected(!this._cardSelected);
-            this.getParent().onSelected(this,this.isSelected());
+            this.getParent().onSelected(this, this.isSelected());
         }
     },
     onTouchMoved: function (touch, event) {
@@ -155,10 +155,10 @@ var CardList = cc.Node.extend({
         this.setContentSize(size);
         this.setAnchorPoint(cc.p(0.5, 0.5));
     },
-    onSelected : function (card, isSelected){
+    onSelected: function (card, isSelected) {
 
     },
-    
+
     removeCardById: function (id) {
         var card = this.getCardWithId(id);
         for (var i = 0; i < this.cardList.length; i++)
@@ -192,11 +192,11 @@ var CardList = cc.Node.extend({
     },
 
     reArrangeCards: function (sortFunc) {
-        if (!sortFunc){
+        if (!sortFunc) {
             this.cardList.sort(function (a, b) {
                 return a.rank - b.rank;
             });
-        }else {
+        } else {
             this.cardList.sort(sortFunc);
         }
         this.reOrder();
@@ -282,7 +282,9 @@ var CardList = cc.Node.extend({
         this.removeAll();
         for (var i = 0; i < cards.length; i++) {
             var card = new Card(cards[i].rank, cards[i].suit);
-            card.setPosition(this.deckPoint);
+            if (animation) {
+                card.setPosition(this.deckPoint);
+            }
             this.addCard(card);
         }
 
@@ -308,7 +310,7 @@ var CardList = cc.Node.extend({
                 var soundAction = new cc.CallFunc(function () {
                     SoundPlayer.playSound("chia_bai");
                 });
-                card.runAction(new cc.Sequence(delayAction,soundAction, beforeAction, moveAction));
+                card.runAction(new cc.Sequence(delayAction, soundAction, beforeAction, moveAction));
             }
             else {
                 card.setPosition(x, y);

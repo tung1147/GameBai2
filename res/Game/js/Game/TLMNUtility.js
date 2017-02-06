@@ -34,6 +34,10 @@ var TLMNUtility = {
             return TLMNUtility.HAI;
         }
 
+        if (cards.length == 2 && cards[0].rank == 2 && cards[1].rank == 2) {
+            return TLMNUtility.HAI;
+        }
+
         var rankFreq = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         var suitFreq = [0, 0, 0, 0];
 
@@ -142,7 +146,9 @@ var TLMNUtility = {
                         groupType == TLMNUtility.BONDOITHONG ? minRank : 0));
                     break;
                 case TLMNUtility.DAY:
-                    suggestGroups = suggestGroups.concat(this.findDay(handCards, rankFreq, suitFreq, cards.length, minRank));
+                    suggestGroups = suggestGroups.concat(this.findDay(handCards, rankFreq, suitFreq, cards.length,
+                        minRank
+                    ));
                     break;
             }
         }
@@ -184,20 +190,21 @@ var TLMNUtility = {
                 }
             }
 
-            if (minRank)
-                isLegal = isLegal && (i > minRank);
+            if (!isLegal)
+                continue;
 
-            if (isLegal) {
-                var fcallStr = "this.getCombination(";
-                for (var j = 0; j < length; j++) {
-                    fcallStr += "sameCards[" + (i + j) + "],"
-                }
-                fcallStr += ");";
-                fcallStr = fcallStr.replace(",)", ")");
+            if (i < minRank)
+                continue;
 
-                //console.log(fcallStr);
-                result = result.concat(eval(fcallStr));
+            var fcallStr = "this.getCombination(";
+            for (var j = 0; j < length; j++) {
+                fcallStr += "sameCards[" + (i + j) + "],"
             }
+            fcallStr += ");";
+            fcallStr = fcallStr.replace(",)", ")");
+
+            //console.log(fcallStr);
+            result = result.concat(eval(fcallStr));
         }
 
         return result;

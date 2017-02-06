@@ -59,7 +59,7 @@ var GamePlayer = cc.Node.extend({
 
         var thiz = this;
         inviteBt.addClickEventListener(function () {
-            thiz.showInviteDialog();
+            thiz.onInviteBtClick();
         });
         var infoBt = new ccui.Widget();
         infoBt.setContentSize(avt.getContentSize());
@@ -71,6 +71,10 @@ var GamePlayer = cc.Node.extend({
         });
         this.setEnable(true);
     },
+
+    onInviteBtClick: function () {
+        this.showInviteDialog();
+    },
     showChatMessage: function (message) {
 
     },
@@ -80,7 +84,7 @@ var GamePlayer = cc.Node.extend({
     },
     setUsername: function (name) {
         this.username = name;
-        if (name.length > 3 && this.isMe == false)
+        if (name.length > 3 && name != PlayerMe.username)
             name = name.substring(0, name.length - 3) + "***";
         this.userLabel.setString(name);
     },

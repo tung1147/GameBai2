@@ -39,8 +39,12 @@ var CaoThapController = MiniGameController.extend({
                     thiz.onPredictResult(content.p.data);
                 }, 1000);
                 break;
+            case "22" :
+                this.onChangeAssets(content.p.data["1"],content.p.data["2"]);
+                break;
         }
     },
+
 
     onReconnect: function (param) {
         var data = param["data"];

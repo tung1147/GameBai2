@@ -204,6 +204,11 @@ var XocDiaScene = IGameScene.extend({
 
         this.setUserCount(0);
     },
+
+    showGameInfo : function (gameName,betAmount) {
+
+    },
+
     backButtonClickHandler : function () {
         var thiz = this;
         var dialog = new MessageConfirmDialog();

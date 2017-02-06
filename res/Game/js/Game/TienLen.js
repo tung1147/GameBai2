@@ -74,6 +74,9 @@ var TienLen = IGameScene.extend({
             if (!isSelected)
                 return;
 
+            if (cardList.getCardSelected().length > 1)
+                return;
+
             thiz.handleSelectSuggest(card);
         };
 
@@ -87,6 +90,8 @@ var TienLen = IGameScene.extend({
 
     handleSelectSuggest: function (card) {
         var selectedCard = this.cardList.getCardSelected();
+
+        //only allow one card selected against one
         if ((!this.suggestGroups) || this.suggestGroups.length == 0) {
             for (var i = 0; i < selectedCard.length; i++) {
                 selectedCard[i].setSelected(selectedCard[i] == card);

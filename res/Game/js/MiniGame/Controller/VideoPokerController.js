@@ -43,6 +43,9 @@ var VideoPokerController = MiniGameController.extend({
             case "256":
                 this.onDoubleResult(content.p.data);
                 break;
+            case "22" :
+                this.onChangeAssets(content.p.data["1"],content.p.data["2"]);
+                break;
         }
     },
 

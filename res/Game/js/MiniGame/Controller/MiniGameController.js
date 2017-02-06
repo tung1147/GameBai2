@@ -29,7 +29,7 @@ var MiniGameController = cc.Class.extend({
     },
 
     onSFSChangeAssets: function (messageType, content) {
-        this.onChangeAssets(content.p["2"], content.p["1"]);
+        //this.onChangeAssets(content.p["2"], content.p["1"]);
     },
 
     onSmartfoxSocketStatus: function (type, eventName) {

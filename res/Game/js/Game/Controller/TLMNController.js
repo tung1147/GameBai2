@@ -13,6 +13,15 @@ s_sfs_error_msg[7] = "Bạn chưa đến lượt";
 s_sfs_error_msg[8] = "Bạn không có 4 đôi thông";
 s_sfs_error_msg[9] = "Bạn không có đủ tiền";
 
+s_defWin = [
+    "Tứ quý 3",
+    "Ba đôi thông chứa 3 bích",
+    "Tứ quý 2",
+    "Sáu đôi",
+    "Năm đôi thông",
+    "Sảnh rồng"
+];
+
 var TLMNGameController = GameController.extend({
     ctor : function (view) {
         this._super();
@@ -294,6 +303,7 @@ var TLMNGameController = GameController.extend({
 
         var winPlayer = params.u;
         var playerData = params["3"];
+        var defWinType = params["4"];
         var player = [];
         for (var i = 0; i < playerData.length; i++) {
             var username = playerData[i].u;
@@ -307,7 +317,7 @@ var TLMNGameController = GameController.extend({
             }
 
             if(username == winPlayer){
-                title = "Thắng";
+                title = s_defWin[defWinType] ? s_defWin[defWinType] : "Thắng";
             }
             else{
                 title = "Thua " + cardList.length + " lá";
