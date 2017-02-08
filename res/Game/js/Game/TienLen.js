@@ -74,7 +74,7 @@ var TienLen = IGameScene.extend({
             if (!isSelected)
                 return;
 
-            if (cardList.getCardSelected().length > 1)
+            if (cardList.getCardSelected().length > 2)
                 return;
 
             thiz.handleSelectSuggest(card);
@@ -93,14 +93,27 @@ var TienLen = IGameScene.extend({
 
         //only allow one card selected against one
         if ((!this.suggestGroups) || this.suggestGroups.length == 0) {
-            for (var i = 0; i < selectedCard.length; i++) {
-                selectedCard[i].setSelected(selectedCard[i] == card);
+            if (!this.isNewTurn) {
+                for (var i = 0; i < selectedCard.length; i++) {
+                    selectedCard[i].setSelected(selectedCard[i] == card);
+                }
             }
             return;
         }
 
-        for (var i = this.suggestGroups.length - 1; i >= 0; i--) {
-            if (this.suggestGroups[i].indexOf(card) != -1) {
+        for (var i = 0; i < this.suggestGroups.length; i++) {
+            if (selectedCard.length == 1) {
+                var isCardLeftMost = true;
+
+                for (var j = 0; j < this.suggestGroups[i].length; j++) {
+                    isCardLeftMost = isCardLeftMost && (this.suggestGroups[i][j].x >= card.x);
+                }
+
+                if (!isCardLeftMost)
+                    continue;
+            }
+
+            if (this.suggestGroups[i].indexOf(card) != -1 && (!this.isNewTurn)) {
                 //deselect current
                 for (var j = 0; j < selectedCard.length; j++) {
                     selectedCard[j].setSelected(false);
@@ -111,6 +124,17 @@ var TienLen = IGameScene.extend({
                     this.suggestGroups[i][j].setSelected(true);
                 }
                 return;
+            }
+
+            // on new turn, need 2 card selected to suggest
+            if (this.isNewTurn && selectedCard.length == 2) {
+                if (this.suggestGroups[i].indexOf(selectedCard[0]) != -1
+                    && this.suggestGroups[i].indexOf(selectedCard[1]) != -1) {
+                    for (var j = 0; j < this.suggestGroups[i].length; j++) {
+                        this.suggestGroups[i][j].setSelected(true);
+                    }
+                    return;
+                }
             }
         }
     },
@@ -136,18 +160,6 @@ var TienLen = IGameScene.extend({
         this.sceneLayer.addChild(startBt);
 
         var thiz = this;
-        startBt.addClickEventListener(function () {
-            thiz.sendStartRequest();
-        });
-        boluotBt.addClickEventListener(function () {
-            thiz.sendBoluotRequest();
-        });
-        danhbaiBt.addClickEventListener(function () {
-            thiz.sendDanhBai();
-        });
-        xepBaiBt.addClickEventListener(function () {
-            thiz.onXepBaiBtClick();
-        });
 
         //danhbaiBt.visible = false;
         xepBaiBt.visible = false;
@@ -158,6 +170,23 @@ var TienLen = IGameScene.extend({
         this.xepBaiBt = xepBaiBt;
         this.boluotBt = boluotBt;
         this.startBt = startBt;
+
+        startBt.addClickEventListener(function () {
+            thiz.sendStartRequest();
+        });
+        boluotBt.addClickEventListener(function () {
+            if (thiz.cardList) {
+                for (var i = 0; i < thiz.cardList.cardList.length; i++)
+                    thiz.cardList.cardList[i].setSelected(false);
+            }
+            thiz.sendBoluotRequest();
+        });
+        danhbaiBt.addClickEventListener(function () {
+            thiz.sendDanhBai();
+        });
+        xepBaiBt.addClickEventListener(function () {
+            thiz.onXepBaiBtClick();
+        });
     },
 
     onXepBaiBtClick: function () {
@@ -236,8 +265,12 @@ var TienLen = IGameScene.extend({
 
     showFinishedDialog: function (player) {
         var dialog = new ResultDialog(player.length);
+        this.cardList.removeAll();
+        this.setDanhBaiBtVisible(false);
+
         for (var i = 0; i < player.length; i++) {
             var username = player[i].username;
+            this.updateCardRemaining(username, 0);
             if (username.length > 3 && (username != PlayerMe.username)) {
                 username = username.substring(0, username.length - 3) + "***";
             }
@@ -266,7 +299,10 @@ var TienLen = IGameScene.extend({
             else {
                 dialog.goldLabel[i].setColor(cc.color("#ff0000"));
             }
+
+            this.performAssetChange(gold, null, player[i].username);
         }
+
         dialog.showWithAnimationMove();
     },
 
@@ -299,6 +335,8 @@ var TienLen = IGameScene.extend({
     },
 
     suggestCard: function () {
+        //called by controller, when start a new turn
+        this.isNewTurn = true;
         this.suggestGroups = TLMNUtility.getSuggestedCards(null, this.cardList.cardList);
     },
 
@@ -368,6 +406,7 @@ var TienLen = IGameScene.extend({
         this.cardOnTable.moveOldCard();
         this.cardOnTable.addNewCardList(cards, slot.getPosition());
         this.suggestGroups = TLMNUtility.getSuggestedCards(cards, this.cardList.cardList);
+        this.isNewTurn = false;
         SoundPlayer.playSound("danh_bai");
     },
 

@@ -111,11 +111,12 @@ newui.TableView = ccui.ScrollView.extend({
             var pDelta = cc.p(delta, 0);
         }
 
-        // var outOfBoundary = this._getHowMuchOutOfBoundary(pDelta);
-        // if(!this._fltEqualZero(outOfBoundary)) {
-        //     pDelta.x += outOfBoundary.x;
-        //     pDelta.y += outOfBoundary.y;
-        // }
+        /* sida */
+        var outOfBoundary = this._getHowMuchOutOfBoundary(pDelta);
+        if(!this._fltEqualZero(outOfBoundary)) {
+            pDelta.x += outOfBoundary.x;
+            pDelta.y += outOfBoundary.y;
+        }
 
         this._autoScrolling = false;
         this._moveInnerContainer(pDelta, true);

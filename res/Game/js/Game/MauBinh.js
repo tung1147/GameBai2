@@ -589,6 +589,8 @@ var MauBinh = IGameScene.extend({
                 }
 
                 dialog.cardList[i].reOrderWithoutAnimation();
+
+                thiz.performAssetChange(thiz.resultEntries[i].moneyChange,null,thiz.resultEntries[i].username);
             }
 
             dialog.showWithAnimationMove();

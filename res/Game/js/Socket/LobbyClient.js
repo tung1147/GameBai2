@@ -11,11 +11,11 @@ if (cc.sys.isNative) { //mobile
             host: "42.112.25.164",
             port: 9999
         }
-    ];
+    ];r
 }
 else { //websocket
     var s_lobbyServer = s_lobbyServer || [
-        "ws://42.112.25.169:8887/websocket"
+        "ws://42.112.25.164:8887/websocket"
     ];
 }
 

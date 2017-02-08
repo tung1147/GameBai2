@@ -1,7 +1,3 @@
-/**
- * Created by anhvt on 11/17/2017.
- */
-
 var TLMNUtility = {
     HAI: 0,
     DOI: 1,
@@ -125,6 +121,7 @@ var TLMNUtility = {
         for (var i = 1; i < cards.length; i++) {
             minRank = cards[i].rank < minRank ? cards[i].rank : minRank;
         }
+
         for (var i = 0; i < preventableGroupType.length; i++) {
             switch (preventableGroupType[i]) {
                 case TLMNUtility.DOI:
@@ -147,7 +144,7 @@ var TLMNUtility = {
                     break;
                 case TLMNUtility.DAY:
                     suggestGroups = suggestGroups.concat(this.findDay(handCards, rankFreq, suitFreq, cards.length,
-                        minRank
+                        minRank, cards
                     ));
                     break;
             }
@@ -155,7 +152,7 @@ var TLMNUtility = {
         return suggestGroups;
     },
 
-    findDay: function (handCards, rankFreq, suitFreq, length, minRank) {
+    findDay: function (handCards, rankFreq, suitFreq, length, minRank, source) {
         if (length > handCards.length)
             return [];
 
@@ -204,10 +201,40 @@ var TLMNUtility = {
             fcallStr = fcallStr.replace(",)", ")");
 
             //console.log(fcallStr);
-            result = result.concat(eval(fcallStr));
+            var groups = eval(fcallStr);
+            if (!source) {
+                result = result.concat(groups);
+            } else {
+                for (var j = 0; j < groups.length; j++) {
+                    if (this.isGreaterDay(source, groups[j]))
+                        result.push(groups[j]);
+                }
+            }
         }
 
         return result;
+    },
+
+    isGreaterDay: function (source, dest) {
+        if (source.length != dest.length)
+            return false;
+
+        var comparefn = function (a, b) {
+            var cmpRankA = a.rank < 3 ? (a.rank + 13) : a.rank;
+            var cmpRankB = b.rank < 3 ? (b.rank + 13) : b.rank;
+            return cmpRankA - cmpRankB;
+        };
+        source.sort(comparefn);
+
+        dest.sort(comparefn);
+
+        if (dest[0].rank > source[0].rank)
+            return true;
+
+        if (dest[0].rank < source[0].rank)
+            return false;
+
+        return source[source.length - 1].suit < dest[source.length - 1].suit;
     },
 
     // tim doi, bo ba, tu quy
@@ -244,7 +271,7 @@ var TLMNUtility = {
                 continue;
 
             // A 2 la to nhat
-            if (minRank <= 2 && i >= 3)
+            if (minRank <= 2 && i >= 3 && minRank != 0)
                 continue;
 
             for (var j = 0; j <= sameCards[i].length - length; j++) {

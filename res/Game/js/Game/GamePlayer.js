@@ -22,6 +22,11 @@ var GamePlayer = cc.Node.extend({
         this.infoLayer.addChild(chatView, 10);
         this.chatView = chatView;
 
+        var isOwnerSprite = new cc.Sprite("#icon_owner.png");
+        isOwnerSprite.setPosition(avt.x + 50,avt.y+50);
+        this.infoLayer.addChild(isOwnerSprite);
+        this.isOwnerSprite = isOwnerSprite;
+
         var timer = new cc.ProgressTimer(new cc.Sprite("#player-progress-2.png"));
         timer.setType(cc.ProgressTimer.TYPE_RADIAL);
         timer.setPosition(avt.getPosition());
@@ -75,6 +80,7 @@ var GamePlayer = cc.Node.extend({
     onInviteBtClick: function () {
         this.showInviteDialog();
     },
+
     showChatMessage: function (message) {
 
     },
@@ -99,13 +105,18 @@ var GamePlayer = cc.Node.extend({
             this.spectator = false;
             this.infoLayer.visible = false;
             this.inviteBt.visible = true;
+           // this.isOwnerSprite.visible = false;
         }
+    },
+    setIsOwner : function(isOwner){
+        this.isOwnerSprite.visible = isOwner;
     },
     showInviteDialog: function () {
         // cc.log("showInviteDialog");
         var dialog = new InviteDialog();
         dialog.show();
     },
+
     showInfoDialog: function () {
         // cc.log("showInfoDialog");
         var dialog = new UserDialog();
@@ -178,6 +189,7 @@ var GamePlayer = cc.Node.extend({
 var GamePlayerMe = GamePlayer.extend({
     ctor: function () {
         cc.Node.prototype.ctor.call(this);
+
         this.isMe = true;
         this.infoLayer = new cc.Node();
         this.addChild(this.infoLayer);
@@ -189,6 +201,11 @@ var GamePlayerMe = GamePlayer.extend({
         avt.setPosition(60, 50);
         this.infoLayer.addChild(avt);
 
+        var isOwnerSprite = new cc.Sprite("#icon_owner.png");
+        isOwnerSprite.setPosition(avt.x + 50,avt.y+50);
+        this.infoLayer.addChild(isOwnerSprite);
+        this.isOwnerSprite = isOwnerSprite;
+
         var chatView = new PlayerMessageView();
         chatView.setPosition(avt.getPosition());
         chatView.setAnchorPoint(cc.p(0.0, 0.0));
@@ -198,13 +215,14 @@ var GamePlayerMe = GamePlayer.extend({
         var timer = new cc.ProgressTimer(new cc.Sprite("#player-progress-2.png"));
         timer.setType(cc.ProgressTimer.TYPE_RADIAL);
         timer.setPosition(avt.getPosition());
+        timer.setReverseDirection(true);
         timer.setPercentage(100.0);
         this.infoLayer.addChild(timer);
         this.timer = timer;
 
         var timer2 = new cc.ProgressTimer(new cc.Sprite("#player-progress-1.png"));
         timer2.setType(cc.ProgressTimer.TYPE_RADIAL);
-        timer2.setReverseDirection(true);
+        //timer2.setReverseDirection(true);
         timer2.setPosition(avt.getPosition());
         timer2.setPercentage(0.0);
         this.infoLayer.addChild(timer2);

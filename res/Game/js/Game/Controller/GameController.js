@@ -167,6 +167,8 @@ var GameController = cc.Class.extend({
         else {
             this.isOwnerMe = false;
         }
+
+        this._view.setOwner (params);
     },
 
     onUserJoinRoom: function (p) {
@@ -176,6 +178,7 @@ var GameController = cc.Class.extend({
             gold: p["3"],
             avt: p["avtId"]
         };
+
         this._view.userJoinRoom(userInfo);
     },
 

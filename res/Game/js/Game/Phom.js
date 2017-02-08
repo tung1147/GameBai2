@@ -370,20 +370,21 @@ var Phom = IGameScene.extend({
         this.cardList.reOrder();
     },
     performAssetChange: function (username, changeAmount, balance) {
-        var slot = this.getSlotByUsername(username);
-        if (balance)
-            slot.setGold(balance);
-
-        var changeSprite = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, "");
-        var changeText = (changeAmount >= 0 ? "+" : "") + changeAmount;
-        changeSprite.setString(changeText);
-        changeSprite.setColor(cc.color(changeAmount >= 0 ? "#ffde00" : "#ff0000"));
-        changeSprite.setPosition(slot.avt.getPosition());
-        slot.addChild(changeSprite, 420);
-
-        changeSprite.runAction(new cc.Sequence(new cc.DelayTime(1.0), new cc.CallFunc(function () {
-            changeSprite.removeFromParent(true);
-        })));
+        this._super(changeAmount,balance,username);
+        // var slot = this.getSlotByUsername(username);
+        // if (balance)
+        //     slot.setGold(balance);
+        //
+        // var changeSprite = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, "");
+        // var changeText = (changeAmount >= 0 ? "+" : "") + changeAmount;
+        // changeSprite.setString(changeText);
+        // changeSprite.setColor(cc.color(changeAmount >= 0 ? "#ffde00" : "#ff0000"));
+        // changeSprite.setPosition(slot.avt.getPosition());
+        // slot.addChild(changeSprite, 420);
+        //
+        // changeSprite.runAction(new cc.Sequence(new cc.DelayTime(1.0), new cc.CallFunc(function () {
+        //     changeSprite.removeFromParent(true);
+        // })));
     },
     performBalanceCard: function (from, to, card) {
         var fromUser = this.getSlotByUsername(from);

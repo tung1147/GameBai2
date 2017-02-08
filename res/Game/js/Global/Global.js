@@ -154,7 +154,7 @@ var s_game_id = s_game_id || [
 
 var s_mini_game_id = [GameType.MiniGame_CaoThap, GameType.MiniGame_Poker, GameType.MiniGame_VideoPoker];
 var s_games_display_name = s_games_display_name || [];
-s_games_display_name[GameType.GAME_TLMN_Solo] = "TIẾN LÊN MIỀN NAM ĐẾM LÁ SOLO";
+s_games_display_name[GameType.GAME_TLMN_Solo] = "TLMN ĐẾM LÁ SOLO";
 s_games_display_name[GameType.GAME_TienLenMN] = "TIẾN LÊN MIỀN NAM";
 s_games_display_name[GameType.GAME_Sam] = "SÂM LỐC";
 s_games_display_name[GameType.GAME_Sam_Solo] = "SÂM SOLO";

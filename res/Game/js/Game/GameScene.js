@@ -82,6 +82,16 @@ var IGameScene = IScene.extend({
 
     },
 
+    setOwner : function (username) {
+        for (var i = 0; i < this.allSlot.length; i++) {
+            if (this.allSlot[i].username == username) {
+                this.allSlot[i].setIsOwner(true);
+            }else{
+                this.allSlot[i].setIsOwner(false);
+            }
+        }
+    },
+
     showGameInfo: function (gameName, betAmount) {
         var nameTitle = new cc.LabelBMFont(gameName, cc.res.font.Roboto_CondensedBold_30);
         nameTitle.setAnchorPoint(cc.p(0.0, 0.5));
@@ -195,6 +205,8 @@ var IGameScene = IScene.extend({
     },
 
     userJoinRoom: function (info) {
+        SoundPlayer.playSound("join_room");
+
         for (var i = 0; i < this.allSlot.length; i++) {
             if (info.index == this.allSlot[i].userIndex) {
                 this.allSlot[i].setEnable(true);
@@ -207,7 +219,6 @@ var IGameScene = IScene.extend({
                 return;
             }
         }
-        SoundPlayer.playSound("join_room");
 
         // var meIndex = this.allSlot[0].userIndex;
         // var slot = info.index - meIndex;
@@ -259,5 +270,25 @@ var IGameScene = IScene.extend({
         if (this.huThuongValueLabel) {
             this.huThuongValueLabel.setString(cc.Global.NumberFormat1(value));
         }
-    }
+    },
+    performAssetChange: function (amount, goldAfter, username) {
+        var slot = this.getSlotByUsername(username);
+        var changeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, "");
+        changeLabel.setString(amount > 0 ? ("+" + amount) : amount);
+        changeLabel.setColor(cc.color(amount > 0 ? "#ffde00" : "#c52829"));
+        changeLabel.setPosition(slot.avt.getPosition());
+        if (username == PlayerMe.username)
+            this.sceneLayer.addChild(changeLabel);
+        else
+            slot.addChild(changeLabel);
+
+        if (goldAfter)
+            slot.setGold(goldAfter);
+
+        var moveAction = new cc.MoveTo(1.0, slot.avt.x, slot.avt.y + 50);
+        var removeAction = new cc.CallFunc(function () {
+            changeLabel.removeFromParent(true);
+        });
+        changeLabel.runAction(new cc.Sequence(moveAction, removeAction));
+    },
 });
