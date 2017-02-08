@@ -172,9 +172,18 @@ var GameController = cc.Class.extend({
     },
 
     onUserJoinRoom: function (p) {
+        var slotIndex = p["4"];
+        var username = p["u"];
+        for(var i=0;i<this.playerSlot.length;i++){
+            if(this.playerSlot[i].userIndex == slotIndex){
+                this.playerSlot[i].username = username;
+                break;
+            }
+        }
+
         var userInfo = {
-            index: p["4"],
-            username: p["u"],
+            index: slotIndex,
+            username: username,
             gold: p["3"],
             avt: p["avtId"]
         };
