@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="GameBai2">
+</Property><Property Name="Solution File" Value="C:\Projects\GameBai2\frameworks\runtime-src\proj.win32\GameBai2.sln">
+</Property><Property Name="Date" Value="Tuesday, November 29, 2016">
+</Property><Property Name="Time" Value="15:14 PM">
+</Property></Properties><Event ErrorLevel="3" Project="GameBai2" Source="GameBai2.vcxproj" Description="No Conversion Required">
+</Event><Event ErrorLevel="3" Project="libSpine" Source="..\..\cocos2d-x\cocos\editor-support\spine\proj.win32\libSpine.vcxproj" Description="No Conversion Required">
+</Event><Event ErrorLevel="3" Project="libbox2d" Source="..\..\cocos2d-x\external\Box2D\proj.win32\libbox2d.vcxproj" Description="No Conversion Required">
+</Event><Event ErrorLevel="3" Project="libcocos2d" Source="..\..\cocos2d-x\cocos\2d\libcocos2d.vcxproj" Description="No Conversion Required">
+</Event><Event ErrorLevel="3" Project="libjscocos2d" Source="..\..\cocos2d-x\cocos\scripting\js-bindings\proj.win32\libjscocos2d.vcxproj" Description="No Conversion Required">
+</Event><Event ErrorLevel="3" Project="libbullet" Source="..\..\cocos2d-x\external\bullet\proj.win32\libbullet.vcxproj" Description="No Conversion Required">
+</Event><Event ErrorLevel="3" Project="librecast" Source="..\..\cocos2d-x\external\recast\proj.win32\librecast.vcxproj" Description="No Conversion Required">
+</Event><Event ErrorLevel="3" Project="libudt" Source="..\libs\LobbyClient\libs\udt4\win32\libudt.vcxproj" Description="No Conversion Required">
+</Event><Event ErrorLevel="3" Project="libLobbyClient" Source="..\libs\LobbyClient\proj.win32\libLobbyClient.vcxproj" Description="No Conversion Required">
+</Event><Event ErrorLevel="3" Project="libSmarfoxClient" Source="..\libs\SmartfoxClient\proj.win32\libSmarfoxClient.vcxproj" Description="No Conversion Required">
+</Event><Event ErrorLevel="3" Project="libElectroClient" Source="..\libs\ElectroClient\proj.win32\libElectroClient.vcxproj" Description="No Conversion Required">
+</Event><Event ErrorLevel="0" Project="" Source="GameBai2.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="GameBai2.sln" Description="Converted">
+</Event></UpgradeLog>
