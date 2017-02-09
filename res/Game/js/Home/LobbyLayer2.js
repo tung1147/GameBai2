@@ -220,6 +220,9 @@ var LobbyLayer = cc.Node.extend({
     },
 
     onInviteReceived: function (command, data) {
+        if (!cc.Global.GetSetting("invite"))
+            return;
+
         data = data["data"];
         if (RecvInviteDialog.getInstance().isShow())
             return;

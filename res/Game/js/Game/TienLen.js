@@ -198,7 +198,7 @@ var TienLen = IGameScene.extend({
             if (operatorB < 3) {
                 operatorB += 13;
             }
-            return operatorA - operatorB;
+            return (operatorA - operatorB) * 100 + a.suit - b.suit;
         });
     },
 
