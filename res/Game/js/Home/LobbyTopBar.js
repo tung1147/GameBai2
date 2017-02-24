@@ -11,23 +11,23 @@ var LobbyTopBar = cc.Node.extend({
         // this.addChild(bg);
 
         this.backBt = new ccui.Button("home-backBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        this.backBt.setPosition(65, 653);
+        this.backBt.setPosition(50, 673);
         this.addChild(this.backBt);
 
         this.callBt = new ccui.Button("home-callBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        this.callBt.setPosition(167, this.backBt.y);
+        this.callBt.setPosition(120, this.backBt.y);
         this.addChild(this.callBt);
 
         this.newsBt = new ccui.Button("home-newsBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        this.newsBt.setPosition(1016, this.backBt.y);
+        this.newsBt.setPosition(1095, this.backBt.y);
         this.addChild(this.newsBt);
 
         this.rankBt = new ccui.Button("home-rankBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        this.rankBt.setPosition(1115, this.backBt.y);
+        this.rankBt.setPosition(1165, this.backBt.y);
         this.addChild(this.rankBt);
 
         this.settingBt = new ccui.Button("home-settingBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        this.settingBt.setPosition(1220, this.backBt.y);
+        this.settingBt.setPosition(1236, this.backBt.y);
         this.addChild(this.settingBt);
 
 

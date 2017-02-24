@@ -15,7 +15,14 @@ var UserAvatar = cc.Node.extend({
 
     _setAvatar : function (avatarImg) {
         this.avatarImg.setSpriteFrame(avatarImg);
-        this.setContentSize(this.avatarImg.getContentSize());
+        var size = this.avatarImg.getContentSize();
+
+        //scale down
+        this.avatarImg.setScale(60/size.width);
+        size.width = size.height = 60;
+        //end of scale down
+
+        this.setContentSize(size);
         this.avatarImg.setPosition(this.getContentSize().width/2, this.getContentSize().height/2);
     },
 

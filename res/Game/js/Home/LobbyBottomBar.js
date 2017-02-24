@@ -7,7 +7,7 @@ var LobbyBottomBar = cc.Node.extend({
         this._super();
 
         var bg = new ccui.Scale9Sprite("home-bar-bg.png", cc.rect(8,8,4,4));
-        bg.setPreferredSize(cc.size(1280.0, 100.0));
+        bg.setPreferredSize(cc.size(1280.0, 70.0));
         bg.setAnchorPoint(cc.p(0,0));
         bg.setPosition(cc.p(0,0));
         this.addChild(bg);
@@ -15,7 +15,7 @@ var LobbyBottomBar = cc.Node.extend({
         this.setAnchorPoint(cc.p(0,0));
 
         var avt =  UserAvatar.createMe();
-        avt.setPosition(56, 50);
+        avt.setPosition(48, 35);
         this.addChild(avt, 0);
         this.avatar = avt;
 
@@ -30,33 +30,37 @@ var LobbyBottomBar = cc.Node.extend({
         }
 
         nameLabel.setAnchorPoint(0.0, 0.5);
-        nameLabel.setColor(cc.color(255,255,255));
-        nameLabel.setPosition(110,65);
+        nameLabel.setColor(cc.color("#69abe8"));
+        nameLabel.setScale(0.8);
+        nameLabel.setPosition(86,47);
         this.addChild(nameLabel,1);
         this.nameLabel = nameLabel;
 
         var goldIcon = new cc.Sprite("#home-gold-icon.png");
-        goldIcon.setPosition(120, 32);
+        goldIcon.setPosition(94, 24);
         this.addChild(goldIcon);
 
         var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, "500000V");
         goldLabel.setAnchorPoint(0.0, 0.5);
         goldLabel.setColor(cc.color(255,184,0));
-        goldLabel.setPosition(140,30);
+        goldLabel.setScale(0.8);
+        goldLabel.setPosition(106,22);
         this.addChild(goldLabel,1);
         this.goldLabel = goldLabel;
 
         var level = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, "Level 50");
         level.setAnchorPoint(0.0, 0.5);
-        level.setPosition(330, 65);
-        level.setColor(cc.color("#ffffff"));
+        level.setColor(cc.color("#63b0f1"));
+        level.setScale(0.6);
+        level.setPosition(320, 47);
         this.addChild(level, 1);
         this.levelLabel = level;
 
         var vip = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, "VIP 5");
         vip.setAnchorPoint(0.0, 0.5);
-        vip.setPosition(330, 30);
-        vip.setColor(cc.color("#ffffff"));
+        vip.setColor(cc.color("#63b0f1"));
+        vip.setScale(0.6);
+        vip.setPosition(320, 23);
         this.addChild(vip, 1);
         this.vipLabel = vip;
 
@@ -65,7 +69,7 @@ var LobbyBottomBar = cc.Node.extend({
         levelBar.setMidpoint(cc.p(0.0, 0.5));
         levelBar.setBarChangeRate(cc.p(1.0,0.0));
         levelBar.setAnchorPoint(cc.p(0.0,0.5));
-        levelBar.setPosition(430, 65);
+        levelBar.setPosition(370, 45);
         levelBar.setPercentage(50.0);
         var levelBarBg = new cc.Sprite("#home-level-bg.png");
         levelBarBg.setPosition(levelBar.getContentSize().width/2, levelBar.getContentSize().height/2);
@@ -78,7 +82,7 @@ var LobbyBottomBar = cc.Node.extend({
         vipBar.setMidpoint(cc.p(0.0, 0.5));
         vipBar.setBarChangeRate(cc.p(1.0,0.0));
         vipBar.setAnchorPoint(cc.p(0.0,0.5));
-        vipBar.setPosition(430, 30);
+        vipBar.setPosition(370, 22);
         vipBar.setPercentage(97.0);
         var vipBarBg = new cc.Sprite("#home-level-bg.png");
         vipBarBg.setPosition(vipBar.getContentSize().width/2, vipBar.getContentSize().height/2);
@@ -87,15 +91,15 @@ var LobbyBottomBar = cc.Node.extend({
         this.vipBar = vipBar;
 
         var paymentBt = new ccui.Button("home-paymentBt.png", "home-paymentBt-selected.png", "", ccui.Widget.PLIST_TEXTURE);
-        paymentBt.setPosition(947, 50);
+        paymentBt.setPosition(1007, 35);
         this.addChild(paymentBt);
 
         var rewardBt = new ccui.Button("home-rewardBt.png", "home-rewardBt-selected.png", "", ccui.Widget.PLIST_TEXTURE);
-        rewardBt.setPosition(1170, 50);
+        rewardBt.setPosition(1175, 35);
         this.addChild(rewardBt);
 
         var newsBt = new ccui.Button("home-inboxBt.png", "home-inboxBt-selected.png", "", ccui.Widget.PLIST_TEXTURE);
-        newsBt.setPosition(728, 50);
+        newsBt.setPosition(840, 35);
         this.addChild(newsBt);
 
         var newBg = new cc.Sprite("#home-news-count.png");
@@ -108,9 +112,9 @@ var LobbyBottomBar = cc.Node.extend({
         newBg.addChild(newLabel);
 
         var userinfoBt = new ccui.Widget();
-        userinfoBt.setContentSize(cc.size(268, 100));
+        userinfoBt.setContentSize(avt.getContentSize());
         userinfoBt.setTouchEnabled(true);
-        userinfoBt.setPosition(134,50);
+        userinfoBt.setPosition(avt.getPosition());
         this.addChild(userinfoBt);
 
         this.setScale(cc.winSize.screenScale);

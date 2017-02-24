@@ -359,7 +359,7 @@ var HomeLayer = cc.Node.extend({
         this.addChild(homeBar);
 
         this.barBg = new ccui.Scale9Sprite("home-bar-bg.png", cc.rect(8,8,4,4));
-        this.barBg.setPreferredSize(cc.size(1280.0, 100.0));
+        this.barBg.setPreferredSize(cc.size(1280.0, 70.0));
         this.barBg.setAnchorPoint(cc.PointZero());
         this.barBg.setPosition(cc.PointZero());
         homeBar.addChild(this.barBg);
@@ -370,11 +370,11 @@ var HomeLayer = cc.Node.extend({
         homeBar.addChild(this.fbButton);
 
         this.loginBt = new ccui.Button("home-signin.png","home-signin-selected.png","", ccui.Widget.PLIST_TEXTURE);
-        this.loginBt.setPosition(cc.p(840.0, this.fbButton.y));
+        this.loginBt.setPosition(cc.p(810.0, this.fbButton.y));
         homeBar.addChild(this.loginBt);
 
         this.signupBt = new ccui.Button("home-signup.png","home-signup-selected.png","", ccui.Widget.PLIST_TEXTURE);
-        this.signupBt.setPosition(cc.p(440.0, this.fbButton.y));
+        this.signupBt.setPosition(cc.p(470.0, this.fbButton.y));
         homeBar.addChild(this.signupBt);
 
         this.loginBt.addClickEventListener(function () {

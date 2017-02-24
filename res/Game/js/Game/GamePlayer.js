@@ -212,11 +212,14 @@ var GamePlayerMe = GamePlayer.extend({
         this.infoLayer.addChild(chatView, 10);
         this.chatView = chatView;
 
+        var scaleDownTimerDim = 60;
+        var scaleRatio = scaleDownTimerDim/93;
         var timer = new cc.ProgressTimer(new cc.Sprite("#player-progress-2.png"));
         timer.setType(cc.ProgressTimer.TYPE_RADIAL);
         timer.setPosition(avt.getPosition());
         timer.setReverseDirection(true);
         timer.setPercentage(100.0);
+        timer.setScale(scaleRatio);
         this.infoLayer.addChild(timer);
         this.timer = timer;
 
@@ -225,10 +228,11 @@ var GamePlayerMe = GamePlayer.extend({
         //timer2.setReverseDirection(true);
         timer2.setPosition(avt.getPosition());
         timer2.setPercentage(0.0);
+        timer2.setScale(scaleRatio);
         this.infoLayer.addChild(timer2);
         this.timer2 = timer2;
 
-        var userLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, PlayerMe.username, cc.TEXT_ALIGNMENT_LEFT);
+        var userLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, PlayerMe.username, cc.TEXT_ALIGNMENT_LEFT);
         userLabel.setAnchorPoint(cc.p(0.0, 0.5));
         userLabel.setLineBreakWithoutSpace(true);
         userLabel.setDimensions(194, userLabel.getLineHeight());
@@ -239,7 +243,7 @@ var GamePlayerMe = GamePlayer.extend({
         goldIcon.setPosition(120, 30);
         this.infoLayer.addChild(goldIcon);
 
-        var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "99.999.999V", cc.TEXT_ALIGNMENT_CENTER);
+        var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, "99.999.999V", cc.TEXT_ALIGNMENT_CENTER);
         goldLabel.setAnchorPoint(cc.p(0.0, 0.5));
         goldLabel.setColor(cc.color("#ffde00"));
         goldLabel.setPosition(140, 30);

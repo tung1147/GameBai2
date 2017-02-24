@@ -10,18 +10,20 @@ var MiniGameCell = ccui.Widget.extend({
         this.allMiniLayer = [];
 
         var gameIcon = new cc.Sprite("#lobby-minigame" + (gameId) + ".png");
-        gameIcon.setPosition(46, this.getContentSize().height / 2);
+        gameIcon.setPosition(51, this.getContentSize().height / 2);
         this.addChild(gameIcon);
 
         var gameGold = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, "0V");
         gameGold.setAnchorPoint(cc.p(0.0, 0.5));
-        gameGold.setPosition(92.0, this.getContentSize().height / 2 - 18.0);
         gameGold.setColor(cc.color(255, 222, 0));
+        gameGold.setScale(0.6);
+        gameGold.setPosition(96.0, this.getContentSize().height - 47.0);
         this.addChild(gameGold);
 
         var gameNameLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, gameName);
         gameNameLabel.setAnchorPoint(cc.p(0.0, 0.5));
-        gameNameLabel.setPosition(92.0, this.getContentSize().height / 2 + 18.0);
+        gameNameLabel.setScale(0.6);
+        gameNameLabel.setPosition(96.0, this.getContentSize().height - 27.0);
         this.addChild(gameNameLabel);
 
         this.gameGold = gameGold;
@@ -47,41 +49,42 @@ var MiniGameLayer = cc.Node.extend({
         LobbyClient.getInstance().addListener("miniGame", this.onSocketMessage, this);
 
         var miniGameBar = new cc.Sprite("#home-minigame-bar.png");
-        miniGameBar.setPosition(162.0 * cc.winSize.screenScale, 170.0);
-        miniGameBar.setScale(cc.winSize.screenScale);
+        miniGameBar.setAnchorPoint(0.0, 0.5);
+        miniGameBar.setPosition(0, 175.0);
+        miniGameBar.setScaleX(cc.winSize.screenScale);
         this.addChild(miniGameBar);
 
         var goldTitle = new cc.Sprite("#home-minigamebar-text1.png");
-        goldTitle.setPosition(miniGameBar.getContentSize().width/2, miniGameBar.getContentSize().height/2);
+        goldTitle.setPosition(miniGameBar.getContentSize().width / 2, miniGameBar.getContentSize().height / 2);
         miniGameBar.addChild(goldTitle);
         this.goldTitle = goldTitle;
 
-        var leftBt = new ccui.Button("home-minigame-leftBt.png","","", ccui.Widget.PLIST_TEXTURE);
-        leftBt.setPosition(28.0, 34.0);
+        var leftBt = new ccui.Button("home-minigame-leftBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        leftBt.setPosition(28.0, goldTitle.y);
         miniGameBar.addChild(leftBt);
 
-        var rightBt = new ccui.Button("home-minigame-leftBt.png","","", ccui.Widget.PLIST_TEXTURE);
+        var rightBt = new ccui.Button("home-minigame-leftBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
         rightBt.setPosition(miniGameBar.getContentSize().width - leftBt.x, leftBt.y);
         rightBt.setFlippedX(true);
         miniGameBar.addChild(rightBt);
 
         var miniGame_top = 580.0;
         var bottom = miniGameBar.y + (miniGameBar.getContentSize().height / 2 - 6) * miniGameBar.getScaleY();
-        var left = 20.0 * cc.winSize.screenScale;
-        var right = 300.0 * cc.winSize.screenScale;
+        var left = 0;
+        var right = 240.0 * cc.winSize.screenScale;
 
         var bg = new ccui.Scale9Sprite("home-minigame-bg.png", cc.rect(8, 0, 4, 384));
-        bg.setPreferredSize(cc.size(right - left + 4.0, 384));
+        bg.setPreferredSize(cc.size(right - left, 380));
         bg.setAnchorPoint(cc.p(0, 0));
         bg.setPosition(left, bottom);
         this.addChild(bg);
 
         //add pageview
         var miniGameLayer = new ccui.PageView();
-        miniGameLayer.setContentSize(cc.size(right - left, bg.getContentSize().height - 4));
+        miniGameLayer.setContentSize(cc.size(right - left, 280));
         miniGameLayer.setAnchorPoint(cc.p(0.0, 0.0));
         miniGameLayer.setBounceEnabled(true);
-        miniGameLayer.setPosition(left + 2, bottom + 2);
+        miniGameLayer.setPosition(left + 2, bottom + 72);
         this.addChild(miniGameLayer);
         this.miniGameLayer = miniGameLayer;
 
@@ -144,7 +147,7 @@ var MiniGameLayer = cc.Node.extend({
 
     addMiniGame: function (gameId, listGame) {
         //cc.log("add miniGame: "+gameId);
-        var size = cc.size(280.0, 92.0);
+        var size = cc.size(238.0, 93.0);
         var cell = new MiniGameCell(size, gameId, s_games_display_name[gameId]);
         cell.setScale(cc.winSize.screenScale);
         listGame.pushItem(cell);
@@ -158,14 +161,14 @@ var MiniGameLayer = cc.Node.extend({
 
     selectTab: function (index, selectTab) {
         this.tabSelectedIndex = index;
-        if(this.tabSelectedIndex < 0){
+        if (this.tabSelectedIndex < 0) {
             this.tabSelectedIndex = 2;
         }
-        else if(this.tabSelectedIndex > 2){
+        else if (this.tabSelectedIndex > 2) {
             this.tabSelectedIndex = 0;
         }
 
-        if(selectTab){
+        if (selectTab) {
             this.miniGameLayer.scrollToPage(this.tabSelectedIndex);
         }
 
