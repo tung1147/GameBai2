@@ -16,7 +16,7 @@ var GameLayer = cc.Node.extend({
         var left = 300.0 * cc.winSize.screenScale;
         var right = cc.winSize.width - 60;
 
-        var padding = 0;// (winSize.width - 284.0f * 4) / 5;
+        var padding = 40;// (winSize.width - 284.0f * 4) / 5;
         if (padding < 0) {
             padding = 0;
         }
@@ -57,11 +57,11 @@ var GameLayer = cc.Node.extend({
             this.addChild(listGame, 1);
             this.allLayer.push(listGame);
 
-            var toggleItem = new ToggleNodeItem(icon2.getContentSize());
+            var toggleItem = new ToggleNodeItem(cc.size(icon2.width,50));
             toggleItem.icon1 = icon1;
             toggleItem.icon2 = icon2;
             toggleItem.listGame = listGame;
-            toggleItem.setPosition(x, y);
+            toggleItem.setPosition(icon2.getPosition());
             toggleItem.onSelect = function () {
                 this.icon1.visible = false;
                 this.icon2.visible = true;
@@ -96,7 +96,7 @@ var GameLayer = cc.Node.extend({
 
     addGameToList: function (gameId, listGame) {
         var gameButton = new ccui.Widget();
-        gameButton.setContentSize(cc.size(180, 20));
+        gameButton.setContentSize(cc.size(150, 107));
         gameButton.setTouchEnabled(true);
 
         listGame.pushItem(gameButton);
