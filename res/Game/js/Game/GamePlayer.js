@@ -23,7 +23,7 @@ var GamePlayer = cc.Node.extend({
         this.chatView = chatView;
 
         var isOwnerSprite = new cc.Sprite("#icon_owner.png");
-        isOwnerSprite.setPosition(avt.x + 50,avt.y+50);
+        isOwnerSprite.setPosition(avt.x + 50, avt.y + 50);
         this.infoLayer.addChild(isOwnerSprite);
         this.isOwnerSprite = isOwnerSprite;
 
@@ -105,10 +105,10 @@ var GamePlayer = cc.Node.extend({
             this.spectator = false;
             this.infoLayer.visible = false;
             this.inviteBt.visible = true;
-           // this.isOwnerSprite.visible = false;
+            // this.isOwnerSprite.visible = false;
         }
     },
-    setIsOwner : function(isOwner){
+    setIsOwner: function (isOwner) {
         this.isOwnerSprite.visible = isOwner;
     },
     showInviteDialog: function () {
@@ -202,7 +202,8 @@ var GamePlayerMe = GamePlayer.extend({
         this.infoLayer.addChild(avt);
 
         var isOwnerSprite = new cc.Sprite("#icon_owner.png");
-        isOwnerSprite.setPosition(avt.x + 50,avt.y+50);
+        isOwnerSprite.setScale(0.8);
+        isOwnerSprite.setPosition(avt.x + avt.width / 2, avt.y + avt.height / 2);
         this.infoLayer.addChild(isOwnerSprite);
         this.isOwnerSprite = isOwnerSprite;
 
@@ -213,7 +214,7 @@ var GamePlayerMe = GamePlayer.extend({
         this.chatView = chatView;
 
         var scaleDownTimerDim = 60;
-        var scaleRatio = scaleDownTimerDim/93;
+        var scaleRatio = scaleDownTimerDim / 93;
         var timer = new cc.ProgressTimer(new cc.Sprite("#player-progress-2.png"));
         timer.setType(cc.ProgressTimer.TYPE_RADIAL);
         timer.setPosition(avt.getPosition());
