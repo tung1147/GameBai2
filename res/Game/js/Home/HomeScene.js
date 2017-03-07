@@ -415,8 +415,12 @@ var HomeScene = IScene.extend({
             }
         }, this);
 
-        var viewNav = new ViewNavigator();
-        viewNav.execute();
+        if(!cc.sys.isNative){
+            if(ViewNavigatorManager.execute()){
+                this.homeLayer.y = 0;
+                this.homeLayer.stopAllActions();
+            }
+        }
     },
 
     onExit: function () {

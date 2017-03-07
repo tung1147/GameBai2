@@ -338,7 +338,6 @@ cc.Global.getSaveUsername = function () {
 
 cc.Global.setSaveUsername = function (userName) {
     cc.Global.SetSetting("username", userName);
-
 };
 
 cc.Global.getSavePassword = function () {

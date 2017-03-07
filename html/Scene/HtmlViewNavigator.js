@@ -76,7 +76,17 @@ var ViewNavigatorLobby = ViewNavigator.extend({
     },
 
     _onLoginSuccess : function () {
+        this._super();
 
+        var homeScene = cc.director.getRunningScene();
+        homeScene.onTouchGame(this.gameId);
     }
 });
+
+var ViewNavigatorManager = ViewNavigatorManager || {};
+ViewNavigatorManager.execute = function () {
+    //var viewNav = new ViewNavigatorLobby(GameType.GAME_Sam);
+    //viewNav.execute();
+    return false;
+};
 
