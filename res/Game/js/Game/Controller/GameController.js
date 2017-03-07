@@ -185,7 +185,7 @@ var GameController = cc.Class.extend({
             index: slotIndex,
             username: username,
             gold: p["3"],
-            avt: p["avtId"]
+            avt: p["avtUrl"]
         };
 
         this._view.userJoinRoom(userInfo);
@@ -233,7 +233,7 @@ var GameController = cc.Class.extend({
             this.playerSlot[slot].username = players[i]["u"];
             this.playerSlot[slot].gold = players[i]["3"];
             this.playerSlot[slot].spectator = players[i]["2"];
-            this.playerSlot[slot].avt = players[i]["avtId"];
+            this.playerSlot[slot].avt = players[i]["avtUrl"];
 
             // this.playerSlot[slot] = {
             //     userIndex : players[i]["4"],

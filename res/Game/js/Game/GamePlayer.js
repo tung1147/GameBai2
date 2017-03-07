@@ -123,13 +123,14 @@ var GamePlayer = cc.Node.extend({
         dialog.setUsername(this.username);
         dialog.setGold(this.gold);
         if (this.avt) {
-            dialog.setAvatar(this.avt.avatarId);
+            dialog.setAvatar(this._avatarUrl);
         }
         dialog.showWithAnimationScale();
     },
-    setAvatar: function (avtId) {
+    setAvatar: function (avt) {
+        this._avatarUrl = avt;
         if (this.avt) {
-            this.avt.serAvatarId(avtId);
+            this.avt.setAvatar(avt);
         }
     },
     runChangeGoldEffect: function (gold) {

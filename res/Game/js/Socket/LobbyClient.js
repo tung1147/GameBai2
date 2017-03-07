@@ -15,7 +15,7 @@ if (cc.sys.isNative) { //mobile
 }
 else { //websocket
     var s_lobbyServer = s_lobbyServer || [
-        "ws://42.112.25.169:8887/websocket"
+        "ws://42.112.25.164:8887/websocket"
     ];
 }
 
@@ -87,6 +87,7 @@ var LobbyClient = (function () {
         connect: function () {
             if (this.lobbySocket) {
                 this.isLogined = false;
+                PlayerMe.avatar = "";
 
                 if(this.serverIndex >= s_lobbyServer.length){
                     this.serverIndex = 0;
@@ -276,15 +277,15 @@ var LobbyClient = (function () {
             var items = event["data"];
             for (var i = 0; i < items.length; i++) {
                 if (items[i].id == 1) {
-                    PlayerMe.avatar = items[i]["avtId"];
+                    PlayerMe.avatar = items[i]["avtUrl"];
                 }
             }
         },
 
         _onUpdateItemHandler : function (cmd, event) {
             var data = event["data"];
-            if(data && data.avatar){
-                PlayerMe.avatar = data.avatar;
+            if(data && data["avtUrl"]){
+                PlayerMe.avatar = data["avtUrl"];
             }
         },
 

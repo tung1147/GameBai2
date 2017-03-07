@@ -35,6 +35,6 @@ var UserDialog = Dialog.extend({
         this.goldLabel.setString(cc.Global.NumberFormat1(gold) +" V");
     },
     setAvatar : function (avt) {
-        this.avt.serAvatarId(avt);
+        this.avt.setAvatar(avt);
     }
 });
