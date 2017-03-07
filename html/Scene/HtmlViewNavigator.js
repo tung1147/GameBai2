@@ -45,6 +45,8 @@ var ViewNavigator = cc.Class.extend({
     },
 
     execute : function () {
+     //   if(LobbyClient.getInstance().isLogined
+
         var loginType = cc.Global.GetSetting("lastLoginType", "");
         if(loginType == "normalLogin"){
             var username = cc.Global.getSaveUsername();
@@ -85,8 +87,58 @@ var ViewNavigatorLobby = ViewNavigator.extend({
 
 var ViewNavigatorManager = ViewNavigatorManager || {};
 ViewNavigatorManager.execute = function () {
-    //var viewNav = new ViewNavigatorLobby(GameType.GAME_Sam);
-    //viewNav.execute();
+    // window.onhashchange = function () {
+    //     ViewNavigatorManager.execute();
+    // };
+
+    var hash = window.location.hash;
+    if(hash == "#lobby"){
+        var view = new ViewNavigator();
+        view.execute();
+        return true;
+    }
+    else if(hash == "#tlmn"){
+        var view = new ViewNavigatorLobby(GameType.GAME_TienLenMN);
+        view.execute();
+        return true;
+    }
+    else if(hash == "#tlmn_solo"){
+        var view = new ViewNavigatorLobby(GameType.GAME_TLMN_Solo);
+        view.execute();
+        return true;
+    }
+    else if(hash == "#sam"){
+        var view = new ViewNavigatorLobby(GameType.GAME_Sam);
+        view.execute();
+        return true;
+    }
+    else if(hash == "#sam_solo"){
+        var view = new ViewNavigatorLobby(GameType.GAME_Sam_Solo);
+        view.execute();
+        return true;
+    }
+    else if(hash == "#bacay"){
+        var view = new ViewNavigatorLobby(GameType.GAME_BaCay);
+        view.execute();
+        return true;
+    }
+    else if(hash == "#taixiu"){
+        var view = new ViewNavigatorLobby(GameType.GAME_TaiXiu);
+        view.execute();
+        return true;
+    }
+    else if(hash == "#xocdia"){
+        var view = new ViewNavigatorLobby(GameType.GAME_XocDia);
+        view.execute();
+        return true;
+    }
+
+    else if(hash == "#maubinh"){
+        var view = new ViewNavigatorLobby(GameType.GAME_MauBinh);
+        view.execute();
+        return true;
+    }
+
     return false;
 };
 

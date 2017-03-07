@@ -291,12 +291,17 @@ var LobbyLayer = cc.Node.extend({
     setVisible : function (visible) {
         this._super(visible);
         if(!visible){
+            // for(var i=0; i < this.listGame.length;i++){
+            //     this.listGame[i].removeAllItems();
+            // }
+            // this.listRoomXocDia.removeAllItems();
+        }
+        else{
             for(var i=0; i < this.listGame.length;i++){
                 this.listGame[i].removeAllItems();
             }
             this.listRoomXocDia.removeAllItems();
-        }
-        else{
+
             this.mToggle.selectItem(0);
         }
     },

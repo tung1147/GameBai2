@@ -35,6 +35,7 @@ var LobbyClient = (function () {
                 this.isKicked = false;
                 this.loginHandler = null;
                 this.isReconnected = false;
+                this.isLogined = false;
 
                 this.lobbySocket = new socket.LobbyClient(socket.LobbyClient.TCP);
                 this.lobbySocket.onEvent = function (messageName, data) {
@@ -85,6 +86,8 @@ var LobbyClient = (function () {
         },
         connect: function () {
             if (this.lobbySocket) {
+                this.isLogined = false;
+
                 if(this.serverIndex >= s_lobbyServer.length){
                     this.serverIndex = 0;
                 }
@@ -115,6 +118,7 @@ var LobbyClient = (function () {
         },
 
         _onLobbyStatusHandler : function (cmd, event) {
+            this.isLogined = false;
             if (event === "Connected") {
                 this.isReconnected = false;
                 if (this.loginHandler) {
@@ -171,6 +175,7 @@ var LobbyClient = (function () {
 
         _onLoginHandler : function (cmd, event) {
             if (event.status == 0) {
+                this.isLogined = true;
                 if(this.lastRequestLogin){
                     cc.Global.SetSetting("lastLoginType", this.lastRequestLogin);
                 }
