@@ -203,6 +203,7 @@ var GamePlayerMe = GamePlayer.extend({
         this.infoLayer.addChild(avt);
 
         var isOwnerSprite = new cc.Sprite("#icon_owner.png");
+        isOwnerSprite.setVisible(false);
         isOwnerSprite.setPosition(avt.x + 50,avt.y+50);
         this.infoLayer.addChild(isOwnerSprite);
         this.isOwnerSprite = isOwnerSprite;
