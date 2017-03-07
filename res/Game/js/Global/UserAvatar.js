@@ -52,7 +52,9 @@ var UserAvatar = cc.Node.extend({
         else{
             if(cc.sys.isNative){
                 quyetnd.ResourcesDownloader.loadTexture(url, function (texture) {
-                    thiz._setAvatarWithTexture(texture);
+                    if(texture){
+                        thiz._setAvatarWithTexture(texture);
+                    }
                 });
             }
             else{
