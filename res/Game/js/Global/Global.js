@@ -331,3 +331,21 @@ cc.Global.NodeIsVisible = function (node) {
     }
     return true;
 };
+
+cc.Global.getSaveUsername = function () {
+    return cc.Global.GetSetting("username", "");
+};
+
+cc.Global.setSaveUsername = function (userName) {
+    cc.Global.SetSetting("username", userName);
+
+};
+
+cc.Global.getSavePassword = function () {
+    return cc.Global.GetSetting("password", "");
+};
+
+cc.Global.setSavePassword = function (passwords) {
+    cc.Global.SetSetting("password", passwords);
+};
+

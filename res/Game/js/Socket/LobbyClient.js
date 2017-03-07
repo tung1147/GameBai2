@@ -171,6 +171,10 @@ var LobbyClient = (function () {
 
         _onLoginHandler : function (cmd, event) {
             if (event.status == 0) {
+                if(this.lastRequestLogin){
+                    cc.Global.SetSetting("lastLoginType", this.lastRequestLogin);
+                }
+
                // this.onLoginEvent(event);
                 PlayerMe.messageCount = 0;
 
@@ -615,6 +619,8 @@ var LobbyClient = (function () {
             }
         },
         loginNormal: function (username, password, isSave) {
+            this.lastRequestLogin = "normalLogin";
+
             if (!this.checkIMEI()) {
                 return;
             }
@@ -622,23 +628,25 @@ var LobbyClient = (function () {
             var thiz = this;
             this.loginSuccessHandler = function () {
                 if (isSave) {
-                    cc.Global.SetSetting("username", username);
-                    cc.Global.SetSetting("password", password);
+                    cc.Global.setSaveUsername(username);
+                    cc.Global.setSavePassword(password);
                 }
                 else {
-                    cc.Global.SetSetting("username", "");
-                    cc.Global.SetSetting("password", "");
+                    cc.Global.setSaveUsername("");
+                    cc.Global.setSavePassword("");
                 }
             };
             this.login(username, password);
         },
         quickLogin: function () {
+            this.lastRequestLogin = "quickLogin";
             if (!this.checkIMEI()) {
                 return;
             }
             this.loginSuccessHandler = null;
         },
         loginFacebook: function (accessToken) {
+            this.lastRequestLogin = "facebookLogin";
             if (!this.checkIMEI()) {
                 return;
             }
@@ -680,8 +688,8 @@ var LobbyClient = (function () {
                 thiz.loginSuccessHandler = function () {
                     thiz.login(username, password, true);
                     if (cc.Global.GetSetting("savePassword", true)) {
-                        cc.Global.SetSetting("username", _username);
-                        cc.Global.SetSetting("password", _password);
+                        cc.Global.setSavePassword(_password);
+                        cc.Global.setSaveUsername(_username);
                     }
                 };
                 var signupRequest = {

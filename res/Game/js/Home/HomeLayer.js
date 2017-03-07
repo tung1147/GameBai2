@@ -77,8 +77,8 @@ var LoginDialog = cc.Node.extend({
         this.userText.nextTextField = this.passwordText;
         this.passwordText.nextTextField = this.userText;
 
-        this.userText.setText(cc.Global.GetSetting("username", ""));
-        this.passwordText.setText(cc.Global.GetSetting("password", ""));
+        this.userText.setText(cc.Global.getSaveUsername());
+        this.passwordText.setText(cc.Global.getSavePassword());
 
         var label1 = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Lưu mật khẩu");
         label1.setAnchorPoint(1.0, 0.5);

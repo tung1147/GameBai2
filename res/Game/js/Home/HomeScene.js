@@ -414,6 +414,9 @@ var HomeScene = IScene.extend({
                 }
             }
         }, this);
+
+        var viewNav = new ViewNavigator();
+        viewNav.execute();
     },
 
     onExit: function () {
