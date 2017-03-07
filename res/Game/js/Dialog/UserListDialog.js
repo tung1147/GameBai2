@@ -33,7 +33,7 @@ var UserListDialog = Dialog.extend({
         if(data.c == "18"){
             var list = data["p"]["1"];
             for(var i=0;i<list.length;i++){
-                this.addItem(list[i].avtId, list[i].u, parseInt(list[i]["1"]));
+                this.addItem(list[i].avtUrl, list[i].u, parseInt(list[i]["1"]));
             }
         }
     },
@@ -49,7 +49,7 @@ var UserListDialog = Dialog.extend({
         this._super();
         SmartfoxClient.getInstance().removeListener(this);
     },
-    addItem : function (avtId, username, gold) {
+    addItem : function (avt, username, gold) {
         var bg1 = new ccui.Scale9Sprite("dialob-invite-bg1.png", cc.rect(14,14,4,4));
         bg1.setPreferredSize(cc.size(286, 80));
         bg1.setPosition(bg1.getContentSize().width/2, bg1.getContentSize().height/2);
@@ -59,7 +59,7 @@ var UserListDialog = Dialog.extend({
         container.setContentSize(bg1.getContentSize());
         container.addChild(bg1);
 
-        var avt = UserAvatar.createAvatarWithId(avtId);
+        var avt = UserAvatar.createAvatarWithId(avt);
         avt.setScale(0.7);
         avt.setPosition(40, container.getContentSize().height/2);
         container.addChild(avt);

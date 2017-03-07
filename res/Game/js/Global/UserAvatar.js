@@ -40,7 +40,7 @@ var UserAvatar = cc.Node.extend({
     },
 
     setAvatar : function (url) {
-        if(url == ""){
+        if(!url || url == ""){
             return;
         }
 
