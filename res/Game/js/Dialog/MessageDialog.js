@@ -26,6 +26,11 @@ var MessageDialog = Dialog.extend({
         this.cancelButton.visible = false;
         this.title.setString("Thông báo");
     },
+
+    setTitle : function (title) {
+        this.title.setString(title);
+    },
+
     setMessage : function (message) {
         this.scrollView.removeAllItems();
         var messageLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, message, cc.TEXT_ALIGNMENT_CENTER, this.scrollView.getContentSize().width);

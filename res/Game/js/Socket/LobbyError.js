@@ -259,22 +259,7 @@ LobbyClient.ErrorHandle = function (errorCode) {
         }
     }
     if(errorHandler.logout){
-        var runningScene = cc.director.getRunningScene();
-        if(runningScene.type == "HomeScene"){
-            if(runningScene.homeLocation != 1){
-                runningScene.startHome();
-            }
-            MessageNode.getInstance().show(errorHandler.message);
-        }
-        else{
-            var scene = new HomeScene();
-            scene.startHome();
-            MessageNode.getInstance().showWithParent(errorHandler.message,  scene.popupLayer);
-            cc.director.replaceScene(scene);
-        }
-
-        LobbyClient.getInstance().close();
-        SmartfoxClient.getInstance().close();
+        SceneNavigator.toHome(errorHandler.message);
     }
     else{
         MessageNode.getInstance().show(errorHandler.message);

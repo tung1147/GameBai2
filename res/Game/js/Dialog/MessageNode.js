@@ -48,8 +48,8 @@ var MessageNode = (function() {
                 mScene = cc.director.getRunningScene();
             }
 
-            if(mScene.popupLayer){
-                mScene.popupLayer.addChild(this,1)
+            if(mScene.messageLayer){
+                mScene.messageLayer.addChild(this,1)
             }
             else{
                 mScene.addChild(this,1);

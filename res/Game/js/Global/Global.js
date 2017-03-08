@@ -284,14 +284,18 @@ cc.Global.GetVipMe = function () {
 };
 
 cc.Global.GetSetting = function (setting, defaultValue) {
-    var value = cc.sys.localStorage.getItem(JSON.stringify(setting));
+    var value = cc.sys.localStorage.getItem(setting);
     if(value){
-        return JSON.parse(value);
+        try {
+            return JSON.parse(value);
+        } catch (e) {
+            return value;
+        }
     }
     return defaultValue;
 };
 cc.Global.SetSetting = function (setting, value) {
-    cc.sys.localStorage.setItem(JSON.stringify(setting), JSON.stringify(value));
+    cc.sys.localStorage.setItem(setting, value);
 };
 
 var ApplicationConfig = ApplicationConfig || {};

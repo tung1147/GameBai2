@@ -18,10 +18,14 @@ var IScene = cc.Scene.extend({
 
         this.popupLayer = new cc.Node();
         this.addChild(this.popupLayer, 100);
+
+        this.messageLayer = new cc.Node();
+        this.addChild(this.messageLayer, 101);
     },
 
     onExit : function () {
         this._super();
         this.popupLayer.removeAllChildren(true);
+        this.messageLayer.removeAllChildren(true);
     }
 })

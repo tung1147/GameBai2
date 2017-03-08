@@ -4,32 +4,51 @@
 
 var SceneNavigator = SceneNavigator || {};
 SceneNavigator.toHome = function (message) {
-    LobbyClient.getInstance().close();
+   // LobbyClient.getInstance().close();
+   // SmartfoxClient.getInstance().close();
+
+    var homeScene = cc.director.getRunningScene();
+    if (homeScene.type == "HomeScene") {
+        homeScene.startHome();
+    }
+    else {
+        homeScene = new HomeScene();
+        homeScene.startHome();
+        cc.director.replaceScene(homeScene);
+    }
+
+    if(message){
+        MessageNode.getInstance().showWithParent(message, homeScene.messageLayer);
+    }
+
+    if(s_MiniPokerLayer){
+        s_MiniPokerLayer.hide();
+    }
+
+    if(s_VideoPokerLayer){
+        s_VideoPokerLayer.hide();
+    }
+
+    if(s_CaoThapLayer){
+        s_CaoThapLayer.hide();
+    }
+};
+
+SceneNavigator.toLobby = function (message) {
     SmartfoxClient.getInstance().close();
 
-    if(arguments.length == 0){
-        var runningScene = cc.director.getRunningScene();
-        if (runningScene.type == "HomeScene") {
-            runningScene.startHome();
-        }
-        else {
-            var homeScene = new HomeScene();
-            homeScene.startHome();
-            cc.director.replaceScene(homeScene);
-        }
+    var homeScene = cc.director.getRunningScene();
+    if (homeScene.type == "HomeScene") {
+        homeScene.startGame();
     }
-    else{
-        var runningScene = cc.director.getRunningScene();
-        if (runningScene.type == "HomeScene") {
-            runningScene.startHome();
-            MessageNode.getInstance().show(message);
-        }
-        else {
-            var homeScene = new HomeScene();
-            homeScene.startHome();
-            cc.director.replaceScene(homeScene);
-            MessageNode.getInstance().showWithParent(message, homeScene.popupLayer);
-        }
+    else {
+        homeScene = new HomeScene();
+        homeScene.startGame();
+        cc.director.replaceScene(homeScene);
+    }
+
+    if(message){
+        MessageNode.getInstance().showWithParent(message, homeScene.messageLayer);
     }
 
     if(s_MiniPokerLayer){
@@ -46,33 +65,6 @@ SceneNavigator.toHome = function (message) {
 };
 
 SceneNavigator.toGame = function (message) {
-    // if(arguments.length == 0){
-    //     var runningScene = cc.director.getRunningScene();
-    //     if (runningScene.type == "HomeScene") {
-    //         runningScene.startHome();
-    //     }
-    //     else {
-    //         var homeScene = new HomeScene();
-    //         homeScene.startHome();
-    //         cc.director.replaceScene(homeScene);
-    //     }
-    // }
-    // else{
-    //     var runningScene = cc.director.getRunningScene();
-    //     if (runningScene.type == "HomeScene") {
-    //         runningScene.startHome();
-    //         MessageNode.getInstance().show(message);
-    //     }
-    //     else {
-    //         var homeScene = new HomeScene();
-    //         homeScene.startHome();
-    //         cc.director.replaceScene(homeScene);
-    //         MessageNode.getInstance().showWithParent(message, homeScene.popupLayer);
-    //     }
-    // }
-};
-
-SceneNavigator.toLobby = function (gameId,message) {
 
 };
 

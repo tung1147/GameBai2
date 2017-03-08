@@ -9,64 +9,76 @@ var ViewNavigator = cc.Class.extend({
 
     _initListener : function () {
         LobbyClient.getInstance().addListener("login", this._onLoginFinished, this);
-        LobbyClient.getInstance().addListener("error", this._onError, this);
-        LobbyClient.getInstance().addListener("LobbyStatus", this._onLobbyStatusHandler, this);
-        LobbyClient.getInstance().addListener("kicked", this._onKicked, this);
+      //  LobbyClient.getInstance().addListener("error", this._onError, this);
+       // LobbyClient.getInstance().addListener("LobbyStatus", this._onLobbyStatusHandler, this);
+       // LobbyClient.getInstance().addListener("kicked", this._onKicked, this);
     },
 
     _removeListener : function (cmd, event) {
         LobbyClient.getInstance().removeListener(this);
-        cc.log("_removeListener 111");
+        //cc.log("_removeListener 111");
     },
 
     _onLoginFinished : function (cmd, event) {
-        this._removeListener();
         if (event.status == 0) { //login ok
-            this._onLoginSuccess();
-        }
-    },
-
-    _onError : function (cmd, event) {
-        this._removeListener();
-    },
-
-    _onKicked : function (cmd, event) {
-        this._removeListener();
-    },
-
-    _onLobbyStatusHandler : function (cmd, event) {
-        if (event === "ConnectFailure" || event === "LostConnection") {
             this._removeListener();
+
+            var lastSessionInfo = event.data.lastSessionInfo;
+            if (lastSessionInfo.ip && lastSessionInfo.port) { // reconnect
+
+            }
+            else{
+                this._onLoginSuccess();
+            }
         }
     },
+
+    // _onError : function (cmd, event) {
+    //    // this._removeListener();
+    // },
+    //
+    // _onKicked : function (cmd, event) {
+    //  //   this._removeListener();
+    // },
+    //
+    // _onLobbyStatusHandler : function (cmd, event) {
+    //     if (event === "ConnectFailure" || event === "LostConnection") {
+    //       //  this._removeListener();
+    //     }
+    // },
 
     _onLoginSuccess : function () {
 
     },
 
     execute : function () {
-     //   if(LobbyClient.getInstance().isLogined
+        var accessToken = cc.Global.GetSetting("accessToken","");
+        if(accessToken != ""){
+            LoadingDialog.getInstance().show("Đang đăng nhập");
+            LobbyClient.getInstance().tokenLogin(accessToken);
+            return;
+        }
 
         var loginType = cc.Global.GetSetting("lastLoginType", "");
         if(loginType == "normalLogin"){
             var username = cc.Global.getSaveUsername();
             var password = cc.Global.getSavePassword();
             if(username != "" && password != ""){
+                LoadingDialog.getInstance().show("Đang đăng nhập");
                 LobbyClient.getInstance().loginNormal(username, password, true);
             }
             else{
-                this._removeListener();
                 var dialog = new LoginDialog();
                 dialog.show();
             }
         }
         else if(loginType == "facebookLogin"){
+            LoadingDialog.getInstance().show("Đang đăng nhập");
             FacebookPlugin.getInstance().showLogin();
         }
         else{
             var dialog = new LoginDialog();
             dialog.show();
-            this._removeListener();
         }
     }
 });
@@ -90,6 +102,15 @@ ViewNavigatorManager.execute = function () {
     // window.onhashchange = function () {
     //     ViewNavigatorManager.execute();
     // };
+
+    window.addEventListener("storage",function(e) {
+        if(e.key == "accessToken"){
+            if(e.newValue && e.newValue != ""){
+                var view = new ViewNavigator();
+                view.execute();
+            }
+        }
+    },true);
 
     var hash = window.location.hash;
     if(hash == "#lobby"){

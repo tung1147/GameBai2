@@ -15,7 +15,7 @@ if (cc.sys.isNative) { //mobile
 }
 else { //websocket
     var s_lobbyServer = s_lobbyServer || [
-        "ws://42.112.25.164:8887/websocket"
+        "ws://42.112.25.169:8887/websocket"
     ];
 }
 
@@ -45,6 +45,7 @@ var LobbyClient = (function () {
 
                 this.addListener("LobbyStatus", this._onLobbyStatusHandler, this);
                 this.addListener("error", this._onErrorHandler, this);
+                this.addListener("popupMessage", this._onPopupMessage, this);
                 this.addListener("kicked", this._onKickedHandler, this);
                 this.addListener("login", this._onLoginHandler, this);
                 this.addListener("register", this._onRegisterHandler, this);
@@ -143,7 +144,28 @@ var LobbyClient = (function () {
         },
 
         _onErrorHandler : function (cmd, event) {
-            LobbyClient.ErrorHandle(event.errorCode);
+            var errMsg = event["errorMessage"];
+            if(errMsg && errMsg != ""){
+                LoadingDialog.getInstance().hide();
+                MessageNode.getInstance().show(errMsg);
+            }
+            else{
+                LobbyClient.ErrorHandle(event.errorCode);
+            }
+        },
+
+        _onPopupMessage : function (cmd, event) {
+            var data = event.data;
+            var title = data.title;
+            if(!title || title == ""){
+                title = "Thông báo";
+            }
+            var msg = data["message"];
+
+            var dialog = new MessageDialog();
+            dialog.setTitle(title);
+            dialog.setMessage(msg);
+            dialog.showWithAnimationScale();
         },
 
         _onKickedHandler : function (cmd, event) {
@@ -160,18 +182,8 @@ var LobbyClient = (function () {
             else if(event.code == 5){
                 message = "Tài khoản đã bị khóa";
             }
-            if (runningScene.type == "HomeScene") {
-                runningScene.startHome();
-                MessageNode.getInstance().show(message);
-            }
-            else {
-                var homeScene = new HomeScene();
-                homeScene.startHome();
-                cc.director.replaceScene(homeScene);
-                MessageNode.getInstance().showWithParent(message, homeScene.popupLayer);
-            }
-            LobbyClient.getInstance().close();
-            SmartfoxClient.getInstance().close();
+
+            SceneNavigator.toHome(message);
         },
 
         _onLoginHandler : function (cmd, event) {
@@ -221,17 +233,28 @@ var LobbyClient = (function () {
                 }
                 else { // to Home
                     LoadingDialog.getInstance().hide();
-                    var runningScene = cc.director.getRunningScene();
-                    if (runningScene.type == "HomeScene") {
-                        if (runningScene.homeLocation == 1) {
-                            runningScene.startGame();
-                        }
-                    }
+                    SceneNavigator.toLobby();
                 }
 
                 if (this.loginSuccessHandler) {
                     this.loginSuccessHandler();
                     this.loginSuccessHandler = null;
+                }
+            }
+            else{
+                var message = event["statusMessage"];
+                if(!message){
+                    var errorHandler = LobbyClient.Error[event.status];
+                    if(errorHandler){
+                        message = errorHandler.message;
+                    }
+                }
+
+                if(message){
+                    SceneNavigator.toHome(message);
+                }
+                else{
+                    SceneNavigator.toHome();
                 }
             }
         },
@@ -679,6 +702,34 @@ var LobbyClient = (function () {
 
             this.connect();
         },
+
+        tokenLogin : function (token) {
+            this.lastRequestLogin = "tokenLogin";
+            if (!this.checkIMEI()) {
+                return;
+            }
+
+            this.loginSuccessHandler = null;
+
+            var thiz = this;
+            this.loginHandler = function () {
+                var loginRequest = {
+                    command: "login",
+                    platformId: ApplicationConfig.PLATFORM,
+                    bundleId: ApplicationConfig.BUNDLE,
+                    version: ApplicationConfig.VERSION,
+                    imei: PlayerMe.IMEI,
+                    displayType: ApplicationConfig.DISPLAY_TYPE,
+                    type: "token",
+                    accessToken: token
+                };
+                cc.log(loginRequest);
+                thiz.send(loginRequest);
+            };
+
+            this.connect();
+        },
+
         signup: function (username, password, telephone, gender) {
             if (!this.checkIMEI()) {
                 return;
