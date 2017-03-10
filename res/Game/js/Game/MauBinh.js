@@ -444,7 +444,7 @@ var MauBinh = IGameScene.extend({
     },
 
     setIngameButtonVisible: function (visible) {
-        this.xepbaiBt.visible = visible;
+        this.xepbaiBt.visible = false;
         this.xongBt.visible = visible;
     },
 

@@ -42,6 +42,7 @@ var StatisticBoard = IDialog.extend({
     initWithSize: function (mSize) {
         this.board_bg.setPreferredSize(cc.size(mSize.width, mSize.height));
         this.setContentSize(this.board_bg.getContentSize());
+        this.mTouch = cc.rect(98, 98, mSize.width - 196, mSize.height - 196);
 
         this.rewardFundTableLayout = this.initClippingTable(mSize, true);
         this.topEarningTableLayout = this.initClippingTable(mSize, false);
@@ -241,8 +242,8 @@ var StatisticBoard = IDialog.extend({
 
     },
     initClippingTable: function (mSize, isVisible) {
-        this.mTouch = cc.rect(this.x - mSize.width / 2 + 100, this.y - mSize.height / 2 + 100,
-            mSize.width - 200, mSize.height - 200);
+        // this.mTouch = cc.rect(this.x - mSize.width / 2 + 100, this.y - mSize.height / 2 + 100,
+        //     mSize.width - 200, mSize.height - 200);
         var tableLayout = new ccui.Layout();
         tableLayout.setContentSize(cc.size(this.mTouch.width - 20, this.mTouch.height - 110));
         tableLayout.setAnchorPoint(0.0, 0.0);
@@ -300,6 +301,10 @@ var StatisticBoard = IDialog.extend({
         betAmountLabel.setColor(cc.color("#ffde00"));
         container.addChild(betAmountLabel);
 
+        if (account.length > 3 && (account != PlayerMe.username)) {
+            account = account.substring(0, account.length - 3) + "***";
+        }
+
         var accountLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, account);
         accountLabel.setPosition(bg3.getPosition());
         container.addChild(accountLabel);
@@ -340,6 +345,10 @@ var StatisticBoard = IDialog.extend({
         var orderLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "" + order);
         orderLabel.setPosition(bg1.getPosition());
         container.addChild(orderLabel);
+
+        if (account.length > 3 && (account != PlayerMe.username)) {
+            account = account.substring(0, account.length - 3) + "***";
+        }
 
         var accountLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "" + account);
         accountLabel.setPosition(bg2.getPosition());
