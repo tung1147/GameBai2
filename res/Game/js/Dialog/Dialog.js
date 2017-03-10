@@ -171,7 +171,7 @@ var Dialog = IDialog.extend({
         this.okButton.setPosition(this.getContentSize().width/2 - this.okButton.getContentSize().width/2 - 15.0, 156);
         this.cancelButton.setPosition(this.getContentSize().width/2 + this.cancelButton.getContentSize().width/2 + 15.0, 156);
 
-        this.mTouch = cc.rect(this.x - mSize.width/2, this.y - mSize.height/2, mSize.width, mSize.height);
+        this.mTouch = cc.rect(this._marginLeft, this._marginRight, mSize.width, mSize.height);
     },
 
     closeButtonHandler : function () {
