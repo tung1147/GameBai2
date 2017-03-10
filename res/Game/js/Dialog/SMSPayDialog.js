@@ -30,7 +30,7 @@ var SMSPayDialog = Dialog.extend({
         viettelBt.addClickEventListener(function () {
             thiz.selectTelCo(0);
         });
-        this.dialogNode.addChild(viettelBt);
+        this.addChild(viettelBt);
         this.viettelBt = viettelBt;
 
         var mobiBt = new ccui.Button("dialog-button-2.png", "", "", ccui.Widget.PLIST_TEXTURE);
@@ -50,7 +50,7 @@ var SMSPayDialog = Dialog.extend({
         mobiBt.addClickEventListener(function () {
             thiz.selectTelCo(1);
         });
-        this.dialogNode.addChild(mobiBt);
+        this.addChild(mobiBt);
         this.mobiBt = mobiBt;
 
         var vinaBt = new ccui.Button("dialog-button-2.png", "", "", ccui.Widget.PLIST_TEXTURE);
@@ -70,7 +70,7 @@ var SMSPayDialog = Dialog.extend({
         vinaBt.addClickEventListener(function () {
             thiz.selectTelCo(2);
         });
-        this.dialogNode.addChild(vinaBt);
+        this.addChild(vinaBt);
         this.vinaBt = vinaBt;
 
         // var smsHint = "Tên người nhận: " + PlayerMe.username +"\n";
@@ -79,7 +79,7 @@ var SMSPayDialog = Dialog.extend({
 
         var gainUserLabel = ccui.RichText.createWithXML(gainUserStr, {});
         gainUserLabel.setPosition(400, 300);
-        this.dialogNode.addChild(gainUserLabel);
+        this.addChild(gainUserLabel);
 
         this.selectTelCo(0);
     },
@@ -129,6 +129,6 @@ var SMSPayDialog = Dialog.extend({
             this.smsLabel.removeFromParent(true);
         this.smsLabel = ccui.RichText.createWithXML(smsHint, {});
         this.smsLabel.setPosition(400, 260);
-        this.dialogNode.addChild(this.smsLabel);
+        this.addChild(this.smsLabel);
     }
 });

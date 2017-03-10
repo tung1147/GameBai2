@@ -12,7 +12,7 @@ var InviteDialog = Dialog.extend({
         this.userSelected = [];
         this.allUsers = [];
 
-        var top = this.dialogNode.getContentSize().height - 178.0;
+        var top = this.getContentSize().height - 178.0;
         var bottom = 200.0;
 
         var listItem = new newui.TableView(cc.size(680.0, top - bottom), 2);
@@ -20,24 +20,24 @@ var InviteDialog = Dialog.extend({
         listItem.setMargin(20, 20, 0, 0);
         listItem.setPadding(20.0);
         listItem.setAnchorPoint(cc.p(0.5, 0.5));
-        listItem.setPosition(this.dialogNode.getContentSize().width / 2, (top + bottom) / 2);
-        this.dialogNode.addChild(listItem);
+        listItem.setPosition(this.getContentSize().width / 2, (top + bottom) / 2);
+        this.addChild(listItem);
         this.listItem = listItem;
 
         var noPlayerLabel = new cc.LabelBMFont("Hiện tại không có người chơi trong sảnh, vui lòng chờ",
-            cc.res.font.Roboto_Condensed_30, this.dialogNode.getContentSize().width - 100);
+            cc.res.font.Roboto_Condensed_30, this.getContentSize().width - 100);
         noPlayerLabel.setVisible(false);
         noPlayerLabel.setPosition(listItem.getPosition());
-        this.dialogNode.addChild(noPlayerLabel);
+        this.addChild(noPlayerLabel);
         this.noPlayerLabel = noPlayerLabel;
 
         var inviteAllBt = new ccui.Button("dialog-inviteAllBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        inviteAllBt.setPosition(this.dialogNode.getContentSize().width / 2 - 110, 148);
-        this.dialogNode.addChild(inviteAllBt);
+        inviteAllBt.setPosition(this.getContentSize().width / 2 - 110, 148);
+        this.addChild(inviteAllBt);
 
         var inviteBt = new ccui.Button("dialog-inviteBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        inviteBt.setPosition(this.dialogNode.getContentSize().width / 2 + 110, inviteAllBt.y);
-        this.dialogNode.addChild(inviteBt);
+        inviteBt.setPosition(this.getContentSize().width / 2 + 110, inviteAllBt.y);
+        this.addChild(inviteBt);
 
         var thiz = this;
         inviteAllBt.addClickEventListener(function () {
@@ -158,7 +158,7 @@ var RecvInviteDialog = (function () {
             this.initWithSize(cc.size(550, 400));
 
             var messageNode = new cc.Node();
-            this.dialogNode.addChild(messageNode, 10);
+            this.addChild(messageNode, 10);
             this.messageNode = messageNode;
         },
         setInfo: function (username, gameName, betting) {
@@ -178,12 +178,12 @@ var RecvInviteDialog = (function () {
                 username = username.substring(0, username.length - 3) + "***";
             }
             var label1 = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Bạn nhận được lời mời chơi từ");
-            label1.setPosition(this.dialogNode.getContentSize().width / 2, 340);
+            label1.setPosition(this.getContentSize().width / 2, 340);
             this.messageNode.addChild(label1);
 
             var label2 = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, username);
             label2.setColor(cc.color("#017cee"));
-            label2.setPosition(this.dialogNode.getContentSize().width / 2, 305);
+            label2.setPosition(this.getContentSize().width / 2, 305);
             this.messageNode.addChild(label2);
 
             if (cc.sys.isNative) {
@@ -195,12 +195,12 @@ var RecvInviteDialog = (function () {
                 var label3 = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Vào chơi phòng " + gameName + " " + cc.Global.NumberFormat1(betting) + " V", cc.TEXT_ALIGNMENT_CENTER, 500);
             }
             label3.setAnchorPoint(cc.p(0.5, 1.0));
-            label3.setPosition(this.dialogNode.getContentSize().width / 2, 275);
+            label3.setPosition(this.getContentSize().width / 2, 275);
             this.messageNode.addChild(label3);
         },
         setInfoWithoutSender: function (gameName, betting) {
             var label1 = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Bạn nhận được lời mời chơi");
-            label1.setPosition(this.dialogNode.getContentSize().width / 2, 340);
+            label1.setPosition(this.getContentSize().width / 2, 340);
             this.messageNode.addChild(label1);
 
             if (cc.sys.isNative) {
@@ -212,7 +212,7 @@ var RecvInviteDialog = (function () {
                 var label3 = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Từ phòng " + gameName + " " + cc.Global.NumberFormat1(betting) + " V", cc.TEXT_ALIGNMENT_CENTER, 500);
             }
             label3.setAnchorPoint(cc.p(0.5, 1.0));
-            label3.setPosition(this.dialogNode.getContentSize().width / 2, 310);
+            label3.setPosition(this.getContentSize().width / 2, 310);
             this.messageNode.addChild(label3);
         },
         cancelButtonHandler: function () {

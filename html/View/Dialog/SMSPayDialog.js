@@ -33,7 +33,7 @@ var SMSPayDialog = Dialog.extend({
         viettelBt.addClickEventListener(function () {
             thiz.selectTelCo(0);
         });
-        this.dialogNode.addChild(viettelBt);
+        this.addChild(viettelBt);
         this.viettelBt = viettelBt;
 
         var mobiBt = new ccui.Button("dialog-button-2.png", "", "", ccui.Widget.PLIST_TEXTURE);
@@ -53,7 +53,7 @@ var SMSPayDialog = Dialog.extend({
         mobiBt.addClickEventListener(function () {
             thiz.selectTelCo(1);
         });
-        this.dialogNode.addChild(mobiBt);
+        this.addChild(mobiBt);
         this.mobiBt = mobiBt;
 
         var vinaBt = new ccui.Button("dialog-button-2.png", "", "", ccui.Widget.PLIST_TEXTURE);
@@ -73,23 +73,23 @@ var SMSPayDialog = Dialog.extend({
         vinaBt.addClickEventListener(function () {
             thiz.selectTelCo(2);
         });
-        this.dialogNode.addChild(vinaBt);
+        this.addChild(vinaBt);
         this.vinaBt = vinaBt;
 
         var smsTitle = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_30, "Gửi tin nhắn");
-        smsTitle.setPosition(this.dialogNode.getContentSize().width/2, 300);
-        this.dialogNode.addChild(smsTitle);
+        smsTitle.setPosition(this.getContentSize().width/2, 300);
+        this.addChild(smsTitle);
 
         var smsContent = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, "SMS Content");
         smsContent.setColor(cc.color("#4297b0"));
-        smsContent.setPosition(this.dialogNode.getContentSize().width/2, 250);
-        this.dialogNode.addChild(smsContent);
+        smsContent.setPosition(this.getContentSize().width/2, 250);
+        this.addChild(smsContent);
         this.smsContent = smsContent;
 
         var smsGateway = cc.Global.SMSList[0].smsGateway;
         var smsPhoneNumber = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_30, "Đến đầu số "+smsGateway);
-        smsPhoneNumber.setPosition(this.dialogNode.getContentSize().width/2, 200);
-        this.dialogNode.addChild(smsPhoneNumber);
+        smsPhoneNumber.setPosition(this.getContentSize().width/2, 200);
+        this.addChild(smsPhoneNumber);
 
         this.selectTelCo(0);
     },
@@ -136,6 +136,6 @@ var SMSPayDialog = Dialog.extend({
         //     this.smsLabel.removeFromParent(true);
         // this.smsLabel = ccui.RichText.createWithXML(smsHint, {});
         // this.smsLabel.setPosition(400, 260);
-        // this.dialogNode.addChild(this.smsLabel);
+        // this.addChild(this.smsLabel);
     }
 });

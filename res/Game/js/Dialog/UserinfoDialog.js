@@ -314,7 +314,7 @@ var UserinfoDialog = IDialog.extend({
         LobbyClient.getInstance().addListener("verifyCodeBySms", this.onRecvVerifyCode, this);
 
         if(cc.winSize.width < 1080.0){
-            this.dialogNode.setScale(cc.winSize.width / 1080.0);
+            this.setScale(cc.winSize.width / 1080.0);
         }
         var thiz = this;
         this.selectTab = 0;
@@ -322,45 +322,45 @@ var UserinfoDialog = IDialog.extend({
         var dialogBg = new ccui.Scale9Sprite("dialog-bg-2.png", cc.rect(114, 114, 4, 4));
         dialogBg.setPreferredSize(cc.size(1120, 748));
         dialogBg.setAnchorPoint(cc.p(0.0,0.0));
-        this.dialogNode.setContentSize(dialogBg.getContentSize());
-        this.dialogNode.addChild(dialogBg);
+        this.setContentSize(dialogBg.getContentSize());
+        this.addChild(dialogBg);
 
         var userinfoBg = new ccui.Scale9Sprite("userinfo-bg.png", cc.rect(10, 10, 4, 4));
         userinfoBg.setPreferredSize(cc.size(874, 380));
-        userinfoBg.setPosition(this.dialogNode.getContentSize().width/2, this.dialogNode.getContentSize().height/2 - 52);
-        this.dialogNode.addChild(userinfoBg);
+        userinfoBg.setPosition(this.getContentSize().width/2, this.getContentSize().height/2 - 52);
+        this.addChild(userinfoBg);
 
         var userLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, PlayerMe.username);
         userLabel.setAnchorPoint(cc.p(0.0, 0.5));
-        userLabel.setPosition(208, this.dialogNode.getContentSize().height/2 + 220);
-        this.dialogNode.addChild(userLabel);
+        userLabel.setPosition(208, this.getContentSize().height/2 + 220);
+        this.addChild(userLabel);
 
         var goldIcon = new cc.Sprite("#userinfo-goldIcon.png");
         goldIcon.setAnchorPoint(cc.p(0.0, 0.5));
-        goldIcon.setPosition(208 - 19, this.dialogNode.getContentSize().height/2 + 180);
-        this.dialogNode.addChild(goldIcon);
+        goldIcon.setPosition(208 - 19, this.getContentSize().height/2 + 180);
+        this.addChild(goldIcon);
 
         var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "100.000V");
         goldLabel.setColor(cc.color("#ffde00"));
         goldLabel.setAnchorPoint(cc.p(0.0, 0.5));
         goldLabel.setPosition(goldIcon.x + 62, goldIcon.y);
-        this.dialogNode.addChild(goldLabel);
+        this.addChild(goldLabel);
         this.goldLabel = goldLabel;
 
         var avatar = UserAvatar.createMe();
         avatar.setPosition(154, (userLabel.y + goldLabel.y)/2);
-        this.dialogNode.addChild(avatar);
+        this.addChild(avatar);
 
         var levelLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Level 99");
         levelLabel.setAnchorPoint(cc.p(0.0, 0.5));
         levelLabel.setPosition(586, userLabel.y);
-        this.dialogNode.addChild(levelLabel);
+        this.addChild(levelLabel);
         this.levelLabel = levelLabel;
 
         var vipLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "VIP 99");
         vipLabel.setAnchorPoint(cc.p(0.0, 0.5));
         vipLabel.setPosition(levelLabel.x, goldLabel.y);
-        this.dialogNode.addChild(vipLabel);
+        this.addChild(vipLabel);
         this.vipLabel = vipLabel;
 
         var levelBar = new cc.ProgressTimer(new cc.Sprite("#userinfo-level-bar.png"));
@@ -370,7 +370,7 @@ var UserinfoDialog = IDialog.extend({
         levelBar.setAnchorPoint(cc.p(0.5,0.5));
         levelBar.setPosition(770.0, levelLabel.y);
         levelBar.setPercentage(50.0);
-        this.dialogNode.addChild(levelBar);
+        this.addChild(levelBar);
         this.levelBar = levelBar;
 
         var levelBarBg = new cc.Sprite("#userinfo-level-bg.png");
@@ -384,7 +384,7 @@ var UserinfoDialog = IDialog.extend({
         vipBar.setAnchorPoint(cc.p(0.5,0.5));
         vipBar.setPosition(770.0, vipLabel.y);
         vipBar.setPercentage(50.0);
-        this.dialogNode.addChild(vipBar);
+        this.addChild(vipBar);
         this.vipBar = vipBar;
 
         var vipBarBg = new cc.Sprite("#userinfo-level-bg.png");
@@ -393,19 +393,19 @@ var UserinfoDialog = IDialog.extend({
 
         var closeBt = new ccui.Button("dialog-button-close.png", "","", ccui.Widget.PLIST_TEXTURE);
         closeBt.setPosition(983 , 605);
-        this.dialogNode.addChild(closeBt);
+        this.addChild(closeBt);
         closeBt.addClickEventListener(function () {
             thiz.hide();
         });
 
         var logoutBt = new ccui.Button("userinfo-logout-1.png", "userinfo-logout-2.png", "", ccui.Widget.PLIST_TEXTURE);
         logoutBt.setPosition(230 , 170);
-        this.dialogNode.addChild(logoutBt);
+        this.addChild(logoutBt);
         logoutBt.addClickEventListener(function () {
             SceneNavigator.toHome();
         });
 
-        var touchSize = cc.size(this.dialogNode.getContentSize().width - 200.0, this.dialogNode.getContentSize().height - 200.0);
+        var touchSize = cc.size(this.getContentSize().width - 200.0, this.getContentSize().height - 200.0);
         this.mTouch = cc.rect(cc.winSize.width/2 - touchSize.width/2, cc.winSize.height/2- touchSize.height/2, touchSize.width, touchSize.height);
 
         this.initAllLayer();
@@ -415,7 +415,7 @@ var UserinfoDialog = IDialog.extend({
     initAllLayer : function () {
         var allLayer = [new UserinfoPasswordLayer(), new UserinfoVerifyLayer()];
         for(var i=0;i<allLayer.length;i++){
-            this.dialogNode.addChild(allLayer[i],1);
+            this.addChild(allLayer[i],1);
             allLayer[i].setVisible(false);
         }
         this.allLayer = allLayer;
@@ -427,19 +427,19 @@ var UserinfoDialog = IDialog.extend({
         var dy = 86.0;
 
         var selectSprite = new cc.Sprite("#userinfo-tab-selected.png");
-        this.dialogNode.addChild(selectSprite,1);
+        this.addChild(selectSprite,1);
 
         var mToggle = new ToggleNodeGroup();
         this.mToggle = mToggle;
-        this.dialogNode.addChild(mToggle);
+        this.addChild(mToggle);
         for(var i=0;i<img1.length;i++){
             var icon1 = new cc.Sprite(img1[i]);
             icon1.setPosition(x,y);
-            this.dialogNode.addChild(icon1);
+            this.addChild(icon1);
 
             var icon2 = new cc.Sprite(img2[i]);
             icon2.setPosition(x,y);
-            this.dialogNode.addChild(icon2);
+            this.addChild(icon2);
             if(i==1){
                 var subicon1 = new cc.Sprite("#userinfo-tab5.png");
                 subicon1.setPosition(icon1.getContentSize().width/2,icon1.getContentSize().height/2);

@@ -15,7 +15,7 @@ var StatisticBoard = IDialog.extend({
 
         var board_bg = new ccui.Scale9Sprite("board_bg.png", cc.rect(105, 105, 147, 147));
         board_bg.setAnchorPoint(cc.p(0, 0));
-        this.dialogNode.addChild(board_bg);
+        this.addChild(board_bg);
         this.board_bg = board_bg;
 
         this.initWithSize(cc.size(1080, 720));
@@ -41,7 +41,7 @@ var StatisticBoard = IDialog.extend({
 
     initWithSize: function (mSize) {
         this.board_bg.setPreferredSize(cc.size(mSize.width, mSize.height));
-        this.dialogNode.setContentSize(this.board_bg.getContentSize());
+        this.setContentSize(this.board_bg.getContentSize());
 
         this.rewardFundTableLayout = this.initClippingTable(mSize, true);
         this.topEarningTableLayout = this.initClippingTable(mSize, false);
@@ -166,13 +166,13 @@ var StatisticBoard = IDialog.extend({
         var thiz = this;
         var navBorder = new cc.Sprite("#nav_statistic_board.png");
         navBorder.setAnchorPoint(0.5, 0.0);
-        navBorder.setPosition(this.dialogNode.width / 2, 104);
-        this.dialogNode.addChild(navBorder);
+        navBorder.setPosition(this.width / 2, 104);
+        this.addChild(navBorder);
 
         //active button Y = 100, inactive = 129
         this.rewardFundBtn = new ccui.Button("nav_huthuong_active.png", "", "", ccui.Widget.PLIST_TEXTURE);
         this.rewardFundBtn.setAnchorPoint(0.5, 0.0);
-        this.rewardFundBtn.setPosition(this.dialogNode.width / 2 - 230, 100);
+        this.rewardFundBtn.setPosition(this.width / 2 - 230, 100);
         this.rewardFundBtn.navIndex = 1;
         this.rewardFundBtn.selected = function () {
             this.loadTextureNormal("nav_huthuong_active.png", ccui.Widget.PLIST_TEXTURE);
@@ -187,7 +187,7 @@ var StatisticBoard = IDialog.extend({
 
         this.topEarningBtn = new ccui.Button("nav_caothu_inactive.png", "", "", ccui.Widget.PLIST_TEXTURE);
         this.topEarningBtn.setAnchorPoint(0.5, 0.0);
-        this.topEarningBtn.setPosition(this.dialogNode.width / 2, 129);
+        this.topEarningBtn.setPosition(this.width / 2, 129);
         this.topEarningBtn.navIndex = 2;
         this.topEarningBtn.selected = function () {
             this.loadTextureNormal("nav_caothu_active.png", ccui.Widget.PLIST_TEXTURE);
@@ -202,7 +202,7 @@ var StatisticBoard = IDialog.extend({
 
         this.historyBtn = new ccui.Button("nav_lichsu_inactive.png", "", "", ccui.Widget.PLIST_TEXTURE);
         this.historyBtn.setAnchorPoint(0.5, 0.0);
-        this.historyBtn.setPosition(this.dialogNode.width / 2 + 230, 129);
+        this.historyBtn.setPosition(this.width / 2 + 230, 129);
         this.historyBtn.navIndex = 3;
         this.historyBtn.selected = function () {
             this.loadTextureNormal("nav_lichsu_active.png", ccui.Widget.PLIST_TEXTURE);
@@ -215,9 +215,9 @@ var StatisticBoard = IDialog.extend({
             this.setPositionY(129);
         };
 
-        this.dialogNode.addChild(this.rewardFundBtn);
-        this.dialogNode.addChild(this.topEarningBtn);
-        this.dialogNode.addChild(this.historyBtn);
+        this.addChild(this.rewardFundBtn);
+        this.addChild(this.topEarningBtn);
+        this.addChild(this.historyBtn);
         this.navBtnSelected = this.rewardFundBtn;
 
         //initialize listener
@@ -241,7 +241,7 @@ var StatisticBoard = IDialog.extend({
 
     },
     initClippingTable: function (mSize, isVisible) {
-        this.mTouch = cc.rect(this.dialogNode.x - mSize.width / 2 + 100, this.dialogNode.y - mSize.height / 2 + 100,
+        this.mTouch = cc.rect(this.x - mSize.width / 2 + 100, this.y - mSize.height / 2 + 100,
             mSize.width - 200, mSize.height - 200);
         var tableLayout = new ccui.Layout();
         tableLayout.setContentSize(cc.size(this.mTouch.width - 20, this.mTouch.height - 110));
@@ -250,7 +250,7 @@ var StatisticBoard = IDialog.extend({
         tableLayout.setClippingEnabled(true);
         tableLayout.setClippingType(ccui.Layout.CLIPPING_SCISSOR);
         tableLayout.visible = isVisible;
-        this.dialogNode.addChild(tableLayout);
+        this.addChild(tableLayout);
         tableLayout.createLabel = function (str, posX, posY) {
             var returnLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, str, cc.TEXT_ALIGNMENT_LEFT);
             returnLabel.setScale(0.7);

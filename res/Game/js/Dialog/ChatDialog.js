@@ -13,7 +13,7 @@ var s_chat_message = s_chat_message || [
 var ChatDialog = IDialog.extend({
     ctor : function () {
         this._super();
-        this.dialogNode.setPosition(cc.p(0,0));
+        this.setPosition(cc.p(0,0));
         this.initAllChat();
     },
     initAllChat : function () {
@@ -35,7 +35,7 @@ var ChatDialog = IDialog.extend({
             bg.setContentSize(cc.size(itemWidth, 60));
             bg.setPosition(x,y);
             bg.setZoomScale(0.02);
-            this.dialogNode.addChild(bg);
+            this.addChild(bg);
 
             var message = new cc.LabelBMFont(s_chat_message[i], cc.res.font.Roboto_Condensed_25);
             message.setPosition(bg.getContentSize().width/2, bg.getContentSize().height/2);

@@ -12,8 +12,8 @@ var RewardDialog = Dialog.extend({
 
         var bg = new ccui.Scale9Sprite("lobby-text-input.png",cc.rect(10,10,4,4));
         bg.setPreferredSize(cc.size(420, 60));
-        bg.setPosition(this.dialogNode.getContentSize().width/2, this.dialogNode.getContentSize().height/2 - 30);
-        this.dialogNode.addChild(bg);
+        bg.setPosition(this.getContentSize().width/2, this.getContentSize().height/2 - 30);
+        this.addChild(bg);
 
         // var phoneText = new newui.EditBox(cc.size(bg.getContentSize().width - 6, bg.getContentSize().height-2));
         // phoneText.setFont(cc.res.font.Roboto_Condensed, 30.0 * cc.winSize.screenScale);
@@ -22,7 +22,7 @@ var RewardDialog = Dialog.extend({
         // phoneText.setReturnType(cc.KEYBOARD_RETURNTYPE_DONE);
         // phoneText.setPlaceHolder("Nhập số điện thoại");
         // phoneText.setPosition(bg.getPosition());
-        // this.dialogNode.addChild(phoneText, 1);
+        // this.addChild(phoneText, 1);
 
 
         var phoneText = new newui.TextField(cc.size(bg.getContentSize().width - 6, bg.getContentSize().height-2), cc.res.font.Roboto_Condensed_25);
@@ -31,7 +31,7 @@ var RewardDialog = Dialog.extend({
         phoneText.setPlaceHolderColor(cc.color(144, 144, 144));
         phoneText.setPosition(bg.getPosition());
         this.phoneText = phoneText;
-        this.dialogNode.addChild(phoneText, 1);
+        this.addChild(phoneText, 1);
     },
     setCardInfo : function (itemName, gold) {
         if(cc.sys.isNative){
@@ -43,19 +43,19 @@ var RewardDialog = Dialog.extend({
 
             var text = new ccui.RichText();
             text.initWithXML(textStr1, {});
-            text.setPosition(this.dialogNode.getContentSize().width/2, this.dialogNode.getContentSize().height/2 + 80);
-            this.dialogNode.addChild(text);
+            text.setPosition(this.getContentSize().width/2, this.getContentSize().height/2 + 80);
+            this.addChild(text);
 
             var text2 = new ccui.RichText();
             text2.initWithXML(textStr2, {});
             text2.setPosition(text.x, text.y - 40);
-            this.dialogNode.addChild(text2);
+            this.addChild(text2);
         }
         else{
             var text = "Bạn muốn đổi " + cc.Global.NumberFormat1(gold) + " V " + "lấy thẻ " + itemName;
             var label = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, text, cc.TEXT_ALIGNMENT_CENTER, 350.0);
-            label.setPosition(this.dialogNode.getContentSize().width/2, this.dialogNode.getContentSize().height/2 + 60);
-            this.dialogNode.addChild(label);
+            label.setPosition(this.getContentSize().width/2, this.getContentSize().height/2 + 60);
+            this.addChild(label);
         }
     },
     setItemInfo : function (itemName, gold) {
@@ -68,19 +68,19 @@ var RewardDialog = Dialog.extend({
 
             var text = new ccui.RichText();
             text.initWithXML(textStr1, {});
-            text.setPosition(this.dialogNode.getContentSize().width/2, this.dialogNode.getContentSize().height/2 + 80);
-            this.dialogNode.addChild(text);
+            text.setPosition(this.getContentSize().width/2, this.getContentSize().height/2 + 80);
+            this.addChild(text);
 
             var text2 = new ccui.RichText();
             text2.initWithXML(textStr2, {});
             text2.setPosition(text.x, text.y - 40);
-            this.dialogNode.addChild(text2);
+            this.addChild(text2);
         }
         else{
             var text = "Bạn muốn đổi " + cc.Global.NumberFormat1(gold) + " vàng " + "lấy " + itemName;
             var label = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, text, cc.TEXT_ALIGNMENT_CENTER, 400.0);
-            label.setPosition(this.dialogNode.getContentSize().width/2, this.dialogNode.getContentSize().height/2 + 60);
-            this.dialogNode.addChild(label);
+            label.setPosition(this.getContentSize().width/2, this.getContentSize().height/2 + 60);
+            this.addChild(label);
         }
     },
     cancelButtonHandler : function () {

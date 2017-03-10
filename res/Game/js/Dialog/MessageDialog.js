@@ -19,7 +19,7 @@ var MessageDialog = Dialog.extend({
             }
         });
         scrollView.setBounceEnabled(true);
-        this.dialogNode.addChild(scrollView);
+        this.addChild(scrollView);
         this.scrollView = scrollView;
 
         this.okButton.visible = false;
@@ -73,8 +73,8 @@ var MessageConfirmDialog = Dialog.extend({
         this.cancelTitle.setString("Đóng");
 
         var messageLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "message", cc.TEXT_ALIGNMENT_CENTER, 550);
-        messageLabel.setPosition(this.dialogNode.getContentSize().width/2, this.dialogNode.getContentSize().height/2);
-        this.dialogNode.addChild(messageLabel);
+        messageLabel.setPosition(this.getContentSize().width/2, this.getContentSize().height/2);
+        this.addChild(messageLabel);
         this.messageLabel = messageLabel;
     },
     setMessage : function (message) {

@@ -14,23 +14,23 @@ var RewardAgencyDialog = Dialog.extend({
         this.cancelButton.visible = false;
 
         var mToggle = new ToggleNodeGroup();
-        this.dialogNode.addChild(mToggle);
+        this.addChild(mToggle);
         this.mToggle = mToggle;
 
-        var content = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Nội dung đổi thưởng", cc.TEXT_ALIGNMENT_CENTER, this.dialogNode.getContentSize().width);
+        var content = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Nội dung đổi thưởng", cc.TEXT_ALIGNMENT_CENTER, this.getContentSize().width);
         content.setColor(cc.color("#ffffff"));
-        content.setPosition(this.dialogNode.getContentSize().width/2, this.dialogNode.getContentSize().height - 230);
-        this.dialogNode.addChild(content, 1);
+        content.setPosition(this.getContentSize().width/2, this.getContentSize().height - 230);
+        this.addChild(content, 1);
         this.contentLabel = content;
 
-        var dx = (this.dialogNode.getContentSize().width - this._marginLeft - this._marginRight)/s_RewardAgencyDialog_Tab.length;
+        var dx = (this.getContentSize().width - this._marginLeft - this._marginRight)/s_RewardAgencyDialog_Tab.length;
         var x = this._marginLeft + dx/2;
-        var y = this.dialogNode.getContentSize().height - 290.0;
+        var y = this.getContentSize().height - 290.0;
 
         var top = y - 40;
         var bottom = 100.0;
         var left = 100.0;
-        var right = this.dialogNode.getContentSize().width - 100.0;
+        var right = this.getContentSize().width - 100.0;
 
         this.allListItem = [];
 
@@ -40,7 +40,7 @@ var RewardAgencyDialog = Dialog.extend({
                 var tabLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, s_RewardAgencyDialog_Tab[i]);
                 tabLabel.setColor(cc.color("#ffffff"));
                 tabLabel.setPosition(x, y);
-                thiz.dialogNode.addChild(tabLabel,1);
+                thiz.addChild(tabLabel,1);
 
                 var itemList = new newui.TableView(cc.size(right - left, top - bottom), 1);
                 itemList.setDirection(ccui.ScrollView.DIR_VERTICAL);
@@ -48,7 +48,7 @@ var RewardAgencyDialog = Dialog.extend({
                 itemList.setPadding(20);
                 itemList.setMargin(20, 20, 0, 0);
                 itemList.setPosition(cc.p(left, bottom));
-                thiz.dialogNode.addChild(itemList,0);
+                thiz.addChild(itemList,0);
                 thiz.allListItem.push(itemList);
 
                 var toggleItem = new ToggleNodeItem(tabLabel.getContentSize());

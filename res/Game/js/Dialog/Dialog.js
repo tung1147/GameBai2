@@ -6,52 +6,56 @@ var IDialog = cc.Node.extend({
     ctor : function () {
         this._super();
         this.mTouch = cc.rect(0,0,0,0);
+        this.setAnchorPoint(cc.p(0.5, 0.5));
 
-        var colorLayer = new cc.LayerColor(cc.color(0,0,0,180), cc.winSize.width, cc.winSize.height);
-        this.addChild(colorLayer);
-
-        var dialogNode = new cc.Node();
-        dialogNode.setAnchorPoint(cc.p(0.5, 0.5));
-        dialogNode.setPosition(cc.winSize.width/2, cc.winSize.height/2);
-        this.addChild(dialogNode);
-        this.dialogNode = dialogNode;
+        // var colorLayer = new cc.LayerColor(cc.color(0,0,0,180), cc.winSize.width, cc.winSize.height);
+        // this.addChild(colorLayer);
+        //
+        // var dialogNode = new cc.Node();
+        // dialogNode.setAnchorPoint(cc.p(0.5, 0.5));
+        // dialogNode.setPosition(cc.winSize.width/2, cc.winSize.height/2);
+        // this.addChild(dialogNode);
+        // this = dialogNode;
     },
     adjustlel : function () {
 
     },
-    show : function () {
+    show : function (rootNode) {
         var parentNode = this.getParent();
         if(parentNode){
             parentNode.removeChild(this);
             parentNode = null;
         }
-        if(arguments.length == 1){
-            parentNode = arguments[0];
+        if(!rootNode){
+            rootNode = cc.director.getRunningScene();
         }
-        else{
-            parentNode = cc.director.getRunningScene();
-        }
-        if(parentNode){
-            if(parentNode.popupLayer){
-                parentNode.popupLayer.addChild(this)
+
+        if(rootNode){
+            if(rootNode.popupLayer){
+                parentNode = rootNode.popupLayer;
             }
             else{
-                parentNode.addChild(this);
+                parentNode = rootNode;
             }
+
+            this.setPosition(cc.winSize.width/2, cc.winSize.height/2);
+            parentNode.addChild(this);
         }
     },
     showWithAnimationScale : function () {
         Dialog.prototype.show.apply(this, arguments);
-        var scale = this.dialogNode.getScale();
-        this.dialogNode.setScale(0.0);
+
+        var scale = this.getScale();
+        this.setScale(0.0);
         var scaleAction = new cc.EaseElasticOut(new cc.ScaleTo(0.7, scale));
-        this.dialogNode.runAction(scaleAction);
+        this.runAction(scaleAction);
     },
     showWithAnimationMove : function () {
         Dialog.prototype.show.apply(this, arguments);
-        this.dialogNode.y = cc.winSize.height + this.dialogNode.getContentSize().height/2;
+
+        this.y = cc.winSize.height + this.getContentSize().height/2;
         var moveAction = new cc.EaseBounceOut(new cc.MoveTo(0.7, cc.p(cc.winSize.width/2, cc.winSize.height/2)));
-        this.dialogNode.runAction(moveAction);
+        this.runAction(moveAction);
     },
     hide : function () {
         var parent = this.getParent();
@@ -102,19 +106,19 @@ var Dialog = IDialog.extend({
 
         var dialogBg = new ccui.Scale9Sprite("dialog-bg.png", cc.rect(120,186,4,4));
         dialogBg.setAnchorPoint(cc.p(0.0,0.0));
-        this.dialogNode.addChild(dialogBg);
+        this.addChild(dialogBg);
 
         var title = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, "Title");
-        this.dialogNode.addChild(title);
+        this.addChild(title);
 
         var closeButton = new ccui.Button("dialog-button-close.png","","", ccui.Widget.PLIST_TEXTURE);
-        this.dialogNode.addChild(closeButton);
+        this.addChild(closeButton);
 
         var okButton = new ccui.Button("dialog-button-1.png","","", ccui.Widget.PLIST_TEXTURE);
         okButton.setScale9Enabled(true);
         okButton.setCapInsets(cc.rect(10,10,4,4));
         okButton.setContentSize(182, 60);
-        this.dialogNode.addChild(okButton);
+        this.addChild(okButton);
 
         var okTitle = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Ok");
         okTitle.setPosition(okButton.getContentSize().width/2, okButton.getContentSize().height/2);
@@ -124,7 +128,7 @@ var Dialog = IDialog.extend({
         cancelButton.setScale9Enabled(true);
         cancelButton.setCapInsets(cc.rect(10,10,4,4));
         cancelButton.setContentSize(182, 60);
-        this.dialogNode.addChild(cancelButton);
+        this.addChild(cancelButton);
 
         var cancelTitle = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Cancel");
         cancelTitle.setPosition(cancelButton.getContentSize().width/2, cancelButton.getContentSize().height/2);
@@ -160,14 +164,14 @@ var Dialog = IDialog.extend({
 
     initWithSize : function (mSize) {
         this.dialogBg.setPreferredSize(cc.size(mSize.width + this._marginLeft + this._marginRight, mSize.height + this._marginTop + this._marginBottom));
-        this.dialogNode.setContentSize(this.dialogBg.getContentSize());
+        this.setContentSize(this.dialogBg.getContentSize());
 
-        this.title.setPosition(this.dialogNode.getContentSize().width/2, this.dialogNode.getContentSize().height - 138.0);
-        this.closeButton.setPosition(this.dialogNode.getContentSize().width - 143.0, this.title.y);
-        this.okButton.setPosition(this.dialogNode.getContentSize().width/2 - this.okButton.getContentSize().width/2 - 15.0, 156);
-        this.cancelButton.setPosition(this.dialogNode.getContentSize().width/2 + this.cancelButton.getContentSize().width/2 + 15.0, 156);
+        this.title.setPosition(this.getContentSize().width/2, this.getContentSize().height - 138.0);
+        this.closeButton.setPosition(this.getContentSize().width - 143.0, this.title.y);
+        this.okButton.setPosition(this.getContentSize().width/2 - this.okButton.getContentSize().width/2 - 15.0, 156);
+        this.cancelButton.setPosition(this.getContentSize().width/2 + this.cancelButton.getContentSize().width/2 + 15.0, 156);
 
-        this.mTouch = cc.rect(this.dialogNode.x - mSize.width/2, this.dialogNode.y - mSize.height/2, mSize.width, mSize.height);
+        this.mTouch = cc.rect(this.x - mSize.width/2, this.y - mSize.height/2, mSize.width, mSize.height);
     },
 
     closeButtonHandler : function () {

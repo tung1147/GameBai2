@@ -9,23 +9,23 @@ var TutorialDialog = IDialog.extend({
         this.bouldingWidth = 800;
         var board_bg = new ccui.Scale9Sprite("board_bg.png", cc.rect(105, 105, 147, 147));
         board_bg.setAnchorPoint(cc.p(0, 0));
-        this.dialogNode.addChild(board_bg);
+        this.addChild(board_bg);
         this.board_bg = board_bg;
 
         this.initWithSize(cc.size(1080, 720));
 
         var title = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, "HƯỚNG DẪN CHƠI");
-        title.setPosition(this.dialogNode.getContentSize().width / 2, this.dialogNode.getContentSize().height - 138);
+        title.setPosition(this.getContentSize().width / 2, this.getContentSize().height - 138);
         title.setColor(cc.color("#ffde00"));
-        this.dialogNode.addChild(title);
+        this.addChild(title);
 
         // var clippingLayout = new ccui.Layout();
-        // clippingLayout.setContentSize(this.dialogNode.getContentSize().width, this.dialogNode.getContentSize().height - 275);
+        // clippingLayout.setContentSize(this.getContentSize().width, this.getContentSize().height - 275);
         // clippingLayout.setAnchorPoint(cc.p(0.5, 0.5));
-        // clippingLayout.setPosition(this.dialogNode.getContentSize().width / 2, this.dialogNode.getContentSize().height / 2 - 25);
+        // clippingLayout.setPosition(this.getContentSize().width / 2, this.getContentSize().height / 2 - 25);
         // clippingLayout.setClippingEnabled(true);
         // clippingLayout.setClippingType(ccui.Layout.CLIPPING_SCISSOR);
-        // this.dialogNode.addChild(clippingLayout);
+        // this.addChild(clippingLayout);
 
         var contentTable = new newui.TableView(cc.size(this.bouldingWidth, 470), 1);
         contentTable.setDirection(ccui.ScrollView.DIR_VERTICAL);
@@ -33,8 +33,8 @@ var TutorialDialog = IDialog.extend({
         contentTable.setPadding(0);
         contentTable.setMargin(10, 10, 0, 0);
         contentTable.setAnchorPoint(cc.p(0.5, 0.5));
-        contentTable.setPosition(this.dialogNode.getContentSize().width / 2, this.dialogNode.getContentSize().height / 2 - 25);
-        this.dialogNode.addChild(contentTable);
+        contentTable.setPosition(this.getContentSize().width / 2, this.getContentSize().height / 2 - 25);
+        this.addChild(contentTable);
         // contentTable.setPosition(clippingLayout.getContentSize().width / 2,
         //     clippingLayout.getContentSize().height / 2);
         // clippingLayout.addChild(contentTable);
@@ -64,7 +64,7 @@ var TutorialDialog = IDialog.extend({
 
     initWithSize: function (mSize) {
         this.board_bg.setPreferredSize(cc.size(mSize.width, mSize.height));
-        this.dialogNode.setContentSize(this.board_bg.getContentSize());
+        this.setContentSize(this.board_bg.getContentSize());
     },
 
     initCaoThapTutorial: function () {

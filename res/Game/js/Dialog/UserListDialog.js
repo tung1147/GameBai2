@@ -11,7 +11,7 @@ var UserListDialog = Dialog.extend({
         this.initWithSize(cc.size(680, 450));
         this.userSelected = [];
 
-        var top = this.dialogNode.getContentSize().height - 178.0;
+        var top = this.getContentSize().height - 178.0;
         var bottom = 98.0;
 
         var listItem = new newui.TableView(cc.size(680.0, top - bottom), 2);
@@ -19,8 +19,8 @@ var UserListDialog = Dialog.extend({
         listItem.setMargin(20,20,0,0);
         listItem.setPadding(20.0);
         listItem.setAnchorPoint(cc.p(0.5, 0.5));
-        listItem.setPosition(this.dialogNode.getContentSize().width/2, (top + bottom)/2);
-        this.dialogNode.addChild(listItem);
+        listItem.setPosition(this.getContentSize().width/2, (top + bottom)/2);
+        this.addChild(listItem);
         this.listItem = listItem;
 
         SmartfoxClient.getInstance().addListener(socket.SmartfoxClient.CallExtension, this.onSmartfoxExtension, this);
