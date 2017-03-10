@@ -13,7 +13,7 @@ var s_chat_message = s_chat_message || [
 var ChatDialog = IDialog.extend({
     ctor : function () {
         this._super();
-        this.setPosition(cc.p(0,0));
+        this.setContentSize(cc.winSize);
         this.initAllChat();
     },
     initAllChat : function () {

@@ -300,8 +300,8 @@ cc.Global.SetSetting = function (setting, value) {
 
 var ApplicationConfig = ApplicationConfig || {};
 ApplicationConfig.VERSION = "1.0.0";
-ApplicationConfig.BUNDLE = "com.songbaivip.fullhd";
-// ApplicationConfig.BUNDLE = "com.c567.webv2";
+// ApplicationConfig.BUNDLE = "com.songbaivip.fullhd";
+ApplicationConfig.BUNDLE = "com.c567.webv2";
 ApplicationConfig.DISPLAY_TYPE = "room"; //room - betting
 (function () {
     if(cc.sys.isNative){

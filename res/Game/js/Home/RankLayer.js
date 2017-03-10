@@ -75,6 +75,10 @@ var RankSubLayer = cc.Node.extend({
         rankLabel.setPosition(bg1.getPosition());
         container.addChild(rankLabel);
 
+        if (username.length > 3 && (username != PlayerMe.username)) {
+            username = username.substring(0, username.length - 3) + "***";
+        }
+
         var userLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, username, cc.TEXT_ALIGNMENT_CENTER);
         userLabel.setLineBreakWithoutSpace(true);
         userLabel.setDimensions(bg2.getContentSize().width - 10, userLabel.getLineHeight());
@@ -308,6 +312,10 @@ var RankLevelLayer = RankSubLayer.extend({
         var rankLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, rank);
         rankLabel.setPosition(bg1.getPosition());
         container.addChild(rankLabel);
+
+        if (username.length > 3 && (username != PlayerMe.username)) {
+            username = username.substring(0, username.length - 3) + "***";
+        }
 
         var userLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, username, cc.TEXT_ALIGNMENT_CENTER);
         userLabel.setLineBreakWithoutSpace(true);
