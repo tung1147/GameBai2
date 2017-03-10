@@ -274,7 +274,7 @@ var TienLen = IGameScene.extend({
             if (username.length > 3 && (username != PlayerMe.username)) {
                 username = username.substring(0, username.length - 3) + "***";
             }
-            dialog.userLabel[i].setString(player[i].username);
+            dialog.userLabel[i].setString(username);
             if (player[i].username == PlayerMe.username) {
                 SoundPlayer.playSound(player[i].isWinner ? "winning" : "losing");
             }
