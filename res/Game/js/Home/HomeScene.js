@@ -2,6 +2,8 @@
  * Created by Quyet Nguyen on 6/30/2016.
  */
 
+var s_homescene_first_run = true;
+
 var HomeScene = IScene.extend({
     ctor: function () {
         this._super();
@@ -415,7 +417,8 @@ var HomeScene = IScene.extend({
             }
         }, this);
 
-        if(!cc.sys.isNative){
+        if(!cc.sys.isNative && s_homescene_first_run){
+            s_homescene_first_run = false;
             if(ViewNavigatorManager.execute()){
                 this.homeLayer.y = 0;
                 this.homeLayer.stopAllActions();
