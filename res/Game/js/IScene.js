@@ -28,4 +28,4 @@ var IScene = cc.Scene.extend({
         this.popupLayer.removeAllChildren(true);
         this.messageLayer.removeAllChildren(true);
     }
-})
+});
