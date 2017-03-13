@@ -199,10 +199,12 @@ var HomeScene = IScene.extend({
         if (this.homeLocation == 0) {
             this.miniGame.startAnimation();
         }
-        this.homeLayer.y = -100.0;
-        this.homeLayer.stopAllActions();
-        this.homeLayer.runAction(new cc.EaseSineOut(new cc.MoveTo(0.3, cc.p(0, 0))));
-        this.homeLocation = 1;
+        if(this.homeLocation != 1){
+            this.homeLayer.y = -100.0;
+            this.homeLayer.stopAllActions();
+            this.homeLayer.runAction(new cc.EaseSineOut(new cc.MoveTo(0.3, cc.p(0, 0))));
+            this.homeLocation = 1;
+        }
         FloatButton.getInstance().setVisible(false);
     },
     startGame: function () {
