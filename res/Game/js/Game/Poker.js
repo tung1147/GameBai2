@@ -51,14 +51,14 @@ var Poker = IGameScene.extend({
     initPlayer: function () {
         var playerPosition = [
             cc.p(cc.winSize.width / 2, 130), // 0
-            cc.p(1000, 195), // 1
-            cc.p(1145, 370), // 2
-            cc.p(1060, 530), // 3
-            cc.p(775, 610), // 4
-            cc.p(500, 610), // 5
-            cc.p(220, 530), // 6
-            cc.p(130, 365), // 7
-            cc.p(280, 190) // 8
+            cc.p(280, 190), // 1
+            cc.p(130, 365), // 2
+            cc.p(220, 530), // 3
+            cc.p(500, 610), // 4
+            cc.p(775, 610), // 5
+            cc.p(1060, 530), // 6
+            cc.p(1145, 370), // 7
+            cc.p(1000, 195) // 8
         ];
         // var player0 = new GamePlayer();
         // player0.setPosition(cc.winSize.width / 2, 50);
@@ -84,7 +84,7 @@ var Poker = IGameScene.extend({
 
         this.playerView = [];
         var thiz = this;
-        for (var i = 0; i < 9; i++) {
+        for (var i = 0; i < 5; i++) {
             var player = new PokerGamePlayer(i, this);
             player.setPosition(playerPosition[i]);
             this.sceneLayer.addChild(player, 1);

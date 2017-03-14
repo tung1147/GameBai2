@@ -120,9 +120,80 @@ var PokerController = GameController.extend({
         var maxTimeTurn = param["8"];
     },
 
+    onUserJoinRoom: function (p) {
+        // var slotIndex = p["4"];
+        // var username = p["u"];
+        // for(var i=0;i<this.playerSlot.length;i++){
+        //     if(this.playerSlot[i].userIndex == slotIndex){
+        //         this.playerSlot[i].username = username;
+        //         break;
+        //     }
+        // }
+        //
+        // var userInfo = {
+        //     index: slotIndex,
+        //     username: username,
+        //     gold: p["3"],
+        //     avt: p["avtUrl"]
+        // };
+        //
+        // this._view.userJoinRoom(userInfo);
+    },
+
     onUserSitDown: function (param) {
-        this.onUserJoinRoom(param);
-        this._view.onUserSitDown(param.u);
+        //this.onUserJoinRoom(param);
+
+        var slotIndex = param["4"];
+        var username = param["u"];
+        var gold = param["10"];
+        var spectator = param["2"];
+        var avt = param["avtUrl"];
+        for(var i=0;i<this.playerSlot.length;i++){
+            if(this.playerSlot[i].userIndex == slotIndex){
+                this.playerSlot[i].username = username;
+                this.playerSlot[i].gold = gold;
+                this.playerSlot[i].spectator = spectator;
+                this.playerSlot[i].avt = avt;
+                break;
+            }
+        }
+
+        // this.playerSlot[slot].username = players[i]["u"];
+        // this.playerSlot[slot].gold = players[i]["3"];
+        // this.playerSlot[slot].spectator = players[i]["2"];
+        // this.playerSlot[slot].avt = players[i]["avtUrl"];
+
+        // var userInfo = {
+        //     index: slotIndex,
+        //     username: username,
+        //     gold: p["3"],
+        //     avt: p["avtUrl"]
+        // };
+
+        if(PlayerMe.username == param.u){
+            var maxSlot = this.getMaxSlot();
+            var newSlot = [];
+            for(var i=0;i<this.playerSlot.length;i++){
+                var idx = this.playerSlot[i].userIndex - slotIndex;
+                if(idx < 0){
+                    idx += maxSlot;
+                }
+                newSlot[idx] = this.playerSlot[i];
+            }
+            this.playerSlot = newSlot;
+            this._view.fillPlayerToSlot(this.playerSlot);
+        }
+        else{
+            var userInfo = {
+                index: slotIndex,
+                username: username,
+                gold: param["3"],
+                avt: param["avtUrl"]
+            };
+
+            this._view.userJoinRoom(userInfo);
+        }
+       // this._view.onUserSitDown(param.u);
     },
 
     onGameStatus: function (param) {
@@ -132,7 +203,7 @@ var PokerController = GameController.extend({
     },
 
     getMaxSlot: function () {
-        return 9;
+        return 5;
     },
 
     sendSitDownRequest: function (index, betting) {
