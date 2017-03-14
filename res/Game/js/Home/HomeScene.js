@@ -424,6 +424,13 @@ var HomeScene = IScene.extend({
                 this.homeLayer.y = 0;
                 this.homeLayer.stopAllActions();
             }
+            else{
+                var accessToken = cc.Global.GetSetting("accessToken","");
+                if(accessToken != ""){
+                    LoadingDialog.getInstance().show("Đang đăng nhập");
+                    LobbyClient.getInstance().tokenLogin(accessToken);
+                }
+            }
         }
     },
 
