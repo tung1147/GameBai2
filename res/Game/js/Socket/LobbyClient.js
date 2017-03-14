@@ -15,7 +15,8 @@ if (cc.sys.isNative) { //mobile
 }
 else { //websocket
     var s_lobbyServer = s_lobbyServer || [
-        "ws://vuabaivip.com:8887/websocket"
+        // "ws://vuabaivip.com:8887/websocket"
+            "ws://42.112.25.169:8887/websocket"
     ];
 }
 
