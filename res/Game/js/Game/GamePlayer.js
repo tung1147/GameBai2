@@ -184,6 +184,10 @@ var GamePlayer = cc.Node.extend({
             this.timer.stopAllActions();
             this.setProgressPercentage(0.0);
         }
+    },
+
+    setInfo : function (info) {
+
     }
 });
 

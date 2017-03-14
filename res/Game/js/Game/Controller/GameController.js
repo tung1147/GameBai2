@@ -199,6 +199,13 @@ var GameController = cc.Class.extend({
         this._view.userJoinRoom(userInfo);
     },
 
+    _createUserInfo : function (data) {
+        return {
+            gold : data["3"],
+            spectator : data["2"]
+        };
+    },
+
     _processPlayerPosition: function (players) {
         //find me
         var meIndex = 0;
@@ -239,9 +246,10 @@ var GameController = cc.Class.extend({
             }
 
             this.playerSlot[slot].username = players[i]["u"];
+            this.playerSlot[slot].avt = players[i]["avtUrl"];
             this.playerSlot[slot].gold = players[i]["3"];
             this.playerSlot[slot].spectator = players[i]["2"];
-            this.playerSlot[slot].avt = players[i]["avtUrl"];
+            this.playerSlot[slot].info = this._createUserInfo(players[i]);
 
             // this.playerSlot[slot] = {
             //     userIndex : players[i]["4"],

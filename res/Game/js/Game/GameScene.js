@@ -200,6 +200,7 @@ var IGameScene = IScene.extend({
                 this.allSlot[i].setGold(data.gold);
                 this.allSlot[i].setAvatar(data.avt);
                 this.allSlot[i].spectator = data.spectator;
+                this.allSlot[i].setInfo(data["info"]);
             }
         }
     },
@@ -215,6 +216,7 @@ var IGameScene = IScene.extend({
                 this.allSlot[i].setUsername(info.username);
                 this.allSlot[i].setGold(info.gold);
                 this.allSlot[i].setAvatar(info.avt);
+                this.allSlot[i].setInfo(info["info"]);
 
                 return;
             }
