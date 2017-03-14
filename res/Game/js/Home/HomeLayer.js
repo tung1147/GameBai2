@@ -152,8 +152,7 @@ var LoginDialog = cc.Node.extend({
         });
 
         regButton.addClickEventListener(function () {
-            var dialog = new SignupDialog();
-            dialog.show();
+            SceneNavigator.showSignup();
             thiz.hide();
         });
         resetPasswordBt.addClickEventListener(function () {
@@ -338,8 +337,7 @@ var SignupDialog = cc.Node.extend({
         loginBt.setTouchEnabled(true);
         this.layerBg.addChild(loginBt);
         loginBt.addClickEventListener(function () {
-            var dialog = new LoginDialog();
-            dialog.show();
+            SceneNavigator.showLoginNormal();
             thiz.hide();
         });
     },
@@ -378,13 +376,11 @@ var HomeLayer = cc.Node.extend({
         homeBar.addChild(this.signupBt);
 
         this.loginBt.addClickEventListener(function () {
-            var dialog = new LoginDialog();
-            dialog.show();
+            SceneNavigator.showLoginNormal();
         });
 
         this.signupBt.addClickEventListener(function () {
-            var dialog = new SignupDialog();
-            dialog.show();
+            SceneNavigator.showSignup();
         });
     }
 });

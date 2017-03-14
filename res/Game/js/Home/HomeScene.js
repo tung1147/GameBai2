@@ -83,7 +83,7 @@ var HomeScene = IScene.extend({
         });
 
         this.homeLayer.fbButton.addClickEventListener(function () {
-            FacebookPlugin.getInstance().showLogin();
+            SceneNavigator.showLoginFacebook();
         });
 
         this.startHome();
@@ -140,8 +140,7 @@ var HomeScene = IScene.extend({
     _checkLogin : function () {
         if(this.homeLocation == 1){
             //MessageNode.getInstance().show("Bạn phải đăng nhập trước");
-            var dialog = new LoginDialog();
-            dialog.show();
+            SceneNavigator.showLoginNormal();
             return false;
         }
         return true;

@@ -116,3 +116,17 @@ SceneNavigator.toMiniGame = function (gameId, isReconnect) {
         LobbyClient.getInstance().postEvent("miniGameReconnect", null);
     }
 };
+
+SceneNavigator.showLoginNormal = function () {
+    var dialog = new LoginDialog();
+    dialog.show();
+};
+
+SceneNavigator.showLoginFacebook = function () {
+    FacebookPlugin.getInstance().showLogin();
+};
+
+SceneNavigator.showSignup = function () {
+    var dialog = new SignupDialog();
+    dialog.show();
+};
