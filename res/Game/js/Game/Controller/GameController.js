@@ -99,9 +99,9 @@ var GameController = cc.Class.extend({
         }
     },
     onUserExit: function (cmd, content) {
-        var params = content.p
+        var params = content.p;
         if (params.u != PlayerMe.username) {
-            this._view.userExitRoom(params.u);
+            this._onUserExit(params.u);
         } else {
             var message = null;
             switch (params.reason) {
@@ -111,6 +111,14 @@ var GameController = cc.Class.extend({
             }
             this._view.exitToLobby(message);
         }
+    },
+    _onUserExit : function (username) {
+        for(var i=0;i<this.playerSlot.length;i++){
+            if(this.playerSlot[i].username == username){
+                this.playerSlot[i].username = "";
+            }
+        }
+        this._view.userExitRoom(username);
     },
 
     onError: function (cmd, content) {

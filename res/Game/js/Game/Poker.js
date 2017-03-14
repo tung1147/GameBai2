@@ -212,5 +212,16 @@ var Poker = IGameScene.extend({
     performDealCards: function (cards, animation) {
         this.cardList.visible = true;
         this.cardList.dealCards(cards, animation);
+    },
+
+    backButtonClickHandler: function () {
+        if(this.allSlot[0].username == PlayerMe.username){
+            this._controller.requestStandup();
+        }
+        else{
+            if (this._controller) {
+                this._controller.requestQuitRoom();
+            }
+        }
     }
 });

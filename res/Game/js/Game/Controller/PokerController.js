@@ -11,9 +11,31 @@ var PokerController = GameController.extend({
         SmartfoxClient.getInstance().addExtensionListener("660", this._onGameInfoHandler, this);
         SmartfoxClient.getInstance().addExtensionListener("655", this._onBetStatusHandler, this);
         SmartfoxClient.getInstance().addExtensionListener("656", this._onNewRoundHandler, this);
+        SmartfoxClient.getInstance().addExtensionListener("658", this._onUserStandupHandler, this);
         SmartfoxClient.getInstance().addExtensionListener("7", this._onTurnChangedHandler, this);
         SmartfoxClient.getInstance().addExtensionListener("3", this._onStartGameHandler, this);
         SmartfoxClient.getInstance().addExtensionListener("11", this._onRoomOwnerChangedHandler, this);
+    },
+
+    // onReconnect : function (params) {
+    //     this._super(params);
+    // },
+
+    _onUserStandupHandler : function (cmd, data) {
+       // cc.log(data);
+        if(data.p.u == PlayerMe.username){
+            var newSlot = [];
+            for(var i=0;i<this.playerSlot.length;i++){
+                var idx = this.playerSlot[i].userIndex;
+                if(idx < 0){
+                    idx += maxSlot;
+                }
+                newSlot[idx] = this.playerSlot[i];
+            }
+            this.playerSlot = newSlot;
+        }
+        this._onUserExit(data.p.u);
+        this._view.fillPlayerToSlot(this.playerSlot);
     },
 
     _onUserSitDownHandler: function (cmd, content) {
@@ -212,5 +234,9 @@ var PokerController = GameController.extend({
 
     sendStartRequest: function () {
         SmartfoxClient.getInstance().sendExtensionRequestCurrentRoom("3", null);
+    },
+
+    requestStandup : function () {
+        SmartfoxClient.getInstance().sendExtensionRequestCurrentRoom("657", null);
     }
 });
