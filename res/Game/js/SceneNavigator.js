@@ -6,6 +6,9 @@ var SceneNavigator = SceneNavigator || {};
 SceneNavigator.toHome = function (message) {
    // LobbyClient.getInstance().close();
    // SmartfoxClient.getInstance().close();
+    if(!cc.sys.isNative && window.parent.user_logout){
+        window.parent.user_logout();
+    }
 
     var homeScene = cc.director.getRunningScene();
     if (homeScene.type == "HomeScene") {
@@ -128,8 +131,8 @@ SceneNavigator.showLoginNormal = function () {
 };
 
 SceneNavigator.showLoginFacebook = function () {
-    if(!cc.sys.isNative && window.parent.show_popup_login){
-        window.parent.show_popup_login();
+    if(!cc.sys.isNative && window.parent.login_facebook){
+        window.parent.login_facebook();
     }
     else{
         FacebookPlugin.getInstance().showLogin();
