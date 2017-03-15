@@ -7,14 +7,138 @@ var PokerGamePlayer = GamePlayer.extend({
         this._super();
         this.playerIndex = playerIndex;
         this._handler = handler;
+        var btnSitDown = new ccui.Button("pk_btn_sitdown.png","","",ccui.Widget.PLIST_TEXTURE);
+        var thiz = this;
+        btnSitDown.addClickEventListener(function () {
+            thiz.onSitDownBtClick();
+        } );
+        btnSitDown.setPosition(thiz.avt.getPosition());
+        btnSitDown.visible = false;
+        thiz.addChild(btnSitDown);
+        this.btnSitDown = btnSitDown;
+
+        var lblBet = new cc.LabelTTF("10",cc.res.font.Roboto_Condensed,20);
+        lblBet.setPosition(thiz.avt.getPosition() + cc.p(200,200));
+        lblBet.visible = true;
+        thiz.addChild(lblBet);
+        this.lblBet = lblBet;
+
+        var imgDeal = new cc.Sprite("#pk_icon_dealer.png");
+        imgDeal.setPosition(thiz.avt.getPosition() + cc.p(200,-200));
+        imgDeal.visible = true;
+        thiz.addChild(imgDeal);
+        this.imgDeal = imgDeal;
+
+        var imgBigBild = new cc.Sprite("#pk_icon_bigBlind.png");
+        imgBigBild.setPosition(thiz.avt.getPosition() + cc.p(200,-200));
+        imgBigBild.visible = true;
+        thiz.addChild(imgBigBild);
+        this.imgBigBild = imgBigBild;
+
+        var imgSmallBlind = new cc.Sprite("#pk_icon_smallBlind.png");
+        imgSmallBlind.setPosition(thiz.avt.getPosition() + cc.p(200,-200));
+        imgSmallBlind.visible = true;
+        thiz.addChild(imgSmallBlind);
+        this.imgSmallBlind = imgSmallBlind;
+
+        this.setVisbleSitDown(true);
+
+        var cardList = new CardList(cc.size(130, 86));
+        cardList.setPosition(thiz.avt.getPosition());
+        this.addChild(cardList);
+        cardList.setTouchEnable(false);
+        this.cardList = cardList;
+
+
+        var phomVituarl = new cc.Sprite("#pk_cardMask.png");
+        phomVituarl.setPosition(thiz.avt.getPosition() + cc.p(-200,-200));
+        phomVituarl.visible = true;
+        thiz.addChild(phomVituarl);
+        this.phomVituarl = phomVituarl;
+
+
+
+    },
+    setEnable : function (enable) {
+        this._super(enable);
+        if(enable && this.btnSitDown){
+            this.btnSitDown.visible = false;
+        }
+        if(enable && this.phomVituarl){
+            this.phomVituarl.visible = false;
+        }
+    },
+    setDealer : function (isDeader) {
+        this.imgDeal.setVisible(isDeader);
+    },
+    setBigBlind : function (isDeader) {
+        this.imgBigBild.setVisible(isDeader);
+    },
+    setSmallBlid : function (isDeader) {
+        this.imgSmallBlind.setVisible(isDeader);
     },
 
-    onInviteBtClick: function () {
+    setCardVituarlVisible:function (isVisible) {
+        this.phomVituarl.visible = isVisible;
+    },
+    setMoneyBet:function (moneyBet) {
+        if(moneyBet > 0)
+        {
+            this.lblBet.setVisible(true);
+        }
+        else
+        {
+            this.lblBet.setVisible(false);
+        }
+        this.lblBet.setString(moneyBet);
+    },
+    setInfo : function (info) {
+        if(info){
+            this.setGold(info.money);
+            this.setMoneyBet(info.moneyBet);
+            this.setBigBlind(info.isBigBlind);
+            this.setSmallBlid(info.isSmallBlind);
+            this.setDealer(info.isDealer);
+
+        }
+    },
+
+    updateAction:function (idAction) {
+      if(idAction == PK_ACTION_PLAYER_CHECK)
+      {
+          this.userLabel.setString("CHECK");
+      }
+      else if(idAction == PK_ACTION_PLAYER_CALL){
+          this.userLabel.setString("CALL");
+      }
+      else if(idAction == PK_ACTION_PLAYER_FOLD){
+          this.userLabel.setString("FOLD");
+      }
+      else if(idAction == PK_ACTION_PLAYER_RAISE){
+          this.userLabel.setString("RAISE");
+      }
+      else if(idAction == PK_ACTION_PLAYER_BET){
+          this.userLabel.setString("BET");
+      }
+      else if(idAction == PK_ACTION_PLAYER_ALL_IN){
+          this.userLabel.setString("ALL_IN");
+      }
+    },
+
+    setVisbleSitDown:function (isVisible) {
+        this.btnSitDown.visible = isVisible ;
+        this.inviteBt.visible = !isVisible;
+
+    },
+
+    onSitDownBtClick:function () {
         this._handler.showSitDownDialog(this.playerIndex);
     }
+
 });
 
 var Poker = IGameScene.extend({
+    timeMaxTurn:20,
     ctor: function () {
         this._super();
         this.initPlayer();
@@ -31,21 +155,85 @@ var Poker = IGameScene.extend({
         table_bg.setScale(cc.winSize.screenScale);
         this.sceneLayer.addChild(table_bg);
 
-        var cardList = new CardList(cc.size(240, 80));
-        cardList.setPosition(cc.winSize.width / 2, 240);
-        cardList.visible = false;
-        this.sceneLayer.addChild(cardList);
-        this.cardList = cardList;
+        var cardMix = new CardList(cc.size(240, 80));
+        cardMix.setPosition(cc.winSize.width / 2, cc.winSize.height / 2);
+        cardMix.visible = true;
+        this.sceneLayer.addChild(cardMix);
+        this.cardMix = cardMix;
 
-        var publicCards = new CardList(cc.size(400,80));
-        publicCards.setPosition(cc.winSize.width/2,cc.winSize.height/2);
-        publicCards.visible = false;
-        this.sceneLayer.addChild(publicCards);
-        this.publicCards = publicCards;
+        // var publicCards = [2,3];
+        // var cards = [];
+        // for (var i = 0; i < publicCards.length; i++) {
+        //     cards.push(CardList.prototype.getCardWithId(publicCards[i]));
+        //
+        // }
+        // this.cardMix.addNewCard(cards);
+
     },
 
     showSitDownDialog: function (index) {
         this._controller.sendSitDownRequest(index, 10000);
+    },
+
+    updatePlayerInfo : function (username, info) {
+        var slot = this.getSlotByUsername(username);
+        if(slot){
+            slot.setInfo(info);
+        }
+    },
+
+    updateActionPlayer:function (username, money, moneyEXchang, idAction) {
+        this.handleButtons(null);
+        var slot = this.getSlotByUsername(username);
+        if(slot){
+            switch (idAction) {
+                case PK_ACTION_PLAYER_BET :
+                    SoundPlayer.playSound("pk_chips_bet");
+                    break;
+                case PK_ACTION_PLAYER_CALL :
+                {
+                    SoundPlayer.playSound("pk_call");
+                    SoundPlayer.playSound("pk_chips_bet");
+                }
+                    break;
+                case PK_ACTION_PLAYER_FOLD :
+                    SoundPlayer.playSound("pk_fold");
+                    break;
+                case PK_ACTION_PLAYER_CHECK :
+                    SoundPlayer.playSound("pk_check");
+                    break;
+                case PK_ACTION_PLAYER_RAISE : {
+                    SoundPlayer.playSound("pk_raise");
+                    SoundPlayer.playSound("pk_chips_bet");
+                }
+                    break;
+                case PK_ACTION_PLAYER_ALL_IN :
+                {
+                    SoundPlayer.playSound("pk_allin");
+                    SoundPlayer.playSound("pk_chips_bet");
+                }
+                    break;
+            }
+        }
+        slot.stopTimeRemain();
+        if(idAction == PK_ACTION_PLAYER_ALL_IN || idAction == PK_ACTION_PLAYER_CALL || idAction == PK_ACTION_PLAYER_RAISE || idAction == PK_ACTION_PLAYER_NONE)
+        {
+            slot.setMoneyBet(money)
+        }
+        else if(idAction == PK_ACTION_PLAYER_FOLD)
+        {
+            slot.phomVituarl.setVisible(false);
+
+        }
+        slot.updateAction(idAction);
+        // for (var i = 0; i < this.allSlot.length; i++) {
+        //     if (this.allSlot[i].username == username) {
+        //         this.allSlot[i].showTimeRemain(currentTime, maxTime);
+        //     }
+        //     else {
+        //         this.allSlot[i].stopTimeRemain();
+        //     }
+        // }
     },
 
     initPlayer: function () {
@@ -98,25 +286,7 @@ var Poker = IGameScene.extend({
         }
     },
 
-    setActionVisible: function (actionId) {
-        switch (actionId) {
-            case 1:
-                this.allinBt.visible = true;
-                break;
-            case 2:
-                this.foldBt.visible = true;
-                break;
-            case 3:
-                this.raiseBt.visible = true;
-                break;
-            case 4:
-                this.callBt.visible = true;
-                break;
-            case 5:
-                this.checkBt.visible = true;
-                break;
-        }
-    },
+
 
     initController: function () {
         this._controller = new PokerController(this);
@@ -124,80 +294,142 @@ var Poker = IGameScene.extend({
 
     initButton: function () {
         var thiz = this;
-        var startBt = new ccui.Button("game-startBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        startBt.setPosition(cc.winSize.width - 110, 50);
-        this.startBt = startBt;
-        this.sceneLayer.addChild(startBt);
 
-        var raiseBt = new ccui.Button("game-raiseBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        raiseBt.setPosition(cc.winSize.width - 110, 50);
+
+        var raiseBt = new ccui.Button("pk_btn_raise.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        raiseBt.setPosition(1160*cc.winSize.screenScale, 50);
+        raiseBt.setScale(cc.winSize.screenScale);
         this.raiseBt = raiseBt;
         this.sceneLayer.addChild(raiseBt);
 
-        var callBt = new ccui.Button("game-callBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        callBt.setPosition(cc.winSize.width - 310, 50);
+        var callBt = new ccui.Button("pk_btn_call.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        callBt.setPosition(1040*cc.winSize.screenScale, 50);
+        callBt.setScale(cc.winSize.screenScale);
         this.callBt = callBt;
         this.sceneLayer.addChild(callBt);
 
-        var checkBt = new ccui.Button("game-checkBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        checkBt.setPosition(cc.winSize.width - 510, 50);
+        var checkBt = new ccui.Button("pk_btn_check.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        checkBt.setPosition(920*cc.winSize.screenScale, 50);
+        checkBt.setScale(cc.winSize.screenScale);
         this.checkBt = checkBt;
         this.sceneLayer.addChild(checkBt);
 
-        var foldBt = new ccui.Button("game-foldBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        foldBt.setPosition(cc.winSize.width - 710, 50);
+        var foldBt = new ccui.Button("pk_btn_fold.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        foldBt.setPosition(795*cc.winSize.screenScale, 50);
+        foldBt.setScale(cc.winSize.screenScale);
         this.foldBt = foldBt;
         this.sceneLayer.addChild(foldBt);
 
-        var allinBt = new ccui.Button("game-allinBt.png","","",ccui.Widget.PLIST_TEXTURE);
-        allinBt.setPosition(cc.winSize.width - 910,50);
+        var allinBt = new ccui.Button("pk_btn_allin.png","","",ccui.Widget.PLIST_TEXTURE);
+        allinBt.setPosition(raiseBt.getPosition());
+        allinBt.setScale(cc.winSize.screenScale);
         this.allinBt = allinBt;
         this.sceneLayer.addChild(allinBt);
 
-        startBt.addClickEventListener(function () {
-            thiz._controller.sendStartRequest();
+        var betBt = new ccui.Button("pk_btn_Bet.png","","",ccui.Widget.PLIST_TEXTURE);
+        betBt.setPosition(raiseBt.getPosition());
+        betBt.setScale(cc.winSize.screenScale);
+        this.betBt = betBt;
+        this.sceneLayer.addChild(betBt);
+
+        betBt.addClickEventListener(function () {
+            thiz._controller.sendActionRequest(PK_ACTION_PLAYER_CHECK,1000);
         });
 
         allinBt.addClickEventListener(function () {
-            thiz._controller.sendActionRequest(1,1000);
+            thiz._controller.sendActionRequest(PK_ACTION_PLAYER_ALL_IN,0);
         });
 
         foldBt.addClickEventListener(function () {
-            thiz._controller.sendActionRequest(2,1000);
+            thiz._controller.sendActionRequest(PK_ACTION_PLAYER_FOLD,0);
+            thiz.handleButtons(null);
         });
 
         raiseBt.addClickEventListener(function () {
-            thiz._controller.sendActionRequest(3,1000);
+            thiz._controller.sendActionRequest(PK_ACTION_PLAYER_RAISE,1000);
         });
 
         callBt.addClickEventListener(function () {
-            thiz._controller.sendActionRequest(4,1000);
+            thiz._controller.sendActionRequest(PK_ACTION_PLAYER_CALL,0);
+            thiz.handleButtons(null);
         });
 
         checkBt.addClickEventListener(function () {
-            thiz._controller.sendActionRequest(5,1000);
+            thiz._controller.sendActionRequest(PK_ACTION_PLAYER_CHECK,0);
+            thiz.handleButtons(null);
         });
 
-        this.buttons = [startBt, raiseBt, callBt, checkBt, foldBt,allinBt];
+        this.buttons = [betBt, raiseBt, callBt, checkBt, foldBt,allinBt];
         this.hideAllButton();
     },
 
-    setStartBtVisible: function (visible) {
-        this.startBt.setVisible(visible);
-    },
 
-    dealPublicCards:function (cards) {
-        for (var i = 0;i<cards;i++){
-            var card = new Card(cards[i].rank,cards[i].suit);
-            this.publicCards.addCard(card);
+    handleButtons:function(arrAction){
+        this.hideAllButton();
+    // bettingPoker->setVisible(false); chưa có
+
+
+    // cbCallAny->setVisible(false);
+    // cbChectOrFold->setVisible(false);
+    // cbFold->setVisible(false);
+    // cbCheck->setVisible(false);
+    if(arrAction != null)
+    {
+        for(var i = 0; i < arrAction.length; i++)
+        {
+
+            if(arrAction[i] == PK_ACTION_PLAYER_RAISE)
+            {
+                this.raiseBt.setVisible(true);
+            }
+            else if (arrAction[i] == PK_ACTION_PLAYER_CALL)
+            {
+                this.callBt.setVisible(true);
+            }
+            else if (arrAction[i] == PK_ACTION_PLAYER_FOLD)
+            {
+                this.foldBt.setVisible(true);
+            }
+            else if (arrAction[i] == PK_ACTION_PLAYER_CHECK)
+            {
+                this.checkBt.setVisible(true);
+            }
+            else if (arrAction[i] == PK_ACTION_PLAYER_ALL_IN)
+            {
+                this.allinBt.setVisible(true);
+            }
+            else if (arrAction[i] == PK_ACTION_PLAYER_BET)
+            {
+                this.betBt.setVisible(true);
+            }
+        }
+        if(this.raiseBt.isVisible() || this.betBt.isVisible())
+        {
+            // isVisiableBet = btnBet.isVisible();
+            this.allinBt.setVisible(false);
+
+        }
+    }
+
+
+},
+    onUpdateTurn: function (username) {
+        // cc.log("updateTurn: " + currentTime + ":" + maxTime + " - " + Date.now());
+        for (var i = 0; i < this.allSlot.length; i++) {
+            if (this.allSlot[i].username == username) {
+                this.allSlot[i].showTimeRemain(this.timeMaxTurn, this.timeMaxTurn);
+            }
+            else {
+                this.allSlot[i].stopTimeRemain();
+            }
         }
     },
 
-    resetBoard : function () {
-        this.publicCards.removeAll();
-        this.cardList.removeAll();
-        this.hideAllButton();
+    dealPublicCards:function (cards) {
+
+        this.cardMix.addNewCard(cards);
     },
+
 
     hideAllButton: function () {
         for (var i = 0; i < this.buttons.length; i++) {
@@ -205,13 +437,19 @@ var Poker = IGameScene.extend({
         }
     },
 
-    setPublicCardsVisible : function (visible) {
-        this.publicCards.visible = visible;
-    },
+
 
     performDealCards: function (cards, animation) {
-        this.cardList.visible = true;
-        this.cardList.dealCards(cards, animation);
+        this.allSlot[0].cardList.removeAll();
+        // for(var i; i < cards.length; i++)
+        // {
+        //     var cardNew = new Card(data[i].rank, data[i].suit);
+        //     this.allSlot[0].cardList.addCard(cardNew);
+        // }
+        this.allSlot[0].cardList.dealCards(cards, true);
+        // this.allSlot[0].cardList.addCardReconnect(cards);
+
+
     },
 
     backButtonClickHandler: function () {
@@ -221,6 +459,23 @@ var Poker = IGameScene.extend({
         else{
             if (this._controller) {
                 this._controller.requestQuitRoom();
+            }
+        }
+    },
+
+    updateInviteButton : function () {
+        if(this.allSlot[0].username == PlayerMe.username){
+            for(var i = 0; i<this.allSlot.length; i++){
+                if(this.allSlot[i].username == ""){
+                    this.allSlot[i].setVisbleSitDown(false);
+                }
+            }
+        }
+        else{
+            for(var i = 0; i<this.allSlot.length; i++){
+                if(this.allSlot[i].username == ""){
+                    this.allSlot[i].setVisbleSitDown(true);
+                }
             }
         }
     }

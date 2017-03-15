@@ -200,6 +200,12 @@ var GameController = cc.Class.extend({
     },
 
     _createUserInfo : function (data) {
+        if(!data){
+            return {
+                gold: 0,
+                spectator: false
+            };
+        }
         return {
             gold : data["3"],
             spectator : data["2"]
@@ -232,7 +238,11 @@ var GameController = cc.Class.extend({
             }
             this.playerSlot[slot] = {
                 userIndex: i,
-                username: ""
+                username: "",
+                avt: "",
+                gold: 0,
+                spectator: false,
+                info: this._createUserInfo(players[i])
             };
         }
 

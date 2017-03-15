@@ -90,6 +90,8 @@ var GamePlayer = cc.Node.extend({
     },
     setUsername: function (name) {
         this.username = name;
+        if (name.length > 15)
+            name = name.substring(0, 15) ;
         if (name.length > 3 && name != PlayerMe.username)
             name = name.substring(0, name.length - 3) + "***";
         this.userLabel.setString(name);

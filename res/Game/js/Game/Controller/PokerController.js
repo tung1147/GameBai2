@@ -1,6 +1,17 @@
 /**
  * Created by VGA10 on 1/19/2017.
  */
+
+ PK_ACTION_PLAYER_VIEW = 0;
+     PK_ACTION_PLAYER_BET = 1;
+     PK_ACTION_PLAYER_ALL_IN = 2;
+     PK_ACTION_PLAYER_FOLD = 3;
+     PK_ACTION_PLAYER_RAISE = 4;
+     PK_ACTION_PLAYER_CALL = 5;
+     PK_ACTION_PLAYER_CHECK = 6;
+     PK_ACTION_PLAYER_NONE = 7;
+
+
 var PokerController = GameController.extend({
     ctor: function (view) {
         this._super();
@@ -15,11 +26,83 @@ var PokerController = GameController.extend({
         SmartfoxClient.getInstance().addExtensionListener("7", this._onTurnChangedHandler, this);
         SmartfoxClient.getInstance().addExtensionListener("3", this._onStartGameHandler, this);
         SmartfoxClient.getInstance().addExtensionListener("11", this._onRoomOwnerChangedHandler, this);
+        SmartfoxClient.getInstance().addExtensionListener("659", this._onActionPlayer, this);
     },
 
     // onReconnect : function (params) {
     //     this._super(params);
     // },
+
+    _createUserInfo : function (data) {
+        if(!data){
+            return {
+                money:0,
+                moneyBet:0,
+                isPlaying:false,
+                idAction:PK_ACTION_PLAYER_NONE,
+                isDealer:false,
+                isBigBlind:false,
+                isSmallBlind:false
+            };
+        }
+
+        return {
+            money:data["10"],
+            moneyBet:data["12"],
+            isPlaying:!data["2"],
+            idAction:data["11"],
+            isDealer:false,
+            isBigBlind:false,
+            isSmallBlind:false
+        };
+    },
+
+    _updateDeadler : function (username) {
+        for(var i=0;i<this.playerSlot.length;i++){
+            if(this.playerSlot[i].username == username){
+                this.playerSlot[i].info.isDealer = true;
+            }
+            else{
+                this.playerSlot[i].info.isDealer = false;
+            }
+
+            this._view.updatePlayerInfo(this.playerSlot[i]);
+        }
+    },
+
+    _updateBigBlind : function (username) {
+        for(var i=0;i<this.playerSlot.length;i++){
+            if(this.playerSlot[i].username == username){
+                this.playerSlot[i].info.isBigBlind = true;
+            }
+            else{
+                this.playerSlot[i].info.isBigBlind = false;
+            }
+
+            this._view.updatePlayerInfo(this.playerSlot[i]);
+        }
+    },
+
+    _updateRoomInfo : function (params) {
+        if(params){
+            this._updateBigBlind(params["3"]);
+            this._updateSmallBlind(params["2"]);
+            this._updateDeadler(params["1"]);
+        }
+    },
+
+    _updateSmallBlind : function (username) {
+        for(var i=0;i<this.playerSlot.length;i++){
+            if(this.playerSlot[i].username == username){
+                this.playerSlot[i].info.isSmallBlind = true;
+            }
+            else{
+                this.playerSlot[i].info.isSmallBlind = false;
+            }
+
+            this._view.updatePlayerInfo(this.playerSlot[i]);
+        }
+    },
 
     _onUserStandupHandler : function (cmd, data) {
        // cc.log(data);
@@ -36,6 +119,7 @@ var PokerController = GameController.extend({
         }
         this._onUserExit(data.p.u);
         this._view.fillPlayerToSlot(this.playerSlot);
+        this._view.updateInviteButton();
     },
 
     _onUserSitDownHandler: function (cmd, content) {
@@ -68,24 +152,43 @@ var PokerController = GameController.extend({
     _onTurnChangedHandler: function (cmd, content) {
         this.onTurnChanged(content.p);
     },
+    _onActionPlayer:function (cmd, content) {
+        this.onActionPlayer(content.p);
+    },
+    getSlotPlayerByUsername:function (username) {
+
+        for(var i = 0; i < this.playerSlot.length; i++){
+            if(this.playerSlot[i].username ==  username)
+            {
+                return this.playerSlot[i];
+            }
+        }
+        return null;
+    },
+    onActionPlayer : function (param) {
+
+        var username = param["u"];
+        var money = param["3"];
+        var moneyExchange = param["2"];
+        var action = param["1"];
+        this._view.updateActionPlayer(username, money, moneyExchange, action);
+        var slot = this.getSlotPlayerByUsername(username);
+        if(slot)
+        {
+            slot.info.idAction = action;
+        }
+    },
+
+    onJoinRoom : function (param) {
+        this._super(param);
+        this._updateRoomInfo(param["12"]);
+        this._view.updateInviteButton();
+    },
 
     onReconnect: function (param) {
         this._super(param);
-        if (!param["ct"])
-            return;
-        var cards = param["3"];
-        var cardObjs = [];
-        var minBetValue = param["ct"]["3"];
-        var availableAction = param["ct"]["2"];
-        for (var i = 0; i < cards.length; i++)
-            cardObjs.push(CardList.prototype.getCardWithId(cards[i]));
-
-        this._view.performDealCards(cardObjs);
-
-        for (var i = 0; i < availableAction.length; i++) {
-            this._view.setActionVisible(availableAction[i]);
-        }
-
+        this._updateRoomInfo(param["1"]["12"]);
+        this._view.updateInviteButton();
     },
 
     onRoomOwnerChanged: function (param) {
@@ -95,13 +198,36 @@ var PokerController = GameController.extend({
     onNewRound: function (param) {
         var turnId = param["1"];
         var publicCards = param["2"];
-        if (turnId == 0)
-            this._view.hideAllButton();
+        if(!param["3"])
+        {
+            SoundPlayer.stopAllSound();
+            if(turnId==1)
+            {
+                SoundPlayer.playSound("pk_dealer_flop");
+            }
+            else if(turnId==2)
+            {
+                SoundPlayer.playSound("pk_dealer_turn");
+            }
+            else if(turnId==3)
+            {
+                SoundPlayer.playSound("pk_dealer_river");
+            }
+        }
+        if(turnId==0)
+        {
+            this._view.cardMix.removeAll();
+        }
         var cards = [];
         for (var i = 0; i < publicCards.length; i++) {
             cards.push(CardList.prototype.getCardWithId(publicCards[i]));
         }
-        this._view.dealPublicCards(cards);
+
+        if(turnId>0)
+        {
+            this._view.dealPublicCards(cards);
+        }
+
     },
 
     sendActionRequest: function (action, money) {
@@ -122,13 +248,9 @@ var PokerController = GameController.extend({
         var availableActions = param["2"];
         var minimalBetAmount = param["3"];
 
-        this._view.hideAllButton();
+        this._view.onUpdateTurn(username);
+        this._view.handleButtons(availableActions);
 
-        if (availableActions) {
-            for (var i = 0; i < availableActions.length; i++) {
-                this._view.setActionVisible(availableActions[i]);
-            }
-        }
     },
 
     onGameInfo: function (param) {
@@ -176,6 +298,7 @@ var PokerController = GameController.extend({
                 this.playerSlot[i].gold = gold;
                 this.playerSlot[i].spectator = spectator;
                 this.playerSlot[i].avt = avt;
+                this.playerSlot[i].info = this._createUserInfo(param);
                 break;
             }
         }
@@ -216,12 +339,12 @@ var PokerController = GameController.extend({
             this._view.userJoinRoom(userInfo);
         }
        // this._view.onUserSitDown(param.u);
+
+        this._view.updateInviteButton();
     },
 
     onGameStatus: function (param) {
-        this._view.hideAllButton();
-        var state = param["1"];
-        this._view.setStartBtVisible(state == 1 && this.isOwnerMe);
+
     },
 
     getMaxSlot: function () {
