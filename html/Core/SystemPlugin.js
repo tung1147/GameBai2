@@ -14,7 +14,8 @@ var SystemPlugin = (function () {
         },
 
         getPackageName: function () {
-            return "gamebai.com"
+            return "com.songbaivip.fullhd";
+            //return "com.c567.webv2";
         },
 
         getVersionName: function () {

@@ -27,5 +27,10 @@ var IScene = cc.Scene.extend({
         this._super();
         this.popupLayer.removeAllChildren(true);
         this.messageLayer.removeAllChildren(true);
+    },
+
+    onEnter : function () {
+        this._super();
+        cc.director.setClearColor(cc.color(0,0,0,0));
     }
 });
