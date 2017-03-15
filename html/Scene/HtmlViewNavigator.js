@@ -68,8 +68,7 @@ var ViewNavigator = cc.Class.extend({
                 LobbyClient.getInstance().loginNormal(username, password, true);
             }
             else{
-                var dialog = new LoginDialog();
-                dialog.show();
+                SceneNavigator.showLoginNormal();
             }
         }
         else if(loginType == "facebookLogin"){
@@ -77,8 +76,7 @@ var ViewNavigator = cc.Class.extend({
             FacebookPlugin.getInstance().showLogin();
         }
         else{
-            var dialog = new LoginDialog();
-            dialog.show();
+            SceneNavigator.showLoginNormal();
         }
     }
 });
