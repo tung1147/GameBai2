@@ -4,8 +4,10 @@
 
 var SceneNavigator = SceneNavigator || {};
 SceneNavigator.toHome = function (message) {
-   // LobbyClient.getInstance().close();
-   // SmartfoxClient.getInstance().close();
+    setTimeout(function () {
+        LobbyClient.getInstance().close();
+        SmartfoxClient.getInstance().close();
+    }, 1.0);
     if(!cc.sys.isNative && window.parent.user_logout){
         window.parent.user_logout();
     }

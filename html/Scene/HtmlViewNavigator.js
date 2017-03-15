@@ -105,9 +105,14 @@ ViewNavigatorManager.execute = function () {
 
     window.addEventListener("storage",function(e) {
         if(e.key == "accessToken"){
+            cc.log(e);
             if(e.newValue && e.newValue != ""){
                 var view = new ViewNavigator();
                 view.execute();
+            }
+            else{
+               // cc.log("toHome");
+                SceneNavigator.toHome();
             }
         }
     },true);
