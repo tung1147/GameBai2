@@ -15,7 +15,7 @@ if (cc.sys.isNative) { //mobile
 }
 else { //websocket
     var s_lobbyServer = s_lobbyServer || [
-        // "ws://vuabaivip.com:8887/websocket"
+       //  "ws://vuabaivip.com:8887/websocket"
             "ws://42.112.25.164:8887/websocket"
     ];
 }
@@ -134,7 +134,7 @@ var LobbyClient = (function () {
                 }
                 else {
                     LoadingDialog.getInstance().hide();
-                    MessageNode.getInstance().show("Lỗi kết nối máy chủ");
+                    SceneNavigator.toHome("Mất kết nối máy chủ");
                 }
             }
             else if (event === "LostConnection") {
@@ -773,9 +773,10 @@ var LobbyClient = (function () {
                 if (runningScene.homeLocation == 1) {
                     if (LoadingDialog.getInstance().isShow()) {
                         LoadingDialog.getInstance().hide();
-                        MessageNode.getInstance().show("Mất kết nối máy chủ");
-                        LobbyClient.getInstance().close();
-                        SmartfoxClient.getInstance().close();
+                        SceneNavigator.toHome("Mất kết nối máy chủ");
+                        // MessageNode.getInstance().show("Mất kết nối máy chủ");
+                        // LobbyClient.getInstance().close();
+                        // SmartfoxClient.getInstance().close();
                     }
                     return;
                 }
