@@ -242,7 +242,7 @@ var GameController = cc.Class.extend({
                 avt: "",
                 gold: 0,
                 spectator: false,
-                info: this._createUserInfo(players[i])
+                info: this._createUserInfo(null)
             };
         }
 
