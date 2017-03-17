@@ -40,11 +40,14 @@ var SmartfoxClient = (function () {
         },
         sendHandShake: function () {
             var content = {
-                cl: "C++ API",
+                cl: "Mobile",
                 api: "1.6.3",
                 bin: true,
                 // rt : "reconnectionToken"
             };
+            if(!cc.sys.isNative){
+                content.cl = "web"
+            }
             this.send(socket.SmartfoxClient.Handshake, content);
         },
         sendLogin: function () {

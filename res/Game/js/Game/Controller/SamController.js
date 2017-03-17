@@ -4,6 +4,21 @@
 
 s_sfs_error_msg[34] = "Không được để 2 cuối";
 
+var s_defWin_Sam = s_defWin_Sam || [];
+s_defWin_Sam[0]= "Ăn trắng 5 đôi";
+s_defWin_Sam[1]= "Ăn trắng 3 Xám";
+s_defWin_Sam[2]= "Ăn trắng đồng màu";
+s_defWin_Sam[3]= "Ăn trắng Tứ 2";
+s_defWin_Sam[4]= "Ăn trắng sảnh rồng";
+s_defWin_Sam[15]= "Hòa";
+s_defWin_Sam[16]= "Ăn sâm";
+s_defWin_Sam[17]= "Bị bắt sâm";
+s_defWin_Sam[18]= "Phạt báo 1";
+s_defWin_Sam[19]= "Bị ăn trắng";
+s_defWin_Sam[21]= "Bắt sâm";
+// s_defWin_Sam[13]= "Thắng";
+// s_defWin_Sam[20]= "Thua";
+
 var SamController = TLMNGameController.extend({
     ctor : function (view) {
         this._super();
@@ -80,7 +95,48 @@ var SamController = TLMNGameController.extend({
     },
 
     onGameFinished : function (params) {
-        this._super(params);
+       // this._super(params);
+
+        this._view.onUpdateTurn(".",0,0);
+
+        var winPlayer = params.u;
+        var playerData = params["3"];
+        var player = [];
+        for (var i = 0; i < playerData.length; i++) {
+            var username = playerData[i].u;
+            var gold = parseInt(playerData[i]["4"]);
+            var title = null;
+            var defWinType = playerData[i]["5"];
+
+            var cardListData = playerData[i]["2"];
+            var cardList = [];
+            for(var j=0;j<cardListData.length;j++){
+                cardList.push(CardList.prototype.getCardWithId(cardListData[j]));
+            }
+
+            if(username == winPlayer){
+                title = s_defWin_Sam[defWinType] ? s_defWin_Sam[defWinType] : "Thắng";
+            }
+            else{
+                var msg = s_defWin_Sam[defWinType];
+                title = msg ? msg : ("Thua " + cardList.length + " lá");
+            }
+
+            player[i] = {
+                username : username,
+                title : title,
+                gold : gold,
+                cardList : cardList,
+                isWinner : username == winPlayer
+            };
+
+            //update gold
+            var userGold = parseInt(playerData[i]["3"]);
+            this._view.updateGold(username, userGold);
+        }
+
+        this._view.showFinishedDialog(player);
+
         this._view.hideAllNotifyOne();
     },
 
