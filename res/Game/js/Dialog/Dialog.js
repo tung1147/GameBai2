@@ -39,7 +39,10 @@ var IDialog = cc.Node.extend({
             }
 
             this.setPosition(cc.winSize.width/2, cc.winSize.height/2);
-            parentNode.addChild(this);
+
+            var colorLayer = new cc.LayerColor(cc.color(0,0,0,180), cc.winSize.width, cc.winSize.height);
+            colorLayer.addChild(this);
+            parentNode.addChild(colorLayer);
         }
     },
     showWithAnimationScale : function () {
@@ -60,16 +63,12 @@ var IDialog = cc.Node.extend({
     hide : function () {
         var parent = this.getParent();
         if(parent){
-            this.removeFromParent(true);
+            parent.removeFromParent(true);
         }
     },
 
     isShow : function () {
-        var parent = this.getParent();
-        if(parent){
-            return true;
-        }
-        return false;
+        return this._running;
     },
 
     onEnter : function () {
