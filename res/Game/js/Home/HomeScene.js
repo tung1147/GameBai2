@@ -61,7 +61,9 @@ var HomeScene = IScene.extend({
             thiz.newsButtonhandler();
         });
         this.topBar.rankBt.addClickEventListener(function () {
-            thiz.rankButtonHandler();
+            //thiz.rankButtonHandler();
+            var dialog = new ActivityDialog();
+            dialog.show();
         });
         this.topBar.callBt.addClickEventListener(function () {
             thiz.callButtonHandler();
