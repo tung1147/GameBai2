@@ -44,13 +44,12 @@ var LobbyBottomBar = cc.Node.extend({
         logo.setPosition(640, 50);
         this.addChild(logo);
 
-        var avt =  UserAvatar.createMe();
+        var avt = UserAvatar.createMe();
         avt.setPosition(58, 44);
         this.addChild(avt, 0);
         this.avatar = avt;
 
         var nameLabel = new cc.LabelTTF("Name2221231312313213212312312332132", cc.res.font.Roboto_CondensedBold, 18);
-        nameLabel.setDimensions(190.0, nameLabel.getLineHeight());
         nameLabel.setAnchorPoint(0.0, 0.5);
         nameLabel.setColor(cc.color("#63b0f1"));
         nameLabel.setPosition(103,47);
@@ -130,9 +129,14 @@ var LobbyBottomBar = cc.Node.extend({
 
     refreshView : function () {
         this.avatar.setAvatarMe();
-        this.nameLabel.setString(PlayerMe.username);
-        this.goldLabel.setString(cc.Global.NumberFormat1(PlayerMe.gold) +" V");
 
+        var myName = PlayerMe.username;
+        if(myName.length > 15){
+            myName = PlayerMe.username.substr(0, 15);
+        }
+
+        this.nameLabel.setString(myName);
+        this.goldLabel.setString(cc.Global.NumberFormat1(PlayerMe.gold) +" V");
 
         var level = cc.Global.GetLevelMe();
         this.levelLabel.setString("Level " + level.level);

@@ -109,14 +109,14 @@ task buildNative << {
     println 'ndk_builder_file: ' + ndk_builder_file;
 
     def TOOLCHAIN = "4.9"
-    def DEBUG = "0"
-    def buid_thread = "4"
+    def DEBUG = 0
+    def buid_thread = Runtime.getRuntime().availableProcessors();
 
     def command = [ndk_builder_file.getAbsolutePath(),
-            "-j"+buid_thread,
+            "-j" + java.lang.Integer.toString(buid_thread),
             "-C",
             projectAppDir.getAbsolutePath(),
-            "NDK_DEBUG="+DEBUG,
+            "NDK_DEBUG=" + java.lang.Integer.toString(DEBUG),
             "NDK_TOOLCHAIN_VERSION=" + TOOLCHAIN,
             "NDK_MODULE_PATH=" + rootDir.getAbsolutePath() + ";" + engineDir.getAbsolutePath() + ";" + externalDir.getAbsolutePath() + ";" + cocosDir.getAbsolutePath()
     ];

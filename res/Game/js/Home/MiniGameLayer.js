@@ -42,7 +42,7 @@ var MiniGameLayer = cc.Node.extend({
         this.allMiniLayer = [];
 
         this.initMiniGame();
-        
+
         this.setContentSize(cc.size(1280, 720));
         this.setAnchorPoint(cc.p(0.5, 0.5));
         this.setPosition(cc.winSize.width/2, cc.winSize.height/2);

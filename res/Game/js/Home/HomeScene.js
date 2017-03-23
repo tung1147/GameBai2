@@ -90,8 +90,8 @@ var HomeScene = IScene.extend({
             SceneNavigator.showLoginFacebook();
         });
 
-        //this.startHome();
-        this.startGame();
+        this.startHome();
+        //this.startGame();
         //this.startLobby();
 
         //

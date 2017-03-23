@@ -8,10 +8,10 @@
 if (cc.sys.isNative) { //mobile
     var s_lobbyServer = s_lobbyServer || [
         {
-            host: "42.112.25.169",
+            host: "42.112.25.164",
             port: 9999
         }
-    ];r
+    ];
 }
 else { //websocket
     var s_lobbyServer = s_lobbyServer || [

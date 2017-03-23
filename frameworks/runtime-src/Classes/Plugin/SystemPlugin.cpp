@@ -362,7 +362,7 @@ std::string SystemPlugin::getPackageName(){
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
 	return _winrt_getPackageName();
 #else
-	return "com.gamebaivip.doithuongthat";
+	return "com.songbaivip.fullhd";
 #endif
 }
     
