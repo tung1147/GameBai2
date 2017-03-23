@@ -7,66 +7,78 @@ var GameLayer = cc.Node.extend({
         this._super();
         this.allLayer = [];
         this.initGame();
+
+        this.setContentSize(cc.size(1280, 720));
+        this.setAnchorPoint(cc.p(0.5, 0.5));
+        this.setPosition(cc.winSize.width/2, cc.winSize.height/2);
+        this.setScale(cc.winSize.screenScale);
     },
 
     initGame : function () {
-        var x = 422.0 * cc.winSize.screenScale;
-        var y = 180.0;
-        var dx = 186.0 * cc.winSize.screenScale;
-        var left = 310.0 * cc.winSize.screenScale;
-        var right = cc.winSize.width;
-
-        var padding = 20.0;// (winSize.width - 284.0f * 4) / 5;
-        if (padding < 0){
-            padding = 0;
-        }
+        var thiz = this;
 
         var gameNav = new cc.Sprite("#home-gameNav-bg.png");
-        gameNav.setPosition(791.0 * cc.winSize.screenScale, y);
-        gameNav.setScale(cc.winSize.screenScale);
+        gameNav.setPosition(795, 168);
         this.addChild(gameNav);
+
+        var left = 330.0;
+        var right = 1260.0;
+        var top = 550.0;
+        var bottom = 194.0;
+
+        var dx = gameNav.getContentSize().width / 5;
+        var x = gameNav.x - gameNav.getContentSize().width / 2 + dx / 2;
+
+        var selectSprite = new ccui.Scale9Sprite("home-gameNav-selected.png", cc.rect(4,4,4,4));
+        selectSprite.setPreferredSize(cc.size(dx, gameNav.getContentSize().height));
+        selectSprite.setPosition(0, gameNav.y);
+        this.addChild(selectSprite, 1);
 
         var mToggle = new ToggleNodeGroup();
         this.addChild(mToggle);
         for(var i=0;i<5;i++){
-            var icon1 = new cc.Sprite("#home-game-tab"+ (i+1) +".png");
-            icon1.setPosition(x,y);
-            icon1.setScale(cc.winSize.screenScale);
-            this.addChild(icon1);
+            (function () {
+                var icon1 = new cc.Sprite("#home-game-tab"+ (i+1) +".png");
+                icon1.setPosition(x + dx * i, 180);
+                thiz.addChild(icon1);
 
-            var icon2 = new cc.Sprite("#home-game-tab"+ (i+1) +"-2.png");
-            icon2.setPosition(x,y);
-            icon2.setScale(cc.winSize.screenScale);
-            this.addChild(icon2);
+                var icon2 = new cc.Sprite("#home-game-tab"+ (i+1) +"-2.png");
+                icon2.setPosition(icon1.getPosition());
+                thiz.addChild(icon2);
 
-            var listGame = new newui.TableView(cc.size(right - left, 404), 2);
-            listGame.setDirection(ccui.ScrollView.DIR_HORIZONTAL);
-            listGame.setPadding(padding);
-            listGame.setBounceEnabled(true);
-            listGame.setMargin(0,0,10,10);
-            listGame.setScrollBarEnabled(false);
-            listGame.setPosition(left, 216.0);
+                var listGame = new newui.TableView(cc.size(right - left, (top - bottom)), 2);
+                listGame.setDirection(ccui.ScrollView.DIR_HORIZONTAL);
+                listGame.setPadding(20);
+                listGame.setBounceEnabled(true);
+                listGame.setMargin(0,0,10,10);
+                listGame.setScrollBarEnabled(false);
+                listGame.setPosition(left, bottom);
 
-            this.addChild(listGame,1);
-            this.allLayer.push(listGame);
+                thiz.addChild(listGame,1);
+                thiz.allLayer.push(listGame);
 
-            var toggleItem = new ToggleNodeItem(icon2.getContentSize());
-            toggleItem.icon1 = icon1;
-            toggleItem.icon2 = icon2;
-            toggleItem.listGame = listGame;
-            toggleItem.setPosition(x,y);
-            toggleItem.onSelect = function () {
-                this.icon1.visible = false;
-                this.icon2.visible = true;
-                this.listGame.visible = true;
-            };
-            toggleItem.onUnSelect = function () {
-                this.icon1.visible = true;
-                this.icon2.visible = false;
-                this.listGame.visible = false;
-            };
-            mToggle.addItem(toggleItem);
-            x += dx;
+                var toggleItem = new ToggleNodeItem(icon1.getContentSize());
+                toggleItem.setPosition(icon1.x, selectSprite.y);
+                toggleItem.onSelect = function (isForce) {
+                    icon1.visible = false;
+                    icon2.visible = true;
+                    listGame.visible = true;
+
+                    selectSprite.stopAllActions();
+                    if(isForce){
+                        selectSprite.x = icon1.x;
+                    }
+                    else{
+                        selectSprite.runAction(new cc.MoveTo(0.1, cc.p(icon1.x, selectSprite.y)));
+                    }
+                };
+                toggleItem.onUnSelect = function () {
+                    icon1.visible = true;
+                    icon2.visible = false;
+                    listGame.visible = false;
+                };
+                mToggle.addItem(toggleItem);
+            })();
         }
         this.mToggle = mToggle;
 

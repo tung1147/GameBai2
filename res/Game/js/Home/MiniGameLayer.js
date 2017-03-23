@@ -35,20 +35,25 @@ var MiniGameCell = ccui.Widget.extend({
 
 var MiniGameLayer = cc.Node.extend({
     ctor: function () {
+        this._super();
+        LobbyClient.getInstance().addListener("miniGame", this.onSocketMessage, this);
+
         this.tabSelectedIndex = 0;
         this.allMiniLayer = [];
 
-        this._super();
         this.initMiniGame();
+        
+        this.setContentSize(cc.size(1280, 720));
+        this.setAnchorPoint(cc.p(0.5, 0.5));
+        this.setPosition(cc.winSize.width/2, cc.winSize.height/2);
+        this.setScale(cc.winSize.screenScale);
     },
 
     initMiniGame: function () {
         var thiz = this;
-        LobbyClient.getInstance().addListener("miniGame", this.onSocketMessage, this);
 
         var miniGameBar = new cc.Sprite("#home-minigame-bar.png");
-        miniGameBar.setPosition(162.0 * cc.winSize.screenScale, 170.0);
-        miniGameBar.setScale(cc.winSize.screenScale);
+        miniGameBar.setPosition(140, 168);
         this.addChild(miniGameBar);
 
         var goldTitle = new cc.Sprite("#home-minigamebar-text1.png");
@@ -65,13 +70,13 @@ var MiniGameLayer = cc.Node.extend({
         rightBt.setFlippedX(true);
         miniGameBar.addChild(rightBt);
 
-        var miniGame_top = 580.0;
-        var bottom = miniGameBar.y + (miniGameBar.getContentSize().height / 2 - 6) * miniGameBar.getScaleY();
-        var left = 20.0 * cc.winSize.screenScale;
-        var right = 300.0 * cc.winSize.screenScale;
+        var top = 550.0;
+        var bottom = 193.0;
+        var left = 0.0;
+        var right = 279.0;
 
         var bg = new ccui.Scale9Sprite("home-minigame-bg.png", cc.rect(8, 0, 4, 384));
-        bg.setPreferredSize(cc.size(right - left + 4.0, 384));
+        bg.setPreferredSize(cc.size(right - left + 4.0, top - bottom));
         bg.setAnchorPoint(cc.p(0, 0));
         bg.setPosition(left, bottom);
         this.addChild(bg);
@@ -146,7 +151,6 @@ var MiniGameLayer = cc.Node.extend({
         //cc.log("add miniGame: "+gameId);
         var size = cc.size(280.0, 92.0);
         var cell = new MiniGameCell(size, gameId, s_games_display_name[gameId]);
-        cell.setScale(cc.winSize.screenScale);
         listGame.pushItem(cell);
 
         cell.setTouchEnabled(true);

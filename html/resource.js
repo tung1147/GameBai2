@@ -1,6 +1,4 @@
 var s_resource = s_resource || [
-	"res/avatar.plist",
-	"res/avatar.png",
 	"res/CaoThap.plist",
 	"res/CaoThap.png",
 	"res/Card.plist",
@@ -70,7 +68,6 @@ var s_resource = s_resource || [
 ];
 
 var s_texture = s_texture || [
-	{src:"res/avatar.png",plist:"res/avatar.plist"},
 	{src:"res/CaoThap.png",plist:"res/CaoThap.plist"},
 	{src:"res/Card.png",plist:"res/Card.plist"},
 	{src:"res/dialog.png",plist:"res/dialog.plist"},

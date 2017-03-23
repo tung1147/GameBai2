@@ -5,49 +5,79 @@ var LobbyTopBar = cc.Node.extend({
     ctor : function () {
         this._super();
 
-        // var bg = new cc.Sprite("#home-top-bar.png");
-        // bg.setAnchorPoint(0.0, 1.0);
-        // bg.setPosition(0.0, cc.winSize.height);
-        // this.addChild(bg);
+        this.setAnchorPoint(0.0, 1.0);
+        this.setContentSize(1280.0, 720.0);
+        this.setPosition(0.0, 720.0);
+        this.setScale(cc.winSize.screenScale);
 
-        this.backBt = new ccui.Button("home-backBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        this.backBt.setPosition(65, 653);
-        this.addChild(this.backBt);
+        var backBt = new ccui.Button("top_bar_backBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        backBt.setPosition(54, 660);
+        this.addChild(backBt);
 
-        this.callBt = new ccui.Button("home-callBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        this.callBt.setPosition(167, this.backBt.y);
-        this.addChild(this.callBt);
+        var callBt = new ccui.Button("top_bar_callBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        callBt.setPosition(200, backBt.y);
+        this.addChild(callBt);
 
-        this.newsBt = new ccui.Button("home-newsBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        this.newsBt.setPosition(1016, this.backBt.y);
-        this.addChild(this.newsBt);
+        var transferGoldBt = new ccui.Button("top_bar_goldBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        transferGoldBt.setPosition(347, backBt.y);
+        this.addChild(transferGoldBt);
 
-        this.rankBt = new ccui.Button("home-rankBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        this.rankBt.setPosition(1115, this.backBt.y);
-        this.addChild(this.rankBt);
+        var shopBt = new ccui.Button("top_bar_shopBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        shopBt.setPosition(493, backBt.y);
+        this.addChild(shopBt);
 
-        this.settingBt = new ccui.Button("home-settingBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        this.settingBt.setPosition(1220, this.backBt.y);
-        this.addChild(this.settingBt);
+        var activityBt = new ccui.Button("top_bar_activityBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        activityBt.setPosition(639, backBt.y);
+        this.addChild(activityBt);
 
+        var inboxBt = new ccui.Button("top_bar_inboxBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        inboxBt.setPosition(786, backBt.y);
+        this.addChild(inboxBt);
 
-        var padding = 130.0;
-        var messageBgWidth = cc.winSize.width - padding * 2;
-        if (messageBgWidth > 900){
-            messageBgWidth = 900.0;
-        }
-        var messageBoxLeft = 230.0;
-        var messageBoxRight = 940.0;
+        var newsBt = new ccui.Button("top_bar_newsBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        newsBt.setPosition(932, backBt.y);
+        this.addChild(newsBt);
+
+        var rankBt = new ccui.Button("top_bar_rankBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        rankBt.setPosition(1078, backBt.y);
+        this.addChild(rankBt);
+
+        var settingBt = new ccui.Button("top_bar_settingBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        settingBt.setPosition(1224, backBt.y);
+        this.addChild(settingBt);
+
+        this._initMessageLabel();
+
+        this.backBt = backBt;
+        this.callBt = callBt;
+        this.transferGoldBt = transferGoldBt;
+        this.shopBt = shopBt;
+        this.activityBt = activityBt;
+        this.inboxBt = inboxBt;
+        this.newsBt = newsBt;
+        this.rankBt = rankBt;
+        this.settingBt = settingBt;
+    },
+
+    _initMessageLabel : function () {
+        var bg = new ccui.Scale9Sprite("top_bar_text_bg.png", cc.rect(4,4,4,4));
+        bg.setPreferredSize(cc.size(1280, 56));
+        bg.setAnchorPoint(cc.p(0,0));
+        bg.setPosition(0, 550);
+        this.addChild(bg);
+
+        var messageBoxLeft = 0.0;
+        var messageBoxRight = 1280.0;
         var messageBoxWidth = messageBoxRight - messageBoxLeft;
 
         var clippingMessage = new ccui.Layout();
-        clippingMessage.setContentSize(messageBoxWidth, 80);
+        clippingMessage.setContentSize(messageBoxWidth, 56);
         clippingMessage.setClippingEnabled(true);
         clippingMessage.setClippingType(ccui.Layout.CLIPPING_SCISSOR);
-        clippingMessage.setPosition(messageBoxLeft, 618);
+        clippingMessage.setPosition(messageBoxLeft, bg.y);
         this.addChild(clippingMessage);
 
-        var messageText = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_30, "");
+        var messageText = new cc.LabelTTF("message", cc.res.font.Roboto_Condensed, 20);
         messageText.setColor(cc.color("#bbc9ff"));
         messageText.setAnchorPoint(0.0, 0.5);
         messageText.setPosition(0.0, clippingMessage.getContentSize().height/2);
@@ -56,12 +86,7 @@ var LobbyTopBar = cc.Node.extend({
         this.messageText = messageText;
         this.messageBoxWidth = messageBoxWidth;
 
-        this.setAnchorPoint(0.0, 1.0);
-        this.setContentSize(1280.0, 720.0);
-        this.setPosition(0.0, 720.0);
-        this.setScale(cc.winSize.screenScale);
-
-       // this.setMessage("Sự kiện nhân đôi vàng, bắt đầu từ ngày 30/05/2015 - 01/06/2015");
+        this.setMessage("Sự kiện nhân đôi vàng, bắt đầu từ ngày 30/05/2015 - 01/06/2015");
     },
     
     setMessage : function (message) {
@@ -79,6 +104,6 @@ var LobbyTopBar = cc.Node.extend({
         this.messageText.runAction(new cc.RepeatForever(action));
     },
     refreshView : function () {
-        this.setMessage(GameConfig.broadcastMessage);
-    },
+        //this.setMessage(GameConfig.broadcastMessage);
+    }
 });

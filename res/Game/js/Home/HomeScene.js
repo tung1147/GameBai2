@@ -61,9 +61,7 @@ var HomeScene = IScene.extend({
             thiz.newsButtonhandler();
         });
         this.topBar.rankBt.addClickEventListener(function () {
-            //thiz.rankButtonHandler();
-            var dialog = new ActivityDialog();
-            dialog.show();
+            thiz.rankButtonHandler();
         });
         this.topBar.callBt.addClickEventListener(function () {
             thiz.callButtonHandler();
@@ -71,8 +69,12 @@ var HomeScene = IScene.extend({
         this.topBar.settingBt.addClickEventListener(function () {
             thiz.settingButtonHandler();
         });
-        this.userInfo.newsBt.addClickEventListener(function () {
+        this.topBar.inboxBt.addClickEventListener(function () {
             thiz.newsMesasgeButtonHandler();
+        });
+        this.topBar.activityBt.addClickEventListener(function () {
+            var dialog = new ActivityDialog();
+            dialog.show();
         });
         this.userInfo.paymentBt.addClickEventListener(function () {
             thiz.paymentButtonHandler();
@@ -88,8 +90,8 @@ var HomeScene = IScene.extend({
             SceneNavigator.showLoginFacebook();
         });
 
-        this.startHome();
-        //this.startGame();
+        //this.startHome();
+        this.startGame();
         //this.startLobby();
 
         //
