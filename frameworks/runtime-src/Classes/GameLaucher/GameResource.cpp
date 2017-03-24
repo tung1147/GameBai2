@@ -280,7 +280,8 @@ int GameFile::update(const std::string& url, bool zipFileAvailable, UpdateHandle
 			curl_easy_setopt(curl, CURLOPT_MAXREDIRS, 10);
 			curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, 120);
 			curl_easy_setopt(curl, CURLOPT_TIMEOUT, 120);
-			curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, true);
+			curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, false);
+			curl_easy_setopt(curl, CURLOPT_FRESH_CONNECT, true);
 			curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, _GameFile_write_data_handler);
 			curl_easy_setopt(curl, CURLOPT_WRITEDATA, &dataHandler);
 			res = curl_easy_perform(curl);
