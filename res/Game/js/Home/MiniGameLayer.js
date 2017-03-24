@@ -52,8 +52,13 @@ var MiniGameLayer = cc.Node.extend({
     initMiniGame: function () {
         var thiz = this;
 
+        var top = 550.0;
+        var bottom = 193.0;
+        var left = 30.0;
+        var right = 290.0;
+
         var miniGameBar = new cc.Sprite("#home-minigame-bar.png");
-        miniGameBar.setPosition(140, 168);
+        miniGameBar.setPosition((right + left ) /2, 168);
         this.addChild(miniGameBar);
 
         var goldTitle = new cc.Sprite("#home-minigamebar-text1.png");
@@ -69,11 +74,6 @@ var MiniGameLayer = cc.Node.extend({
         rightBt.setPosition(miniGameBar.getContentSize().width - leftBt.x, leftBt.y);
         rightBt.setFlippedX(true);
         miniGameBar.addChild(rightBt);
-
-        var top = 550.0;
-        var bottom = 193.0;
-        var left = 0.0;
-        var right = 279.0;
 
         var bg = new ccui.Scale9Sprite("home-minigame-bg.png", cc.rect(8, 0, 4, 384));
         bg.setPreferredSize(cc.size(right - left + 4.0, top - bottom));

@@ -17,14 +17,14 @@ var GameLayer = cc.Node.extend({
     initGame : function () {
         var thiz = this;
 
-        var gameNav = new cc.Sprite("#home-gameNav-bg.png");
-        gameNav.setPosition(795, 168);
-        this.addChild(gameNav);
-
-        var left = 330.0;
-        var right = 1260.0;
+        var left = 290.0;
+        var right = 1280.0;
         var top = 550.0;
-        var bottom = 194.0;
+        var bottom = 230.0;
+
+        var gameNav = new cc.Sprite("#home-gameNav-bg.png");
+        gameNav.setPosition((right + left) / 2, 168);
+        this.addChild(gameNav);
 
         var dx = gameNav.getContentSize().width / 5;
         var x = gameNav.x - gameNav.getContentSize().width / 2 + dx / 2;
@@ -91,7 +91,7 @@ var GameLayer = cc.Node.extend({
 
     addGameToList : function (gameId, listGame) {
         var gameButton = new ccui.Widget();
-        gameButton.setContentSize(cc.size(190, 160));
+        gameButton.setContentSize(cc.size(157, 131));
         gameButton.setTouchEnabled(true);
 
         listGame.pushItem(gameButton);
