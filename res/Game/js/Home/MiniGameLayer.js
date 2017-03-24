@@ -76,14 +76,14 @@ var MiniGameLayer = cc.Node.extend({
         miniGameBar.addChild(rightBt);
 
         var bg = new ccui.Scale9Sprite("home-minigame-bg.png", cc.rect(8, 0, 4, 384));
-        bg.setPreferredSize(cc.size(right - left + 4.0, top - bottom));
+        bg.setPreferredSize(cc.size(right - left, top - bottom));
         bg.setAnchorPoint(cc.p(0, 0));
         bg.setPosition(left, bottom);
         this.addChild(bg);
 
         //add pageview
         var miniGameLayer = new ccui.PageView();
-        miniGameLayer.setContentSize(cc.size(right - left, bg.getContentSize().height - 4));
+        miniGameLayer.setContentSize(cc.size(bg.getContentSize().width - 4, bg.getContentSize().height - 4));
         miniGameLayer.setAnchorPoint(cc.p(0.0, 0.0));
         miniGameLayer.setBounceEnabled(true);
         miniGameLayer.setPosition(left + 2, bottom + 2);

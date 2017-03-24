@@ -59,7 +59,7 @@ task copyAssets(type: Copy) {
         include 'script/**'
     }
     from('../../../../') {
-        include 'res/**'
+        //include 'res/**'
         include 'src/**'
         include 'main.js'
         include 'project.json'
