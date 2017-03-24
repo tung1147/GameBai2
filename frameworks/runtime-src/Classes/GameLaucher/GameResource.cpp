@@ -302,18 +302,25 @@ int GameFile::update(const std::string& url, bool zipFileAvailable, UpdateHandle
 					remove(zipFilePath.c_str());
 				} 
 
-				md5.finalize();			
-				auto md5Str = md5.hexdigest();
-				std::transform(md5Str.begin(), md5Str.end(), md5Str.begin(), ::tolower);
-				if (md5Str == md5Digest){
-					CCLOG("download file OK : %s", url.c_str());
+				md5.finalize();
+
+				if (md5Digest == ""){
+					CCLOG("download file OK [no check hash]: %s", url.c_str());
 					return 0;
 				}
 				else{
-					CCLOG("download file invalid hash: %s -> delete file", url.c_str());
-					remove(filePath.c_str());
-					return 1;
-				}
+					auto md5Str = md5.hexdigest();
+					std::transform(md5Str.begin(), md5Str.end(), md5Str.begin(), ::tolower);
+					if (md5Str == md5Digest){
+						CCLOG("download file OK : %s", url.c_str());
+						return 0;
+					}
+					else{
+						CCLOG("download file invalid hash: %s -> delete file", url.c_str());
+						remove(filePath.c_str());
+						return 1;
+					}
+				}			
 			}
 			else{
 				CCLOG("download file network error[%d]: %s", res, url.c_str());
