@@ -280,7 +280,8 @@ int GameFile::update(const std::string& url, bool zipFileAvailable, UpdateHandle
 			curl_easy_setopt(curl, CURLOPT_MAXREDIRS, 10);
 			curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, 120);
 			curl_easy_setopt(curl, CURLOPT_TIMEOUT, 120);
-			curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, true);
+			curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, false);
+			curl_easy_setopt(curl, CURLOPT_FRESH_CONNECT, true);
 			curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, _GameFile_write_data_handler);
 			curl_easy_setopt(curl, CURLOPT_WRITEDATA, &dataHandler);
 			res = curl_easy_perform(curl);
@@ -302,18 +303,25 @@ int GameFile::update(const std::string& url, bool zipFileAvailable, UpdateHandle
 					remove(zipFilePath.c_str());
 				} 
 
-				md5.finalize();			
-				auto md5Str = md5.hexdigest();
-				std::transform(md5Str.begin(), md5Str.end(), md5Str.begin(), ::tolower);
-				if (md5Str == md5Digest){
-					CCLOG("download file OK : %s", url.c_str());
+				md5.finalize();
+
+				if (md5Digest == ""){
+					CCLOG("download file OK [no check hash]: %s", url.c_str());
 					return 0;
 				}
 				else{
-					CCLOG("download file invalid hash: %s -> delete file", url.c_str());
-					remove(filePath.c_str());
-					return 1;
-				}
+					auto md5Str = md5.hexdigest();
+					std::transform(md5Str.begin(), md5Str.end(), md5Str.begin(), ::tolower);
+					if (md5Str == md5Digest){
+						CCLOG("download file OK : %s", url.c_str());
+						return 0;
+					}
+					else{
+						CCLOG("download file invalid hash: %s -> delete file", url.c_str());
+						remove(filePath.c_str());
+						return 1;
+					}
+				}			
 			}
 			else{
 				CCLOG("download file network error[%d]: %s", res, url.c_str());

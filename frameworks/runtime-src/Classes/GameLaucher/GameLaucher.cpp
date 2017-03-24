@@ -17,6 +17,8 @@
 #include "jsfriendapi.h"
 #include "scripting/js-bindings/manual/cocos2d_specifics.hpp"
 
+//#define FORCE_UPDATE
+
 namespace quyetnd {
 
 GameLaucher::GameLaucher() {
@@ -275,9 +277,14 @@ void GameLaucher::finishLaucher(){
 void GameLaucher::checkVersionFileThread(){
 	GameFile versionFile;
 	versionFile.fileName = "version.json";
+#ifdef FORCE_UPDATE
+	versionFile.md5Digest = "";
+	versionFile.fileSize = 0;
+#else
 	versionFile.md5Digest = versionHash;
 	std::transform(versionFile.md5Digest.begin(), versionFile.md5Digest.end(), versionFile.md5Digest.begin(), ::tolower);
 	versionFile.fileSize = 0;
+#endif
 
 	if (!versionFile.test()){
 		//int returnCode = versionFile.updateNoHandler(resourceHost + versionFile.fileName);
