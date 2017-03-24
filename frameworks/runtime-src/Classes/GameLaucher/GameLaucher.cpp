@@ -99,6 +99,11 @@ void GameLaucher::update(float dt){
 }
 
 void GameLaucher::requestGetUpdate(){
+#ifdef FORCE_UPDATE
+	this->checkVersionFile();
+	return;
+#endif
+
 	//resourceHost = "";
 	versionHash = "";
 //	this->checkVersionFile();
