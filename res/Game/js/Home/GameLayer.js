@@ -57,7 +57,7 @@ var GameLayer = cc.Node.extend({
                 thiz.addChild(listGame,1);
                 thiz.allLayer.push(listGame);
 
-                var toggleItem = new ToggleNodeItem(icon1.getContentSize());
+                var toggleItem = new ToggleNodeItem(selectSprite.getContentSize());
                 toggleItem.setPosition(icon1.x, selectSprite.y);
                 toggleItem.onSelect = function (isForce) {
                     icon1.visible = false;

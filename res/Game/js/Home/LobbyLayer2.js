@@ -20,6 +20,11 @@ var LobbyLayer = cc.Node.extend({
         //
         this.initListRoom();
         this.initListRoomXocDia();
+
+        this.setContentSize(cc.size(1280, 720));
+        this.setAnchorPoint(cc.p(0.5, 0.5));
+        this.setPosition(cc.winSize.width/2, cc.winSize.height/2);
+        this.setScale(cc.winSize.screenScale);
     },
 
     initListRoomXocDia : function () {
@@ -27,10 +32,10 @@ var LobbyLayer = cc.Node.extend({
         this.addChild(roomXocDiaNode);
         this.roomXocDiaNode = roomXocDiaNode;
 
-        var left = 310.0 * cc.winSize.screenScale;
-        var right = cc.winSize.width - 10.0 * cc.winSize.screenScale;
-        var bottom = 144.0;
-        var top = 590.0;
+        var left = 290.0;
+        var right = 1280.0;
+        var top = 550.0;
+        var bottom = 143.0;
 
         var listGame = new newui.TableView(cc.size(right - left, top - bottom), 1);
         listGame.setPadding(20);
@@ -49,13 +54,22 @@ var LobbyLayer = cc.Node.extend({
         this.addChild(roomNode);
         this.roomNode = roomNode;
 
-        var left = 310.0 * cc.winSize.screenScale;
-        var right = cc.winSize.width - 10.0 * cc.winSize.screenScale;
-        var bottom = 215.0;
-        var top = 590.0;
-        var dx = (right - left)/5;
-        var x = left + dx/2;
-        var y = 180;
+        var left = 290.0;
+        var right = 1280.0;
+        var top = 550.0;
+        var bottom = 223.0;
+
+        var gameNav = new cc.Sprite("#home-gameNav-bg.png");
+        gameNav.setPosition((right + left) / 2, 168);
+        roomNode.addChild(gameNav);
+
+        var dx = gameNav.getContentSize().width / 5;
+        var x = gameNav.x - gameNav.getContentSize().width / 2 + dx / 2;
+
+        var selectSprite = new ccui.Scale9Sprite("home-gameNav-selected.png", cc.rect(4,4,4,4));
+        selectSprite.setPreferredSize(cc.size(dx, gameNav.getContentSize().height));
+        selectSprite.setPosition(0, gameNav.y);
+        roomNode.addChild(selectSprite, 1);
 
         var thiz = this;
         var mToggle = new ToggleNodeGroup();
@@ -63,23 +77,17 @@ var LobbyLayer = cc.Node.extend({
         this.mToggle = mToggle;
         this.listGame = [];
 
-        var selectedSprite = new ccui.Scale9Sprite("lobby-tabSelected.png", cc.rect(4,4,4,4));
-        selectedSprite.setPreferredSize(cc.size(dx, 58));
-        roomNode.addChild(selectedSprite,1);
-
         for(var i=0; i<s_lobby_group_name.length; i++){
             (function () {
                 var icon1 = new cc.Sprite("#lobby-tab"+ (i+1) +".png");
-                icon1.setPosition(x,y);
-                icon1.setScale(cc.winSize.screenScale);
+                icon1.setPosition(x + dx * i, 180);
                 roomNode.addChild(icon1);
 
                 var icon2 = new cc.Sprite("#lobby-tabSelected"+ (i+1) +".png");
-                icon2.setPosition(x,y);
-                icon2.setScale(cc.winSize.screenScale);
+                icon2.setPosition(icon1.getPosition());
                 roomNode.addChild(icon2);
 
-                var listGame = new newui.TableView(cc.size(right - left, top - bottom), 4);
+                var listGame = new newui.TableView(cc.size(right - left, (top - bottom)), 4);
                 listGame.setDirection(ccui.ScrollView.DIR_VERTICAL);
                 listGame.setPadding(20);
                 listGame.setBounceEnabled(true);
@@ -91,8 +99,9 @@ var LobbyLayer = cc.Node.extend({
                 roomNode.addChild(listGame,1);
                 thiz.listGame.push(listGame);
 
-                var toggleItem = new ToggleNodeItem(cc.size(dx, 58.0));
-                toggleItem.setPosition(icon1.x, icon1.y - icon1.getContentSize().height/2 + toggleItem.getContentSize().height/2);
+                var toggleItem = new ToggleNodeItem(selectSprite.getContentSize());
+                toggleItem.setPosition(icon1.x, selectSprite.y);
+
                 toggleItem.onSelect = function (isForce, byUpdateAll) {
                     if(byUpdateAll){
                         return;
@@ -101,12 +110,12 @@ var LobbyLayer = cc.Node.extend({
                     icon1.visible = false;
                     icon2.visible = true;
                     listGame.visible = true;
-                    selectedSprite.stopAllActions();
+                    selectSprite.stopAllActions();
                     if(isForce){
-                        selectedSprite.setPosition(toggleItem.getPosition());
+                        selectSprite.x = icon1.x;
                     }
                     else{
-                        selectedSprite.runAction(new cc.MoveTo(0.1, toggleItem.getPosition()));
+                        selectSprite.runAction(new cc.MoveTo(0.1, cc.p(icon1.x, selectSprite.y)));
                     }
 
                     if(!isForce){
@@ -120,7 +129,6 @@ var LobbyLayer = cc.Node.extend({
                     listGame.visible = false;
                 };
                 mToggle.addItem(toggleItem);
-                x += dx;
             })();
         }
     },
