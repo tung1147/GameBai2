@@ -214,9 +214,11 @@ var CaoThapLayer = MiniGamePopup.extend({
     setRolling: function (isRolling) {
         this.rolling = isRolling;
         if (isRolling) {
-            SoundPlayer.playSound("lucky_wheel", true);
-        } else {
-            SoundPlayer.stopSound("lucky_wheel");
+            this._rollingSound = SoundPlayer.playSoundLoop("lucky_wheel");
+        }
+        else {
+            SoundPlayer.stopSoundLoop(this._rollingSound);
+            this._rollingSound = null;
         }
     },
 

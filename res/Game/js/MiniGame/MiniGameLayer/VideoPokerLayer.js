@@ -304,9 +304,11 @@ var VideoPokerLayer = MiniGamePopup.extend({
             this.cardRollingSprites[i].visible = (isRolling && !this.holdingList[i % 5]);
         }
         if (isRolling) {
-            SoundPlayer.playSound("lucky_wheel", true);
-        } else {
-            SoundPlayer.stopSound("lucky_wheel");
+            this._rollingSound = SoundPlayer.playSoundLoop("lucky_wheel");
+        }
+        else {
+            SoundPlayer.stopSoundLoop(this._rollingSound);
+            this._rollingSound = null;
         }
     },
 

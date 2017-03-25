@@ -90,6 +90,22 @@ SoundPlayer.stopSound = function (sound) {
     s_sound_loop[sound] = null;
 };
 
+SoundPlayer.playSoundLoop = function (sound) {
+    var soundID = SoundPlayer._playSingleSound(sound, true);
+    return soundID;
+};
+
+SoundPlayer.stopSoundLoop = function (soundId) {
+    if(soundId){
+        if(cc.sys.isNative){
+            jsb.AudioEngine.stop(soundId);
+        }
+        else{
+            cc.audioEngine.stopEffect(soundId);
+        }
+    }
+};
+
 SoundPlayer.stopAllSound = function () {
     s_sound_loop = {};
     if(cc.sys.isNative){

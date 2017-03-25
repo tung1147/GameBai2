@@ -77,7 +77,11 @@ var MiniGamePopup = cc.Node.extend({
 
     onError: function (param) {
         MessageNode.getInstance().show(LobbyClient.Error[param.code]["message"]);
-        SoundPlayer.stopSound("lucky_wheel");
+        //SoundPlayer.stopSound("lucky_wheel");
+        if(this._rollingSound){
+            SoundPlayer.stopSoundLoop(this._rollingSound);
+            this._rollingSound = null;
+        }
     },
 
     performChangeRewardFund: function (data) {
