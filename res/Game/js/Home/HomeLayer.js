@@ -352,34 +352,37 @@ var HomeLayer = cc.Node.extend({
     ctor : function () {
         this._super();
 
-        var homeBar = new cc.Node();
-        homeBar.setScale(cc.winSize.screenScale);
-        this.addChild(homeBar);
+        var barBg = new cc.Sprite("#login_bar_bg.png");
+        barBg.setAnchorPoint(cc.p(0,0));
+        barBg.setPosition(cc.p(0,0));
+        this.addChild(barBg);
 
-        this.barBg = new ccui.Scale9Sprite("home-bar-bg.png", cc.rect(8,8,4,4));
-        this.barBg.setPreferredSize(cc.size(1280.0, 100.0));
-        this.barBg.setAnchorPoint(cc.PointZero());
-        this.barBg.setPosition(cc.PointZero());
-        homeBar.addChild(this.barBg);
+        var logo = new cc.Sprite("#bot_bar_logo.png");
+        logo.setPosition(640, 98);
+        this.addChild(logo);
 
-        this.fbButton = new ccui.Button("home-bg-bt.png","","", ccui.Widget.PLIST_TEXTURE);
-        this.fbButton.setPosition(cc.p(640.0, this.barBg.getContentSize().height/2));
-        this.fbButton.setScale(cc.winSize.screenScale);
-        homeBar.addChild(this.fbButton);
+        var fbButton = new ccui.Button("home-bg-bt.png","","", ccui.Widget.PLIST_TEXTURE);
+        fbButton.setPosition(cc.p(640.0, 30));
+        fbButton.setScale(cc.winSize.screenScale);
+        this.addChild(fbButton);
 
-        this.loginBt = new ccui.Button("home-signin.png","home-signin-selected.png","", ccui.Widget.PLIST_TEXTURE);
-        this.loginBt.setPosition(cc.p(840.0, this.fbButton.y));
-        homeBar.addChild(this.loginBt);
+        var loginBt = new ccui.Button("home-signin.png","","", ccui.Widget.PLIST_TEXTURE);
+        loginBt.setPosition(cc.p(920, 37));
+        this.addChild(loginBt);
 
-        this.signupBt = new ccui.Button("home-signup.png","home-signup-selected.png","", ccui.Widget.PLIST_TEXTURE);
-        this.signupBt.setPosition(cc.p(440.0, this.fbButton.y));
-        homeBar.addChild(this.signupBt);
+        var signupBt = new ccui.Button("home-signup.png","","", ccui.Widget.PLIST_TEXTURE);
+        signupBt.setPosition(cc.p(378,36));
+        this.addChild(signupBt);
 
-        this.loginBt.addClickEventListener(function () {
+        this.fbButton = fbButton;
+        this.loginBt = loginBt;
+        this.signupBt = signupBt;
+
+        loginBt.addClickEventListener(function () {
             SceneNavigator.showLoginNormal();
         });
 
-        this.signupBt.addClickEventListener(function () {
+        signupBt.addClickEventListener(function () {
             SceneNavigator.showSignup();
         });
     }

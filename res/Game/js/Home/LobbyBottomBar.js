@@ -33,12 +33,17 @@ var InboxCountNode = cc.Node.extend({
 var LobbyBottomBar = cc.Node.extend({
     ctor : function () {
         this._super();
+        this.setAnchorPoint(cc.p(0,0));
 
         var bg = new cc.Sprite("#bot_bar_bg.png");
         bg.setAnchorPoint(cc.p(0,0));
         bg.setPosition(cc.p(0,0));
         this.addChild(bg);
-        this.setAnchorPoint(cc.p(0,0));
+
+        var bg2 = new cc.Sprite("#bot_bar_avt_bg.png");
+        bg2.setAnchorPoint(cc.p(0,0));
+        bg2.setPosition(cc.p(0,0));
+        this.addChild(bg2);
 
         var logo = new cc.Sprite("#bot_bar_logo.png");
         logo.setPosition(640, 68);
