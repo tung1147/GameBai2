@@ -2,34 +2,6 @@
  * Created by Quyet Nguyen on 7/1/2016.
  */
 
-var InboxCountNode = cc.Node.extend({
-    ctor : function () {
-        this._super();
-
-        // var bg = new cc.Sprite("#home-news-count.png");
-        // bg.setPosition(newsBt.getContentSize().width, newsBt.getContentSize().height);
-        // newsBt.addChild(newBg);
-        //
-        // var newLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, "9+");
-        // newLabel.setPosition(bg.getContentSize().width/2, bg.getContentSize().height/2);
-        // newLabel.setColor(cc.color(104, 46, 46));
-        // bg.addChild(newLabel);
-
-        // if(PlayerMe.messageCount <= 0){
-        //     this.newBg.visible = false;
-        // }
-        // else{
-        //     this.newBg.visible = true;
-        //     if(PlayerMe.messageCount > 9){
-        //         this.newLabel.setString("9+");
-        //     }
-        //     else{
-        //         this.newLabel.setString(PlayerMe.messageCount.toString());
-        //     }
-        // }
-    }
-});
-
 var LobbyBottomBar = cc.Node.extend({
     ctor : function () {
         this._super();
@@ -154,10 +126,10 @@ var LobbyBottomBar = cc.Node.extend({
 
         var level = cc.Global.GetLevelMe();
         this.levelLabel.setString(level.level.toString());
-        //this.levelBar.setPercentage(level.expPer);
+        this.levelBar.setPercentage(level.expPer);
 
         var vip = cc.Global.GetVipMe();
         this.vipLabel.setString(vip.level.toString());
-      //  this.vipBar.setPercentage(vip.expPer);
+        this.vipBar.setPercentage(vip.expPer);
     }
 });

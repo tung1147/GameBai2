@@ -1,6 +1,54 @@
 /**
  * Created by Quyet Nguyen on 7/1/2016.
  */
+
+var InboxCountNode = cc.Node.extend({
+    ctor : function () {
+        this._super();
+        LobbyClient.getInstance().addListener("inboxMessage", this._onInboxMessageHandler, this);
+
+        var bg = new cc.Sprite("#top_bar_news_bg.png");
+        bg.setPosition(cc.p(0,0));
+        this.addChild(bg);
+        this.newsBg = bg;
+
+        var newLabel = new cc.LabelTTF("9+", cc.res.font.Roboto_Condensed, 20);
+        newLabel.setPosition(bg.getContentSize().width/2, bg.getContentSize().height/2);
+        newLabel.setColor(cc.color("#682e2e"));
+        bg.addChild(newLabel);
+        this.newLabel = newLabel;
+    },
+
+    refreshView : function () {
+        if(PlayerMe.messageCount <= 0){
+            this.newsBg.visible = false;
+        }
+        else{
+            this.newsBg.visible = true;
+            if(PlayerMe.messageCount > 9){
+                this.newLabel.setString("9+");
+            }
+            else{
+                this.newLabel.setString(PlayerMe.messageCount.toString());
+            }
+        }
+    },
+
+    _onInboxMessageHandler : function () {
+        this.refreshView();
+    },
+
+    onEnter : function () {
+        this._super();
+        this.refreshView();
+    },
+
+    onExit : function () {
+        this._super();
+        LobbyClient.getInstance().removeListener(this);
+    }
+});
+
 var LobbyTopBar = cc.Node.extend({
     ctor : function () {
         this._super();
@@ -33,6 +81,10 @@ var LobbyTopBar = cc.Node.extend({
         var inboxBt = new ccui.Button("top_bar_inboxBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
         inboxBt.setPosition(786, backBt.y);
         this.addChild(inboxBt);
+
+        var notif = new InboxCountNode();
+        notif.setPosition(70,80);
+        inboxBt.getRendererNormal().addChild(notif);
 
         var newsBt = new ccui.Button("top_bar_newsBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
         newsBt.setPosition(932, backBt.y);
@@ -104,6 +156,11 @@ var LobbyTopBar = cc.Node.extend({
         this.messageText.runAction(new cc.RepeatForever(action));
     },
     refreshView : function () {
-        //this.setMessage(GameConfig.broadcastMessage);
+        this.setMessage(GameConfig.broadcastMessage);
+    },
+
+    onEnter : function () {
+        this._super();
+        this.refreshView();
     }
 });
