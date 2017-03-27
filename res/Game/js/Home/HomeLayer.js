@@ -357,6 +357,16 @@ var HomeLayer = cc.Node.extend({
         barBg.setPosition(cc.p(0,0));
         this.addChild(barBg);
 
+        var barBg1 = new cc.Sprite("#login_bar_bg_1.png");
+        barBg1.setAnchorPoint(cc.p(0,0));
+        barBg1.setPosition(cc.p(0,0));
+        this.addChild(barBg1);
+
+        var barBg2 = new cc.Sprite("#login_bar_bg_2.png");
+        barBg2.setAnchorPoint(cc.p(0,0));
+        barBg2.setPosition(cc.p(0,0));
+        this.addChild(barBg2);
+
         var logo = new cc.Sprite("#bot_bar_logo.png");
         logo.setPosition(640, 98);
         this.addChild(logo);
@@ -367,11 +377,11 @@ var HomeLayer = cc.Node.extend({
         this.addChild(fbButton);
 
         var loginBt = new ccui.Button("home-signin.png","","", ccui.Widget.PLIST_TEXTURE);
-        loginBt.setPosition(cc.p(920, 37));
+        loginBt.setPosition(cc.p(1155, 46));
         this.addChild(loginBt);
 
         var signupBt = new ccui.Button("home-signup.png","","", ccui.Widget.PLIST_TEXTURE);
-        signupBt.setPosition(cc.p(378,36));
+        signupBt.setPosition(cc.p(122,48));
         this.addChild(signupBt);
 
         this.fbButton = fbButton;

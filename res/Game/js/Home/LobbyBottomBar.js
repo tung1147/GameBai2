@@ -41,13 +41,13 @@ var LobbyBottomBar = cc.Node.extend({
         this.goldLabel = goldLabel;
 
         var level = new cc.LabelTTF("6", cc.res.font.Roboto_Condensed, 18);
-        level.setPosition(294, 41);
+        level.setPosition(340, 41);
         level.setFontFillColor(cc.color("#009cff"));
         this.addChild(level, 1);
         this.levelLabel = level;
 
         var vip = new cc.LabelTTF("Level 6", cc.res.font.Roboto_Condensed, 18);
-        vip.setPosition(367, 41);
+        vip.setPosition(400, 41);
         vip.setFontFillColor(cc.color("#ffde00"));
         this.addChild(vip, 1);
         this.vipLabel = vip;
