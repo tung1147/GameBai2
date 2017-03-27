@@ -138,7 +138,7 @@ void SFSArray::printDebug(std::ostringstream& os, int padding){
 
 void SFSArray::writeToBuffer(StreamWriter* writer){
 	writer->WriteByte(dataType);
-	writer->WriteShort(mData.size());
+	//writer->WriteShort(mData.size());
     if(dataType == SFSDATATYPE_BYTE_ARRAY){
         writer->WriteInt(mData.size());
     }

@@ -94,6 +94,21 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
+            <key>lobby-game16.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,-8}</string>
+                <key>spriteSize</key>
+                <string>{180,140}</string>
+                <key>spriteSourceSize</key>
+                <string>{224,194}</string>
+                <key>textureRect</key>
+                <string>{{215,927},{180,140}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
             <key>lobby-game2.png</key>
             <dict>
                 <key>aliases</key>
@@ -288,7 +303,7 @@
             <key>size</key>
             <string>{452,1202}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:2c0b19db3276d9614b63030032537fa5:ce5417818823c8647671a57c983dd548:8520d2d238a2c15139d5f3d9d51f1820$</string>
+            <string>$TexturePacker:SmartUpdate:c712b77e31e35796a7ff9e4ae020a6f1:55e06dc100586d71acdadf353130597e:8520d2d238a2c15139d5f3d9d51f1820$</string>
             <key>textureFileName</key>
             <string>GameList.png</string>
         </dict>
