@@ -107,7 +107,7 @@ var Dialog = IDialog.extend({
         dialogBg.setAnchorPoint(cc.p(0.0,0.0));
         this.addChild(dialogBg);
 
-        var title = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, "Title");
+        var title = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, "Title");
         this.addChild(title);
 
         var closeButton = new ccui.Button("dialog-button-close.png","","", ccui.Widget.PLIST_TEXTURE);
@@ -165,8 +165,8 @@ var Dialog = IDialog.extend({
         this.dialogBg.setPreferredSize(cc.size(mSize.width + this._marginLeft + this._marginRight, mSize.height + this._marginTop + this._marginBottom));
         this.setContentSize(this.dialogBg.getContentSize());
 
-        this.title.setPosition(this.getContentSize().width/2, this.getContentSize().height - 138.0);
-        this.closeButton.setPosition(this.getContentSize().width - 143.0, this.title.y);
+        this.title.setPosition(this.getContentSize().width/2, this.getContentSize().height - 127.0);
+        this.closeButton.setPosition(this.getContentSize().width - 127.0, this.title.y);
         this.okButton.setPosition(this.getContentSize().width/2 - this.okButton.getContentSize().width/2 - 15.0, 156);
         this.cancelButton.setPosition(this.getContentSize().width/2 + this.cancelButton.getContentSize().width/2 + 15.0, 156);
 

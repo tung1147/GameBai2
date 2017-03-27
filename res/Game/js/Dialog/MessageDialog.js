@@ -8,7 +8,7 @@ var MessageDialog = Dialog.extend({
         this.initWithSize(cc.size(700,420));
 
         var scrollView = new ccui.ListView();
-        scrollView.setContentSize(cc.size(660, 340));
+        scrollView.setContentSize(cc.size(660, 358));
         scrollView.setPosition(this._marginLeft + 20.0, this._marginBottom);
         scrollView.setDirection(ccui.ScrollView.DIR_VERTICAL);
         scrollView.setTouchEnabled(true);

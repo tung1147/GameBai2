@@ -35,7 +35,7 @@ var LoginDialog = cc.Node.extend({
 
         var title = new cc.LabelBMFont("ĐĂNG NHẬP", cc.res.font.Roboto_CondensedBold_30);
         title.setColor(cc.color("#c4e1ff"));
-        title.setPosition(this.layerBg.getContentSize().width/2, 560.0);
+        title.setPosition(this.layerBg.getContentSize().width/2, 570.0);
         this.layerBg.addChild(title);
 
         /* login text field */
@@ -195,7 +195,7 @@ var SignupDialog = cc.Node.extend({
         var margin = 100.0;
         var mTouch = cc.rect(margin, margin, bg.getContentSize().width - margin * 2, bg.getContentSize().height - margin * 2);
         var title = new cc.LabelBMFont("ĐĂNG KÝ", cc.res.font.Roboto_CondensedBold_30);
-        title.setPosition(bg.getContentSize().width/2, 662.0);
+        title.setPosition(bg.getContentSize().width/2, 672.0);
         title.setColor(cc.color("#c4e1ff"));
         bg.addChild(title);
         this.layerBg = bg;
