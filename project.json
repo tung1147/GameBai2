@@ -16,6 +16,7 @@
         "src/jsb_quyetnd_socket.js",
         "src/jsb_quyetnd_facebook_plugin.js",
         "src/jsb_quyetnd_system_plugin.js",
-        "src/jsb_quyetnd_newui.js"
+        "src/jsb_quyetnd_newui.js",
+        "src/LoadingScene.js"
     ]
 }
