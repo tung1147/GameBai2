@@ -4,34 +4,46 @@
 var SettingDialog = Dialog.extend({
     ctor : function () {
         this._super();
-        this.initWithSize(cc.size(600, 430));
+        var thiz = this;
+
+        this.initWithSize(cc.size(598, 378));
         this.title.setString("Cài đặt");
        // this.closeButton.visible = false;
         this.okButton.visible = false;
         this.cancelButton.visible = false;
 
-        var soundLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Âm thanh");
-        soundLabel.setAnchorPoint(cc.p(0.0, 0.5));
-        soundLabel.setPosition(220, 380);
+        var soundLabel = new cc.LabelTTF("Âm thanh", cc.res.font.Roboto_Condensed, 20);
+        soundLabel.setAnchorPoint(cc.p(1.0, 0.5));
+        soundLabel.setPosition(349, 361);
+        soundLabel.setColor(cc.color("#a6bde0"));
         this.addChild(soundLabel);
 
-        var vibratorLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Rung");
+        var vibratorLabel = new cc.LabelTTF("Rung", cc.res.font.Roboto_Condensed, 20);
         vibratorLabel.setAnchorPoint(soundLabel.getAnchorPoint());
         vibratorLabel.setPosition(soundLabel.x, soundLabel.y - 70);
+        vibratorLabel.setColor(cc.color("#a6bde0"));
         this.addChild(vibratorLabel);
 
-        var inviteLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Nhận lời mời chơi");
+        var inviteLabel = new cc.LabelTTF("Nhận lời mời chơi", cc.res.font.Roboto_Condensed, 20);
         inviteLabel.setAnchorPoint(soundLabel.getAnchorPoint());
         inviteLabel.setPosition(vibratorLabel.x, vibratorLabel.y - 70);
+        inviteLabel.setColor(cc.color("#a6bde0"));
         this.addChild(inviteLabel);
 
-        var emailLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Email: " + GameConfig.email);
-        emailLabel.setAnchorPoint(soundLabel.getAnchorPoint());
-        emailLabel.setPosition(inviteLabel.x, inviteLabel.y - 70);
+        var emailLabel = new cc.LabelTTF(GameConfig.email, cc.res.font.Roboto_Condensed, 18);
+        emailLabel.setAnchorPoint(cc.p(1.0, 0.5));
+        emailLabel.setPosition(639, 134);
+        emailLabel.setColor(cc.color("#4d5f7b"));
         this.addChild(emailLabel);
 
+        var versionLabel = new cc.LabelTTF("Ver " + SystemPlugin.getInstance().getVersionName(), cc.res.font.Roboto_Condensed, 18);
+        versionLabel.setAnchorPoint(cc.p(0.0, 0.5));
+        versionLabel.setPosition(123, 134);
+        versionLabel.setColor(cc.color("#4d5f7b"));
+        this.addChild(versionLabel);
+
         var soundIcon = new cc.Sprite("#setting-sound-icon.png");
-        soundIcon.setPosition(180, soundLabel.y);
+        soundIcon.setPosition(384, soundLabel.y);
         this.addChild(soundIcon);
 
         var vibratorIcon = new cc.Sprite("#setting-vibrator-icon.png");
@@ -42,35 +54,72 @@ var SettingDialog = Dialog.extend({
         inviteIcon.setPosition(soundIcon.x, inviteLabel.y);
         this.addChild(inviteIcon);
 
-        var emailIcon = new cc.Sprite("#setting-help-icon.png");
-        emailIcon.setPosition(soundIcon.x, emailLabel.y);
+        var emailIcon = new cc.Sprite("#setting-email-icon.png");
+        emailIcon.setPosition(660, emailLabel.y);
         this.addChild(emailIcon);
 
         var soundOnOff = new newui.ButtonToggle("#setting-on.png","#setting-off.png");
-        soundOnOff.setPosition(550, soundLabel.y);
+        soundOnOff.setPosition(485, soundLabel.y);
         soundOnOff.onSelect = function (target,selected) {
-            cc.Global.SetSetting("sound",selected);
+            thiz._setSoundEnable(selected);
             if (!selected){
                 SoundPlayer.stopAllSound();
             }
         };
         this.addChild(soundOnOff);
-        soundOnOff.select(cc.Global.GetSetting("sound",true));
 
         var vibratorOnOff = new newui.ButtonToggle("#setting-on.png","#setting-off.png");
         vibratorOnOff.setPosition(soundOnOff.x, vibratorLabel.y);
         vibratorOnOff.onSelect = function (target,selected) {
-            cc.Global.SetSetting("vibrator",selected);
+            thiz._setVibratorEnable(selected);
         };
         this.addChild(vibratorOnOff);
-        vibratorOnOff.select(cc.Global.GetSetting("vibrator",true));
 
         var inviteOnOff = new newui.ButtonToggle("#setting-on.png","#setting-off.png");
         inviteOnOff.setPosition(soundOnOff.x, inviteLabel.y);
         inviteOnOff.onSelect = function (target,selected) {
-            cc.Global.SetSetting("invite",selected);
+            thiz._setInviteEnable(selected);
         };
         this.addChild(inviteOnOff);
-        inviteOnOff.select(cc.Global.GetSetting("invite",true));
+
+        this.soundOnOff = soundOnOff;
+        this.vibratorOnOff = vibratorOnOff;
+        this.inviteOnOff = inviteOnOff;
+
+        this.soundIcon = soundIcon;
+        this.vibratorIcon = vibratorIcon;
+        this.inviteIcon = inviteIcon;
+    },
+
+    _setSoundEnable : function (enable, force) {
+        cc.Global.SetSetting("sound",enable);
+        this.soundIcon.setSpriteFrame(enable ? "setting-sound-icon-2.png" : "setting-sound-icon.png");
+        if(force){
+            this.soundOnOff.select(enable);
+        }
+    },
+
+    _setVibratorEnable : function (enable, force) {
+        cc.Global.SetSetting("vibrator",enable);
+        this.vibratorIcon.setSpriteFrame(enable ? "setting-vibrator-icon-2.png" : "setting-vibrator-icon.png");
+        if(force){
+            this.vibratorOnOff.select(enable);
+        }
+    },
+
+    _setInviteEnable : function (enable, force) {
+        cc.Global.SetSetting("invite",enable);
+        this.inviteIcon.setSpriteFrame(enable ? "setting-invite-icon-2.png" : "setting-invite-icon.png");
+        if(force){
+            this.inviteOnOff.select(enable);
+        }
+    },
+
+    onEnter : function () {
+        this._super();
+
+        this._setSoundEnable(cc.Global.GetSetting("sound",true), true);
+        this._setVibratorEnable(cc.Global.GetSetting("vibrator",true), true);
+        this._setInviteEnable(cc.Global.GetSetting("invite",true), true);
     }
 });

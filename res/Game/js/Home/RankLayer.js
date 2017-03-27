@@ -38,7 +38,7 @@ var RankSubLayer = cc.Node.extend({
 
     initItemList : function () {
         var _top = 554.0;
-        var _bottom = 82.0 * cc.winSize.screenScale;
+        var _bottom = 130.0 * cc.winSize.screenScale;
 
         var itemList = new newui.TableView(cc.size(cc.winSize.width, _top - _bottom), 1);
         itemList.setDirection(ccui.ScrollView.DIR_VERTICAL);
