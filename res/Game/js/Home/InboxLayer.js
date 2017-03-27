@@ -7,12 +7,12 @@ var s_text_color_readed = s_text_color_readed || cc.color(120,120,120,255);
 
 var InboxLayer = LobbySubLayer.extend({
     ctor : function () {
-        this._super();
+        this._super("#lobby-title-newMessage.png");
 
-        var title = new cc.Sprite("#lobby-title-newMessage.png");
-        title.setPosition(cc.winSize.width/2, 720.0 - 63 * cc.winSize.screenScale);
-        this.addChild(title);
-        title.setScale(cc.winSize.screenScale);
+        // var title = new cc.Sprite("#lobby-title-newMessage.png");
+        // title.setPosition(cc.winSize.width/2, 720.0 - 63 * cc.winSize.screenScale);
+        // this.addChild(title);
+        // title.setScale(cc.winSize.screenScale);
 
         var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Thời gian");
         timeLabel.setPosition(185.0 * cc.winSize.screenScale, 576);

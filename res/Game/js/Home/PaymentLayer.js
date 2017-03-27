@@ -7,13 +7,6 @@ var payment_card_code = payment_card_code || ["Mã thẻ Mobi", "Mã thẻ Viett
 var payment_card_serial = payment_card_serial || ["Serial thẻ Mobi", "Serial thẻ Viettel", "Serial thẻ Vina", "Serial thẻ Gate", "Serial thẻ Vcoin", "Serial thẻ Bit"];
 var payment_card_type = payment_card_type || ["VMS", "VTT", "VNP", "GATE", "VCOIN", "BIT"];
 
-if(cc.sys.isNative){
-    var payment_idx = [1,2,3,4,5,6];
-}
-else{
-    var payment_idx = [1,4,5,6];
-}
-
 var PaymentCardLayer = cc.Node.extend({
     ctor: function () {
         this._super();
@@ -502,15 +495,33 @@ var PaymentHistoryLayer = cc.Node.extend({
 
 var PaymentLayer = LobbySubLayer.extend({
     ctor: function () {
-        this._super();
+        this._super("#lobby-title-payment.png");
+
+
         if(cc.sys.isNative){
             var allLayer = [
                 new PaymentCardLayer(),
                 new PaymentInAppLayer(),
-                new PaymentInAppLayer(),
                 new PaymentGiftcode(),
                 new PaymentSMSLayer(),
-                new PaymentHistoryLayer()];
+                new PaymentHistoryLayer()
+            ];
+
+            var payment_tab_1 = [
+                "#payment-tab-1.png",
+                "#payment-tab-2.png",
+                "#payment-tab-3.png",
+                "#payment-tab-4.png",
+                "#payment-tab-5.png"
+            ];
+
+            var payment_tab_2 = [
+                "#payment-tab-selected-1.png",
+                "#payment-tab-selected-2.png",
+                "#payment-tab-selected-3.png",
+                "#payment-tab-selected-4.png",
+                "#payment-tab-selected-5.png"
+            ];
         }
         else{
             var allLayer = [
@@ -519,101 +530,29 @@ var PaymentLayer = LobbySubLayer.extend({
                 //new PaymentInAppLayer(),
                 new PaymentGiftcode(),
                 new PaymentSMSLayer(),
-                new PaymentHistoryLayer()];
+                new PaymentHistoryLayer()
+            ];
+
+            var payment_tab_1 = [
+                "#payment-tab-1.png",
+                "#payment-tab-4.png",
+                "#payment-tab-5.png",
+                "#payment-tab-6.png"
+            ];
+
+            var payment_tab_2 = [
+                "#payment-tab-selected-1.png",
+                "#payment-tab-selected-4.png",
+                "#payment-tab-selected-5.png",
+                "#payment-tab-selected-6.png"
+            ];
         }
 
         for (var i = 0; i < allLayer.length; i++) {
             this.addChild(allLayer[i]);
         }
-        var title = new cc.Sprite("#lobby-title-payment.png");
-        title.setPosition(cc.winSize.width / 2, 720.0 - 63 * cc.winSize.screenScale);
-        this.addChild(title);
-        title.setScale(cc.winSize.screenScale);
 
-        var icon_img1 = ["#lobby-start-1.png", "#lobby-hearts-1.png", "#lobby-clubs-1.png", "#lobby-spades-1.png", "#lobby-diamonds-1.png","#lobby-hearts-1.png"];
-        var icon_img2 = ["#lobby-start-2.png", "#lobby-hearts-2.png", "#lobby-clubs-2.png", "#lobby-spades-2.png", "#lobby-diamonds-2.png","#lobby-hearts-2.png"];
-        var bottomBar = new cc.Node();
-        this.addChild(bottomBar);
-        bottomBar.setScale(cc.winSize.screenScale);
-
-        var tabBg = new ccui.Scale9Sprite("sublobby-tab-bg.png", cc.rect(10, 0, 4, 80));
-        tabBg.setPreferredSize(cc.size(1100, 82));
-        tabBg.setPosition(1280.0 / 2, tabBg.getContentSize().height / 2);
-        bottomBar.addChild(tabBg);
-
-        var dx = tabBg.getContentSize().width / allLayer.length;
-        var x = tabBg.x - tabBg.getContentSize().width / 2 + dx / 2;
-
-        var selectBg = new ccui.Scale9Sprite("sublobby-tab-selected-bg.png", cc.rect(10, 10, 4, 4));
-        selectBg.setPreferredSize(cc.size(dx, tabBg.getContentSize().height));
-        bottomBar.addChild(selectBg);
-
-        var selectBar = new cc.Sprite("#sublobby-tab-selected.png");
-        selectBar.setAnchorPoint(cc.p(0.5, 0.0));
-        selectBar.setPosition(selectBg.getContentSize().width/2, selectBg.getContentSize().height - 2);
-        selectBg.addChild(selectBar);
-        if (selectBar.getContentSize().width > dx) {
-            selectBar.setScaleX(dx / selectBar.getContentSize().width);
-        }
-
-        var mToggle = new ToggleNodeGroup();
-        bottomBar.addChild(mToggle);
-
-        for (var i = 0; i < allLayer.length; i++) {
-            var idx = payment_idx[i];
-
-            var icon1 = new cc.Sprite(icon_img1[idx]);
-            var icon2 = new cc.Sprite(icon_img2[idx]);
-            icon1.setAnchorPoint(cc.p(0.5, 0.0));
-            icon2.setAnchorPoint(cc.p(0.5, 0.0));
-            icon1.setPosition(x, 0);
-            icon2.setPosition(icon1.getPosition());
-            bottomBar.addChild(icon1);
-            bottomBar.addChild(icon2);
-
-            var text1 = new cc.Sprite("#payment-tab-" + idx + ".png");
-            var text2 = new cc.Sprite("#payment-tab-selected-" + idx + ".png");
-            text1.setPosition(x, tabBg.y);
-            text2.setPosition(text1.getPosition());
-            bottomBar.addChild(text1, 1);
-            bottomBar.addChild(text2, 1);
-
-            var toggleItem = new ToggleNodeItem(selectBg.getContentSize());
-            toggleItem.icon1 = icon1;
-            toggleItem.icon2 = icon2;
-            toggleItem.text1 = text1;
-            toggleItem.text2 = text2;
-            toggleItem.layer = allLayer[i];
-            toggleItem.setPosition(x, tabBg.y);
-            toggleItem.onSelect = function (isForce) {
-                if (isForce) {
-                    selectBg.setPosition(this.getPosition());
-                   // selectBar.setPosition(selectBg.getPosition());
-                }
-                else {
-                    selectBg.stopAllActions();
-                    //selectBar.stopAllActions();
-                    selectBg.runAction(new cc.MoveTo(0.1, this.getPosition()));
-                  //  selectBar.runAction(new cc.MoveTo(0.1, this.getPosition()));
-                }
-
-                this.icon1.visible = false;
-                this.icon2.visible = true;
-                this.text1.visible = false;
-                this.text2.visible = true;
-                this.layer.setVisible(true);
-            };
-            toggleItem.onUnSelect = function () {
-                this.icon1.visible = true;
-                this.icon2.visible = false;
-                this.text1.visible = true;
-                this.text2.visible = false;
-                this.layer.setVisible(false);
-            };
-            x += dx;
-            mToggle.addItem(toggleItem);
-        }
-        this.mToggle = mToggle;
+        this._initTab(payment_tab_1, payment_tab_2, allLayer);
     },
 
     onEnter: function () {
