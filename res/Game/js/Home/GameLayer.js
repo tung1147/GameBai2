@@ -48,9 +48,9 @@ var GameLayer = cc.Node.extend({
 
                 var listGame = new newui.TableView(cc.size(right - left, (top - bottom)), 2);
                 listGame.setDirection(ccui.ScrollView.DIR_HORIZONTAL);
-                listGame.setPadding(20);
+                listGame.setPadding(30);
                 listGame.setBounceEnabled(true);
-                listGame.setMargin(0,0,10,10);
+                listGame.setMargin(0,0,30,30);
                 listGame.setScrollBarEnabled(false);
                 listGame.setPosition(left, bottom);
 
