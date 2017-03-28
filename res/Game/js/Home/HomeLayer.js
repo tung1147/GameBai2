@@ -351,6 +351,7 @@ var SignupDialog = cc.Node.extend({
 var HomeLayer = cc.Node.extend({
     ctor : function () {
         this._super();
+        this.setScale(cc.winSize.screenScale);
 
         var barBg = new cc.Sprite("#login_bar_bg.png");
         barBg.setAnchorPoint(cc.p(0,0));

@@ -16,20 +16,26 @@ GameLaucherStatus.Finished = 8;
 var LoadingScene = cc.Scene.extend({
     ctor : function () {
         this._super();
+        var bg = new cc.Sprite("res/loading_bg.jpg");
+        bg.setPosition(cc.winSize.width/2, cc.winSize.height/2);
+        this.addChild(bg);
+
         var label = new ccui.Text("Đang kiểm tra phiên bản", "arial", 30);
-        label.x = cc.winSize.width/2;
-        label.y = cc.winSize.height/2;
+        label.setPosition(cc.winSize.width/2, 200);
         this.title = label;
         this.addChild(label);
     },
+
     nextScene : function () {
       //  SystemPlugin.getInstance().enableMipmapTexture("res/Card.png");
         cc.director.replaceScene(new HomeScene());
     },
+
     onEnter : function () {
         this._super();
         SystemPlugin.getInstance().startLaucher();
     },
+
     onProcessStatus : function (status) {
         switch (status){
             case GameLaucherStatus.GetUpdate:
@@ -75,9 +81,11 @@ var LoadingScene = cc.Scene.extend({
             }
         }
     },
+
     onLoadResourceProcess : function (current, target) {
         this.title.setString("Đang tải tài nguyên[" + current + "/" + target + "]");
     },
+
     onUpdateDownloadProcess : function (current, target) {
         this.title.setString("Đang tải cập nhật[" + current + "/" + target + "]");
     }

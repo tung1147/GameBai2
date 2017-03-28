@@ -89,15 +89,15 @@ cc.game.onStart = function(){
     cc.view.resizeWithBrowserSize(true);
     cc.loader.resPath = window.cc_resources_search_path;
     var loading_texture = [
-        "res/game-bg.jpg",
-        "res/loading.plist",
-        "res/loading.png"
+        "res/loading_bg.jpg",
+       // "res/loading.plist",
+      //  "res/loading.png"
     ];
     cc.loader.load(loading_texture,
         function (result, count, loadedCount) { //load
 
         }, function () { //finished
-            cc.spriteFrameCache.addSpriteFrames("res/loading.plist", "res/loading.png");
+         //   cc.spriteFrameCache.addSpriteFrames("res/loading.plist", "res/loading.png");
             cc.director.runScene(new LoadingScene());
         });
 
