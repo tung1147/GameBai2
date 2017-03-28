@@ -119,7 +119,7 @@ bool AppDelegate::applicationDidFinishLaunching()
     
 	std::string externalPath = FileUtils::getInstance()->getWritablePath() + "Game/";
 	FileUtils::getInstance()->addSearchPath("res/Game/", true);
-	FileUtils::getInstance()->addSearchPath("src/", false);
+//	FileUtils::getInstance()->addSearchPath("src/", false);
 	FileUtils::getInstance()->addSearchPath(externalPath, true);
 
 	/*decrypt*/

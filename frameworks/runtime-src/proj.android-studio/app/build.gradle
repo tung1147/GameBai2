@@ -55,11 +55,24 @@ task cleanAssets(type: Delete) {
     delete 'assets'
 }
 task copyAssets(type: Copy) {
-    from('../../../cocos2d-x/cocos/scripting/js-bindings/') {
+    from('../../../../js_min/prebuilt/') {
         include 'script/**'
     }
     from('../../../../') {
         //include 'res/**'
+        include 'src/**'
+        include 'main.js'
+        include 'project.json'
+    }
+    into 'assets'
+}
+
+task copyAssetsDebug(type: Copy) {
+    from('../../../cocos2d-x/cocos/scripting/js-bindings/') {
+        include 'script/**'
+    }
+    from('../../../../') {
+        include 'res/**'
         include 'src/**'
         include 'main.js'
         include 'project.json'
