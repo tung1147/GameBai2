@@ -26,39 +26,39 @@ var LobbyBottomBar = cc.Node.extend({
         this.addChild(avt, 0);
         this.avatar = avt;
 
-        var nameLabel = new cc.LabelTTF("Name2221231312313213212312312332132", cc.res.font.Roboto_CondensedBold, 18);
+        var nameLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_18, "Name2221231312313213212312312332132");
         nameLabel.setAnchorPoint(0.0, 0.5);
-        nameLabel.setFontFillColor(cc.color("#63b0f1"));
+        nameLabel.setColor(cc.color("#63b0f1"));
         nameLabel.setPosition(92, 54);
         this.addChild(nameLabel,1);
         this.nameLabel = nameLabel;
 
-        var goldLabel = new cc.LabelTTF("100,1111V", cc.res.font.Roboto_Condensed, 18);
+        var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "100,1111V");
         goldLabel.setAnchorPoint(0.0, 0.5);
-        goldLabel.setFontFillColor(cc.color("#ffde00"));
+        goldLabel.setColor(cc.color("#ffde00"));
         goldLabel.setPosition(92, 32);
         this.addChild(goldLabel,1);
         this.goldLabel = goldLabel;
 
-        var level = new cc.LabelTTF("6", cc.res.font.Roboto_Condensed, 18);
+        var level = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "6");
         level.setPosition(340, 41);
-        level.setFontFillColor(cc.color("#009cff"));
+        level.setColor(cc.color("#009cff"));
         this.addChild(level, 1);
         this.levelLabel = level;
 
-        var vip = new cc.LabelTTF("Level 6", cc.res.font.Roboto_Condensed, 18);
+        var vip = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "6");
         vip.setPosition(400, 41);
-        vip.setFontFillColor(cc.color("#ffde00"));
+        vip.setColor(cc.color("#ffde00"));
         this.addChild(vip, 1);
         this.vipLabel = vip;
 
-        var _levelText = new cc.LabelTTF("Level", cc.res.font.Roboto_Condensed, 14);
-        _levelText.setFontFillColor(cc.color("#6a8fcc"));
+        var _levelText = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_14, "Level");
+        _levelText.setColor(cc.color("#6a8fcc"));
         _levelText.setPosition(level.x, 9);
         this.addChild(_levelText, 1);
 
-        var _vipText = new cc.LabelTTF("V.I.P", cc.res.font.Roboto_Condensed, 14);
-        _vipText.setFontFillColor(cc.color("#6a8fcc"));
+        var _vipText = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_14, "V.I.P");
+        _vipText.setColor(cc.color("#6a8fcc"));
         _vipText.setPosition(vip.x, 9);
         this.addChild(_vipText, 1);
 

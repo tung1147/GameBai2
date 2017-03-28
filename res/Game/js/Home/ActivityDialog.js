@@ -14,13 +14,13 @@ var ActivityTab = ToggleNodeItem.extend({
     ctor : function (title) {
         this._super(cc.size(260, 60));
 
-        var titleLabel = new cc.LabelTTF(title, cc.res.font.Roboto_CondensedBold, 18);
+        var titleLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_18, title);
         titleLabel.setAnchorPoint(cc.p(0.0, 0.5));
         titleLabel.setPosition(cc.p(18, this.getContentSize().height / 2 + 10));
         this.addChild(titleLabel);
         this.titleLabel = titleLabel;
 
-        var statusLabel = new cc.LabelTTF("status", cc.res.font.Roboto_Condensed, 16);
+        var statusLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_16, "status");
         statusLabel.setAnchorPoint(cc.p(0.0, 0.5));
         statusLabel.setPosition(cc.p(titleLabel.x, this.getContentSize().height / 2 - 10));
         this.addChild(statusLabel);

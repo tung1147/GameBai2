@@ -171,7 +171,7 @@ var VerifySendSMSLayer = cc.Node.extend({
                 bg2.setPosition(bg1.getPosition());
                 thiz.addChild(bg2);
 
-                var smsContent =  new cc.LabelTTF("sms", cc.res.font.Roboto_Condensed, 20, cc.size(0, 0), cc.TEXT_ALIGNMENT_CENTER);
+                var smsContent = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "sms", cc.TEXT_ALIGNMENT_CENTER, 1000);
                 smsContent.setPosition((right + left)/2 - 30, 350);
                 thiz.addChild(smsContent, 1);
                 thiz.smsLabel.push(smsContent);

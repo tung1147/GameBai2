@@ -4,19 +4,8 @@
 
 var cc = cc || {};
 cc.Label = cc.Label || {};
-cc.Label.createWithBMFont = function () {
-    if(arguments.length == 2){
-        return new cc.LabelBMFont(arguments[1], arguments[0]);
-    }
-    else if(arguments.length == 3){
-        return new cc.LabelBMFont(arguments[1], arguments[0], 0, arguments[2]);
-    }
-    else if(arguments.length == 4){
-        return new cc.LabelBMFont(arguments[1], arguments[0], arguments[3], arguments[2]);
-    }
-    else if(arguments.length == 5){
-        return new cc.LabelBMFont(arguments[1], arguments[0], arguments[3], arguments[2], arguments[4]);
-    }
+cc.Label.createWithBMFont = function (fntFile, text, alignment, width, imageOffset) {
+    return new cc.LabelBMFont(text, fntFile, width, alignment, imageOffset);
 };
 
 cc.LabelBMFont.prototype.getLineHeight = function () {

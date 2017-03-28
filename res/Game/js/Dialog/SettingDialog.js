@@ -12,31 +12,31 @@ var SettingDialog = Dialog.extend({
         this.okButton.visible = false;
         this.cancelButton.visible = false;
 
-        var soundLabel = new cc.LabelTTF("Âm thanh", cc.res.font.Roboto_Condensed, 20);
+        var soundLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "Âm thanh");
         soundLabel.setAnchorPoint(cc.p(1.0, 0.5));
         soundLabel.setPosition(349, 361);
         soundLabel.setColor(cc.color("#a6bde0"));
         this.addChild(soundLabel);
 
-        var vibratorLabel = new cc.LabelTTF("Rung", cc.res.font.Roboto_Condensed, 20);
+        var vibratorLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "Rung");
         vibratorLabel.setAnchorPoint(soundLabel.getAnchorPoint());
         vibratorLabel.setPosition(soundLabel.x, soundLabel.y - 70);
         vibratorLabel.setColor(cc.color("#a6bde0"));
         this.addChild(vibratorLabel);
 
-        var inviteLabel = new cc.LabelTTF("Nhận lời mời chơi", cc.res.font.Roboto_Condensed, 20);
+        var inviteLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "Nhận lời mời chơi");
         inviteLabel.setAnchorPoint(soundLabel.getAnchorPoint());
         inviteLabel.setPosition(vibratorLabel.x, vibratorLabel.y - 70);
         inviteLabel.setColor(cc.color("#a6bde0"));
         this.addChild(inviteLabel);
 
-        var emailLabel = new cc.LabelTTF(GameConfig.email, cc.res.font.Roboto_Condensed, 18);
+        var emailLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, GameConfig.email);
         emailLabel.setAnchorPoint(cc.p(1.0, 0.5));
         emailLabel.setPosition(639, 134);
         emailLabel.setColor(cc.color("#4d5f7b"));
         this.addChild(emailLabel);
 
-        var versionLabel = new cc.LabelTTF("Ver " + SystemPlugin.getInstance().getVersionName(), cc.res.font.Roboto_Condensed, 18);
+        var versionLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Ver " + SystemPlugin.getInstance().getVersionName());
         versionLabel.setAnchorPoint(cc.p(0.0, 0.5));
         versionLabel.setPosition(123, 134);
         versionLabel.setColor(cc.color("#4d5f7b"));

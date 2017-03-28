@@ -12,7 +12,7 @@ var InboxCountNode = cc.Node.extend({
         this.addChild(bg);
         this.newsBg = bg;
 
-        var newLabel = new cc.LabelTTF("9+", cc.res.font.Roboto_Condensed, 20);
+        var newLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "9+");
         newLabel.setPosition(bg.getContentSize().width/2, bg.getContentSize().height/2);
         newLabel.setColor(cc.color("#682e2e"));
         bg.addChild(newLabel);
@@ -129,7 +129,7 @@ var LobbyTopBar = cc.Node.extend({
         clippingMessage.setPosition(messageBoxLeft, bg.y);
         this.addChild(clippingMessage);
 
-        var messageText = new cc.LabelTTF("message", cc.res.font.Roboto_Condensed, 20);
+        var messageText = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "message");
         messageText.setColor(cc.color("#bbc9ff"));
         messageText.setAnchorPoint(0.0, 0.5);
         messageText.setPosition(0.0, clippingMessage.getContentSize().height/2);

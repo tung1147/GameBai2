@@ -25,29 +25,29 @@ var ActivityDiemDanhLayer = cc.Node.extend({
         this.addChild(mNode);
         this.mNode = mNode;
 
-        var nameLabel = new cc.LabelTTF("Điểm danh", cc.res.font.Roboto_Condensed, 20);
+        var nameLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "Điểm danh");
         nameLabel.setColor(cc.color("#ffde00"));
         nameLabel.setAnchorPoint(cc.p(0.0, 0.5));
         nameLabel.setPosition(356, 575);
         mNode.addChild(nameLabel);
 
-        var contentLabel = new cc.LabelTTF(s_diemdanhContent, cc.res.font.Roboto_Condensed, 18, cc.size(570, 0), cc.TEXT_ALIGNMENT_LEFT);
+        var contentLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18,s_diemdanhContent,cc.TEXT_ALIGNMENT_LEFT, 570);
         contentLabel.setColor(cc.color("#ffffff"));
         contentLabel.setAnchorPoint(cc.p(0.0, 1.0));
         contentLabel.setPosition(356, 550);
         mNode.addChild(contentLabel);
 
-        var dateLabel = new cc.LabelTTF("Ngày", cc.res.font.Roboto_Condensed, 16);
+        var dateLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_16, "Ngày");
         dateLabel.setColor(cc.color("#4d6181"));
         dateLabel.setPosition(394, 433);
         mNode.addChild(dateLabel);
 
-        var rewardLabel = new cc.LabelTTF("Phần thưởng", cc.res.font.Roboto_Condensed, 16);
+        var rewardLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_16, "Phần thưởng");
         rewardLabel.setColor(cc.color("#4d6181"));
         rewardLabel.setPosition(529, 433);
         mNode.addChild(rewardLabel);
 
-        var statusLabel = new cc.LabelTTF("Trạng thái", cc.res.font.Roboto_Condensed, 16);
+        var statusLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_16, "Trạng thái");
         statusLabel.setAnchorPoint(cc.p(0.0, 0.5));
         statusLabel.setColor(cc.color("#4d6181"));
         statusLabel.setPosition(664, 433);
@@ -123,18 +123,18 @@ var ActivityDiemDanhLayer = cc.Node.extend({
         dateBg.setPosition(40, container.getContentSize().height/2);
         container.addChild(dateBg);
 
-        var dateLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, date);//new cc.LabelTTF(date, cc.res.font.Roboto_CondensedBold, 18);
+        var dateLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_18, date);
         dateLabel.setColor(cc.color("#ffde00"));
         dateLabel.setPosition(dateBg.getPosition());
         container.addChild(dateLabel);
 
-        var rewardLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_18, reward);// cc.LabelTTF(reward, cc.res.font.Roboto_CondensedBold, 18);
+        var rewardLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_18, reward);
         rewardLabel.setColor(cc.color("#ffde00"));
         rewardLabel.setPosition(175, dateLabel.y);
-        container.addChild(rewardLabel,1);
+        container.addChild(rewardLabel);
 
         if(status === 0 || status === 1){
-            var statusLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Đã nhận"); //new cc.LabelTTF("Đã nhận", cc.res.font.Roboto_Condensed, 18);
+            var statusLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Đã nhận");
             statusLabel.setColor(cc.color("#ffde00"));
             statusLabel.setAnchorPoint(cc.p(0.0, 0.5));
             statusLabel.setPosition(310, dateLabel.y);
@@ -160,7 +160,7 @@ var ActivityDiemDanhLayer = cc.Node.extend({
             }
         }
         else{
-            var statusLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, status);//new cc.LabelTTF(status, cc.res.font.Roboto_Condensed, 18);
+            var statusLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, status);
             statusLabel.setColor(cc.color("#95c8e6"));
             statusLabel.setAnchorPoint(cc.p(0.0, 0.5));
             statusLabel.setPosition(310, dateLabel.y);
@@ -178,29 +178,29 @@ var ActivityLoginLayer = cc.Node.extend({
         this.addChild(mNode);
         this.mNode = mNode;
 
-        var nameLabel = new cc.LabelTTF("Tích lũy đăng nhập", cc.res.font.Roboto_Condensed, 20);
+        var nameLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "Tích lũy đăng nhập");
         nameLabel.setColor(cc.color("#ffde00"));
         nameLabel.setAnchorPoint(cc.p(0.0, 0.5));
         nameLabel.setPosition(356, 575);
         mNode.addChild(nameLabel);
 
-        var contentLabel = new cc.LabelTTF(s_loginContent, cc.res.font.Roboto_Condensed, 18, cc.size(570, 0), cc.TEXT_ALIGNMENT_LEFT);
+        var contentLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, s_loginContent, cc.TEXT_ALIGNMENT_LEFT, 570);
         contentLabel.setColor(cc.color("#ffffff"));
         contentLabel.setAnchorPoint(cc.p(0.0, 1.0));
         contentLabel.setPosition(356, 550);
         mNode.addChild(contentLabel);
 
-        var dateLabel = new cc.LabelTTF("Ngày", cc.res.font.Roboto_Condensed, 16);
+        var dateLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_16, "Ngày");
         dateLabel.setColor(cc.color("#4d6181"));
         dateLabel.setPosition(394, 485);
         mNode.addChild(dateLabel);
 
-        var rewardLabel = new cc.LabelTTF("Phần thưởng", cc.res.font.Roboto_Condensed, 16);
+        var rewardLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_16, "Phần thưởng");
         rewardLabel.setColor(cc.color("#4d6181"));
         rewardLabel.setPosition(529, 485);
         mNode.addChild(rewardLabel);
 
-        var statusLabel = new cc.LabelTTF("Trạng thái", cc.res.font.Roboto_Condensed, 16);
+        var statusLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_16, "Trạng thái");
         statusLabel.setAnchorPoint(cc.p(0.0, 0.5));
         statusLabel.setColor(cc.color("#4d6181"));
         statusLabel.setPosition(664, 485);
@@ -275,19 +275,19 @@ var ActivityLoginLayer = cc.Node.extend({
         dateBg.setPosition(40, container.getContentSize().height/2);
         container.addChild(dateBg);
 
-        var dateLabel = new cc.LabelTTF(date, cc.res.font.Roboto_CondensedBold, 18);
-        dateLabel.setFontFillColor(cc.color("#ffde00"));
+        var dateLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_18, date);
+        dateLabel.setColor(cc.color("#ffde00"));
         dateLabel.setPosition(dateBg.getPosition());
         container.addChild(dateLabel);
 
-        var rewardLabel = new cc.LabelTTF(reward, cc.res.font.Roboto_CondensedBold, 18);
-        rewardLabel.setFontFillColor(cc.color("#ffde00"));
+        var rewardLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_18, reward);
+        rewardLabel.setColor(cc.color("#ffde00"));
         rewardLabel.setPosition(175, dateLabel.y);
         container.addChild(rewardLabel);
 
         if(status === 0 || status === 1){
-            var statusLabel = new cc.LabelTTF("Đã nhận", cc.res.font.Roboto_Condensed, 18);
-            statusLabel.setFontFillColor(cc.color("#ffde00"));
+            var statusLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Đã nhận");
+            statusLabel.setColor(cc.color("#ffde00"));
             statusLabel.setAnchorPoint(cc.p(0.0, 0.5));
             statusLabel.setPosition(310, dateLabel.y);
             container.addChild(statusLabel);
@@ -297,7 +297,7 @@ var ActivityLoginLayer = cc.Node.extend({
 
                 var okButton = new ccui.Button("activity_button_1.png", "", "", ccui.Widget.PLIST_TEXTURE);
                 okButton.setAnchorPoint(cc.p(0.0, 0.5));
-                okButton.setPosition(statusLabel.getPosition());
+                okButton.setPosition(310, dateLabel.y);
                 okButton.setZoomScale(0.01);
                 okButton.setTitleFontName(cc.res.font.Roboto_CondensedBold);
                 okButton.setTitleFontSize(18);
@@ -312,8 +312,8 @@ var ActivityLoginLayer = cc.Node.extend({
             }
         }
         else{
-            var statusLabel = new cc.LabelTTF(status, cc.res.font.Roboto_Condensed, 18);
-            statusLabel.setFontFillColor(cc.color("#95c8e6"));
+            var statusLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, status);
+            statusLabel.setColor(cc.color("#95c8e6"));
             statusLabel.setAnchorPoint(cc.p(0.0, 0.5));
             statusLabel.setPosition(310, dateLabel.y);
             container.addChild(statusLabel);
@@ -330,29 +330,29 @@ var ActivityOnlineLayer = cc.Node.extend({
         this.addChild(mNode);
         this.mNode = mNode;
 
-        var nameLabel = new cc.LabelTTF("Online nhận quà", cc.res.font.Roboto_Condensed, 20);
+        var nameLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "Online nhận quà");
         nameLabel.setColor(cc.color("#ffde00"));
         nameLabel.setAnchorPoint(cc.p(0.0, 0.5));
         nameLabel.setPosition(356, 575);
         mNode.addChild(nameLabel);
 
-        var contentLabel = new cc.LabelTTF(s_onlineContent, cc.res.font.Roboto_Condensed, 18, cc.size(570, 0), cc.TEXT_ALIGNMENT_LEFT);
+        var contentLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, s_onlineContent, cc.TEXT_ALIGNMENT_LEFT, 570);
         contentLabel.setColor(cc.color("#ffffff"));
         contentLabel.setAnchorPoint(cc.p(0.0, 1.0));
         contentLabel.setPosition(356, 550);
         mNode.addChild(contentLabel);
 
-        var timeLabel = new cc.LabelTTF("Thời gian", cc.res.font.Roboto_Condensed, 16);
+        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_16, "Thời gian");
         timeLabel.setColor(cc.color("#4d6181"));
         timeLabel.setPosition(394, 485);
         mNode.addChild(timeLabel);
 
-        var rewardLabel = new cc.LabelTTF("Phần thưởng", cc.res.font.Roboto_Condensed, 16);
+        var rewardLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_16, "Phần thưởng");
         rewardLabel.setColor(cc.color("#4d6181"));
         rewardLabel.setPosition(529, 485);
         mNode.addChild(rewardLabel);
 
-        var statusLabel = new cc.LabelTTF("Trạng thái", cc.res.font.Roboto_Condensed, 16);
+        var statusLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_16, "Trạng thái");
         statusLabel.setAnchorPoint(cc.p(0.0, 0.5));
         statusLabel.setColor(cc.color("#4d6181"));
         statusLabel.setPosition(664, 485);
@@ -423,19 +423,19 @@ var ActivityOnlineLayer = cc.Node.extend({
             container.addChild(bg);
         }
 
-        var timeLabel = new cc.LabelTTF(time, cc.res.font.Roboto_CondensedBold, 18);
-        timeLabel.setFontFillColor(cc.color("#95c8e6"));
+        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_18, time);
+        timeLabel.setColor(cc.color("#95c8e6"));
         timeLabel.setPosition(40, container.getContentSize().height/2);
         container.addChild(timeLabel);
 
-        var rewardLabel = new cc.LabelTTF(reward, cc.res.font.Roboto_CondensedBold, 18);
-        rewardLabel.setFontFillColor(cc.color("#ffde00"));
+        var rewardLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_18, reward);
+        rewardLabel.setColor(cc.color("#ffde00"));
         rewardLabel.setPosition(175, timeLabel.y);
         container.addChild(rewardLabel);
 
         if(status === 0 || status === 1){
-            var statusLabel = new cc.LabelTTF("Đã nhận", cc.res.font.Roboto_Condensed, 18);
-            statusLabel.setFontFillColor(cc.color("#ffde00"));
+            var statusLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Đã nhận");
+            statusLabel.setColor(cc.color("#ffde00"));
             statusLabel.setAnchorPoint(cc.p(0.0, 0.5));
             statusLabel.setPosition(310, timeLabel.y);
             container.addChild(statusLabel);
@@ -460,8 +460,8 @@ var ActivityOnlineLayer = cc.Node.extend({
             }
         }
         else{
-            var statusLabel = new cc.LabelTTF(status, cc.res.font.Roboto_Condensed, 18);
-            statusLabel.setFontFillColor(cc.color("#95c8e6"));
+            var statusLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, status);
+            statusLabel.setColor(cc.color("#95c8e6"));
             statusLabel.setAnchorPoint(cc.p(0.0, 0.5));
             statusLabel.setPosition(310, timeLabel.y);
             container.addChild(statusLabel);
@@ -473,7 +473,7 @@ var ActivityQuestTab = ccui.Widget.extend({
     ctor : function (tabName) {
         this._super();
 
-        var nameLabel = new cc.LabelTTF(tabName, cc.res.font.Roboto_CondensedBold, 16);
+        var nameLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_16, tabName);
         this.setContentSize(cc.size(nameLabel.getContentSize().width + 30, 44));
         nameLabel.setPosition(this.getContentSize().width/2, this.getContentSize().height/2);
         this.addChild(nameLabel, 1);
@@ -490,12 +490,12 @@ var ActivityQuestTab = ccui.Widget.extend({
     select : function (selected) {
         if(selected){
             this.selectSprite.visible = true;
-            this.nameLabel.setFontFillColor(cc.color("#364865"));
+            this.nameLabel.setColor(cc.color("#364865"));
             this.setTouchEnabled(false);
         }
         else{
             this.selectSprite.visible = false;
-            this.nameLabel.setFontFillColor(cc.color("#69768d"));
+            this.nameLabel.setColor(cc.color("#69768d"));
             this.setTouchEnabled(true);
         }
     }
@@ -514,18 +514,18 @@ var ActivityQuestLayer = cc.Node.extend({
         this.itemNode = new cc.Node();
         mNode.addChild(this.itemNode);
 
-        var questLabel = new cc.LabelTTF("Nhiệm vụ", cc.res.font.Roboto_Condensed, 16);
+        var questLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_16, "Nhiệm vụ");
         questLabel.setAnchorPoint(cc.p(0.0, 0.5));
         questLabel.setColor(cc.color("#4d6181"));
         questLabel.setPosition(375, 507);
         mNode.addChild(questLabel);
 
-        var rewardLabel = new cc.LabelTTF("Phần thưởng", cc.res.font.Roboto_Condensed, 16);
+        var rewardLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_16, "Phần thưởng");
         rewardLabel.setColor(cc.color("#4d6181"));
         rewardLabel.setPosition(704, 507);
         mNode.addChild(rewardLabel);
 
-        var statusLabel = new cc.LabelTTF("Trạng thái", cc.res.font.Roboto_Condensed, 16);
+        var statusLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_16, "Trạng thái");
         statusLabel.setAnchorPoint(cc.p(0.0, 0.5));
         statusLabel.setColor(cc.color("#4d6181"));
         statusLabel.setPosition(789, 507);
@@ -650,7 +650,7 @@ var ActivityQuestLayer = cc.Node.extend({
     },
 
     addItem : function(date, reward, status, itemId){
-        var questLabel = new cc.LabelTTF(date, cc.res.font.Roboto_CondensedBold, 18, cc.size(245,0), cc.TEXT_ALIGNMENT_LEFT);
+        var questLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_18, "Nhiệm vụ", cc.TEXT_ALIGNMENT_LEFT, 245);
         var containerHeight = questLabel.getContentSize().height;
         if(containerHeight < 50){
             containerHeight = 50;
@@ -667,19 +667,19 @@ var ActivityQuestLayer = cc.Node.extend({
         }
 
 
-        questLabel.setFontFillColor(cc.color("#95c8e6"));
+        questLabel.setColor(cc.color("#95c8e6"));
         questLabel.setAnchorPoint(cc.p(0.0, 0.5));
         questLabel.setPosition(20, container.getContentSize().height/2);
         container.addChild(questLabel);
 
-        var rewardLabel = new cc.LabelTTF(reward, cc.res.font.Roboto_CondensedBold, 18);
-        rewardLabel.setFontFillColor(cc.color("#ffde00"));
+        var rewardLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_18, reward);
+        rewardLabel.setColor(cc.color("#ffde00"));
         rewardLabel.setPosition(350, questLabel.y);
         container.addChild(rewardLabel);
 
         if(status === 0 || status === 1){
-            var statusLabel = new cc.LabelTTF("Đã nhận", cc.res.font.Roboto_Condensed, 18);
-            statusLabel.setFontFillColor(cc.color("#ffde00"));
+            var statusLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Đã nhận");
+            statusLabel.setColor(cc.color("#ffde00"));
             statusLabel.setAnchorPoint(cc.p(0.0, 0.5));
             statusLabel.setPosition(435, questLabel.y);
             container.addChild(statusLabel);
@@ -703,8 +703,8 @@ var ActivityQuestLayer = cc.Node.extend({
             }
         }
         else{
-            var statusLabel = new cc.LabelTTF(status, cc.res.font.Roboto_Condensed, 18);
-            statusLabel.setFontFillColor(cc.color("#95c8e6"));
+            var statusLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, status);
+            statusLabel.setColor(cc.color("#95c8e6"));
             statusLabel.setAnchorPoint(cc.p(0.0, 0.5));
             statusLabel.setPosition(435, questLabel.y);
             container.addChild(statusLabel);
@@ -720,13 +720,13 @@ var ActivityEventLayer = cc.Node.extend({
         var mNode = new cc.Node();
         this.addChild(mNode);
         this.mNode = mNode;
-
-        var titleLabel = new cc.LabelTTF("Nội dung", cc.res.font.Roboto_Condensed, 16);
+6
+        var titleLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_16, "Nội dung");
         titleLabel.setColor(cc.color("#4d6181"));
         titleLabel.setPosition(572, 507);
         mNode.addChild(titleLabel);
 
-        var timeLabel = new cc.LabelTTF("Thời gian", cc.res.font.Roboto_Condensed, 16);
+        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_16, "Thời gian");
         timeLabel.setColor(cc.color("#4d6181"));
         timeLabel.setPosition(892, 507);
         mNode.addChild(timeLabel);
@@ -775,7 +775,7 @@ var ActivityEventLayer = cc.Node.extend({
     },
 
     addItem : function(title, time, content){
-        var titleLabel = new cc.LabelTTF(title, cc.res.font.Roboto_CondensedBold, 18, cc.size(400,0), cc.TEXT_ALIGNMENT_CENTER);
+        var titleLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_18, title, cc.TEXT_ALIGNMENT_CENTER, 400);
         var containerHeight = titleLabel.getContentSize().height;
         if(containerHeight < 50){
             containerHeight = 50;
@@ -792,12 +792,12 @@ var ActivityEventLayer = cc.Node.extend({
         }
 
 
-        titleLabel.setFontFillColor(cc.color("#95c8e6"));
+        titleLabel.setColor(cc.color("#95c8e6"));
         titleLabel.setPosition(218, container.getContentSize().height/2);
         container.addChild(titleLabel);
 
-        var timeLabel = new cc.LabelTTF(time, cc.res.font.Roboto_CondensedBold, 18);
-        timeLabel.setFontFillColor(cc.color("#ffde00"));
+        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_18, time);
+        timeLabel.setColor(cc.color("#ffde00"));
         timeLabel.setPosition(538, titleLabel.y);
         container.addChild(timeLabel);
     }

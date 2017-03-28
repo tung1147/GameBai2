@@ -17,7 +17,7 @@
 #include "jsfriendapi.h"
 #include "scripting/js-bindings/manual/cocos2d_specifics.hpp"
 
-//#define FORCE_UPDATE
+#define FORCE_UPDATE
 
 namespace quyetnd {
 
@@ -26,7 +26,7 @@ GameLaucher::GameLaucher() {
 	versionFile = "version.json";
 	versionHash = "";
 //	jsMainFile = "js/main.js";
-	resourceHost = "http://gamebai.test/release/mobile/";
+	resourceHost = "https://c567vip.com/demo/mobile/";
 }
 
 GameLaucher::~GameLaucher() {
