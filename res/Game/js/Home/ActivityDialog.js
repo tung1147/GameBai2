@@ -124,6 +124,8 @@ var ActivityDialog = Dialog.extend({
         this._super();
         this.mToggle.selectItem(0);
 
+        cc.Label.c
+
         for(var i=0;i<this.allTab.length;i++){
             this.allTab[i].setStatus("");
         }

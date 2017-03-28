@@ -123,19 +123,19 @@ var ActivityDiemDanhLayer = cc.Node.extend({
         dateBg.setPosition(40, container.getContentSize().height/2);
         container.addChild(dateBg);
 
-        var dateLabel = new cc.LabelTTF(date, cc.res.font.Roboto_CondensedBold, 18);
-        dateLabel.setFontFillColor(cc.color("#ffde00"));
+        var dateLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, date);//new cc.LabelTTF(date, cc.res.font.Roboto_CondensedBold, 18);
+        dateLabel.setColor(cc.color("#ffde00"));
         dateLabel.setPosition(dateBg.getPosition());
         container.addChild(dateLabel);
 
-        var rewardLabel = new cc.LabelTTF(reward, cc.res.font.Roboto_CondensedBold, 18);
-        rewardLabel.setFontFillColor(cc.color("#ffde00"));
+        var rewardLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, reward);// cc.LabelTTF(reward, cc.res.font.Roboto_CondensedBold, 18);
+        rewardLabel.setColor(cc.color("#ffde00"));
         rewardLabel.setPosition(175, dateLabel.y);
         container.addChild(rewardLabel);
 
         if(status === 0 || status === 1){
-            var statusLabel = new cc.LabelTTF("Đã nhận", cc.res.font.Roboto_Condensed, 18);
-            statusLabel.setFontFillColor(cc.color("#ffde00"));
+            var statusLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, "Đã nhận"); //new cc.LabelTTF("Đã nhận", cc.res.font.Roboto_Condensed, 18);
+            statusLabel.setColor(cc.color("#ffde00"));
             statusLabel.setAnchorPoint(cc.p(0.0, 0.5));
             statusLabel.setPosition(310, dateLabel.y);
             container.addChild(statusLabel);
@@ -160,8 +160,8 @@ var ActivityDiemDanhLayer = cc.Node.extend({
             }
         }
         else{
-            var statusLabel = new cc.LabelTTF(status, cc.res.font.Roboto_Condensed, 18);
-            statusLabel.setFontFillColor(cc.color("#95c8e6"));
+            var statusLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, status);//new cc.LabelTTF(status, cc.res.font.Roboto_Condensed, 18);
+            statusLabel.setColor(cc.color("#95c8e6"));
             statusLabel.setAnchorPoint(cc.p(0.0, 0.5));
             statusLabel.setPosition(310, dateLabel.y);
             container.addChild(statusLabel);

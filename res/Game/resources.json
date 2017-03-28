@@ -17,6 +17,22 @@
             "fnt": "res/fonts/minigame-number-1.fnt"
         },
         {
+            "img": "res/fonts/RobotoBoldCondensed_14.png",
+            "fnt": "res/fonts/RobotoBoldCondensed_14.fnt"
+        },
+        {
+            "img": "res/fonts/RobotoBoldCondensed_16.png",
+            "fnt": "res/fonts/RobotoBoldCondensed_16.fnt"
+        },
+        {
+            "img": "res/fonts/RobotoBoldCondensed_18.png",
+            "fnt": "res/fonts/RobotoBoldCondensed_18.fnt"
+        },
+        {
+            "img": "res/fonts/RobotoBoldCondensed_20.png",
+            "fnt": "res/fonts/RobotoBoldCondensed_20.fnt"
+        },
+        {
             "img": "res/fonts/RobotoBoldCondensed_25.png",
             "fnt": "res/fonts/RobotoBoldCondensed_25.fnt"
         },
@@ -27,6 +43,22 @@
         {
             "img": "res/fonts/RobotoBoldCondensed_40.png",
             "fnt": "res/fonts/RobotoBoldCondensed_40.fnt"
+        },
+        {
+            "img": "res/fonts/RobotoCondensed_14.png",
+            "fnt": "res/fonts/RobotoCondensed_14.fnt"
+        },
+        {
+            "img": "res/fonts/RobotoCondensed_16.png",
+            "fnt": "res/fonts/RobotoCondensed_16.fnt"
+        },
+        {
+            "img": "res/fonts/RobotoCondensed_18.png",
+            "fnt": "res/fonts/RobotoCondensed_18.fnt"
+        },
+        {
+            "img": "res/fonts/RobotoCondensed_20.png",
+            "fnt": "res/fonts/RobotoCondensed_20.fnt"
         },
         {
             "img": "res/fonts/RobotoCondensed_25.png",
@@ -62,6 +94,7 @@
         {"img": "res/game-poker-bg.png"},
         {"img": "res/gp_table.png"},
         {"img": "res/gp_table_poker.png"},
+        {"img": "res/loading_bg.jpg"},
         {
             "img": "res/CaoThap.png",
             "plist": "res/CaoThap.plist"

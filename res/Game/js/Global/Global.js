@@ -83,6 +83,18 @@ cc.res.font.UTM_AvoBold_25 = "res/fonts/UTMAvoBold_25.fnt";
 cc.res.font.Roboto_BoldCondensed_36_Glow = "res/fonts/Roboto_BoldCondensed_36_Glow.fnt";
 cc.res.font.videoPokerRewardFont = "res/fonts/videoPokerRewardFont.fnt";
 
+cc.res.font.Roboto_Condensed_14 = "res/fonts/RobotoCondensed_14.fnt";
+cc.res.font.Roboto_CondensedBold_14 = "res/fonts/RobotoBoldCondensed_14.fnt";
+
+cc.res.font.Roboto_Condensed_16 = "res/fonts/RobotoCondensed_16.fnt";
+cc.res.font.Roboto_CondensedBold_16 = "res/fonts/RobotoBoldCondensed_16.fnt";
+
+cc.res.font.Roboto_Condensed_18 = "res/fonts/RobotoCondensed_18.fnt";
+cc.res.font.Roboto_CondensedBold_18 = "res/fonts/RobotoBoldCondensed_18.fnt";
+
+cc.res.font.Roboto_Condensed_20 = "res/fonts/RobotoCondensed_20.fnt";
+cc.res.font.Roboto_CondensedBold_20 = "res/fonts/RobotoBoldCondensed_20.fnt";
+
 var GameType = GameType || {};
 GameType.GAME_MauBinh = 0;
 GameType.GAME_TienLenMN = 1;
