@@ -723,15 +723,15 @@ var ActivityEventLayer = cc.Node.extend({
 6
         var titleLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_16, "Nội dung");
         titleLabel.setColor(cc.color("#4d6181"));
-        titleLabel.setPosition(572, 507);
+        titleLabel.setPosition(572, 580);
         mNode.addChild(titleLabel);
 
         var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_16, "Thời gian");
         timeLabel.setColor(cc.color("#4d6181"));
-        timeLabel.setPosition(892, 507);
+        timeLabel.setPosition(892, 580);
         mNode.addChild(timeLabel);
 
-        var listItem = new newui.TableView(cc.size(641, 370), 1);
+        var listItem = new newui.TableView(cc.size(641, 460), 1);
         listItem.setPosition(cc.p(355, 98));
         listItem.setMargin(10,10,0,0);
         mNode.addChild(listItem);
@@ -800,5 +800,13 @@ var ActivityEventLayer = cc.Node.extend({
         timeLabel.setColor(cc.color("#ffde00"));
         timeLabel.setPosition(538, titleLabel.y);
         container.addChild(timeLabel);
+
+        container.setTouchEnabled(true);
+        container.addClickEventListener(function () {
+            var dialog = new MessageDialog();
+            dialog.setTitle(title);
+            dialog.setMessage(content);
+            dialog.showWithAnimationScale();
+        });
     }
 });
