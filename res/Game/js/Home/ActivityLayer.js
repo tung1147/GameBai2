@@ -147,10 +147,6 @@ var ActivityDiemDanhLayer = cc.Node.extend({
                 okButton.setAnchorPoint(cc.p(0.0, 0.5));
                 okButton.setPosition(310, dateLabel.y);
                 okButton.setZoomScale(0.01);
-                okButton.setTitleFontName(cc.res.font.Roboto_CondensedBold);
-                okButton.setTitleFontSize(18);
-                okButton.setTitleColor(cc.color("#835238"));
-                okButton.setTitleText("Nhận thưởng");
                 container.addChild(okButton);
                 okButton.addClickEventListener(function () {
                     statusLabel.visible = true;
@@ -299,10 +295,6 @@ var ActivityLoginLayer = cc.Node.extend({
                 okButton.setAnchorPoint(cc.p(0.0, 0.5));
                 okButton.setPosition(310, dateLabel.y);
                 okButton.setZoomScale(0.01);
-                okButton.setTitleFontName(cc.res.font.Roboto_CondensedBold);
-                okButton.setTitleFontSize(18);
-                okButton.setTitleColor(cc.color("#835238"));
-                okButton.setTitleText("Nhận thưởng");
                 container.addChild(okButton);
                 okButton.addClickEventListener(function () {
                     statusLabel.visible = true;
@@ -447,10 +439,6 @@ var ActivityOnlineLayer = cc.Node.extend({
                 okButton.setAnchorPoint(cc.p(0.0, 0.5));
                 okButton.setPosition(statusLabel.getPosition());
                 okButton.setZoomScale(0.01);
-                okButton.setTitleFontName(cc.res.font.Roboto_CondensedBold);
-                okButton.setTitleFontSize(18);
-                okButton.setTitleColor(cc.color("#835238"));
-                okButton.setTitleText("Nhận thưởng");
                 container.addChild(okButton);
                 okButton.addClickEventListener(function () {
                     statusLabel.visible = true;
@@ -690,10 +678,6 @@ var ActivityQuestLayer = cc.Node.extend({
                 okButton.setAnchorPoint(cc.p(0.0, 0.5));
                 okButton.setPosition(statusLabel.getPosition());
                 okButton.setZoomScale(0.01);
-                okButton.setTitleFontName(cc.res.font.Roboto_CondensedBold);
-                okButton.setTitleFontSize(18);
-                okButton.setTitleColor(cc.color("#835238"));
-                okButton.setTitleText("Nhận thưởng");
                 container.addChild(okButton);
                 okButton.addClickEventListener(function () {
                     statusLabel.visible = true;
