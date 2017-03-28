@@ -226,13 +226,17 @@ void ResourceLoader::update(float dt){
 			case kStepLoadSound:
 			{
 				if (index < _preloadSound.size()){
-					CCLOG("load sound: %s", _preloadSound[index].c_str());
-					/*SimpleAudioEngine* audioEngine = SimpleAudioEngine::getInstance();
-					audioEngine->preloadEffect(_preloadSound[index].c_str());*/
-					cocos2d::experimental::AudioEngine::preload(_preloadSound[index]);
-
-					index++;
-					currentStep++;
+					auto n = _preloadSound.size() - index;
+					if (n > 10){
+						n = 10;
+					}
+					for (auto i = 0; i < n; i++){
+						CCLOG("load sound: %s", _preloadSound[index + i].c_str());
+						cocos2d::experimental::AudioEngine::preload(_preloadSound[index + i]);
+					}
+					
+					index += n;
+					currentStep += n;
 					onProcessLoader();
 				}
 				else{
