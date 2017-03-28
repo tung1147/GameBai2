@@ -12,17 +12,17 @@ var s_activity_tab_name = s_activity_tab_name || [
 
 var ActivityTab = ToggleNodeItem.extend({
     ctor : function (title) {
-        this._super(cc.size(260, 80));
+        this._super(cc.size(260, 60));
 
-        var titleLabel = new cc.LabelTTF(title, cc.res.font.Roboto_CondensedBold, 24);
+        var titleLabel = new cc.LabelTTF(title, cc.res.font.Roboto_CondensedBold, 18);
         titleLabel.setAnchorPoint(cc.p(0.0, 0.5));
-        titleLabel.setPosition(cc.p(18, 48));
+        titleLabel.setPosition(cc.p(18, this.getContentSize().height / 2 + 10));
         this.addChild(titleLabel);
         this.titleLabel = titleLabel;
 
-        var statusLabel = new cc.LabelTTF("status", cc.res.font.Roboto_Condensed, 20);
+        var statusLabel = new cc.LabelTTF("status", cc.res.font.Roboto_Condensed, 16);
         statusLabel.setAnchorPoint(cc.p(0.0, 0.5));
-        statusLabel.setPosition(cc.p(18, 23));
+        statusLabel.setPosition(cc.p(titleLabel.x, this.getContentSize().height / 2 - 10));
         this.addChild(statusLabel);
         this.statusLabel = statusLabel;
     },
@@ -30,8 +30,8 @@ var ActivityTab = ToggleNodeItem.extend({
         this.statusLabel.setString(status);
     },
     select : function (isForce, ext) {
-        this.titleLabel.setColor(cc.color("#ffffff"));
-        this.statusLabel.setColor(cc.color("#ffffff"));
+        this.titleLabel.setColor(cc.color("#682e2e"));
+        this.statusLabel.setColor(cc.color("#682e2e"));
         this._super(isForce, ext);
     },
     unSelect : function (isForce, ext) {
@@ -44,10 +44,12 @@ var ActivityTab = ToggleNodeItem.extend({
 var ActivityDialog = Dialog.extend({
     ctor : function () {
         this._super();
+        LobbyClient.getInstance().addListener("fetchUserMissionInfo", this._onRecvActivityStatus, this);
+
         this.okButton.visible = false;
         this.cancelButton.visible = false;
         this.title.setString("Hoạt động");
-        this.initWithSize(cc.size(960, 620));
+        this.initWithSize(cc.size(918, 578));
         this._initView();
     },
 
@@ -67,11 +69,12 @@ var ActivityDialog = Dialog.extend({
         }
 
         var selectSprite = new cc.Sprite("#activiti_tab_2.png");
-        selectSprite.setPosition(246, 100);
+        selectSprite.setPosition(210, 100);
         this.addChild(selectSprite);
 
         var mToggle = new ToggleNodeGroup();
         this.mToggle = mToggle;
+        this.allTab = [];
         var thiz = this;
         this.addChild(mToggle);
         for(var i = 0; i<s_activity_tab_name.length; i++){
@@ -79,7 +82,8 @@ var ActivityDialog = Dialog.extend({
                 var mNode = allLayer[i];
 
                 var tab = new ActivityTab(s_activity_tab_name[i]);
-                tab.setPosition(thiz._marginLeft + tab.getContentSize().width/2, thiz._marginBottom + 480 - i * 80);
+                thiz.allTab.push(tab);
+                tab.setPosition(thiz._marginLeft + tab.getContentSize().width/2, thiz._marginBottom + 480 - i * 60);
                 tab.onSelect = function (isForce) {
                     mNode.setVisible(true);
                     if(isForce){
@@ -99,9 +103,40 @@ var ActivityDialog = Dialog.extend({
         }
     },
 
+    _onRecvActivityStatus : function (cmd, data) {
+        var type = data["data"]["typeMission"];
+        var info = data["data"]["shortInfo"];
+        if(type == 0){
+            this.allTab[0].setStatus(info);
+        }
+        else if(type == 2){
+            this.allTab[1].setStatus(info);
+        }
+        else if(type == 3){
+            this.allTab[2].setStatus(info);
+        }
+        else if(type == 1){
+            this.allTab[3].setStatus(info);
+        }
+    },
+
     onEnter : function () {
         this._super();
         this.mToggle.selectItem(0);
+
+        for(var i=0;i<this.allTab.length;i++){
+            this.allTab[i].setStatus("");
+        }
+
+        LobbyClient.getInstance().send({command : "fetchUserMissionInfo", typeMission : 0});
+        LobbyClient.getInstance().send({command : "fetchUserMissionInfo", typeMission : 1});
+        LobbyClient.getInstance().send({command : "fetchUserMissionInfo", typeMission : 2});
+        LobbyClient.getInstance().send({command : "fetchUserMissionInfo", typeMission : 3});
+    },
+
+    onExit : function () {
+        this._super();
+        LobbyClient.getInstance().removeListener(this);
     }
 });
 

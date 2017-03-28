@@ -53,10 +53,12 @@ var LoadingScene = cc.Scene.extend({
     },
 
     nextScene : function () {
-        var tex = cc.textureCache.getTextureForKey("res/Card.png");
-        tex.generateMipmap();
-        tex.setAntiAliasTexParameters();
-        tex.setTexParameters(gl.LINEAR_MIPMAP_LINEAR, gl.LINEAR, gl.CLAMP_TO_EDGE, gl.CLAMP_TO_EDGE);
+        if(cc._renderType === cc.game.RENDER_TYPE_WEBGL){
+            var tex = cc.textureCache.getTextureForKey("res/Card.png");
+            tex.generateMipmap();
+            tex.setAntiAliasTexParameters();
+            tex.setTexParameters(gl.LINEAR_MIPMAP_LINEAR, gl.LINEAR, gl.CLAMP_TO_EDGE, gl.CLAMP_TO_EDGE);
+        }
 
         this.backgroundLoading();
         cc.director.replaceScene(new HomeScene());
