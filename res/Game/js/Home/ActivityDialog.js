@@ -145,29 +145,42 @@ var ActivityDialog = Dialog.extend({
 var ActivityNotificationNode = cc.Node.extend({
     ctor : function () {
         this._super();
-        LobbyClient.getInstance().addListener("updateLandmarkCompleted", this.onUpdateNotification, this);
+        LobbyClient.getInstance().addListener("inboxMessage", this._onInboxMessageHandler, this);
 
-        // newsCountBg = Sprite::createWithSpriteFrameName("home-news-count.png");
-        // newsCountBg->setPosition(newsCountBg->getContentSize().width / 2, newsCountBg->getContentSize().height / 2);
-        // this->setContentSize(newsCountBg->getContentSize());
-        // this->addChild(newsCountBg);
-        //
-        // newsCount = Label::createWithBMFont(Roboto_CondensedBold_25, "1");
-        // newsCount->setPosition(newsCountBg->getContentSize() / 2);
-        // newsCount->setColor(Color3B(104, 46, 46));
-        // newsCountBg->addChild(newsCount, 1);
-        //
-        // newsCountBg->setVisible(false);
+        var bg = new cc.Sprite("#top_bar_news_bg.png");
+        bg.setPosition(cc.p(0,0));
+        this.addChild(bg);
+        this.newsBg = bg;
+
+        var newLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "9+");
+        newLabel.setPosition(bg.getContentSize().width/2, bg.getContentSize().height/2);
+        newLabel.setColor(cc.color("#682e2e"));
+        bg.addChild(newLabel);
+        this.newLabel = newLabel;
     },
 
-    onUpdateNotification : function (cmd, message) {
-        var count = message["data"]["count"];
-        if (count > 0){
-
+    refreshView : function () {
+        if(PlayerMe.messageCount <= 0){
+            this.newsBg.visible = false;
         }
         else{
-
+            this.newsBg.visible = true;
+            if(PlayerMe.messageCount > 9){
+                this.newLabel.setString("9+");
+            }
+            else{
+                this.newLabel.setString(PlayerMe.messageCount.toString());
+            }
         }
+    },
+
+    _onInboxMessageHandler : function () {
+        this.refreshView();
+    },
+
+    onEnter : function () {
+        this._super();
+        this.refreshView();
     },
 
     onExit : function () {

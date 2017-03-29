@@ -5,90 +5,104 @@
 var SMSPayDialog = Dialog.extend({
     ctor: function () {
         this._super();
-        this.initWithSize(cc.size(600, 430));
+        this.initWithSize(cc.size(600, 360));
         this.title.setString("Chọn nhà mạng");
-        // this.closeButton.visible = false;
+        this.okButton.visible = false;
+        this.cancelButton.visible = false;
+
         this.selectedTelCo = {};
         this.bundleId = 0;
         this.smsSyntax = "";
         var thiz = this;
 
-        var viettelBt = new ccui.Button("dialog-button-2.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        var viettelBt = new ccui.Button("payment-card-viettel.png", "", "", ccui.Widget.PLIST_TEXTURE);
         viettelBt.setScale9Enabled(true);
         viettelBt.setCapInsets(cc.rect(10, 10, 4, 4));
         viettelBt.setContentSize(170, 60);
-        viettelBt.setPosition(210, 390);
-        var viettelLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "VIETTEL");
-        viettelLabel.setPosition(viettelBt.width / 2, viettelBt.height / 2);
-        viettelBt.getRendererNormal().addChild(viettelLabel);
+        viettelBt.setPosition(210, 320);
         viettelBt.select = function () {
-            viettelBt.loadTextureNormal("dialog-button-1.png", ccui.Widget.PLIST_TEXTURE);
+            viettelBt.setOpacity(255);
         };
         viettelBt.deselect = function () {
-            viettelBt.loadTextureNormal("dialog-button-2.png", ccui.Widget.PLIST_TEXTURE);
+            viettelBt.setOpacity(255 * 0.4);
         };
         viettelBt.addClickEventListener(function () {
             thiz.selectTelCo(0);
         });
         this.addChild(viettelBt);
         this.viettelBt = viettelBt;
+        viettelBt.deselect();
 
-        var mobiBt = new ccui.Button("dialog-button-2.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        var mobiBt = new ccui.Button("payment-card-mobi.png", "", "", ccui.Widget.PLIST_TEXTURE);
         mobiBt.setScale9Enabled(true);
         mobiBt.setCapInsets(cc.rect(10, 10, 4, 4));
         mobiBt.setContentSize(170, 60);
-        mobiBt.setPosition(400, 390);
-        var mobiLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "MOBIFONE");
-        mobiLabel.setPosition(mobiBt.width / 2, mobiBt.height / 2);
-        mobiBt.getRendererNormal().addChild(mobiLabel);
+        mobiBt.setPosition(400, 320);
         mobiBt.select = function () {
-            mobiBt.loadTextureNormal("dialog-button-1.png", ccui.Widget.PLIST_TEXTURE);
+            mobiBt.setOpacity(255);
         };
         mobiBt.deselect = function () {
-            mobiBt.loadTextureNormal("dialog-button-2.png", ccui.Widget.PLIST_TEXTURE);
+            mobiBt.setOpacity(255 * 0.4);
         };
         mobiBt.addClickEventListener(function () {
             thiz.selectTelCo(1);
         });
         this.addChild(mobiBt);
+        mobiBt.deselect();
         this.mobiBt = mobiBt;
 
-        var vinaBt = new ccui.Button("dialog-button-2.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        var vinaBt = new ccui.Button("payment-card-vina.png", "", "", ccui.Widget.PLIST_TEXTURE);
         vinaBt.setScale9Enabled(true);
         vinaBt.setCapInsets(cc.rect(10, 10, 4, 4));
         vinaBt.setContentSize(170, 60);
-        vinaBt.setPosition(590, 390);
-        var vinaLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "VINAPHONE");
-        vinaLabel.setPosition(vinaBt.width / 2, vinaBt.height / 2);
-        vinaBt.getRendererNormal().addChild(vinaLabel);
+        vinaBt.setPosition(590, 320);
         vinaBt.select = function () {
-            vinaBt.loadTextureNormal("dialog-button-1.png", ccui.Widget.PLIST_TEXTURE);
+            vinaBt.setOpacity(255);
         };
         vinaBt.deselect = function () {
-            vinaBt.loadTextureNormal("dialog-button-2.png", ccui.Widget.PLIST_TEXTURE);
+            vinaBt.setOpacity(255 * 0.4);
         };
         vinaBt.addClickEventListener(function () {
             thiz.selectTelCo(2);
         });
         this.addChild(vinaBt);
+        vinaBt.deselect();
         this.vinaBt = vinaBt;
 
-        // var smsHint = "Tên người nhận: " + PlayerMe.username +"\n";
-        var gainUserStr = "<font face='" + cc.res.font.Roboto_Condensed + "' size='25'>" + "Tên người nhận: " +
-            "<font color='#ffde00'>" + PlayerMe.username + "</font></font>";
+        var smsTitle = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Gửi tin nhắn");
+        smsTitle.setPosition(this.getContentSize().width/2, 270);
+        this.addChild(smsTitle);
 
-        var gainUserLabel = ccui.RichText.createWithXML(gainUserStr, {});
-        gainUserLabel.setPosition(400, 300);
-        this.addChild(gainUserLabel);
+        var smsContent = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "SMS Content");
+        smsContent.setColor(cc.color("#ffde00"));
+        smsContent.setPosition(this.getContentSize().width/2, 240);
+        this.addChild(smsContent);
+        this.smsContent = smsContent;
+
+        var smsGateway = cc.Global.SMSList[0].smsGateway;
+        var smsPhoneNumber = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Đến đầu số "+smsGateway);
+        smsPhoneNumber.setPosition(this.getContentSize().width/2, 210);
+        this.addChild(smsPhoneNumber);
 
         this.selectTelCo(0);
+
+        if(cc.sys.isNative){
+            var okButton = new ccui.Button("sublobby-button.png", "", "", ccui.Widget.PLIST_TEXTURE);
+            okButton.setScale9Enabled(true);
+            okButton.setCapInsets(cc.rect(10,10,4,4));
+            okButton.setContentSize(cc.size(160, 50));
+            okButton.setTitleFontName(cc.res.font.Roboto_Condensed);
+            okButton.setTitleFontSize(18);
+            okButton.setTitleColor(cc.color("#682e2e"))
+            okButton.setTitleText("NẠP");
+            okButton.setPosition(this.getContentSize().width/2, 150);
+            okButton.addClickEventListener(function () {
+                thiz.okButtonHandler();
+            });
+            this.addChild(okButton);
+        }
     },
-    okButtonHandler: function () {
-        this.hide();
-    },
-    cancelButtonHandler: function () {
-        this.hide();
-    },
+
     selectTelCo: function (telcoIndex) {
         if (this.selectedTelCo instanceof ccui.Button) {
             this.selectedTelCo.deselect();
@@ -108,6 +122,7 @@ var SMSPayDialog = Dialog.extend({
         this.selectedTelCo.select();
         this.buildSMSSyntax(this.bundleId,telcoIndex);
     },
+
     buildSMSSyntax: function (index, telco) {
         var syntax = "";
         switch (telco) {
@@ -120,15 +135,12 @@ var SMSPayDialog = Dialog.extend({
             case 2:
                 syntax = cc.Global.SMSList[index].vnpContent.replace('username', PlayerMe.username);
         }
-        this.smsSyntax = syntax;
-        var smsHint = "<font face='" + cc.res.font.Roboto_Condensed + "' size='25'>" + "Cú pháp " +
-            "<font color='#ffde00'>" + syntax
-            + "</font>" + " gửi " + "<font color='#ffde00'>" + cc.Global.SMSList[0].smsGateway + "</font></font>";
+        this.smsContent.setString(syntax);
+    },
 
-        if (this.smsLabel)
-            this.smsLabel.removeFromParent(true);
-        this.smsLabel = ccui.RichText.createWithXML(smsHint, {});
-        this.smsLabel.setPosition(400, 260);
-        this.addChild(this.smsLabel);
+    okButtonHandler : function () {
+        var smsContent = this.smsContent.getString();
+        var smsGateway = cc.Global.SMSList[0].smsGateway;
+        cc.log("sms: " + smsContent);
     }
 });

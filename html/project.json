@@ -55,7 +55,7 @@
     "res/Game/js/Dialog/RewardBankDialog.js",
     "res/Game/js/Dialog/RewardAgencyDialog.js",
     "res/Game/js/Dialog/ChatDialog.js",
-    "html/View/Dialog/SMSPayDialog.js",
+    "res/Game/js/Dialog/SMSPayDialog.js",
     "res/Game/js/Dialog/StatisticBoard.js",
     "res/Game/js/Dialog/TutorialDialog.js",
     "res/Game/js/IScene.js",

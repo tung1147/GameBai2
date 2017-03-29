@@ -5,9 +5,8 @@
 var SMSPayDialog = Dialog.extend({
     ctor: function () {
         this._super();
-        this.initWithSize(cc.size(600, 450));
+        this.initWithSize(cc.size(600, 360));
         this.title.setString("Chọn nhà mạng");
-      //  this.closeButton.visible = false;
         this.okButton.visible = false;
         this.cancelButton.visible = false;
 
@@ -16,79 +15,73 @@ var SMSPayDialog = Dialog.extend({
         this.smsSyntax = "";
         var thiz = this;
 
-        var viettelBt = new ccui.Button("dialog-button-2.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        var viettelBt = new ccui.Button("payment-card-viettel.png", "", "", ccui.Widget.PLIST_TEXTURE);
         viettelBt.setScale9Enabled(true);
         viettelBt.setCapInsets(cc.rect(10, 10, 4, 4));
         viettelBt.setContentSize(170, 60);
-        viettelBt.setPosition(210, 390);
-        var viettelLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "VIETTEL");
-        viettelLabel.setPosition(viettelBt.width / 2, viettelBt.height / 2);
-        viettelBt.getRendererNormal().addChild(viettelLabel);
+        viettelBt.setPosition(210, 320);
         viettelBt.select = function () {
-            viettelBt.loadTextureNormal("dialog-button-1.png", ccui.Widget.PLIST_TEXTURE);
+            viettelBt.setOpacity(255);
         };
         viettelBt.deselect = function () {
-            viettelBt.loadTextureNormal("dialog-button-2.png", ccui.Widget.PLIST_TEXTURE);
+            viettelBt.setOpacity(255 * 0.4);
         };
         viettelBt.addClickEventListener(function () {
             thiz.selectTelCo(0);
         });
         this.addChild(viettelBt);
         this.viettelBt = viettelBt;
+        viettelBt.deselect();
 
-        var mobiBt = new ccui.Button("dialog-button-2.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        var mobiBt = new ccui.Button("payment-card-mobi.png", "", "", ccui.Widget.PLIST_TEXTURE);
         mobiBt.setScale9Enabled(true);
         mobiBt.setCapInsets(cc.rect(10, 10, 4, 4));
         mobiBt.setContentSize(170, 60);
-        mobiBt.setPosition(400, 390);
-        var mobiLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "MOBIFONE");
-        mobiLabel.setPosition(mobiBt.width / 2, mobiBt.height / 2);
-        mobiBt.getRendererNormal().addChild(mobiLabel);
+        mobiBt.setPosition(400, 320);
         mobiBt.select = function () {
-            mobiBt.loadTextureNormal("dialog-button-1.png", ccui.Widget.PLIST_TEXTURE);
+            mobiBt.setOpacity(255);
         };
         mobiBt.deselect = function () {
-            mobiBt.loadTextureNormal("dialog-button-2.png", ccui.Widget.PLIST_TEXTURE);
+            mobiBt.setOpacity(255 * 0.4);
         };
         mobiBt.addClickEventListener(function () {
             thiz.selectTelCo(1);
         });
         this.addChild(mobiBt);
+        mobiBt.deselect();
         this.mobiBt = mobiBt;
 
-        var vinaBt = new ccui.Button("dialog-button-2.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        var vinaBt = new ccui.Button("payment-card-vina.png", "", "", ccui.Widget.PLIST_TEXTURE);
         vinaBt.setScale9Enabled(true);
         vinaBt.setCapInsets(cc.rect(10, 10, 4, 4));
         vinaBt.setContentSize(170, 60);
-        vinaBt.setPosition(590, 390);
-        var vinaLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "VINAPHONE");
-        vinaLabel.setPosition(vinaBt.width / 2, vinaBt.height / 2);
-        vinaBt.getRendererNormal().addChild(vinaLabel);
+        vinaBt.setPosition(590, 320);
         vinaBt.select = function () {
-            vinaBt.loadTextureNormal("dialog-button-1.png", ccui.Widget.PLIST_TEXTURE);
+            vinaBt.setOpacity(255);
         };
         vinaBt.deselect = function () {
-            vinaBt.loadTextureNormal("dialog-button-2.png", ccui.Widget.PLIST_TEXTURE);
+            vinaBt.setOpacity(255 * 0.4);
         };
         vinaBt.addClickEventListener(function () {
             thiz.selectTelCo(2);
         });
         this.addChild(vinaBt);
+        vinaBt.deselect();
         this.vinaBt = vinaBt;
 
-        var smsTitle = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_30, "Gửi tin nhắn");
-        smsTitle.setPosition(this.getContentSize().width/2, 300);
+        var smsTitle = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Gửi tin nhắn");
+        smsTitle.setPosition(this.getContentSize().width/2, 270);
         this.addChild(smsTitle);
 
-        var smsContent = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, "SMS Content");
-        smsContent.setColor(cc.color("#4297b0"));
-        smsContent.setPosition(this.getContentSize().width/2, 250);
+        var smsContent = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "SMS Content");
+        smsContent.setColor(cc.color("#ffde00"));
+        smsContent.setPosition(this.getContentSize().width/2, 240);
         this.addChild(smsContent);
         this.smsContent = smsContent;
 
         var smsGateway = cc.Global.SMSList[0].smsGateway;
-        var smsPhoneNumber = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_30, "Đến đầu số "+smsGateway);
-        smsPhoneNumber.setPosition(this.getContentSize().width/2, 200);
+        var smsPhoneNumber = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Đến đầu số "+smsGateway);
+        smsPhoneNumber.setPosition(this.getContentSize().width/2, 210);
         this.addChild(smsPhoneNumber);
 
         this.selectTelCo(0);

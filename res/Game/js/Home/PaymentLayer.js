@@ -13,8 +13,8 @@ var PaymentCardLayer = cc.Node.extend({
 
 
         var bg1 = new ccui.Scale9Sprite("lobby-text-input.png", cc.rect(10, 10, 4, 4));
-        bg1.setPreferredSize(cc.size(420 * cc.winSize.screenScale, 60));
-        bg1.setPosition(920.0 * cc.winSize.screenScale, 390);
+        bg1.setPreferredSize(cc.size(360, 50));
+        bg1.setPosition(cc.winSize.width/2 + 220, 390);
         this.addChild(bg1);
 
         var bg2 = new ccui.Scale9Sprite("lobby-text-input.png", cc.rect(10, 10, 4, 4));
@@ -23,8 +23,8 @@ var PaymentCardLayer = cc.Node.extend({
         this.addChild(bg2);
 
         var maThe = new newui.EditBox(cc.size(bg1.getContentSize().width - 6, bg1.getContentSize().height - 2));
-        maThe.setFont(cc.res.font.Roboto_Condensed, 30.0 * cc.winSize.screenScale);
-        maThe.setPlaceholderFont(cc.res.font.Roboto_Condensed, 30.0 * cc.winSize.screenScale);
+        maThe.setFont(cc.res.font.Roboto_Condensed, 18);
+        maThe.setPlaceholderFont(cc.res.font.Roboto_Condensed, 18);
         maThe.setInputMode(cc.EDITBOX_INPUT_MODE_SINGLELINE);
         maThe.setReturnType(cc.KEYBOARD_RETURNTYPE_DONE);
         maThe.setPlaceHolder("Mã thẻ");
@@ -34,8 +34,8 @@ var PaymentCardLayer = cc.Node.extend({
         this.type = payment_card_type[0];
 
         var serialThe = new newui.EditBox(cc.size(bg2.getContentSize().width - 6, bg2.getContentSize().height - 2));
-        serialThe.setFont(cc.res.font.Roboto_Condensed, 30.0 * cc.winSize.screenScale);
-        serialThe.setPlaceholderFont(cc.res.font.Roboto_Condensed, 30.0 * cc.winSize.screenScale);
+        serialThe.setFont(cc.res.font.Roboto_Condensed, 18);
+        serialThe.setPlaceholderFont(cc.res.font.Roboto_Condensed, 18);
         serialThe.setInputMode(cc.EDITBOX_INPUT_MODE_SINGLELINE);
         serialThe.setReturnType(cc.KEYBOARD_RETURNTYPE_DONE);
         serialThe.setPlaceHolder("Serial thẻ");
@@ -91,8 +91,8 @@ var PaymentCardLayer = cc.Node.extend({
         this.cardSelected = 0;
         var card_img = ["#payment-card-mobi", "#payment-card-viettel", "#payment-card-vina", "#payment-card-gate", "#payment-card-vcoin", "#payment-card-bit"];
 
-        var _boder = 30.0 * cc.winSize.screenScale;
-        var _padding = (cc.winSize.width - _boder * 2 - 6.0 * 186.0 * cc.winSize.screenScale) / 5;
+        var _boder = 15.0 * cc.winSize.screenScale;
+        var _padding = (cc.winSize.width - _boder * 2 - 6.0 * 196.0 * cc.winSize.screenScale) / 5;
         var listItem = new newui.TableView(cc.size(cc.winSize.width, 150), 1);
         listItem.setDirection(ccui.ScrollView.DIR_HORIZONTAL);
         listItem.setMargin(0, 0, _boder, _boder);
@@ -102,38 +102,35 @@ var PaymentCardLayer = cc.Node.extend({
         this.addChild(listItem);
         var thiz = this;
         for (var i = 0; i < 6; i++) {
-            var bg1 = new cc.Sprite(card_img[i] + "-1.png");
-            bg1.setOpacity(0.3 * 255);
-            bg1.setPosition(bg1.getContentSize().width / 2, bg1.getContentSize().height / 2);
-            var bg2 = new cc.Sprite(card_img[i] + "-2.png");
-            bg2.setPosition(bg1.getPosition());
-            bg2.visible = false;
-            var container = new ccui.Widget();
-            container.setContentSize(bg1.getContentSize());
-            container.addChild(bg1);
-            container.addChild(bg2);
-            container.setScale(cc.winSize.screenScale);
-            listItem.pushItem(container);
-            container.bg1 = bg1;
-            container.bg2 = bg2;
-            container.maThe = payment_card_code[i];
-            container.serialThe = payment_card_serial[i];
-            container.type = payment_card_type[i];
-            container.select = function () {
-                this.bg1.visible = false;
-                this.bg2.visible = true;
-            };
-            container.unselect = function () {
-                this.bg1.visible = true;
-                this.bg2.visible = false;
-            };
-            container.setTouchEnabled(true);
-            container.addClickEventListener(function (item) {
-                thiz.selectCard(item);
-            });
-            if (i == 0) {
-                this.selectCard(container);
-            }
+            (function () {
+                var bg1 = new cc.Sprite(card_img[i] + ".png");
+                bg1.setPosition(bg1.getContentSize().width / 2, bg1.getContentSize().height / 2);
+                var container = new ccui.Widget();
+                container.setContentSize(bg1.getContentSize());
+                container.addChild(bg1);
+
+                container.setScale(cc.winSize.screenScale);
+                listItem.pushItem(container);
+                container.maThe = payment_card_code[i];
+                container.serialThe = payment_card_serial[i];
+                container.type = payment_card_type[i];
+
+                container.select = function () {
+                    bg1.setOpacity(255);
+                };
+                container.unselect = function () {
+                    bg1.setOpacity(255 * 0.4);
+                };
+                container.setTouchEnabled(true);
+                container.addClickEventListener(function (item) {
+                    thiz.selectCard(item);
+                });
+
+                container.unselect();
+                if (i == 0) {
+                    thiz.selectCard(container);
+                }
+            })();
         }
     },
     selectCard: function (card) {
@@ -281,7 +278,6 @@ var PaymentSMSLayer = PaymentInAppLayer.extend({
         paydialog.showWithAnimationMove();
     }
 });
-
 
 var PaymentGiftcode = cc.Node.extend({
     ctor: function () {
@@ -509,18 +505,20 @@ var PaymentLayer = LobbySubLayer.extend({
 
             var payment_tab_1 = [
                 "#payment-tab-1.png",
-                "#payment-tab-2.png",
+                //"#payment-tab-2.png",
                 "#payment-tab-3.png",
                 "#payment-tab-4.png",
-                "#payment-tab-5.png"
+                "#payment-tab-5.png",
+                "#payment-tab-6.png"
             ];
 
             var payment_tab_2 = [
                 "#payment-tab-selected-1.png",
-                "#payment-tab-selected-2.png",
+                //"#payment-tab-selected-2.png",
                 "#payment-tab-selected-3.png",
                 "#payment-tab-selected-4.png",
-                "#payment-tab-selected-5.png"
+                "#payment-tab-selected-5.png",
+                "#payment-tab-selected-6.png"
             ];
         }
         else{
