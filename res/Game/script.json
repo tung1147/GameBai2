@@ -26,6 +26,7 @@
 	"js/Dialog/RewardBankDialog.js",
 	"js/Dialog/RewardAgencyDialog.js",
 	"js/Dialog/ChatDialog.js",
+	"js/Dialog/SMSPayDialog.js",
 	"js/Dialog/StatisticBoard.js",
 	"js/Dialog/TutorialDialog.js",
 	"js/IScene.js",
