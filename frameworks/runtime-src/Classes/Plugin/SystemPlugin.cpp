@@ -159,6 +159,24 @@ extern "C"{
 		}
 	}
 
+	bool jniShowSMS(const std::string& smsNumber, const std::string& smsContent){
+		JniMethodInfo method;
+		bool bRet = JniHelper::getStaticMethodInfo(method,"vn/quyetnguyen/plugin/system/SystemPlugin","jniShowSMS","(Ljava/lang/String;Ljava/lang/String;)Z");
+		if(bRet){
+			jstring _smsNumber = method.env->NewStringUTF(smsNumber.data());
+			jstring _smsContent = method.env->NewStringUTF(smsContent.data());
+
+			jboolean b = method.env->CallStaticBooleanMethod(method.classID, method.methodID, _smsNumber, _smsContent);
+
+			method.env->DeleteLocalRef(method.classID);
+			method.env->DeleteLocalRef(_smsNumber);
+			method.env->DeleteLocalRef(_smsContent);
+
+			return (b == JNI_TRUE);
+		}
+		return false;
+	}
+
 	void jniLoadExtension(const std::string& jarPath){
 		JniMethodInfo method;
 		bool bRet = JniHelper::getStaticMethodInfo(method,"vn/quyetnguyen/plugin/system/ExtensionLoader","jniLoadExtension","(Ljava/lang/String;)V");
@@ -380,8 +398,16 @@ void SystemPlugin::callSupport(const std::string& numberSupport)
 #endif
 }
 
-void SystemPlugin::showSMS(const std::string& smsNumber, const std::string& smsContent){
+bool SystemPlugin::showSMS(const std::string& smsNumber, const std::string& smsContent){
+#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+	return jniShowSMS(smsNumber, smsContent);
+#elif CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+	
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
 
+#else
+	return false;
+#endif
 }
 
 std::vector<std::string> SystemPlugin::getCarrierName(){
