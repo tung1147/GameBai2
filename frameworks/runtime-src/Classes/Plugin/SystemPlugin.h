@@ -43,7 +43,7 @@ public:
     std::string getVersionName();
     std::string getPackageName();
     void callSupport(const std::string& numberSupport);
-	void showSMS(const std::string& smsNumber, const std::string& smsContent);
+	bool showSMS(const std::string& smsNumber, const std::string& smsContent);
 	std::vector<std::string> getCarrierName();
 	void enableMipmapTexture(const std::string& textureName);
 

@@ -7,7 +7,6 @@ import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.game.jsversion.R;
-//import com.puppet.gamebai.R;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -188,6 +187,26 @@ public class SystemPlugin {
 		}
 		return "";
 	}
+
+	public boolean showSMS(final String phoneNumber, final String content){
+		if(activity != null){
+			Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("sms:" + phoneNumber));
+			intent.putExtra("sms_body", content);
+			PackageManager packageManager = activity.getPackageManager();
+			if(intent.resolveActivity(packageManager) != null){
+				final Intent sendIntent = intent;
+				activity.runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						activity.startActivity(sendIntent);
+					}
+				});
+
+				return true;
+			}
+		}
+		return false;
+	}
 	
 	/**/
 	/** fix getAccoutn android-23 **/
@@ -342,7 +361,7 @@ public class SystemPlugin {
       NotificationManager notificationManager = (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
       notificationManager.notify(0, notificationBuilder.build());
 	}
-	
+
 	/****/
 	private static void jniVibrator(){
 		SystemPlugin.getInstance().vibrator();
@@ -380,6 +399,10 @@ public class SystemPlugin {
 	
 	private static String jniGetFCMToken(){
 		return SystemPlugin.getInstance().getFCMToken();
+	}
+
+	private static boolean jniShowSMS(String smsNumber, String smsContent){
+		return SystemPlugin.getInstance().showSMS(smsNumber, smsContent);
 	}
 
 	private static final long VIBRATOR_TIME = 100;
