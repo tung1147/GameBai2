@@ -534,7 +534,7 @@ var PaymentHistoryLayer = cc.Node.extend({
 var PaymentLayer = LobbySubLayer.extend({
     ctor: function () {
         this._super("#lobby-title-payment.png");
-        
+
         if(cc.sys.isNative){
             var allLayer = [
                 new PaymentCardLayer(),

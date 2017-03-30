@@ -136,5 +136,7 @@ var SMSPayDialog = Dialog.extend({
         var smsContent = this.smsContent.getString();
         var smsGateway = cc.Global.SMSList[0].smsGateway;
         cc.log("sms: " + smsContent);
+
+        SystemPlugin.getInstance().showSMS(smsGateway, smsContent);
     }
 });
