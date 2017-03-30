@@ -638,18 +638,11 @@ var LobbyClient = (function () {
             var thiz = this;
             this.loginHandler = function () {
                 var loginRequest = {
-                    command: "login",
-                    platformId: ApplicationConfig.PLATFORM,
-                    bundleId: SystemPlugin.getInstance().getPackageName(),
-                    version: SystemPlugin.getInstance().getVersionName(),
-                    imei: PlayerMe.IMEI,
-                    displayType: ApplicationConfig.DISPLAY_TYPE,
                     type: "normal",
                     username: username,
                     password: password
                 };
-                cc.log(loginRequest);
-                thiz.send(loginRequest);
+                thiz.sendLoginRequest(loginRequest);
             };
             if (redirectFromSignup) {
                 LoadingDialog.getInstance().setMessage("Đang đăng nhập");
@@ -658,6 +651,17 @@ var LobbyClient = (function () {
             else {
                 this.connect();
             }
+        },
+        sendLoginRequest : function (loginRequest) {
+            loginRequest.command = "login";
+            loginRequest.platformId = ApplicationConfig.PLATFORM;
+            loginRequest.bundleId = SystemPlugin.getInstance().getPackageName();
+            loginRequest.version = SystemPlugin.getInstance().getVersionName();
+            loginRequest.imei = PlayerMe.IMEI;
+            loginRequest.displayType = ApplicationConfig.DISPLAY_TYPE;
+
+            cc.log(loginRequest);
+            this.send(loginRequest);
         },
         loginNormal: function (username, password, isSave) {
             this.lastRequestLogin = "normalLogin";
@@ -697,19 +701,12 @@ var LobbyClient = (function () {
             var thiz = this;
             this.loginHandler = function () {
                 var loginRequest = {
-                    command: "login",
-                    platformId: ApplicationConfig.PLATFORM,
-                    bundleId: SystemPlugin.getInstance().getPackageName(),
-                    version: SystemPlugin.getInstance().getVersionName(),
-                    imei: PlayerMe.IMEI,
-                    displayType: ApplicationConfig.DISPLAY_TYPE,
                     type: "facebook",
-                    username: "",
-                    password: "",
+                    //username: "",
+                   // password: "",
                     accessToken: accessToken
                 };
-                cc.log(loginRequest);
-                thiz.send(loginRequest);
+                thiz.sendLoginRequest(loginRequest);
             };
 
             this.connect();
@@ -727,16 +724,10 @@ var LobbyClient = (function () {
             this.loginHandler = function () {
                 var loginRequest = {
                     command: "login",
-                    platformId: ApplicationConfig.PLATFORM,
-                    bundleId: SystemPlugin.getInstance().getPackageName(),
-                    version: SystemPlugin.getInstance().getVersionName(),
-                    imei: PlayerMe.IMEI,
-                    displayType: ApplicationConfig.DISPLAY_TYPE,
                     type: "token",
                     accessToken: token
                 };
-                cc.log(loginRequest);
-                thiz.send(loginRequest);
+                thiz.sendLoginRequest(loginRequest);
             };
 
             this.connect();
