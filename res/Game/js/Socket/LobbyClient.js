@@ -198,9 +198,6 @@ var LobbyClient = (function () {
                 PlayerMe.messageCount = 0;
 
                 var data = event.data;
-                //   GameConfig.broadcastMessage = event.data.broadcast;
-//            LevelData = data.config.levelData;
-                //           VipData = data.config.vipData;
                 PlayerMe.gold = data.userAssets.gold;
                 PlayerMe.exp = data.userAssets.exp;
                 PlayerMe.vipExp = data.userAssets.vipExp;
@@ -241,6 +238,9 @@ var LobbyClient = (function () {
                     this.loginSuccessHandler();
                     this.loginSuccessHandler = null;
                 }
+
+                //registerPush
+                this.sendRegisterPush();
             }
             else{
                 var message = event["statusMessage"];
@@ -652,17 +652,6 @@ var LobbyClient = (function () {
                 this.connect();
             }
         },
-        sendLoginRequest : function (loginRequest) {
-            loginRequest.command = "login";
-            loginRequest.platformId = ApplicationConfig.PLATFORM;
-            loginRequest.bundleId = SystemPlugin.getInstance().getPackageName();
-            loginRequest.version = SystemPlugin.getInstance().getVersionName();
-            loginRequest.imei = PlayerMe.IMEI;
-            loginRequest.displayType = ApplicationConfig.DISPLAY_TYPE;
-
-            cc.log(loginRequest);
-            this.send(loginRequest);
-        },
         loginNormal: function (username, password, isSave) {
             this.lastRequestLogin = "normalLogin";
 
@@ -732,7 +721,17 @@ var LobbyClient = (function () {
 
             this.connect();
         },
+        sendLoginRequest : function (loginRequest) {
+            loginRequest.command = "login";
+            loginRequest.platformId = ApplicationConfig.PLATFORM;
+            loginRequest.bundleId = SystemPlugin.getInstance().getPackageName();
+            loginRequest.version = SystemPlugin.getInstance().getVersionName();
+            loginRequest.imei = PlayerMe.IMEI;
+            loginRequest.displayType = ApplicationConfig.DISPLAY_TYPE;
 
+            cc.log(loginRequest);
+            this.send(loginRequest);
+        },
         signup: function (username, password, telephone, gender) {
             if (!this.checkIMEI()) {
                 return;
@@ -768,6 +767,18 @@ var LobbyClient = (function () {
                 thiz.send(signupRequest);
             };
             this.connect();
+        },
+
+        sendRegisterPush : function () {
+            var token = SystemPlugin.getInstance().getPushNotificationToken();
+            if(token && token != ""){
+                var request = {
+                    sandbox : true,
+                    command : "registerPush",
+                    token : token
+                }
+                this.send(request);
+            }
         },
         reconnect: function () {
             var runningScene = cc.director.getRunningScene();
