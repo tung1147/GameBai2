@@ -330,6 +330,7 @@ var LobbyClient = (function () {
         },
 
         _onFetchCashinProductItemsHandler : function (cmd, event) {
+            //SMS
             var data = event["data"]["2"];
             cc.Global.SMSList = [];
             for (var i = 0; i < data.length; i++) {
@@ -347,10 +348,20 @@ var LobbyClient = (function () {
                     vmsContent: vmsContent,
                     vnpContent: vnpContent,
                     vttContent: vttContent,
-                    gold: parseInt(gold.replace(",", "")),
+                    gold: gold,
                     id: id,
                     price: parseInt(price)
                 });
+            }
+
+            //inApp
+            cc.Global.inAppBillingData = event["data"]["3"];
+            if(cc.sys.isNative && cc.sys.os === cc.sys.OS_IOS){
+                var itemList = [];
+                for(var i=0;i<cc.Global.inAppBillingData.length;i++){
+                    itemList.push(cc.Global.inAppBillingData[i]["id"]);
+                }
+                SystemPlugin.getInstance().iOSInitStore(itemList);
             }
         },
 

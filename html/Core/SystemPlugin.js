@@ -14,7 +14,7 @@ var SystemPlugin = (function () {
         },
 
         getPackageName: function () {
-            return "com.songbaivip.fullhd";
+            return "com.puppet.gamebai2";
             //return "com.c567.webv2";
         },
 

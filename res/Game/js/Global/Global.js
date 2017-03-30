@@ -11,7 +11,7 @@ cc.Global.NumberFormat1 = function (number) {
     var pret = Math.abs(number).toString();
     if(pret.length > 3){
         for(var i=pret.length-3; i>0;i-=3){
-            pret = pret.insertAt(i,".");
+            pret = pret.insertAt(i,",");
         }
     }
     if(number < 0){

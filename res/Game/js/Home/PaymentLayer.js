@@ -201,6 +201,9 @@ var PaymentCardLayer = cc.Node.extend({
     }
 });
 
+var s_currency_icon = s_currency_icon || {};
+s_currency_icon["USD"] = "$";
+
 var PaymentInAppLayer = cc.Node.extend({
     ctor: function () {
         this._super();
@@ -214,12 +217,44 @@ var PaymentInAppLayer = cc.Node.extend({
         this.addChild(listItem);
         this.listItem = listItem;
 
-        // for (var i = 0; i < 10; i++) {
-        //     this.addItem(i % 3 + 1, 1000000, 20000);
-        // }
+        this.initItems();
+    },
+
+    initItems : function () {
+        var data = cc.Global.inAppBillingData;
+        if (data) {
+            var thiz = this;
+            for (var i = 0; i < data.length; i++) {
+                (function () {
+                    var gold = data[i]["gold"];
+                    var price = data[i]["price"];
+
+                    var currency = s_currency_icon[data[i]["currency"]];
+                    if(!currency){
+                        currency = data[i]["currency"];
+                    }
+                    if(!currency){
+                        currency = "VNĐ";
+                    }
+
+                    var inappId = data[i]["id"];
+                    var container = thiz.addItem(i % 3 + 1, gold + " V", price + " " + currency);
+                    container.addClickEventListener(function (item) {
+                        thiz._selectInappItem(inappId);
+                    });
+                })();
+
+
+            }
+        }
+    },
+
+    _selectInappItem : function (inappId) {
+        SystemPlugin.getInstance().buyIAPItem(inappId);
     },
 
     addItem: function (logoId, gold, price) {
+
         var bg = new cc.Sprite("#payment-inapp-bg.png");
         var container = new ccui.Widget();
         container.setContentSize(bg.getContentSize());
@@ -230,22 +265,14 @@ var PaymentInAppLayer = cc.Node.extend({
         icon.setPosition(bg.getPosition());
         container.addChild(icon);
 
-        var goldIcon = new cc.Sprite("#payment-inapp-goldicon.png");
-        var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, cc.Global.NumberFormat1(gold) + "V");
+        //var goldIcon = new cc.Sprite("#payment-inapp-goldicon.png");
+        var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, gold);
         goldLabel.setAnchorPoint(cc.p(0.0, 0.5));
         goldLabel.setPosition(100, 108);
         goldLabel.setColor(cc.color("#ffde00"));
         container.addChild(goldLabel);
-      //  goldIcon.setPosition(goldLabel.x - goldLabel.getContentSize().width / 2 - goldIcon.getContentSize().width / 2, goldLabel.y);
-     //   container.addChild(goldIcon);
 
-        if (Number.isInteger(price)) { //sms
-            var priceLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, cc.Global.NumberFormat1(price) + " VNĐ");
-        }
-        else {
-            var priceLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, price + " VNĐ");
-            //priceLabel = ccui.RichText.createWithXML("<font face='" + cc.res.font.Roboto_Condensed + "' size='25'><font color='#ffde00'>$</font>" + price + "</font>");
-        }
+        var priceLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, price);
         priceLabel.setAnchorPoint(cc.p(1.0, 0.5));
         priceLabel.setPosition(260,25);
         container.addChild(priceLabel, 1);
@@ -259,17 +286,32 @@ var PaymentInAppLayer = cc.Node.extend({
 var PaymentSMSLayer = PaymentInAppLayer.extend({
     ctor: function () {
         this._super();
+    },
+
+    initItems : function () {
         var thiz = this;
         if (cc.Global.SMSList) {
             for (var i = 0; i < cc.Global.SMSList.length; i++) {
-                var container = this.addItem(i % 3 + 1, cc.Global.SMSList[i].gold, cc.Global.SMSList[i].price);
-                container.smsIndex = i;
-                container.addClickEventListener(function (item) {
-                    thiz.selectSMSPayment(item.smsIndex);
-                });
+                (function () {
+                    var price = cc.Global.NumberFormat1(cc.Global.SMSList[i].price);
+                    var currency = s_currency_icon[cc.Global.SMSList[i]["currency"]];
+                    if(!currency){
+                        currency = cc.Global.SMSList[i]["currency"];
+                    }
+                    if(!currency){
+                        currency = "VNĐ";
+                    }
+
+                    var container = thiz.addItem(i % 3 + 1, cc.Global.SMSList[i].gold + " V", price + " " + currency);
+                    var smsIndex = i;
+                    container.addClickEventListener(function () {
+                        thiz.selectSMSPayment(smsIndex);
+                    });
+                })();
             }
         }
     },
+
     selectSMSPayment: function (index) {
         //
         var paydialog = new SMSPayDialog();
@@ -492,8 +534,7 @@ var PaymentHistoryLayer = cc.Node.extend({
 var PaymentLayer = LobbySubLayer.extend({
     ctor: function () {
         this._super("#lobby-title-payment.png");
-
-
+        
         if(cc.sys.isNative){
             var allLayer = [
                 new PaymentCardLayer(),
