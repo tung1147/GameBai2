@@ -6,60 +6,45 @@ var SettingDialog = Dialog.extend({
         this._super();
         var thiz = this;
 
-        this.initWithSize(cc.size(598, 378));
+        this.initWithSize(cc.size(518, 318));
         this.title.setString("Cài đặt");
        // this.closeButton.visible = false;
         this.okButton.visible = false;
         this.cancelButton.visible = false;
 
-        var soundLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "Âm thanh");
-        soundLabel.setAnchorPoint(cc.p(1.0, 0.5));
-        soundLabel.setPosition(349, 361);
+        var soundLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_14, "ÂM THANH");
+        soundLabel.setPosition(this.getContentSize().width/2 - 130, 207);
         soundLabel.setColor(cc.color("#a6bde0"));
-        this.addChild(soundLabel);
+        this.addChild(soundLabel, 1);
 
-        var vibratorLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "Rung");
-        vibratorLabel.setAnchorPoint(soundLabel.getAnchorPoint());
-        vibratorLabel.setPosition(soundLabel.x, soundLabel.y - 70);
+        var vibratorLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_14, "RUNG");
+        vibratorLabel.setPosition(this.getContentSize().width/2, soundLabel.y);
         vibratorLabel.setColor(cc.color("#a6bde0"));
-        this.addChild(vibratorLabel);
+        this.addChild(vibratorLabel, 1);
 
-        var inviteLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "Nhận lời mời chơi");
-        inviteLabel.setAnchorPoint(soundLabel.getAnchorPoint());
-        inviteLabel.setPosition(vibratorLabel.x, vibratorLabel.y - 70);
+        var inviteLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_14, "NHẬN LỜI MỜI");
+        inviteLabel.setPosition(this.getContentSize().width/2 + 130, vibratorLabel.y);
         inviteLabel.setColor(cc.color("#a6bde0"));
-        this.addChild(inviteLabel);
+        this.addChild(inviteLabel, 1);
+
+        var emailIcon = new cc.Sprite("#setting-email-icon.png");
+        emailIcon.setPosition(580, 125);
+        this.addChild(emailIcon);
 
         var emailLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, GameConfig.email);
         emailLabel.setAnchorPoint(cc.p(1.0, 0.5));
-        emailLabel.setPosition(639, 134);
+        emailLabel.setPosition(emailIcon.x - 20, emailIcon.y);
         emailLabel.setColor(cc.color("#4d5f7b"));
-        this.addChild(emailLabel);
+        this.addChild(emailLabel, 1);
 
         var versionLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Ver " + SystemPlugin.getInstance().getVersionName());
         versionLabel.setAnchorPoint(cc.p(0.0, 0.5));
-        versionLabel.setPosition(123, 134);
+        versionLabel.setPosition(122, emailLabel.y);
         versionLabel.setColor(cc.color("#4d5f7b"));
-        this.addChild(versionLabel);
+        this.addChild(versionLabel, 1);
 
-        var soundIcon = new cc.Sprite("#setting-sound-icon.png");
-        soundIcon.setPosition(384, soundLabel.y);
-        this.addChild(soundIcon);
-
-        var vibratorIcon = new cc.Sprite("#setting-vibrator-icon.png");
-        vibratorIcon.setPosition(soundIcon.x, vibratorLabel.y);
-        this.addChild(vibratorIcon);
-
-        var inviteIcon = new cc.Sprite("#setting-invite-icon.png");
-        inviteIcon.setPosition(soundIcon.x, inviteLabel.y);
-        this.addChild(inviteIcon);
-
-        var emailIcon = new cc.Sprite("#setting-email-icon.png");
-        emailIcon.setPosition(660, emailLabel.y);
-        this.addChild(emailIcon);
-
-        var soundOnOff = new newui.ButtonToggle("#setting-on.png","#setting-off.png");
-        soundOnOff.setPosition(485, soundLabel.y);
+        var soundOnOff = new newui.ButtonToggle("#setting-sound-icon-2.png","#setting-sound-icon.png");
+        soundOnOff.setPosition(soundLabel.x, 260);
         soundOnOff.onSelect = function (target,selected) {
             thiz._setSoundEnable(selected);
             if (!selected){
@@ -68,15 +53,15 @@ var SettingDialog = Dialog.extend({
         };
         this.addChild(soundOnOff);
 
-        var vibratorOnOff = new newui.ButtonToggle("#setting-on.png","#setting-off.png");
-        vibratorOnOff.setPosition(soundOnOff.x, vibratorLabel.y);
+        var vibratorOnOff = new newui.ButtonToggle("#setting-vibrator-icon-2.png","#setting-vibrator-icon.png");
+        vibratorOnOff.setPosition(vibratorLabel.x, soundOnOff.y);
         vibratorOnOff.onSelect = function (target,selected) {
             thiz._setVibratorEnable(selected);
         };
         this.addChild(vibratorOnOff);
 
-        var inviteOnOff = new newui.ButtonToggle("#setting-on.png","#setting-off.png");
-        inviteOnOff.setPosition(soundOnOff.x, inviteLabel.y);
+        var inviteOnOff = new newui.ButtonToggle("#setting-invite-icon-2.png","#setting-invite-icon.png");
+        inviteOnOff.setPosition(inviteLabel.x, soundOnOff.y);
         inviteOnOff.onSelect = function (target,selected) {
             thiz._setInviteEnable(selected);
         };
@@ -86,14 +71,14 @@ var SettingDialog = Dialog.extend({
         this.vibratorOnOff = vibratorOnOff;
         this.inviteOnOff = inviteOnOff;
 
-        this.soundIcon = soundIcon;
-        this.vibratorIcon = vibratorIcon;
-        this.inviteIcon = inviteIcon;
+        this.soundLabel = soundLabel;
+        this.vibratorLabel = vibratorLabel;
+        this.inviteLabel = inviteLabel;
     },
 
     _setSoundEnable : function (enable, force) {
         cc.Global.SetSetting("sound",enable);
-        this.soundIcon.setSpriteFrame(enable ? "setting-sound-icon-2.png" : "setting-sound-icon.png");
+        this.soundLabel.setColor(cc.color(enable ? "#ffde00" : "#435878"));
         if(force){
             this.soundOnOff.select(enable);
         }
@@ -101,7 +86,7 @@ var SettingDialog = Dialog.extend({
 
     _setVibratorEnable : function (enable, force) {
         cc.Global.SetSetting("vibrator",enable);
-        this.vibratorIcon.setSpriteFrame(enable ? "setting-vibrator-icon-2.png" : "setting-vibrator-icon.png");
+        this.vibratorLabel.setColor(cc.color(enable ? "#ffde00" : "#435878"));
         if(force){
             this.vibratorOnOff.select(enable);
         }
@@ -109,7 +94,7 @@ var SettingDialog = Dialog.extend({
 
     _setInviteEnable : function (enable, force) {
         cc.Global.SetSetting("invite",enable);
-        this.inviteIcon.setSpriteFrame(enable ? "setting-invite-icon-2.png" : "setting-invite-icon.png");
+        this.inviteLabel.setColor(cc.color(enable ? "#ffde00" : "#435878"));
         if(force){
             this.inviteOnOff.select(enable);
         }
