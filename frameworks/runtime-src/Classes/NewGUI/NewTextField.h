@@ -23,6 +23,7 @@ class TextField;
 typedef std::function<bool(TextField*)> TextFieldReturnCallback;
 
 class TextField : public Node, public IMEDelegate{
+	bool _isEnable;
 	bool _keyboardMe;
 	bool _keyboardShowMe;
 	bool _autoDetachWithIME;
@@ -88,6 +89,8 @@ public:
 
 	void showKeyboard();
 	void hideKeyboard();
+
+	void setEnable(bool isEnable);
 
 	void onEnter();
 	void onExit();

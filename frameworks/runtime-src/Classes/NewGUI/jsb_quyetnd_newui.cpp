@@ -1172,17 +1172,35 @@ bool js_quyetnd_newui_TextField_setAlignment(JSContext *cx, uint32_t argc, jsval
 	JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
 	js_proxy_t *proxy = jsb_get_js_proxy(obj);
 	quyetnd::TextField* cobj = (quyetnd::TextField *)(proxy ? proxy->ptr : NULL);
-	JSB_PRECONDITION2(cobj, cx, false, "js_quyetnd_newui_TextField_hideKeyboard : Invalid Native Object");
+	JSB_PRECONDITION2(cobj, cx, false, "js_quyetnd_newui_TextField_setAlignment : Invalid Native Object");
 	if (argc == 1) {
         int arg0 = 0;
         ok &= jsval_to_int32(cx, args.get(0), (int32_t *)&arg0);
-		JSB_PRECONDITION2(ok, cx, false, "js_quyetnd_newui_TextField_initWithSize : Error processing arguments");
+		JSB_PRECONDITION2(ok, cx, false, "js_quyetnd_newui_TextField_setAlignment : Error processing arguments");
 		cobj->setAlignment(arg0);
 		args.rval().setUndefined();
 		return true;
 	}
 
-	JS_ReportError(cx, "js_quyetnd_newui_TextField_hideKeyboard : wrong number of arguments: %d, was expecting %d", argc, 1);
+	JS_ReportError(cx, "js_quyetnd_newui_TextField_setAlignment : wrong number of arguments: %d, was expecting %d", argc, 1);
+	return false;
+}
+
+bool js_quyetnd_newui_TextField_setEnable(JSContext *cx, uint32_t argc, jsval *vp){
+	JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+	bool ok = true;
+	JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	quyetnd::TextField* cobj = (quyetnd::TextField *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2(cobj, cx, false, "js_quyetnd_newui_TextField_setEnable : Invalid Native Object");
+	if (argc == 1) {
+		bool arg0 = JS::ToBoolean(args.get(0));
+		cobj->setEnable(arg0);
+		args.rval().setUndefined();
+		return true;
+	}
+
+	JS_ReportError(cx, "js_quyetnd_newui_TextField_setEnable : wrong number of arguments: %d, was expecting %d", argc, 1);
 	return false;
 }
 
@@ -1323,6 +1341,7 @@ void js_register_quyetnd_newui_TextField(JSContext *cx, JS::HandleObject global)
 		JS_FN("showKeyboard", js_quyetnd_newui_TextField_showKeyboard, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("hideKeyboard", js_quyetnd_newui_TextField_hideKeyboard, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("setAlignment", js_quyetnd_newui_TextField_setAlignment, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("setEnable", js_quyetnd_newui_TextField_setEnable, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("ctor", js_quyetnd_newui_TextField_ctor, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
