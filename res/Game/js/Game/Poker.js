@@ -12,7 +12,8 @@ PK_TYPE_PLAYER_DEALER = 1;
 PK_TYPE_PLAYER_SMALLBLIND = 2;
 PK_TYPE_PLAYER_BIGBLIND = 3;
 
-
+PK_STATUSME_STANDUP = 0;
+PK_STATUSME_SITDOWN = 1;
 
 var PokerGamePlayer = GamePlayer.extend({
     ctor: function (playerIndex, handler) {
@@ -62,7 +63,7 @@ var PokerGamePlayer = GamePlayer.extend({
 
         var phomVituarl = new cc.Sprite("#pk_cardMask.png");
         phomVituarl.setPosition(thiz.avt.getPositionX() -20,thiz.avt.getPositionY()-30);
-        phomVituarl.visible = true;
+        phomVituarl.visible = false;
         thiz.addChild(phomVituarl);
         this.phomVituarl = phomVituarl;
 
@@ -359,6 +360,7 @@ var Poker = IGameScene.extend({
     maxBuy:0,
     ctor: function () {
         this._super();
+        this.stateMe = PK_STATUSME_STANDUP;
         var bgPoker = new cc.Sprite("res/gp_table.png");
         bgPoker.x = cc.winSize.width / 2;
         bgPoker.y = cc.winSize.height / 2;
@@ -558,6 +560,74 @@ var Poker = IGameScene.extend({
             this.playerView.push(player2);
             this.playerView.push(player3);
             this.playerView.push(player4);
+        }
+        else{
+            var distanceX1 = 324;
+            var distanceX2 = 490;
+            var distanceX3 = 490;
+            var distanceX4 = 165;
+
+            var higtRow1 = 80;
+            var higtRow2 = 220;
+            var higtRow3 = 420;
+            var higtRow4 = 525;
+
+            var player1 = new PokerGamePlayer(i, this);
+            player1.setPosition(sizeOrgX - distanceX1, higtRow1);
+            player1.setPositionInfo(PK_POSITION_LEFT,PK_POSITION_RIGHT,PK_POSITION_LEFT);
+            this.bgPoker.addChild(player1, 1);
+
+            var player2 = new PokerGamePlayer(i, this);
+            player2.setPosition(sizeOrgX - distanceX2, higtRow2);
+            player2.setPositionInfo(PK_POSITION_BOTTOM,PK_POSITION_RIGHT,PK_POSITION_LEFT);
+            this.bgPoker.addChild(player2, 1);
+
+            var player3 = new PokerGamePlayer(i, this);
+            player3.setPosition(sizeOrgX - distanceX3, higtRow3);
+            player3.setPositionInfo(PK_POSITION_BOTTOM,PK_POSITION_RIGHT,PK_POSITION_LEFT);
+            this.bgPoker.addChild(player3, 1);
+
+            var player4 = new PokerGamePlayer(i, this);
+            player4.setPosition(sizeOrgX - distanceX4, higtRow4);
+            player4.setPositionInfo(PK_POSITION_LEFT,PK_POSITION_RIGHT,PK_POSITION_LEFT);
+            this.bgPoker.addChild(player4, 1);
+
+            var player5 = new PokerGamePlayer(i, this);
+            player5.setPosition(sizeOrgX + distanceX4, higtRow4);
+            player5.setPositionInfo(PK_POSITION_RIGHT,PK_POSITION_LEFT,PK_POSITION_RIGHT);
+            this.bgPoker.addChild(player5, 1);
+
+
+            var player6 = new PokerGamePlayer(i, this);
+            player6.setPosition(sizeOrgX + distanceX3, higtRow3);
+            player6.setPositionInfo(PK_POSITION_BOTTOM,PK_POSITION_LEFT,PK_POSITION_RIGHT);
+            this.bgPoker.addChild(player6, 1);
+
+            var player7 = new PokerGamePlayer(i, this);
+            player7.setPosition(sizeOrgX + distanceX2, higtRow2);
+            player7.setPositionInfo(PK_POSITION_BOTTOM,PK_POSITION_LEFT,PK_POSITION_RIGHT);
+            this.bgPoker.addChild(player7, 1);
+
+            var player8 = new PokerGamePlayer(i, this);
+            player8.setPosition(sizeOrgX + distanceX1, higtRow1);
+            player8.setPositionInfo(PK_POSITION_RIGHT,PK_POSITION_LEFT,PK_POSITION_RIGHT);
+            this.bgPoker.addChild(player8, 1);
+
+
+            var player0 = new PokerGamePlayer(i, this);
+            player0.setPosition(sizeOrgX, 45);
+            player0.setPositionInfo(PK_POSITION_BOTTOM,PK_POSITION_TOP,PK_POSITION_TOP);
+            this.bgPoker.addChild(player0, 1);
+
+            this.playerView.push(player0);
+            this.playerView.push(player1);
+            this.playerView.push(player2);
+            this.playerView.push(player3);
+            this.playerView.push(player4);
+            this.playerView.push(player5);
+            this.playerView.push(player6);
+            this.playerView.push(player7);
+            this.playerView.push(player8);
         }
         for (var i = 0; i < numberSlot; i++) {
             // var player = new PokerGamePlayer(i, this);
@@ -909,12 +979,13 @@ var Poker = IGameScene.extend({
         return timeInfor
     },
     backButtonClickHandler: function () {
-        if(this.allSlot[0].username == PlayerMe.username){
-            this._controller.requestStandup();
+        if(this.stateMe ==  PK_STATUSME_STANDUP){
+            this._controller.requestQuitRoom();
+
         }
         else{
             if (this._controller) {
-                this._controller.requestQuitRoom();
+                this._controller.requestStandup();
             }
         }
     },

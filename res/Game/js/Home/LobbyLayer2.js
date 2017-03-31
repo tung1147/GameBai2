@@ -125,7 +125,7 @@ var LobbyLayer = cc.Node.extend({
         }
     },
 
-    addRoomCell : function (roomList, serverId, roomId, betting, minMoney, userCount, metadata) {
+    addRoomCell : function (roomList, serverId, roomId, betting, minMoney, userCount, metadata, maxUser) {
         if(this.updateRoomCell(roomList, serverId, roomId, userCount, metadata)){
             return;
         }
@@ -137,7 +137,7 @@ var LobbyLayer = cc.Node.extend({
             var roomCell = new LobbyTaiXiuCell();
         }
         else{
-            var roomCell = LobbyRoomCell.createCell(this.maxUsers);
+            var roomCell = LobbyRoomCell.createCell(maxUser);
         }
 
       //  var roomCell = LobbyRoomCell.createCell(this.maxUsers);
@@ -256,9 +256,15 @@ var LobbyLayer = cc.Node.extend({
                         var betting = roomData[j].betting;
                         var minMoney = roomData[j].minMoney;
                         var userCount = roomData[j].userCount;
-                        var metadata = roomData[j].metadata;
 
-                        var roomCell = this.addRoomCell(roomList, serverId, roomId, betting, minMoney, userCount, metadata);
+                        var metadata = roomData[j].metadata;
+                        if(PlayerMe.gameType == s_games_chanel[GameType.GAME_Poker]){
+                            var roomCell = this.addRoomCell(roomList, serverId, roomId, betting, minMoney, userCount, metadata,roomData[j].slots);
+                        }else {
+                            var roomCell = this.addRoomCell(roomList, serverId, roomId, betting, minMoney, userCount, metadata,this.maxUsers);
+                        }
+
+
                     }
                 }
 
