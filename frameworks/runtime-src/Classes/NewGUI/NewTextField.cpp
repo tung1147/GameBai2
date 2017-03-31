@@ -11,6 +11,7 @@
 namespace quyetnd{
 
 TextField::TextField(){
+	_isEnable = true;
 	_touchListener = 0;
 	inputText = "";
 	isPassword = false;
@@ -215,6 +216,10 @@ void TextField::initWithSize(const Size& size){
 	auto mTouch = EventListenerTouchOneByOne::create();
 	mTouch->setSwallowTouches(true);
 	mTouch->onTouchBegan = [=](Touch* t, Event*){
+		if (!_isEnable){
+			return false;
+		}
+
 		if (this->isRunning() && this->checkVisible()){
 			if (isAttachWithIME){
 				_autoDetachWithIME = true;
@@ -380,6 +385,10 @@ void TextField::setMaxLength(int maxLength){
 
 void TextField::onEnter(){
 	Node::onEnter();
+}
+
+void TextField::setEnable(bool isEnable){
+	_isEnable = isEnable;
 }
 
 void TextField::onExit(){

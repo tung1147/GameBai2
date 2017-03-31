@@ -15,6 +15,7 @@ newui.TextField = cc.Node.extend({
         this._isPassword = false;
         this._textMaxLength = -1;
         this._alignment = 0;
+        this._enable = true;
 
         this._inputText = "";
         this._placeHolderText = "";
@@ -95,6 +96,9 @@ newui.TextField = cc.Node.extend({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches:false,
             onTouchBegan : function (touch, event) {
+                if(!thiz._enable){
+                    return false;
+                }
                 if(!thiz.checkVisible()){
                     return false;
                 }
@@ -211,6 +215,10 @@ newui.TextField = cc.Node.extend({
         this._inputText = text;
         this.string = text;
         this.updateText();
+    },
+
+    setEnable : function (enable) {
+        this._enable = enable;
     },
 
     getText : function () {
