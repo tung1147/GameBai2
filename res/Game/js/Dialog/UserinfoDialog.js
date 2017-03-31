@@ -5,6 +5,9 @@
 var UserInfoChangeLayer = cc.Node.extend({
     ctor : function () {
         this._super();
+        var thiz = this;
+        LobbyClient.getInstance().addListener("getProfile", this.onGetProfile, this);
+        LobbyClient.getInstance().addListener("updateProfile", this.onUpdateProfile, this);
 
         var bg1 = new ccui.Scale9Sprite("dialog-textinput-bg.png", cc.rect(10,10,4,4));
         bg1.setPreferredSize(cc.size(280, 44));
@@ -32,6 +35,9 @@ var UserInfoChangeLayer = cc.Node.extend({
         okButton.setCapInsets(cc.rect(10,10,4,4));
         okButton.setContentSize(280, 44);
         okButton.setPosition(bg1.x, 180);
+        okButton.addClickEventListener(function () {
+           thiz.requestSetUserinfo();
+        });
         this.addChild(okButton);
 
         var okTitle = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "LƯU");
@@ -69,6 +75,47 @@ var UserInfoChangeLayer = cc.Node.extend({
         this.idText = idText;
         this.emailText = emailText;
         this.merchantText = merchantText;
+    },
+
+    onGetProfile : function (cmd, data) {
+        var info = data["data"]["info"];
+        this.addressText.setText(info["add"]);
+        this.idText.setText(info["cmnd"]);
+        this.emailText.setText(info["email"]);
+        this.merchantText.setText(info["merchantId"]);
+    },
+
+    onUpdateProfile : function (cmd,data) {
+        var status = data["status"];
+        if(status == 0){
+            MessageNode.getInstance().show("Cập nhật thông tin thành công");
+        }
+    },
+
+    requestSetUserinfo : function () {
+        var address = this.addressText.getText();
+        var id = this.idText.getText();
+        var email = this.emailText.getText();
+        var merchantId = this.merchantText.getText();
+
+        var request = {
+            command : "updateProfile",
+            id : id,
+            email  : email,
+            add : address,
+            merchantId : merchantId
+        };
+       LobbyClient.getInstance().send(request);
+    },
+
+    onEnter : function () {
+        this._super();
+        LobbyClient.getInstance().send({command : "getProfile"});
+    },
+
+    onExit : function () {
+        this._super();
+        LobbyClient.getInstance().removeListener(this);
     }
 });
 
