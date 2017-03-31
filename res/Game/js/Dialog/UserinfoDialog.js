@@ -83,11 +83,23 @@ var UserInfoChangeLayer = cc.Node.extend({
         this.idText.setText(info["cmnd"]);
         this.emailText.setText(info["email"]);
         this.merchantText.setText(info["merchantId"]);
+
+        // if(this.merchantText.getText() != ""){
+        //     this.merchantText.setEnable(false);
+        // }
+        // else{
+        //     this.merchantText.setEnable(true);
+        // }
     },
 
     onUpdateProfile : function (cmd,data) {
         var status = data["status"];
         if(status == 0){
+            this.addressText.setEnable(false);
+            this.idText.setEnable(false);
+            this.emailText.setEnable(false);
+            this.merchantText.setEnable(false);
+
             MessageNode.getInstance().show("Cập nhật thông tin thành công");
         }
     },
