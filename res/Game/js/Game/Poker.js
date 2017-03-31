@@ -18,6 +18,7 @@ PK_STATUSME_SITDOWN = 1;
 var PokerGamePlayer = GamePlayer.extend({
     ctor: function (playerIndex, handler) {
         this._super();
+        // cc.Node.prototype.ctor.call(this);
         this.playerIndex = playerIndex;
         this._handler = handler;
         var btnSitDown = new ccui.Button("pk_btn_sitdown.png","","",ccui.Widget.PLIST_TEXTURE);
@@ -95,20 +96,21 @@ var PokerGamePlayer = GamePlayer.extend({
 
         var bgText = new ccui.Scale9Sprite("dialog-textinput-bg.png",cc.rect(10, 10, 4, 4));
         bgText.setPreferredSize(cc.size(180, 60));
+        bgText.setVisible(false);
         bgText.setPosition(thiz.avt.getPosition());
         this.addChild(bgText);
         this.bgText = bgText;
         this.userLabel.removeFromParent();
         var userLabel =  new cc.LabelTTF("",cc.res.font.Roboto_CondensedBold,20);
         this.infoLayer.addChild(userLabel);
-        this.goldLabel.removeFromParent();
+         this.goldLabel.removeFromParent();
         var goldLabel =  new cc.LabelTTF("",cc.res.font.Roboto_CondensedBold,20);
         this.infoLayer.addChild(goldLabel);
         goldLabel.setColor(cc.color("#ffde00"));
         this.userLabel = userLabel;
         this.goldLabel = goldLabel;
 
-
+        this.isOwnerSprite.setVisible(false);
         // this.setMoneyBet(1000);
     },
     getTimeCurrent:function (timeMax) {
@@ -127,7 +129,15 @@ var PokerGamePlayer = GamePlayer.extend({
         }
 
     },
-
+    setIsMe:function (isMe) {
+        if(isMe){
+            this.cardList.setPosition(this.avt.getPositionX(),this.avt.getPositionY()+100);
+            this.txtBetBg.setPosition(this.avt.getPositionX(),this.avt.getPositionY()+ 90+75);
+        }else {
+            this.cardList.setPosition(this.avt.getPosition());
+            this.txtBetBg.setPosition(this.avt.getPositionX(),this.avt.getPositionY()+75);
+        }
+    },
     setPositionInfo:function (posBase, posBet,posDel) {
         switch (posBase){
             case PK_POSITION_LEFT:
@@ -221,6 +231,8 @@ var PokerGamePlayer = GamePlayer.extend({
         // this.userLabel.setString("123456789123456");
         // enable = true;
         this._super(enable);
+        this.isOwnerSprite.setVisible(false);
+
         if(enable ){
             if(this.btnSitDown){
                 this.btnSitDown.setVisible(false);
@@ -232,12 +244,13 @@ var PokerGamePlayer = GamePlayer.extend({
             this.phomVituarl.setVisible(false);
             this.lblBet.setString("");
             this.imgDeal.setVisible(false);
-            this.bgText.setVisible(false);
+            //this.bgText.setVisible(false);
             this.bg_nameHand.setVisible(false);
             this.lblHandNomarl.setString("");
             this.lblHandWin.setString("");
             this.lblBet.setString("");
             this.txtBetBg.setVisible(false);
+            this.cardList.removeAll();
         }
 
     },
@@ -375,7 +388,7 @@ var Poker = IGameScene.extend({
         // table_bg.setScale(cc.winSize.screenScale);
         // this.sceneLayer.addChild(table_bg);
 
-        var cardMix = new CardPoker(cc.size(500, 80));
+        var cardMix = new CardPoker(cc.size(600, 100));
         cardMix.setPosition(cc.winSize.width / 2, cc.winSize.height / 2);
         cardMix.visible = true;
         this.sceneLayer.addChild(cardMix);
@@ -461,7 +474,7 @@ var Poker = IGameScene.extend({
 
     },
     updateMoneyPot:function (moneyPot) {
-      this.lblPot.setString(moneyPot);
+      this.lblPot.setString(cc.Global.NumberFormat1(moneyPot));
     },
 
     resetMoneyBetAllSlot:function () {
@@ -519,6 +532,12 @@ var Poker = IGameScene.extend({
 
     initPlayer: function (numberSlot) {
 
+       if( this.allSlot &&  this.allSlot.length > 0){
+            for(var i = this.allSlot.length; i< 0;i--){
+                this.allSlot[i-1].removeFromParent(true);
+            };
+
+        }
 
         this.playerView = [];
         var thiz = this;
@@ -630,12 +649,16 @@ var Poker = IGameScene.extend({
             this.playerView.push(player8);
         }
         for (var i = 0; i < numberSlot; i++) {
+            (function () {
+                var idx = i;
+                thiz.playerView[i].btnSitDown.addClickEventListener(function (){
+                    thiz.showSitDownDialog(idx);
+                });
+            })();
             // var player = new PokerGamePlayer(i, this);
             // player.setPosition(playerPosition[i]);
             // this.sceneLayer.addChild(player, 1);
-            this.playerView[i].btnSitDown.addClickEventListener(function (){
-                thiz.showSitDownDialog(i);
-            });
+
         }
 
 
@@ -958,7 +981,10 @@ var Poker = IGameScene.extend({
     performDealCards: function (cards, animation) {
         this.allSlot[0].cardList.removeAll();
         var pointCave = this.imgCave.getParent().convertToWorldSpace(this.imgCave.getPosition());
-        this.allSlot[0].cardList.dealCards(cards, true,pointCave);
+        if(cards.length>0){
+            this.allSlot[0].cardList.dealCards(cards, true,pointCave);
+        }
+
         // this.allSlot[0].cardList.addCardReconnect(cards);
 
 
@@ -1021,8 +1047,9 @@ var Poker = IGameScene.extend({
                 this.maxBuy = PlayerMe.gold;
             }
             var dialog = new PopupSitdown(this.maxBuy,this.minBuy,isMax);
+
             dialog.okButtonHandler = function () {
-                thiz._controller.sendSitDownRequest(index,dialog.gold, dialog.cbAutoBuy.isSelected());
+                thiz._controller.sendSitDownRequest(index,dialog.getGold(), dialog.cbAutoBuy.isSelected());
                 dialog.hide();
             };
             dialog.show();
@@ -1213,8 +1240,8 @@ var PopupSitdown = Dialog.extend({
         slider.addEventListener(function (selector, target) {
             if(target == ccui.Slider.EVENT_PERCENT_CHANGED){
                 cc.log("persent:" + slider.percent);
-                this.gold =  Math.floor(slider.percent*maxGold/100) + minBuy;
-                thiz.lblMoney.setString(cc.Global.NumberFormat1(this.gold));
+                thiz.gold =  Math.floor(slider.percent*maxGold/100) + minBuy;
+                thiz.lblMoney.setString(cc.Global.NumberFormat1(thiz.gold));
             }
 
         });
@@ -1272,6 +1299,9 @@ var PopupSitdown = Dialog.extend({
           thiz.hide();
         };
     },
+    getGold:function () {
+        return this.gold;
+    }
 });
 
 //popup đăt cược

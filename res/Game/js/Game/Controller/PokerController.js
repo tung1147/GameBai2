@@ -28,7 +28,7 @@ var PokerController = GameController.extend({
         this.initWithView(view);
 
         SmartfoxClient.getInstance().addExtensionListener("653", this._onUserSitDownHandler, this);
-        SmartfoxClient.getInstance().addExtensionListener("10", this._onGameStatusHandler, this);
+        SmartfoxClient.getInstance().addExtensionListener("10", this._updateStatusHandler, this);
         SmartfoxClient.getInstance().addExtensionListener("651", this._onFinisRow, this);
         SmartfoxClient.getInstance().addExtensionListener("663", this._onTipHandler, this);
         SmartfoxClient.getInstance().addExtensionListener("655", this._onTipCaveHandler, this);
@@ -42,7 +42,8 @@ var PokerController = GameController.extend({
         SmartfoxClient.getInstance().addExtensionListener("8", this._onEndGame, this);
         SmartfoxClient.getInstance().addExtensionListener("661", this._onHandleSuggest, this);
         SmartfoxClient.getInstance().addExtensionListener("652", this._onDrawCard, this);
-        SmartfoxClient.getInstance().addExtensionListener("10", this._updateStatusHandler, this);
+         SmartfoxClient.getInstance().addExtensionListener("657", this._onRegeditStandup, this);
+        SmartfoxClient.getInstance().addExtensionListener("654", this._onUpdateMoney, this);
     },
 
 
@@ -52,7 +53,7 @@ var PokerController = GameController.extend({
     _createUserInfo : function (data) {
         if(!data){
             return {
-                money:0,
+
                 moneyBet:0,
                 isPlaying:false,
                 idAction:PK_ACTION_PLAYER_NONE,
@@ -61,7 +62,8 @@ var PokerController = GameController.extend({
         }
 
         return {
-            money:data["10"],
+
+            money:parseInt(data["10"]),
             moneyBet:data["12"],
             isPlaying:!data["2"],
             idAction:data["11"],
@@ -82,7 +84,7 @@ var PokerController = GameController.extend({
 
 
     _updateRoomInfo : function (params) {
-        if(params && this.statusRoom == 2){
+        if(params ){
             this._updateTypePLayer(params["3"],PK_TYPE_PLAYER_BIGBLIND);
             this._updateTypePLayer(params["2"],PK_TYPE_PLAYER_SMALLBLIND);
             this._updateTypePLayer(params["1"],PK_TYPE_PLAYER_DEALER);
@@ -115,6 +117,9 @@ var PokerController = GameController.extend({
             username: "",
         }
         if(data.p.u == PlayerMe.username){
+            this._view.gameTopBar.backBt.loadTextureNormal("ingame-backBt.png",ccui.Widget.PLIST_TEXTURE) ;
+            this._view.allSlot[0].setIsMe(false);
+            this._view.stateMe =  PK_STATUSME_STANDUP;
             timeInfor = this._view.getTimePlayerCurrent();
             if(timeInfor.timeRemain > 0)
             {
@@ -133,7 +138,7 @@ var PokerController = GameController.extend({
         var slot = this.getSlotPlayerByUsername(data.p.u);
         if(slot)
         {
-            slot.info.money = 0;
+
             slot.info.moneyBet=0;
             slot.info.isPlaying=false;
             slot.info.idAction=PK_ACTION_PLAYER_NONE;
@@ -195,6 +200,12 @@ var PokerController = GameController.extend({
     _onDrawCard: function (cmd, content) {
         this.onDrawCard(content.p);
     },
+    _onRegeditStandup: function (cmd, content) {
+        this.onRegeditStandup(content.p);
+    },
+    _onUpdateMoney: function (cmd, content) {
+        this.onUpdateMoney(content.p);
+    },
 
     _onTurnChangedHandler: function (cmd, content) {
         this.onTurnChanged(content.p);
@@ -225,25 +236,38 @@ var PokerController = GameController.extend({
         if(slot)
         {
             // var aaa = [];
+
             slot.info.idAction = action;
             slot.info.moneyBet = money;
 
         }
     },
     onInitJoin:function (param) {
+        this._view.stateMe = PK_STATUSME_STANDUP;
         this._view.setMinBetting(param["8"]);
         this.numberSlot = param["19"];
         this._view.initPlayer(this.numberSlot);
         this._view.setMinMaxSitDown(parseInt(param["16"]),parseInt(param["15"]));
+
+        var arrListPlayer = param["5"];
+        for (var i =0; i < arrListPlayer.length; i++){
+            var play = arrListPlayer[i];
+            if(PlayerMe.username == play["u"] && play["4"] > -1){
+                this._view.stateMe = PK_STATUSME_SITDOWN;
+
+                break;
+            }
+        }
     },
+
     onJoinRoom : function (param) {
-        this.statusRoom = param[1];
+
         this.onInitJoin(param);
         this._super(param);
-
+        this.onUpdateMe(param);
         this._updateRoomInfo(param["12"]);
         var currenrt = param["ct"];
-        if(currenrt && this.statusRoom == 2){
+        if(currenrt ){
             this._view.setTimeRemainOfPlayer( currenrt["u"], currenrt["1"]/1000);
         }
 
@@ -251,15 +275,36 @@ var PokerController = GameController.extend({
 
     },
 
+    onUpdateMe:function (param) {
+        var arrListPlayer = param["5"];
+        for (var i =0; i < arrListPlayer.length; i++){
+            var play = arrListPlayer[i];
+            if(PlayerMe.username == play["u"] && play["4"] > -1){
+                this._view.allSlot[0].setIsMe(true);
+                break;
+            }
+        }
+    },
+
     onReconnect: function (param) {
         this.onInitJoin(param["1"]);
         this._super(param);
 
+        this.onUpdateMe(param["1"]);
         this._updateRoomInfo(param["1"]["12"]);
         this._view.updateInviteButton();
+        if(param["8"] && this._view.stateMe == PK_STATUSME_SITDOWN)
+        {
+            this._view.gameTopBar.backBt.loadTextureNormal("pk_standup_ac.png",ccui.Widget.PLIST_TEXTURE) ;
+        }
+        else if (this._view.stateMe == PK_STATUSME_SITDOWN)
+        {
+            this._view.gameTopBar.backBt.loadTextureNormal("pk_standup.png",ccui.Widget.PLIST_TEXTURE) ;
+        }
+
 
         var currenrt = param["ct"];
-        if(currenrt && this.statusRoom == 2){
+        if(currenrt ){
             var arrButton =  currenrt["2"];
             this._view.handleButtons(arrButton);
             this._view.setTimeRemainOfPlayer( currenrt["u"], currenrt["1"]/1000);
@@ -306,6 +351,42 @@ var PokerController = GameController.extend({
         var idActive = param["2"];
         this._view.handleCheckBox(idActive,action);
     },
+
+    onRegeditStandup:function (param) {
+        var isSuccess = param[1];
+        if(isSuccess){
+            this._view.gameTopBar.backBt.loadTextureNormal("pk_standup_ac.png",ccui.Widget.PLIST_TEXTURE) ;
+            MessageNode.getInstance().show("Đăng ký đứng lên khi hết ván thành công.");
+        }
+        else{
+            this._view.gameTopBar.backBt.loadTextureNormal("pk_standup.png",ccui.Widget.PLIST_TEXTURE) ;
+
+            MessageNode.getInstance().show("Bạn đã HỦY đứng lên khi hết ván");
+        }
+    },
+
+    onUpdateMoney:function (param) {
+        var userName = param["u"];
+        var money = parseInt(param["1"]);
+
+        var slot = this.getSlotPlayerByUsername(userName);
+        if(slot){
+            slot.info.money = money;
+
+            if(param["reason"] && userName == PlayerMe.username){
+                if(param["reason"] == 30){
+                    var moneyEx = cc.Global.NumberFormat1(parseInt(param["2"]));
+                    MessageNode.getInstance().show("Bạn đã tự động mua thêm " +  moneyEx+ " chip vào bàn");
+                }
+            }
+        }
+        var slotView = this._view.getSlotByUsername(userName);
+        if(slotView){
+            slotView.setGold(money);
+        }
+
+    },
+
     onDrawCard:function (param) {
         if(this.statusRoom!=2)
         {
@@ -377,7 +458,7 @@ var PokerController = GameController.extend({
             (function () {
             var temp = arrPlays[i];
             var username = temp["u"];
-            var money = temp["5"];
+            var money = parseInt(temp["5"]);
             var isWin = temp["7"];
             var cards = [];
             var cardData = temp["2"];
@@ -387,7 +468,7 @@ var PokerController = GameController.extend({
             var slotController = thiz.getSlotPlayerByUsername(username);
             if(slotController){
 
-                slotController.money = money;
+                slotController.info.money = money;
             }
             var slotView = thiz._view.getSlotByUsername(username);
             if(slotView){
@@ -495,7 +576,7 @@ var PokerController = GameController.extend({
     onFinisRow: function (param) {
 
         var  moneyPot = param["2"]["1"];
-        this._view.updateMoneyPot(moneyPot);
+        this._view.updateMoneyPot(parseInt(moneyPot));
         this._view.resetMoneyBetAllSlot();
         for(var i = 0; i < this.playerSlot.length; i++){
 
@@ -555,39 +636,36 @@ var PokerController = GameController.extend({
 
     onUserSitDown: function (param) {
         //this.onUserJoinRoom(param);
-
+        var thiz = this;
         var slotIndex = param["4"];
         var username = param["u"];
+
         var gold = param["10"];
         var spectator = param["2"];
         var avt = param["avtUrl"];
         for(var i=0;i<this.playerSlot.length;i++){
+         //   (function () {
             if(this.playerSlot[i].userIndex == slotIndex){
                 this.playerSlot[i].username = username;
-                this.playerSlot[i].gold = gold;
+                //this.playerSlot[i].gold = gold;
                 this.playerSlot[i].spectator = spectator;
                 this.playerSlot[i].avt = avt;
-                this.playerSlot[i].info = this._createUserInfo(param);
+                this.playerSlot[i].info = thiz._createUserInfo(param);
                 break;
             }
+            // })();
         }
 
-        // this.playerSlot[slot].username = players[i]["u"];
-        // this.playerSlot[slot].gold = players[i]["3"];
-        // this.playerSlot[slot].spectator = players[i]["2"];
-        // this.playerSlot[slot].avt = players[i]["avtUrl"];
 
-        // var userInfo = {
-        //     index: slotIndex,
-        //     username: username,
-        //     gold: p["3"],
-        //     avt: p["avtUrl"]
-        // };
         var timeInfor = {
             timeRemain: 0,
             username: "",
         };
         if(PlayerMe.username == param.u){
+            this._view.allSlot[0].setIsMe(true);
+            this._view.stateMe = PK_STATUSME_SITDOWN;
+            this._view.gameTopBar.backBt.loadTextureNormal("pk_standup.png",ccui.Widget.PLIST_TEXTURE) ;
+
             timeInfor = this._view.getTimePlayerCurrent();
             if(timeInfor.timeRemain>0){
 
@@ -609,7 +687,7 @@ var PokerController = GameController.extend({
             var userInfo = {
                 index: slotIndex,
                 username: username,
-                gold: param["3"],
+                gold: param["10"],
                 avt: param["avtUrl"]
             };
 
