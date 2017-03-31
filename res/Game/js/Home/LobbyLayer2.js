@@ -54,14 +54,19 @@ var LobbyLayer = cc.Node.extend({
         this.addChild(roomNode);
         this.roomNode = roomNode;
 
-        var left = 290.0;
-        var right = 1280.0;
+        var left = 290.0 + 6;
+        var right = 1280.0 - 6;
         var top = 550.0;
-        var bottom = 223.0;
+        var bottom = 193.0;
+
+        var shadowBg = new cc.Sprite("#bg_chonban.png");
+        shadowBg.setAnchorPoint(cc.p(0.5, 0.0));
+        shadowBg.setPosition((right + left) / 2, bottom);
+        roomNode.addChild(shadowBg, 1);
 
         var gameNav = new cc.Sprite("#home-gameNav-bg.png");
         gameNav.setPosition((right + left) / 2, 168);
-        roomNode.addChild(gameNav);
+        roomNode.addChild(gameNav,1);
 
         var dx = gameNav.getContentSize().width / 5;
         var x = gameNav.x - gameNav.getContentSize().width / 2 + dx / 2;
@@ -69,11 +74,11 @@ var LobbyLayer = cc.Node.extend({
         var selectSprite = new ccui.Scale9Sprite("home-gameNav-selected.png", cc.rect(4,4,4,4));
         selectSprite.setPreferredSize(cc.size(dx, gameNav.getContentSize().height));
         selectSprite.setPosition(0, gameNav.y);
-        roomNode.addChild(selectSprite, 1);
+        roomNode.addChild(selectSprite, 2);
 
         var thiz = this;
         var mToggle = new ToggleNodeGroup();
-        roomNode.addChild(mToggle);
+        roomNode.addChild(mToggle,2);
         this.mToggle = mToggle;
         this.listGame = [];
 
@@ -81,22 +86,23 @@ var LobbyLayer = cc.Node.extend({
             (function () {
                 var icon1 = new cc.Sprite("#lobby-tab"+ (i+1) +".png");
                 icon1.setPosition(x + dx * i, 180);
-                roomNode.addChild(icon1);
+                roomNode.addChild(icon1,2);
 
                 var icon2 = new cc.Sprite("#lobby-tabSelected"+ (i+1) +".png");
                 icon2.setPosition(icon1.getPosition());
-                roomNode.addChild(icon2);
+                roomNode.addChild(icon2,2);
 
                 var listGame = new newui.TableView(cc.size(right - left, (top - bottom)), 5);
                 listGame.setDirection(ccui.ScrollView.DIR_VERTICAL);
-                listGame.setPadding(20);
+                listGame.setPadding(25);
+                listGame.setPadding(25);
                 listGame.setBounceEnabled(true);
                 listGame.setMargin(10,10,0,0);
                 listGame.setScrollBarEnabled(true);
                 listGame.setPosition(left, bottom);
                 listGame.groupName = s_lobby_group_name[i];
                 listGame.idx = i;
-                roomNode.addChild(listGame,1);
+                roomNode.addChild(listGame);
                 thiz.listGame.push(listGame);
 
                 var toggleItem = new ToggleNodeItem(selectSprite.getContentSize());
