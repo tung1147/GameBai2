@@ -514,12 +514,12 @@ var UserinfoDialog = Dialog.extend({
         vipBarBg.setPosition(vipBar.getContentSize().width/2, vipBar.getContentSize().height/2);
         vipBar.addChild(vipBarBg,-1);
 
-        var closeBt = new ccui.Button("dialog-button-close.png", "","", ccui.Widget.PLIST_TEXTURE);
-        closeBt.setPosition(983 , 605);
-        this.addChild(closeBt);
-        closeBt.addClickEventListener(function () {
-            thiz.hide();
-        });
+        // var closeBt = new ccui.Button("dialog-button-close.png", "","", ccui.Widget.PLIST_TEXTURE);
+        // closeBt.setPosition(983 , 605);
+        // this.addChild(closeBt);
+        // closeBt.addClickEventListener(function () {
+        //     thiz.hide();
+        // });
 
         var logoutBt = new ccui.Button("userinfo-logout.png", "", "", ccui.Widget.PLIST_TEXTURE);
         logoutBt.setPosition(203 , 156);
@@ -532,7 +532,7 @@ var UserinfoDialog = Dialog.extend({
         this.mTouch = cc.rect(cc.winSize.width/2 - touchSize.width/2, cc.winSize.height/2- touchSize.height/2, touchSize.width, touchSize.height);
 
         this.initAllLayer();
-      //  this.refreshView();
+        this.refreshView();
     },
 
     initAllLayer : function () {
@@ -596,21 +596,21 @@ var UserinfoDialog = Dialog.extend({
 
     refreshView : function () {
         this.goldLabel.setString(cc.Global.NumberFormat1(PlayerMe.gold) +" V");
-        if(PlayerMe.phoneNumber === ""){
-            this.subicon1.visible = true;
-            this.subicon2.visible = true;
-        }
-        else{
-            this.subicon1.visible = false;
-            this.subicon2.visible = false;
-        }
+        // if(PlayerMe.phoneNumber === ""){
+        //     this.subicon1.visible = true;
+        //     this.subicon2.visible = true;
+        // }
+        // else{
+        //     this.subicon1.visible = false;
+        //     this.subicon2.visible = false;
+        // }
 
         var level = cc.Global.GetLevelMe();
-        this.levelLabel.setString("Level " + level.level);
+        this.levelLabel.setString(level.level.toString());
         this.levelBar.setPercentage(level.expPer);
 
         var vip = cc.Global.GetVipMe();
-        this.vipLabel.setString("VIP " + vip.level);
+        this.vipLabel.setString(vip.level.toString());
         this.vipBar.setPercentage(vip.expPer);
     },
     onRecvVerifyCode : function (messageName, data) {

@@ -18,7 +18,7 @@ var LobbyRoomCell = ccui.Widget.extend({
         this.initSlot(6);
         this.initSlot(9);
 
-        var bettingLabel = new cc.LabelBMFont("1.000.000", cc.res.font.Roboto_CondensedBold_25);
+        var bettingLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_20, "1000");
         bettingLabel.setPosition(bg.x, bg.y - 2);
         bettingLabel.setColor(cc.color("#ffde00"));
         this.addChild(bettingLabel);

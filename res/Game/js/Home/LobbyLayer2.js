@@ -87,7 +87,7 @@ var LobbyLayer = cc.Node.extend({
                 icon2.setPosition(icon1.getPosition());
                 roomNode.addChild(icon2);
 
-                var listGame = new newui.TableView(cc.size(right - left, (top - bottom)), 4);
+                var listGame = new newui.TableView(cc.size(right - left, (top - bottom)), 5);
                 listGame.setDirection(ccui.ScrollView.DIR_VERTICAL);
                 listGame.setPadding(20);
                 listGame.setBounceEnabled(true);
