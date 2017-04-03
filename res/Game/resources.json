@@ -112,6 +112,10 @@
             "plist": "res/effectMini.plist"
         },
         {
+            "img": "res/emotion.png",
+            "plist": "res/emotion.plist"
+        },
+        {
             "img": "res/FloatButton.png",
             "plist": "res/FloatButton.plist"
         },
