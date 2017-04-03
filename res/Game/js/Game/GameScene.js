@@ -27,28 +27,13 @@ var GameTopBar = cc.Node.extend({
         this.backBt = backBt;
         this.settingBt = settingBt;
         this.chatBt = chatBt;
-
-        var thiz = this;
-        this.settingBt.addClickEventListener(function () {
-            thiz.onSettingButtonHandler();
-        });
-
-        chatBt.addClickEventListener(function () {
-            var dialog = new ChatDialog();
-            dialog.onTouchMessage = function (message) {
-                thiz.sendChatMessage(message);
-            };
-            dialog.show();
-        });
+        
     },
     onExit: function () {
         this._super();
         SmartfoxClient.getInstance().removeListener(this);
     },
-    onSettingButtonHandler: function () {
-        var dialog = new SettingDialog();
-        dialog.showWithAnimationMove();
-    },
+
     onExtensionCommand: function (messageType, contents) {
 
     }
@@ -92,6 +77,18 @@ var IGameScene = IScene.extend({
         var thiz = this;
         gameTopBar.backBt.addClickEventListener(function () {
             thiz.backButtonClickHandler();
+        });
+
+        gameTopBar.settingBt.addClickEventListener(function () {
+            thiz.onSettingButtonHandler();
+        });
+
+        gameTopBar.chatBt.addClickEventListener(function () {
+            var dialog = new ChatDialog();
+            dialog.onTouchMessage = function (message) {
+                thiz.sendChatMessage(message);
+            };
+            dialog.show();
         });
     },
     initController: function () {
@@ -165,6 +162,11 @@ var IGameScene = IScene.extend({
         else {
             MessageNode.getInstance().show(message);
         }
+    },
+
+    onSettingButtonHandler : function () {
+        var dialog = new SettingDialog();
+        dialog.showWithAnimationMove();
     },
 
     sendChatMessage: function (message) {
