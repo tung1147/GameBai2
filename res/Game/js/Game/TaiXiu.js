@@ -168,8 +168,9 @@ var TaiXiuBettingSlot = cc.Node.extend({
         if (gold > 0) {
             this.slotGoldLabel.visible = true;
             this.slotGoldLabel.setOpacity(255);
-            var action = new quyetnd.ActionNumber(0.5, gold);
-            this.slotGoldLabel.runAction(action);
+            this.slotGoldLabel.setString(cc.Global.NumberFormat2(gold));
+            // var action = new quyetnd.ActionNumber(0.5, gold);
+            // this.slotGoldLabel.runAction(action);
         }
         else {
 
@@ -183,8 +184,9 @@ var TaiXiuBettingSlot = cc.Node.extend({
         if (gold > 0) {
             this.userGoldLabel.visible = true;
             this.userGoldLabel.setOpacity(255);
-            var action = new quyetnd.ActionNumber(0.5, gold);
-            this.userGoldLabel.runAction(action);
+            this.userGoldLabel.setString(cc.Global.NumberFormat2(gold));
+            // var action = new quyetnd.ActionNumber(0.5, gold);
+            // this.userGoldLabel.runAction(action);
         }
         else {
             this.userGoldLabel.setString("0");
