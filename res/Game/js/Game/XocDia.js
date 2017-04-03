@@ -193,10 +193,10 @@ var XocDiaScene = IGameScene.extend({
         this.initBettingSlot();
 
         //chip button
-        var chipNode = new cc.Node();
-        chipNode.setPosition(cc.p(0, 0));
-        this.sceneLayer.addChild(chipNode);
-        this.chipNode = chipNode;
+        // var chipNode = new cc.Node();
+        // chipNode.setPosition(cc.p(0, 0));
+        // this.sceneLayer.addChild(chipNode);
+        // this.chipNode = chipNode;
         this.initChipButton();
 
         //history
@@ -243,26 +243,29 @@ var XocDiaScene = IGameScene.extend({
         this.userLabel = userLabel;
 
         var datLaiButton = new ccui.Button("xocdia_batlaiBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        datLaiButton.setPosition(cc.winSize.width - 120, 50);
+        datLaiButton.setPosition(cc.winSize.width - 120 * cc.winSize.screenScale, 50 * cc.winSize.screenScale);
+        datLaiButton.setScale(cc.winSize.screenScale);
         this.sceneLayer.addChild(datLaiButton);
         this.datLaiButton = datLaiButton;
 
         var huyCuocButton = new ccui.Button("xocdia_huyCuocButton.png", "", "", ccui.Widget.PLIST_TEXTURE);
         huyCuocButton.setPosition(datLaiButton.getPosition());
+        huyCuocButton.setScale(cc.winSize.screenScale);
         this.sceneLayer.addChild(huyCuocButton);
         this.huyCuocButton = huyCuocButton;
 
         var resultBg1 = new ccui.Scale9Sprite("xocdia_result_bg_1.png", cc.rect(10, 10, 4, 4));
-        resultBg1.setPreferredSize(cc.size(220, 90));
-        resultBg1.setPosition(950, 48);
+        resultBg1.setPreferredSize(cc.size(220 * cc.winSize.screenScale, 90 * cc.winSize.screenScale));
+        resultBg1.setPosition(950 * cc.winSize.screenScale, 48 * cc.winSize.screenScale);
         this.sceneLayer.addChild(resultBg1);
 
         var resultBg2 = new ccui.Scale9Sprite("xocdia_result_bg_2.png", cc.rect(4, 0, 4, 2));
-        resultBg2.setPreferredSize(cc.size(218, 2));
+        resultBg2.setPreferredSize(cc.size(218 * cc.winSize.screenScale, 2));
         resultBg2.setPosition(resultBg1.getPosition());
         this.sceneLayer.addChild(resultBg2);
 
         var tongCuocLabal = new cc.LabelBMFont("Tổng cược : 1000", cc.res.font.Roboto_Condensed_25);
+        tongCuocLabal.setScale(cc.winSize.screenScale);
         tongCuocLabal.setColor(cc.color("#bac2f9"));
         tongCuocLabal.setPosition(resultBg1.x, resultBg1.y + resultBg1.getContentSize().height / 4);
         tongCuocLabal.setVisible(false);
@@ -270,6 +273,7 @@ var XocDiaScene = IGameScene.extend({
         this.tongCuocLabal = tongCuocLabal;
 
         var winLabel = new cc.LabelBMFont("Thắng : 1000", cc.res.font.Roboto_Condensed_25);
+        winLabel.setScale(cc.winSize.screenScale);
         winLabel.setColor(cc.color("#bac2f9"));
         winLabel.setPosition(resultBg1.x, resultBg1.y - resultBg1.getContentSize().height / 4);
         winLabel.setVisible(false);
@@ -294,8 +298,16 @@ var XocDiaScene = IGameScene.extend({
         this.bettingSlot = [];
 
         var slotNode = new cc.Node();
-        slotNode.setPosition(cc.p(0, 0));
+        slotNode.setContentSize(cc.size(1280, 720));
+        slotNode.setAnchorPoint(cc.p(0.5, 0.5));
+        slotNode.setPosition(cc.p(cc.winSize.width/2, cc.winSize.height/2));
+        slotNode.setScale(cc.winSize.screenScale);
         this.sceneLayer.addChild(slotNode);
+
+        var chipNode = new cc.Node();
+        chipNode.setPosition(cc.p(0, 0));
+        slotNode.addChild(chipNode,1);
+        this.chipNode = chipNode;
 
         for (var i = 0; i < 7; i++) {
             var slot = new XocDiaBettingSlot(i, slotNode);
@@ -334,8 +346,8 @@ var XocDiaScene = IGameScene.extend({
         var chipGroup = new ChipGroup();
         this.sceneLayer.addChild(chipGroup);
         this.chipGroup = chipGroup;
-        var left = 310.0;
-        var dx = 110.0;
+        var left = 310.0 * cc.winSize.screenScale;
+        var dx = 110.0 * cc.winSize.screenScale;
 
         var chip1 = new XocDiaChip(1);
         chip1.setPosition(left + dx, 30.0 * cc.winSize.screenScale);
@@ -377,9 +389,10 @@ var XocDiaScene = IGameScene.extend({
 
         var clippingNode = new ccui.Layout();
         clippingNode.setClippingEnabled(true);
-        clippingNode.setAnchorPoint(cc.p(0.5, 0.5));
+        clippingNode.setAnchorPoint(cc.p(0.5, 1.0));
         clippingNode.setContentSize(historyBg.getContentSize());
-        clippingNode.setPosition(cc.winSize.width / 2, cc.winSize.height - clippingNode.getContentSize().height / 2);
+        clippingNode.setPosition(cc.winSize.width / 2, cc.winSize.height);
+        clippingNode.setScale(cc.winSize.screenScale);
         this.sceneLayer.addChild(clippingNode, 1);
         clippingNode.addChild(historyBg);
         this.historyBg = historyBg;
@@ -663,7 +676,7 @@ var XocDiaScene = IGameScene.extend({
             var chip = new cc.Sprite("#xocdia-chipSelected-" + (chipIndex + 1) + ".png");
             chip.chipIndex = chipIndex;
             chip.chipTag = tag;
-            chip.setPosition(chipPosition);
+            chip.setPosition(thiz.chipNode.convertToNodeSpace(chipPosition));
             thiz.chipNode.addChild(chip);
             slot.addChip(chip);
 

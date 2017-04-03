@@ -196,10 +196,10 @@ var TaiXiuBettingSlot = cc.Node.extend({
 
         var w = Math.random() * (this.getContentSize().width - padding * 2) + padding;
         var h = Math.random() * (this.getContentSize().height - padding * 2) + padding;
-        var x = w;
-        var y = h;
+        var x = this.x + w;
+        var y = this.y + h;
 
-        return this.convertToWorldSpace(cc.p(x, y));
+        return cc.p(x, y);
     },
     addChip: function (chipSprite) {
         this._chips.push(chipSprite);
@@ -232,9 +232,16 @@ var TaiXiuScene = XocDiaScene.extend({
         this.bettingSlot = [];
 
         var slotNode = new cc.Node();
+        slotNode.setContentSize(cc.size(1280, 720));
         slotNode.setAnchorPoint(cc.p(0.5, 0.5));
         slotNode.setPosition(cc.winSize.width / 2, 325);
+        slotNode.setScale(cc.winSize.screenScale);
         this.sceneLayer.addChild(slotNode);
+
+        var chipNode = new cc.Node();
+        chipNode.setPosition(cc.p(0, 0));
+        slotNode.addChild(chipNode,1);
+        this.chipNode = chipNode;
 
         var taiXiuBg = new cc.Sprite("#taixiu_bg.png");
         taiXiuBg.setAnchorPoint(cc.p(0, 0));
@@ -261,9 +268,9 @@ var TaiXiuScene = XocDiaScene.extend({
         var timer = new cc.ProgressTimer(new cc.Sprite("#xocdia_timer_2.png"));
         timer.setType(cc.ProgressTimer.TYPE_RADIAL);
         timer.setReverseDirection(true);
-        timer.setPosition(cc.winSize.width - 165, cc.winSize.height - 70);
+        timer.setPosition(cc.winSize.width - 165 * cc.winSize.screenScale, cc.winSize.height - 70 * cc.winSize.screenScale);
         timer.setPercentage(30.0);
-        timer.setScale(0.65);
+        timer.setScale(0.65 * cc.winSize.screenScale);
         this.sceneLayer.addChild(timer);
         this.timer = timer;
 
@@ -274,6 +281,7 @@ var TaiXiuScene = XocDiaScene.extend({
         var timeLabel = new cc.LabelTTF("100", cc.res.font.Roboto_CondensedBold, 40);
         timeLabel.setPosition(timer.getPosition());
         timeLabel.setColor(cc.color("#ffcf00"));
+        timeLabel.setScale(cc.winSize.screenScale);
         this.sceneLayer.addChild(timeLabel);
         this.timeLabel = timeLabel;
     },
@@ -318,9 +326,10 @@ var TaiXiuScene = XocDiaScene.extend({
 
         var clippingNode = new ccui.Layout();
         clippingNode.setClippingEnabled(true);
-        clippingNode.setAnchorPoint(cc.p(0.5, 0.5));
+        clippingNode.setAnchorPoint(cc.p(0.5, 1.0));
         clippingNode.setContentSize(historyBg.getContentSize());
-        clippingNode.setPosition(cc.winSize.width / 2, cc.winSize.height - clippingNode.getContentSize().height / 2);
+        clippingNode.setPosition(cc.winSize.width / 2, cc.winSize.height);
+        clippingNode.setScale(cc.winSize.screenScale);
         this.sceneLayer.addChild(clippingNode, 1);
         clippingNode.addChild(historyBg);
         this.historyBg = historyBg;
