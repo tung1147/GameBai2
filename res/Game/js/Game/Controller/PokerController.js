@@ -47,6 +47,7 @@ var PokerController = GameController.extend({
     },
 
 
+
     _updateStatusHandler : function(cmd, content){
         this.onGameStatus(content.p["1"]);
     },
@@ -424,7 +425,12 @@ var PokerController = GameController.extend({
     onEndGame:function (param) {
         var  thiz = this;
         var timeRemain = param["18"]/1000;
+        for(var i = 0; i < thiz.playerSlot.length; i++){
 
+            thiz.playerSlot[i].info.isPlaying=false;
+            thiz.playerSlot[i].info.idAction=PK_ACTION_PLAYER_NONE;
+            thiz.playerSlot[i].info.isDealer= PK_TYPE_PLAYER_NOMARL;
+        }
         this._view.runAction(new cc.Sequence(
             new cc.DelayTime(2),
             new cc.CallFunc(function () {
@@ -472,6 +478,9 @@ var PokerController = GameController.extend({
             }
             var slotView = thiz._view.getSlotByUsername(username);
             if(slotView){
+                slotView.setGold(money);
+                slotView.setUserNamePoker();
+                slotView.setMoneyBet(0);
                 if(isWin){
                     var moneyWin = cc.Global.NumberFormat1(parseInt(temp["4"]));
                     thiz._view.runChipWin(slotView,moneyWin);
@@ -482,6 +491,7 @@ var PokerController = GameController.extend({
                         cc.log("co key 6");
                         var typeHand = temp["6"]["1"];
                         if(PlayerMe.username != username){
+                            slotView.phomVituarl.setVisible(false);
                             slotView.cardList.addCardsPokerEndGame(cards);
                         }
                         slotView.setNameHand(S_TYPE_CARDS[typeHand],isWin );
@@ -598,6 +608,7 @@ var PokerController = GameController.extend({
             cardObjs.push(CardList.prototype.getCardWithId(cards[i]));
         }
         this._view.performDealCards(cardObjs, true);
+
     },
 
     onTurnChanged: function (param) {

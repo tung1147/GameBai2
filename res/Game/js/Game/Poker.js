@@ -63,8 +63,9 @@ var PokerGamePlayer = GamePlayer.extend({
 
 
         var phomVituarl = new cc.Sprite("#pk_cardMask.png");
+        phomVituarl.setVisible(false);
+        // var phomVituarl = new CardSmall(cc.size(50,25));
         phomVituarl.setPosition(thiz.avt.getPositionX() -20,thiz.avt.getPositionY()-30);
-        phomVituarl.visible = false;
         thiz.addChild(phomVituarl);
         this.phomVituarl = phomVituarl;
 
@@ -113,6 +114,9 @@ var PokerGamePlayer = GamePlayer.extend({
         this.isOwnerSprite.setVisible(false);
         // this.setMoneyBet(1000);
     },
+    setIsOwner : function(isOwner){
+        this.isOwnerSprite.visible = false;
+    },
     getTimeCurrent:function (timeMax) {
      return this.timer2.getPercentage()*timeMax/100;
     },
@@ -133,9 +137,13 @@ var PokerGamePlayer = GamePlayer.extend({
         if(isMe){
             this.cardList.setPosition(this.avt.getPositionX(),this.avt.getPositionY()+100);
             this.txtBetBg.setPosition(this.avt.getPositionX(),this.avt.getPositionY()+ 90+75);
+            this.bg_nameHand.setPosition( this.avt.getPositionX(),this.avt.getPositionY()+100-55);
+            this.lblHandWin.setPosition(this.avt.getPositionX(),this.avt.getPositionY()+100 +55);
         }else {
             this.cardList.setPosition(this.avt.getPosition());
             this.txtBetBg.setPosition(this.avt.getPositionX(),this.avt.getPositionY()+75);
+            this.bg_nameHand.setPosition( this.avt.getPositionX(),this.avt.getPositionY()-55);
+            this.lblHandWin.setPosition(this.avt.getPositionX(),this.avt.getPositionY() +55);
         }
     },
     setPositionInfo:function (posBase, posBet,posDel) {
@@ -241,7 +249,7 @@ var PokerGamePlayer = GamePlayer.extend({
         }
         if(!enable ){
             if( this.phomVituarl)
-            this.phomVituarl.setVisible(false);
+             this.phomVituarl.setVisible(false);
             this.lblBet.setString("");
             this.imgDeal.setVisible(false);
             //this.bgText.setVisible(false);
@@ -251,6 +259,7 @@ var PokerGamePlayer = GamePlayer.extend({
             this.lblBet.setString("");
             this.txtBetBg.setVisible(false);
             this.cardList.removeAll();
+            this.imgWin.setVisible(false);
         }
 
     },
@@ -295,7 +304,7 @@ var PokerGamePlayer = GamePlayer.extend({
             this.setGold(info.money);
             this.setMoneyBet(info.moneyBet);
             this.setType(info.typePlayer);
-            if(info.idAction != PK_ACTION_PLAYER_FOLD && info.isPlaying){
+            if(info.idAction != PK_ACTION_PLAYER_FOLD && info.isPlaying && PlayerMe.username != this.username){
                 this.phomVituarl.setVisible(true);
             }
             this.updateAction(info.idAction)
@@ -407,10 +416,23 @@ var Poker = IGameScene.extend({
 
         var thiz = this;
 
-        var imgCave = new cc.Sprite("#pk_cave_big.png");
+        var imgCave = new cc.Sprite("#pk_cave.png");
         imgCave.setPosition(bgPoker.getContentSize().width / 2, 554);
         bgPoker.addChild(imgCave);
         this.imgCave = imgCave;
+
+        var caveBig = new cc.Sprite("#pk_cave_big.png");
+        caveBig.setPosition(bgPoker.getContentSize().width / 2, 554);
+        caveBig.runAction(new cc.RepeatForever(
+            new cc.Sequence(
+                new cc.FadeTo(1,0),
+                new cc.FadeTo(0.7,255),
+                new cc.DelayTime(0.2),
+                new cc.FadeTo(1.2,0),
+                new cc.DelayTime(3)
+            )
+        ));
+        bgPoker.addChild(caveBig);
 
         var caveTextBG =  new cc.Sprite("#pk_bg_caveChat.png");
         caveTextBG.setPosition(cc.p(imgCave.getPositionX()-130,imgCave.getPositionY()+50));
@@ -432,7 +454,7 @@ var Poker = IGameScene.extend({
         this.tipBt = tipBt;
         bgPoker.addChild(tipBt);
         tipBt.addClickEventListener(function () {
-            thiz._controller.sendTipRequest(this.minBetting);
+            thiz._controller.sendTipRequest(thiz.minBetting);
         });
 
         var bettingPoker = new BettingPoker();
@@ -450,13 +472,14 @@ var Poker = IGameScene.extend({
         this.countDown = countDown;
         // var cardData = [1,2,3,4,5];
         //
-        // this.runAction(new cc.Sequence(new cc.DelayTime(2), new cc.CallFunc(function () {
-        //     // for (var j = 0; j < cardData.length; j++) {
-        //     //     cardMix.addCardsPoker(CardList.prototype.getCardWithId(cardData[j]), thiz.imgCave.getParent().convertToWorldSpace(cc.p(thiz.imgCave.getPositionX(),thiz.imgCave.getPositionY())));
-        //     // }
-        //     thiz.allSlot[0].setNameHand("aaaaa",false);
-        //
-        // })));
+         this.runAction(new cc.Sequence(new cc.DelayTime(2), new cc.CallFunc(function () {
+
+        })));
+
+    },
+
+
+    updateGold: function (username, gold) {
 
     },
     handleButtonCofirm:function () {
@@ -533,10 +556,10 @@ var Poker = IGameScene.extend({
     initPlayer: function (numberSlot) {
 
        if( this.allSlot &&  this.allSlot.length > 0){
-            for(var i = this.allSlot.length; i< 0;i--){
-                this.allSlot[i-1].removeFromParent(true);
+            for(var i = 0; i<  this.allSlot.length;i++){
+                this.allSlot[i].removeFromParent(true);
             };
-
+           this.allSlot = null;
         }
 
         this.playerView = [];
@@ -570,7 +593,7 @@ var Poker = IGameScene.extend({
 
 
             var player0 = new PokerGamePlayer(i, this);
-            player0.setPosition(sizeOrgX, 55);
+            player0.setPosition(sizeOrgX, 35);
             player0.setPositionInfo(PK_POSITION_BOTTOM,PK_POSITION_TOP,PK_POSITION_TOP);
             this.bgPoker.addChild(player0, 1);
 
@@ -979,12 +1002,71 @@ var Poker = IGameScene.extend({
         }
     },
     performDealCards: function (cards, animation) {
+        var thiz = this;
         this.allSlot[0].cardList.removeAll();
         var pointCave = this.imgCave.getParent().convertToWorldSpace(this.imgCave.getPosition());
         if(cards.length>0){
-            this.allSlot[0].cardList.dealCards(cards, true,pointCave);
+            // this.allSlot[0].cardList.dealCards(cards, true,pointCave);
         }
+        var m =0;
+        for (var j = 0; j < 2; j++) {
+            (function () {
+                var jNew = j;
 
+                        thiz.runAction(new cc.Sequence(
+                            new cc.DelayTime(m*0.5),
+                            new cc.CallFunc(function () {
+                                if(cards.length>1) {
+                                    thiz.allSlot[0].cardList.addCardsPoker(cards[jNew], pointCave);
+                                }
+                            })
+
+                        ));
+                        m++;
+
+
+
+
+            })();
+
+
+
+                    for(var k = 1; k< thiz.allSlot.length;k++)
+                    {(function () {
+                        var kNew = k;
+                        if(thiz.allSlot[kNew].username !="" ){
+                            thiz.allSlot[kNew].phomVituarl.setVisible(true);
+
+                        }
+                    })();
+                    }
+
+
+
+
+        // var m =0;
+        // for (var j = 0; j < 2; j++) {
+        //     (function () {
+        //         var jNew = j;
+        //         for(var k = 0; k< thiz.allSlot.length;k++)
+        //         {(function () {
+        //             var kNew = k;
+        //             if(thiz.allSlot[kNew].info.isPlaying && PlayerMe.username != allSlot[kNew].username ){
+        //                 thiz.runAction(new cc.Sequence(
+        //                     new cc.DelayTime(m*0.2),
+        //                     new cc.CallFunc(function () {
+        //                         thiz.allSlot[kNew].phomVituarl.setVisible(true);
+        //                         thiz.allSlot[kNew].phomVituarl.addCard(posCave,jNew);
+        //                     })
+        //
+        //                 ));
+        //                 m++;
+        //             }
+        //         })();
+        //         }
+        //
+        //     })();
+        }
         // this.allSlot[0].cardList.addCardReconnect(cards);
 
 
@@ -1129,19 +1211,19 @@ var Poker = IGameScene.extend({
             ));
             this.heart1.setVisible(true);
             this.sceneLayer.addChild(chip,10);
-            var lblMoney = new cc.LabelTTF( money, cc.res.font.Roboto_CondensedBold,25);
+            var lblMoney = new cc.LabelTTF( money, cc.res.font.Roboto_Condensed,20);
             lblMoney.setAnchorPoint(0.5,0.5);
             lblMoney.setColor(cc.color(255,222,0,255));
-            lblMoney.setOpacity(100);
+            lblMoney.setOpacity(255);
             lblMoney.setVisible(false);
-            lblMoney.setPosition(this.imgCave.getPositionX(),this.imgCave.getPositionY() - 170);
+            lblMoney.setPosition(this.imgCave.getPositionX(),this.imgCave.getPositionY() - 50);
             this.bgPoker.addChild(lblMoney,10);
             lblMoney.runAction(new cc.Sequence(
                 new cc.DelayTime(timeRun),
                 new cc.CallFunc(function () {
                     lblMoney.setVisible(true);
-                    lblMoney.runAction(new cc.MoveTo(0.7,cc.p(thiz.imgCave.getPositionX(),thiz.imgCave.getPositionY() - 40)));
-                    lblMoney.runAction(new cc.FadeTo(0.7,255));
+                    lblMoney.runAction(new cc.MoveTo(0.7,cc.p(thiz.imgCave.getPositionX(),thiz.imgCave.getPositionY() )));
+                    lblMoney.runAction(new cc.FadeTo(0.7,100));
                 }),
                 new cc.DelayTime(1.2),
                 // new cc.MoveTo(timeRun,cc.p(to.x,to.y-40)),
@@ -1373,6 +1455,7 @@ var BettingPoker = cc.Node.extend({
                 thiz.gold =  Math.floor(slider.percent*(thiz.maxBuy - thiz.minBuy)/100) + thiz.minBuy;
                 thiz.lblGold.setString(cc.Global.NumberFormat1(thiz.gold));
                 thiz.allIn.setVisible((thiz.slider.percent<100)?false:true);
+                thiz.type = (thiz.slider.percent<100)?thiz.typeOld:PK_ACTION_PLAYER_ALL_IN;
                 thiz.lblGold.setVisible(!thiz.allIn.isVisible());
 
             }
@@ -1391,6 +1474,7 @@ var BettingPoker = cc.Node.extend({
     },
     setTypeAgain:function (type) {
         this.type = type;
+        this.typeOld = type;
     },
     onEnter : function () {
         this._super();
@@ -1443,6 +1527,60 @@ var CardEx = Card.extend({
     },
 });
 
+var CardSmall = cc.Node.extend({
+   ctor:function (size) {
+       this._super();
+       this.setContentSize(size);
+       this.setAnchorPoint(cc.p(0.5, 0.5));
+   },
+   addCard:function (from, index) {
+       if(index == 0)
+       {
+           this.removeAllChildren(true);
+       }
+       var card = new cc.Sprite("#gp_card_up.png");
+       this.addChild(card);
+       card.setPosition(this.convertToNodeSpace(from));
+       var x = this.getContentSize().width / 2 -index*5;
+       var y = this.getContentSize().height / 2;
+       card.setScale(this.getContentSize().height / card.getContentSize().height);
+       if(index==0)
+       {
+           card.setRotation(15);
+       }
+       var moveAction = new cc.MoveTo(0.2, cc.p(x, y));
+       card.stopActionByTag(100);
+       moveAction.setTag(100);
+       card.runAction(moveAction);
+   },
+    addCardReconnect:function () {
+       this.removeAll();
+       for(var  i = 0;  i < 2;i++)
+       {
+           var card = new cc.Sprite("#gp_card_up.png");
+           this.addChild(card);
+
+           var x = this.getContentSize().width / 2 -i*5;
+           var y = this.getContentSize().height / 2;
+           card.setPosition(cc.p(x, y));
+           card.setScale(this.getContentSize().height / card.getContentSize().height);
+           if(index==0)
+           {
+               card.setRotation(15);
+           }
+
+       }
+
+    },
+    removeAll: function () {
+        this.removeAllChildren(true);
+    },
+    setVisible:function (isVisible) {
+        this._super(isVisible);
+        // if(isVisible)
+    }
+
+});
 
 var CardPoker = cc.Node.extend({
     ctor: function (size) {
