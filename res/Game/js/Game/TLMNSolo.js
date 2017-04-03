@@ -13,7 +13,7 @@ var TLMNSolo = TienLen.extend({
         this.sceneLayer.addChild(playerMe, 1);
 
         var player1 = new GamePlayer();
-        player1.setPosition(cc.winSize.width / 2, 650.0 * cc.winSize.screenScale);
+        player1.setPosition(cc.winSize.width / 2, 580.0 * cc.winSize.screenScale);
         this.sceneLayer.addChild(player1, 1);
         player1.chatView.setAnchorPoint(cc.p(1.0,1.0));
 

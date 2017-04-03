@@ -68,7 +68,7 @@ var BaCay = IGameScene.extend({
 
     initScene: function () {
         var table_bg = new cc.Sprite("res/gp_table.png");
-        table_bg.setPosition(cc.winSize.width / 2, cc.winSize.height / 2);
+        table_bg.setPosition(cc.winSize.width / 2, 320);
         table_bg.setScale(cc.winSize.screenScale);
         this.sceneLayer.addChild(table_bg);
 
@@ -118,23 +118,23 @@ var BaCay = IGameScene.extend({
         this.sceneLayer.addChild(playerMe.resultLabel, 2);
 
         var player1 = new GamePlayer();
-        player1.setPosition(cc.winSize.width - 120.0 / cc.winSize.screenScale, 240.0);
+        player1.setPosition(cc.winSize.width - 144.0 / cc.winSize.screenScale, 240.0);
         this.sceneLayer.addChild(player1, 1);
 
         var player2 = new GamePlayer();
-        player2.setPosition(cc.winSize.width - 160.0, 500.00);
+        player2.setPosition(cc.winSize.width - 160.0, 450.00);
         this.sceneLayer.addChild(player2, 1);
 
         var player3 = new GamePlayer();
-        player3.setPosition(cc.winSize.width / 2, 650.0);
+        player3.setPosition(cc.winSize.width / 2, 580.0);
         this.sceneLayer.addChild(player3, 1);
 
         var player4 = new GamePlayer();
-        player4.setPosition(160.0, 500.0);
+        player4.setPosition(160.0, 450.0);
         this.sceneLayer.addChild(player4, 1);
 
         var player5 = new GamePlayer();
-        player5.setPosition(120.0, 240.0);
+        player5.setPosition(144.0, 240.0);
         this.sceneLayer.addChild(player5, 1);
 
         this.playerView = [playerMe, player1, player2, player3, player4, player5];
