@@ -38,7 +38,7 @@ var RankSubLayer = cc.Node.extend({
 
     initItemList : function () {
         var _top = 554.0;
-        var _bottom = 130.0 * cc.winSize.screenScale;
+        var _bottom = 100.0 * cc.winSize.screenScale;
         var _left = cc.winSize.width/2 - 340;
 
         var itemList = new newui.TableView(cc.size(680, _top - _bottom), 1);
@@ -267,20 +267,20 @@ var RankLevelLayer = RankSubLayer.extend({
         this.typeToggle.selectItem(0);
     },
 
-    initItemList : function () {
-        var _top = 554.0;
-        var _bottom = 130.0 * cc.winSize.screenScale;
-        var _left = cc.winSize.width/2 - 340;
-
-        var itemList = new newui.TableView(cc.size(680 , _top - _bottom), 1);
-        itemList.setDirection(ccui.ScrollView.DIR_VERTICAL);
-        itemList.setScrollBarEnabled(false);
-        itemList.setPadding(10);
-        itemList.setMargin(10, 30, 0, 0);
-        itemList.setPosition(cc.p(_left, _bottom));
-        this.addChild(itemList, 1);
-        this.itemList = itemList;
-    },
+    // initItemList : function () {
+    //     var _top = 554.0;
+    //     var _bottom = 100.0 * cc.winSize.screenScale;
+    //     var _left = cc.winSize.width/2 - 340;
+    //
+    //     var itemList = new newui.TableView(cc.size(680 , _top - _bottom), 1);
+    //     itemList.setDirection(ccui.ScrollView.DIR_VERTICAL);
+    //     itemList.setScrollBarEnabled(false);
+    //     itemList.setPadding(10);
+    //     itemList.setMargin(10, 30, 0, 0);
+    //     itemList.setPosition(cc.p(_left, _bottom));
+    //     this.addChild(itemList, 1);
+    //     this.itemList = itemList;
+    // },
 
     onGetTop: function (command, data) {
         cc.log(JSON.stringify(data));

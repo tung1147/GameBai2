@@ -35,7 +35,7 @@ var LobbySubLayer = cc.Node.extend({
         var thiz = this;
 
         var bottomBar = new cc.Node();
-        bottomBar.setPosition(0, 57);
+        bottomBar.setPosition(0, 30);
         this.addChild(bottomBar);
         bottomBar.setScale(cc.winSize.screenScale);
 
