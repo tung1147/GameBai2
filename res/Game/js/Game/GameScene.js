@@ -27,7 +27,7 @@ var GameTopBar = cc.Node.extend({
         this.backBt = backBt;
         this.settingBt = settingBt;
         this.chatBt = chatBt;
-        
+
     },
     onExit: function () {
         this._super();

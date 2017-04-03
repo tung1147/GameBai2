@@ -228,7 +228,7 @@ var XocDiaScene = IGameScene.extend({
         this.playerMe = playerMe;
 
         var playerButton = new ccui.Button("ingame-playerBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        playerButton.setPosition(160, 653);
+        playerButton.setPosition(160, this.gameTopBar.backBt.y);
         this.gameTopBar.addChild(playerButton);
         this.playerButton = playerButton;
         playerButton.addClickEventListener(function () {
@@ -236,9 +236,9 @@ var XocDiaScene = IGameScene.extend({
             dialog.showWithAnimationMove();
         });
 
-        var userLabel = new cc.LabelBMFont("30", cc.res.font.Roboto_CondensedBold_25);
+        var userLabel = new cc.LabelBMFont("30", cc.res.font.Roboto_CondensedBold_18);
         userLabel.setColor(cc.color("#ffcf00"));
-        userLabel.setPosition(playerButton.getContentSize().width / 2, 22);
+        userLabel.setPosition(playerButton.getContentSize().width / 2, 11);
         playerButton.getRendererNormal().addChild(userLabel);
         this.userLabel = userLabel;
 
