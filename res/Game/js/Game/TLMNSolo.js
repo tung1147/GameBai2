@@ -18,7 +18,7 @@ var TLMNSolo = TienLen.extend({
         player1.chatView.setAnchorPoint(cc.p(1.0,1.0));
 
         var cardRemaining1 = new CardRemaining();
-        cardRemaining1.setPosition(130,100);
+        cardRemaining1.setPosition(130,70);
         player1.infoLayer.addChild(cardRemaining1);
         player1.cardRemaining = cardRemaining1;
 

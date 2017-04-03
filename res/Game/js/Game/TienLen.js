@@ -45,19 +45,6 @@ var TienLen = IGameScene.extend({
         table_bg.setScale(cc.winSize.screenScale);
         this.sceneLayer.addChild(table_bg);
 
-        //initview
-        var chatBt = new ccui.Button("ingame-chatBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        chatBt.setPosition(1120, 653);
-        this.gameTopBar.addChild(chatBt);
-        var thiz = this;
-        chatBt.addClickEventListener(function () {
-            var dialog = new ChatDialog();
-            dialog.onTouchMessage = function (message) {
-                thiz.sendChatMessage(message);
-            };
-            dialog.show();
-        });
-
         //
         this.initPlayer();
         this.initButton();
@@ -144,7 +131,7 @@ var TienLen = IGameScene.extend({
     },
     initButton: function () {
         var danhbaiBt = new ccui.Button("game-danhbaiBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        danhbaiBt.setPosition(cc.winSize.width - 110, 50);
+        danhbaiBt.setPosition(cc.winSize.width - 110, 46);
         this.sceneLayer.addChild(danhbaiBt);
 
         var xepBaiBt = new ccui.Button("game-xepbaiBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
@@ -227,17 +214,17 @@ var TienLen = IGameScene.extend({
         this.playerView = [playerMe, player1, player2, player3];
 
         var cardRemaining1 = new CardRemaining();
-        cardRemaining1.setPosition(30, 100);
+        cardRemaining1.setPosition(30, 70);
         player1.infoLayer.addChild(cardRemaining1);
         player1.cardRemaining = cardRemaining1;
 
         var cardRemaining2 = new CardRemaining();
-        cardRemaining2.setPosition(130, 100);
+        cardRemaining2.setPosition(130, 70);
         player2.infoLayer.addChild(cardRemaining2);
         player2.cardRemaining = cardRemaining2;
 
         var cardRemaining3 = new CardRemaining();
-        cardRemaining3.setPosition(130, 100);
+        cardRemaining3.setPosition(130, 70);
         player3.infoLayer.addChild(cardRemaining3);
         player3.cardRemaining = cardRemaining3;
     },

@@ -7,22 +7,38 @@ var GameTopBar = cc.Node.extend({
         this._super();
         SmartfoxClient.getInstance().addListener(socket.SmartfoxClient.CallExtension, this.onExtensionCommand, this);
 
-        this.backBt = new ccui.Button("ingame-backBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        this.backBt.setPosition(65, 653);
-        this.addChild(this.backBt);
+        var backBt = new ccui.Button("ingame-backBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        backBt.setPosition(65, 666);
+        this.addChild(backBt);
 
-        this.settingBt = new ccui.Button("ingame-settingBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        this.settingBt.setPosition(1220, this.backBt.y);
-        this.addChild(this.settingBt);
+        var settingBt = new ccui.Button("ingame-settingBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        settingBt.setPosition(1220, backBt.y);
+        this.addChild(settingBt);
+
+        var chatBt = new ccui.Button("ingame-chatBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        chatBt.setPosition(1120, backBt.y);
+        this.addChild(chatBt);
 
         this.setAnchorPoint(0.0, 1.0);
         this.setContentSize(1280.0, 720.0);
         this.setPosition(0.0, 720.0);
         this.setScale(cc.winSize.screenScale);
 
+        this.backBt = backBt;
+        this.settingBt = settingBt;
+        this.chatBt = chatBt;
+
         var thiz = this;
         this.settingBt.addClickEventListener(function () {
             thiz.onSettingButtonHandler();
+        });
+
+        chatBt.addClickEventListener(function () {
+            var dialog = new ChatDialog();
+            dialog.onTouchMessage = function (message) {
+                thiz.sendChatMessage(message);
+            };
+            dialog.show();
         });
     },
     onExit: function () {

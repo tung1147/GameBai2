@@ -62,7 +62,7 @@ var LoadingScene = cc.Scene.extend({
 
         this.backgroundLoading();
         cc.director.replaceScene(new HomeScene());
-        //cc.director.replaceScene(new XocDiaScene());
+        //cc.director.replaceScene(new TienLen());
     },
 
     updateLoadResources : function (current, target) {

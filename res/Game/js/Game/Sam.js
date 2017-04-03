@@ -7,14 +7,18 @@ var Sam = TienLen.extend({
 
         this.timeRemaining = 0;
         this.timeInterval = null;
+    },
+    initButton : function () {
+        this._super();
+
         var baosamBt = new ccui.Button("game-baosamBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        baosamBt.setPosition(cc.winSize.width - 910, 50);
+        baosamBt.setPosition(cc.winSize.width - 910, this.danhbaiBt.y);
         this.sceneLayer.addChild(baosamBt);
         baosamBt.visible = false;
         this.baosamBt = baosamBt;
 
         var huysamBt = new ccui.Button("game-huysamBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        huysamBt.setPosition(cc.winSize.width - 710, 50);
+        huysamBt.setPosition(cc.winSize.width - 710, baosamBt.y);
         this.sceneLayer.addChild(huysamBt);
         huysamBt.visible = false;
         this.huysamBt = huysamBt;
@@ -76,22 +80,22 @@ var Sam = TienLen.extend({
         this.playerView = [playerMe, player1, player2, player3, player4];
 
         var cardRemaining1 = new CardRemaining();
-        cardRemaining1.setPosition(30, 100);
+        cardRemaining1.setPosition(30, 70);
         player1.infoLayer.addChild(cardRemaining1);
         player1.cardRemaining = cardRemaining1;
 
         var cardRemaining2 = new CardRemaining();
-        cardRemaining2.setPosition(130, 100);
+        cardRemaining2.setPosition(130, 70);
         player2.infoLayer.addChild(cardRemaining2);
         player2.cardRemaining = cardRemaining2;
 
         var cardRemaining3 = new CardRemaining();
-        cardRemaining3.setPosition(130, 100);
+        cardRemaining3.setPosition(130, 70);
         player3.infoLayer.addChild(cardRemaining3);
         player3.cardRemaining = cardRemaining3;
 
         var cardRemaining4 = new CardRemaining();
-        cardRemaining4.setPosition(130, 100);
+        cardRemaining4.setPosition(130, 70);
         player4.infoLayer.addChild(cardRemaining4);
         player4.cardRemaining = cardRemaining4;
 

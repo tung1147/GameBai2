@@ -353,17 +353,17 @@ var MauBinh = IGameScene.extend({
         this.sceneLayer.addChild(timeLabel);
         this.timeLabel = timeLabel;
 
-        var chatBt = new ccui.Button("ingame-chatBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        chatBt.setPosition(1120, 653);
-        this.gameTopBar.addChild(chatBt);
-        var thiz = this;
-        chatBt.addClickEventListener(function () {
-            var dialog = new ChatDialog();
-            dialog.onTouchMessage = function (message) {
-                thiz.sendChatMessage(message);
-            };
-            dialog.show();
-        });
+        // var chatBt = new ccui.Button("ingame-chatBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        // chatBt.setPosition(1120, 653);
+        // this.gameTopBar.addChild(chatBt);
+        // var thiz = this;
+        // chatBt.addClickEventListener(function () {
+        //     var dialog = new ChatDialog();
+        //     dialog.onTouchMessage = function (message) {
+        //         thiz.sendChatMessage(message);
+        //     };
+        //     dialog.show();
+        // });
     },
 
     initPlayer: function () {

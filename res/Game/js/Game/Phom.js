@@ -543,7 +543,7 @@ var Phom = IGameScene.extend({
     },
     initButton: function () {
         var danhbaiBt = new ccui.Button("game-danhbaiBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        danhbaiBt.setPosition(cc.winSize.width - 310, 50);
+        danhbaiBt.setPosition(cc.winSize.width - 310, 46);
         this.sceneLayer.addChild(danhbaiBt);
 
         var xepBaiBt = new ccui.Button("game-xepbaiBt.png", "", "", ccui.Widget.PLIST_TEXTURE);

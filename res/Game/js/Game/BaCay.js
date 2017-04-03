@@ -83,7 +83,7 @@ var BaCay = IGameScene.extend({
 
         var huThuongBg = new ccui.Scale9Sprite("bacayhuthuong_bg.png", cc.rect(15, 15, 4, 4));
         huThuongBg.setPreferredSize(cc.size(322, 47));
-        huThuongBg.setPosition(cc.winSize.width / 2, 525);
+        huThuongBg.setPosition(cc.winSize.width / 2, 465);
         this.sceneLayer.addChild(huThuongBg);
 
         var huThuongLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, "HŨ BA CÂY: ");
@@ -163,7 +163,7 @@ var BaCay = IGameScene.extend({
     initButton: function () {
         var thiz = this;
         var revealBt = new ccui.Button("game-lathetBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        revealBt.setPosition(cc.winSize.width - 310, 50);
+        revealBt.setPosition(cc.winSize.width - 310, 46);
         revealBt.visible = false;
         this.sceneLayer.addChild(revealBt);
         this.revealBt = revealBt;

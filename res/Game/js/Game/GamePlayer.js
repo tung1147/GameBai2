@@ -4,7 +4,7 @@
 var GamePlayer = cc.Node.extend({
     ctor: function () {
         this._super();
-        this.setContentSize(cc.size(158, 184));
+        this.setContentSize(cc.size(158, 120));
         this.setAnchorPoint(cc.p(0.5, 0.5));
         this.isMe = false;
         this.username = "";
@@ -14,7 +14,7 @@ var GamePlayer = cc.Node.extend({
         this.addChild(this.infoLayer);
 
         var avt = UserAvatar.createAvatar();
-        avt.setPosition(this.getContentSize().width / 2, 110);
+        avt.setPosition(this.getContentSize().width / 2, 79);
         this.infoLayer.addChild(avt);
 
         var chatView = new PlayerMessageView();
@@ -23,7 +23,7 @@ var GamePlayer = cc.Node.extend({
         this.chatView = chatView;
 
         var isOwnerSprite = new cc.Sprite("#icon_owner.png");
-        isOwnerSprite.setPosition(avt.x + 50,avt.y+50);
+        isOwnerSprite.setPosition(avt.x + 38,avt.y + 38);
         this.infoLayer.addChild(isOwnerSprite);
         this.isOwnerSprite = isOwnerSprite;
 
@@ -46,15 +46,16 @@ var GamePlayer = cc.Node.extend({
         inviteBt.setPosition(avt.getPosition());
         this.addChild(inviteBt);
 
-        var userLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, "Player", cc.TEXT_ALIGNMENT_CENTER);
+        var userLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_18, "Player", cc.TEXT_ALIGNMENT_CENTER);
+        userLabel.setColor(cc.color("#63b0f1"));
         userLabel.setLineBreakWithoutSpace(true);
         userLabel.setDimensions(this.getContentSize().width, userLabel.getLineHeight());
-        userLabel.setPosition(this.getContentSize().width / 2, 50);
+        userLabel.setPosition(this.getContentSize().width / 2, 34);
         this.infoLayer.addChild(userLabel, 1);
 
-        var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "1.000V", cc.TEXT_ALIGNMENT_CENTER);
+        var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "1.000V", cc.TEXT_ALIGNMENT_CENTER);
         goldLabel.setColor(cc.color("#ffde00"));
-        goldLabel.setPosition(this.getContentSize().width / 2, 20);
+        goldLabel.setPosition(this.getContentSize().width / 2, 14);
         this.infoLayer.addChild(goldLabel, 1);
 
         this.userLabel = userLabel;
@@ -210,7 +211,7 @@ var GamePlayerMe = GamePlayer.extend({
 
         var isOwnerSprite = new cc.Sprite("#icon_owner.png");
         isOwnerSprite.setVisible(false);
-        isOwnerSprite.setPosition(avt.x + 50,avt.y+50);
+        isOwnerSprite.setPosition(avt.x + 38,avt.y+38);
         this.infoLayer.addChild(isOwnerSprite);
         this.isOwnerSprite = isOwnerSprite;
 
@@ -236,21 +237,22 @@ var GamePlayerMe = GamePlayer.extend({
         this.infoLayer.addChild(timer2);
         this.timer2 = timer2;
 
-        var userLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, PlayerMe.username, cc.TEXT_ALIGNMENT_LEFT);
+        var userLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_18, PlayerMe.username, cc.TEXT_ALIGNMENT_LEFT);
+        userLabel.setColor(cc.color("#63b0f1"));
         userLabel.setAnchorPoint(cc.p(0.0, 0.5));
         userLabel.setLineBreakWithoutSpace(true);
         userLabel.setDimensions(194, userLabel.getLineHeight());
-        userLabel.setPosition(107, 70);
+        userLabel.setPosition(107, 60);
         this.infoLayer.addChild(userLabel);
 
-        var goldIcon = new cc.Sprite("#ingame-goldIcon.png");
-        goldIcon.setPosition(120, 30);
-        this.infoLayer.addChild(goldIcon);
+        // var goldIcon = new cc.Sprite("#ingame-goldIcon.png");
+        // goldIcon.setPosition(120, 30);
+        // this.infoLayer.addChild(goldIcon);
 
-        var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "99.999.999V", cc.TEXT_ALIGNMENT_CENTER);
+        var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "99.999.999V", cc.TEXT_ALIGNMENT_CENTER);
         goldLabel.setAnchorPoint(cc.p(0.0, 0.5));
         goldLabel.setColor(cc.color("#ffde00"));
-        goldLabel.setPosition(140, 30);
+        goldLabel.setPosition(107, 40);
         this.infoLayer.addChild(goldLabel);
 
         this.userLabel = userLabel;
