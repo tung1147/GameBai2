@@ -56,7 +56,7 @@ var ChatDialog = IDialog.extend({
             bg.setZoomScale(0.02);
             listMessage.pushItem(bg);
 
-            var message = new cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, s_chat_message[i]);
+            var message = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, s_chat_message[i]);
             message.setPosition(bg.getContentSize().width/2, bg.getContentSize().height/2);
             bg.getRendererNormal().addChild(message);
             (function () {
