@@ -195,18 +195,18 @@ var TienLen = IGameScene.extend({
         this.sceneLayer.addChild(playerMe, 1);
 
         var player1 = new GamePlayer();
-        player1.setPosition(cc.winSize.width - 144.0 / cc.winSize.screenScale, 320.0);
+        player1.setPosition(cc.winSize.width - 144.0 * cc.winSize.screenScale, 320.0 * cc.winSize.screenScale);
         this.sceneLayer.addChild(player1, 1);
         player1.chatView.setAnchorPoint(cc.p(1.0, 0.0));
         player1.chatView.y += 20;
 
         var player2 = new GamePlayer();
-        player2.setPosition(cc.winSize.width / 2, 580.0 * cc.winSize.screenScale);
+        player2.setPosition(cc.winSize.width / 2, cc.winSize.height - 140.0 / cc.winSize.screenScale);
         this.sceneLayer.addChild(player2, 1);
         player2.chatView.setAnchorPoint(cc.p(1.0, 1.0));
 
         var player3 = new GamePlayer();
-        player3.setPosition(144.0 / cc.winSize.screenScale, 320.0);
+        player3.setPosition(144.0 * cc.winSize.screenScale, player1.y);
         this.sceneLayer.addChild(player3, 1);
         player3.chatView.setAnchorPoint(cc.p(0.0, 0.0));
         player3.chatView.y += 20;

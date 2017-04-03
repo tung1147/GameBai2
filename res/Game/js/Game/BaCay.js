@@ -105,8 +105,11 @@ var BaCay = IGameScene.extend({
     },
 
     initPlayer: function () {
+        // var playerMe = new GamePlayerMe();
+        // playerMe.setPosition(150, 50.0);
         var playerMe = new GamePlayerMe();
-        playerMe.setPosition(150, 50.0);
+        playerMe.setPosition(cc.winSize.width/2, 50.0);
+
         playerMe.cardList = new BaCayCardList(cc.size(240, 100));
         playerMe.cardList.setPosition(cc.winSize.width / 2, 100.0);
         playerMe.resultLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, "", cc.TEXT_ALIGNMENT_CENTER);
@@ -118,23 +121,23 @@ var BaCay = IGameScene.extend({
         this.sceneLayer.addChild(playerMe.resultLabel, 2);
 
         var player1 = new GamePlayer();
-        player1.setPosition(cc.winSize.width - 144.0 / cc.winSize.screenScale, 240.0);
+        player1.setPosition(cc.winSize.width - 144.0 * cc.winSize.screenScale, 240.0 * cc.winSize.screenScale);
         this.sceneLayer.addChild(player1, 1);
 
         var player2 = new GamePlayer();
-        player2.setPosition(cc.winSize.width - 160.0, 450.00);
+        player2.setPosition(cc.winSize.width - 160.0 * cc.winSize.screenScale, cc.winSize.height - 270.00 / cc.winSize.screenScale);
         this.sceneLayer.addChild(player2, 1);
 
         var player3 = new GamePlayer();
-        player3.setPosition(cc.winSize.width / 2, 580.0);
+        player3.setPosition(cc.winSize.width / 2, cc.winSize.height - 140.0 / cc.winSize.screenScale);
         this.sceneLayer.addChild(player3, 1);
 
         var player4 = new GamePlayer();
-        player4.setPosition(160.0, 450.0);
+        player4.setPosition(160.0 * cc.winSize.screenScale, player2.y);
         this.sceneLayer.addChild(player4, 1);
 
         var player5 = new GamePlayer();
-        player5.setPosition(144.0, 240.0);
+        player5.setPosition(144.0 * cc.winSize.screenScale, player1.y);
         this.sceneLayer.addChild(player5, 1);
 
         this.playerView = [playerMe, player1, player2, player3, player4, player5];
