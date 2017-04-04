@@ -271,10 +271,6 @@ var ShopItemDialog = Dialog.extend({
     onEnter : function () {
         this._super();
         this.mToggle.selectItem(1);
-
-        var dialog = new InventoryDialog();
-        dialog.show();
-        dialog.setPositionX(cc.winSize.width - 235);
     },
 
     onExit : function () {

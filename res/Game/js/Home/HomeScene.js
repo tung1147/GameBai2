@@ -406,9 +406,8 @@ var HomeScene = IScene.extend({
         if (this._checkLogin() == false) {
             return;
         }
-        var dialog = new ShopItemDialog();
+        var dialog = new HomeShopLayer();
         dialog.show();
-        dialog.setPositionX(350);
     },
 
     rewardButtonHandler: function () {

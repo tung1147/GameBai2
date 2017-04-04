@@ -78,6 +78,10 @@ var IDialog = cc.Node.extend({
         return this._running;
     },
 
+    onTouchDialog : function () {
+
+    },
+
     onEnter : function () {
         this._super();
 
@@ -89,6 +93,7 @@ var IDialog = cc.Node.extend({
                 if(thiz._moveEnable){
                     var p = thiz.convertToNodeSpace(touch.getLocation());
                     if(cc.rectContainsPoint(thiz.mTouch, p)){
+                        thiz.onTouchDialog();
                         return true;
                     }
                     return false;
