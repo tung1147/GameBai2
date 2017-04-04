@@ -8,6 +8,11 @@ var IDialog = cc.Node.extend({
         this.mTouch = cc.rect(0,0,0,0);
         this.setAnchorPoint(cc.p(0.5, 0.5));
 
+        this._maxLeft = 0;
+        this._maxRight = cc.winSize.width;
+        this._maxBottom = 0;
+        this._maxTop = cc.winSize.height;
+
         // var colorLayer = new cc.LayerColor(cc.color(0,0,0,180), cc.winSize.width, cc.winSize.height);
         // this.addChild(colorLayer);
         //
@@ -39,8 +44,10 @@ var IDialog = cc.Node.extend({
             }
 
             this.setPosition(cc.winSize.width/2, cc.winSize.height/2);
-
-            var colorLayer = new cc.LayerColor(cc.color(0,0,0,180), cc.winSize.width, cc.winSize.height);
+            if(!this._bgColor){
+                this._bgColor = cc.color(0,0,0,180);
+            }
+            var colorLayer = new cc.LayerColor(this._bgColor, cc.winSize.width, cc.winSize.height);
             colorLayer.addChild(this);
             parentNode.addChild(colorLayer);
         }
@@ -79,19 +86,62 @@ var IDialog = cc.Node.extend({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches:true,
             onTouchBegan : function (touch, event) {
-                var p = thiz.convertToNodeSpace(touch.getLocation());
-                if(cc.rectContainsPoint(thiz.mTouch, p)){
-                    thiz.adjustlel();
+                if(thiz._moveEnable){
+                    var p = thiz.convertToNodeSpace(touch.getLocation());
+                    if(cc.rectContainsPoint(thiz.mTouch, p)){
+                        return true;
+                    }
+                    return false;
                 }
-                return true;
+                else{
+                    var p = thiz.convertToNodeSpace(touch.getLocation());
+                    if(cc.rectContainsPoint(thiz.mTouch, p)){
+                        thiz._touchInside = true;
+                        thiz.adjustlel();
+                    }
+                    return true;
+                }
+                return false;
+            },
+            onTouchMoved : function (touch, event){
+                if(thiz._moveEnable){
+                    thiz.moveDialog(touch.getDelta());
+                }
             },
             onTouchEnded : function (touch, event) {
-                var p = thiz.convertToNodeSpace(touch.getLocation());
-                if(!cc.rectContainsPoint(thiz.mTouch, p)){
-                    thiz.hide();
+                if(thiz._moveEnable){
+
                 }
+                else{
+                    if(thiz._touchInside){
+                        thiz._touchInside = false;
+                        return;
+                    }
+                    var p = thiz.convertToNodeSpace(touch.getLocation());
+                    if(!cc.rectContainsPoint(thiz.mTouch, p)){
+                        thiz.hide();
+                    }
+                }
+                cc.log(thiz._moveEnable);
             }
         }, this);
+    },
+
+    moveDialog : function (ds) {
+        this.x += ds.x;
+        this.y += ds.y;
+        if(this.x < this._maxLeft){
+            this.x = this._maxLeft;
+        }
+        if(this.x > this._maxRight){
+            this.x = this._maxRight;
+        }
+        if(this.y < this._maxBottom){
+            this.y = this._maxBottom;
+        }
+        if(this.y > this._maxTop){
+            this.y = this._maxTop;
+        }
     }
 });
 
@@ -171,6 +221,11 @@ var Dialog = IDialog.extend({
         this.cancelButton.setPosition(this.getContentSize().width/2 + this.cancelButton.getContentSize().width/2 + 15.0, 156);
 
         this.mTouch = cc.rect(this._marginLeft, this._marginBottom, mSize.width, mSize.height);
+
+        this._maxLeft = mSize.width/2 + 4;
+        this._maxRight = cc.winSize.width - mSize.width/2 - 4;
+        this._maxBottom = mSize.height/2 + 4;
+        this._maxTop = cc.winSize.height - mSize.height/2 - 4;
     },
 
     closeButtonHandler : function () {

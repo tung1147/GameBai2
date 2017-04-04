@@ -73,8 +73,10 @@ var HomeScene = IScene.extend({
             thiz.newsMesasgeButtonHandler();
         });
         this.topBar.activityBt.addClickEventListener(function () {
-            var dialog = new ActivityDialog();
-            dialog.show();
+            thiz.activityButtonHandler();
+        });
+        this.topBar.shopBt.addClickEventListener(function () {
+            thiz.shopButtonHandler();
         });
         this.userInfo.paymentBt.addClickEventListener(function () {
             thiz.paymentButtonHandler();
@@ -390,6 +392,23 @@ var HomeScene = IScene.extend({
             return;
         }
         this.addSubLayer(new InboxLayer());
+    },
+
+    activityButtonHandler : function () {
+        if (this._checkLogin() == false) {
+            return;
+        }
+        var dialog = new ActivityDialog();
+        dialog.show();
+    },
+
+    shopButtonHandler : function () {
+        if (this._checkLogin() == false) {
+            return;
+        }
+        var dialog = new ShopItemDialog();
+        dialog.show();
+        dialog.setPositionX(350);
     },
 
     rewardButtonHandler: function () {

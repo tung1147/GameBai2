@@ -39,6 +39,7 @@ var CardRemaining = cc.Node.extend({
 var TienLen = IGameScene.extend({
     ctor: function () {
         this._super();
+        var thiz = this;
 
         var table_bg = new cc.Sprite("res/gp_table.png");
         table_bg.setPosition(cc.winSize.width / 2, 320);
