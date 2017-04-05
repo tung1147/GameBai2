@@ -175,7 +175,7 @@ var ShopItemDialog = Dialog.extend({
         for(var i=0;i<s_shop_tabName.length;i++){
             (function () {
                 var icon = new ccui.Scale9Sprite("shop_tab_"+ (i+1).toString() +".png", cc.rect(10,10,4,4));
-                icon.setPreferredSize(cc.size(cc.size(dx, tabBg.getContentSize().height)));
+                icon.setPreferredSize(cc.size(dx, tabBg.getContentSize().height));
                 icon.setPosition(x + dx*i, tabBg.y);
                 thiz.addChild(icon);
 

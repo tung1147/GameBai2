@@ -4,6 +4,7 @@
 
 var InventoryTimeAction = cc.CustomAction.extend({
     ctor : function (duration) {
+        this._super();
         this.initWithDuration(duration);
         this._time = duration;
     },

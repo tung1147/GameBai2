@@ -6,6 +6,7 @@
 var quyetnd = quyetnd || {};
 quyetnd.ActionShake2D = cc.CustomAction.extend({
     ctor : function (duration, strength) {
+        this._super();
         this._strength = null;
         this._originPosition = null;
         this._target = null;
