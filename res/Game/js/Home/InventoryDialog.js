@@ -107,10 +107,9 @@ var InventoryUseDialog = Dialog.extend({
 var InventoryDialog = Dialog.extend({
     ctor : function () {
         this._super();
-        var thiz = this;
-        this._moveEnable = true;
-
-        this._bgColor = cc.color(0,0,0,0);
+      //  var thiz = this;
+        //this._moveEnable = true;
+       // this._bgColor = cc.color(0,0,0,0);
         this.okButton.visible = false;
         this.cancelButton.visible = false;
         this.title.setString("Kho đồ");

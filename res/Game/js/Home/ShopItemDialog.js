@@ -145,11 +145,12 @@ var s_shop_tabId = s_shop_tabId || [2,1,3];
 var ShopItemDialog = Dialog.extend({
     ctor : function () {
         this._super();
-        this._moveEnable = true;
+      //  this._moveEnable = true;
+        //this._bgColor = cc.color(0,0,0,0);
+        
         var thiz = this;
         LobbyClient.getInstance().addListener("fetchItem", this._onRecvItemData, this);
 
-        this._bgColor = cc.color(0,0,0,0);
         this.okButton.visible = false;
         this.cancelButton.visible = false;
         this.title.setString("Cửa hàng");

@@ -16,6 +16,8 @@ var HomeShopLayer = IDialog.extend({
         var thiz = this;
 
         var inventoryDialog = new InventoryDialog();
+        inventoryDialog._moveEnable = true;
+        inventoryDialog._bgColor = cc.color(0,0,0,0);
         inventoryDialog.show(this);
         inventoryDialog.setPositionX(cc.winSize.width - 235);
         inventoryDialog.closeButtonHandler = function () {
@@ -24,11 +26,15 @@ var HomeShopLayer = IDialog.extend({
         inventoryDialog.onTouchDialog = function () {
             var p1 = inventoryDialog.getParent();
             var p2 = shopDialog.getParent();
-            p2.setLocalZOrder(0);
-            p1.setLocalZOrder(1);
+            setTimeout(function () {
+                p2.setLocalZOrder(0);
+                p1.setLocalZOrder(1);
+            }, 0);
         };
 
         var shopDialog = new ShopItemDialog();
+        shopDialog._moveEnable = true;
+        shopDialog._bgColor = cc.color(0,0,0,0);
         shopDialog.show(this);
         shopDialog.setPositionX(345);
         shopDialog.closeButtonHandler = function () {
@@ -37,8 +43,10 @@ var HomeShopLayer = IDialog.extend({
         shopDialog.onTouchDialog = function () {
             var p1 = inventoryDialog.getParent();
             var p2 = shopDialog.getParent();
-            p1.setLocalZOrder(0);
-            p2.setLocalZOrder(1);
+            setTimeout(function () {
+                p1.setLocalZOrder(0);
+                p2.setLocalZOrder(1);
+            }, 0);
         };
     }
 });
