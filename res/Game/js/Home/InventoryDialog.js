@@ -154,6 +154,13 @@ var InventoryDialog = Dialog.extend({
         icon.setPosition(bg.getPosition());
         container.addChild(icon);
 
+        if(count > 1){
+            var countLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "x"+count.toString());
+            countLabel.setAnchorPoint(cc.p(1.0, 0.0));
+            countLabel.setPosition(92,6);
+            container.addChild(countLabel);
+        }
+
         container.setTouchEnabled(true);
         container.addClickEventListener(function () {
             var info = {
