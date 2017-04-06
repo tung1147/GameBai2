@@ -32,6 +32,8 @@ class TextField : public Node, public IMEDelegate{
 	int maxLength;
 
 	TextFieldReturnCallback _callback;
+	std::function<void(bool)> _focusCallback;
+	std::function<void()> _textChangeCallback;
 protected:
 	Label* _textLabel;
 	Label* _placeHolderLabel;
@@ -85,6 +87,9 @@ public:
 	void setMaxLength(int maxLength);
 
 	void setReturnCallback(const TextFieldReturnCallback& callback);
+	void setFocusListener(std::function<void(bool)>& callback);
+	void setTextChangeListener(std::function<void()>& callback);
+
 	void setAlignment(int alignment);
 
 	void showKeyboard();

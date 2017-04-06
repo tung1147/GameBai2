@@ -373,6 +373,10 @@ newui.TextField = cc.Node.extend({
             this._inputText = "";
             this.string = this._inputText;
             this._updateText = true;
+            
+            if(this._textChangeListener){
+                this._textChangeListener();
+            }
             return;
         }
         else{

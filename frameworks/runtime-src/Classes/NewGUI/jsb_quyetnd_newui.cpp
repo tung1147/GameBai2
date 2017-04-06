@@ -908,6 +908,7 @@ bool js_quyetnd_newui_TextField_setText(JSContext *cx, uint32_t argc, jsval *vp)
 	JS_ReportError(cx, "js_quyetnd_newui_TextField_setText : wrong number of arguments: %d, was expecting %d", argc, 1);
 	return false;
 }
+
 bool js_quyetnd_newui_TextField_setReturnCallback(JSContext *cx, uint32_t argc, jsval *vp)
 {
 	JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
@@ -965,6 +966,89 @@ bool js_quyetnd_newui_TextField_setReturnCallback(JSContext *cx, uint32_t argc, 
 	JS_ReportError(cx, "js_quyetnd_newui_TextField_setReturnCallback : wrong number of arguments: %d, was expecting %d", argc, 1);
 	return false;
 }
+
+bool js_quyetnd_newui_TextField_setFocusListener(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+	bool ok = true;
+	JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	quyetnd::TextField* cobj = (quyetnd::TextField *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2(cobj, cx, false, "js_quyetnd_newui_TextField_setFocusListener : Invalid Native Object");
+	if (argc == 1) {
+		std::function<void(bool)> arg0;
+		do {
+			if (JS_TypeOfValue(cx, args.get(0)) == JSTYPE_FUNCTION)
+			{
+				JS::RootedObject jstarget(cx, args.thisv().toObjectOrNull());
+				std::shared_ptr<JSFunctionWrapper> func(new JSFunctionWrapper(cx, jstarget, args.get(0), args.thisv()));
+				auto lambda = [=](bool larg0) -> void {
+					JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
+						jsval largv[1];
+					largv[0] = BOOLEAN_TO_JSVAL(larg0);
+					JS::RootedValue rval(cx);
+					bool succeed = func->invoke(1, &largv[0], &rval);
+					if (!succeed && JS_IsExceptionPending(cx)) {
+						JS_ReportPendingException(cx);
+					}
+				};
+				arg0 = lambda;
+			}
+			else{
+				arg0 = nullptr;
+			}
+		} while (0);
+
+		JSB_PRECONDITION2(ok, cx, false, "js_quyetnd_newui_TextField_setFocusListener : Error processing arguments");
+		cobj->setFocusListener(arg0);
+		args.rval().setUndefined();
+		return true;
+	}
+
+	JS_ReportError(cx, "js_quyetnd_newui_TextField_setFocusListener : wrong number of arguments: %d, was expecting %d", argc, 1);
+	return false;
+}
+
+bool js_quyetnd_newui_TextField_setTextChangeListener(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+	bool ok = true;
+	JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	quyetnd::TextField* cobj = (quyetnd::TextField *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2(cobj, cx, false, "js_quyetnd_newui_TextField_setTextChangeListener : Invalid Native Object");
+	if (argc == 1) {
+		std::function<void()> arg0;
+		do {
+			if (JS_TypeOfValue(cx, args.get(0)) == JSTYPE_FUNCTION)
+			{
+				JS::RootedObject jstarget(cx, args.thisv().toObjectOrNull());
+				std::shared_ptr<JSFunctionWrapper> func(new JSFunctionWrapper(cx, jstarget, args.get(0), args.thisv()));
+				auto lambda = [=]() -> void {
+					JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
+					JS::RootedValue rval(cx);
+					bool succeed = func->invoke(0, NULL, &rval);
+					if (!succeed && JS_IsExceptionPending(cx)) {
+						JS_ReportPendingException(cx);
+					}
+				};
+				arg0 = lambda;
+			}
+			else{
+				arg0 = nullptr;
+			}
+		} while (0);
+
+		JSB_PRECONDITION2(ok, cx, false, "js_quyetnd_newui_TextField_setTextChangeListener : Error processing arguments");
+		cobj->setTextChangeListener(arg0);
+		args.rval().setUndefined();
+		return true;
+	}
+
+	JS_ReportError(cx, "js_quyetnd_newui_TextField_setTextChangeListener : wrong number of arguments: %d, was expecting %d", argc, 1);
+	return false;
+}
+
 bool js_quyetnd_newui_TextField_getText(JSContext *cx, uint32_t argc, jsval *vp)
 {
 	JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
@@ -1330,6 +1414,8 @@ void js_register_quyetnd_newui_TextField(JSContext *cx, JS::HandleObject global)
 		JS_FN("setPasswordEnable", js_quyetnd_newui_TextField_setPasswordEnable, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("setText", js_quyetnd_newui_TextField_setText, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("setReturnCallback", js_quyetnd_newui_TextField_setReturnCallback, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("setFocusListener", js_quyetnd_newui_TextField_setFocusListener, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("setTextChangeListener", js_quyetnd_newui_TextField_setTextChangeListener, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("getText", js_quyetnd_newui_TextField_getText, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("initWithBMFont", js_quyetnd_newui_TextField_initWithBMFont, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("setMaxLength", js_quyetnd_newui_TextField_setMaxLength, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
