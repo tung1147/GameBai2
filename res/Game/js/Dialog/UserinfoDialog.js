@@ -568,9 +568,6 @@ var UserinfoDialog = Dialog.extend({
         var y = 390.0;
         var dy = 70.0;
 
-        var selectSprite = new cc.Sprite("#userinfo-tab-selected.png");
-        this.addChild(selectSprite,1);
-
         var mToggle = new ToggleNodeGroup();
         this.mToggle = mToggle;
         this.addChild(mToggle);
