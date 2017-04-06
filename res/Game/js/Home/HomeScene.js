@@ -78,6 +78,9 @@ var HomeScene = IScene.extend({
         this.topBar.shopBt.addClickEventListener(function () {
             thiz.shopButtonHandler();
         });
+        this.topBar.transferGoldBt.addClickEventListener(function () {
+            thiz.transferGoldButtonHandler();
+        });
         this.userInfo.paymentBt.addClickEventListener(function () {
             thiz.paymentButtonHandler();
         });
@@ -411,16 +414,33 @@ var HomeScene = IScene.extend({
     },
 
     rewardButtonHandler: function () {
+        if (this._checkLogin() == false) {
+            return;
+        }
         this.addSubLayer(new RewardLayer());
     },
 
     paymentButtonHandler: function () {
+        if (this._checkLogin() == false) {
+            return;
+        }
         this.addSubLayer(new PaymentLayer());
     },
 
     userInfoButtonHandler: function () {
+        if (this._checkLogin() == false) {
+            return;
+        }
         var dialog = new UserinfoDialog();
         dialog.showWithAnimationMove();
+    },
+
+    transferGoldButtonHandler : function () {
+        if (this._checkLogin() == false) {
+            return;
+        }
+        var dialog = new TransferGoldDialog();
+        dialog.show();
     },
 
     onEnter: function () {

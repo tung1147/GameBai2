@@ -34,6 +34,7 @@
     "res/Game/js/Core/ToggleNodeGroup.js",
     "res/Game/js/Core/ButtonToggle.js",
     "res/Game/js/Core/WebSprite.js",
+    "res/Game/js/Core/WidgetButton.js",
     "res/Game/js/Socket/LobbyClient.js",
     "res/Game/js/Socket/LobbyError.js",
     "res/Game/js/Socket/SmartfoxUtils.js",
