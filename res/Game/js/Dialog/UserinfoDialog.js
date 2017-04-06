@@ -452,6 +452,16 @@ var UserinfoDialog = Dialog.extend({
         avatar.setPosition(190, 500);
         this.addChild(avatar,2);
 
+        var avatarBt = new ccui.Widget();
+        avatarBt.setContentSize(avatar.getContentSize());
+        avatarBt.setPosition(avatar.getPosition());
+        avatarBt.setTouchEnabled(true);
+        avatarBt.addClickEventListener(function () {
+            var dialog = new AvatarDialog();
+            dialog.show();
+        });
+        this.addChild(avatarBt);
+
         var userLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_18, PlayerMe.username);
         userLabel.setColor(cc.color("#63b0f1"));
         userLabel.setAnchorPoint(cc.p(0.0, 0.5));

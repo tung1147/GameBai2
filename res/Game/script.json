@@ -29,6 +29,8 @@
 	"js/Dialog/SMSPayDialog.js",
 	"js/Dialog/StatisticBoard.js",
 	"js/Dialog/TutorialDialog.js",
+	"js/Dialog/AvatarDialog.js",
+	"js/Dialog/TransferGoldDialog.js",
 	"js/IScene.js",
 	"js/Home/LobbySubLayer.js",
 	"js/Home/LobbyTopBar.js",
