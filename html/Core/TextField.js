@@ -211,6 +211,14 @@ newui.TextField = cc.Node.extend({
         this._returnCallback = func;
     },
 
+    setFocusListener : function (func) {
+        this._focusListener = func;
+    },
+
+    setTextChangeListener : function (func) {
+        this._textChangeListener = func;
+    },
+
     setText : function (text) {
         this._inputText = text;
         this.string = text;
@@ -334,6 +342,10 @@ newui.TextField = cc.Node.extend({
         var action = new cc.Sequence(new cc.Blink(0.3, 1), new cc.Blink(0.3, 0));
         this.textCursor.runAction(new cc.RepeatForever(action));
         this.updateText();
+
+        if(this._focusListener){
+            this._focusListener(true);
+        }
     },
 
     didDetachWithIME:function () {
@@ -344,6 +356,10 @@ newui.TextField = cc.Node.extend({
         this.textCursor.setVisible(false);
         this.textCursor.stopAllActions();
         this.updateText();
+
+        if(this._focusListener){
+            this._focusListener(false);
+        }
     },
 
     deleteBackward:function () {
@@ -364,6 +380,10 @@ newui.TextField = cc.Node.extend({
         }
         this.string = this._inputText;
         this._updateText = true;
+
+        if(this._textChangeListener){
+            this._textChangeListener();
+        }
     },
 
     insertText:function (text, len) {
@@ -388,6 +408,9 @@ newui.TextField = cc.Node.extend({
             this._updateText = true;
         }
         if (pos === -1){
+            if(this._textChangeListener){
+                this._textChangeListener();
+            }
             return;
         }
 
