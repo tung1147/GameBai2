@@ -361,3 +361,8 @@ cc.Global.setSavePassword = function (passwords) {
     cc.Global.SetSetting("password", passwords);
 };
 
+cc.Global.IsNumber = function (str) {
+    var re = new RegExp("^[0-9]+$");
+    return re.test(str);
+};
+

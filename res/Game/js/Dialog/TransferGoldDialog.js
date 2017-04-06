@@ -40,18 +40,21 @@ var TransferGoldDialog = Dialog.extend({
         goldTransfer.setPlaceHolderColor(cc.color("#787878"));
         goldTransfer.setTextColor(cc.color("#fede01"));
         goldTransfer.setPosition(bg2.getPosition());
+        goldTransfer.setMaxLength(15);
         this.addChild(goldTransfer, 1);
         this.goldTransfer = goldTransfer;
 
         var userCorrectIcon = new cc.Sprite("#dialog_correct.png");
         userCorrectIcon.setPosition(recvUser.x + 120, recvUser.y);
         this.addChild(userCorrectIcon);
+        userCorrectIcon.visible = false;
         this.userCorrectIcon = userCorrectIcon;
 
         var goldCorrectIcon = new cc.Sprite("#dialog_correct.png");
         goldCorrectIcon.setPosition(goldTransfer.x + 120, goldTransfer.y);
         this.addChild(goldCorrectIcon);
-        this.userCorrectIcon = goldCorrectIcon;
+        goldCorrectIcon.visible = false;
+        this.goldCorrectIcon = goldCorrectIcon;
 
         var label1 = new ccui.RichText();
         label1.pushBackElement(new ccui.RichElementText(0, cc.color("#ffffff"), 255, "Còn lại ", cc.res.font.Roboto_Condensed, 18));
@@ -143,37 +146,99 @@ var TransferGoldDialog = Dialog.extend({
         tutorialBt.addClickEventListener(function () {
             cc.log("tutorialBt");
         });
+
+        recvUser.setFocusListener(function (focus) {
+            if(focus){
+                userCorrectIcon.visible = false;
+            }
+            else{
+                thiz._updateName();
+            }
+        });
+
+        goldTransfer.setFocusListener(function (focus) {
+            if(focus){
+                goldCorrectIcon.visible = false;
+            }
+            else{
+                thiz._updateGold();
+            }
+        });
+    },
+
+    onCheckUsername : function (cmd, data) {
+        var status = data["status"];
+        this.userCorrectIcon.setVisible(true);
+        if(status === 0){
+            this.userCorrectIcon.setSpriteFrame("dialog_correct.png");
+        }
+        else{
+            this.userCorrectIcon.setSpriteFrame("dialog_incorrect.png");
+        }
+    },
+
+    _updateGoldInputCorrect : function () {
+
     },
 
     _updateName : function () {
         var userName = this.recvUser.getText();
         this.label2.removeElement(0);
-        this.label2.insertElement(new ccui.RichElementText(0, cc.color("#77cbee"), 255, userName, cc.res.font.Roboto_CondensedBold, 18), 0);
+        this.label2.insertElement(new ccui.RichElementText(0, cc.color("#77cbee"), 255, userName + " ", cc.res.font.Roboto_CondensedBold, 18), 0);
+
+        if(userName != ""){
+            var request = {
+                command : "checkUserExist",
+                username : userName
+            };
+            LobbyClient.getInstance().send(request);
+        }
     },
 
     _updateGold : function () {
-      //  this.mToggle.itemClicked._fee * GameConfig.fee
         var goldStr = this.goldTransfer.getText();
-        if(goldStr && goldStr != ""){
-            var gold = parseInt(goldStr);
+
+        var gold = 0;
+        this.goldCorrectIcon.setSpriteFrame("dialog_incorrect.png");
+
+        if(goldStr === ""){
+            this.goldCorrectIcon.visible = false;
         }
         else{
-            var gold = 0;
+            this.goldCorrectIcon.visible = true;
+            if(cc.Global.IsNumber(goldStr)){
+                var gold = parseInt(goldStr);
+                this.goldCorrectIcon.setSpriteFrame("dialog_correct.png");
+            }
+
         }
+
+        var currentGold = PlayerMe.gold - gold;
+        if(currentGold < 0){
+            this.goldCorrectIcon.setSpriteFrame("dialog_incorrect.png");
+            gold = 0;
+            currentGold = PlayerMe.gold;
+        }
+
+        this.label1.removeElement(1);
+        this.label1.insertElement(new ccui.RichElementText(1, cc.color("#ffde00"), 255, cc.Global.NumberFormat1(currentGold) + " V", cc.res.font.Roboto_CondensedBold, 18),1);
 
         this.label2.removeElement(2);
         this.label2.insertElement(new ccui.RichElementText(2, cc.color("#ffde00"), 255, cc.Global.NumberFormat1(gold) + " V", cc.res.font.Roboto_CondensedBold, 18),2);
-
-        var currentGold = PlayerMe.gold - gold;
-        this.label1.removeElement(1);
-        this.label1.insertElement(new ccui.RichElementText(1, cc.color("#ffde00"), 255, cc.Global.NumberFormat1(currentGold) + " V", cc.res.font.Roboto_CondensedBold, 18),1);
     },
 
     onEnter : function () {
         this._super();
+        LobbyClient.getInstance().addListener("checkUserExist", this.onCheckUsername, this);
+
         this.mToggle.selectItem(0);
 
         this._updateName();
         this._updateGold();
+    },
+
+    onExit : function () {
+        this._super();
+        LobbyClient.getInstance().removeListener(this);
     }
 });
