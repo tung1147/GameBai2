@@ -43,6 +43,16 @@ var TransferGoldDialog = Dialog.extend({
         this.addChild(goldTransfer, 1);
         this.goldTransfer = goldTransfer;
 
+        var userCorrectIcon = new cc.Sprite("#dialog_correct.png");
+        userCorrectIcon.setPosition(recvUser.x + 120, recvUser.y);
+        this.addChild(userCorrectIcon);
+        this.userCorrectIcon = userCorrectIcon;
+
+        var goldCorrectIcon = new cc.Sprite("#dialog_correct.png");
+        goldCorrectIcon.setPosition(goldTransfer.x + 120, goldTransfer.y);
+        this.addChild(goldCorrectIcon);
+        this.userCorrectIcon = goldCorrectIcon;
+
         var label1 = new ccui.RichText();
         label1.pushBackElement(new ccui.RichElementText(0, cc.color("#ffffff"), 255, "Còn lại ", cc.res.font.Roboto_Condensed, 18));
         label1.pushBackElement(new ccui.RichElementText(1, cc.color("#ffde00"), 255, "100,000 V", cc.res.font.Roboto_CondensedBold, 18));
