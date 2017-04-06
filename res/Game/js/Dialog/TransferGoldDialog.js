@@ -123,7 +123,8 @@ var TransferGoldDialog = Dialog.extend({
         historyBt.setPosition(historyLabel.getPosition());
         this.addChild(historyBt);
         historyBt.addClickEventListener(function () {
-            cc.log("historyBt");
+            var dialog = new TransferGoldHistory();
+            dialog.show();
         });
 
         var tutorialBt = new WidgetButton(tutorialLabel.getContentSize());

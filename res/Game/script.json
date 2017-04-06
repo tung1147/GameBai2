@@ -32,6 +32,7 @@
 	"js/Dialog/TutorialDialog.js",
 	"js/Dialog/AvatarDialog.js",
 	"js/Dialog/TransferGoldDialog.js",
+	"js/Dialog/TransferGoldHistory.js",
 	"js/IScene.js",
 	"js/Home/LobbySubLayer.js",
 	"js/Home/LobbyTopBar.js",

@@ -163,6 +163,7 @@ var Dialog = IDialog.extend({
         this.addChild(dialogBg);
 
         var title = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, "Title");
+        title.setColor(cc.color("#c5e2ff"));
         this.addChild(title);
 
         var closeButton = new ccui.Button("dialog-button-close.png","","", ccui.Widget.PLIST_TEXTURE);
