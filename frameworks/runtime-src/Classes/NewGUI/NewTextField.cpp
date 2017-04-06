@@ -24,6 +24,9 @@ TextField::TextField(){
 	maxLength = 0;
 
 	_callback = nullptr;
+	_focusCallback = nullptr;
+	_textChangeCallback = nullptr;
+
 	_TextFieldTTF = false;
 	_autoDetachWithIME = true;
 
@@ -342,6 +345,10 @@ void TextField::setText(const std::string& text){
 	}
 	_textLabel->setString(inputText);
 	this->updateText();
+
+	if (_textChangeCallback){
+		_textChangeCallback();
+	}
 }
 
 const std::string& TextField::getText(){
@@ -429,6 +436,9 @@ void TextField::didAttachWithIME(){
 	}
 	//log("didAttachWithIME");
 	this->updateText();
+	if (_focusCallback){
+		_focusCallback(true);
+	}
 }
 
 void TextField::didDetachWithIME(){
@@ -441,6 +451,9 @@ void TextField::didDetachWithIME(){
 	}
 	
 	this->updateText();
+	if (_focusCallback){
+		_focusCallback(false);
+	}
 }
 
 void TextField::insertText(const char * text, size_t len){
@@ -469,6 +482,10 @@ void TextField::insertText(const char * text, size_t len){
 	}
 
 	if ((int)insert.npos == pos) {
+		if (_textChangeCallback){
+			_textChangeCallback();
+		}
+
 		return;
 	}
 	if (_callback && _callback(this)){
@@ -498,11 +515,19 @@ void TextField::deleteBackward(){
 	if (len <= deleteLen){
 		inputText = "";
 		this->updateText();
+
+		if (_textChangeCallback){
+			_textChangeCallback();
+		}
 		return;
 	}
 
 	inputText = inputText.substr(0, len - deleteLen);
 	this->updateText();
+
+	if (_textChangeCallback){
+		_textChangeCallback();
+	}
 }
 
 const std::string& TextField::getContentText(){
@@ -585,6 +610,14 @@ bool TextField::detachWithIME(){
 
 void TextField::setReturnCallback(const TextFieldReturnCallback& callback){
 	this->_callback = callback;
+}
+
+void TextField::setFocusListener(std::function<void(bool)>& callback){
+	this->_focusCallback = callback;
+}
+
+void TextField::setTextChangeListener(std::function<void()>& callback){
+	this->_textChangeCallback = callback;
 }
 
 void TextField::setAlignment(int alignment){
