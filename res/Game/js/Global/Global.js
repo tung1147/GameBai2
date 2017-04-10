@@ -366,3 +366,6 @@ cc.Global.IsNumber = function (str) {
     return re.test(str);
 };
 
+ApplicationConfig.transferGoldMerchantTutorial = "Chuyển vàng đại lý";
+
+ApplicationConfig.transferGoldTutorial = "Chuyển vàng";

@@ -271,52 +271,208 @@ var RewardBankLayer = RewardSublayer.extend({
     }
 });
 
-var RewardAgencyLayer = RewardSublayer.extend({
+var RewardAgencyLayer = cc.Node.extend({
     ctor: function () {
         this._super();
+        this.setContentSize(cc.size(1280, 720));
 
-        if (cc.Global.dailyData) {
-            for (var i = 0; i < cc.Global.dailyData.length; i++) {
-                this.addItem(cc.Global.dailyData[i]["id"],
-                    cc.Global.dailyData[i]["netValue"],
-                    cc.Global.dailyData[i]["price"]);
+        var agencyLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Mã đại lý");
+        agencyLabel.setColor(cc.color("#576eb0"));
+        agencyLabel.setAnchorPoint(cc.p(0.0, 0.5));
+        agencyLabel.setPosition(89, 576);
+        this.addChild(agencyLabel);
+
+        var nameLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Tên");
+        nameLabel.setColor(cc.color("#576eb0"));
+        nameLabel.setAnchorPoint(cc.p(0.0, 0.5));
+        nameLabel.setPosition(233, agencyLabel.y);
+        this.addChild(nameLabel);
+
+        var phoneLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Điện thoại");
+        phoneLabel.setColor(cc.color("#576eb0"));
+        phoneLabel.setAnchorPoint(cc.p(0.0, 0.5));
+        phoneLabel.setPosition(411, agencyLabel.y);
+        this.addChild(phoneLabel);
+
+        var addressLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Địa chỉ");
+        addressLabel.setColor(cc.color("#576eb0"));
+        addressLabel.setAnchorPoint(cc.p(0.0, 0.5));
+        addressLabel.setPosition(593, agencyLabel.y);
+        this.addChild(addressLabel);
+
+        var fbLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Facebook");
+        fbLabel.setColor(cc.color("#576eb0"));
+        fbLabel.setAnchorPoint(cc.p(0.0, 0.5));
+        fbLabel.setPosition(834, agencyLabel.y);
+        this.addChild(fbLabel);
+
+        var sendLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Giao dịch");
+        sendLabel.setColor(cc.color("#576eb0"));
+        sendLabel.setAnchorPoint(cc.p(0.0, 0.5));
+        sendLabel.setPosition(1027, agencyLabel.y);
+        this.addChild(sendLabel);
+
+        var itemList = new newui.TableView(cc.size(1280, 375), 1);
+        itemList.setDirection(ccui.ScrollView.DIR_VERTICAL);
+        itemList.setScrollBarEnabled(false);
+        itemList.setPadding(5);
+        itemList.setMargin(10, 10, 0, 0);
+        itemList.setPosition(cc.p(0, 180));
+        this.addChild(itemList, 1);
+        this.itemList = itemList;
+
+        // for(var i=0;i<30;i++){
+        //     this.addItem("agency", "name", "phoneNumber", "address", "facebookLink");
+        // }
+
+        var padding = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18,"|");
+        padding.setColor(cc.color("#72acd6"));
+        padding.setPosition(this.getContentSize().width/2, 132);
+        this.addChild(padding,1);
+
+        var historyLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18,"LỊCH SỬ");
+        historyLabel.setColor(cc.color("#72acd6"));
+        historyLabel.setPosition(this.getContentSize().width/2 - 10 - historyLabel.getContentSize().width/2, padding.y);
+        this.addChild(historyLabel,1);
+
+        var tutorialLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18,"HƯỚNG DẪN");
+        tutorialLabel.setColor(cc.color("#72acd6"));
+        tutorialLabel.setPosition(this.getContentSize().width/2 + 10 + tutorialLabel.getContentSize().width/2, padding.y);
+        this.addChild(tutorialLabel,1);
+
+        var historyBt = new WidgetButton(historyLabel.getContentSize());
+        historyBt.setPosition(historyLabel.getPosition());
+        this.addChild(historyBt);
+        historyBt.addClickEventListener(function () {
+            var dialog = new TransferGoldMerchantHistory();
+            dialog.show();
+        });
+
+        var tutorialBt = new WidgetButton(tutorialLabel.getContentSize());
+        tutorialBt.setPosition(tutorialLabel.getPosition());
+        this.addChild(tutorialBt);
+        tutorialBt.addClickEventListener(function () {
+            var dialog = new MessageDialog();
+            dialog.setTitle("Hướng dẫn chuyển vàng");
+            dialog.setMessage(ApplicationConfig.transferGoldMerchantTutorial);
+            dialog.show();
+        });
+    },
+
+    _createBg : function (size) {
+        var itemBg = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
+        itemBg.setPreferredSize(size);
+        itemBg.setAnchorPoint(cc.p(0.0, 0.5));
+        return itemBg;
+    },
+
+    addItem: function (agency, name, phoneNumber, address, facebookLink) {
+        var containerHeight = 58;
+
+        var container = new ccui.Widget();
+        container.setContentSize(this.itemList.getContentSize().width, containerHeight);
+        this.itemList.pushItem(container);
+
+        var bg1 = this._createBg(cc.size(146, containerHeight));
+        bg1.setPosition(68, containerHeight/2);
+        container.addChild(bg1);
+
+        var bg2 = this._createBg(cc.size(176, containerHeight));
+        bg2.setPosition(216, containerHeight/2);
+        container.addChild(bg2);
+
+        var bg3 = this._createBg(cc.size(178, containerHeight));
+        bg3.setPosition(394, containerHeight/2);
+        container.addChild(bg3);
+
+        var bg4 = this._createBg(cc.size(239, containerHeight));
+        bg4.setPosition(574, containerHeight/2);
+        container.addChild(bg4);
+
+        var bg5 = this._createBg(cc.size(192, containerHeight));
+        bg5.setPosition(815, containerHeight/2);
+        container.addChild(bg5);
+
+        var bg6 = this._createBg(cc.size(203, containerHeight));
+        bg6.setPosition(1009, containerHeight/2);
+        container.addChild(bg6);
+
+        var agencyLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, agency);
+        agencyLabel.setAnchorPoint(cc.p(0.0, 0.5));
+        agencyLabel.setPosition(89, bg1.y);
+        container.addChild(agencyLabel);
+
+        var nameLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, name);
+        nameLabel.setAnchorPoint(cc.p(0.0, 0.5));
+        nameLabel.setPosition(233, agencyLabel.y);
+        container.addChild(nameLabel);
+
+        var phoneLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, phoneNumber);
+        phoneLabel.setAnchorPoint(cc.p(0.0, 0.5));
+        phoneLabel.setPosition(411, agencyLabel.y);
+        container.addChild(phoneLabel);
+
+        var addressLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, address);
+        addressLabel.setAnchorPoint(cc.p(0.0, 0.5));
+        addressLabel.setPosition(593, agencyLabel.y);
+        container.addChild(addressLabel);
+
+        var fbLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, facebookLink);
+        fbLabel.setAnchorPoint(cc.p(0.0, 0.5));
+        fbLabel.setPosition(834, agencyLabel.y);
+        container.addChild(fbLabel);
+
+        var okButton = new ccui.Button("sublobby-button.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        okButton.setScale9Enabled(true);
+        okButton.setCapInsets(cc.rect(10,10,4,4));
+        okButton.setContentSize(cc.size(150,42));
+        okButton.setAnchorPoint(cc.p(0.0, 0.5));
+        okButton.setPosition(1027, agencyLabel.y);
+        container.addChild(okButton);
+
+        var okLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "CHUYỂN VÀNG");
+        okLabel.setPosition(okButton.getContentSize().width/2, okButton.getContentSize().height/2);
+        okButton.getRendererNormal().addChild(okLabel);
+        okButton.addClickEventListener(function () {
+            var dialog = new RewardAgencyDialog();
+            dialog.setDefaultAgency(agency);
+            dialog.showWithAnimationScale();
+        });
+    },
+
+    _onRecvListMerchant : function (cmd, data) {
+        var items = data["data"]["merchants"];
+        if(items.length > 0){
+            for(var i=0;i<items.length;i++){
+                this.addItem(
+                    items[i]["username"],
+                    items[i]["fullname"],
+                    items[i]["telephone"],
+                    items[i]["address"],
+                    items[i]["facebookUrl"]);
             }
         }
     },
-    addItem: function (id, netValue, price) {
-        var bg = new cc.Sprite("#payment-inapp-bg.png");
-        var container = new ccui.Widget();
-        container.setContentSize(bg.getContentSize());
-        bg.setPosition(container.getContentSize().width / 2, container.getContentSize().height/2);
-        container.addChild(bg);
 
-        var goldIcon = 1;
-        var icon = new cc.Sprite("#payment-inapp-icon-" + goldIcon + ".png");
-        icon.setPosition(bg.getPosition());
-        container.addChild(icon);
+    onEnter: function () {
+        this._super();
+        LobbyClient.getInstance().addListener("fetchListMerchant", this._onRecvListMerchant, this);
+    },
 
-        var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, cc.Global.NumberFormat1(netValue) + "V");
-        goldLabel.setAnchorPoint(cc.p(0.0, 0.5));
-        goldLabel.setPosition(100, 108);
-        goldLabel.setColor(cc.color("#ffde00"));
-        container.addChild(goldLabel);
+    onExit : function () {
+        this._super();
+        LobbyClient.getInstance().removeListener(this);
+    },
 
-        var priceLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, cc.Global.NumberFormat1(price) + " VNĐ");
-        priceLabel.setAnchorPoint(cc.p(1.0, 0.5));
-        priceLabel.setPosition(260,25);
-        container.addChild(priceLabel, 1);
-        container.setTouchEnabled(true);
-
-        this.itemList.pushItem(container);
-
-        var thiz = this;
-        container.setTouchEnabled(true);
-        container.addClickEventListener(function () {
-            //thiz.requestReward(id);
-            var dialog = new RewardAgencyDialog();
-            dialog.setInfo(netValue, price);
-            dialog.showWithAnimationMove();
-        });
+    setVisible: function (visible) {
+        this._super(visible);
+        if(visible){
+            this.itemList.removeAllItems();
+            var request  = {
+                command : "fetchListMerchant"
+            };
+            LobbyClient.getInstance().send(request);
+        }
     }
 });
 

@@ -148,7 +148,10 @@ var TransferGoldDialog = Dialog.extend({
         tutorialBt.setPosition(tutorialLabel.getPosition());
         this.addChild(tutorialBt);
         tutorialBt.addClickEventListener(function () {
-            cc.log("tutorialBt");
+            var dialog = new MessageDialog();
+            dialog.setTitle("Hướng dẫn chuyển vàng");
+            dialog.setMessage(ApplicationConfig.transferGoldTutorial);
+            dialog.show();
         });
 
         recvUser.setFocusListener(function (focus) {

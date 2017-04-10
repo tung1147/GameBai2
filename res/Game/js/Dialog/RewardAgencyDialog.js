@@ -7,148 +7,162 @@ var s_RewardAgencyDialog_Tab = ["MIỀN BẮC", "MIỀN TRUNG", "MIỀN NAM"];
 var RewardAgencyDialog = Dialog.extend({
     ctor : function () {
         this._super();
+        var thiz = this;
+        this._initTutorial();
 
-        this.initWithSize(cc.size(600,680));
-        this.title.setString("Danh sách đại lý");
+        this.initWithSize(cc.size(678,458));
+        this.title.setString("Chuyển vàng");
         this.okButton.visible = false;
         this.cancelButton.visible = false;
 
-        var mToggle = new ToggleNodeGroup();
-        this.addChild(mToggle);
-        this.mToggle = mToggle;
+        var bg1 = new ccui.Scale9Sprite("dialog-textinput-bg.png",cc.rect(10,10,4,4));
+        bg1.setPreferredSize(cc.size(280, 44));
+        bg1.setPosition(587, 426);
+        this.addChild(bg1);
 
-        var content = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Nội dung đổi thưởng", cc.TEXT_ALIGNMENT_CENTER, this.getContentSize().width);
-        content.setColor(cc.color("#ffffff"));
-        content.setPosition(this.getContentSize().width/2, this.getContentSize().height - 230);
-        this.addChild(content, 1);
-        this.contentLabel = content;
+        var bg2 = new ccui.Scale9Sprite("dialog-textinput-bg.png",cc.rect(10,10,4,4));
+        bg2.setPreferredSize(cc.size(280, 44));
+        bg2.setPosition(bg1.x, 356);
+        this.addChild(bg2);
 
-        var dx = (this.getContentSize().width - this._marginLeft - this._marginRight)/s_RewardAgencyDialog_Tab.length;
-        var x = this._marginLeft + dx/2;
-        var y = this.getContentSize().height - 290.0;
+        var bg3 = new ccui.Scale9Sprite("dialog-textinput-bg.png",cc.rect(10,10,4,4));
+        bg3.setPreferredSize(cc.size(280, 44));
+        bg3.setPosition(bg1.x, 286);
+        this.addChild(bg3);
 
-        var top = y - 40;
-        var bottom = 100.0;
-        var left = 100.0;
-        var right = this.getContentSize().width - 100.0;
+        var agencyCode = new newui.TextField(cc.size(bg1.getContentSize().width - 20, bg1.getContentSize().height), cc.res.font.Roboto_Condensed_18);
+        agencyCode.setPlaceHolder("Mã đại lý");
+        agencyCode.setTextColor(cc.color("#c4e1ff"));
+        agencyCode.setPlaceHolderColor(cc.color("#909090"));
+        agencyCode.setPosition(bg1.getPosition());
+        this.agencyCode = agencyCode;
+        this.addChild(agencyCode);
 
-        this.allListItem = [];
-
-        var thiz = this;
-        for(var i=0;i<s_RewardAgencyDialog_Tab.length;i++){
-            (function () {
-                var tabLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, s_RewardAgencyDialog_Tab[i]);
-                tabLabel.setColor(cc.color("#ffffff"));
-                tabLabel.setPosition(x, y);
-                thiz.addChild(tabLabel,1);
-
-                var itemList = new newui.TableView(cc.size(right - left, top - bottom), 1);
-                itemList.setDirection(ccui.ScrollView.DIR_VERTICAL);
-                itemList.setScrollBarEnabled(false);
-                itemList.setPadding(20);
-                itemList.setMargin(20, 20, 0, 0);
-                itemList.setPosition(cc.p(left, bottom));
-                thiz.addChild(itemList,0);
-                thiz.allListItem.push(itemList);
-
-                var toggleItem = new ToggleNodeItem(tabLabel.getContentSize());
-                toggleItem.setPosition(tabLabel.getPosition());
-                toggleItem.onSelect = function () {
-                    tabLabel.setColor(cc.color("#32b1dd"));
-                    itemList.setVisible(true);
-                };
-                toggleItem.onUnSelect = function () {
-                    tabLabel.setColor(cc.color("#ffffff"));
-                    itemList.setVisible(false);
-                };
-                mToggle.addItem(toggleItem);
-
-                x += dx;
-            })();
-        }
-
-        //
-        for(var i=0 ; i< this.allListItem.length; i++){
-            var list = this.allListItem[i];
-            for(var j=0;j<10;j++){
-                this.addItem(list, "name", (i+j), "address", "012345678", "facebook");
-            }
-        }
-    },
-
-    addItem : function (listItem, name, agencyId, address, phone, facebook) {
-        var bg = new cc.Sprite("#agency_cell_bg.png");
-        var container = new ccui.Widget();
-        container.setContentSize(bg.getContentSize());
-        container.addChild(bg);
-        bg.setPosition(container.getContentSize().width/2, container.getContentSize().height/2);
-        listItem.pushItem(container);
-
-        var nameLabel = new cc.LabelTTF(name, cc.res.font.Roboto_CondensedBold, 20);
-        nameLabel.setColor(cc.color("#30beec"));
-        nameLabel.setAnchorPoint(cc.p(0.0, 0.5));
-        nameLabel.setPosition(60.0, 124);
-        container.addChild(nameLabel);
-
-        var idLabel = new cc.LabelTTF("Mã đại lý: "+agencyId, cc.res.font.Roboto_Condensed, 20);
-        idLabel.setAnchorPoint(cc.p(0.0, 0.5));
-        idLabel.setPosition(nameLabel.x, nameLabel.y - 25);
-        container.addChild(idLabel);
-
-        var addressLabel = new cc.LabelTTF("Địa chỉ: "+address, cc.res.font.Roboto_Condensed, 20);
-        addressLabel.setAnchorPoint(cc.p(0.0, 0.5));
-        addressLabel.setPosition(nameLabel.x, idLabel.y - 25);
-        container.addChild(addressLabel);
-
-        var phoneLabel = new cc.LabelTTF("Điện thoại: "+phone, cc.res.font.Roboto_Condensed, 20);
-        phoneLabel.setAnchorPoint(cc.p(0.0, 0.5));
-        phoneLabel.setPosition(nameLabel.x, addressLabel.y - 25);
-        container.addChild(phoneLabel);
-
-        var fbLabel1 = new cc.LabelTTF("Facebook: ", cc.res.font.Roboto_Condensed, 20);
-        fbLabel1.setAnchorPoint(cc.p(0.0, 0.5));
-        fbLabel1.setPosition(nameLabel.x, phoneLabel.y - 25);
-        container.addChild(fbLabel1);
-
-        var fbLabel2 = new cc.LabelTTF(facebook, cc.res.font.Roboto_Condensed, 20);
-        fbLabel2.setAnchorPoint(cc.p(0.0, 0.5));
-        fbLabel2.setColor(cc.color("#000360"));
-        fbLabel2.setPosition(fbLabel1.x + fbLabel1.getContentSize().width, fbLabel1.y);
-        container.addChild(fbLabel2);
-
-        var thiz = this;
-        var fbTouch = new ccui.Widget();
-        fbTouch.setContentSize(fbLabel2.getContentSize());
-        fbTouch.setPosition(fbLabel2.x + fbLabel2.getContentSize().width/2, fbLabel2.y);
-        container.addChild(fbTouch);
-        fbTouch.setTouchEnabled(true);
-        fbTouch.addClickEventListener(function () {
-            thiz.onTouchFacebookLabel(facebook);
+        var goldText = new newui.TextField(cc.size(bg2.getContentSize().width - 20, bg2.getContentSize().height), cc.res.font.Roboto_Condensed_18);
+        goldText.setPlaceHolder("Số vàng chuyển");
+        goldText.setTextColor(cc.color("#c4e1ff"));
+        goldText.setPlaceHolderColor(cc.color("#909090"));
+        goldText.setPosition(bg2.getPosition());
+        goldText.setMaxLength(16);
+        goldText.setTextChangeListener(function () {
+            thiz._updateFeeLabel();
         });
+        this.goldText = goldText;
+        this.addChild(goldText);
 
-        container.setTouchEnabled(true);
-        container.addClickEventListener(function () {
-            if(thiz.onTouchCell){
-                thiz.onTouchCell(name, agencyId, address, phone, facebook);
-            }
+        var contentText = new newui.TextField(cc.size(bg3.getContentSize().width - 20, bg3.getContentSize().height), cc.res.font.Roboto_Condensed_18);
+        contentText.setPlaceHolder("Nội dung");
+        contentText.setTextColor(cc.color("#c4e1ff"));
+        contentText.setPlaceHolderColor(cc.color("#909090"));
+        contentText.setPosition(bg3.getPosition());
+        this.contentText = contentText;
+        this.addChild(contentText);
+
+        var feeLabel = new cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Phí chuyển vàng");
+        feeLabel.setColor(cc.color("#4d5f7b"));
+        feeLabel.setPosition(bg1.x, 224);
+        this.addChild(feeLabel);
+        this.feeLabel = feeLabel;
+
+        var okButton = new ccui.Button("dialog-button-1.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        okButton.setScale9Enabled(true);
+        okButton.setCapInsets(cc.rect(10,10,4,4));
+        okButton.setContentSize(cc.size(280, 44));
+        okButton.setPosition(bg1.x, 160);
+        this.addChild(okButton);
+
+        var okLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "HOÀN THÀNH");
+        okLabel.setColor(cc.color("#682e2e"));
+        okLabel.setPosition(okButton.getContentSize().width/2, okButton.getContentSize().height/2);
+        okButton.getRendererNormal().addChild(okLabel);
+        okButton.addClickEventListener(function () {
+            thiz._okButtonHandler();
         });
     },
 
-    onTouchFacebookLabel : function (facebook) {
-        cc.log("onTouchFacebookLabel: "+facebook);
+    _initTutorial : function () {
+        var itemList = new newui.TableView(cc.size(313, 397), 1);
+        itemList.setDirection(ccui.ScrollView.DIR_VERTICAL);
+        itemList.setScrollBarEnabled(false);
+        itemList.setMargin(10, 10, 0, 0);
+        itemList.setPosition(cc.p(112, 98));
+        this.addChild(itemList, 1);
+
+        var tutLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, ApplicationConfig.transferGoldMerchantTutorial, cc.TEXT_ALIGNMENT_LEFT, 300);
+        //var container =
+        itemList.pushItem(tutLabel);
     },
 
-    onTouchCell : function (name, agencyId, address, phone, facebook) {
+    _updateFeeLabel : function () {
+        this.feeLabel.visible = false;
+        var goldStr = this.goldText.getText();
+        if(goldStr === ""){
+            return;
+        }
+        if(!cc.Global.IsNumber(goldStr)){
+            return;
+        }
+        var goldFee = Math.floor(parseInt(goldStr) * PlayerMe.transferGoldMerchantFee);
+        if(goldFee <= 0){
+            return;
+        }
 
+        this.feeLabel.visible = true;
+        this.feeLabel.setString("Phí chuyển vàng " + cc.Global.NumberFormat1(goldFee) + " V");
+    },
+
+    _okButtonHandler : function () {
+        var agency = this.agencyCode.getText();
+        if(agency === ""){
+            MessageNode.getInstance().show("Vui lòng nhập mã đại lý");
+            return;
+        }
+
+        var goldStr = this.goldText.getText();
+        if(goldStr === ""){
+            MessageNode.getInstance().show("Vui lòng nhập số vàng cần chuyển");
+            return;
+        }
+
+        var content = this.contentText.getText();
+        // if(content === ""){
+        //     MessageNode.getInstance().show("Vui lòng nhập nội dung chuyển");
+        //     return;
+        // }
+
+        if(!cc.Global.IsNumber(goldStr)){
+            MessageNode.getInstance().show("Số vàng nhập không đúng định dạng");
+            return;
+        }
+
+        var request = {
+            command : "transferToMerchant",
+            merchantName : agency,
+            description : content,
+            value : parseInt(goldStr)
+        };
+        LobbyClient.getInstance().send(request);
+    },
+
+    onTransferGold : function (cmd, data) {
+        var status = data["status"];
+        if(status === 0){
+            this.hide();
+        }
     },
 
     onEnter : function () {
         this._super();
-        this.mToggle.selectItem(0);
+        LobbyClient.getInstance().addListener("transferGold", this.onTransferGold, this);
+        this._updateFeeLabel();
+    },
+
+    onExit : function () {
+        this._super();
+        LobbyClient.getInstance().removeListener(this);
     },
     
-    setInfo : function (cashOut, gold) {
-        var text = "Bạn đang đổi thưởng "+cc.Global.NumberFormat1(gold) + "V thành "+cc.Global.NumberFormat1(cashOut) +"VNĐ\n Vui lòng chọn đại lý";
-        this.contentLabel.setString(text);
+    setDefaultAgency : function (agency) {
+        this.agencyCode.setText(agency);
     }
 });

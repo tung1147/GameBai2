@@ -31,6 +31,7 @@ var TransferGoldHistory = Dialog.extend({
         recvLabel.setAnchorPoint(cc.p(0.0, 0.5));
         recvLabel.setPosition(448, timeLabel.y);
         this.addChild(recvLabel);
+        this.recvLabel = recvLabel;
 
         var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Vàng");
         goldLabel.setColor(cc.color("#4d5f7b"));
@@ -113,14 +114,47 @@ var TransferGoldHistory = Dialog.extend({
     onEnter : function () {
         this._super();
         LobbyClient.getInstance().addListener("fetchTransferLog", this.onRecvData, this);
-        var request = {
-            command : "fetchTransferLog"
-        };
-        LobbyClient.getInstance().send(request);
+        this.requestGetHistory();
     },
 
     onExit : function () {
         this._super();
         LobbyClient.getInstance().removeListener(this);
+    },
+
+    requestGetHistory : function () {
+        var request = {
+            command : "fetchTransferLog"
+        };
+        LobbyClient.getInstance().send(request);
     }
+});
+
+var TransferGoldMerchantHistory = TransferGoldHistory.extend({
+    ctor : function () {
+        this._super();
+        this.recvLabel.setString("Thông tin đại lý");
+    },
+
+    requestGetHistory : function () {
+        var request = {
+            command : "fetchTransferLog",
+            type : 3
+        };
+        LobbyClient.getInstance().send(request);
+    },
+
+    onRecvData : function (cmd, data) {
+        var items = data["data"];
+        if(items.length > 0){
+            for(var i=0;i<items.length;i++){
+                var time = items[i]["createdTime"];
+                var type = items[i]["transferType"];
+                var recv = items[i]["info"];
+                var gold = items[i]["value"];
+                var content = items[i]["description"];
+                this.addItem(cc.Global.DateToString(new Date(time)), type, recv, gold, content);
+            }
+        }
+    },
 });
