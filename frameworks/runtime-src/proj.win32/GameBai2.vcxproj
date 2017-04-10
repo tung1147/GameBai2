@@ -186,6 +186,7 @@ copy "$(ProjectDir)..\..\..\project.json" "$(OutDir)\" /Y</Command>
     <ClCompile Include="..\Classes\GameLaucher\GameResource.cpp" />
     <ClCompile Include="..\Classes\GameLaucher\ResourceLoader.cpp" />
     <ClCompile Include="..\Classes\NewGUI\jsb_quyetnd_newui.cpp" />
+    <ClCompile Include="..\Classes\NewGUI\ListViewWithAdapter.cpp" />
     <ClCompile Include="..\Classes\NewGUI\NewTableView.cpp" />
     <ClCompile Include="..\Classes\NewGUI\NewTextField.cpp" />
     <ClCompile Include="..\Classes\NewGUI\NewTextInput.cpp" />
@@ -220,6 +221,7 @@ copy "$(ProjectDir)..\..\..\project.json" "$(OutDir)\" /Y</Command>
     <ClInclude Include="..\Classes\GameLaucher\GameResource.h" />
     <ClInclude Include="..\Classes\GameLaucher\ResourceLoader.h" />
     <ClInclude Include="..\Classes\NewGUI\jsb_quyetnd_newui.hpp" />
+    <ClInclude Include="..\Classes\NewGUI\ListViewWithAdapter.h" />
     <ClInclude Include="..\Classes\NewGUI\NewTableView.h" />
     <ClInclude Include="..\Classes\NewGUI\NewTextField.h" />
     <ClInclude Include="..\Classes\NewGUI\NewTextInput.h" />

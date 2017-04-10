@@ -124,6 +124,9 @@
     <ClCompile Include="..\Classes\Plugin\jsb_quyetnd_resourcedownloader.cpp">
       <Filter>Classes\Plugin</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\NewGUI\ListViewWithAdapter.cpp">
+      <Filter>Classes\NewGUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h">
@@ -222,6 +225,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Plugin\jsb_quyetnd_resourcedownloader.hpp">
       <Filter>Classes\Plugin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\NewGUI\ListViewWithAdapter.h">
+      <Filter>Classes\NewGUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

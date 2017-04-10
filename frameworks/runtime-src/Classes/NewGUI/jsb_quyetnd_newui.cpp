@@ -4,6 +4,7 @@
 #include "NewTextInput.h"
 #include "NewTextField.h"
 #include "NewWidget.h"
+#include "ListViewWithAdapter.h"
 
 template<class T>
 static bool dummy_constructor(JSContext *cx, uint32_t argc, jsval *vp)
@@ -730,6 +731,7 @@ void register_all_quyetnd_newui(JSContext* cx, JS::HandleObject obj) {
 	js_register_quyetnd_newui_EditBox(cx, ns);
 	js_register_quyetnd_newui_TextField(cx, ns);	
 	js_register_quyetnd_newui_Widget(cx, ns);
+	js_register_quyetnd_newui_ListViewWithAdaptor(cx, ns);
 }
 
 /****/
@@ -1575,4 +1577,296 @@ void js_register_quyetnd_newui_Widget(JSContext *cx, JS::HandleObject global) {
 	// add the proto and JSClass to the type->js info hash table
 	jsb_register_class<quyetnd::Widget>(cx, jsb_quyetnd_Widget_class, proto, parent_proto);
 	anonEvaluate(cx, global, "(function () { newui.Widget.extend = cc.Class.extend; })()");
+}
+
+//**
+
+JSClass  *jsb_quyetnd_ListViewWithAdaptor_class;
+JSObject *jsb_quyetnd_ListViewWithAdaptor_prototype;
+
+bool js_quyetnd_newui_ListViewWithAdaptor_setItemAdaptor(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+	bool ok = true;
+	JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	quyetnd::ListViewWithAdaptor* cobj = (quyetnd::ListViewWithAdaptor *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2(cobj, cx, false, "js_quyetnd_newui_ListViewWithAdaptor_setItemAdaptor : Invalid Native Object");
+	if (argc == 1) {
+		std::function<void(int, cocos2d::Node *)> arg0;
+		do {
+			if (JS_TypeOfValue(cx, args.get(0)) == JSTYPE_FUNCTION)
+			{
+				JS::RootedObject jstarget(cx, args.thisv().toObjectOrNull());
+				std::shared_ptr<JSFunctionWrapper> func(new JSFunctionWrapper(cx, jstarget, args.get(0), args.thisv()));
+				auto lambda = [=](int larg0, cocos2d::Node* larg1) -> void {
+					JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
+						jsval largv[2];
+					largv[0] = int32_to_jsval(cx, larg0);
+					if (larg1) {
+						largv[1] = OBJECT_TO_JSVAL(js_get_or_create_jsobject<cocos2d::Node>(cx, (cocos2d::Node*)larg1));
+					}
+					else {
+						largv[1] = JSVAL_NULL;
+					};
+					JS::RootedValue rval(cx);
+					bool succeed = func->invoke(2, &largv[0], &rval);
+					if (!succeed && JS_IsExceptionPending(cx)) {
+						JS_ReportPendingException(cx);
+					}
+				};
+				arg0 = lambda;
+			}
+			else
+			{
+				arg0 = nullptr;
+			}
+		} while (0)
+			;
+		JSB_PRECONDITION2(ok, cx, false, "js_quyetnd_newui_ListViewWithAdaptor_setItemAdaptor : Error processing arguments");
+		cobj->setItemAdaptor(arg0);
+		args.rval().setUndefined();
+		return true;
+	}
+
+	JS_ReportError(cx, "js_quyetnd_newui_ListViewWithAdaptor_setItemAdaptor : wrong number of arguments: %d, was expecting %d", argc, 1);
+	return false;
+}
+bool js_quyetnd_newui_ListViewWithAdaptor_refreshView(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+	JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	quyetnd::ListViewWithAdaptor* cobj = (quyetnd::ListViewWithAdaptor *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2(cobj, cx, false, "js_quyetnd_newui_ListViewWithAdaptor_refreshView : Invalid Native Object");
+	if (argc == 0) {
+		cobj->refreshView();
+		args.rval().setUndefined();
+		return true;
+	}
+
+	JS_ReportError(cx, "js_quyetnd_newui_ListViewWithAdaptor_refreshView : wrong number of arguments: %d, was expecting %d", argc, 0);
+	return false;
+}
+bool js_quyetnd_newui_ListViewWithAdaptor_setMargin(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+	bool ok = true;
+	JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	quyetnd::ListViewWithAdaptor* cobj = (quyetnd::ListViewWithAdaptor *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2(cobj, cx, false, "js_quyetnd_newui_ListViewWithAdaptor_setMargin : Invalid Native Object");
+	if (argc == 4) {
+		double arg0 = 0;
+		double arg1 = 0;
+		double arg2 = 0;
+		double arg3 = 0;
+		ok &= JS::ToNumber(cx, args.get(0), &arg0) && !std::isnan(arg0);
+		ok &= JS::ToNumber(cx, args.get(1), &arg1) && !std::isnan(arg1);
+		ok &= JS::ToNumber(cx, args.get(2), &arg2) && !std::isnan(arg2);
+		ok &= JS::ToNumber(cx, args.get(3), &arg3) && !std::isnan(arg3);
+		JSB_PRECONDITION2(ok, cx, false, "js_quyetnd_newui_ListViewWithAdaptor_setMargin : Error processing arguments");
+		cobj->setMargin(arg0, arg1, arg2, arg3);
+		args.rval().setUndefined();
+		return true;
+	}
+
+	JS_ReportError(cx, "js_quyetnd_newui_ListViewWithAdaptor_setMargin : wrong number of arguments: %d, was expecting %d", argc, 4);
+	return false;
+}
+bool js_quyetnd_newui_ListViewWithAdaptor_setCreateItemCallback(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+	bool ok = true;
+	JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	quyetnd::ListViewWithAdaptor* cobj = (quyetnd::ListViewWithAdaptor *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2(cobj, cx, false, "js_quyetnd_newui_ListViewWithAdaptor_setCreateItemCallback : Invalid Native Object");
+	if (argc == 1) {
+		std::function<cocos2d::Node *()> arg0;
+		do {
+			if (JS_TypeOfValue(cx, args.get(0)) == JSTYPE_FUNCTION)
+			{
+				JS::RootedObject jstarget(cx, args.thisv().toObjectOrNull());
+				std::shared_ptr<JSFunctionWrapper> func(new JSFunctionWrapper(cx, jstarget, args.get(0), args.thisv()));
+				auto lambda = [=]() -> cocos2d::Node* {
+					JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
+						JS::RootedValue rval(cx);
+					bool succeed = func->invoke(0, nullptr, &rval);
+					if (!succeed && JS_IsExceptionPending(cx)) {
+						JS_ReportPendingException(cx);
+					}
+					cocos2d::Node* ret = nullptr;
+					do {
+						if (rval.isNull()) { ret = nullptr; break; }
+						if (!rval.isObject()) {break; }
+						js_proxy_t *jsProxy;
+						JS::RootedObject tmpObj(cx, rval.toObjectOrNull());
+						jsProxy = jsb_get_js_proxy(tmpObj);
+						ret = (cocos2d::Node*)(jsProxy ? jsProxy->ptr : NULL);
+						JSB_PRECONDITION2(ret, cx, false, "Invalid Native Object");
+					} while (0);
+					return ret;
+				};
+				arg0 = lambda;
+			}
+			else
+			{
+				arg0 = nullptr;
+			}
+		} while (0)
+			;
+		JSB_PRECONDITION2(ok, cx, false, "js_quyetnd_newui_ListViewWithAdaptor_setCreateItemCallback : Error processing arguments");
+		cobj->setCreateItemCallback(arg0);
+		args.rval().setUndefined();
+		return true;
+	}
+
+	JS_ReportError(cx, "js_quyetnd_newui_ListViewWithAdaptor_setCreateItemCallback : wrong number of arguments: %d, was expecting %d", argc, 1);
+	return false;
+}
+bool js_quyetnd_newui_ListViewWithAdaptor_setSizeCallback(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+	bool ok = true;
+	JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	quyetnd::ListViewWithAdaptor* cobj = (quyetnd::ListViewWithAdaptor *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2(cobj, cx, false, "js_quyetnd_newui_ListViewWithAdaptor_setSizeCallback : Invalid Native Object");
+	if (argc == 1) {
+		std::function<int()> arg0;
+		do {
+			if (JS_TypeOfValue(cx, args.get(0)) == JSTYPE_FUNCTION)
+			{
+				JS::RootedObject jstarget(cx, args.thisv().toObjectOrNull());
+				std::shared_ptr<JSFunctionWrapper> func(new JSFunctionWrapper(cx, jstarget, args.get(0), args.thisv()));
+				auto lambda = [=]() -> int {
+					JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
+						JS::RootedValue rval(cx);
+					bool succeed = func->invoke(0, nullptr, &rval);
+					if (!succeed && JS_IsExceptionPending(cx)) {
+						JS_ReportPendingException(cx);
+					}
+					int ret;
+					jsval_to_int32(cx, rval, (int32_t *)&ret);
+					return ret;
+				};
+				arg0 = lambda;
+			}
+			else
+			{
+				arg0 = nullptr;
+			}
+		} while (0)
+			;
+		JSB_PRECONDITION2(ok, cx, false, "js_quyetnd_newui_ListViewWithAdaptor_setSizeCallback : Error processing arguments");
+		cobj->setSizeCallback(arg0);
+		args.rval().setUndefined();
+		return true;
+	}
+
+	JS_ReportError(cx, "js_quyetnd_newui_ListViewWithAdaptor_setSizeCallback : wrong number of arguments: %d, was expecting %d", argc, 1);
+	return false;
+}
+bool js_quyetnd_newui_ListViewWithAdaptor_setPadding(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+	bool ok = true;
+	JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	quyetnd::ListViewWithAdaptor* cobj = (quyetnd::ListViewWithAdaptor *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2(cobj, cx, false, "js_quyetnd_newui_ListViewWithAdaptor_setPadding : Invalid Native Object");
+	if (argc == 1) {
+		double arg0 = 0;
+		ok &= JS::ToNumber(cx, args.get(0), &arg0) && !std::isnan(arg0);
+		JSB_PRECONDITION2(ok, cx, false, "js_quyetnd_newui_ListViewWithAdaptor_setPadding : Error processing arguments");
+		cobj->setPadding(arg0);
+		args.rval().setUndefined();
+		return true;
+	}
+
+	JS_ReportError(cx, "js_quyetnd_newui_ListViewWithAdaptor_setPadding : wrong number of arguments: %d, was expecting %d", argc, 1);
+	return false;
+}
+bool js_quyetnd_newui_ListViewWithAdaptor_constructor(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+	bool ok = true;
+	quyetnd::ListViewWithAdaptor* cobj = new (std::nothrow) quyetnd::ListViewWithAdaptor();
+
+	js_type_class_t *typeClass = js_get_type_from_native<quyetnd::ListViewWithAdaptor>(cobj);
+
+	// link the native object with the javascript object
+	JS::RootedObject jsobj(cx, jsb_ref_create_jsobject(cx, cobj, typeClass, "quyetnd::ListViewWithAdaptor"));
+	args.rval().set(OBJECT_TO_JSVAL(jsobj));
+	if (JS_HasProperty(cx, jsobj, "_ctor", &ok) && ok)
+		ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(jsobj), "_ctor", args);
+	return true;
+}
+static bool js_quyetnd_newui_ListViewWithAdaptor_ctor(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+	JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
+	quyetnd::ListViewWithAdaptor *nobj = new (std::nothrow) quyetnd::ListViewWithAdaptor();
+	auto newproxy = jsb_new_proxy(nobj, obj);
+	jsb_ref_init(cx, &newproxy->obj, nobj, "quyetnd::ListViewWithAdaptor");
+	bool isFound = false;
+	if (JS_HasProperty(cx, obj, "_ctor", &isFound) && isFound)
+		ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", args);
+	args.rval().setUndefined();
+	return true;
+}
+
+
+extern JSObject *jsb_cocos2d_ui_ScrollView_prototype;
+
+
+void js_register_quyetnd_newui_ListViewWithAdaptor(JSContext *cx, JS::HandleObject global) {
+	jsb_quyetnd_ListViewWithAdaptor_class = (JSClass *)calloc(1, sizeof(JSClass));
+	jsb_quyetnd_ListViewWithAdaptor_class->name = "ListViewWithAdaptor";
+	jsb_quyetnd_ListViewWithAdaptor_class->addProperty = JS_PropertyStub;
+	jsb_quyetnd_ListViewWithAdaptor_class->delProperty = JS_DeletePropertyStub;
+	jsb_quyetnd_ListViewWithAdaptor_class->getProperty = JS_PropertyStub;
+	jsb_quyetnd_ListViewWithAdaptor_class->setProperty = JS_StrictPropertyStub;
+	jsb_quyetnd_ListViewWithAdaptor_class->enumerate = JS_EnumerateStub;
+	jsb_quyetnd_ListViewWithAdaptor_class->resolve = JS_ResolveStub;
+	jsb_quyetnd_ListViewWithAdaptor_class->convert = JS_ConvertStub;
+	jsb_quyetnd_ListViewWithAdaptor_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
+
+	static JSPropertySpec properties[] = {
+		JS_PS_END
+	};
+
+	static JSFunctionSpec funcs[] = {
+		JS_FN("setItemAdaptor", js_quyetnd_newui_ListViewWithAdaptor_setItemAdaptor, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("refreshView", js_quyetnd_newui_ListViewWithAdaptor_refreshView, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("setMargin", js_quyetnd_newui_ListViewWithAdaptor_setMargin, 4, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("setCreateItemCallback", js_quyetnd_newui_ListViewWithAdaptor_setCreateItemCallback, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("setSizeCallback", js_quyetnd_newui_ListViewWithAdaptor_setSizeCallback, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("setPadding", js_quyetnd_newui_ListViewWithAdaptor_setPadding, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("ctor", js_quyetnd_newui_ListViewWithAdaptor_ctor, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FS_END
+	};
+
+	JSFunctionSpec *st_funcs = NULL;
+
+	JS::RootedObject parent_proto(cx, jsb_cocos2d_ui_ScrollView_prototype);
+	jsb_quyetnd_ListViewWithAdaptor_prototype = JS_InitClass(
+		cx, global,
+		parent_proto,
+		jsb_quyetnd_ListViewWithAdaptor_class,
+		js_quyetnd_newui_ListViewWithAdaptor_constructor, 0, // constructor
+		properties,
+		funcs,
+		NULL, // no static properties
+		st_funcs);
+
+	JS::RootedObject proto(cx, jsb_quyetnd_ListViewWithAdaptor_prototype);
+	JS::RootedValue className(cx, std_string_to_jsval(cx, "ListViewWithAdaptor"));
+	JS_SetProperty(cx, proto, "_className", className);
+	JS_SetProperty(cx, proto, "__nativeObj", JS::TrueHandleValue);
+	JS_SetProperty(cx, proto, "__is_ref", JS::TrueHandleValue);
+	// add the proto and JSClass to the type->js info hash table
+	jsb_register_class<quyetnd::ListViewWithAdaptor>(cx, jsb_quyetnd_ListViewWithAdaptor_class, proto, parent_proto);
+	anonEvaluate(cx, global, "(function () { newui.ListViewWithAdaptor.extend = cc.Class.extend; })()");
 }
