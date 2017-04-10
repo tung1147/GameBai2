@@ -439,8 +439,19 @@ var HomeScene = IScene.extend({
         if (this._checkLogin() == false) {
             return;
         }
-        var dialog = new TransferGoldDialog();
-        dialog.show();
+        if(PlayerMe.phoneNumber && PlayerMe.phoneNumber != ""){
+            var dialog = new TransferGoldDialog();
+            dialog.show();
+        }
+        else{
+            var dialog = new MessageConfirmDialog();
+            dialog.setMessage("Bạn phải xác thực tài khoản để chuyển vàng");
+            dialog.showWithAnimationScale();
+            dialog.okButtonHandler = function () {
+                dialog.hide();
+                SceneNavigator.toAccountActiveView();
+            };
+        }
     },
 
     onEnter: function () {

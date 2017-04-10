@@ -39,6 +39,10 @@ SceneNavigator.toHome = function (message) {
     }
 };
 
+SceneNavigator.toAccountActiveView = function () {
+
+};
+
 SceneNavigator.toLobby = function (message) {
     SmartfoxClient.getInstance().close();
 

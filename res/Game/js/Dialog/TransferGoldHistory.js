@@ -26,7 +26,7 @@ var TransferGoldHistory = Dialog.extend({
         typeLabel.setPosition(314, timeLabel.y);
         this.addChild(typeLabel);
 
-        var recvLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Thông tin đại lý");
+        var recvLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Người nhận");
         recvLabel.setColor(cc.color("#4d5f7b"));
         recvLabel.setAnchorPoint(cc.p(0.0, 0.5));
         recvLabel.setPosition(448, timeLabel.y);
@@ -52,9 +52,9 @@ var TransferGoldHistory = Dialog.extend({
         this.addChild(listItem);
         this.listItem = listItem;
 
-        for(var i=0;i<20;i++){
-            this.addItem("time", "type", "user", "gold", "content");
-        }
+        // for(var i=0;i<20;i++){
+        //     this.addItem("time", "type", "user", "gold", "content");
+        // }
     },
     
     addItem : function (time, type, recvUser, gold, content) {
@@ -69,7 +69,7 @@ var TransferGoldHistory = Dialog.extend({
             container.addChild(bg);
         }
 
-        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, time);
+        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, time, cc.TEXT_ALIGNMENT_CENTER, 200);
         timeLabel.setAnchorPoint(cc.p(0.0, 0.5));
         timeLabel.setPosition(16, container.getContentSize().height/2);
         container.addChild(timeLabel);
@@ -94,5 +94,33 @@ var TransferGoldHistory = Dialog.extend({
         contentLabel.setAnchorPoint(cc.p(0.0, 0.5));
         contentLabel.setPosition(618, container.getContentSize().height/2);
         container.addChild(contentLabel);
+    },
+
+    onRecvData : function (cmd, data) {
+        var items = data["data"];
+        if(items.length > 0){
+            for(var i=0;i<items.length;i++){
+                var time = items[i]["createdTime"];
+                var type = items[i]["transferType"];
+                var recv = items[i]["toUsername"];
+                var gold = items[i]["value"];
+                var content = items[i]["description"];
+                this.addItem(cc.Global.DateToString(new Date(time)), type, recv, gold, content);
+            }
+        }
+    },
+
+    onEnter : function () {
+        this._super();
+        LobbyClient.getInstance().addListener("fetchTransferLog", this.onRecvData, this);
+        var request = {
+            command : "fetchTransferLog"
+        };
+        LobbyClient.getInstance().send(request);
+    },
+
+    onExit : function () {
+        this._super();
+        LobbyClient.getInstance().removeListener(this);
     }
 });

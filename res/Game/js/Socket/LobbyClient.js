@@ -61,6 +61,8 @@ var LobbyClient = (function () {
                 this.addListener("markReadedMessageInbox", this._onMarkReadedMessageInboxHandler, this);
                 this.addListener("fetchProducts", this._onFetchProductsHandler, this);
                 this.addListener("fetchCashinProductItems", this._onFetchCashinProductItemsHandler, this);
+                this.addListener("transferGold", this._onTransferGold, this);
+                this.addListener("fetchTransferConfig", this._onFetchTransferConfig, this);
             }
         },
         update: function (dt) {
@@ -193,6 +195,8 @@ var LobbyClient = (function () {
                 if(this.lastRequestLogin){
                     cc.Global.SetSetting("lastLoginType", this.lastRequestLogin);
                 }
+
+                this.requestGetTransferGoldConfig();
 
                // this.onLoginEvent(event);
                 PlayerMe.messageCount = 0;
@@ -372,203 +376,37 @@ var LobbyClient = (function () {
             cc.Global.vatphamData = event["data"]["4"];
         },
 
+        _onTransferGold : function (cmd, event) {
+            var msg =  event["message"];
+            var status = event["status"];
+            if(status === 0) {
+                //chuyen tien thanh cong
+                var dialog = new MessageDialog();
+                dialog.setMessage(msg);
+                dialog.showWithAnimationScale();
+            }
+            else {
+                if(!msg){
+                    msg = "Chuyển vàng không thành công";
+                }
+                MessageNode.getInstance().show(msg);
+            }
+        },
+
+        _onFetchTransferConfig : function (cmd, event) {
+            var data = event["data"];
+            PlayerMe.transferGoldFee = data["fee"];
+            PlayerMe.transferGoldMerchantFee = data["merchantFee"];
+        },
 
         prePostEvent: function (command, event) {
-            // if (command === "LobbyStatus") {
-            //     if (event === "Connected") {
-            //         this.isReconnected = false;
-            //         if (this.loginHandler) {
-            //             this.loginHandler();
-            //         }
-            //     }
-            //     else if (event === "ConnectFailure") {
-            //         if (this.isReconnected) {
-            //             this.connect();
-            //         }
-            //         else {
-            //             LoadingDialog.getInstance().hide();
-            //             MessageNode.getInstance().show("Lỗi kết nối máy chủ");
-            //         }
-            //     }
-            //     else if (event === "LostConnection") {
-            //         if (!this.isKicked) {
-            //             this.reconnect();
-            //         }
-            //     }
-            // }
-            // else if (command === "kicked") {
-            //     this.isKicked = true;
-            //     var runningScene = cc.director.getRunningScene();
-            //     LoadingDialog.getInstance().hide();
-            //     var message = "Bạn bị sút khỏi máy chủ";
-            //     if (event.code == 1) {
-            //         message = "Tài khoản đăng nhập tại thiết bị khác";
-            //     }
-            //     if (runningScene.type == "HomeScene") {
-            //         runningScene.startHome();
-            //         MessageNode.getInstance().show(message);
-            //     }
-            //     else {
-            //         var homeScene = new HomeScene();
-            //         homeScene.startHome();
-            //         cc.director.replaceScene(homeScene);
-            //         MessageNode.getInstance().showWithParent(message, homeScene.popupLayer);
-            //     }
-            //     LobbyClient.getInstance().close();
-            //     SmartfoxClient.getInstance().close();
-            // }
-            // else if (command === "login") {
-            //     if (event.status == 0) {
-            //         this.onLoginEvent(event);
-            //         if (this.loginSuccessHandler) {
-            //             this.loginSuccessHandler();
-            //             this.loginSuccessHandler = null;
-            //         }
-            //     }
-            // }
-            // else if (command === "register") {
-            //     if (this.loginSuccessHandler) {
-            //         this.loginSuccessHandler();
-            //         this.loginSuccessHandler = null;
-            //     }
-            // }
-            // else if (command === "getGameServer") {
-            //     var data = event.data;
-            //     if (this.betting == data.betting) {
-            //         PlayerMe.SFS.betting = data.betting;
-            //         PlayerMe.gameType = data.gameType;
-            //
-            //         if (cc.sys.isNative) {
-            //             var _port = data.port;
-            //         }
-            //         else {
-            //             var _port = data.webSocketPort;
-            //         }
-            //         SmartfoxClient.getInstance().findAndJoinRoom(data.host, _port, data.betting, data.gameType);
-            //     }
-            // }
-            // else if (command === "verifyCode") {
-            //     PlayerMe.verify = true;
-            //     PlayerMe.phoneNumber = event.data.telephone;
-            // }
-            // else if (command === "verifyCodeBySms") {
-            //     PlayerMe.verify = true;
-            //     PlayerMe.phoneNumber = event.data.telephone;
-            // }
-            // else if (command === "changeAsset") {
-            //     PlayerMe.gold = event["data"]["userAssets"]["gold"];
-            //     // cc.log("Lobbyclient : " + PlayerMe.gold);
-            // }
-            // else if (command === "inventory") {
-            //     var items = event["data"];
-            //     for (var i = 0; i < items.length; i++) {
-            //         if (items[i].id == 1) {
-            //             PlayerMe.avatar = items[i]["avtId"];
-            //         }
-            //     }
-            // }
-            // else if (command === "inboxMessage") {
-            //     PlayerMe.messageCount = event["data"]["numberMessUnread"];
-            // }
-            // else if (command === "news") {
-            //     var broadcast = event["data"]["broadcast"];
-            //     if (broadcast) {
-            //         GameConfig.broadcastMessage = broadcast;
-            //     }
-            // }
-            // else if (command === "markReadedMessageInbox") {
-            //     var msgCount = event["data"]["numberMessUnread"];
-            //     PlayerMe.messageCount = msgCount;
-            // }
-            // else if (command === "fetchProducts") {
-            //     cc.Global.thecaoData = event["data"]["1"];
-            //     cc.Global.tienmatData = event["data"]["2"];
-            //     cc.Global.dailyData = event["data"]["3"];
-            //     cc.Global.vatphamData = event["data"]["4"];
-            // }
-            // else if (command === "fetchCashinProductItems") {
-            //     var data = event["data"]["2"];
-            //     cc.Global.SMSList = [];
-            //     for (var i = 0; i < data.length; i++) {
-            //         var currency = data[i]["currency"];
-            //         var smsGateway = data[i]["detail"]["smsGateway"];
-            //         var vmsContent = data[i]["detail"]["vmsContent"];
-            //         var vnpContent = data[i]["detail"]["vnpContent"];
-            //         var vttContent = data[i]["detail"]["vttContent"];
-            //         var gold = data[i]["gold"];
-            //         var id = data[i]["id"];
-            //         var price = data[i]["price"];
-            //         cc.Global.SMSList.push({
-            //             currency: currency,
-            //             smsGateway: smsGateway,
-            //             vmsContent: vmsContent,
-            //             vnpContent: vnpContent,
-            //             vttContent: vttContent,
-            //             gold: parseInt(gold.replace(",", "")),
-            //             id: id,
-            //             price: parseInt(price)
-            //         });
-            //     }
-            // }
+
         },
+
         onLoginEvent: function (event) {
-            //  cc.log(event);
-//             PlayerMe.messageCount = 0;
-//
-//             var data = event.data;
-//             //   GameConfig.broadcastMessage = event.data.broadcast;
-// //            LevelData = data.config.levelData;
-//             //           VipData = data.config.vipData;
-//             PlayerMe.gold = data.userAssets.gold;
-//             PlayerMe.exp = data.userAssets.exp;
-//             PlayerMe.vipExp = data.userAssets.vipExp;
-//             PlayerMe.spin = data.userAssets.spin;
-//             PlayerMe.phoneNumber = data.telephone;
-//             PlayerMe.SFS.info = data.info;
-//             PlayerMe.SFS.signature = event.signature;
-//             PlayerMe.miniGameInfo = data.miniGameInfo;
-//
-//             var userinfo = JSON.parse(data.info);
-//             PlayerMe.username = userinfo.username;
-//
-//             var lastSessionInfo = data.lastSessionInfo;
-//             PlayerMe.gameType = "";
-//             PlayerMe.SFS.betting = 0;
-//             if (lastSessionInfo.ip && lastSessionInfo.port) { // reconnect
-//                 this.reconnectSmartfox(lastSessionInfo.ip, lastSessionInfo.port);
-//             }
-//             else { // to Home
-//                 LoadingDialog.getInstance().hide();
-//                 var runningScene = cc.director.getRunningScene();
-//                 if (runningScene.type == "HomeScene") {
-//                     if (runningScene.homeLocation == 1) {
-//                         runningScene.startGame();
-//                     }
-//                 }
-//             }
-//
-//             var serverData = data["server"];
-//             if (serverData) {
-//                 this.SFSServerInfo = {};
-//                 for (var i = 0; i < serverData.length; i++) {
-//                     var serverId = serverData[i].serverId;
-//                     var host = serverData[i].host;
-//                     if (cc.sys.isNative) {
-//                         var port = serverData[i].port;
-//                     }
-//                     else {
-//                         var port = serverData[i].websocketPort;
-//                     }
-//
-//                     var serverInfo = {
-//                         serverId: serverId,
-//                         host: host,
-//                         port: port
-//                     };
-//                     this.SFSServerInfo[serverId] = serverInfo;
-//                 }
-//             }
+
         },
+
         postEvent: function (command, event) {
            // this.prePostEvent(command, event);
             var arr = this.allListener[command];
@@ -767,6 +605,13 @@ var LobbyClient = (function () {
                 thiz.send(signupRequest);
             };
             this.connect();
+        },
+
+        requestGetTransferGoldConfig : function () {
+            var request = {
+                command: "fetchTransferConfig"
+            };
+            this.send(request);
         },
 
         sendRegisterPush : function () {

@@ -176,6 +176,7 @@ var Dialog = IDialog.extend({
         this.addChild(okButton);
 
         var okTitle = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Ok");
+        okTitle.setColor(cc.color("#000000"));
         okTitle.setPosition(okButton.getContentSize().width/2, okButton.getContentSize().height/2);
         okButton.getRendererNormal().addChild(okTitle);
 
@@ -186,6 +187,7 @@ var Dialog = IDialog.extend({
         this.addChild(cancelButton);
 
         var cancelTitle = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Cancel");
+        cancelTitle.setColor(cc.color("#000000"));
         cancelTitle.setPosition(cancelButton.getContentSize().width/2, cancelButton.getContentSize().height/2);
         cancelButton.getRendererNormal().addChild(cancelTitle);
 

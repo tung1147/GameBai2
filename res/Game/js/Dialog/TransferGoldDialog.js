@@ -91,6 +91,7 @@ var TransferGoldDialog = Dialog.extend({
                 thiz.addChild(label, 1);
 
                 var toggleItem = new ToggleNodeItem(icon1.getContentSize());
+                toggleItem.feeType = i + 1;
                 toggleItem.setPosition(icon2.getPosition());
                 mToggle.addItem(toggleItem);
                 toggleItem.onSelect = function () {
@@ -111,6 +112,9 @@ var TransferGoldDialog = Dialog.extend({
         okButton.setZoomScale(0.01);
         okButton.setPosition(this.getContentSize().width/2, 209);
         this.addChild(okButton);
+        okButton.addClickEventListener(function () {
+            thiz._onOkButtonHandler();
+        });
 
         var okLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "CHUYỂN VÀNG");
         okLabel.setColor(cc.color("#682e2e"));
@@ -177,10 +181,6 @@ var TransferGoldDialog = Dialog.extend({
         }
     },
 
-    _updateGoldInputCorrect : function () {
-
-    },
-
     _updateName : function () {
         var userName = this.recvUser.getText();
         this.label2.removeElement(0);
@@ -197,6 +197,14 @@ var TransferGoldDialog = Dialog.extend({
 
     _updateGold : function () {
         var goldStr = this.goldTransfer.getText();
+        if(this.mToggle.itemClicked.feeType === 1){
+            var sendFeeRate = PlayerMe.transferGoldFee;
+            var recvFeeRate = 0;
+        }
+        else{
+            var sendFeeRate = 0;
+            var recvFeeRate = PlayerMe.transferGoldFee;
+        }
 
         var gold = 0;
         this.goldCorrectIcon.setSpriteFrame("dialog_incorrect.png");
@@ -213,7 +221,10 @@ var TransferGoldDialog = Dialog.extend({
 
         }
 
-        var currentGold = PlayerMe.gold - gold;
+        var sendFee = Math.floor(gold * sendFeeRate);
+        var currentGold = PlayerMe.gold - gold - sendFee;
+        gold -= Math.floor(gold * recvFeeRate);
+
         if(currentGold < 0){
             this.goldCorrectIcon.setSpriteFrame("dialog_incorrect.png");
             gold = 0;
@@ -227,9 +238,44 @@ var TransferGoldDialog = Dialog.extend({
         this.label2.insertElement(new ccui.RichElementText(2, cc.color("#ffde00"), 255, cc.Global.NumberFormat1(gold) + " V", cc.res.font.Roboto_CondensedBold, 18),2);
     },
 
+    _onOkButtonHandler : function () {
+        var recvName = this.recvUser.getText();
+        if(recvName === ""){
+            MessageNode.getInstance().show("Vui lòng nhập tên người nhận");
+            return;
+        }
+
+        var goldStr = this.goldTransfer.getText();
+        if(goldStr === ""){
+            MessageNode.getInstance().show("Vui lòng nhập số tiền chuyển");
+            return;
+        }
+
+        if(!cc.Global.IsNumber(goldStr)){
+            MessageNode.getInstance().show("Số tiền nhập không đúng");
+            return;
+        }
+
+        var request = {
+            command : "transferGold",
+            toUsername : recvName,
+            value : parseInt(goldStr),
+            feeOnSender : this.mToggle.itemClicked.feeType === 1
+        };
+        LobbyClient.getInstance().send(request);
+    },
+
+    onTransferGold : function (cmd, data) {
+        var status = data["status"];
+        if(status === 0){
+            this.hide();
+        }
+    },
+
     onEnter : function () {
         this._super();
         LobbyClient.getInstance().addListener("checkUserExist", this.onCheckUsername, this);
+        LobbyClient.getInstance().addListener("transferGold", this.onTransferGold, this);
 
         this.mToggle.selectItem(0);
 
