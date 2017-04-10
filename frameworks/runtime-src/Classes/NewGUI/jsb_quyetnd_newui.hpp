@@ -8,10 +8,11 @@
 extern JSClass  *jsb_quyetnd_TableView_class;
 extern JSObject *jsb_quyetnd_TableView_prototype;
 
+void register_all_quyetnd_newui(JSContext* cx, JS::HandleObject obj);
+
 bool js_quyetnd_newui_TableView_constructor(JSContext *cx, uint32_t argc, jsval *vp);
 void js_quyetnd_newui_TableView_finalize(JSContext *cx, JSObject *obj);
 void js_register_quyetnd_newui_TableView(JSContext *cx, JS::HandleObject global);
-void register_all_quyetnd_newui(JSContext* cx, JS::HandleObject obj);
 bool js_quyetnd_newui_TableView_removeAllChildren(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_quyetnd_newui_TableView_removeChild(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_quyetnd_newui_TableView_size(JSContext *cx, uint32_t argc, jsval *vp);
@@ -84,5 +85,21 @@ void js_register_quyetnd_newui_Widget(JSContext *cx, JS::HandleObject global);
 bool js_quyetnd_newui_Widget_setVirtualRendererSize(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_quyetnd_newui_Widget_getVirtualRendererSize(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_quyetnd_newui_Widget_Widget(JSContext *cx, uint32_t argc, jsval *vp);
+
+/****/
+
+extern JSClass  *jsb_quyetnd_ListViewWithAdaptor_class;
+extern JSObject *jsb_quyetnd_ListViewWithAdaptor_prototype;
+
+bool js_quyetnd_newui_ListViewWithAdaptor_constructor(JSContext *cx, uint32_t argc, jsval *vp);
+void js_quyetnd_newui_ListViewWithAdaptor_finalize(JSContext *cx, JSObject *obj);
+void js_register_quyetnd_newui_ListViewWithAdaptor(JSContext *cx, JS::HandleObject global);
+bool js_quyetnd_newui_ListViewWithAdaptor_setItemAdaptor(JSContext *cx, uint32_t argc, jsval *vp);
+bool js_quyetnd_newui_ListViewWithAdaptor_refreshView(JSContext *cx, uint32_t argc, jsval *vp);
+bool js_quyetnd_newui_ListViewWithAdaptor_setMargin(JSContext *cx, uint32_t argc, jsval *vp);
+bool js_quyetnd_newui_ListViewWithAdaptor_setCreateItemCallback(JSContext *cx, uint32_t argc, jsval *vp);
+bool js_quyetnd_newui_ListViewWithAdaptor_setSizeCallback(JSContext *cx, uint32_t argc, jsval *vp);
+bool js_quyetnd_newui_ListViewWithAdaptor_setPadding(JSContext *cx, uint32_t argc, jsval *vp);
+bool js_quyetnd_newui_ListViewWithAdaptor_ListViewWithAdaptor(JSContext *cx, uint32_t argc, jsval *vp);
 
 #endif // __quyetnd_newui_h__
