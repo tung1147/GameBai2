@@ -466,6 +466,19 @@ newui.TableView = ccui.ScrollView.extend({
     },
 
     removeItem : function(item) {
+        if(cc.isNumber(item)){
+            this._allItems[item].removeFromParent(true);
+            this._allItems.splice(item,1);
+        }
+        else{
+            for(var i=0;i<this._allItems.length;i++){
+                if(this._allItems[i] === item){
+                    this._allItems[i].removeFromParent(true);
+                    this._allItems.splice(i,1);
+                    break;
+                }
+            }
+        }
         this._refreshView = true;
     },
 

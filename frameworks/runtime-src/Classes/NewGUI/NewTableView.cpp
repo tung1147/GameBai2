@@ -483,7 +483,7 @@ void TableView::removeItem(Node* item){
 void TableView::removeItem(int index){
 	auto item = _items[index];
 	_items.erase(_items.begin() + index);
-	item->removeAllChildrenWithCleanup(true);
+	item->removeFromParentAndCleanup(true);
 	_isUpdateView = true;
 }
 
