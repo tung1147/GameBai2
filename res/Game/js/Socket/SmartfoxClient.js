@@ -410,6 +410,10 @@ var SmartfoxClient = (function () {
                 SceneNavigator.toMiniGame(GameType.MiniGame_VideoPoker, true);
                 LoadingDialog.getInstance().hide();
             }
+            else if(group === "mini.taixiu"){
+                SceneNavigator.toMiniGame(GameType.MiniGame_ChanLe, true);
+                LoadingDialog.getInstance().hide();
+            }
             if (gameScene) {
                 gameScene.isReconnect = true;
                 cc.director.replaceScene(gameScene);

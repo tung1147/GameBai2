@@ -206,7 +206,7 @@ var ChanLeLayer = MiniGamePopup.extend({
         var arr = _get_random_array(3, s_xocdia_result_position.length);
         for (var i = 0; i < arr.length; i++) {
             var sprite = new cc.Sprite("#taixiu_dice_" + result[i] + ".png");
-            // sprite.setScale()
+            sprite.setScale(1.3);
             sprite.setPosition(s_xocdia_result_position[arr[i]]);
             this.diskNode.addChild(sprite);
         }
@@ -293,7 +293,7 @@ var ChanLeLayer = MiniGamePopup.extend({
     closeDisk:function (isEffect) {
         var thiz = this;
         this.diskSprite.stopAllActions();
-        thiz.batSprite.stopAction();
+        this.batSprite.stopAllActions();
         if(isEffect){
             this.batSprite.runAction(new cc.EaseSineOut(new cc.MoveTo(1, thiz.batSpritePosition)));
             this.diskSprite.runAction(new cc.Sequence(
