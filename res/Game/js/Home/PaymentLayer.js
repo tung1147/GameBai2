@@ -373,18 +373,23 @@ var PaymentGiftcode = cc.Node.extend({
 var PaymentHistoryLayer = cc.Node.extend({
     ctor: function () {
         this._super();
-        var margin = 60.0 * cc.winSize.screenScale;
-        var padding = 2.0;
-        this.width1 = 173.0 * cc.winSize.screenScale;
-        this.width2 = 213.0 * cc.winSize.screenScale;
-        this.width4 = 173.0 * cc.winSize.screenScale;
-        this.width5 = 173.0 * cc.winSize.screenScale;
-        this.width3 = cc.winSize.width - this.width1 - this.width2 - this.width4 - this.width5 - margin * 2 - padding * 4;
-        this.x1 = margin + this.width1 / 2;
-        this.x2 = this.x1 + this.width1 / 2 + this.width2 / 2 + padding;
-        this.x3 = this.x2 + this.width2 / 2 + this.width3 / 2 + padding;
-        this.x4 = this.x3 + this.width3 / 2 + this.width4 / 2 + padding;
-        this.x5 = this.x4 + this.width4 / 2 + this.width5 / 2 + padding;
+        this.setContentSize(cc.size(1280, 720));
+        this.setAnchorPoint(cc.p(0.5, 0.5));
+        this.setPosition(cc.winSize.width/2, cc.winSize.height/2);
+        this.setScale(cc.winSize.screenScale);
+
+        // var margin = 60.0 * cc.winSize.screenScale;
+        // var padding = 2.0;
+        // this.width1 = 173.0 * cc.winSize.screenScale;
+        // this.width2 = 213.0 * cc.winSize.screenScale;
+        // this.width4 = 173.0 * cc.winSize.screenScale;
+        // this.width5 = 173.0 * cc.winSize.screenScale;
+        // this.width3 = cc.winSize.width - this.width1 - this.width2 - this.width4 - this.width5 - margin * 2 - padding * 4;
+        // this.x1 = margin + this.width1 / 2;
+        // this.x2 = this.x1 + this.width1 / 2 + this.width2 / 2 + padding;
+        // this.x3 = this.x2 + this.width2 / 2 + this.width3 / 2 + padding;
+        // this.x4 = this.x3 + this.width3 / 2 + this.width4 / 2 + padding;
+        // this.x5 = this.x4 + this.width4 / 2 + this.width5 / 2 + padding;
 
         var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Thời gian");
         timeLabel.setColor(cc.color("#576eb0"));
@@ -418,7 +423,7 @@ var PaymentHistoryLayer = cc.Node.extend({
 
         var _top = 554.0;
         var _bottom = 126.0;
-        var itemList = new newui.TableView(cc.size(cc.winSize.width, _top - _bottom), 1);
+        var itemList = new newui.TableView(cc.size(1280, _top - _bottom), 1);
         itemList.setDirection(ccui.ScrollView.DIR_VERTICAL);
         itemList.setScrollBarEnabled(false);
         itemList.setPadding(10);

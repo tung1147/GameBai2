@@ -27,7 +27,7 @@ var LobbySubLayer = cc.Node.extend({
         if(titleFrameName){
             var title = new cc.Sprite(titleFrameName);
             title.setPosition(640, this.backBt.y);
-            this.addChild(title);
+            topBar.addChild(title);
         }
     },
     

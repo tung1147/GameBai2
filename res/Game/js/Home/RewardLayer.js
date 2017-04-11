@@ -275,6 +275,9 @@ var RewardAgencyLayer = cc.Node.extend({
     ctor: function () {
         this._super();
         this.setContentSize(cc.size(1280, 720));
+        this.setAnchorPoint(cc.p(0.5,0.5));
+        this.setPosition(cc.winSize.width/2, cc.winSize.height/2);
+        this.setScale(cc.winSize.screenScale);
 
         var agencyLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Mã đại lý");
         agencyLabel.setColor(cc.color("#576eb0"));
