@@ -208,10 +208,10 @@ var Dialog = IDialog.extend({
         this.dialogBg = dialogBg;
         this.title = title;
         this.closeButton = closeButton;
-        this.okButton = okButton.buttonTitleLabel;
-        this.cancelButton = cancelButton.buttonTitleLabel;
-        this.okTitle = okTitle;
-        this.cancelTitle = cancelTitle;
+        this.okButton = okButton;
+        this.cancelButton = cancelButton;
+        this.okTitle = okButton.buttonTitleLabel;
+        this.cancelTitle = cancelButton.buttonTitleLabel;
 
         var thiz = this;
         closeButton.addClickEventListener(function () {
