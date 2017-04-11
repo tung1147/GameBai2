@@ -58,7 +58,7 @@ var RewardAgencyDialog = Dialog.extend({
         this.contentText = contentText;
         this.addChild(contentText);
 
-        var feeLabel = new cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Phí chuyển vàng");
+        var feeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Phí chuyển vàng");
         feeLabel.setColor(cc.color("#4d5f7b"));
         feeLabel.setPosition(bg1.x, 224);
         this.addChild(feeLabel);
