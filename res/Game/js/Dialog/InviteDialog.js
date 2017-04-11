@@ -26,9 +26,9 @@ var InviteDialog = Dialog.extend({
         this.addChild(noPlayerLabel);
         this.noPlayerLabel = noPlayerLabel;
 
-        for(var i=0;i<100;i++){
-            this.addItem("", "username", 10000);
-        }
+        // for(var i=0;i<100;i++){
+        //     this.addItem("", "username", 10000);
+        // }
     },
 
     onGetChannelUser: function (command, data) {
