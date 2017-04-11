@@ -390,6 +390,7 @@ var Poker = IGameScene.extend({
         var bgPoker = new cc.Sprite("res/gp_table.png");
         bgPoker.x = cc.winSize.width / 2;
         bgPoker.y = cc.winSize.height / 2;
+        bgPoker.setScale(cc.winSize.screenScale);
         this.sceneLayer.addChild(bgPoker);
         this.bgPoker = bgPoker;
         this.initButton();
@@ -473,7 +474,7 @@ var Poker = IGameScene.extend({
         this.bettingPoker.setMinMaxAgain(100,1000);
 
         var countDown =  new CountDownPoker();
-        countDown.setPosition(bgPoker.getContentSize().width/2,400);
+        countDown.setPosition(bgPoker.getContentSize().width/2,400+ pad);
         bgPoker.addChild(countDown,2);
         this.countDown = countDown;
         // var cardData = [1,2,3,4,5];
@@ -1325,8 +1326,6 @@ var PopupSitdown = Dialog.extend({
         slider.percent = (isMax)?100:50;
         var maxGold = maxBuy - minBuy;
 
-
-
         slider.addEventListener(function (selector, target) {
             if(target == ccui.Slider.EVENT_PERCENT_CHANGED){
                 cc.log("persent:" + slider.percent);
@@ -1438,7 +1437,7 @@ var BettingPoker = cc.Node.extend({
         var hightClip = imgGold.getContentSize().height;
         this.hightClip = hightClip;
         var clipping = new ccui.Layout();
-        clipping.setContentSize(new cc.Rect(0,0,130,0));
+        clipping.setContentSize(cc.size(130,0));
         clipping.setClippingEnabled(true);
         clipping.setClippingType(ccui.Layout.CLIPPING_SCISSOR);
         clipping.setPosition(bg.getContentSize().width/2 + 29,127);
@@ -1478,7 +1477,7 @@ var BettingPoker = cc.Node.extend({
         this.gold =  minBuy;
         this.lblGold.setString(cc.Global.NumberFormat1(this.gold));
         this.slider.percent = 0;
-        this.clipping.setContentSize(new cc.Rect(0,0,130,0));
+        this.clipping.setContentSize(cc.size(130,0));
     },
     setTypeAgain:function (type) {
         this.type = type;

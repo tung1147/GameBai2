@@ -368,7 +368,7 @@ var ChanLeLayer = MiniGamePopup.extend({
         var thiz = this;
         var lbl = new cc.LabelTTF (data.number, cc.res.font.Roboto_CondensedBold, 20);
         // var bgText = new cc.Sprite("#mntx_bg_hisItem.png");
-        var bgText = new ccui.Button("#mntx_bg_hisItem.png","","",ccui.Widget.PLIST_TEXTURE);
+        var bgText = new ccui.Button("mntx_bg_hisItem.png","","",ccui.Widget.PLIST_TEXTURE);
         bgText.addClickEventListener(function () {
             thiz.handleHistoryPhien(data);
         });

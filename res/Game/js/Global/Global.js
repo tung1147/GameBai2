@@ -370,3 +370,15 @@ cc.Global.IsNumber = function (str) {
 ApplicationConfig.transferGoldMerchantTutorial = "Chuyển vàng đại lý";
 
 ApplicationConfig.transferGoldTutorial = "Chuyển vàng";
+
+if(cc.sys.isNative){
+    ccui.Slider.prototype._ctor = function (barTextureName, normalBallTextureName, resType) {
+        this.init();
+        if(barTextureName){
+            this.loadBarTexture(barTextureName, resType);
+        }
+        if(normalBallTextureName){
+            this.loadSlidBallTextureNormal(normalBallTextureName, resType);
+        }
+    };
+}

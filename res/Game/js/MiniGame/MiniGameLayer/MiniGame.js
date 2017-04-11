@@ -4,7 +4,10 @@
 var MiniGamePopup = cc.Node.extend({
     ctor: function () {
         this._super();
-        this.setScale((1 + Math.sqrt(5)) / 2 - 1);
+        if(!cc.sys.isNative){
+            this.setScale((1 + Math.sqrt(5)) / 2 - 1);
+        }
+
         this.initController();
 
         this.rewardFund = [];

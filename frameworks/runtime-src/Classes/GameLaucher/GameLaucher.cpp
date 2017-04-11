@@ -17,7 +17,7 @@
 #include "jsfriendapi.h"
 #include "scripting/js-bindings/manual/cocos2d_specifics.hpp"
 
-#define FORCE_UPDATE
+//#define FORCE_UPDATE
 
 namespace quyetnd {
 

@@ -104,6 +104,10 @@
             "plist": "res/Card.plist"
         },
         {
+            "img": "res/ChanLe.png",
+            "plist": "res/ChanLe.plist"
+        },
+        {
             "img": "res/dialog.png",
             "plist": "res/dialog.plist"
         },
