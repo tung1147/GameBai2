@@ -177,7 +177,7 @@ var PokerGamePlayer = GamePlayer.extend({
             }
             case PK_POSITION_BOTTOM:
             {
-                this.bgText.setPosition(this.avt.getPositionX() ,this.avt.getPositionY() - 80);
+                this.bgText.setPosition(this.avt.getPositionX() ,this.avt.getPositionY() - 65);
                 this.userLabel.setAnchorPoint(0.5,0.5);
                 this.goldLabel.setAnchorPoint(0.5,0.5);
                 this.userLabel.setPosition(this.bgText.getPositionX(), this.bgText.getPositionY() + 10);
@@ -400,15 +400,17 @@ var Poker = IGameScene.extend({
         // table_bg.setPosition(cc.winSize.width / 2, cc.winSize.height / 2);
         // table_bg.setScale(cc.winSize.screenScale);
         // this.sceneLayer.addChild(table_bg);
-
+        var pad = -150;
         var cardMix = new CardPoker(cc.size(600, 100));
         cardMix.setPosition(cc.winSize.width / 2, cc.winSize.height / 2);
         cardMix.visible = true;
         this.sceneLayer.addChild(cardMix);
         this.cardMix = cardMix;
 
+        // cardMix.setAnchorPoint(0,0)
+
         var bg_pot = new cc.Sprite("#pk_bg_totalBet.png");
-        bg_pot.setPosition(bgPoker.getContentSize().width/2,400);
+        bg_pot.setPosition(bgPoker.getContentSize().width/2,420+ pad);
         bgPoker.addChild(bg_pot,1);
         this.bg_pot = bg_pot;
 
@@ -421,12 +423,12 @@ var Poker = IGameScene.extend({
         var thiz = this;
 
         var imgCave = new cc.Sprite("#pk_cave.png");
-        imgCave.setPosition(bgPoker.getContentSize().width / 2, 554);
+        imgCave.setPosition(bgPoker.getContentSize().width / 2, 554+ pad);
         bgPoker.addChild(imgCave);
         this.imgCave = imgCave;
 
         var caveBig = new cc.Sprite("#pk_cave_big.png");
-        caveBig.setPosition(bgPoker.getContentSize().width / 2, 554);
+        caveBig.setPosition(bgPoker.getContentSize().width / 2, 554+ pad);
         caveBig.runAction(new cc.RepeatForever(
             new cc.Sequence(
                 new cc.FadeTo(1,0),
@@ -441,7 +443,7 @@ var Poker = IGameScene.extend({
         var caveTextBG =  new cc.Sprite("#pk_bg_caveChat.png");
         caveTextBG.setPosition(cc.p(imgCave.getPositionX()-130,imgCave.getPositionY()+50));
         bgPoker.addChild(caveTextBG,2);
-        caveTextBG.setVisible(true);
+        caveTextBG.setVisible(false);
 
         var caveText = new cc.LabelTTF("", cc.res.font.Roboto_Condensed,22);
         caveText.setPosition(caveTextBG.getContentSize().width/2, caveTextBG.getContentSize().height/2);
@@ -570,10 +572,12 @@ var Poker = IGameScene.extend({
         var thiz = this;
 
         var sizeOrgX = this.bgPoker.getContentSize().width/2;
+        var pad = -150;
         if(numberSlot == 5){
             var distanceX = 390;
-            var higtRow1 = 170;
-            var higtRow2 = 460;
+
+            var higtRow1 = 170 + pad;
+            var higtRow2 = 460+ pad;
 
             var player1 = new PokerGamePlayer(i, this);
             player1.setPosition(sizeOrgX - distanceX, higtRow1);
@@ -597,7 +601,7 @@ var Poker = IGameScene.extend({
 
 
             var player0 = new PokerGamePlayer(i, this);
-            player0.setPosition(sizeOrgX, 35);
+            player0.setPosition(sizeOrgX, 55+ pad);
             player0.setPositionInfo(PK_POSITION_BOTTOM,PK_POSITION_TOP,PK_POSITION_TOP);
             this.bgPoker.addChild(player0, 1);
 
@@ -608,15 +612,15 @@ var Poker = IGameScene.extend({
             this.playerView.push(player4);
         }
         else{
-            var distanceX1 = 324;
-            var distanceX2 = 490;
-            var distanceX3 = 490;
+            var distanceX1 = 224;
+            var distanceX2 = 390;
+            var distanceX3 = 390;
             var distanceX4 = 165;
 
-            var higtRow1 = 80;
-            var higtRow2 = 220;
-            var higtRow3 = 420;
-            var higtRow4 = 525;
+            var higtRow1 = 90+ pad;
+            var higtRow2 = 220+ pad;
+            var higtRow3 = 420+ pad;
+            var higtRow4 = 555+ pad;
 
             var player1 = new PokerGamePlayer(i, this);
             player1.setPosition(sizeOrgX - distanceX1, higtRow1);
@@ -661,7 +665,7 @@ var Poker = IGameScene.extend({
 
 
             var player0 = new PokerGamePlayer(i, this);
-            player0.setPosition(sizeOrgX, 45);
+            player0.setPosition(sizeOrgX, 65+ pad);
             player0.setPositionInfo(PK_POSITION_BOTTOM,PK_POSITION_TOP,PK_POSITION_TOP);
             this.bgPoker.addChild(player0, 1);
 
