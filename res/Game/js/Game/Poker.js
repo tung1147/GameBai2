@@ -1657,7 +1657,7 @@ var CardPoker = cc.Node.extend({
         var  thiz = this;
         this.removeAll();
         for (var j = 0; j < cards.length; j++) {
-            var card = new Card(cards[j].rank, cards[j].suit);
+            var card = new CardEx(cards[j].rank, cards[j].suit);
             card.setSpriteFrame("gp_card_up.png");
 
             this.addCard(card);

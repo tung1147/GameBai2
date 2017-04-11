@@ -46,6 +46,9 @@
     "res/Game/js/Dialog/LoadingDialog.js",
     "res/Game/js/Dialog/MessageNode.js",
     "res/Game/js/Dialog/ResultDialog.js",
+    "res/Game/js/Dialog/HistoryChanLe.js",
+    "res/Game/js/Dialog/ThongKeChanLe.js",
+    "res/Game/js/Dialog/HistoryPhien.js",
     "res/Game/js/Dialog/SettingDialog.js",
     "res/Game/js/Dialog/UserDialog.js",
     "res/Game/js/Dialog/UserinfoDialog.js",
@@ -110,6 +113,7 @@
     "res/Game/js/MiniGame/Controller/CaoThapController.js",
     "res/Game/js/MiniGame/Controller/MiniPokerController.js",
     "res/Game/js/MiniGame/Controller/VideoPokerController.js",
+    "res/Game/js/MiniGame/Controller/ChanLeController.js",
     "res/Game/js/MiniGame/MiniGameScene.js",
     "res/Game/js/MiniGame/CaoThapScene.js",
     "res/Game/js/MiniGame/MiniPockerScene.js",
@@ -119,6 +123,7 @@
     "res/Game/js/MiniGame/MiniGameLayer/CaoThapLayer.js",
     "res/Game/js/MiniGame/MiniGameLayer/MiniPokerLayer.js",
     "res/Game/js/MiniGame/MiniGameLayer/VideoPokerLayer.js",
+    "res/Game/js/MiniGame/MiniGameLayer/ChanLeLayer.js",
     "res/Game/js/SceneNavigator.js"
   ]
 }

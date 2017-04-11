@@ -486,15 +486,45 @@ var PokerController = GameController.extend({
                     thiz._view.runChipWin(slotView,moneyWin);
                     slotView.setEffectWin(isWin);
                     thiz._view.lblPot.setString("");
+
+
                 }
                 if(temp["6"]){
                         cc.log("co key 6");
                         var typeHand = temp["6"]["1"];
+                    var cardsLight = temp["6"]["2"];
+                    var cardsBorder =  temp["6"]["3"];
+                    var cLight = [];
+                    for (var j = 0; j < cardsLight.length; j++) {
+                        cLight.push(CardList.prototype.getCardWithId(cardsLight[j]));
+                    }
+                    var cBorder = [];
+                    for (var j = 0; j < cardsBorder.length; j++) {
+                        cBorder.push(CardList.prototype.getCardWithId(cardsBorder[j]));
+                    }
                         if(PlayerMe.username != username){
                             slotView.phomVituarl.setVisible(false);
                             slotView.cardList.addCardsPokerEndGame(cards);
                         }
                         slotView.setNameHand(S_TYPE_CARDS[typeHand],isWin );
+                        if(isWin)
+                        {
+
+
+                            thiz._view.runAction(new cc.Sequence(
+                                new cc.DelayTime(0.9),
+                                new cc.CallFunc(function () {
+                                    slotView.cardList.showBoderCards(cBorder);
+                                    slotView.cardList.showCardBlack(cLight);
+                                    thiz._view.cardMix.showBoderCards(cBorder);
+                                    thiz._view.cardMix.showCardBlack(cLight);
+                                })
+                            ));
+                        }
+                        else {
+                            slotView.cardList.showBoderCards(cBorder);
+                            slotView.cardList.showCardBlack(cLight);
+                        }
                 }
             }
             })();

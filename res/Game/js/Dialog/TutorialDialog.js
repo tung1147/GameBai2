@@ -59,6 +59,9 @@ var TutorialDialog = IDialog.extend({
             case GameType.MiniGame_VideoPoker:
                 this.initVideoPokerTutorial();
                 break;
+            case GameType.MiniGame_ChanLe:
+                this.initChanLeTutorial();
+                break;
         }
     },
 
@@ -80,7 +83,19 @@ var TutorialDialog = IDialog.extend({
     initVideoPokerTutorial: function () {
         this.initPokerTutorial("VideoPoker");
     },
-
+    initChanLeTutorial:function () {
+        var tutorialLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, this.HDList["ChanLe"]);
+        var icon1 = new cc.Sprite("#mntx_btn_bxh.png");
+        icon1.setScale(0.7);
+        icon1.setPosition(180, 50);
+        this.contentTable.addChild(icon1);
+        var icon2 = new cc.Sprite("#caothap_tutorialBt.png");
+        icon2.setScale(0.7);
+        icon2.setPosition(220, 50);
+        this.contentTable.addChild(icon2);
+        tutorialLabel.setBoundingWidth(this.bouldingWidth);
+        this.contentTable.pushItem(tutorialLabel);
+    },
     initPokerTutorial: function (dataField) {
         var miniLabel1 = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, this.HDList[dataField]["text1"]
             , cc.TEXT_ALIGNMENT_LEFT);
@@ -129,6 +144,7 @@ var TutorialDialog = IDialog.extend({
 var s_MiniPockerTutorialDialog = null;
 var s_VideoPockerTutorialDialog = null;
 var s_CaoThapTutorialDialog = null;
+var s_ChanLeTutorialDialog = null;
 
 TutorialDialog.getTutorial = function (gameType) {
     switch (gameType) {
@@ -156,6 +172,14 @@ TutorialDialog.getTutorial = function (gameType) {
                 s_VideoPockerTutorialDialog.retain();
             }
             return s_VideoPockerTutorialDialog;
+            break;
+        }
+        case GameType.MiniGame_ChanLe:{
+            if(!s_ChanLeTutorialDialog){
+                s_ChanLeTutorialDialog = new TutorialDialog(gameType);
+                s_ChanLeTutorialDialog.retain();
+            }
+            return s_ChanLeTutorialDialog;
             break;
         }
     }

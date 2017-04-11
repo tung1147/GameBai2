@@ -16,11 +16,12 @@ var MiniGamePopup = cc.Node.extend({
         var tutorialButton = new ccui.Button("caothap_tutorialBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
         tutorialButton.setPosition(769, 426);
         this.addChild(tutorialButton, 5);
+        this.tutorialButton = tutorialButton;
 
         var historyButton = new ccui.Button("caothap_historyBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
         historyButton.setPosition(694, 430);
         this.addChild(historyButton, 5);
-
+        this.historyButton = historyButton;
         var jackpotLabel = new cc.LabelBMFont("100.000", cc.res.font.Roboto_CondensedBold_30);
         jackpotLabel.setColor(cc.color("#ffea00"));
         jackpotLabel.setPosition(500, 462);
@@ -82,6 +83,9 @@ var MiniGamePopup = cc.Node.extend({
 
     performChangeRewardFund: function (data) {
         this.rewardFund = data;
+        if(this.chipGroup == undefined){
+            return;
+        }
         var betAmountID = this.chipGroup.chipSelected.chipIndex;
         if (!this.rewardFund || this.rewardFund.length < 3)
             return;
