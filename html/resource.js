@@ -3,6 +3,8 @@ var s_resource = s_resource || [
 	"res/CaoThap.png",
 	"res/Card.plist",
 	"res/Card.png",
+	"res/ChanLe.plist",
+	"res/ChanLe.png",
 	"res/data/HDList.plist",
 	"res/data/LevelData.json",
 	"res/data/VipData.json",
@@ -217,6 +219,7 @@ var s_resource = s_resource || [
 var s_texture = s_texture || [
 	{src:"res/CaoThap.png",plist:"res/CaoThap.plist"},
 	{src:"res/Card.png",plist:"res/Card.plist"},
+	{src:"res/ChanLe.png",plist:"res/ChanLe.plist"},
 	{src:"res/dialog.png",plist:"res/dialog.plist"},
 	{src:"res/effectMini.png",plist:"res/effectMini.plist"},
 	{src:"res/emotion.png",plist:"res/emotion.plist"},

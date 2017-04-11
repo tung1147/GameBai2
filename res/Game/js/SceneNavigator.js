@@ -120,6 +120,9 @@ SceneNavigator.toMiniGame = function (gameId, isReconnect) {
         // popup.show();
         VideoPokerLayer.showPopup();
     }
+    else if (gameId == GameType.MiniGame_ChanLe){
+        ChanLeLayer.showPopup();
+    }
 
     if(isReconnect){
         LobbyClient.getInstance().postEvent("miniGameReconnect", null);
