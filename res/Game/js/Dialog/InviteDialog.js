@@ -154,17 +154,48 @@ var InviteDialog = Dialog.extend({
     }
 });
 
+
 var RecvInviteDialog = (function () {
     var instance = null;
     var RecvInviteClass = Dialog.extend({
         ctor: function () {
             this._super();
-            this.title.setString("Mời chơi");
-            this.initWithSize(cc.size(550, 400));
+            var thiz = this;
+            this.okButton.visible = false;
+            this.cancelButton.visible = false;
+
+            this.initWithSize(cc.size(599, 278));
+            this.title.setString("MỜI CHƠI");
+
+            var ignoreBt = s_Dialog_Create_Button2(cc.size(180, 50), "TỪ CHỐI TẤT CẢ");
+            ignoreBt.setPosition(this.getContentSize().width/2 - 200, 150);
+            ignoreBt.setZoomScale(0.02);
+            this.addChild(ignoreBt);
+            ignoreBt.addClickEventListener(function () {
+                thiz.ignoreButtonHandler();
+            });
+
+            var cancelBt = s_Dialog_Create_Button2(cc.size(180, 50), "HỦY BỎ");
+            cancelBt.setPosition(this.getContentSize().width/2, 150);
+            cancelBt.setZoomScale(0.02);
+            this.addChild(cancelBt);
+            cancelBt.addClickEventListener(function () {
+                thiz.cancelButtonHandler();
+            });
+
+            var okButton = s_Dialog_Create_Button1(cc.size(180, 50), "ĐỒNG Ý");
+            okButton.setPosition(this.getContentSize().width/2 + 200, 150);
+            okButton.setZoomScale(0.02);
+            this.addChild(okButton);
+            okButton.addClickEventListener(function () {
+                thiz.okButtonHandler();
+            });
 
             var messageNode = new cc.Node();
             this.addChild(messageNode, 10);
             this.messageNode = messageNode;
+
+            //this.setInfo(null, "gamename", 1000000);
         },
         setInfo: function (username, gameName, betting) {
             this.messageNode.removeAllChildren(true);
@@ -175,50 +206,34 @@ var RecvInviteDialog = (function () {
                 this.setInfoWithoutSender(gameName, betting);
             }
         },
+
         setRoomInfo: function (serverInfo) {
             this.serverInfo = serverInfo;
         },
+
         setInfoWithSender: function (username, gameName, betting) {
             if (username.length > 3 && (username != PlayerMe.username)) {
                 username = username.substring(0, username.length - 3) + "***";
             }
-            var label1 = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Bạn nhận được lời mời chơi từ");
-            label1.setPosition(this.getContentSize().width / 2, 340);
-            this.messageNode.addChild(label1);
 
-            var label2 = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, username);
-            label2.setColor(cc.color("#017cee"));
-            label2.setPosition(this.getContentSize().width / 2, 305);
-            this.messageNode.addChild(label2);
+            var msgLabel = new ccui.RichText();
+            msgLabel.pushBackElement(new ccui.RichElementText(0, cc.color("#ffffff"), 255, username + " ", cc.res.font.Roboto_CondensedBold, 18));
+            msgLabel.pushBackElement(new ccui.RichElementText(0, cc.color("#ffffff"), 255, "Mời bạn vào chơi phòng ", cc.res.font.Roboto_Condensed, 18));
+            msgLabel.pushBackElement(new ccui.RichElementText(0, cc.color("#ffffff"), 255, gameName + " ", cc.res.font.Roboto_Condensed, 18));
+            msgLabel.pushBackElement(new ccui.RichElementText(0, cc.color("#ffde00"), 255, cc.Global.NumberFormat1(betting) + " V", cc.res.font.Roboto_Condensed, 18));
 
-            if (cc.sys.isNative) {
-                var label3 = new ccui.RichText();
-                var str = "Vào chơi phòng <font color='#ffde00'>" + gameName + "</font> <font color='#ffde00'>  " + cc.Global.NumberFormat1(betting) + " V</font>";
-                label3.initWithXML("<font face='" + cc.res.font.Roboto_Condensed + "' size='25'>" + str + "</font>", null);
-            }
-            else {
-                var label3 = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Vào chơi phòng " + gameName + " " + cc.Global.NumberFormat1(betting) + " V", cc.TEXT_ALIGNMENT_CENTER, 500);
-            }
-            label3.setAnchorPoint(cc.p(0.5, 1.0));
-            label3.setPosition(this.getContentSize().width / 2, 275);
-            this.messageNode.addChild(label3);
+            msgLabel.setPosition(this.getContentSize().width/2 , 248);
+            this.messageNode.addChild(msgLabel);
         },
-        setInfoWithoutSender: function (gameName, betting) {
-            var label1 = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Bạn nhận được lời mời chơi");
-            label1.setPosition(this.getContentSize().width / 2, 340);
-            this.messageNode.addChild(label1);
 
-            if (cc.sys.isNative) {
-                var label3 = new ccui.RichText();
-                var str = "Từ phòng <font color='#ffde00'>" + gameName + "</font> <font color='#ffde00'>" + cc.Global.NumberFormat1(betting) + " V</font>";
-                label3.initWithXML("<font face='" + cc.res.font.Roboto_Condensed + "' size='25'>" + str + "</font>", null);
-            }
-            else {
-                var label3 = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Từ phòng " + gameName + " " + cc.Global.NumberFormat1(betting) + " V", cc.TEXT_ALIGNMENT_CENTER, 500);
-            }
-            label3.setAnchorPoint(cc.p(0.5, 1.0));
-            label3.setPosition(this.getContentSize().width / 2, 310);
-            this.messageNode.addChild(label3);
+        setInfoWithoutSender: function (gameName, betting) {
+            var msgLabel = new ccui.RichText();
+            msgLabel.pushBackElement(new ccui.RichElementText(0, cc.color("#ffffff"), 255, "Bạn nhận được lời mời chơi ", cc.res.font.Roboto_Condensed, 18));
+            msgLabel.pushBackElement(new ccui.RichElementText(0, cc.color("#ffffff"), 255, gameName + " ", cc.res.font.Roboto_Condensed, 18));
+            msgLabel.pushBackElement(new ccui.RichElementText(0, cc.color("#ffde00"), 255, cc.Global.NumberFormat1(betting) + " V", cc.res.font.Roboto_Condensed, 18));
+
+            msgLabel.setPosition(this.getContentSize().width/2 , 248);
+            this.messageNode.addChild(msgLabel);
         },
         cancelButtonHandler: function () {
             this.hide();
@@ -228,7 +243,13 @@ var RecvInviteDialog = (function () {
             SmartfoxClient.getInstance().findAndJoinRoom(this.serverInfo, null, null, this.serverInfo.roomId);
             LoadingDialog.getInstance().show("Đang tìm phòng chơi");
             this.hide();
-        }
+        },
+        ignoreButtonHandler : function () {
+            if(this._ignoreHandler){
+                this._ignoreHandler();
+            }
+            this.hide();
+        },
     });
 
     RecvInviteClass.getInstance = function () {

@@ -2,6 +2,36 @@
  * Created by Quyet Nguyen on 7/11/2016.
  */
 
+var s_Dialog_Create_Button1 = function (size, title) {
+    var bt = new ccui.Button("dialog-button-1.png", "", "", ccui.Widget.PLIST_TEXTURE);
+    bt.setScale9Enabled(true);
+    bt.setCapInsets(cc.rect(10,10,4,4));
+    bt.setContentSize(size);
+    if(title){
+        var btTitle = new cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, title);
+        btTitle.setColor(cc.color("#682e2e"));
+        btTitle.setPosition(size.width/2, size.height/2);
+        bt.getRendererNormal().addChild(btTitle);
+        bt.buttonTitleLabel = btTitle;
+    }
+    return bt;
+};
+
+var s_Dialog_Create_Button2 = function (size, title) {
+    var bt = new ccui.Button("dialog-button-2.png", "", "", ccui.Widget.PLIST_TEXTURE);
+    bt.setScale9Enabled(true);
+    bt.setCapInsets(cc.rect(10,10,4,4));
+    bt.setContentSize(size);
+    if(title){
+        var btTitle = new cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, title);
+        btTitle.setColor(cc.color("#40485a"));
+        btTitle.setPosition(size.width/2, size.height/2);
+        bt.getRendererNormal().addChild(btTitle);
+        bt.buttonTitleLabel = btTitle;
+    }
+    return bt;
+};
+
 var IDialog = cc.Node.extend({
     ctor : function () {
         this._super();
@@ -169,33 +199,17 @@ var Dialog = IDialog.extend({
         var closeButton = new ccui.Button("dialog-button-close.png","","", ccui.Widget.PLIST_TEXTURE);
         this.addChild(closeButton);
 
-        var okButton = new ccui.Button("dialog-button-1.png","","", ccui.Widget.PLIST_TEXTURE);
-        okButton.setScale9Enabled(true);
-        okButton.setCapInsets(cc.rect(10,10,4,4));
-        okButton.setContentSize(182, 60);
+        var okButton = s_Dialog_Create_Button1(cc.size(182, 60), "OK");
         this.addChild(okButton);
 
-        var okTitle = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Ok");
-        okTitle.setColor(cc.color("#000000"));
-        okTitle.setPosition(okButton.getContentSize().width/2, okButton.getContentSize().height/2);
-        okButton.getRendererNormal().addChild(okTitle);
-
-        var cancelButton = new ccui.Button("dialog-button-2.png","","", ccui.Widget.PLIST_TEXTURE);
-        cancelButton.setScale9Enabled(true);
-        cancelButton.setCapInsets(cc.rect(10,10,4,4));
-        cancelButton.setContentSize(182, 60);
+        var cancelButton = s_Dialog_Create_Button2(cc.size(182, 60), "CANCEL");
         this.addChild(cancelButton);
-
-        var cancelTitle = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Cancel");
-        cancelTitle.setColor(cc.color("#000000"));
-        cancelTitle.setPosition(cancelButton.getContentSize().width/2, cancelButton.getContentSize().height/2);
-        cancelButton.getRendererNormal().addChild(cancelTitle);
 
         this.dialogBg = dialogBg;
         this.title = title;
         this.closeButton = closeButton;
-        this.okButton = okButton;
-        this.cancelButton = cancelButton;
+        this.okButton = okButton.buttonTitleLabel;
+        this.cancelButton = cancelButton.buttonTitleLabel;
         this.okTitle = okTitle;
         this.cancelTitle = cancelTitle;
 

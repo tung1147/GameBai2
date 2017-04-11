@@ -363,8 +363,11 @@ var HomeScene = IScene.extend({
     },
 
     settingButtonHandler: function () {
-        var dialog = new SettingDialog();
+        var dialog = new RecvInviteDialog();
         dialog.showWithAnimationMove();
+
+        // var dialog = new SettingDialog();
+        // dialog.showWithAnimationMove();
     },
 
     callButtonHandler: function () {

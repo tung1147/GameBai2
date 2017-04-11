@@ -157,6 +157,7 @@ var LoginDialog = cc.Node.extend({
         });
         resetPasswordBt.addClickEventListener(function () {
             var dialog = new ContactDialog();
+            dialog.setTitle("Quên mật khẩu");
             dialog.show();
             thiz.hide();
         });
