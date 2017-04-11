@@ -69,7 +69,7 @@ cc.game.onStart = function(){
   //  cc.view.setRealPixelResolution(1280,720,cc.ResolutionPolicy.SHOW_ALL);
     var frameSize = cc.view.getFrameSize();
     var designHeight = 720.0;
-    var designWidth = 960.0;//frameSize.width * designHeight / frameSize.height;
+    var designWidth = 1280.0;//frameSize.width * designHeight / frameSize.height;
     if (designWidth < 960.0) {
         designWidth = 960.0;
     }
