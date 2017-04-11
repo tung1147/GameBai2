@@ -50,8 +50,8 @@ var PaymentCardLayer = cc.Node.extend({
         okButton.setPosition(bg1.x, 192);
         okButton.setTitleText("Nạp vàng");
         okButton.setTitleFontName(cc.res.font.Roboto_Condensed);
+        okButton.setTitleColor(cc.color("#682e2e"));
         okButton.setTitleFontSize(25);
-        okButton.setTitleColor(cc.color(255, 255, 255));
         this.addChild(okButton);
 
         var thiz = this;
@@ -386,29 +386,34 @@ var PaymentHistoryLayer = cc.Node.extend({
         this.x4 = this.x3 + this.width3 / 2 + this.width4 / 2 + padding;
         this.x5 = this.x4 + this.width4 / 2 + this.width5 / 2 + padding;
 
-        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "THỜI GIAN");
-        timeLabel.setPosition(this.x1, 576);
-        timeLabel.setOpacity(0.2 * 255);
+        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Thời gian");
+        timeLabel.setColor(cc.color("#576eb0"));
+        timeLabel.setAnchorPoint(cc.p(0.0, 0.5));
+        timeLabel.setPosition(87, 576);
         this.addChild(timeLabel, 1);
 
-        var typeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "LOẠI");
-        typeLabel.setPosition(this.x2, 576);
-        typeLabel.setOpacity(0.2 * 255);
+        var typeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Loại");
+        typeLabel.setColor(cc.color("#576eb0"));
+        typeLabel.setAnchorPoint(cc.p(0.0, 0.5));
+        typeLabel.setPosition(292, 576);
         this.addChild(typeLabel, 1);
 
-        var infoLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "THÔNG TIN");
-        infoLabel.setPosition(this.x3, 576);
-        infoLabel.setOpacity(0.2 * 255);
+        var infoLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Thông tin");
+        infoLabel.setColor(cc.color("#576eb0"));
+        infoLabel.setAnchorPoint(cc.p(0.0, 0.5));
+        infoLabel.setPosition(491, 576);
         this.addChild(infoLabel, 1);
 
-        var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "VÀNG");
-        goldLabel.setPosition(this.x4, 576);
-        goldLabel.setOpacity(0.2 * 255);
+        var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Vàng");
+        goldLabel.setColor(cc.color("#576eb0"));
+        goldLabel.setAnchorPoint(cc.p(0.0, 0.5));
+        goldLabel.setPosition(837, 576);
         this.addChild(goldLabel, 1);
 
-        var priceLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "MỆNH GIÁ");
-        priceLabel.setPosition(this.x5, 576);
-        priceLabel.setOpacity(0.2 * 255);
+        var priceLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "VNĐ");
+        priceLabel.setColor(cc.color("#576eb0"));
+        priceLabel.setAnchorPoint(cc.p(0.0, 0.5));
+        priceLabel.setPosition(1020, 576);
         this.addChild(priceLabel, 1);
 
         var _top = 554.0;
@@ -452,13 +457,22 @@ var PaymentHistoryLayer = cc.Node.extend({
             }
         }
     },
+
+    _createBg : function (size) {
+        var itemBg = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
+        itemBg.setPreferredSize(size);
+        itemBg.setAnchorPoint(cc.p(0.0, 0.5));
+        return itemBg;
+    },
+
     addItem: function (time, type, info, gold, price) {
-        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, time, cc.TEXT_ALIGNMENT_CENTER, this.width1);
-        var typeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, type);
-        var infoLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, info);
-        var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, gold);
-        var priceLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Thành công");
-        var height = 80.0;
+        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, time, cc.TEXT_ALIGNMENT_CENTER, 200);
+        var typeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, type);
+        var infoLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, info);
+        var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, gold);
+        var priceLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Thành công");
+
+        var height = 63.0;
         if (timeLabel.getContentSize().height > height) {
             height = timeLabel.getContentSize().height;
         }
@@ -472,61 +486,47 @@ var PaymentHistoryLayer = cc.Node.extend({
         container.setContentSize(cc.size(this.itemList.getContentSize().width, height));
         this.itemList.pushItem(container);
 
-        var bg1 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
-        bg1.setPreferredSize(cc.size(this.width1, container.getContentSize().height));
-        bg1.setPosition(this.x1, container.getContentSize().height / 2);
+        var bg1 = this._createBg(cc.size(206, height));
+        bg1.setPosition(67, container.getContentSize().height / 2);
         container.addChild(bg1);
 
-        var bg2 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
-        bg2.setPreferredSize(cc.size(this.width2, container.getContentSize().height));
-        bg2.setPosition(this.x2, container.getContentSize().height / 2);
+        var bg2 = this._createBg(cc.size(198, height));
+        bg2.setPosition(275, bg1.y);
         container.addChild(bg2);
 
-        var bg3 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
-        bg3.setPreferredSize(cc.size(this.width3, container.getContentSize().height));
-        bg3.setPosition(this.x3, container.getContentSize().height / 2);
+        var bg3 = this._createBg(cc.size(348, height));
+        bg3.setPosition(476, bg1.y);
         container.addChild(bg3);
 
-        var bg4 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
-        bg4.setPreferredSize(cc.size(this.width4, container.getContentSize().height));
-        bg4.setPosition(this.x4, container.getContentSize().height / 2);
+        var bg4 = this._createBg(cc.size(182, height));
+        bg4.setPosition(826, bg1.y);
         container.addChild(bg4);
 
-        var bg5 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
-        bg5.setPreferredSize(cc.size(this.width5, container.getContentSize().height));
-        bg5.setPosition(this.x5, container.getContentSize().height / 2);
+        var bg5 = this._createBg(cc.size(202, height));
+        bg5.setPosition(1010, bg1.y);
         container.addChild(bg5);
 
-
-        timeLabel.setScale(20.0 / 25.0);
-        timeLabel.setPosition(bg1.getPosition());
+        timeLabel.setAnchorPoint(cc.p(0.0, 0.5));
+        timeLabel.setPosition(87, container.getContentSize().height/2);
         container.addChild(timeLabel);
 
-
-        typeLabel.setPosition(bg2.getPosition());
-        typeLabel.setScale(20.0 / 25.0);
+        typeLabel.setAnchorPoint(cc.p(0.0, 0.5));
+        typeLabel.setPosition(292, timeLabel.y);
         container.addChild(typeLabel);
 
-        infoLabel.setPosition(bg3.getPosition());
-        infoLabel.setScale(20.0 / 25.0);
+        infoLabel.setAnchorPoint(cc.p(0.0, 0.5));
+        infoLabel.setPosition(491, timeLabel.y);
         container.addChild(infoLabel);
 
-        goldLabel.setPosition(bg4.getPosition());
+        goldLabel.setAnchorPoint(cc.p(0.0, 0.5));
+        goldLabel.setPosition(837, timeLabel.y);
         goldLabel.setColor(cc.color("#ffde00"));
-        goldLabel.setScale(20.0 / 25.0);
         container.addChild(goldLabel);
 
-        // if (price == 0) {
-        //     priceLabel.setString("Thành công");
-        //     priceLabel.setColor(cc.color("#ffde00"));
-        // }
-        // else {
-        //     priceLabel.setString("Thất bại");
-        //     priceLabel.setColor(cc.color("#9e9e9e"));
-        // }
+        priceLabel.setAnchorPoint(cc.p(0.0, 0.5));
         priceLabel.setString(price);
-        priceLabel.setPosition(bg5.getPosition());
-        priceLabel.setScale(20.0 / 25.0);
+        priceLabel.setColor(cc.color("#ffde00"));
+        priceLabel.setPosition(1020, timeLabel.y);
         container.addChild(priceLabel);
     }
 });

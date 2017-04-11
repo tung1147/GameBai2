@@ -491,24 +491,24 @@ var RewardHistoryLayer = RewardSublayer.extend({
         this.x3 = this.x2 + this.width2 / 2 + this.width3 / 2 + padding;
         this.x4 = this.x3 + this.width3 / 2 + this.width4 / 2 + padding;
 
-        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "THỜI GIAN");
+        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "THỜI GIAN");
+        timeLabel.setColor(cc.color("#576eb0"));
         timeLabel.setPosition(this.x1, 576);
-        timeLabel.setOpacity(0.2 * 255);
         this.addChild(timeLabel, 1);
 
-        var typeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "LOẠI");
+        var typeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "LOẠI");
+        typeLabel.setColor(cc.color("#576eb0"));
         typeLabel.setPosition(this.x2, 576);
-        typeLabel.setOpacity(0.2 * 255);
         this.addChild(typeLabel, 1);
 
-        var infoLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "THÔNG TIN");
+        var infoLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "THÔNG TIN");
+        infoLabel.setColor(cc.color("#576eb0"));
         infoLabel.setPosition(this.x3, 576);
-        infoLabel.setOpacity(0.2 * 255);
         this.addChild(infoLabel, 1);
 
-        var statusLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "TRẠNG THÁI");
+        var statusLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "TRẠNG THÁI");
+        statusLabel.setColor(cc.color("#576eb0"));
         statusLabel.setPosition(this.x4, 576);
-        statusLabel.setOpacity(0.2 * 255);
         this.addChild(statusLabel, 1);
 
         var _top = 554.0;
@@ -551,11 +551,11 @@ var RewardHistoryLayer = RewardSublayer.extend({
     },
     addItem: function (time, type, info, status) {
         var d = new Date(time);
-        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, cc.Global.DateToString(d), cc.TEXT_ALIGNMENT_CENTER, this.width1);
-        var typeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, type);
-        var infoLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, info);
-        var statusLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Thành công");
-        var height = 80.0;
+        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, cc.Global.DateToString(d), cc.TEXT_ALIGNMENT_CENTER, this.width1);
+        var typeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, type);
+        var infoLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, info);
+        var statusLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Thành công");
+        var height = 60.0;
         if (timeLabel.getContentSize().height > height) {
             height = timeLabel.getContentSize().height;
         }
