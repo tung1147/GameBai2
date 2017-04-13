@@ -481,19 +481,35 @@ void TextField::insertText(const char * text, size_t len){
 		insert.erase(pos);
 	}
 
-	if (len > 0)
-	{	
-		if (_textChangeCallback && _textChangeCallback(TextChangeType::INSERT, insert)){
-			return;
-		}
+	if (len > 0){
+		std::string newText = "";
 
-		inputText.append(insert);
-		if (maxLength > 0){
-			int charCount = StringUtils::getCharacterCountInUTF8String(inputText);
-			if (charCount > maxLength){
-				inputText = _newui_subStringOfUTF8String(inputText, 0, maxLength);
+		if (_textChangeCallback){
+			std::string newText = inputText;
+			newText.append(insert);
+			if (maxLength > 0){
+				int charCount = StringUtils::getCharacterCountInUTF8String(newText);
+				if (charCount > maxLength){
+					newText = _newui_subStringOfUTF8String(newText, 0, maxLength);
+				}
+			}
+			if (_textChangeCallback(TextChangeType::INSERT, newText)){
+				return;
+			}		
+		}
+		if (newText != ""){
+			inputText = newText;
+		}
+		else{
+			inputText.append(insert);
+			if (maxLength > 0){
+				int charCount = StringUtils::getCharacterCountInUTF8String(inputText);
+				if (charCount > maxLength){
+					inputText = _newui_subStringOfUTF8String(inputText, 0, maxLength);
+				}
 			}
 		}
+		
 		this->updateText();
 	}
 
@@ -529,7 +545,7 @@ void TextField::deleteBackward(){
 		if (len > deleteLen){
 			newText = inputText.substr(0, len - deleteLen);
 		}
-		inputText = inputText.substr(0, len - deleteLen);
+		newText = inputText.substr(0, len - deleteLen);
 		if (_textChangeCallback(TextChangeType::DELETE, newText)){
 			// delegate doesn't want to delete backwards
 			return;
@@ -539,7 +555,6 @@ void TextField::deleteBackward(){
 	if (len <= deleteLen){
 		inputText = "";
 		this->updateText();
-
 		return;
 	}
 
