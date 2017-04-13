@@ -42,6 +42,8 @@ protected:
 	virtual void loadFromUrl();
 	virtual void loadResources();
 public:
+	bool _isCache;
+
 	Resources();
 	virtual ~Resources();
 	void setUrl(const std::string& url);
@@ -76,8 +78,8 @@ public:
 
 	const std::string& getCacheDir();
 
-	void loadResources(const std::string& url, int resType, const DownloadCallback &callback = nullptr);
-	void loadTexture(const std::string& url, std::function<void(cocos2d::Texture2D*)> callback);
+	void loadResources(const std::string& url, int resType, const DownloadCallback &callback = nullptr, bool isCache = true);
+	void loadTexture(const std::string& url, std::function<void(cocos2d::Texture2D*)> callback, bool isCache = true);
 
 	static ResourcesDownloader* getInstance();
 };

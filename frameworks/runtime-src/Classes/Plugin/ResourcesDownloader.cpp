@@ -18,6 +18,7 @@ Resources::Resources(){
 	_cacheFileName = "";
 	_isLoading = false;
 	_isSucess = false;
+	_isCache = true;
 }
 
 Resources::~Resources(){
@@ -71,9 +72,12 @@ void Resources::loadFromCache(){
 }
 
 size_t _Resources_Downloader_write_data_handler(void *ptr, size_t size, size_t nmemb, ResourcesDownload* writer) {
-	size_t written = fwrite(ptr, size, nmemb, writer->file);
-	writer->resources->addData((unsigned char*)ptr, size * nmemb);
-	return written;
+	if (writer->resources->_isCache){
+		size_t written = fwrite(ptr, size, nmemb, writer->file);
+		writer->resources->addData((unsigned char*)ptr, size * nmemb);
+		return written;
+	}
+	return (size * nmemb);	
 }
 
 void Resources::loadFromUrl(){
@@ -123,9 +127,15 @@ void Resources::loadFromUrl(){
 
 void Resources::loadResources(){
 	_isLoading = true;
-	if (FileUtils::getInstance()->isFileExist(_cacheFileName)){
-		std::thread loadThread(&Resources::loadFromCache, this);
-		loadThread.detach();
+	if (_isCache){
+		if (FileUtils::getInstance()->isFileExist(_cacheFileName)){
+			std::thread loadThread(&Resources::loadFromCache, this);
+			loadThread.detach();
+		}
+		else{
+			std::thread loadThread(&Resources::loadFromUrl, this);
+			loadThread.detach();
+		}
 	}
 	else{
 		std::thread loadThread(&Resources::loadFromUrl, this);
@@ -221,7 +231,7 @@ Resources* ResourcesDownloader::createResourcesWithType(int resType){
 	return new Resources();
 }
 
-void ResourcesDownloader::loadResources(const std::string& url, int resType, const DownloadCallback &callback){
+void ResourcesDownloader::loadResources(const std::string& url, int resType, const DownloadCallback &callback, bool isCache){
 	auto it = _resources.find(url);
 	if (it != _resources.end()){		
 		if (callback != nullptr){
@@ -230,17 +240,18 @@ void ResourcesDownloader::loadResources(const std::string& url, int resType, con
 	}
 	else{
 		auto res = this->createResourcesWithType(resType);
+		res->_isCache = isCache;
 		_resources.insert(std::make_pair(url, res));
 		res->setUrl(url);
 		res->load(callback);
 	}
 }
 
-void ResourcesDownloader::loadTexture(const std::string& url, std::function<void(cocos2d::Texture2D*)> _callback){
+void ResourcesDownloader::loadTexture(const std::string& url, std::function<void(cocos2d::Texture2D*)> _callback, bool isCache){
 	this->loadResources(url, ResourcesType::kResourcesTypeTexture, [=](Resources* res){
 		ResourcesTexture* resTex = (ResourcesTexture*)res;
 		_callback(resTex->texture);
-	});
+	}, isCache);
 }
 
 }
