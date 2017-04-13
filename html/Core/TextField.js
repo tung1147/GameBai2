@@ -370,35 +370,22 @@ newui.TextField = cc.Node.extend({
         // get the delete byte number
         var deleteLen = 1;    // default, erase 1 byte
         if (strLen <= deleteLen) {
-            this._inputText = "";
-            this.string = this._inputText;
-            this._updateText = true;
-            
-            if(this._textChangeListener){
-                this._textChangeListener();
-            }
-            return;
+            var newText = "";
         }
         else{
-            this._inputText = this._inputText.substring(0, strLen - deleteLen);
+            var newText = this._inputText.substring(0, strLen - deleteLen);
         }
+
+        if(this._textChangeListener && this._textChangeListener(newui.TextField.DELETE_TEXT, newText)){
+            return;
+        }
+
+        this._inputText = newText;
         this.string = this._inputText;
         this._updateText = true;
-
-        if(this._textChangeListener){
-            this._textChangeListener();
-        }
     },
 
     insertText:function (text, len) {
-        // if (text !== "\n"){
-        //     if (this._textMaxLength > 0){
-        //         if(this._inputText.length > this._textMaxLength){
-        //             return;
-        //         }
-        //     }
-        // }
-
         var sInsert = text;
         var pos = sInsert.indexOf('\n');
         if (pos > -1) {
@@ -406,15 +393,22 @@ newui.TextField = cc.Node.extend({
         }
 
         if (sInsert.length > 0) {
-            var sText = this._inputText + sInsert;
-            this._inputText = sText;
+            var newText = this._inputText + sInsert;
+            if(this._textMaxLength > 0){
+                if(newText.length > this._textMaxLength){
+                    newText = newText.substring(0, this._textMaxLength);
+                }
+            }
+
+            if(this._textChangeListener && this._textChangeListener(newui.TextField.INSERT_TEXT, newText)){
+                return;
+            }
+
+            this._inputText = newText;
             this.string = this._inputText;
             this._updateText = true;
         }
         if (pos === -1){
-            if(this._textChangeListener){
-                this._textChangeListener();
-            }
             return;
         }
 
@@ -447,3 +441,5 @@ newui.TextField = cc.Node.extend({
 
 newui.TextField.ALIGNMENT_CENTER = 0;
 newui.TextField.ALIGNMENT_LEFT = 1;
+newui.TextField.INSERT_TEXT = 1;
+newui.TextField.DELETE_TEXT = 2;
