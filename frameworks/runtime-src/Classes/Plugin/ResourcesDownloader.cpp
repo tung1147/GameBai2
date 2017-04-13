@@ -72,12 +72,12 @@ void Resources::loadFromCache(){
 }
 
 size_t _Resources_Downloader_write_data_handler(void *ptr, size_t size, size_t nmemb, ResourcesDownload* writer) {
-	if (writer->resources->_isCache){
-		size_t written = fwrite(ptr, size, nmemb, writer->file);
-		writer->resources->addData((unsigned char*)ptr, size * nmemb);
-		return written;
+	size_t ret = (size * nmemb);
+	if (writer->file){
+		ret = fwrite(ptr, size, nmemb, writer->file);
 	}
-	return (size * nmemb);	
+	writer->resources->addData((unsigned char*)ptr, size * nmemb);
+	return 	ret;
 }
 
 void Resources::loadFromUrl(){
@@ -87,33 +87,36 @@ void Resources::loadFromUrl(){
 	CURLcode res;
 	curl = curl_easy_init();
 	if (curl != NULL) {
-		FILE *fp;
-		fp = fopen(_cacheFileName.c_str(), "wb");
-		if (fp != NULL) {
-			ResourcesDownload writeData;
-			writeData.file = fp;
-			writeData.resources = this; 
+		FILE *fp = NULL;
+		if (this->_isCache){
+			fp = fopen(_cacheFileName.c_str(), "wb");
+		}
+		
+		ResourcesDownload writeData;
+		writeData.file = fp;
+		writeData.resources = this;
 
-			curl_easy_setopt(curl, CURLOPT_URL, _url.c_str());
-			curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, true);
-			curl_easy_setopt(curl, CURLOPT_AUTOREFERER, true);
-			curl_easy_setopt(curl, CURLOPT_MAXREDIRS, 10);
-			curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, 120);
-			curl_easy_setopt(curl, CURLOPT_TIMEOUT, 120);
-			curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, true);
-			curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, _Resources_Downloader_write_data_handler);
-			curl_easy_setopt(curl, CURLOPT_WRITEDATA, &writeData);
-			res = curl_easy_perform(curl);
-			curl_easy_cleanup(curl);
+		curl_easy_setopt(curl, CURLOPT_URL, _url.c_str());
+		curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, true);
+		curl_easy_setopt(curl, CURLOPT_AUTOREFERER, true);
+		curl_easy_setopt(curl, CURLOPT_MAXREDIRS, 10);
+		curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, 120);
+		curl_easy_setopt(curl, CURLOPT_TIMEOUT, 120);
+		curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, true);
+		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, _Resources_Downloader_write_data_handler);
+		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &writeData);
+		res = curl_easy_perform(curl);
+		curl_easy_cleanup(curl);
 
+		if (fp){
 			fclose(fp);
-			if (res != CURLE_OK) {
-				_buffer.clear();			
-			}
+		}	
+		if (res != CURLE_OK) {
+			_buffer.clear();
+		}
 
-			if (_buffer.size() == 0){
-				remove(_cacheFileName.c_str());
-			}
+		if (_buffer.size() == 0){
+			remove(_cacheFileName.c_str());
 		}
 	}
 
