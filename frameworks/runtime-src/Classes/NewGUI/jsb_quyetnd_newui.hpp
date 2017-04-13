@@ -94,6 +94,7 @@ extern JSObject *jsb_quyetnd_ListViewWithAdaptor_prototype;
 bool js_quyetnd_newui_ListViewWithAdaptor_constructor(JSContext *cx, uint32_t argc, jsval *vp);
 void js_quyetnd_newui_ListViewWithAdaptor_finalize(JSContext *cx, JSObject *obj);
 void js_register_quyetnd_newui_ListViewWithAdaptor(JSContext *cx, JS::HandleObject global);
+bool js_quyetnd_newui_ListViewWithAdaptor_initWithSize(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_quyetnd_newui_ListViewWithAdaptor_setItemAdaptor(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_quyetnd_newui_ListViewWithAdaptor_refreshView(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_quyetnd_newui_ListViewWithAdaptor_setMargin(JSContext *cx, uint32_t argc, jsval *vp);

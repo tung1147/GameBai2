@@ -34,11 +34,13 @@ protected:
 	virtual void forceRefreshView();
 	virtual int getItemSize();
 
-	virtual void initWithSize(const cocos2d::Size& size);
+	
 	virtual void initItem();
 public:
 	ListViewWithAdaptor();
 	virtual ~ListViewWithAdaptor();
+
+	virtual void initWithSize(const cocos2d::Size& size);
 
 	virtual void visit(Renderer *renderer, const Mat4 &parentTransform, uint32_t parentFlags);
 
@@ -48,7 +50,7 @@ public:
 	virtual void setItemAdaptor(const std::function<void(int, Node*)>& adaptor);
 
 	virtual void setPadding(float padding);
-	virtual void setMargin(float left, float right, float top, float bottom);
+	virtual void setMargin(float top, float bot, float left, float right);
 
 	virtual void refreshView();
 

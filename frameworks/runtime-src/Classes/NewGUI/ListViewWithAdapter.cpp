@@ -86,10 +86,10 @@ void ListViewWithAdaptor::setPadding(float padding){
 	_padding = padding;
 }
 
-void ListViewWithAdaptor::setMargin(float left, float right, float top, float bottom){
+void ListViewWithAdaptor::setMargin(float top, float bot, float left, float right){
 	_marginLeft = left;
 	_marginRight = right;
-	_marginBottom = bottom;
+	_marginBottom = bot;
 	_marginTop = top;
 }
 
