@@ -18,6 +18,7 @@ Resources::Resources(){
 	_cacheFileName = "";
 	_isLoading = false;
 	_isSucess = false;
+	_isCache = true;
 }
 
 Resources::~Resources(){
@@ -71,9 +72,12 @@ void Resources::loadFromCache(){
 }
 
 size_t _Resources_Downloader_write_data_handler(void *ptr, size_t size, size_t nmemb, ResourcesDownload* writer) {
-	size_t written = fwrite(ptr, size, nmemb, writer->file);
+	size_t ret = (size * nmemb);
+	if (writer->file){
+		ret = fwrite(ptr, size, nmemb, writer->file);
+	}
 	writer->resources->addData((unsigned char*)ptr, size * nmemb);
-	return written;
+	return 	ret;
 }
 
 void Resources::loadFromUrl(){
@@ -83,33 +87,36 @@ void Resources::loadFromUrl(){
 	CURLcode res;
 	curl = curl_easy_init();
 	if (curl != NULL) {
-		FILE *fp;
-		fp = fopen(_cacheFileName.c_str(), "wb");
-		if (fp != NULL) {
-			ResourcesDownload writeData;
-			writeData.file = fp;
-			writeData.resources = this; 
+		FILE *fp = NULL;
+		if (this->_isCache){
+			fp = fopen(_cacheFileName.c_str(), "wb");
+		}
+		
+		ResourcesDownload writeData;
+		writeData.file = fp;
+		writeData.resources = this;
 
-			curl_easy_setopt(curl, CURLOPT_URL, _url.c_str());
-			curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, true);
-			curl_easy_setopt(curl, CURLOPT_AUTOREFERER, true);
-			curl_easy_setopt(curl, CURLOPT_MAXREDIRS, 10);
-			curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, 120);
-			curl_easy_setopt(curl, CURLOPT_TIMEOUT, 120);
-			curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, true);
-			curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, _Resources_Downloader_write_data_handler);
-			curl_easy_setopt(curl, CURLOPT_WRITEDATA, &writeData);
-			res = curl_easy_perform(curl);
-			curl_easy_cleanup(curl);
+		curl_easy_setopt(curl, CURLOPT_URL, _url.c_str());
+		curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, true);
+		curl_easy_setopt(curl, CURLOPT_AUTOREFERER, true);
+		curl_easy_setopt(curl, CURLOPT_MAXREDIRS, 10);
+		curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, 120);
+		curl_easy_setopt(curl, CURLOPT_TIMEOUT, 120);
+		curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, true);
+		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, _Resources_Downloader_write_data_handler);
+		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &writeData);
+		res = curl_easy_perform(curl);
+		curl_easy_cleanup(curl);
 
+		if (fp){
 			fclose(fp);
-			if (res != CURLE_OK) {
-				_buffer.clear();			
-			}
+		}	
+		if (res != CURLE_OK) {
+			_buffer.clear();
+		}
 
-			if (_buffer.size() == 0){
-				remove(_cacheFileName.c_str());
-			}
+		if (_buffer.size() == 0){
+			remove(_cacheFileName.c_str());
 		}
 	}
 
@@ -123,9 +130,15 @@ void Resources::loadFromUrl(){
 
 void Resources::loadResources(){
 	_isLoading = true;
-	if (FileUtils::getInstance()->isFileExist(_cacheFileName)){
-		std::thread loadThread(&Resources::loadFromCache, this);
-		loadThread.detach();
+	if (_isCache){
+		if (FileUtils::getInstance()->isFileExist(_cacheFileName)){
+			std::thread loadThread(&Resources::loadFromCache, this);
+			loadThread.detach();
+		}
+		else{
+			std::thread loadThread(&Resources::loadFromUrl, this);
+			loadThread.detach();
+		}
 	}
 	else{
 		std::thread loadThread(&Resources::loadFromUrl, this);
@@ -221,7 +234,7 @@ Resources* ResourcesDownloader::createResourcesWithType(int resType){
 	return new Resources();
 }
 
-void ResourcesDownloader::loadResources(const std::string& url, int resType, const DownloadCallback &callback){
+void ResourcesDownloader::loadResources(const std::string& url, int resType, const DownloadCallback &callback, bool isCache){
 	auto it = _resources.find(url);
 	if (it != _resources.end()){		
 		if (callback != nullptr){
@@ -230,17 +243,18 @@ void ResourcesDownloader::loadResources(const std::string& url, int resType, con
 	}
 	else{
 		auto res = this->createResourcesWithType(resType);
+		res->_isCache = isCache;
 		_resources.insert(std::make_pair(url, res));
 		res->setUrl(url);
 		res->load(callback);
 	}
 }
 
-void ResourcesDownloader::loadTexture(const std::string& url, std::function<void(cocos2d::Texture2D*)> _callback){
+void ResourcesDownloader::loadTexture(const std::string& url, std::function<void(cocos2d::Texture2D*)> _callback, bool isCache){
 	this->loadResources(url, ResourcesType::kResourcesTypeTexture, [=](Resources* res){
 		ResourcesTexture* resTex = (ResourcesTexture*)res;
 		_callback(resTex->texture);
-	});
+	}, isCache);
 }
 
 }
