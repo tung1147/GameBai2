@@ -23,7 +23,7 @@ TextField::TextField(){
 	_cursorSprite = 0;
 	maxLength = 0;
 
-	_callback = nullptr;
+	_returnCallback = nullptr;
 	_focusCallback = nullptr;
 	_textChangeCallback = nullptr;
 
@@ -345,10 +345,6 @@ void TextField::setText(const std::string& text){
 	}
 	_textLabel->setString(inputText);
 	this->updateText();
-
-	if (_textChangeCallback){
-		_textChangeCallback();
-	}
 }
 
 const std::string& TextField::getText(){
@@ -456,39 +452,71 @@ void TextField::didDetachWithIME(){
 	}
 }
 
+//static std::size_t _calcCharCount(const char * text)
+//{
+//	int n = 0;
+//	char ch = 0;
+//	while ((ch = *text))
+//	{
+//		CC_BREAK_IF(!ch);
+//
+//		if (0x80 != (0xC0 & ch))
+//		{
+//			++n;
+//		}
+//		++text;
+//	}
+//	return n;
+//}
+
 void TextField::insertText(const char * text, size_t len){
 	//log("insertText : %s -- %d", text, len);
-
 	std::string insert(text, len);
 
 	// insert \n means input end
-	int pos = static_cast<int>(insert.find('\n'));
+	int pos = static_cast<int>(insert.find((char)TextFormatter::NewLine));
 	if ((int)insert.npos != pos)
 	{
 		len = pos;
 		insert.erase(pos);
 	}
 
-	if (len > 0)
-	{
-		inputText.append(insert);
-		if (maxLength > 0){
-			int charCount = StringUtils::getCharacterCountInUTF8String(inputText);
-			if (charCount > maxLength){
-				inputText = _newui_subStringOfUTF8String(inputText, 0, maxLength);
+	if (len > 0){
+		std::string newText = "";
+
+		if (_textChangeCallback){
+			std::string newText = inputText;
+			newText.append(insert);
+			if (maxLength > 0){
+				int charCount = StringUtils::getCharacterCountInUTF8String(newText);
+				if (charCount > maxLength){
+					newText = _newui_subStringOfUTF8String(newText, 0, maxLength);
+				}
+			}
+			if (_textChangeCallback(TextChangeType::INSERT, newText)){
+				return;
+			}		
+		}
+		if (newText != ""){
+			inputText = newText;
+		}
+		else{
+			inputText.append(insert);
+			if (maxLength > 0){
+				int charCount = StringUtils::getCharacterCountInUTF8String(inputText);
+				if (charCount > maxLength){
+					inputText = _newui_subStringOfUTF8String(inputText, 0, maxLength);
+				}
 			}
 		}
+		
 		this->updateText();
 	}
 
 	if ((int)insert.npos == pos) {
-		if (_textChangeCallback){
-			_textChangeCallback();
-		}
-
 		return;
 	}
-	if (_callback && _callback(this)){
+	if (_returnCallback && _returnCallback(this)){
 		return;
 	}
 	// if callback hasn't processed, detach from IME by default
@@ -512,22 +540,26 @@ void TextField::deleteBackward(){
 		++deleteLen;
 	}
 
+	if (_textChangeCallback){
+		std::string newText = "";
+		if (len > deleteLen){
+			newText = inputText.substr(0, len - deleteLen);
+		}
+		newText = inputText.substr(0, len - deleteLen);
+		if (_textChangeCallback(TextChangeType::DELETE, newText)){
+			// delegate doesn't want to delete backwards
+			return;
+		}
+	}
+
 	if (len <= deleteLen){
 		inputText = "";
 		this->updateText();
-
-		if (_textChangeCallback){
-			_textChangeCallback();
-		}
 		return;
 	}
 
 	inputText = inputText.substr(0, len - deleteLen);
 	this->updateText();
-
-	if (_textChangeCallback){
-		_textChangeCallback();
-	}
 }
 
 const std::string& TextField::getContentText(){
@@ -609,14 +641,14 @@ bool TextField::detachWithIME(){
 }
 
 void TextField::setReturnCallback(const TextFieldReturnCallback& callback){
-	this->_callback = callback;
+	this->_returnCallback = callback;
 }
 
 void TextField::setFocusListener(std::function<void(bool)>& callback){
 	this->_focusCallback = callback;
 }
 
-void TextField::setTextChangeListener(std::function<void()>& callback){
+void TextField::setTextChangeListener(std::function<bool(int, const std::string&)>& callback){
 	this->_textChangeCallback = callback;
 }
 

@@ -19,6 +19,11 @@ enum TextFieldAlignment{
 	LEFT = 1
 };
 
+enum TextChangeType{
+	INSERT = 1,
+	DELETE = 2
+};
+
 class TextField;
 typedef std::function<bool(TextField*)> TextFieldReturnCallback;
 
@@ -31,9 +36,9 @@ class TextField : public Node, public IMEDelegate{
 	int _alignment;
 	int maxLength;
 
-	TextFieldReturnCallback _callback;
+	TextFieldReturnCallback _returnCallback;
 	std::function<void(bool)> _focusCallback;
-	std::function<void()> _textChangeCallback;
+	std::function<bool(int, const std::string&)> _textChangeCallback;
 protected:
 	Label* _textLabel;
 	Label* _placeHolderLabel;
@@ -88,7 +93,7 @@ public:
 
 	void setReturnCallback(const TextFieldReturnCallback& callback);
 	void setFocusListener(std::function<void(bool)>& callback);
-	void setTextChangeListener(std::function<void()>& callback);
+	void setTextChangeListener(std::function<bool(int, const std::string&)>& callback);
 
 	void setAlignment(int alignment);
 
