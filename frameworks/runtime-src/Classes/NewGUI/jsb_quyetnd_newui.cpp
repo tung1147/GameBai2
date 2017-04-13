@@ -1817,6 +1817,26 @@ static bool js_quyetnd_newui_ListViewWithAdaptor_ctor(JSContext *cx, uint32_t ar
 	return true;
 }
 
+bool js_quyetnd_newui_ListViewWithAdaptor_initWithSize(JSContext *cx, uint32_t argc, jsval *vp){
+	JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+	bool ok = true;
+	JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	quyetnd::ListViewWithAdaptor* cobj = (quyetnd::ListViewWithAdaptor *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2(cobj, cx, false, "js_quyetnd_newui_ListViewWithAdaptor_initWithSize : Invalid Native Object");
+	if (argc == 1) {
+		cocos2d::Size arg0;
+		ok &= jsval_to_ccsize(cx, args.get(0), &arg0);
+		JSB_PRECONDITION2(ok, cx, false, "js_quyetnd_newui_ListViewWithAdaptor_initWithSize : Error processing arguments");
+		cobj->initWithSize(arg0);
+		args.rval().setUndefined();
+		return true;
+	}
+
+	JS_ReportError(cx, "js_quyetnd_newui_ListViewWithAdaptor_initWithSize : wrong number of arguments: %d, was expecting %d", argc, 2);
+	return false;
+}
+
 
 extern JSObject *jsb_cocos2d_ui_ScrollView_prototype;
 
@@ -1844,6 +1864,7 @@ void js_register_quyetnd_newui_ListViewWithAdaptor(JSContext *cx, JS::HandleObje
 		JS_FN("setCreateItemCallback", js_quyetnd_newui_ListViewWithAdaptor_setCreateItemCallback, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("setSizeCallback", js_quyetnd_newui_ListViewWithAdaptor_setSizeCallback, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("setPadding", js_quyetnd_newui_ListViewWithAdaptor_setPadding, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("initWithSize", js_quyetnd_newui_ListViewWithAdaptor_initWithSize, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("ctor", js_quyetnd_newui_ListViewWithAdaptor_ctor, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};

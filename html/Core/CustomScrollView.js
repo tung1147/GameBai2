@@ -26,6 +26,14 @@ newui.CustomScrollView = ccui.ScrollView.extend({
 
     },
 
+    _beforeRender : function () {
+
+    },
+
+    _afterRender : function () {
+
+    },
+
     _initMouseScrollEvent : function () {
         var thiz = this;
         cc.eventManager.addListener({
@@ -178,10 +186,6 @@ newui.CustomScrollView = ccui.ScrollView.extend({
     },
 
     visit : function (parentCmd) {
-        // if (!this._visible){
-        //     return;
-        // }
-        // this.refreshView();
         if(!this._checkViewVisible()){
             return;
         }
@@ -219,6 +223,7 @@ newui.CustomScrollView = ccui.ScrollView.extend({
         var context = ctx || cc._renderContext;
         context.computeRealOffsetY();
 
+        this._node._beforeRender();
         this._node.updateChildren();
 
         for (i = 0, len = locCmds.length; i < len; i++) {
@@ -229,6 +234,7 @@ newui.CustomScrollView = ccui.ScrollView.extend({
                 continue;
             locCmds[i].rendering(context, scaleX, scaleY);
         }
+        this._node._afterRender();
     };
 })();
 
@@ -254,6 +260,7 @@ newui.CustomScrollView = ccui.ScrollView.extend({
             return;
         }
 
+        this._node._beforeRender();
         this._node.updateChildren();
 
         // Reset buffer for rendering
@@ -277,5 +284,6 @@ newui.CustomScrollView = ccui.ScrollView.extend({
             }
         }
         cc.renderer._batchRendering();
+        this._node._afterRender();
     };
 })();

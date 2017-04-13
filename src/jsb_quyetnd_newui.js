@@ -6,6 +6,11 @@ newui.TableView.prototype._ctor = function (size, row) {
     return true;
 };
 
+newui.ListViewWithAdaptor.prototype._ctor = function (size) {
+    this.initWithSize(size);
+    return true;
+};
+
 newui.EditBox.prototype._ctor = function () {
     if(arguments.length == 1){
         this.initWithSize(arguments[0]);
