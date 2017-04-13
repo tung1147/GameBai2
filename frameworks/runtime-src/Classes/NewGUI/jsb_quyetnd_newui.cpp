@@ -1020,19 +1020,32 @@ bool js_quyetnd_newui_TextField_setTextChangeListener(JSContext *cx, uint32_t ar
 	quyetnd::TextField* cobj = (quyetnd::TextField *)(proxy ? proxy->ptr : NULL);
 	JSB_PRECONDITION2(cobj, cx, false, "js_quyetnd_newui_TextField_setTextChangeListener : Invalid Native Object");
 	if (argc == 1) {
-		std::function<void()> arg0;
+		std::function<bool(int, const std::string&)> arg0;
 		do {
-			if (JS_TypeOfValue(cx, args.get(0)) == JSTYPE_FUNCTION)
-			{
+			if (JS_TypeOfValue(cx, args.get(0)) == JSTYPE_FUNCTION){
 				JS::RootedObject jstarget(cx, args.thisv().toObjectOrNull());
 				std::shared_ptr<JSFunctionWrapper> func(new JSFunctionWrapper(cx, jstarget, args.get(0), args.thisv()));
-				auto lambda = [=]() -> void {
+				auto lambda = [=](int type, const std::string& newString) -> bool {
 					JSB_AUTOCOMPARTMENT_WITH_GLOBAL_OBJCET
 					JS::RootedValue rval(cx);
-					bool succeed = func->invoke(0, NULL, &rval);
+
+					jsval largv[2];
+					largv[0] = int32_to_jsval(cx, type);
+					largv[1] = std_string_to_jsval(cx, newString);
+					bool succeed = func->invoke(2, &largv[0], &rval);
+
 					if (!succeed && JS_IsExceptionPending(cx)) {
 						JS_ReportPendingException(cx);
 					}
+					if (rval.isNullOrUndefined()){
+						return false;
+					}
+					else{
+						bool ret;
+						ret = JS::ToBoolean(rval);
+						return ret;
+					}
+					return false;
 				};
 				arg0 = lambda;
 			}

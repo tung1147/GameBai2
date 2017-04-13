@@ -47,6 +47,8 @@ newui.EditBox.InputFlag.INITIAL_CAPS_ALL_CHARACTERS = 4;
 
 newui.TextField.ALIGNMENT_CENTER = 0;
 newui.TextField.ALIGNMENT_LEFT = 1;
+newui.TextField.INSERT_TEXT = 1;
+newui.TextField.DELETE_TEXT = 2;
 
 newui.TextField.prototype._ctor = function () {
     if(arguments.length == 2){ //bm font
