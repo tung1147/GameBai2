@@ -1,6 +1,11 @@
 /**
  * Created by Quyet Nguyen on 7/27/2016.
  */
+PL_POSITION_TOP = 0;
+PL_POSITION_LEFT = 1;
+PL_POSITION_BOTTOM = 2;
+PL_POSITION_RIGHT = 3;
+
 var GamePlayer = cc.Node.extend({
     ctor: function () {
         this._super();
@@ -46,17 +51,26 @@ var GamePlayer = cc.Node.extend({
         inviteBt.setPosition(avt.getPosition());
         this.addChild(inviteBt);
 
-        var userLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_18, "Player", cc.TEXT_ALIGNMENT_CENTER);
+        var userLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_20, "PlayePlayePlaye", cc.TEXT_ALIGNMENT_CENTER);
         userLabel.setColor(cc.color("#63b0f1"));
         userLabel.setLineBreakWithoutSpace(true);
         userLabel.setDimensions(this.getContentSize().width, userLabel.getLineHeight());
         userLabel.setPosition(this.getContentSize().width / 2, 34);
         this.infoLayer.addChild(userLabel, 1);
 
-        var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "1.000V", cc.TEXT_ALIGNMENT_CENTER);
+        var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "1.000V", cc.TEXT_ALIGNMENT_CENTER);
         goldLabel.setColor(cc.color("#ffde00"));
         goldLabel.setPosition(this.getContentSize().width / 2, 14);
         this.infoLayer.addChild(goldLabel, 1);
+
+
+        var bgInfor = new ccui.Scale9Sprite("dialog-textinput-bg.png",cc.rect(10, 10, 4, 4));
+        bgInfor.setPreferredSize(cc.size(180, 60));
+        bgInfor.setVisible(false);
+        bgInfor.setPosition(avt.getPosition());
+        this.infoLayer.addChild(bgInfor);
+        this.bgInfor = bgInfor;
+
 
         this.userLabel = userLabel;
         this.goldLabel = goldLabel;
@@ -77,7 +91,46 @@ var GamePlayer = cc.Node.extend({
         });
         this.setEnable(true);
     },
-
+    setPositionInfo:function (postion) {
+        switch (postion){
+            case PK_POSITION_LEFT:
+            {
+                this.bgInfor.setPosition(this.avt.getPositionX() -140,this.avt.getPositionY());
+                this.userLabel.setAnchorPoint(1,0.5);
+                this.goldLabel.setAnchorPoint(1,0.5);
+                this.userLabel.setPosition(this.bgInfor.getPositionX()+80, this.bgInfor.getPositionY() + 10);
+                this.goldLabel.setPosition(this.bgInfor.getPositionX()+80, this.bgInfor.getPositionY() - 10);
+                break;
+            }
+            case PK_POSITION_RIGHT:
+            {
+                this.bgInfor.setPosition(this.avt.getPositionX() +140 ,this.avt.getPositionY());
+                this.userLabel.setAnchorPoint(0,0.5);
+                this.goldLabel.setAnchorPoint(0,0.5);
+                this.userLabel.setPosition(this.bgInfor.getPositionX()-80, this.bgInfor.getPositionY() + 10);
+                this.goldLabel.setPosition(this.bgInfor.getPositionX()-80, this.bgInfor.getPositionY() - 10);
+                break;
+            }
+            case PK_POSITION_TOP:
+            {
+                this.bgInfor.setPosition(this.avt.getPositionX(),this.avt.getPositionY()+70);
+                this.userLabel.setAnchorPoint(0.5,0.5);
+                this.goldLabel.setAnchorPoint(0.5,0.5);
+                this.userLabel.setPosition(this.bgInfor.getPositionX(), this.bgInfor.getPositionY() + 10);
+                this.goldLabel.setPosition(this.bgInfor.getPositionX(), this.bgInfor.getPositionY() - 10);
+                break;
+            }
+            case PK_POSITION_BOTTOM:
+            {
+                this.bgInfor.setPosition(this.avt.getPositionX() ,this.avt.getPositionY() - 65);
+                this.userLabel.setAnchorPoint(0.5,0.5);
+                this.goldLabel.setAnchorPoint(0.5,0.5);
+                this.userLabel.setPosition(this.bgInfor.getPositionX(), this.bgInfor.getPositionY() + 10);
+                this.goldLabel.setPosition(this.bgInfor.getPositionX(), this.bgInfor.getPositionY() - 10);
+                break;
+            }
+        };
+    },
     onInviteBtClick: function () {
         this.showInviteDialog();
     },
