@@ -1,144 +1,186 @@
-var HistoryPhien = IDialog.extend({
-    ctor: function (data) {
+var HistoryPhien = Dialog.extend({
+    ctor : function (data) {
         this._super();
+        cc.log(data);
+        this.sessionId = data["idVan"];
         var thiz = this;
-        var board_bg = new ccui.Scale9Sprite("board_bg.png", cc.rect(105, 105, 147, 147));
-        board_bg.setAnchorPoint(cc.p(0, 0));
-        this.addChild(board_bg);
-        this.board_bg = board_bg;
-        this.initWithSize(cc.size(1080, 720));
-        var title = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, "LỊCH SỬ PHIÊN " + data["idVan"]);
-        title.setPosition(this.getContentSize().width / 2, this.getContentSize().height - 138);
-        title.setColor(cc.color("#ffde00"));
-        this.addChild(title);
 
-        var lblDate = new cc.LabelTTF("1111",cc.res.font.Roboto_Condensed,20);
-        lblDate.setColor(cc.color(196, 225, 255,255));
-        lblDate.setPosition(this.getContentSize().width / 2,503 );
+        this.okButton.visible = false;
+        this.cancelButton.visible = false;
+        this.title.setString("Lịch sử phiên");
+        this.initWithSize(cc.size(1035, 597));
+
+        var lblDate = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "");
+        lblDate.setColor(cc.color("#c4e1ff"));
+        lblDate.setPosition(this.getContentSize().width / 2, 596 );
         this.addChild(lblDate);
 
-
-        var lblCua = new cc.LabelTTF("TAI",cc.res.font.Roboto_Condensed,20);
-        lblCua.setColor(cc.color(141, 232, 255,255));
-        lblCua.setPosition(this.getContentSize().width / 2,470 );
+        var typeStr = data["data"] === 1 ? "TÀI" : "XỈU";
+        var lblCua = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, typeStr + " " + data["number"]);
+        lblCua.setColor(cc.color("#77cbee"));
+        lblCua.setPosition(this.getContentSize().width / 2, 561 );
         this.addChild(lblCua);
 
         for(var i=0; i< 3; i++){
             var xucxac = new cc.Sprite("#taixiu_dice_1.png");
-            xucxac.setPosition(418 + 122 * i, 404);
+            xucxac.setPosition(418 + 122 * i, 498);
             thiz.addChild(xucxac);
         }
 
         var line_ngang = new ccui.Scale9Sprite("lobby_bg_white.png",cc.rect(12, 12, 4, 4));
-        line_ngang.setPreferredSize(cc.size(this.getContentSize().width - 200, 1));
-        line_ngang.setPosition(this.getContentSize().width/2,355);
+        line_ngang.setPreferredSize(cc.size(this.getContentSize().width - 200, 2));
+        line_ngang.setPosition(this.getContentSize().width/2,448);
         line_ngang.setOpacity(30);
         this.addChild(line_ngang);
 
         var line_ngang1 = new ccui.Scale9Sprite("lobby_bg_white.png",cc.rect(12, 12, 4, 4));
-        line_ngang1.setPreferredSize(cc.size(this.getContentSize().width - 200, 1));
-        line_ngang1.setPosition(this.getContentSize().width/2,302);
+        line_ngang1.setPreferredSize(cc.size(this.getContentSize().width - 200, 2));
+        line_ngang1.setPosition(this.getContentSize().width/2,395);
         line_ngang1.setOpacity(30);
         this.addChild(line_ngang1);
 
-
         var line_doc = new ccui.Scale9Sprite("lobby_bg_white.png",cc.rect(12, 12, 4, 4));
-        line_doc.setPreferredSize(cc.size(1, 270));
+        line_doc.setPreferredSize(cc.size(2, 348));
         line_doc.setAnchorPoint(0.5,0);
-        line_doc.setPosition(this.getContentSize().width/2,82);
+        line_doc.setPosition(this.getContentSize().width/2, 100);
         line_doc.setOpacity(30);
         this.addChild(line_doc);
 
-        var lblTai =  new cc.LabelTTF("TÀI", cc.res.font.Roboto_Condensed,30);
-        lblTai.setColor(cc.color(119, 203, 238,255));
-        lblTai.setPosition(this.getContentSize()/2 + 247,328);
+        var lblTai = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_30, "TÀI");
+        lblTai.setColor(cc.color("#77cbee"));
+        lblTai.setPosition(this.getContentSize().width/2 + 247, 420);
         this.addChild(lblTai);
 
-        var lblXiu =  new cc.LabelTTF("XỈU", cc.res.font.Roboto_Condensed,30);
-        lblXiu.setColor(cc.color(255, 222, 0,255));
-        lblXiu.setPosition(this.getContentSize()/2 - 247,328);
+        var lblXiu =  cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_30, "XỈU");
+        lblXiu.setColor(cc.color("#ffde00"));
+        lblXiu.setPosition(this.getContentSize().width/2 - 247, 420);
         this.addChild(lblXiu);
 
-        var arrTitle = ["Trả lại" ,"Cược",  "Người chơi","Thời gian"];
-        for(var i=0; i < 8; i++){
-            var lbl1 = new cc.LabelTTF(arrTitle[i%4], cc.res.font.Roboto_Condensed,23);
-            lbl1.setColor( cc.color(36, 67, 108,255));
-            if(i%4 == 1 || i%4 == 2)
-            {
-                lbl1.setPosition(this.getContentSize().width/2 + (4 - i)*110 - 40,284);
-            }
-            else{
-                lbl1.setPosition(this.getContentSize().width/2 + (4 - i)*110 -55,284);
-            }
-            thiz.addChild(lbl1);
-        }
+        this._createTai();
+        this._createXiu();
+    },
+
+    _createTai : function () {
+        var mSize = cc.size(492, 255);
+        var dx = 0.0;
+        var thiz = this;
+
         this.arrTai = [];
-        for(var i =0;i< 100;i++){
-            var item = {
-                time : "13212321",
-                namePlayer : "nguyenvan",
-                bet:1000,
-                return: 2000
-            };
-            this.arrTai.push(item);
-        }
 
-        var listTai = new newui.TableView(cc.size(line_ngang1.getContentSize().width/2, 150), 1);
-        listTai.setPadding(0);
-        listTai.setMargin(0,0,0,0);
-        listTai.addEventListener(function (selector,event) {
-            cc.log(event);
-        });
-        listTai.setDirection(ccui.ScrollView.DIR_VERTICAL);
-        listTai.setBounceEnabled(true);
-        listTai.setScrollBarEnabled(true);
+        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "Thời gian");
+        timeLabel.setColor(cc.color("#c4e1ff"));
+        timeLabel.setPosition(dx + 167, 375);
+        this.addChild(timeLabel);
 
-        this.listTai = listTai;
-        listTai.setPosition(this.getContentSize().width/2 - line_ngang1.getContentSize().width/2, this.getContentSize().height/2 - 165);
+        var nameLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "Người chơi");
+        nameLabel.setColor(cc.color("#c4e1ff"));
+        nameLabel.setPosition(dx + 293, timeLabel.y);
+        this.addChild(nameLabel);
+
+        var bettingLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "Cược");
+        bettingLabel.setColor(cc.color("#c4e1ff"));
+        bettingLabel.setPosition(dx + 415, timeLabel.y);
+        this.addChild(bettingLabel);
+
+        var returnLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "Trả lại");
+        returnLabel.setColor(cc.color("#c4e1ff"));
+        returnLabel.setPosition(dx + 543, timeLabel.y);
+        this.addChild(returnLabel);
+
+        var listTai = new newui.ListViewWithAdaptor(mSize);
+        listTai.setPosition(dx + 109, 98);
         this.addChild(listTai);
-        for(var i=0; i < 5;i++){
-            var bg_tiem = new  ccui.Widget();
-            bg_tiem.setContentSize(cc.size(line_ngang1.getContentSize().width/2,50));
-            var lbl = new cc.LabelTTF(i.toString(),cc.res.font.Roboto_Condensed,30);
-            lbl.setPosition(bg_tiem.getContentSize().width/2, bg_tiem.getContentSize().height/2);
-            bg_tiem.addChild(lbl);
-            listTai.pushItem(bg_tiem);
-         };
-         this.isReplace = false;
-        this.scheduleUpdate();
-
-        var buttom = new ccui.Button("taixiu_dice_1.png","","",ccui.Widget.PLIST_TEXTURE);
-        buttom.setPosition(this.getContentSize().width/2 - line_ngang1.getContentSize().width/2, this.getContentSize().height/2);
-        buttom.addClickEventListener(function () {
-            thiz.isReplace  = true;
+        listTai.setCreateItemCallback(function () {
+            return thiz._createCell();
         });
-        this.addChild(buttom);
-        this.indexOld = -100;
-    },
-    update:function (dt) {
-
-        var indexNew = Math.floor(this.listTai.getInnerContainerPosition().y/50) * 50;
-        if(this.indexOld != indexNew && this.isReplace && this.listTai.is)
-        {
-            cc.log(indexNew);
-
-            // this.isReplace = false;
-             var arr = this.listTai._allItems;
-            var item = this.listTai._allItems[0];
-            // delete this.listTai[ 0 ];
-            this.listTai._allItems.splice(0, 1);
-            this.listTai._allItems.push(item);
-            this.listTai.removeItem(item);
-            this.listTai.refreshView();
-            this.indexOld =  Math.floor(this.listTai.getInnerContainerPosition().y/50) * 50;
-            // item.removeFromParent(true);
-            // this.listTai.pushItem(item);
-
-        }
+        listTai.setSizeCallback(function () {
+            return thiz.arrTai.length;
+        });
+        listTai.setItemAdaptor(function (idx, view) {
+            thiz._setData(view, thiz.arrTai[idx]);
+        });
     },
 
-    initWithSize: function (mSize) {
-        this.board_bg.setPreferredSize(cc.size(mSize.width, mSize.height));
-        this.setContentSize(this.board_bg.getContentSize());
+    _createXiu : function () {
+        var mSize = cc.size(492, 255);
+        var dx = this.getContentSize().width/2 - 98;
+        var thiz = this;
+
+        this.arrXiu = [];
+
+        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "Thời gian");
+        timeLabel.setColor(cc.color("#c4e1ff"));
+        timeLabel.setPosition(dx + 167, 375);
+        this.addChild(timeLabel);
+
+        var nameLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "Người chơi");
+        nameLabel.setColor(cc.color("#c4e1ff"));
+        nameLabel.setPosition(dx + 293, timeLabel.y);
+        this.addChild(nameLabel);
+
+        var bettingLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "Cược");
+        bettingLabel.setColor(cc.color("#c4e1ff"));
+        bettingLabel.setPosition(dx + 415, timeLabel.y);
+        this.addChild(bettingLabel);
+
+        var returnLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "Trả lại");
+        returnLabel.setColor(cc.color("#c4e1ff"));
+        returnLabel.setPosition(dx + 543, timeLabel.y);
+        this.addChild(returnLabel);
+
+        var listXiu = new newui.ListViewWithAdaptor(mSize);
+        listXiu.setPosition(dx + 109, 98);
+        this.addChild(listXiu);
+        listXiu.setCreateItemCallback(function () {
+            return thiz._createCell();
+        });
+        listXiu.setSizeCallback(function () {
+            return thiz.arrXiu.length;
+        });
+        listXiu.setItemAdaptor(function (idx, view) {
+            thiz._setData(view, thiz.arrXiu[idx]);
+        });
     },
+
+    _createCell : function () {
+        var container = new ccui.Widget();
+        container.setContentSize(cc.size(484, 60));
+
+        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "time");
+        timeLabel.setPosition(54, 30);
+        container.addChild(timeLabel);
+
+        var nameLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "time");
+        nameLabel.setPosition(180, timeLabel.y);
+        container.addChild(nameLabel);
+
+        var bettingLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "time");
+        bettingLabel.setPosition(302, timeLabel.y);
+        container.addChild(bettingLabel);
+
+        var returnLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "time");
+        returnLabel.setPosition(430, timeLabel.y);
+        container.addChild(returnLabel);
+
+        return container;
+    },
+    
+    _setData : function (view, data) {
+        
+    },
+
+    _recvData : function (cmd, data) {
+        cc.log(data);
+    },
+
+    onEnter : function () {
+        this._super();
+        SmartfoxClient.getInstance().addExtensionListener("707", this._recvData, this);
+        SmartfoxClient.getInstance().sendExtensionRequest(-1, "707", {1 : this.sessionId});
+    },
+
+    onExit : function () {
+        this._super();
+        SmartfoxClient.getInstance().removeListener(this);
+    }
 });

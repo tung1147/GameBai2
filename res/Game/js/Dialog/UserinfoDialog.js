@@ -538,8 +538,8 @@ var UserinfoDialog = Dialog.extend({
             SceneNavigator.toHome();
         });
 
-        var touchSize = cc.size(this.getContentSize().width - 200.0, this.getContentSize().height - 200.0);
-        this.mTouch = cc.rect(cc.winSize.width/2 - touchSize.width/2, cc.winSize.height/2- touchSize.height/2, touchSize.width, touchSize.height);
+        // var touchSize = cc.size(this.getContentSize().width - 200.0, this.getContentSize().height - 200.0);
+        // this.mTouch = cc.rect(cc.winSize.width/2 - touchSize.width/2, cc.winSize.height/2- touchSize.height/2, touchSize.width, touchSize.height);
 
         this.initAllLayer();
         this.refreshView();
