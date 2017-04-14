@@ -45,7 +45,9 @@ var RewardAgencyDialog = Dialog.extend({
         goldText.setPosition(bg2.getPosition());
         goldText.setMaxLength(16);
         goldText.setTextChangeListener(function () {
-            thiz._updateFeeLabel();
+            setTimeout(function () {
+                thiz._updateFeeLabel();
+            }, 0);
         });
         this.goldText = goldText;
         this.addChild(goldText);

@@ -7,13 +7,14 @@ var HistoryPhien = Dialog.extend({
 
         this.okButton.visible = false;
         this.cancelButton.visible = false;
-        this.title.setString("Lịch sử phiên");
+        this.title.setString("Lịch sử phiên " + this.sessionId);
         this.initWithSize(cc.size(1035, 597));
 
         var lblDate = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "");
         lblDate.setColor(cc.color("#c4e1ff"));
         lblDate.setPosition(this.getContentSize().width / 2, 596 );
         this.addChild(lblDate);
+        this.lblDate = lblDate;
 
         var typeStr = data["data"] === 1 ? "TÀI" : "XỈU";
         var lblCua = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, typeStr + " " + data["number"]);
@@ -21,11 +22,15 @@ var HistoryPhien = Dialog.extend({
         lblCua.setPosition(this.getContentSize().width / 2, 561 );
         this.addChild(lblCua);
 
-        for(var i=0; i< 3; i++){
+        var dice = [];
+        for(var i=-1; i< 2; i++){
             var xucxac = new cc.Sprite("#taixiu_dice_1.png");
-            xucxac.setPosition(418 + 122 * i, 498);
+            xucxac.setPosition(this.getContentSize().width/2 + 120 * i, 498);
             thiz.addChild(xucxac);
+            dice.push(xucxac);
+            xucxac.setVisible(false);
         }
+        this.dice = dice;
 
         var line_ngang = new ccui.Scale9Sprite("lobby_bg_white.png",cc.rect(12, 12, 4, 4));
         line_ngang.setPreferredSize(cc.size(this.getContentSize().width - 200, 2));
@@ -99,6 +104,7 @@ var HistoryPhien = Dialog.extend({
         listTai.setItemAdaptor(function (idx, view) {
             thiz._setData(view, thiz.arrTai[idx]);
         });
+        this.listTai = listTai;
     },
 
     _createXiu : function () {
@@ -140,13 +146,14 @@ var HistoryPhien = Dialog.extend({
         listXiu.setItemAdaptor(function (idx, view) {
             thiz._setData(view, thiz.arrXiu[idx]);
         });
+        this.listXiu = listXiu;
     },
 
     _createCell : function () {
         var container = new ccui.Widget();
         container.setContentSize(cc.size(484, 60));
 
-        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "time");
+        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "time", cc.TEXT_ALIGNMENT_CENTER, 100);
         timeLabel.setPosition(54, 30);
         container.addChild(timeLabel);
 
@@ -162,15 +169,54 @@ var HistoryPhien = Dialog.extend({
         returnLabel.setPosition(430, timeLabel.y);
         container.addChild(returnLabel);
 
+        container.timeLabel = timeLabel;
+        container.nameLabel = nameLabel;
+        container.bettingLabel = bettingLabel;
+        container.returnLabel = returnLabel;
+
         return container;
     },
     
     _setData : function (view, data) {
-        
+        view.timeLabel.setString(data["time"]);
+        view.nameLabel.setString(data["name"]);
+        view.bettingLabel.setString(data["betting"]);
+        view.returnLabel.setString(data["retValue"]);
     },
 
     _recvData : function (cmd, data) {
         cc.log(data);
+        this.lblDate.setString(data["p"]["1"]["3"]["5"]);
+
+        var dice = data["p"]["1"]["3"]["4"];
+        for(var i=0;i<dice.length;i++){
+            this.dice[i].setVisible(true);
+            this.dice[i].setSpriteFrame("taixiu_dice_" + dice[i] + ".png");
+        }
+
+        var items = data["p"]["1"]["2"];
+        for(var i=0;i<items.length;i++){
+            var name = items[i]["1"];
+            var type = items[i]["2"]["2"];
+            var betting = parseInt(items[i]["2"]["5"]);
+            var retValue = parseInt(items[i]["2"]["6"]);
+            var time = items[i]["2"]["7"];
+            var obj = {
+                time : cc.Global.DateToString(new Date(time)),
+                name : name,
+                betting : cc.Global.NumberFormat1(betting),
+                retValue : cc.Global.NumberFormat1(retValue)
+            };
+            if(type === 1){
+                this.arrTai.push(obj);
+            }
+            else{
+                this.arrXiu.push(obj);
+            }
+        }
+
+        this.listTai.refreshView();
+        this.listXiu.refreshView();
     },
 
     onEnter : function () {

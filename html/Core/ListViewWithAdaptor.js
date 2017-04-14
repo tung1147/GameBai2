@@ -45,6 +45,7 @@ newui.ListViewWithAdaptor = newui.CustomScrollView.extend({
 
     refreshView : function () {
         this._lastIndex = -1;
+        this._initItem();
 
         var n = this.getItemSize();
         var containerHeight = (n - 1) * this._padding + n * this._itemSize.height + this._marginTop + this._marginBottom;
