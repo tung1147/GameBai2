@@ -224,9 +224,9 @@ var TransferGoldDialog = Dialog.extend({
 
         }
 
-        var sendFee = Math.floor(gold * sendFeeRate);
+        var sendFee = Math.round(gold * sendFeeRate);
         var currentGold = PlayerMe.gold - gold - sendFee;
-        gold -= Math.floor(gold * recvFeeRate);
+        gold -= Math.round(gold * recvFeeRate);
 
         if(currentGold < 0){
             this.goldCorrectIcon.setSpriteFrame("dialog_incorrect.png");

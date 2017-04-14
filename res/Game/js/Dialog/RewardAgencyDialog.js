@@ -104,7 +104,7 @@ var RewardAgencyDialog = Dialog.extend({
         if(!cc.Global.IsNumber(goldStr)){
             return;
         }
-        var goldFee = Math.floor(parseInt(goldStr) * PlayerMe.transferGoldMerchantFee);
+        var goldFee = Math.round(parseInt(goldStr) * PlayerMe.transferGoldMerchantFee);
         if(goldFee <= 0){
             return;
         }
