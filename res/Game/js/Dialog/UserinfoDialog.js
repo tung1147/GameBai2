@@ -244,21 +244,22 @@ var VerifyPhoneLayer = cc.Node.extend({
         this.addChild(phoneLabel);
         this.phoneLabel = phoneLabel;
 
-        var okButton = new ccui.Button("dialog-button-1.png","","", ccui.Widget.PLIST_TEXTURE);
-        okButton.setScale9Enabled(true);
-        okButton.setZoomScale(0.03);
-        okButton.setCapInsets(cc.rect(10,10,4,4));
-        okButton.setContentSize(384, 60);
-        okButton.setPosition(label1.x, 280);
-        this.addChild(okButton);
-        this.okButton = okButton;
-
-        var okTitle = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Đổi số điện thoại");
-        okTitle.setPosition(okButton.getContentSize().width/2, okButton.getContentSize().height/2);
-        okButton.getRendererNormal().addChild(okTitle);
+        // var okButton = new ccui.Button("dialog-button-1.png","","", ccui.Widget.PLIST_TEXTURE);
+        // okButton.setScale9Enabled(true);
+        // okButton.setZoomScale(0.03);
+        // okButton.setCapInsets(cc.rect(10,10,4,4));
+        // okButton.setContentSize(384, 60);
+        // okButton.setPosition(label1.x, 280);
+        // this.addChild(okButton);
+        // this.okButton = okButton;
+        //
+        // var okTitle = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Đổi số điện thoại");
+        // okTitle.setPosition(okButton.getContentSize().width/2, okButton.getContentSize().height/2);
+        // okButton.getRendererNormal().addChild(okTitle);
     },
     refreshView : function () {
-        this.phoneLabel.setString(PlayerMe.phoneNumber);
+        var phone = PlayerMe.phoneNumber.substring(0, PlayerMe.phoneNumber.length - 3) + "***";
+        this.phoneLabel.setString(phone);
     },
     setVisible : function (visible) {
         this._super(visible);

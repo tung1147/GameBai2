@@ -40,7 +40,7 @@ var TransferGoldDialog = Dialog.extend({
         goldTransfer.setPlaceHolderColor(cc.color("#787878"));
         goldTransfer.setTextColor(cc.color("#fede01"));
         goldTransfer.setPosition(bg2.getPosition());
-        goldTransfer.setMaxLength(15);
+       // goldTransfer.setMaxLength(15);
         this.addChild(goldTransfer, 1);
         this.goldTransfer = goldTransfer;
 
@@ -171,6 +171,24 @@ var TransferGoldDialog = Dialog.extend({
                 thiz._updateGold();
             }
         });
+
+        goldTransfer.setTextChangeListener(function (type, newString) {
+            if(newString === ""){
+                goldTransfer.setText(newString);
+            }
+            else{
+                var str = newString.replace(/[.,]/g,'');
+                if(cc.Global.IsNumber(str)){
+                    var goldInput = parseInt(str);
+                    if(goldInput > PlayerMe.gold) {
+                        goldInput = PlayerMe.gold;
+                    }
+                    goldTransfer.setText(cc.Global.NumberFormat1(goldInput));
+                }
+            }
+            thiz._updateGold();
+            return true;
+        });
     },
 
     onCheckUsername : function (cmd, data) {
@@ -200,6 +218,7 @@ var TransferGoldDialog = Dialog.extend({
 
     _updateGold : function () {
         var goldStr = this.goldTransfer.getText();
+
         if(this.mToggle.itemClicked.feeType === 1){
             var sendFeeRate = PlayerMe.transferGoldFee;
             var recvFeeRate = 0;
@@ -217,8 +236,9 @@ var TransferGoldDialog = Dialog.extend({
         }
         else{
             this.goldCorrectIcon.visible = true;
-            if(cc.Global.IsNumber(goldStr)){
-                var gold = parseInt(goldStr);
+            var goldInput = cc.Global.NumberFromString(goldStr);
+            if(!gold){
+                gold = goldInput;
                 this.goldCorrectIcon.setSpriteFrame("dialog_correct.png");
             }
 
@@ -228,9 +248,15 @@ var TransferGoldDialog = Dialog.extend({
         var currentGold = PlayerMe.gold - gold - sendFee;
         gold -= Math.round(gold * recvFeeRate);
 
-        if(currentGold < 0){
-            this.goldCorrectIcon.setSpriteFrame("dialog_incorrect.png");
+        if(currentGold < PlayerMe.transferGoldMinAsset){
             gold = 0;
+        }
+        else if(gold < PlayerMe.transferGoldMinValue){
+            gold = 0;
+        }
+
+        if(gold === 0){
+            this.goldCorrectIcon.setSpriteFrame("dialog_incorrect.png");
             currentGold = PlayerMe.gold;
         }
 

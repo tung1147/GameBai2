@@ -988,7 +988,7 @@ var MauBinh = IGameScene.extend({
                 thiz.performAssetChange(thiz.resultEntries[i].moneyChange,null,thiz.resultEntries[i].username);
             }
 
-            dialog.showWithAnimationMove();
+            dialog.show();
 
             thiz.resultEntries = [];
         }, delay);

@@ -43,11 +43,19 @@ var RewardAgencyDialog = Dialog.extend({
         goldText.setTextColor(cc.color("#c4e1ff"));
         goldText.setPlaceHolderColor(cc.color("#909090"));
         goldText.setPosition(bg2.getPosition());
-        goldText.setMaxLength(16);
-        goldText.setTextChangeListener(function () {
-            setTimeout(function () {
-                thiz._updateFeeLabel();
-            }, 0);
+      //  goldText.setMaxLength(16);
+        goldText.setTextChangeListener(function (type, newString) {
+            if(newString === ""){
+                goldText.setText(newString);
+            }
+            else{
+                var str = newString.replace(/[.,]/g,'');
+                if(cc.Global.IsNumber(str)){
+                    goldText.setText(cc.Global.NumberFormat1(parseInt(str)));
+                }
+            }
+            thiz._updateFeeLabel();
+            return true;
         });
         this.goldText = goldText;
         this.addChild(goldText);
@@ -97,14 +105,12 @@ var RewardAgencyDialog = Dialog.extend({
 
     _updateFeeLabel : function () {
         this.feeLabel.visible = false;
-        var goldStr = this.goldText.getText();
-        if(goldStr === ""){
+        var goldInput = cc.Global.NumberFromString(this.goldText.getText());
+        if(!goldInput){
             return;
         }
-        if(!cc.Global.IsNumber(goldStr)){
-            return;
-        }
-        var goldFee = Math.round(parseInt(goldStr) * PlayerMe.transferGoldMerchantFee);
+
+        var goldFee = Math.round(parseInt(goldInput) * PlayerMe.transferGoldMerchantFee);
         if(goldFee <= 0){
             return;
         }
@@ -121,6 +127,8 @@ var RewardAgencyDialog = Dialog.extend({
         }
 
         var goldStr = this.goldText.getText();
+        goldStr = goldStr.replace(/[.,]/g,'');
+
         if(goldStr === ""){
             MessageNode.getInstance().show("Vui lòng nhập số vàng cần chuyển");
             return;

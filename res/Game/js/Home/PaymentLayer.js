@@ -317,7 +317,7 @@ var PaymentSMSLayer = PaymentInAppLayer.extend({
         var paydialog = new SMSPayDialog();
         paydialog.bundleId = index;
         paydialog.buildSMSSyntax(index, 0);
-        paydialog.showWithAnimationMove();
+        paydialog.show();
     }
 });
 

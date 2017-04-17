@@ -275,7 +275,7 @@ var Phom = IGameScene.extend({
             dialog.cardList[i].reOrderWithoutAnimation();
         }
 
-        dialog.showWithAnimationMove();
+        dialog.show();
     },
 
     performHaBaiMe: function (groupedCards) {

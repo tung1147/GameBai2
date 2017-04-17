@@ -291,7 +291,7 @@ var TienLen = IGameScene.extend({
             this.performAssetChange(gold, null, player[i].username);
         }
 
-        dialog.showWithAnimationMove();
+        dialog.show();
     },
 
     onChatChem: function (params) {

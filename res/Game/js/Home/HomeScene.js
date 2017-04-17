@@ -315,12 +315,13 @@ var HomeScene = IScene.extend({
             var dialog = new MessageConfirmDialog();
             dialog.setMessage("Bạn muốn thoát game ?");
             dialog.okButtonHandler = function () {
-                if(cc.sys.isNative){
-                    SystemPlugin.getInstance().exitApp();
-                }
-                else{
-                    SceneNavigator.toHome();
-                }
+                // if(cc.sys.isNative){
+                //     SystemPlugin.getInstance().exitApp();
+                // }
+                // else{
+                //     SceneNavigator.toHome();
+                // }
+                SceneNavigator.toHome();
             };
             dialog.cancelButtonHandler = function () {
                 dialog.hide();
@@ -364,7 +365,7 @@ var HomeScene = IScene.extend({
 
     settingButtonHandler: function () {
         var dialog = new SettingDialog();
-        dialog.showWithAnimationMove();
+        dialog.show();
     },
 
     callButtonHandler: function () {
@@ -373,7 +374,7 @@ var HomeScene = IScene.extend({
         }
         else{
             var dialog = new ContactDialog();
-            dialog.showWithAnimationMove();
+            dialog.show();
         }
 
         // var request = cc.loader.getXMLHttpRequest();
@@ -432,7 +433,7 @@ var HomeScene = IScene.extend({
             return;
         }
         var dialog = new UserinfoDialog();
-        dialog.showWithAnimationMove();
+        dialog.show();
     },
 
     transferGoldButtonHandler : function () {

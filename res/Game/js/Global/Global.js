@@ -30,6 +30,14 @@ cc.Global.NumberFormat2 = function (number) {
     return (number.toString() + Number_Format_Type[i]);
 };
 
+cc.Global.NumberFromString = function (str) {
+    var numberText = str.replace(/[.,]/g,'');
+    if(numberText && cc.Global.IsNumber(numberText)){
+        return parseInt(numberText);
+    }
+    return null;
+};
+
 cc.Global.NumberFormatWithPadding = function (number, size) {
     if(size == undefined){
         size = 2;

@@ -117,6 +117,10 @@ var RewardBankDialog = Dialog.extend({
         this.hide();
     },
 
+    okButtonHandler : function () {
+        this.hide();
+    },
+
     setInfo : function (cashOut, gold) {
         var text = "Bạn đang đổi thưởng "+cc.Global.NumberFormat1(gold) + "V thành "+cc.Global.NumberFormat1(cashOut) +"VNĐ\n Vui lòng nhập thông tin tài khoản ngân hàng";
         this.contentLabel.setString(text);

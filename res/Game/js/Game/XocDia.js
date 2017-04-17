@@ -233,7 +233,7 @@ var XocDiaScene = IGameScene.extend({
         this.playerButton = playerButton;
         playerButton.addClickEventListener(function () {
             var dialog = new UserListDialog();
-            dialog.showWithAnimationMove();
+            dialog.show();
         });
 
         var userLabel = new cc.LabelBMFont("30", cc.res.font.Roboto_CondensedBold_18);

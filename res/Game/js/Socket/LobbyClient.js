@@ -396,6 +396,8 @@ var LobbyClient = (function () {
         _onFetchTransferConfig : function (cmd, event) {
             var data = event["data"];
             PlayerMe.transferGoldFee = data["fee"];
+            PlayerMe.transferGoldMinAsset = data["minAsset"];
+            PlayerMe.transferGoldMinValue = data["minValue"];
             PlayerMe.transferGoldMerchantFee = data["merchantFee"];
         },
 
