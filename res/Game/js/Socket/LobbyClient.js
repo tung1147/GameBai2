@@ -76,8 +76,28 @@ var LobbyClient = (function () {
                         }
                     }
                 };
+
+                if(cc.sys.isNative){
+                    SystemPlugin.getInstance().onBuyItemFinishAndroid = function (returnCode, signature, json) {
+                        thiz.onBuyItemFinishAndroid(returnCode, signature, json);
+                    };
+
+                    SystemPlugin.getInstance().onBuyItemFinishIOS = function (returnCode, signature) {
+                        thiz.onBuyItemFinishIOS(returnCode, signature);
+                    };
+                }
+
             }
         },
+
+        onBuyItemFinishAndroid : function (returnCode, signature, json) {
+            LoadingDialog.getInstance().hide();
+        },
+
+        onBuyItemFinishIOS : function (returnCode, signature) {
+            LoadingDialog.getInstance().hide();
+        },
+
         update: function (dt) {
             if (this.isReconnected) {
                 if (this.reconnectTimeout > 0.0) {
