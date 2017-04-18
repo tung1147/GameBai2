@@ -472,17 +472,22 @@ var HomeScene = IScene.extend({
             }
         }, this);
 
-        if(!cc.sys.isNative && s_homescene_first_run){
+        if(s_homescene_first_run){
             s_homescene_first_run = false;
-            if(ViewNavigatorManager.execute()){
-                this.homeLayer.y = 0;
-                this.homeLayer.stopAllActions();
-            }
-            else{
-                var accessToken = cc.Global.GetSetting("accessToken","");
-                if(accessToken != ""){
-                    LoadingDialog.getInstance().show("Đang đăng nhập");
-                    LobbyClient.getInstance().tokenLogin(accessToken);
+            cc.director.setDisplayStats(false);
+
+            if(!cc.sys.isNative){
+                s_homescene_first_run = false;
+                if(ViewNavigatorManager.execute()){
+                    this.homeLayer.y = 0;
+                    this.homeLayer.stopAllActions();
+                }
+                else{
+                    var accessToken = cc.Global.GetSetting("accessToken","");
+                    if(accessToken != ""){
+                        LoadingDialog.getInstance().show("Đang đăng nhập");
+                        LobbyClient.getInstance().tokenLogin(accessToken);
+                    }
                 }
             }
         }
