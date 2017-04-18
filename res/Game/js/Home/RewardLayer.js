@@ -426,7 +426,7 @@ var RewardAgencyLayer = cc.Node.extend({
         fbLabel.setPosition(834, agencyLabel.y);
         container.addChild(fbLabel);
 
-        var okButton = new ccui.Button("sublobby-button.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        var okButton = new ccui.Button("reward_transferGoldBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
         okButton.setScale9Enabled(true);
         okButton.setCapInsets(cc.rect(10,10,4,4));
         okButton.setContentSize(cc.size(150,42));
@@ -434,9 +434,9 @@ var RewardAgencyLayer = cc.Node.extend({
         okButton.setPosition(1027, agencyLabel.y);
         container.addChild(okButton);
 
-        var okLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "CHUYỂN VÀNG");
-        okLabel.setPosition(okButton.getContentSize().width/2, okButton.getContentSize().height/2);
-        okButton.getRendererNormal().addChild(okLabel);
+        // var okLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "CHUYỂN VÀNG");
+        // okLabel.setPosition(okButton.getContentSize().width/2, okButton.getContentSize().height/2);
+        // okButton.getRendererNormal().addChild(okLabel);
         okButton.addClickEventListener(function () {
             var dialog = new RewardAgencyDialog();
             dialog.setDefaultAgency(agency);
