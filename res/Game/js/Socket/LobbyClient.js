@@ -63,6 +63,19 @@ var LobbyClient = (function () {
                 this.addListener("fetchCashinProductItems", this._onFetchCashinProductItemsHandler, this);
                 this.addListener("transferGold", this._onTransferGold, this);
                 this.addListener("fetchTransferConfig", this._onFetchTransferConfig, this);
+
+                FacebookPlugin.getInstance().onLoginFinished = function (returnCode, userId, accessToken) {
+                    if(returnCode == 0){
+                        LoadingDialog.getInstance().show("Đang đăng nhập");
+                        thiz.loginFacebook(accessToken);
+                    }
+                    else{
+                        LoadingDialog.getInstance().hide();
+                        if(returnCode > 0){
+                            MessageNode.getInstance().show("Lỗi đăng nhập facebook");
+                        }
+                    }
+                };
             }
         },
         update: function (dt) {
@@ -707,7 +720,7 @@ var LobbyClient = (function () {
             };
             this.send(request);
         },
-
+        
         createServerInfo : function (serverData) {
             var serverInfo = {};
             var host = serverData["host"];

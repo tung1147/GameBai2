@@ -390,3 +390,13 @@ if(cc.sys.isNative){
         }
     };
 }
+
+cc.Global.openURL = function (url) {
+    if(cc.sys.isNative){
+        cc.Application.getInstance().openURL(url);
+    }
+    else{
+        var win = window.open(url, '_blank');
+        win.focus();
+    }
+};

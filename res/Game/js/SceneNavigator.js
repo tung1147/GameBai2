@@ -40,7 +40,9 @@ SceneNavigator.toHome = function (message) {
 };
 
 SceneNavigator.toAccountActiveView = function () {
-
+    var dialog = new UserinfoDialog();
+    dialog.selectTab = 2;
+    dialog.show();
 };
 
 SceneNavigator.toLobby = function (message) {

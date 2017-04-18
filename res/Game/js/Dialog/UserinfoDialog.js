@@ -463,7 +463,11 @@ var UserinfoDialog = Dialog.extend({
         });
         this.addChild(avatarBt);
 
-        var userLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_18, PlayerMe.username);
+        var displayName = PlayerMe.username;
+        if(displayName.length > 15){
+            displayName = displayName.substring(0, 15);
+        }
+        var userLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_18, displayName);
         userLabel.setColor(cc.color("#63b0f1"));
         userLabel.setAnchorPoint(cc.p(0.0, 0.5));
         userLabel.setPosition(233, avatar.y + 12);

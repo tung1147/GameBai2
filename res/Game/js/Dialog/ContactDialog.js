@@ -17,12 +17,11 @@ var ContactDialog = Dialog.extend({
     },
 
     showContactInfo : function () {
-        var contactDial = new cc.Sprite("#contactDial.png");
+        var contactDial = new ccui.Button("contactDial.png", "", "", ccui.Widget.PLIST_TEXTURE);
         contactDial.setPosition(this.width/2 + 63, 189);
         this.addChild(contactDial);
 
         var contactFacebook = new ccui.Button("contactFacebook.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        contactFacebook.setZoomScale(0);
         contactFacebook.setPosition(this.width/2 - 63,contactDial.y);
         this.addChild(contactFacebook);
 
@@ -41,9 +40,18 @@ var ContactDialog = Dialog.extend({
         this.addChild(facebookLabel);
 
         contactFacebook.addClickEventListener(function () {
-            var win = window.open(GameConfig.fanpage, '_blank');
-            win.focus();
+            cc.Global.openURL(GameConfig.fanpage);
         });
+
+        contactDial.addClickEventListener(function () {
+            if(cc.sys.isNative){
+                SystemPlugin.getInstance().showCallPhone(GameConfig.hotline);
+            }
+        });
+
+        if(!cc.sys.isNative){
+            contactDial.setEnabled(false);
+        }
 
         this.addChild(contactLabel);
     }
