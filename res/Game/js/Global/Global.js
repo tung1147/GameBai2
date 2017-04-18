@@ -375,9 +375,9 @@ cc.Global.IsNumber = function (str) {
     return re.test(str);
 };
 
-ApplicationConfig.transferGoldMerchantTutorial = "Chuyển vàng đại lý";
+ApplicationConfig.transferGoldMerchantTutorial = "B1: Xem danh sách đại lý, lựa chọn đại lý gần mình nhất.\nB2: Liên hệ với đại lý để thỏa thuận tỉ lệ thu mua vàng, tỷ lệ bán vàng cũng như cách thức giao dịch (hẹn gặp giao dịch trực tiếp hay chuyển khoản ngân hàng…)\nB3: Đến gặp và thực hiện việc chuyển vàng cho đại lý: Nhấn nút CHUYỂN VÀNG, nhập số vàng muốn chuyển, nội dung chuyển vàng các bạn ghi là : rut xxx vang, sdt:09xxxxxxxx.\nB4: Nhận tiền mặt hoặc chuyển khoản, hoàn thành giao dịch với đại lý\n\nChú ý: Các bạn nên đến gặp trực tiếp đại lý để đảm bảo giao dịch thực hiện thành công. Chỉ thực hiện giao dịch từ xa/ chuyển khoản với đại lý các bạn tin tưởng.\n-          Bạn cần là VIP1 trở lên mới có thể chuyển vàng cho Đại lý (đã từng nạp thẻ 10.000)\n-          Giới hạn chuyển vàng hàng ngày như quy định trong mục Hướng dẫn đổi thưởng.\n-          Mỗi lần chuyển vàng ít nhất là 50.000 vàng\n-          Vàng đã chuyển sẽ không được trả lại. Vì vậy các bạn chú ý chỉ chuyển vàng khi đã thỏa thuận xong với đại lý.";
 
-ApplicationConfig.transferGoldTutorial = "Chuyển vàng";
+ApplicationConfig.transferGoldTutorial = " - Người gửi phải từ vip 3, level 3 trở lên mới được chuyển vàng đi, người nhận không bị giới hạn.\n - Sau khi chuyển vàng cần còn lại trên 50.000 vàng\n - Số vàng chuyển 1 lần tối thiểu là 50.000 vàng\n - Số vàng có thể chuyển trong ngày tối đa là 10.000.000\n - Phí chuyển vàng có thể do người gửi hoặc người nhận chịu.";
 
 if(cc.sys.isNative){
     ccui.Slider.prototype._ctor = function (barTextureName, normalBallTextureName, resType) {

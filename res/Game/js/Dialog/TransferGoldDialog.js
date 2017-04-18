@@ -4,6 +4,30 @@
 
 var s_transferGoldToggle = s_transferGoldToggle || ["Người gửi chịu phí", "Người nhận chịu phí"];
 
+var TransferGoldTutorial = MessageDialog.extend({
+    setMessage : function (message) {
+        this.scrollView.removeAllItems();
+        var messageLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, message, cc.TEXT_ALIGNMENT_LEFT, this.scrollView.getContentSize().width - 10);
+
+        var height = messageLabel.getContentSize().height + 20.0;
+        if(height <= this.scrollView.getContentSize().height){
+            height = this.scrollView.getContentSize().height;
+            this.scrollView.setEnabled(false);
+        }
+        else{
+            this.scrollView.setEnabled(true);
+            this.scrollHeight = height - this.scrollView.getContentSize().height;
+            this.startAutoScroll(4.0);
+        }
+
+        var container = new ccui.Widget();
+        container.setContentSize(cc.size(this.scrollView.getContentSize().width - 10, height));
+        container.addChild(messageLabel);
+        messageLabel.setPosition(container.getContentSize().width/2, container.getContentSize().height/2);
+        this.scrollView.pushBackCustomItem(container);
+    },
+});
+
 var TransferGoldDialog = Dialog.extend({
     ctor : function () {
         this._super();
@@ -148,7 +172,7 @@ var TransferGoldDialog = Dialog.extend({
         tutorialBt.setPosition(tutorialLabel.getPosition());
         this.addChild(tutorialBt);
         tutorialBt.addClickEventListener(function () {
-            var dialog = new MessageDialog();
+            var dialog = new TransferGoldTutorial();
             dialog.setTitle("Hướng dẫn chuyển vàng");
             dialog.setMessage(ApplicationConfig.transferGoldTutorial);
             dialog.show();

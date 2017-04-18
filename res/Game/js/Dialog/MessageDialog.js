@@ -33,7 +33,7 @@ var MessageDialog = Dialog.extend({
 
     setMessage : function (message) {
         this.scrollView.removeAllItems();
-        var messageLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, message, cc.TEXT_ALIGNMENT_CENTER, this.scrollView.getContentSize().width);
+        var messageLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, message, cc.TEXT_ALIGNMENT_CENTER, this.scrollView.getContentSize().width - 10);
 
         var height = messageLabel.getContentSize().height + 20.0;
         if(height <= this.scrollView.getContentSize().height){
@@ -47,7 +47,7 @@ var MessageDialog = Dialog.extend({
         }
 
         var container = new ccui.Widget();
-        container.setContentSize(cc.size(this.scrollView.getContentSize().width, height));
+        container.setContentSize(cc.size(this.scrollView.getContentSize().width - 10, height));
         container.addChild(messageLabel);
         messageLabel.setPosition(container.getContentSize().width/2, container.getContentSize().height/2);
         this.scrollView.pushBackCustomItem(container);
