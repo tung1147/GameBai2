@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">GameBai2</string>
-    <string name="facebook_app_id">1515040885426467</string>
+    <string name="facebook_app_id">1847504665484148</string>
+    <string name="facebook_app_id_login">1847504665484148</string>
 </resources>

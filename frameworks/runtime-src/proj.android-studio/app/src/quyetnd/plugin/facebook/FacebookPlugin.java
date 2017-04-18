@@ -12,8 +12,10 @@ import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.Profile;
+import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.game.jsversion.R;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -38,11 +40,15 @@ public class FacebookPlugin {
 	Activity mActivity = null;
 	GLSurfaceView gameSurfaceView = null;
 	CallbackManager callbackLogin= null;
+	String appIdTracking = null;
+	String appIdLogin = null;
 	
 	/*event*/
 	public void init(Activity activity, GLSurfaceView gameSurfaceView){
 		mActivity = activity;
 		this.gameSurfaceView = gameSurfaceView;
+		appIdLogin = mActivity.getString(R.string.facebook_app_id_login);
+		appIdTracking = mActivity.getString(R.string.facebook_app_id);
 		
 		callbackLogin = CallbackManager.Factory.create();
 		FacebookSdk.sdkInitialize(mActivity);
@@ -78,11 +84,11 @@ public class FacebookPlugin {
 
 
 	public void onPause() {
-		
+		AppEventsLogger.deactivateApp(mActivity.getApplication(), appIdTracking);
 	}
 
 	public void onResume() {
-
+		AppEventsLogger.activateApp(mActivity.getApplication(), appIdTracking);
 	}
 
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -102,6 +108,9 @@ public class FacebookPlugin {
 	
 	public void login(){
 		if(mActivity != null){
+			if(appIdLogin != null){
+				FacebookSdk.setApplicationId(appIdLogin);
+			}
 			mActivity.runOnUiThread(new Runnable() {			
 				@Override
 				public void run() {

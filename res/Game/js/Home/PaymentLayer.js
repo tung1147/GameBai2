@@ -250,8 +250,10 @@ var PaymentInAppLayer = cc.Node.extend({
     },
 
     _selectInappItem : function (inappId) {
-        SystemPlugin.getInstance().buyIAPItem(inappId);
-        LoadingDialog.getInstance().show("Đang thanh toán");
+        if(!LoadingDialog.getInstance().isShow()){
+            LoadingDialog.getInstance().show("Đang thanh toán");
+            SystemPlugin.getInstance().buyIAPItem(inappId);
+        }
     },
 
     addItem: function (logoId, gold, price) {
