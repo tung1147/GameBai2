@@ -288,6 +288,8 @@ var VerifySendSMSLayer = cc.Node.extend({
         var thiz = this;
         for(var i=0; i<s_Verify_SMS_Provider.length; i++){
             (function () {
+                var idx = i;
+
                 var label = new cc.LabelBMFont(s_Verify_SMS_Provider[i], cc.res.font.Roboto_Condensed_16);
                 label.setColor(cc.color("#72acd6"));
                 label.setPosition(x - 10, y);
@@ -311,6 +313,7 @@ var VerifySendSMSLayer = cc.Node.extend({
                 toggleItem.onSelect = function () {
                     bg2.setVisible(true);
                     smsContent.setVisible(true);
+                    thiz.idx = idx;
                 };
                 toggleItem.onUnSelect = function () {
                     bg2.setVisible(false);
@@ -322,21 +325,13 @@ var VerifySendSMSLayer = cc.Node.extend({
         }
 
         if(cc.sys.isNative){
-            var okButton = new ccui.Button("dialog-button-1.png","","", ccui.Widget.PLIST_TEXTURE);
-            okButton.setScale9Enabled(true);
-            okButton.setZoomScale(0.03);
-            okButton.setCapInsets(cc.rect(10,10,4,4));
-            okButton.setContentSize(384, 60);
+            var okButton = s_Dialog_Create_Button1(cc.size(280, 44), "Xác nhận");
             okButton.setPosition((right + left)/2 - 30, 230);
             this.addChild(okButton);
             this.okButton = okButton;
-
-            var okTitle = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Xác nhận");
-            okTitle.setPosition(okButton.getContentSize().width/2, okButton.getContentSize().height/2);
-            okButton.getRendererNormal().addChild(okTitle);
-
+            
             okButton.addClickEventListener(function () {
-
+                SystemPlugin.getInstance().showSMS(thiz.smsContent[thiz.idx], thiz.smsGateway);
             });
         }
     },
