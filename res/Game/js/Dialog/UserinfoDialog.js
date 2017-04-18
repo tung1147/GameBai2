@@ -329,9 +329,9 @@ var VerifySendSMSLayer = cc.Node.extend({
             okButton.setPosition((right + left)/2 - 30, 230);
             this.addChild(okButton);
             this.okButton = okButton;
-            
+
             okButton.addClickEventListener(function () {
-                SystemPlugin.getInstance().showSMS(thiz.smsContent[thiz.idx], thiz.smsGateway);
+                SystemPlugin.getInstance().showSMS(thiz.smsGateway, thiz.smsContent[thiz.idx]);
             });
         }
     },
