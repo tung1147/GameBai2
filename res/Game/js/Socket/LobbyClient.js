@@ -82,8 +82,8 @@ var LobbyClient = (function () {
                         thiz.onBuyItemFinishAndroid(returnCode, signature, json);
                     };
 
-                    SystemPlugin.getInstance().onBuyItemFinishIOS = function (returnCode, signature) {
-                        thiz.onBuyItemFinishIOS(returnCode, signature);
+                    SystemPlugin.getInstance().onBuyItemFinishIOS = function (returnCode, data) {
+                        thiz.onBuyItemFinishIOS(returnCode, data);
                     };
                 }
 
@@ -92,10 +92,29 @@ var LobbyClient = (function () {
 
         onBuyItemFinishAndroid : function (returnCode, signature, json) {
             LoadingDialog.getInstance().hide();
+            if(returnCode === 0){
+                var request = {
+                    command : "cashin",
+                    data: json,
+                    signature: signature,
+                    os : 2,
+                    type : 3
+                };
+                this.send(request);
+            }
         },
 
-        onBuyItemFinishIOS : function (returnCode, signature) {
+        onBuyItemFinishIOS : function (returnCode, data) {
             LoadingDialog.getInstance().hide();
+            if(returnCode === 0){
+                var request = {
+                    command : "cashin",
+                    data: data,
+                    os : 1,
+                    type : 3
+                };
+                this.send(request);
+            }
         },
 
         update: function (dt) {
