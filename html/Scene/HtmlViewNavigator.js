@@ -53,31 +53,33 @@ var ViewNavigator = cc.Class.extend({
 
     execute : function () {
         var accessToken = cc.Global.GetSetting("accessToken","");
-        if(accessToken != ""){
+        if(accessToken !== ""){
             LoadingDialog.getInstance().show("Đang đăng nhập");
             LobbyClient.getInstance().tokenLogin(accessToken);
-            return;
-        }
-
-        var loginType = cc.Global.GetSetting("lastLoginType", "");
-        if(loginType == "normalLogin"){
-            var username = cc.Global.getSaveUsername();
-            var password = cc.Global.getSavePassword();
-            if(username != "" && password != ""){
-                LoadingDialog.getInstance().show("Đang đăng nhập");
-                LobbyClient.getInstance().loginNormal(username, password, true);
-            }
-            else{
-                SceneNavigator.showLoginNormal();
-            }
-        }
-        else if(loginType == "facebookLogin"){
-            LoadingDialog.getInstance().show("Đang đăng nhập");
-            FacebookPlugin.getInstance().showLogin();
         }
         else{
             SceneNavigator.showLoginNormal();
         }
+
+        // var loginType = cc.Global.GetSetting("lastLoginType", "");
+        // if(loginType == "normalLogin"){
+        //     var username = cc.Global.getSaveUsername();
+        //     var password = cc.Global.getSavePassword();
+        //     if(username != "" && password != ""){
+        //         LoadingDialog.getInstance().show("Đang đăng nhập");
+        //         LobbyClient.getInstance().loginNormal(username, password, true);
+        //     }
+        //     else{
+        //         SceneNavigator.showLoginNormal();
+        //     }
+        // }
+        // else if(loginType == "facebookLogin"){
+        //     LoadingDialog.getInstance().show("Đang đăng nhập");
+        //     FacebookPlugin.getInstance().showLogin();
+        // }
+        // else{
+        //     SceneNavigator.showLoginNormal();
+        // }
     }
 });
 
