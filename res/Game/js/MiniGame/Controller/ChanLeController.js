@@ -134,7 +134,7 @@ var ChanLeController = MiniGameController.extend({
                       number : arr_his[iNew][2],
                         idVan : arr_his[iNew][3],
                     };
-                    thiz._view.pushItemHistory(iNew,dataItemTx)
+                    thiz._view.pushItemHistory(iNew-1,dataItemTx)
 
                 })();
             }

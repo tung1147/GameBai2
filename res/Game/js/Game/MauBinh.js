@@ -8,6 +8,9 @@ MB_CHI_CUOI = 2;
 
 s_sfs_error_msg[212] = "Không phải lượt xếp bài";
 
+var MB_CARD_MAUBINH = MB_CARD_MAUBINH ||  [8,12,16,20,24,28,32,36,40,44,48,0,4,9,13,17,21,25,29,33,37,41,45,49,1,5,10,14,18,22,26,30,34,38,42,46,50,2,6, 11,15,19,23, 27,31,35,39,43,47,51,3,7];
+
+
 var TimeOutMB = cc.Node.extend({
     ctor:function () {
         this._super();
@@ -69,6 +72,7 @@ var TimeOutMB = cc.Node.extend({
         this.setVisible(true);
         var thiz = this;
         this.lblTime.setColor(cc.color(255,255,255,255));
+        this.lblTime.stopAllActions();
         this.timer.setPercentage(timeRemain*100/timeMax);
         this.timer.runAction(new cc.ProgressTo(timeRemain,0));
 
@@ -78,8 +82,9 @@ var TimeOutMB = cc.Node.extend({
         this.unscheduleUpdate();
         this.stopAllActions();
         this.setVisible(false);
+        this.lblTime.stopAllActions();
     }
-    
+
 });
 
 var MauBinhCard = Card.extend({
@@ -201,39 +206,65 @@ var ListChiMB = cc.Node.extend({
 
     },
 
-    setNameChi:function (chi,typeChi) {
+    setNameChi:function (chi,name) {
         this.removeChildByTag(1234);
         var bg_name = new cc.Sprite("#mb_bg_text1.png");
         bg_name.setScale(1.3);
         bg_name.setPosition(0,-160 + 80*chi);
         bg_name.setTag(1234);
         this.addChild(bg_name,1234);
-        var nameChi = new cc.LabelTTF(maubinh_chitypes[typeChi],cc.res.font.Roboto_Condensed,30);
+        var nameChi = new cc.LabelTTF(name,cc.res.font.Roboto_Condensed,30);
         nameChi.setPosition(bg_name.getContentSize().width/2, bg_name.getContentSize().height/2);
         bg_name.addChild(nameChi);
 
 
     },
+
+    setAgainOder:function () {
+        this.removeChildByTag(1234);
+        var zLocal1 = 3;
+        var zLocal2 = 2;
+        var zLocal3 = 1;
+        for(var i =0; i < this.cardList.length; i++){
+            if(i<5)//chi dau
+            {
+                this.cardList[i].setLocalZOrder(zLocal1);
+            }else if(i<10)
+            {
+                this.cardList[i].setLocalZOrder(zLocal2);
+            }
+            else {
+                this.cardList[i].setLocalZOrder(zLocal3);
+            }
+
+        };
+
+    },
+    removeText:function () {
+        this.removeChildByTag(1234);
+    },
     latChi:function (chi, arrCard, isReconnect,typeChi) {
         var cardArray = [];
 
-                for (var i = 0; i < arrCard.length; i++) {
-                    cardArray.push(CardList.prototype.getCardWithId(arrCard[i]));
-                }
+        for (var i = 0; i < arrCard.length; i++) {
+            cardArray.push(CardList.prototype.getCardWithId(arrCard[i]));
+        }
 
         if(this.cardList.length == 13){
             var  thiz = this;
-            this.setNameChi(chi,typeChi);
+            if(typeChi!=0){
+                this.setNameChi(chi,maubinh_chitypes[typeChi]);
+            }
             var zLocal1 = 3;
             var zLocal2 = 2;
             var zLocal3 = 1;
             if(chi == MB_CHI_GIUA){
-                 zLocal1 = 2;
-                 zLocal2 = 3;
+                zLocal1 = 2;
+                zLocal2 = 3;
             } else if(chi == MB_CHI_CUOI){
-                 zLocal1 = 2;
-                 zLocal2 = 1;
-                 zLocal3 = 3;
+                zLocal1 = 2;
+                zLocal2 = 1;
+                zLocal3 = 3;
             }
             for(var i =0; i < this.cardList.length; i++){
                 if(i<5)//chi dau
@@ -275,6 +306,45 @@ var ListChiMB = cc.Node.extend({
             };
         }
     },
+    latAll:function ( arrCard, isReconnect,typeChi) {
+        var cardArray = [];
+
+        for (var i = 0; i < arrCard.length; i++) {
+            cardArray.push(CardList.prototype.getCardWithId(arrCard[i]));
+        }
+
+        if(this.cardList.length == 13){
+            var  thiz = this;
+            if(typeChi!=0) {
+                this.setNameChi(MB_CHI_DAU, maubinh_wintypes[typeChi]);
+            }
+
+            for(var i = 0; i < cardArray.length; i++){
+                (function () {
+                    var card = thiz.cardList[i];
+                    // card.setLocalZOrder(1);
+                    card.stopAllActions();
+                    var orgScale = card.getScale();
+
+                    var nameCard = cardArray[i].rank + s_card_suit[cardArray[i].suit] + ".png";
+                    if(isReconnect){
+                        var changeFrame = new cc.CallFunc(function () {
+                            card.setSpriteFrame(nameCard);
+                        });
+                        var scale1 = new cc.ScaleTo(0.2,0,orgScale) ;
+                        var scale2 = new cc.ScaleTo(0.2,orgScale,orgScale) ;
+                        card.runAction(new cc.Sequence(scale1,changeFrame,scale2));
+                    }
+                    else{
+                        card.setSpriteFrame(nameCard);
+                    }
+
+                })();
+
+
+            };
+        }
+    }
 
 });
 
@@ -349,85 +419,10 @@ var MauBinhCardList = cc.Node.extend({
             }
         }
 
-        if (isMe)
-            this.refreshChiType();
+        // if (isMe)
+        // this.refreshChiType();
     },
 
-    getChiType: function (cards) {
-        var rankFreq = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-        var suitFreq = [0, 0, 0, 0];
-
-        var isSanh = false, isThung = false;
-        var sanhRank = 0;
-
-        for (var i = 0; i < cards.length; i++) {
-            rankFreq[cards[i].rank]++;
-            suitFreq[cards[i].suit]++;
-        }
-
-        //check thung sanh
-        isThung = suitFreq.indexOf(cards.length) != -1;
-        rankFreq[14] = rankFreq[1];
-        if (cards.length == 5) {
-            for (var i = 0; i <= 10; i++) {
-                if (rankFreq[i] && rankFreq[i + 1] && rankFreq[i + 2]
-                    && rankFreq[i + 3] && rankFreq[i + 4]) {
-                    sanhRank = i;
-                    isSanh = true;
-                    break;
-                }
-            }
-        } else if (cards.length == 3) {
-            for (var i = 0; i <= 12; i++) {
-                if (rankFreq[i] && rankFreq[i + 1] && rankFreq[i + 2]) {
-                    sanhRank = i;
-                    isSanh = true;
-                    break;
-                }
-            }
-        }
-        rankFreq.splice(14, 1);
-
-        //check loai chi tu cao xuong thap
-
-        if (isSanh && isThung && sanhRank == 10 && cards.length == 5) {
-            return 10; // sanh rong
-        }
-
-        if (isSanh && isThung && cards.length == 5) {
-            return 9; // thung pha sanh
-        }
-
-        if (rankFreq.indexOf(4) != -1) {
-            return 8; // tu quy
-        }
-
-        if (rankFreq.indexOf(3) != -1 && rankFreq.indexOf(2) != -1) {
-            return 7; // cu lu
-        }
-
-        if (isThung) {
-            return 6; // thung
-        }
-
-        if (isSanh) {
-            return 5; // sanh
-        }
-
-        if (rankFreq.indexOf(3) != -1) {
-            return 4; // xam chi
-        }
-
-        var index = rankFreq.indexOf(2);
-        if (index != -1) {
-            if (rankFreq.indexOf(2, index + 1) != -1) {
-                return 3; // thu'
-            }
-            return 2;// doi
-        }
-
-        return 1; // mau thau
-    },
 
     onEnter: function () {
         this._super();
@@ -446,12 +441,12 @@ var MauBinhCardList = cc.Node.extend({
         this.cardList = [];
     },
 
-    showResultChi: function (index, rankChi, duration) {
+    showResultChi: function (index, nameChi, duration) {
         if (this.resultLabels[index]) {
             this.resultLabels[index].removeFromParent(true);
             this.resultLabels[index] = undefined;
         }
-        var resultLabel = new cc.LabelBMFont(maubinh_chitypes[rankChi], cc.res.font.Roboto_CondensedBold_30);
+        var resultLabel = new cc.LabelBMFont(nameChi, cc.res.font.Roboto_CondensedBold_30);
         // resultLabel.setScale(1 / this.getScale());
         resultLabel.setAnchorPoint(1,0.5);
         resultLabel.setColor(cc.color(255,238,92,255));
@@ -513,17 +508,11 @@ var MauBinhCardList = cc.Node.extend({
                 break;
             }
         }
+        cc.director.getRunningScene().OnSwapPhom();
 
-        this.refreshChiType();
     },
 
-    refreshChiType: function () {
-        for (var i = 0; i < 3; i++) {
-            var subCards = this.cardList.slice(i * 5, i * 5 + 5);
-            var rankChi = this.getChiType(subCards);
-            this.showResultChi(i, rankChi);
-        }
-    },
+
 
     revealCards: function (cardArray) {
         for (var i = 0; i < this.cardList.length; i++) {
@@ -536,13 +525,6 @@ var MauBinhCardList = cc.Node.extend({
         }
     },
 
-    revealChi: function (index, cardArray, rankChi) {
-        for (var i = 0; i < cardArray.length; i++) {
-            var card = CardList.prototype.getCardWithId(cardArray[i]);
-            this.cardList[index * 5 + i].setSpriteFrame("" + card.rank + s_card_suit[card.suit] + ".png");
-        }
-        this.showResultChi(index, rankChi, 5);
-    },
 
     setArrangeEnable: function (enabled) {
         this.setScale(enabled ? 1 : 0.8);
@@ -572,33 +554,36 @@ var MauBinh = IGameScene.extend({
         this.initPlayer();
 
         this.initButton();
-        var thiz = this;
-        this.runAction(new cc.Sequence(
-            new cc.DelayTime(2),
-            new cc.CallFunc(function () {
-                var cardArray = [];
+        this.libMB = new LibMB();
 
-                var cards = [1,2,3,4,5,6,7,8,9,10,11,12,13];
-                for (var i = 0; i < cards.length; i++) {
-                    cardArray.push(CardList.prototype.getCardWithId(cards[i]));
-                }
-               for (var j = 0; j < thiz.playerView.length; j++) {
-                thiz.playerView[j].infoLayer.setVisible(true);
+        // var thiz = this;
+        // this.runAction(new cc.Sequence(
+        //     new cc.DelayTime(2),
+        //     new cc.CallFunc(function () {
+        //         var cardArray = [];
+        //
+        //         var cards = [1,2,3,4,5,6,7,8,9,10,11,12,13];
+        //         for (var i = 0; i < cards.length; i++) {
+        //             cardArray.push(CardList.prototype.getCardWithId(cards[i]));
+        //         }
+        //        for (var j = 0; j < thiz.playerView.length; j++) {
+        //         thiz.playerView[j].infoLayer.setVisible(true);
+        //
+        //             thiz.playerView[j].cardList.dealCards(cardArray, j==0, true);
+        //        }
+        //     }),
+        //     new cc.DelayTime(2),
+        //     new cc.CallFunc(function () {
+        //         var cardArray = [];
+        //
+        //         var cards = [1,2,3,4,5];
+        //         // for (var i = 0; i < cards.length; i++) {
+        //         //     cardArray.push(CardList.prototype.getCardWithId(cards[i]));
+        //         // }
+        //         thiz.playerView[1].cardList.latChi(MB_CHI_CUOI,cards,true,3);
+        //     })
+        // ));
 
-                    thiz.playerView[j].cardList.dealCards(cardArray, j==0, true);
-               }
-            }),
-            new cc.DelayTime(2),
-            new cc.CallFunc(function () {
-                var cardArray = [];
-
-                var cards = [1,2,3,4,5];
-                // for (var i = 0; i < cards.length; i++) {
-                //     cardArray.push(CardList.prototype.getCardWithId(cards[i]));
-                // }
-                thiz.playerView[1].cardList.latChi(MB_CHI_CUOI,cards,true,3);
-            })
-        ));
 
 
     },
@@ -607,7 +592,7 @@ var MauBinh = IGameScene.extend({
     initScene: function () {
         var huThuongBg = new ccui.Scale9Sprite("bacayhuthuong_bg.png", cc.rect(15, 15, 4, 4));
         huThuongBg.setPreferredSize(cc.size(322, 47));
-        huThuongBg.setPosition(this.table_bg.getContentSize().width / 2, 100);
+        huThuongBg.setPosition(this.table_bg.getContentSize().width / 2, 100 + 30);
         this.table_bg.addChild(huThuongBg);
 
         var huThuongLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, "HŨ MẬU BINH: ");
@@ -630,7 +615,7 @@ var MauBinh = IGameScene.extend({
 
         var timeOutGame = new TimeOutMB();
         timeOutGame.setScale(0.6);
-        timeOutGame.setPosition( this.table_bg.getContentSize().width/2,this.table_bg.getContentSize().height/2  );
+        timeOutGame.setPosition( this.table_bg.getContentSize().width/2,this.table_bg.getContentSize().height/2 + 30  );
         this.table_bg.addChild(timeOutGame);
         this.timeOutGame = timeOutGame;
 
@@ -645,12 +630,14 @@ var MauBinh = IGameScene.extend({
         //     };
         //     dialog.show();
         // });
-
+        this.isMeToiTrang = false;
 
     },
     initLayerArrangement:function () {
         var nodeArrange = new cc.Node();
         nodeArrange.setContentSize(cc.size(1024,720));
+        // nodeArrange.setAnchorPoint(0.5,0);
+        nodeArrange.setScale(cc.winSize.screenScale);
         var layerBlack = new cc.LayerColor(cc.color(0,0,0,150),1280,720);
         nodeArrange.addChild(layerBlack);
         this.arrangeLayer = nodeArrange;
@@ -687,7 +674,7 @@ var MauBinh = IGameScene.extend({
         //
         //
         var timeOutMe = new TimeOutMB();
-        timeOutMe.setPosition(860,450)
+        timeOutMe.setPosition(860,430)
         nodeArrange.addChild(timeOutMe);
         this.timeOutMe = timeOutMe;
     },
@@ -733,18 +720,46 @@ var MauBinh = IGameScene.extend({
 
         this.playerView = [playerMe, player1, player2, player3];
     },
-
+    convertNew2Old:function (arrCard) {
+        var arrCardNew = [];
+        for(var i=0;i< arrCard.length; i++){
+            arrCardNew.push(MB_CARD_MAUBINH[arrCard[i]]);
+        }
+        return arrCardNew;
+    },
+    convertOld2New:function (arrCard) {
+        var arrCardNew = [];
+        for(var i= 0;i< arrCard.length; i++){
+            for(var j = 0; j< 52;j++){
+                if(MB_CARD_MAUBINH[j] == arrCard[i]){
+                    arrCardNew.push(j);
+                    break;
+                }
+            }
+        }
+        return arrCardNew;
+    },
     showNodeArrangement:function (isVisible) {
         this.arrangeLayer.setVisible(isVisible);
         this.timeOutGame.setVisible(!isVisible);
         this.allSlot[0].setVisible(!isVisible);
-    },
 
+
+    },
+    OnSwapPhom:function () {
+        cc.log("vai lon con chon");
+        var cardIDMe = this.listCardMe.getCardsId();
+        this.refreshChiType(this.convertNew2Old(cardIDMe));
+        if( !this.isMeToiTrang )
+        {
+            this.nhanhBt.setVisible(true);
+        }
+    },
     initButton: function () {
 
-
         var startBt = new ccui.Button("game-startBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        startBt.setPosition(cc.winSize.width - 110,55);
+        startBt.setScale(cc.winSize.screenScale);
+        startBt.setPosition(cc.winSize.width - 100*cc.winSize.screenScale,55);
         this.startBt = startBt;
         this.sceneLayer.addChild(startBt);
 
@@ -755,8 +770,16 @@ var MauBinh = IGameScene.extend({
         this.xongBt = xongBt;
         this.arrangeLayer.addChild(xongBt);
 
-        var xepLaiBt = new ccui.Button("game-xepbaiBt", "", "", ccui.Widget.PLIST_TEXTURE);
-        xepLaiBt.setPosition(cc.winSize.width - 100, 50+70);
+
+        var nhanhBt = new ccui.Button("game-xepbaiBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        nhanhBt.setPosition(1170, 124);
+        this.nhanhBt = nhanhBt;
+        this.arrangeLayer.addChild(nhanhBt);
+
+        var xepLaiBt = new ccui.Button("game-xepbaiBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        xepLaiBt.setScale(cc.winSize.screenScale);
+        xepLaiBt.setPosition(cc.p(startBt.getPositionX(),startBt.getPositionY()+70));
+        this.sceneLayer.addChild(xepLaiBt);
         this.xepLaiBt = xepLaiBt;
 
         var thiz = this;
@@ -774,17 +797,30 @@ var MauBinh = IGameScene.extend({
             thiz._controller.sendXepBaiLai();
         });
 
+        nhanhBt.addClickEventListener(function () {
+            thiz.xepNhanh();
+        });
+
         // this.setIngameButtonVisible(false);
         // this.setStartBtVisible(false);
 
         this.allButtons = [xepLaiBt, xongBt, startBt];
-        xongBt.setVisible(true);
+        this.hideAllButton();
     },
 
     initController: function () {
         this._controller = new MauBinhController(this);
     },
-
+    refreshChiType: function (cardIDMe) {
+        // var cardNew = cardIDMe.splice(0,cardIDMe.length);
+        var arr1 =  cardIDMe.slice(0,5);
+        var arr2 = cardIDMe.slice(5,10);
+        var arr3 = cardIDMe.slice(10,13);
+        var  arrName = this.libMB.setBinhLung(arr1,arr2,arr3);
+        for (var i = 0; i < 3; i++) {
+            this.listCardMe.showResultChi(i, arrName[i]);
+        }
+    },
     xepBaiXong: function () {
         var cards = [];
         this.showNodeArrangement(false);
@@ -797,6 +833,21 @@ var MauBinh = IGameScene.extend({
         this._controller.sendXepBaiXong(cardIDMe);
     },
 
+    xepNhanh: function () {
+        var libMb = new LibMB();
+        var cardIDMe = libMb.autoSapXep(this.convertNew2Old(this.listCardMe.getCardsId()));
+        var  arrLung = cardIDMe.slice(0, cardIDMe.length);
+        var carNew = this.convertOld2New(cardIDMe);
+        var cardArray = [];
+        for (var i = 0; i < carNew.length; i++) {
+            cardArray.push(CardList.prototype.getCardWithId(carNew[i]));
+        }
+        this.listCardMe.removeAll();
+        this.listCardMe.dealCards(cardArray,true,false);
+
+
+        this.refreshChiType(arrLung);
+    },
     setIngameButtonVisible: function (visible) {
 
         this.xongBt.visible = visible;
@@ -841,7 +892,7 @@ var MauBinh = IGameScene.extend({
             this.allSlot[i].stopAllActions();
         }
     },
-    performDealCards: function (cards, animation) {
+    performDealCards: function (cards, animation,typeTrang) {
         var thiz = this;
         if (this.cleanTimeout) {
             clearTimeout(this.cleanTimeout);
@@ -854,26 +905,45 @@ var MauBinh = IGameScene.extend({
         this.listCardMe.dealCards(cardArray,true,false);
 
         for (var j = 0; j < this.playerView.length; j++) {
-            this.playerView[j].cardList.dealCards(cardArray, j == 0, animation);
+            if(!this.playerView[j].spectator || animation){
+                this.playerView[j].cardList.dealCards(cardArray, j == 0, animation);
+            }
         }
-        this.runAction(new cc.Sequence(
-            new cc.DelayTime(0.5),
-            new cc.CallFunc(function () {
-                thiz.showNodeArrangement(true);
-            })
-        ))
+        if(animation){
+            this.runAction(new cc.Sequence(
+                new cc.DelayTime(0.5),
+                new cc.CallFunc(function () {
+                    thiz.showNodeArrangement(true);
+                })
+            ))
+        }
+        if(typeTrang < 7){
+
+            var cardIDMe = this.convertNew2Old(this.listCardMe.getCardsId());
+            this.refreshChiType(cardIDMe);
+            thiz.nhanhBt.setVisible(true);
+            this.isMeToiTrang = false;
+
+        }
+        else{
+            this.isMeToiTrang = true;
+            thiz.nhanhBt.setVisible(false);
+        }
+        if(typeTrang!=0){
+            thiz.listCardMe.showResultChi(1,maubinh_wintypes[typeTrang]);
+        }
     },
 
     hideAllButton: function () {
         this.allButtons.forEach(function (item, index) {
-           item.setVisible(false);
+            item.setVisible(false);
         })
     },
 
     onUserXepBaiStatus: function (username, isDone) {
         if(isDone){
             if(username == PlayerMe.username){
-               this.xepLaiBt.setVisible(true);
+                this.xepLaiBt.setVisible(true);
                 this.showNodeArrangement(false);
             }else {
 
@@ -882,7 +952,12 @@ var MauBinh = IGameScene.extend({
         else{
             if(username == PlayerMe.username){
                 this.xepLaiBt.setVisible(false);
+
                 this.showNodeArrangement(true);
+                var slot = this.getSlotByUsername(username);
+                if(slot){
+                    slot.cardList.setNameChi(MB_CHI_DAU,"Xếp xong");
+                }
             }else {
 
             }
@@ -893,38 +968,46 @@ var MauBinh = IGameScene.extend({
     performAnnounce: function (username, announceStr) {
 
     },
-    performRevealCard: function (username, cardArray, winType, exMoney, delay) {
+    performLatBaiSpecial:function (username,arrCard,rankChi,exMoney,isReconnect) {
         var thiz = this;
-        setTimeout(function () {
-            var slot = thiz.getSlotByUsername(username);
-            var cardObjects = [];
-            for (var i = 0; i < cardArray.length; i++) {
-                cardObjects.push(CardList.prototype.getCardWithId(cardArray[i]));
-            }
-            if (username != PlayerMe.username) {
-                slot.cardList.revealCards(cardObjects);
-            }
-            slot.cardList.showThangTrang(winType, 5);
-        }, delay);
-
+        var slot = thiz.getSlotByUsername(username);
+        if(slot){
+            slot.cardList.latAll( arrCard,isReconnect, rankChi);
+            slot.cardList.removeText();
+            if(exMoney != "0")
+                thiz.showMoneyChange(slot.getPosition(), exMoney,isReconnect);
+        }
     },
-    performSoChi: function (username, index, rankChi, exMoney, cardArray,moneyPlayer,txtSap) {
+
+    performPhase5:function (username,rankChi,exMoney,isReconnect) {
+        var thiz = this;
+        var slot = thiz.getSlotByUsername(username);
+        if(slot){
+            slot.cardList.setNameChi(MB_CHI_DAU, maubinh_wintypes[rankChi]);
+            thiz.showMoneyChange(slot.getPosition(), exMoney,isReconnect);
+        }
+    },
+
+    performSoChi: function (username, index, rankChi, exMoney, cardArray,moneyPlayer,txtSap,isReconnect) {
         cc.log("=========" + username);
         var thiz = this;
-        // setTimeout(function () {
-            var slot = thiz.getSlotByUsername(username);
+        var slot = thiz.getSlotByUsername(username);
         if(slot){
+            if (moneyPlayer){
+                slot.setGold(moneyPlayer);
+            }
+            slot.cardList.latChi(index, cardArray,isReconnect, rankChi);
+            thiz.showMoneyChange(slot.getPosition(), exMoney,isReconnect);
+            if(txtSap != "" && index == 2){
+                this.runAction(new cc.Sequence(
+                    new cc.DelayTime(3),
+                    new cc.CallFunc(function () {
+                        thiz.showSap3Chi(cc.p(slot.getPosition().x,slot.getPosition().y-100),isReconnect);
+                    })
+                ));
+            }
 
-            slot.cardList.latChi(index, cardArray,true, rankChi);
-            thiz.showMoneyChange(slot.getPosition(), exMoney);
         }
-          //  if (username == PlayerMe.username) {
-         //       slot.cardList.showResultChi(index, rankChi, 5);
-         //   } else {
-
-        //    }
-
-        // }, delay);
     },
     performSummaryChange: function (username, winType, exMoney, delay) {
         var thiz = this;
@@ -934,6 +1017,18 @@ var MauBinh = IGameScene.extend({
     },
 
     addResultEntry: function (username, winType, soChiWin, cards, newMoney, moneyChange) {
+
+        var thiz = this;
+        var slot = thiz.getSlotByUsername(username);
+        if(slot){
+            thiz.showMoneyChange(slot.getPosition(), moneyChange,false);
+            slot.cardList.setAgainOder();
+            if (newMoney){
+                slot.setGold(newMoney);
+            }
+
+        }
+
         if (!this.resultEntries) {
             this.resultEntries = [];
         }
@@ -965,17 +1060,21 @@ var MauBinh = IGameScene.extend({
                 dialog.goldLabel[i].setString(goldStr);
                 dialog.goldLabel[i].setColor(thiz.resultEntries[i].moneyChange >= 0 ?
                     cc.color("#ffde00") : cc.color("#ff0000"));
+                var string1 = "";
+                var sochi = thiz.resultEntries[i].soChiWin;
+                if (sochi > 0)
+                    string1 = "Thắng " + sochi + " chi";
+                else if(sochi < 0)
+                    string1 = "Thua " + (-sochi) + " chi";
+                else if(sochi == 0)
+                    string1 = "Hòa";
+                if( thiz.resultEntries[i].winType > 0 )
+                {
+                    string1 = "";
+                }
 
-                if (thiz.resultEntries[i].soChiWin) {
-                    var sochi = thiz.resultEntries[i].soChiWin;
-                    if (sochi > 0)
-                        dialog.contentLabel[i].setString("Thắng " + sochi + " chi");
-                    else
-                        dialog.contentLabel[i].setString("Thua " + (-sochi) + " chi");
-                }
-                else {
-                    dialog.contentLabel[i].setString(maubinh_wintypes[thiz.resultEntries[i].winType]);
-                }
+                dialog.contentLabel[i].setString(string1 + " "+ maubinh_wintypes[thiz.resultEntries[i].winType]);
+
 
                 for (var j = 0; j < thiz.resultEntries[i].cards.length; j++) {
                     var cardData = CardList.prototype.getCardWithId(thiz.resultEntries[i].cards[j]);
@@ -985,16 +1084,13 @@ var MauBinh = IGameScene.extend({
 
                 dialog.cardList[i].reOrderWithoutAnimation();
 
-                thiz.performAssetChange(thiz.resultEntries[i].moneyChange,null,thiz.resultEntries[i].username);
             }
 
-            dialog.show();
+            dialog.showWithAnimationMove();
 
             thiz.resultEntries = [];
         }, delay);
     },
-
-
 
     cleanBoard: function (delay) {
         var thiz = this;
@@ -1006,7 +1102,9 @@ var MauBinh = IGameScene.extend({
         }, delay);
     },
 
-    showMoneyChange: function (pos, amount) {
+    showMoneyChange: function (pos, amount,isReconnect) {
+        if(isReconnect)
+            return;
         var lol = parseInt(amount);
         var changeSprite = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, "");
         var changeText = cc.Global.NumberFormat1(lol);
@@ -1015,8 +1113,27 @@ var MauBinh = IGameScene.extend({
         changeSprite.setPosition(pos);
         this.table_bg.addChild(changeSprite, 420);
 
-        changeSprite.runAction(new cc.Sequence(new cc.MoveTo(2.0, cc.p(pos.x, pos.y + 100)), new cc.CallFunc(function () {
+        changeSprite.runAction(new cc.Sequence(new cc.MoveTo(1.5, cc.p(pos.x, pos.y + 100)),new cc.DelayTime(3), new cc.CallFunc(function () {
+            changeSprite.removeFromParent(true);
+        })));
+    },
+    showSap3Chi: function (pos, isReconnect) {
+        if(isReconnect)
+            return;
+        var changeSprite = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, "");
+        changeSprite.setString("SẬP 3 CHI");
+        changeSprite.setColor(255,255,0,255);
+        changeSprite.setPosition(pos);
+        this.table_bg.addChild(changeSprite, 420);
+
+        changeSprite.runAction(new cc.Sequence(new cc.MoveTo(1.5, cc.p(pos.x,pos.y+ 200)),new cc.DelayTime(3), new cc.CallFunc(function () {
             changeSprite.removeFromParent(true);
         })));
     }
 });
+
+
+
+
+
+

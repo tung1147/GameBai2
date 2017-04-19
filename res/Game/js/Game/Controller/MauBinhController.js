@@ -44,7 +44,8 @@ var MauBinhController = GameController.extend({
     },
 
     onStartGame: function (param) {
-        this._view.performDealCards(param["1"], true);
+        var typeTrang = param["2"];
+        this._view.performDealCards(param["1"], true,typeTrang);
     },
     onNoHuHandler: function (param) {
 
@@ -79,7 +80,7 @@ var MauBinhController = GameController.extend({
 
         if (user == PlayerMe.username) {
             var thangTrangMode = param["2"];
-            if (thangTrangMode > 0) {
+            if (thangTrangMode > 1) {
                 this._view.performAnnounce(user, maubinh_wintypes[thangTrangMode]);
             }
 
@@ -87,16 +88,23 @@ var MauBinhController = GameController.extend({
     },
 
     onReconnect: function (param) {
-        // this._super(param);
-        // var stateGame = param[1];
-        // this._view.performChangeRewardFund(param["1"]["11"]["2"]);
-        // this._view.performDealCards(param["3"]);
-        // this.onGameStatus({1: param["1"]["1"], 2: Math.floor(param["1"]["13"] / 1000)});
-        //
-        // if (param["1"]["1"] == 3 && param["1"]["14"]) {
-        //     // ket qua
-        //     this.onGameFinish(param["1"]["14"], true);
-        // }
+        this._super(param);
+        var stateGame = param[1][1];
+        this._view.performChangeRewardFund(param["1"]["11"]["2"]);
+        var isShowArrange = param["4"];
+        this.onGameStatus({1: param["1"]["1"], 2: Math.floor(param["1"]["13"] / 1000)});
+        if(stateGame == 2 || stateGame == 3){
+            this._view.performDealCards(param["3"],false);
+            if(stateGame==2){ // dang xep
+                this._view.xepLaiBt.setVisible(isShowArrange);
+                this._view.showNodeArrangement(!isShowArrange);
+            }
+            else{
+                this.onGameFinish(param["1"]["14"], true);
+            }
+        }
+
+
     },
 
     onXepLai: function (param) {
@@ -132,33 +140,47 @@ var MauBinhController = GameController.extend({
                     (function () {
 
                         var knew = k;
-                        var exMoney = (arrResuft[knew]["3"])?arrResuft[knew]["3"]:0;
+                        var exMoney = (arrResuft[knew]["3"])?arrResuft[knew]["3"]:"0";
                         var arrCard = arrResuft[knew]["1"];
-                        var rankChi = arrResuft[knew]["10"];
-                        var typeBaoLang = arrResuft[knew]["0"];
                         var namePlayer = arrResuft[knew]["u"];
-                        var txtSap = (typeBaoLang==1)?"Sập":"";
                         var moneyPlayer = (arrResuft[knew]["4"])?arrResuft[knew]["4"]:"0";
 
-                        if(idPhase == 1){ //set lUng hoac toi trang
-
+                        if(idPhase == 1){ //set lUng hoac toi tran
+                            var rankChi = arrResuft[knew]["0"];
+                            thiz._view.performLatBaiSpecial(namePlayer,arrCard,rankChi,exMoney,isReconnect);
                         }
                         else if(idPhase == 2 || idPhase == 3 || idPhase == 4){
+                            var isReconnectNew = isReconnect;
+                            if(idPhaseCurr < idPhase)
+                            {
+                                isReconnectNew = false;
+                            }
+                             var rankChi = arrResuft[knew]["10"];
+                             var typeBaoLang = arrResuft[knew]["0"];
+                             var txtSap = (typeBaoLang==1)?"Sập":"";
+                             thiz._view.performSoChi(namePlayer, idPhase-2, rankChi, exMoney, arrCard,parseInt(moneyPlayer),txtSap,isReconnectNew);
 
-                              thiz._view.performSoChi(namePlayer, idPhase-2, rankChi, exMoney, arrCard,moneyPlayer,txtSap);
 
                         }
                         else if(idPhase == 5){ // kieu dac biet
-
+                            var rankChi = arrResuft[knew]["0"];
+                            thiz._view.performPhase5(namePlayer,rankChi,exMoney,isReconnect);
                         }
                         else if(idPhase == 6){ // resuft
-
+                            var winType = arrResuft[knew]["0"];
+                            var soChiWin = arrResuft[knew]["6"];
+                            var wholeCards = arrResuft[knew]["8"];
+                            var moneyChange = arrResuft[knew]["5"];
+                            thiz._view.addResultEntry(namePlayer, winType, soChiWin, wholeCards, parseInt(moneyPlayer), moneyChange);
                         }
 
 
                     })();
 
-                } ;
+                }
+                    if(idPhase == 6){
+                        thiz._view.performShowResult(0);
+                    }
                 });
                 if(callFun != null){
                     if(idPhase>= idPhaseCurr){

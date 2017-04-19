@@ -109,6 +109,7 @@
     "res/Game/js/Game/BaCay.js",
     "res/Game/js/Game/BaCayChuong.js",
     "res/Game/js/Game/MauBinh.js",
+    "res/Game/js/Game/CalculatorMB.js",
     "res/Game/js/Game/Phom.js",
     "res/Game/js/Game/Sam.js",
     "res/Game/js/Game/SamSolo.js",
