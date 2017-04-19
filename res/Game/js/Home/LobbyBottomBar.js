@@ -114,7 +114,7 @@ var LobbyBottomBar = cc.Node.extend({
     },
 
     refreshView : function () {
-        this.avatar.setAvatarMe();
+        //this.avatar.setAvatarMe();
 
         var myName = PlayerMe.username;
         if(myName.length > 15){

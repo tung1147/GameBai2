@@ -89,9 +89,30 @@ var UserAvatar = cc.Node.extend({
     // }
 });
 
+var UserAvatarMe = UserAvatar.extend({
+    ctor : function () {
+        this._super();
+        LobbyClient.getInstance().addListener("inventory", this.onChangeRefeshUserInfo, this);
+        LobbyClient.getInstance().addListener("updateItem", this.onChangeRefeshUserInfo, this);
+        this.setAvatarMe();
+    },
+
+    onEnter : function () {
+        this._super();
+    },
+
+    onExit : function () {
+        this._super();
+        LobbyClient.getInstance().removeListener(this);
+    },
+
+    onChangeRefeshUserInfo : function () {
+        this.setAvatarMe();
+    }
+});
+
 UserAvatar.createMe = function () {
-    var avt = new UserAvatar();
-    avt.setAvatar(PlayerMe.avatar);
+    var avt = new UserAvatarMe();
     return avt;
 };
 
