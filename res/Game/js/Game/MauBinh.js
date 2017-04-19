@@ -439,6 +439,7 @@ var MauBinhCardList = cc.Node.extend({
     removeAll: function () {
         this.removeAllChildren(true);
         this.cardList = [];
+        this.resultLabels = [];
     },
 
     showResultChi: function (index, nameChi, duration) {
