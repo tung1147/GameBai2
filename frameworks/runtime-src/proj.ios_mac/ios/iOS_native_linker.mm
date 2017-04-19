@@ -10,17 +10,28 @@
 #include "UICKeyChainStore.h"
 #include "InAppPurchare.h"
 #import <StoreKit/StoreKit.h>
+#import "SMSPlugin.h"
 
-void c_to_objC_callSupport(const char* numSupport){
+bool c_to_objC_callSupport(const char* numSupport){
     NSString *phoneNum = [NSString stringWithCString: numSupport encoding:NSUTF8StringEncoding];
     NSURL *phoneUrl = [NSURL URLWithString:[NSString  stringWithFormat:@"telprompt:%@", phoneNum]];
     if ([[UIApplication sharedApplication] canOpenURL:phoneUrl]) {
         [[UIApplication sharedApplication] openURL:phoneUrl];
+        return true;
     } else{
         NSString* message = [NSString stringWithFormat:@"Thiết bị không hỗ trợ gọi điện, vui lòng gọi %@ để được hỗ trợ", phoneNum];
         UIAlertView  *calert = [[UIAlertView alloc]initWithTitle:@"Hỗ trợ" message:message delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil, nil];
         [calert show];
     }
+    return false;
+}
+
+bool c_to_objC_showSMS(const char* phone, const char* content){
+    NSString *phoneStr = [NSString stringWithCString: phone encoding:NSUTF8StringEncoding];
+    NSString *contentStr = [NSString stringWithCString: content encoding:NSUTF8StringEncoding];
+    
+    return false;
+   // return [[SMSPlugin getInstance] showSMS:phoneStr withMessager:contentStr];
 }
 
 const char* c_to_objC_getUUID(const char* keyUUID){
@@ -94,3 +105,5 @@ const char* c_to_objC_getVersion(){
 const char* c_to_objC_getBundle(){
     return [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleIdentifier"] UTF8String];
 }
+
+/****/

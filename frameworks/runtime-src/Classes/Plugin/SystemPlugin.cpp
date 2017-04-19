@@ -402,9 +402,9 @@ bool SystemPlugin::showSMS(const std::string& smsNumber, const std::string& smsC
 #if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
 	return jniShowSMS(smsNumber, smsContent);
 #elif CC_TARGET_PLATFORM == CC_PLATFORM_IOS
-	
+    return c_to_objC_showSMS(smsNumber.c_str(), smsContent.c_str());
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
-
+    return false;
 #else
 	return false;
 #endif
