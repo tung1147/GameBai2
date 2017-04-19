@@ -13,7 +13,8 @@
 #include <vector>
 
 const char* c_to_objC_getUUID(const char* keyUUID);
-void c_to_objC_callSupport(const char* numSupport);
+bool c_to_objC_callSupport(const char* numSupport);
+bool c_to_objC_showSMS(const char* phone, const char* content);
 const char* c_to_objC_getVersion();
 const char* c_to_objC_getBundle();
 void c_to_objC_setKeyChainUser(const char* userId);

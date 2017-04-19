@@ -1717,7 +1717,7 @@ bool js_quyetnd_newui_ListViewWithAdaptor_setCreateItemCallback(JSContext *cx, u
 						JS::RootedObject tmpObj(cx, rval.toObjectOrNull());
 						jsProxy = jsb_get_js_proxy(tmpObj);
 						ret = (cocos2d::Node*)(jsProxy ? jsProxy->ptr : NULL);
-						JSB_PRECONDITION2(ret, cx, false, "Invalid Native Object");
+//						JSB_PRECONDITION2(ret, cx, false, "Invalid Native Object");
 					} while (0);
 					return ret;
 				};
