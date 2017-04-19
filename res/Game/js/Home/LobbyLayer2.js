@@ -234,8 +234,15 @@ var LobbyLayer = cc.Node.extend({
     },
 
     onInviteReceived: function (command, data) {
-        if (!cc.Global.GetSetting("invite"))
+        var thiz = this;
+
+        if (!cc.Global.GetSetting("invite")){
             return;
+        }
+
+        if(this.ignoreAllInvite){
+            return;
+        }
 
         data = data["data"];
         if (RecvInviteDialog.getInstance().isShow())
@@ -248,6 +255,9 @@ var LobbyLayer = cc.Node.extend({
         RecvInviteDialog.getInstance().setRoomInfo(serverInfo);
 
         RecvInviteDialog.getInstance().showWithAnimationScale();
+        RecvInviteDialog.getInstance()._ignoreHandler = function () {
+            thiz.ignoreAllInvite = true;
+        };
     },
 
     onUpdateAll : function (cmd, event) {
@@ -317,6 +327,7 @@ var LobbyLayer = cc.Node.extend({
             // this.listRoomXocDia.removeAllItems();
         }
         else{
+            this.ignoreAllInvite = false;
             for(var i=0; i < this.listGame.length;i++){
                 this.listGame[i].removeAllItems();
             }
@@ -329,6 +340,7 @@ var LobbyLayer = cc.Node.extend({
     onEnter : function () {
         this._super();
         this.mToggle.selectItem(0);
+        this.ignoreAllInvite = false;
     },
 
     onExit : function () {
