@@ -175,13 +175,13 @@ var GamePlayer = cc.Node.extend({
 
     showInfoDialog: function () {
         // cc.log("showInfoDialog");
-        var dialog = new UserDialog();
-        dialog.setUsername(this.username);
-        dialog.setGold(this.gold);
-        if (this.avt) {
-            dialog.setAvatar(this._avatarUrl);
-        }
-        dialog.showWithAnimationScale();
+        // var dialog = new UserDialog();
+        // dialog.setUsername(this.username);
+        // dialog.setGold(this.gold);
+        // if (this.avt) {
+        //     dialog.setAvatar(this._avatarUrl);
+        // }
+        // dialog.showWithAnimationScale();
     },
     setAvatar: function (avt) {
         this._avatarUrl = avt;

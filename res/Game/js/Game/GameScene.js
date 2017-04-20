@@ -8,7 +8,7 @@ var GameTopBar = cc.Node.extend({
         SmartfoxClient.getInstance().addListener(socket.SmartfoxClient.CallExtension, this.onExtensionCommand, this);
 
         var backBt = new ccui.Button("ingame-backBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        backBt.setPosition(65, 666);
+        backBt.setPosition(54, 666);
         this.addChild(backBt);
 
         var settingBt = new ccui.Button("ingame-settingBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
@@ -106,15 +106,20 @@ var IGameScene = IScene.extend({
     },
 
     showGameInfo: function (gameName, betAmount) {
-        var nameTitle = new cc.LabelBMFont(gameName, cc.res.font.Roboto_CondensedBold_30);
+        var nameTitle = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, gameName);
         nameTitle.setAnchorPoint(cc.p(0.0, 0.5));
-        nameTitle.setPosition(15 + 105 * cc.winSize.screenScale, 720 - 48 * cc.winSize.screenScale);
-        this.sceneLayer.addChild(nameTitle);
+        nameTitle.setPosition(96, 684);
+        this.gameTopBar.addChild(nameTitle);
 
-        var betTitle = new cc.LabelBMFont(cc.Global.NumberFormat1(betAmount) + " V", cc.res.font.Roboto_CondensedBold_25);
+        var goldIcon = new cc.Sprite("#ingame-goldIcon.png");
+        goldIcon.setPosition(109, 656);
+        this.gameTopBar.addChild(goldIcon);
+
+        var betTitle = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, cc.Global.NumberFormat1(betAmount));
         betTitle.setAnchorPoint(cc.p(0.0, 0.5));
-        betTitle.setPosition(15 + 105 * cc.winSize.screenScale, 720 - 15 - 70 * cc.winSize.screenScale);
-        this.sceneLayer.addChild(betTitle);
+        betTitle.setColor(cc.color("#ffde00"));
+        betTitle.setPosition(126, 656);
+        this.gameTopBar.addChild(betTitle);
     },
 
     getMaxSlot: function () {
