@@ -266,7 +266,7 @@ var SmartfoxClient = (function () {
             }
         },
         _createGameSceneWithGameType: function (gameType, betAmount) {
-            PlayerMe.gameType = gameType;
+           // PlayerMe.gameType = gameType;
             var retVal = null;
             var game = null;
 
@@ -352,41 +352,43 @@ var SmartfoxClient = (function () {
         _onStartGameHandler: function (cmd, contents) {
             LoadingDialog.getInstance().hide();
 
-            var scene = cc.director.getRunningScene();
-            if (scene.type == "GameScene") {
-                cc.log("return");
-                return false;
-            }
             var gameInfo = contents.p;
             var gameName = gameInfo["r"];
             var gameType = gameInfo["g"];
             var gameBetAmount = gameInfo["8"];
-            var gameScene = this._createGameSceneWithGameType(gameType, gameBetAmount);
-            if (gameScene) {
-                LoadingDialog.getInstance().hide();
-                cc.director.replaceScene(new cc.TransitionFade(0.5, gameScene, cc.color("#000000")));
+            PlayerMe.gameType = gameType;
+
+            var scene = cc.director.getRunningScene();
+            if (scene.type === "GameScene") {
+                return false;
+            }
+            else{
+                var gameScene = this._createGameSceneWithGameType(gameType, gameBetAmount);
+                if (gameScene) {
+                    cc.director.replaceScene(new cc.TransitionFade(0.5, gameScene, cc.color("#000000")));
+                }
             }
         },
 
         _onReconnectHandler: function (cmd, contents) {
             LoadingDialog.getInstance().hide();
 
-            var scene = cc.director.getRunningScene();
-            if (scene.type == "GameScene") {
-                return false;
-            }
             var gameInfo = contents.p["1"];
             var gameName = gameInfo["r"];
             var gameType = gameInfo["g"];
             var gameBetAmount = gameInfo["8"];
-
-            var gameScene = this._createGameSceneWithGameType(gameType, gameBetAmount);
-
-            if (gameScene) {
-                cc.director.replaceScene(gameScene);
-            }
-
             PlayerMe.gameType = gameType;
+
+            var scene = cc.director.getRunningScene();
+            if (scene.type === "GameScene") {
+                return false;
+            }
+            else{
+                var gameScene = this._createGameSceneWithGameType(gameType, gameBetAmount);
+                if (gameScene) {
+                    cc.director.replaceScene(gameScene);
+                }
+            }
         },
 
         _onReconnectMiniGameHandler: function (cmd, contents) {
@@ -429,127 +431,6 @@ var SmartfoxClient = (function () {
         prePostEvent: function (messageType, contents) {
             cc.log("messageType : " + messageType);
             cc.log("contents : ", contents);
-            // if (messageType === socket.SmartfoxClient.Handshake) {
-            //     if (contents.tk && contents.tk.length > 0) {
-            //         this.sendLogin();
-            //     }
-            // }
-            // else if (messageType === socket.SmartfoxClient.Login) {
-            //     if (contents.ec) { //login error
-            //         LoadingDialog.getInstance().hide();
-            //         var scene = cc.director.getRunningScene();
-            //         if (scene.type == "GameScene") {
-            //             //return home
-            //         }
-            //         else {
-            //             MessageNode.getInstance().show("Lỗi đăng nhập máy chủ");
-            //         }
-            //     }
-            //     else {
-            //         PlayerMe.SFS.userId = contents.id;
-            //         if (this._loginHandler) {
-            //             this._loginHandler();
-            //             this._loginHandler = null;
-            //         }
-            //     }
-            // }
-            // else if (messageType === socket.SmartfoxClient.JoinRoom) {
-            //     PlayerMe.SFS.roomId = contents.r[0];
-            //     // contents.roomData = SmartfoxUtils.getRoomInfo(contents.r);
-            //     // contents.userList = [];
-            //     // var ul = contents["ul"];
-            //     // for(var i=0;i<ul.length;i++){
-            //     //     contents.userList.push(SmartfoxUtils.getUserInfo(ul[i]));
-            //     // }
-            //     //
-            //     // this.lastRoomInfo = contents.roomData;
-            //     // this.lastRoomInfo.userList = contents.userList;
-            // }
-            // // else if(messageType === socket.SmartfoxClient.UserEnterRoom){
-            // //     contents.userInfo = SmartfoxUtils.getUserInfo(contents.u);
-            // //     this.lastRoomInfo.userList.push(contents.userInfo);
-            // // }
-            // else if (messageType === socket.SmartfoxClient.UserExitRoom) {
-            //     var userId = contents.u;
-            //     if (PlayerMe.SFS.userId == userId) {
-            //         PlayerMe.SFS.roomId = -1;
-            //       //  this.lastRoomInfo = null;
-            //     }
-            //     // else{
-            //     //     var userList = this.lastRoomInfo.userList;
-            //     //     for(var i=0;i<userList.length;i++){
-            //     //         if(userList[i].userId === userId){
-            //     //             userList.splice(i, 1);
-            //     //             break;
-            //     //         }
-            //     //     }
-            //     // }
-            // }
-            // else if (messageType === socket.SmartfoxClient.CallExtension) {
-            //     if (contents.c == "1") { //startgame
-            //         var scene = cc.director.getRunningScene();
-            //         if (scene.type == "GameScene") {
-            //             cc.log("return");
-            //             return false;
-            //         }
-            //         var gameInfo = contents.p;
-            //         var gameName = gameInfo["r"];
-            //         var gameType = gameInfo["g"];
-            //         var gameScene = this._createGameSceneWithGameType(gameType);
-            //         if (gameScene) {
-            //             LoadingDialog.getInstance().hide();
-            //             cc.director.replaceScene(new cc.TransitionFade(0.5, gameScene, cc.color("#000000")));
-            //         }
-            //     }
-            //     else if (contents.c == "13") { //reconnect
-            //         var scene = cc.director.getRunningScene();
-            //         if (scene.type == "GameScene") {
-            //             return false;
-            //         }
-            //         var gameInfo = contents.p["1"];
-            //         var gameName = gameInfo["r"];
-            //         var gameType = gameInfo["g"];
-            //
-            //         var gameScene = this._createGameSceneWithGameType(gameType);
-            //
-            //         if (gameScene) {
-            //             cc.director.replaceScene(gameScene);
-            //         }
-            //
-            //         PlayerMe.gameType = gameType;
-            //         // LobbyClient.getInstance().gameChannel = gameType;
-            //         //  PlayerMe.SFS.gameType = gameType;
-            //     }
-            //     else if (contents.c == "262") { // reconnect mini game
-            //         var scene = cc.director.getRunningScene();
-            //         if (scene.type == "GameScene") {
-            //             return false;
-            //         }
-            //         var gameScene;
-            //         var group = contents.p["group"];
-            //         if (group == "mini.caothap") {
-            //             //gameScene = new CaoThapScene();
-            //             // PlayerMe.gameType = GameType.MiniGame_CaoThap;
-            //             SceneNavigator.toMiniGame(GameType.MiniGame_CaoThap,true);
-            //             LoadingDialog.getInstance().hide();
-            //         }
-            //         else if (group == "mini.videopoker") {
-            //             //gameScene = new VideoPockerScene();
-            //             //PlayerMe.gameType = GameType.MiniGame_VideoPoker;
-            //             SceneNavigator.toMiniGame(GameType.MiniGame_VideoPoker,true);
-            //             LoadingDialog.getInstance().hide();
-            //         }
-            //         if (gameScene) {
-            //             gameScene.isReconnect = true;
-            //             cc.director.replaceScene(gameScene);
-            //         }
-            //     }
-            //     else if (contents.c == "fullRoom") {
-            //         // full room
-            //         LoadingDialog.getInstance().hide();
-            //         MessageNode.getInstance().show("Room đã đầy");
-            //     }
-            // }
             return false;
         }
     });
