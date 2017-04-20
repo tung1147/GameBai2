@@ -71,9 +71,19 @@ var ChanLeLayer = MiniGamePopup.extend({
         // this.phoneText.setDelegate()
         this.moneyTF.setTextColor(cc.color(255,255,255));
         this.moneyTF.setPlaceHolderColor(cc.color(190, 240, 253,255));
-        this.moneyTF.setMaxLength(30);
+       // this.moneyTF.setMaxLength(30);
         this.moneyTF.setPosition(cc.p(513, 90));
         bg.addChild(this.moneyTF,1);
+        this.moneyTF.setTextChangeListener(function (type, newText) {
+            if(newText === ""){
+                return false;
+            }
+            var numberText = newText.replace(/[.,]/g,'');
+            if(cc.Global.IsNumber(numberText)){
+                thiz.moneyTF.setText(cc.Global.NumberFormat1(parseInt(numberText)));
+            }
+            return true;
+        });
 
         this._boudingRect = cc.rect(30, 47, 930, 510);
 
