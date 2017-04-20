@@ -328,6 +328,11 @@ var TienLen = IGameScene.extend({
         this.suggestGroups = TLMNUtility.getSuggestedCards(null, this.cardList.cardList);
     },
 
+    suggestCardWithCards : function(cards){
+        this.isNewTurn = false;
+        this.suggestGroups = TLMNUtility.getSuggestedCards(cards, this.cardList.cardList);
+    },
+
     setCardList: function (list, data) {
         list.removeAll();
         for (var i = 0; i < data.length; i++) {

@@ -90,6 +90,8 @@ var TLMNGameController = GameController.extend({
 
     onReconnect: function (params) {
         this._super(params);
+        this._reconnectCardOnTable = null;
+        this._reconnectTurnMe = false;
 
         this.updateGameInfo(params["1"]);
 
@@ -112,6 +114,11 @@ var TLMNGameController = GameController.extend({
         var userInfo = params["1"]["5"];
         for(var i=0;i<userInfo.length;i++){
             this._view.updateCardRemaining(userInfo[i]["u"], userInfo[i]["8"]);
+        }
+
+        if(this._reconnectCardOnTable && this._reconnectTurnMe){
+            this._view.suggestCardWithCards(this._reconnectCardOnTable);
+            this._reconnectCardOnTable = null;
         }
     },
 
@@ -189,6 +196,8 @@ var TLMNGameController = GameController.extend({
                     cards.push(CardList.prototype.getCardWithId(cardData[i]));
                 }
                 this._view.setCardOnTable(cards);
+
+                this._reconnectCardOnTable = cards;
             }
 
             /* update turn */
@@ -196,6 +205,8 @@ var TLMNGameController = GameController.extend({
             var currentTime = params["12"]["2"] / 1000;
             var newTurn = (cardData.length > 0) ? false : true;
             this.onUpdateTurn(username, currentTime, newTurn);
+
+            this._reconnectTurnMe = (username === PlayerMe.username);
         }
     },
 
