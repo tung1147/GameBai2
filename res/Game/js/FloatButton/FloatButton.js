@@ -2,7 +2,12 @@
  * Created by Quyet Nguyen on 8/19/2016.
  */
 
-var s_float_button_games = s_float_button_games || [13,14,15];
+var s_float_button_games = s_float_button_games || [
+        GameType.MiniGame_CaoThap,
+        GameType.MiniGame_Poker,
+        GameType.MiniGame_ChanLe,
+        GameType.MiniGame_VideoPoker
+];
 var s_float_button_animationDuration = s_float_button_animationDuration || 0.2;
 
 var FloatButtonCenter = cc.Node.extend({
