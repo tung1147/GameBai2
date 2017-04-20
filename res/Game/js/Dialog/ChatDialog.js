@@ -86,16 +86,15 @@ var ChatDialog = IDialog.extend({
         this.addChild(listMessage);
 
         var thiz = this;
-        for(var i=0;i<40;i++){
-            var icon = new ccui.Button("emotion_1.png", "","",ccui.Widget.PLIST_TEXTURE);
+        for(var i=0;i<42;i++){
+            var iconImg = "chat_icon_" + (i+1) + ".png";
+            var icon = new ccui.Button(iconImg, "","",ccui.Widget.PLIST_TEXTURE);
             icon.setZoomScale(0.02);
             listMessage.pushItem(icon);
 
             (function () {
-               // var msg = s_chat_message[i];
                 icon.addClickEventListener(function () {
-                   // thiz._buttonHandler(msg);
-                    thiz.hide();
+                    thiz._emotionHandler(iconImg);
                 });
             })();
         }
@@ -104,6 +103,13 @@ var ChatDialog = IDialog.extend({
     _buttonHandler : function (message) {
         if(this.onTouchMessage){
             this.onTouchMessage(message);
+        }
+        this.hide();
+    },
+
+    _emotionHandler : function (img) {
+        if(this.onTouchEmotion){
+            this.onTouchEmotion(img);
         }
         this.hide();
     }

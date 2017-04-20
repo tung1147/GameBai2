@@ -49,7 +49,12 @@ var GameController = cc.Class.extend({
     },
 
     onSmartfoxRecvChatMessage: function (event, data) {
-        this._view.onChatMessage(data.p.userName, data.m);
+        if(data["m"] === "[emoji]" && data["p"]["emojiName"]){
+            this._view.onChatEmotion(data.p.userName, data["p"]["emojiName"]);
+        }
+        else{
+            this._view.onChatMessage(data.p.userName, data.m);
+        }
     },
 
     onSFSExtension: function (messageType, content) {
@@ -317,6 +322,19 @@ var GameController = cc.Class.extend({
             }
         };
         SmartfoxClient.getInstance().send(socket.SmartfoxClient.GenericMessage, content);
-    }
+    },
 
+    sendChatEmotion : function (icon) {
+        var content = {
+            t: 0, //public message
+            r: PlayerMe.SFS.roomId,
+            u: PlayerMe.SFS.userId,
+            m: "[emoji]",
+            p: {
+                userName: PlayerMe.username,
+                emojiName : icon
+            }
+        };
+        SmartfoxClient.getInstance().send(socket.SmartfoxClient.GenericMessage, content);
+    }
 });

@@ -88,6 +88,9 @@ var IGameScene = IScene.extend({
             dialog.onTouchMessage = function (message) {
                 thiz.sendChatMessage(message);
             };
+            dialog.onTouchEmotion = function (icon) {
+                thiz.sendEmotion(icon);
+            },
             dialog.show();
         });
     },
@@ -177,6 +180,12 @@ var IGameScene = IScene.extend({
     sendChatMessage: function (message) {
         if (this._controller) {
             this._controller.sendChat(message);
+        }
+    },
+
+    sendEmotion : function (icon) {
+        if (this._controller) {
+            this._controller.sendChatEmotion(icon);
         }
     },
 
@@ -279,10 +288,21 @@ var IGameScene = IScene.extend({
     },
 
     onChatMessage: function (username, message) {
-        cc.log("chat: " + username + " - " + message);
+      //  cc.log("chat: " + username + " - " + message);
         for (var i = 0; i < this.allSlot.length; i++) {
-            if (this.allSlot[i].username == username) {
+            if (this.allSlot[i].username === username) {
                 this.allSlot[i].chatView.show(message);
+                break;
+            }
+        }
+    },
+
+    onChatEmotion : function (username, message) {
+       // cc.log("onChatEmotion: " + username + " - " + message);
+      //  cc.log("chat: " + username + " - " + message);
+        for (var i = 0; i < this.allSlot.length; i++) {
+            if (this.allSlot[i].username === username) {
+                this.allSlot[i].showChatEmotion(message);
                 break;
             }
         }

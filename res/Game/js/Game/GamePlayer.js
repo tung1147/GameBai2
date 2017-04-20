@@ -183,6 +183,18 @@ var GamePlayer = cc.Node.extend({
         // }
         // dialog.showWithAnimationScale();
     },
+    showChatEmotion : function (emotion) {
+        var emotion = new cc.Sprite("#"+emotion);
+        emotion.setScale(1.5);
+        emotion.setPosition(this.avt.getPosition());
+        this.addChild(emotion, 10);
+        emotion.runAction(new cc.Sequence(
+            new cc.DelayTime(3.0),
+            new cc.CallFunc(function () {
+                emotion.removeFromParent(true);
+            })
+        ));
+    },
     setAvatar: function (avt) {
         this._avatarUrl = avt;
         if (this.avt) {
