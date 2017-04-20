@@ -39,6 +39,10 @@ var ChanLeLayer = MiniGamePopup.extend({
         this.tutorialButton.setPosition(cc.p(918, 152));
         bg.addChild(this.tutorialButton);
 
+        var bg_title = new cc.Sprite("#mntx_title.png");
+        bg_title.setPosition(cc.p(bg_title.getContentSize().width/2 + 30, bg.getContentSize().height-10));
+        bg.addChild(bg_title,-1);
+
         var btnRank = new ccui.Button("mntx_btn_bxh.png","","",ccui.Widget.PLIST_TEXTURE);
 
         btnRank.setPosition(cc.p(909, 309));
@@ -79,8 +83,11 @@ var ChanLeLayer = MiniGamePopup.extend({
                 return false;
             }
             var numberText = newText.replace(/[.,]/g,'');
+
+
             if(cc.Global.IsNumber(numberText)){
                 thiz.moneyTF.setText(cc.Global.NumberFormat1(parseInt(numberText)));
+                thiz.moneyBet = parseInt(numberText);
             }
             return true;
         });
