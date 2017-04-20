@@ -35,6 +35,7 @@ var s_Dialog_Create_Button2 = function (size, title) {
 var IDialog = cc.Node.extend({
     ctor : function () {
         this._super();
+        this._isShow = false;
         this.mTouch = cc.rect(0,0,0,0);
         this.setAnchorPoint(cc.p(0.5, 0.5));
 
@@ -56,9 +57,10 @@ var IDialog = cc.Node.extend({
 
     },
     show : function (rootNode) {
+        this._isShow = true;
         var parentNode = this.getParent();
         if(parentNode){
-            parentNode.removeChild(this);
+            parentNode.removeFromParent();
             parentNode = null;
         }
         if(!rootNode){
@@ -98,6 +100,7 @@ var IDialog = cc.Node.extend({
         this.runAction(moveAction);
     },
     hide : function () {
+        this._isShow = false;
         var parent = this.getParent();
         if(parent){
             parent.removeFromParent(true);
@@ -105,15 +108,22 @@ var IDialog = cc.Node.extend({
     },
 
     isShow : function () {
-        return this._running;
+        //return this._running;
+        return this._isShow;
     },
 
     onTouchDialog : function () {
 
     },
 
+    onExit : function () {
+        this._super();
+        this._isShow = false;
+    },
+
     onEnter : function () {
         this._super();
+        this._isShow = true;
 
         var thiz = this;
         cc.eventManager.addListener({
