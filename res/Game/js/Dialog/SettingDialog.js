@@ -90,6 +90,12 @@ var SettingDialog = Dialog.extend({
         if(force){
             this.vibratorOnOff.select(enable);
         }
+
+        if(cc.sys.isNative){
+            if(!this._isInitView && enable){
+                cc.Device.vibrate(0.1);
+            }
+        }
     },
 
     _setInviteEnable : function (enable, force) {
@@ -103,8 +109,10 @@ var SettingDialog = Dialog.extend({
     onEnter : function () {
         this._super();
 
+        this._isInitView = true;
         this._setSoundEnable(cc.Global.GetSetting("sound",true), true);
         this._setVibratorEnable(cc.Global.GetSetting("vibrator",true), true);
         this._setInviteEnable(cc.Global.GetSetting("invite",true), true);
+        this._isInitView = false;
     }
 });
