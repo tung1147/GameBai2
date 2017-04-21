@@ -385,7 +385,7 @@ var TienLen = IGameScene.extend({
     // },
 
     onDanhbaiMe: function (username, cards) {
-        var slot = this.getSlotByUsername(username);
+       // var slot = this.getSlotByUsername(username);
         var arr = this.cardList.removeCard(cards);
         this.cardOnTable.moveOldCard();
         this.cardOnTable.addCard(arr);
@@ -394,7 +394,13 @@ var TienLen = IGameScene.extend({
             arr[i].release();
         }
         SoundPlayer.playSound("danh_bai");
-       // this.suggestGroups = null;
+       // this.suggestGroups =
+
+        if(this.cardList.cardList.length === 0){
+            this.setDanhBaiBtVisible(false);
+            this.setBoLuotBtVisible(false);
+            this.setXepBaiBtVisible(false);
+        }
     },
 
     onDanhbaiOther: function (username, cards) {
