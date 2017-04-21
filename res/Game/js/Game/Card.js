@@ -279,6 +279,15 @@ var CardList = cc.Node.extend({
         }
     },
     dealCards: function (cards, animation) {
+        /*fix dealCards when reconnect*/
+        if(!this.deckPoint){
+            var thiz = this;
+            setTimeout(function () {
+                thiz.dealCards(cards,animation);
+            }, 0.1);
+            return;
+        }
+
         this.removeAll();
         for (var i = 0; i < cards.length; i++) {
             var card = new Card(cards[i].rank, cards[i].suit);
