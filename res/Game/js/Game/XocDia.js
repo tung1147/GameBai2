@@ -187,6 +187,7 @@ var XocDiaScene = IGameScene.extend({
         this._historyData = [];
         this.chipTagMe = 100;
         this.chipTagOther = 200;
+        this._shakeDisk = false;
 
         this.initView();
 
@@ -208,6 +209,19 @@ var XocDiaScene = IGameScene.extend({
 
     showGameInfo : function (gameName,betAmount) {
 
+    },
+
+    update : function (dt) {
+        if(this._shakeDisk){
+            if(cc.Global.GetSetting("vibrator",true)){
+                if(cc.sys.isNative){
+                    cc.Device.vibrate(dt);
+                }
+                else{
+                    cc.log("vibrator: " + dt);
+                }
+            }
+        }
     },
 
     backButtonClickHandler : function () {
@@ -507,16 +521,27 @@ var XocDiaScene = IGameScene.extend({
 
         this.hideHistory();
 
+        this._shakeDisk = false;
+
         var thiz = this;
         this.batSprite.runAction(new cc.MoveTo(1.0, this.batSpritePosition));
         this.diskSprite.runAction(new cc.Sequence(
             new cc.EaseSineOut(new cc.MoveTo(1.0, cc.p(cc.winSize.width / 2, cc.winSize.height / 2))),
             new cc.DelayTime(0.2),
-            new quyetnd.ActionShake2D(3.0, cc.p(10.0, 10.0))
+            new cc.CallFunc(function () {
+                thiz._shakeDisk = true;
+            }),
+            new quyetnd.ActionShake2D(3.0, cc.p(10.0, 10.0)),
+            new cc.CallFunc(function () {
+                thiz._shakeDisk = false;
+            })
         ));
+
+
     },
 
     hideDisk: function () {
+        this._shakeDisk = false;
         //  this.stopAllActions();
         this.diskNode.removeAllChildren(true);
         this.diskSprite.stopAllActions();
@@ -529,6 +554,8 @@ var XocDiaScene = IGameScene.extend({
     },
 
     openDisk: function (data) {
+        this._shakeDisk = false;
+
         this.stopAllActions();
         SoundPlayer.playSound(["bellopen", "mobat"]);
         this.diskNode.removeAllChildren(true);
@@ -630,6 +657,7 @@ var XocDiaScene = IGameScene.extend({
     onEnter: function () {
         this._super();
         this.chipGroup.selectChipAtIndex(0, true);
+        this.scheduleUpdate();
     },
 
     onTouchSlot: function (slotId) {
@@ -790,6 +818,7 @@ var XocDiaScene = IGameScene.extend({
 
         this.setTongCuocLabel(-1);
         this.setWinLabel(-1);
+        this._shakeDisk = false;
     },
 
     datLaiThanhCong: function () {
