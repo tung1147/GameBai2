@@ -225,15 +225,26 @@ var XocDiaScene = IGameScene.extend({
     },
 
     backButtonClickHandler : function () {
-        var thiz = this;
-        var dialog = new MessageConfirmDialog();
-        dialog.setMessage("Bạn có muốn thoát game không ? \nNếu THOÁT bạn sẽ bị mất số vàng đã đặt cược");
-        dialog.showWithAnimationScale();
-        dialog.okButtonHandler = function () {
-            if (thiz._controller) {
-                thiz._controller.requestQuitRoom();
+        var uGold = 0;
+        for(var i = 0; i<this.bettingSlot.length;i++){
+            uGold += this.bettingSlot[i]._userGold;
+        }
+        if(uGold > 0){
+            var thiz = this;
+            var dialog = new MessageConfirmDialog();
+            dialog.setMessage("Bạn có muốn thoát game không ? \nNếu THOÁT bạn sẽ bị mất số vàng đã đặt cược");
+            dialog.showWithAnimationScale();
+            dialog.okButtonHandler = function () {
+                if (thiz._controller) {
+                    thiz._controller.requestQuitRoom();
+                }
+            };
+        }
+        else{
+            if (this._controller) {
+                this._controller.requestQuitRoom();
             }
-        };
+        }
     },
     initView: function () {
         var playerMe = new GamePlayerMe();
@@ -892,6 +903,17 @@ var XocDiaScene = IGameScene.extend({
 
         //this.timeLabel.runAction(new cc.RepeatForever(alertAction));
 
+        var alertSoundAction = function (time) {
+            var action = new cc.Sequence(
+                new cc.CallFunc(function () {
+                    SoundPlayer.playSound("countDownS");
+                }),
+                new cc.DelayTime(1.0)
+            );
+
+            return new cc.Repeat(action, Math.floor(time));
+        };
+
         var thiz = this;
         if (currentTime > 5) {
             this.timeLabel.setColor(cc.color("#ffcf00"));
@@ -916,7 +938,7 @@ var XocDiaScene = IGameScene.extend({
                         new cc.TintTo(0.2, 255, 207, 0)
                     );
                     thiz.timer.runAction(new cc.RepeatForever(alertAction));
-                    SoundPlayer.playSound("countDownS");
+                    thiz.timer.runAction(alertSoundAction(5.0));
                 })
             ));
         }
@@ -927,7 +949,7 @@ var XocDiaScene = IGameScene.extend({
             );
             this.timeLabel.runAction(new cc.RepeatForever(alertAction.clone()));
             this.timer.runAction(new cc.RepeatForever(alertAction));
-            SoundPlayer.playSound("countDownS");
+            thiz.timer.runAction(alertSoundAction(currentTime));
         }
     },
 
