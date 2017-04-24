@@ -179,6 +179,8 @@ var LobbyLayer = cc.Node.extend({
                     MessageNode.getInstance().show("Không có thông tin máy chủ");
                 }
 
+                LoadingDialog.getInstance().show("Đang vào phòng");
+
                 cc.log("join room");
             }
         });
