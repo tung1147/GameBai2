@@ -87,6 +87,9 @@ var ChatDialog = IDialog.extend({
 
         var thiz = this;
         for(var i=0;i<42;i++){
+            if(i === 4){
+                continue;
+            }
             var iconImg = "chat_icon_" + (i+1) + ".png";
             var icon = new ccui.Button(iconImg, "","",ccui.Widget.PLIST_TEXTURE);
             icon.setZoomScale(0.02);
