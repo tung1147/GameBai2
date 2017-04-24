@@ -282,13 +282,12 @@ var LobbyLayer = cc.Node.extend({
                         var userCount = roomData[j].userCount;
 
                         var metadata = roomData[j].metadata;
+                        //var roomCell = this.addRoomCell(roomList, serverId, roomId, betting, minMoney, userCount, metadata,roomData[j].slots);
                         if(PlayerMe.gameType == s_games_chanel[GameType.GAME_Poker]){
                             var roomCell = this.addRoomCell(roomList, serverId, roomId, betting, minMoney, userCount, metadata,roomData[j].slots);
                         }else {
                             var roomCell = this.addRoomCell(roomList, serverId, roomId, betting, minMoney, userCount, metadata,this.maxUsers);
                         }
-
-
                     }
                 }
 
