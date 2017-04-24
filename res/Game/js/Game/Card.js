@@ -167,6 +167,7 @@ var CardList = cc.Node.extend({
                 retVal.setPosition(this.convertToWorldSpace(retVal.getPosition()));
                 retVal.retain();
                 retVal.removeFromParent(true);
+                retVal.canTouch = false;
                 this.cardList.splice(i, 1);
                 return retVal;
             }
@@ -381,7 +382,7 @@ var CardList = cc.Node.extend({
                 if (card.rank == rank && card.suit == suit) {
                     var p = this.convertToWorldSpace(card.getPosition());
                     card.setPosition(p);
-
+                    card.canTouch = false;
                     card.retain();
                     card.removeFromParent(true);
                     arrCard.push(card);
