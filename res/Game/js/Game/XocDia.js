@@ -838,6 +838,7 @@ var XocDiaScene = IGameScene.extend({
 
     huyCuocThanhCong: function () {
         var tagMe = this.chipTagMe;
+        var pTarget = this.chipNode.convertToNodeSpace(cc.p(50,50));
 
         for (var i = 0; i < this.bettingSlot.length; i++) {
             var chips = this.bettingSlot[i]._chips;
@@ -847,7 +848,7 @@ var XocDiaScene = IGameScene.extend({
                     if (chip.chipTag == tagMe) {
                         //to me
                         chip.runAction(new cc.Sequence(
-                            new cc.MoveTo(0.5, cc.p(50, 50)),
+                            new cc.MoveTo(0.5, pTarget),
                             new cc.CallFunc(function () {
                                 chip.removeFromParent(true);
                             })
