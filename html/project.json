@@ -52,6 +52,7 @@
     "res/Game/js/Dialog/HistoryChanLe.js",
     "res/Game/js/Dialog/ThongKeChanLe.js",
     "res/Game/js/Dialog/HistoryPhien.js",
+    "res/Game/js/Dialog/HistoryNoHu.js",
     "res/Game/js/Dialog/SettingDialog.js",
     "res/Game/js/Dialog/UserDialog.js",
     "res/Game/js/Dialog/UserinfoDialog.js",
