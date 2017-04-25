@@ -90,12 +90,13 @@ var ChatDialog = IDialog.extend({
             if(i === 4){
                 continue;
             }
-            var iconImg = "chat_icon_" + (i+1) + ".png";
-            var icon = new ccui.Button(iconImg, "","",ccui.Widget.PLIST_TEXTURE);
-            icon.setZoomScale(0.02);
-            listMessage.pushItem(icon);
 
             (function () {
+                var iconImg = "chat_icon_" + (i+1) + ".png";
+                var icon = new ccui.Button(iconImg, "","",ccui.Widget.PLIST_TEXTURE);
+                icon.setZoomScale(0.02);
+                listMessage.pushItem(icon);
+
                 icon.addClickEventListener(function () {
                     thiz._emotionHandler(iconImg);
                 });
