@@ -82,7 +82,7 @@ var LibMB = cc.Class.extend({
             return subCuoi[subCuoi.length-1];
         }
     },
-    checkLungThung:function () {
+    checkLungThung:function (arr1,arr2) {
         arr1.sort(function (a,b) {
             if(Math.floor(a/4) == 0 || Math.floor(b/4) == 0){
                 return a-b;
@@ -158,10 +158,27 @@ var LibMB = cc.Class.extend({
         }
         if (isBinhLung) {
 
-            return ["Lủng","Lủng","Lủng"];
+            return ["","Binh Lủng",""];
         }
         else
         {
+            if(nameChiDau.type_chi == nameChiGiua.type_chi){
+                if(nameChiDau.type_chi == 5)//thung
+                {
+                    var isColor =  this.checkIsColor(arr3);
+                    if(isColor)
+                    {
+                        return ["","3 " + NAME_BINH[nameChiGiua.type_chi],""];
+                    }
+                    //check thung chi cuoi
+                }else if (nameChiDau.type_chi == 6){ // sang
+                    var isSanh = this.checkSanhChiCuoi(arr3);
+                    if(isSanh){
+                        return ["","3 " + NAME_BINH[nameChiGiua.type_chi],""];
+                    }
+                }
+
+            }
             return [NAME_BINH[nameChiDau.type_chi],NAME_BINH[nameChiGiua.type_chi],NAME_BINH[nameChiCuoi.type_chi]];
         }
     },
@@ -203,8 +220,11 @@ var LibMB = cc.Class.extend({
         }
         return false;
     },
+
     caculateBinh:function (arrValue) {
-        arrValue.sort();
+        arrValue.sort(function (a,b) {
+            return a-b;
+        });
         var chi_maubinh = {
             type_chi:-1,
             rank_chi:-1,
@@ -581,32 +601,33 @@ var LibMB = cc.Class.extend({
         return -1;
     },
     getThungMax:function (thung1,thung2) {
+        var zz = thung1;
         for (var  i= 0; i< thung1.length; i++) {
-            (function () {
+            // (function () {
                 var rank1 = Math.floor(thung1[i]/4);
                 if( rank1 == 0)
                 {
                     rank1 = 100;
                 }
                 var rank2 = Math.floor(thung2[i]/4);
-                if(rank1 == 0)
+                if(rank2 == 0)
                 {
                     rank2 = 100;
                 }
                 if(rank2>rank1)
                 {
-                    return thung2;
+                    zz = thung2;
+                    break;
                 }
                 else if(rank2<rank1)
                 {
-                    return thung1;
+                    zz = thung1;
+                    break;
                 }
 
-            })();
-
-
+            // })();
         }
-        return thung1;
+        return zz;
     },
     findThungPhaSanh:function (arrValue) {
         if(Math.floor(arrValue[0]/4) == 0 )// có át
@@ -738,7 +759,9 @@ var LibMB = cc.Class.extend({
             {
                 var arrItem = arrColor[i];
                 if (arrItem.length >= 5) {
-                    arrItem.sort();
+                    arrItem.sort(function (a,b) {
+                        return a-b;
+                    });
                     var temp2 =  this.findThungPhaSanh13(arrItem);
                     if (temp2.length>=5) {
 
@@ -946,6 +969,21 @@ var LibMB = cc.Class.extend({
         }
         cc.log("xong");
         return temp;
+    },
+    checkSanhChiCuoi:function (arr3) {
+        if(arr3.length == 3){
+            arr3.sort(function (a,b) {
+                return a-b;
+            });
+            if(Math.floor(arr3[0]/4)+1 == Math.floor(arr3[1]/4) && Math.floor(arr3[1]/4)+1 == Math.floor(arr3[2]/4)){
+                return true;
+            }
+            if(Math.floor(arr3[0]/4) == 0 && Math.floor(arr3[1]/4) == 12 &&  Math.floor(arr3[2]/4) == 13){
+                return true;
+            }//co at
+        }
+
+        return false;
     },
     _remove_value:function(arr1,arr2){
     for(var i=0;i<arr2.length;i++){

@@ -206,17 +206,25 @@ var ListChiMB = cc.Node.extend({
 
     },
 
-    setNameChi:function (chi,name) {
+    setNameChi:function (chi,name, isWin) {
         this.removeChildByTag(1234);
         var bg_name = new cc.Sprite("#mb_bg_text1.png");
         bg_name.setScale(1.3);
         bg_name.setPosition(0,-160 + 80*chi);
         bg_name.setTag(1234);
         this.addChild(bg_name,1234);
-        var nameChi = new cc.LabelTTF(name,cc.res.font.Roboto_Condensed,30);
+        var nameChi = new cc.LabelTTF(name,cc.res.font.Roboto_Condensed,25);
+        if(isWin){
+            nameChi.enableStroke(cc.color(123,49,26,0.48*255),2);
+            nameChi.setColor(cc.color(229,195,17,255));
+        }else{
+            nameChi.enableStroke(cc.color(13,34,58,255),2);
+            nameChi.setColor(cc.color(142,145,255,255));
+            bg_name.setSpriteFrame("mb_bg_text2.png");
+        }
+
         nameChi.setPosition(bg_name.getContentSize().width/2, bg_name.getContentSize().height/2);
         bg_name.addChild(nameChi);
-
 
     },
 
@@ -243,7 +251,7 @@ var ListChiMB = cc.Node.extend({
     removeText:function () {
         this.removeChildByTag(1234);
     },
-    latChi:function (chi, arrCard, isReconnect,typeChi) {
+    latChi:function (chi, arrCard, isReconnect,typeChi,isWin) {
         var cardArray = [];
 
         for (var i = 0; i < arrCard.length; i++) {
@@ -253,7 +261,7 @@ var ListChiMB = cc.Node.extend({
         if(this.cardList.length == 13){
             var  thiz = this;
             if(typeChi!=0){
-                this.setNameChi(chi,maubinh_chitypes[typeChi]);
+                this.setNameChi(chi,maubinh_chitypes[typeChi],isWin);
             }
             var zLocal1 = 3;
             var zLocal2 = 2;
@@ -306,7 +314,7 @@ var ListChiMB = cc.Node.extend({
             };
         }
     },
-    latAll:function ( arrCard, isReconnect,typeChi) {
+    latAll:function ( arrCard, isReconnect,typeChi,isWin) {
         var cardArray = [];
 
         for (var i = 0; i < arrCard.length; i++) {
@@ -316,7 +324,7 @@ var ListChiMB = cc.Node.extend({
         if(this.cardList.length == 13){
             var  thiz = this;
             if(typeChi!=0) {
-                this.setNameChi(MB_CHI_DAU, maubinh_wintypes[typeChi]);
+                this.setNameChi(MB_CHI_DAU, maubinh_wintypes[typeChi],isWin);
             }
 
             for(var i = 0; i < cardArray.length; i++){
@@ -589,10 +597,22 @@ var MauBinh = IGameScene.extend({
 
     },
 
-
+    // fillPlayerToSlot: function (playerList) {
+    //     this._super(playerList);
+    //     if(this.allSlot[0].isSpectator){
+    //         this.showErrorMessage("Bàn đang chơi, vui lòng chờ", this);
+    //     }
+    // },
     initScene: function () {
-        var huThuongBg = new ccui.Scale9Sprite("bacayhuthuong_bg.png", cc.rect(15, 15, 4, 4));
-        huThuongBg.setPreferredSize(cc.size(322, 47));
+        var huThuongBg = new    ccui.Button("bacayhuthuong_bg.png", "","",ccui.Widget.PLIST_TEXTURE);
+        huThuongBg.setScale9Enabled(true);//
+        huThuongBg.setCapInsets(cc.rect(15, 15, 4, 4));
+        huThuongBg.setContentSize(cc.size(322, 47));
+        huThuongBg.addClickEventListener(function () {
+           cc.log("1233");
+            var huMau = new HistoryNoHu(true);
+            huMau.show();
+        });
         huThuongBg.setPosition(this.table_bg.getContentSize().width / 2, 100 + 30);
         this.table_bg.addChild(huThuongBg);
 
@@ -759,6 +779,7 @@ var MauBinh = IGameScene.extend({
     initButton: function () {
 
         var startBt = new ccui.Button("game-startBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
+
         startBt.setScale(cc.winSize.screenScale);
         startBt.setPosition(cc.winSize.width - 100*cc.winSize.screenScale,55);
         this.startBt = startBt;
@@ -766,18 +787,18 @@ var MauBinh = IGameScene.extend({
 
         this.initLayerArrangement();
 
-        var xongBt = new ccui.Button("game-xongBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        var xongBt = new ccui.Button("mb_btnXepXong.png", "", "", ccui.Widget.PLIST_TEXTURE);
         xongBt.setPosition(1170, 46);
         this.xongBt = xongBt;
         this.arrangeLayer.addChild(xongBt);
 
 
-        var nhanhBt = new ccui.Button("game-xepbaiBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        var nhanhBt = new ccui.Button("mb_btnXepNhanh.png", "", "", ccui.Widget.PLIST_TEXTURE);
         nhanhBt.setPosition(1170, 124);
         this.nhanhBt = nhanhBt;
         this.arrangeLayer.addChild(nhanhBt);
 
-        var xepLaiBt = new ccui.Button("game-xepbaiBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        var xepLaiBt = new ccui.Button("mb_btnXepLai.png", "", "", ccui.Widget.PLIST_TEXTURE);
         xepLaiBt.setScale(cc.winSize.screenScale);
         xepLaiBt.setPosition(cc.p(startBt.getPositionX(),startBt.getPositionY()+70));
         this.sceneLayer.addChild(xepLaiBt);
@@ -906,18 +927,14 @@ var MauBinh = IGameScene.extend({
         this.listCardMe.dealCards(cardArray,true,false);
 
         for (var j = 0; j < this.playerView.length; j++) {
-            if(!this.playerView[j].spectator || animation){
+            if(this.playerView[j].username != "" && !this.playerView[j].spectator ){
                 this.playerView[j].cardList.dealCards(cardArray, j == 0, animation);
+                if(j!=0){
+                    this.playerView[j].cardList.setNameChi(MB_CHI_DAU,"Đang xếp",false);
+                }
             }
         }
-        if(animation){
-            this.runAction(new cc.Sequence(
-                new cc.DelayTime(0.5),
-                new cc.CallFunc(function () {
-                    thiz.showNodeArrangement(true);
-                })
-            ))
-        }
+
         if(typeTrang < 7){
 
             var cardIDMe = this.convertNew2Old(this.listCardMe.getCardsId());
@@ -931,9 +948,36 @@ var MauBinh = IGameScene.extend({
             thiz.nhanhBt.setVisible(false);
         }
         if(typeTrang!=0){
-            thiz.listCardMe.showResultChi(1,maubinh_wintypes[typeTrang]);
+            thiz.listCardMe.showResultChi(MB_CHI_GIUA,maubinh_wintypes[typeTrang]);
+        }
+        if(animation && typeTrang < 7){
+            this.runAction(new cc.Sequence(
+                new cc.DelayTime(0.5),
+                new cc.CallFunc(function () {
+                    thiz.showNodeArrangement(true);
+                })
+            ))
         }
     },
+    dealCardWhenJoin: function (cards, animation,typeTrang) {
+        var thiz = this;
+
+        var cardArray = [];
+        for (var i = 0; i < cards.length; i++) {
+            cardArray.push(CardList.prototype.getCardWithId(cards[i]));
+        }
+
+        for (var j = 0; j < this.playerView.length; j++) {
+            if(this.playerView[j].username != "" && !this.playerView[j].spectator ){
+                this.playerView[j].cardList.dealCards(cardArray, j == 0, animation);
+                if(j!=0){
+                    this.playerView[j].cardList.setNameChi(MB_CHI_DAU,"Đang xếp",false);
+                }
+            }
+        }
+    },
+
+
 
     hideAllButton: function () {
         this.allButtons.forEach(function (item, index) {
@@ -947,7 +991,10 @@ var MauBinh = IGameScene.extend({
                 this.xepLaiBt.setVisible(true);
                 this.showNodeArrangement(false);
             }else {
-
+                var slot = this.getSlotByUsername(username);
+                if(slot){
+                    slot.cardList.setNameChi(MB_CHI_DAU,"Xếp xong",true);
+                }
             }
         }
         else{
@@ -955,15 +1002,42 @@ var MauBinh = IGameScene.extend({
                 this.xepLaiBt.setVisible(false);
 
                 this.showNodeArrangement(true);
+
+            }else {
                 var slot = this.getSlotByUsername(username);
                 if(slot){
-                    slot.cardList.setNameChi(MB_CHI_DAU,"Xếp xong");
+                    slot.cardList.setNameChi(MB_CHI_DAU,"Đang xếp",false);
                 }
-            }else {
-
             }
         }
 
+
+    },
+    showJackpot: function (nameNo,money) {
+
+        var textNo = "Chúc mừng " + nameNo + " nổ hũ \n " + cc.Global.NumberFormat1(parseInt(money));
+        var lblText = new cc.LabelTTF(textNo,cc.res.font.Roboto_CondensedBold,45);
+        lblText.setColor(cc.color(255,245,91,255));
+        lblText.enableStroke(cc.color(223,28,42,255),3);
+        lblText.setPosition(cc.winSize.width/2, cc.winSize.height/2 + 50);
+        lblText.setVisible(false);
+        this.addChild(lblText);
+        var thiz = this;
+        this.runAction(new cc.Sequence(
+            new cc.DelayTime(1.5),
+            new cc.CallFunc(function () {
+                lblText.setVisible(true);
+                var layer = new JackpotLayer();
+                layer.show();
+            }),
+            new cc.DelayTime(4),
+            new cc.CallFunc(function () {
+                lblText.removeFromParent(true);
+            })
+        ));
+        if(nameNo == PlayerMe.username){
+            this.showNodeArrangement(false);
+        }
 
     },
     performAnnounce: function (username, announceStr) {
@@ -973,10 +1047,16 @@ var MauBinh = IGameScene.extend({
         var thiz = this;
         var slot = thiz.getSlotByUsername(username);
         if(slot){
-            slot.cardList.latAll( arrCard,isReconnect, rankChi);
+            var isWin =  ( parseInt(exMoney) > 0) ?true:false;
+            slot.cardList.latAll( arrCard,isReconnect, rankChi,isWin);
             slot.cardList.removeText();
             if(exMoney != "0")
                 thiz.showMoneyChange(slot.getPosition(), exMoney,isReconnect);
+
+            if(rankChi>1)
+            {
+                slot.cardList.setNameChi(MB_CHI_DAU,maubinh_wintypes[rankChi],isWin);
+            }
         }
     },
 
@@ -984,7 +1064,8 @@ var MauBinh = IGameScene.extend({
         var thiz = this;
         var slot = thiz.getSlotByUsername(username);
         if(slot){
-            slot.cardList.setNameChi(MB_CHI_DAU, maubinh_wintypes[rankChi]);
+            var isWin = (parseInt(exMoney) > 0)? true:false;
+            slot.cardList.setNameChi(MB_CHI_DAU, maubinh_wintypes[rankChi],isWin);
             thiz.showMoneyChange(slot.getPosition(), exMoney,isReconnect);
         }
     },
@@ -997,7 +1078,8 @@ var MauBinh = IGameScene.extend({
             if (moneyPlayer){
                 slot.setGold(moneyPlayer);
             }
-            slot.cardList.latChi(index, cardArray,isReconnect, rankChi);
+            var iswin = ( parseInt(exMoney)>0)?true:false;
+            slot.cardList.latChi(index, cardArray,isReconnect, rankChi,iswin);
             thiz.showMoneyChange(slot.getPosition(), exMoney,isReconnect);
             if(txtSap != "" && index == 2){
                 this.runAction(new cc.Sequence(
@@ -1123,7 +1205,7 @@ var MauBinh = IGameScene.extend({
             return;
         var changeSprite = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, "");
         changeSprite.setString("SẬP 3 CHI");
-        changeSprite.setColor(255,255,0,255);
+        changeSprite.setColor(cc.color("#ff0000"));
         changeSprite.setPosition(pos);
         this.table_bg.addChild(changeSprite, 420);
 

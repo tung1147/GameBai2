@@ -18,7 +18,11 @@ var MauBinhController = GameController.extend({
         SmartfoxClient.getInstance().addExtensionListener("452", this._onXepLaiHandler, this);
         SmartfoxClient.getInstance().addExtensionListener("8", this._onGameFinishHandler, this);
         SmartfoxClient.getInstance().addExtensionListener("100005", this._onNoHuHandler, this);
+        SmartfoxClient.getInstance().addExtensionListener("100004", this._onUpdateJackpotHandler, this);
 
+    },
+    _onUpdateJackpotHandler : function (cmd, content) {
+        this._view.performChangeRewardFund(content.p.data["2"]);
     },
     _onNoHuHandler: function (cmd, content) {
         this.onNoHuHandler(content.p);
@@ -29,6 +33,7 @@ var MauBinhController = GameController.extend({
 
     _onGameStatusHandler: function (cmd, content) {
         this.onGameStatus(content.p);
+
     },
 
     _onXepXongHandler: function (cmd, content) {
@@ -48,6 +53,12 @@ var MauBinhController = GameController.extend({
         this._view.performDealCards(param["1"], true,typeTrang);
     },
     onNoHuHandler: function (param) {
+
+        var nameNo = param["u"];
+        var money = param["2"];
+
+        var thiz = this;
+         thiz._view.showJackpot(nameNo,money);
 
 
     },
@@ -94,7 +105,7 @@ var MauBinhController = GameController.extend({
         var isShowArrange = param["4"];
         this.onGameStatus({1: param["1"]["1"], 2: Math.floor(param["1"]["13"] / 1000)});
         if(stateGame == 2 || stateGame == 3){
-            this._view.performDealCards(param["3"],false);
+            this._view.performDealCards(param["3"],false,0);
             if(stateGame==2){ // dang xep
                 this._view.xepLaiBt.setVisible(isShowArrange);
                 this._view.showNodeArrangement(!isShowArrange);
@@ -262,10 +273,42 @@ var MauBinhController = GameController.extend({
     },
 
     onJoinRoom: function (param) {
+        var thiz =  this;
         this._super(param);
 
         var huThuongValue = param["11"]["2"];
         this._view.performChangeRewardFund(huThuongValue);
+
+       // ve lai dang xep hay ko
+        var cards = [1,1,1,1,1,
+                     1,1,1,1,1,
+                     1,1,1];
+        var cardArray = [];
+        for (var i = 0; i < cards.length; i++) {
+            cardArray.push(CardList.prototype.getCardWithId(cards[i]));
+        }
+        var gameStatus = param["1"];
+        if(gameStatus == 2){
+            this._view.showErrorMessage("Bàn đang chơi, vui lòng chờ", this._view);
+            var userInfo = param["5"];
+            for(var i=0;i<userInfo.length;i++){
+                var isSpector = userInfo[i]["2"] ;
+                if(!isSpector){
+                    var userName = userInfo[i]["u"] ;
+                    var slot = thiz._view.getSlotByUsername(userName);
+                    slot.cardList.dealCards(cardArray,false,false);
+                    var isDone = userInfo[i]["5"] ;
+                    if(isDone){
+                        slot.cardList.setNameChi(MB_CHI_DAU,"Xếp xong",true);
+                    }else{
+                        slot.cardList.setNameChi(MB_CHI_DAU,"Đang xếp",false);
+                    }
+
+                }
+            }
+        }
+
+
     },
 
     sendStartRequest: function () {
