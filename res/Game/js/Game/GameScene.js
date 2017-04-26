@@ -164,12 +164,13 @@ var IGameScene = IScene.extend({
     },
 
     showErrorMessage: function (message, scene) {
-        if (scene) {
-            MessageNode.getInstance().show(message, null, scene);
-        }
-        else {
-            MessageNode.getInstance().show(message);
-        }
+        // if (scene) {
+        //     MessageNode.getInstance().show(message, null, scene);
+        // }
+        // else {
+        //     MessageNode.getInstance().show(message);
+        // }
+        MessageNode.getInstance().show(message, null, this.messageLayer);
     },
 
     onSettingButtonHandler : function () {
