@@ -681,7 +681,7 @@ var XocDiaScene = IGameScene.extend({
         }
     },
 
-    addChipToSlot: function (slotIndex, chipIndex, from, tag) {
+    addChipToSlot: function (slotIndex, chipIndex, from, tag, noAnimation) {
         //me = 1
         //other = 2
         //host = 3
@@ -720,13 +720,21 @@ var XocDiaScene = IGameScene.extend({
             slot.addChip(chip);
 
             //move
-            var p = slot.getSlotPosition();
-            var duration = cc.pLength(cc.pSub(chip.getPosition(), p)) / 1000.0;
-            var moveAction = new cc.Spawn(
-                new cc.MoveTo(duration, p),
-                new cc.ScaleTo(duration, 0.3)
-            );
-            chip.runAction(new cc.EaseSineOut(moveAction));
+            if(noAnimation){
+                var p = slot.getSlotPosition();
+                chip.setPosition(p);
+                chip.setScale(0.3);
+            }
+            else{
+                var p = slot.getSlotPosition();
+                var duration = cc.pLength(cc.pSub(chip.getPosition(), p)) / 1000.0;
+                var moveAction = new cc.Spawn(
+                    new cc.MoveTo(duration, p),
+                    new cc.ScaleTo(duration, 0.3)
+                );
+                chip.runAction(new cc.EaseSineOut(moveAction));
+            }
+
 
             SoundPlayer.playSound("singlechip");
         };

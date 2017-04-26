@@ -133,6 +133,14 @@ var IGameScene = IScene.extend({
     },
 
     backButtonClickHandler: function () {
+        if (LoadingDialog.getInstance().isShow()) {
+            return;
+        }
+        if (this.popupLayer.getChildren().length > 0) {
+            this.popupLayer.removeAllChildren();
+            return;
+        }
+
         if (this._controller) {
             this._controller.requestQuitRoom();
         }
@@ -154,6 +162,7 @@ var IGameScene = IScene.extend({
             MessageNode.getInstance().show(message, null, homeScene);
         }
     },
+
     onExit: function () {
         this._super();
         SoundPlayer.stopAllSound();
@@ -163,13 +172,34 @@ var IGameScene = IScene.extend({
         }
     },
 
+    onEnter : function () {
+        this._super();
+        var thiz = this;
+        cc.eventManager.addListener({
+            event: cc.EventListener.KEYBOARD,
+            onKeyReleased: function (keyCode, event) {
+                if(cc.sys.isNative){
+                    if (parseKeyCode(keyCode) === cc.KEY.back) {
+                        thiz.backButtonClickHandler();
+                    }
+                }
+                else{
+                    if(keyCode === cc.KEY.escape){
+                        thiz.backButtonClickHandler();
+                    }
+                }
+            }
+        }, this);
+    },
+
     showErrorMessage: function (message, scene) {
-        if (scene) {
-            MessageNode.getInstance().show(message, null, scene);
-        }
-        else {
-            MessageNode.getInstance().show(message);
-        }
+        // if (scene) {
+        //     MessageNode.getInstance().show(message, null, scene);
+        // }
+        // else {
+        //     MessageNode.getInstance().show(message);
+        // }
+        MessageNode.getInstance().show(message, null, this.messageLayer);
     },
 
     onSettingButtonHandler : function () {

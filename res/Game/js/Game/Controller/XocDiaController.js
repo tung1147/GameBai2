@@ -23,6 +23,7 @@ var XocDiaController = GameController.extend({
         this.initWithView(view);
         this.slotGold = [];
         this.userGoldSlot = [];
+        this._isRunning = false;
 
         SmartfoxClient.getInstance().addExtensionListener("8", this._onOpenDiskHandler, this);
         SmartfoxClient.getInstance().addExtensionListener("10", this._onUpdateStatusHandler, this);
@@ -76,6 +77,7 @@ var XocDiaController = GameController.extend({
         if(status == 5 || status == 1){
             this._view.showErrorMessage("Sắp bắt đầu ván mới");
         }
+        this._isRunning = true;
     },
 
     onReconnect : function(params){
@@ -92,11 +94,12 @@ var XocDiaController = GameController.extend({
                 var slotId = slotData[i]["1"];
                 var userGold = slotData[i]["3"];
                 this._updateUserGoldSlot(slotId, userGold);
-                if(userGold > 0){
-                    this._addFakeChip(slotId, userGold);
+                if(userGold > 0 && !this._isRunning){
+                    this._addFakeChip(slotId, userGold, false);
                 }
             }
         }
+        this._isRunning = true;
     },
 
     /* handler */
@@ -189,12 +192,12 @@ var XocDiaController = GameController.extend({
             this._updateUserGoldSlot(slotId, userGold);
 
             if(userGold > 0){
-               this._addFakeChip(slotId, userGold);
+               this._addFakeChip(slotId, userGold, true);
             }
         }
     },
 
-    _addFakeChip : function(slotId, gold){
+    _addFakeChip : function(slotId, gold, animation){
         while(gold > 0){
             var chipSelected = this._chipValue[0];
             for(var i=0;i<this._chipValue.length;i++){
@@ -206,7 +209,7 @@ var XocDiaController = GameController.extend({
                 chipSelected = chip;
             }
             gold -= chipSelected.gold;
-            this._view.addChipToSlot(slotId, chipSelected.chipId, 1); //fromMe
+            this._view.addChipToSlot(slotId, chipSelected.chipId, 1, null, animation ? false : true); //fromMe
         }
     },
 

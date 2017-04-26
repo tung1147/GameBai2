@@ -466,7 +466,12 @@ var HomeScene = IScene.extend({
             // },
             onKeyReleased: function (keyCode, event) {
                 if(cc.sys.isNative){
-                    if (parseKeyCode(keyCode) == cc.KEY.back) {
+                    if (parseKeyCode(keyCode) === cc.KEY.back) {
+                        thiz.backButtonHandler();
+                    }
+                }
+                else{
+                    if(keyCode === cc.KEY.escape){
                         thiz.backButtonHandler();
                     }
                 }

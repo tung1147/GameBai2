@@ -141,7 +141,7 @@ var LobbyLayer = cc.Node.extend({
 
     addRoomCell : function (roomList, serverId, roomId, betting, minMoney, userCount, metadata, maxUser) {
         if(this.updateRoomCell(roomList, serverId, roomId, userCount, metadata)){
-            return;
+            return null;
         }
 
         if(this.gameId == GameType.GAME_XocDia){
@@ -276,6 +276,8 @@ var LobbyLayer = cc.Node.extend({
                 var roomList = this.getRoomList(groupName);
                 if(roomList){
                     var roomData = groups[i].rooms;
+                    var idx = 1;
+
                     for(var j=0; j<roomData.length; j++){
                         var serverId = roomData[j].serverId;
                         var roomId = roomData[j].roomId;
@@ -285,6 +287,10 @@ var LobbyLayer = cc.Node.extend({
 
                         var metadata = roomData[j].metadata;
                         var roomCell = this.addRoomCell(roomList, serverId, roomId, betting, minMoney, userCount, metadata,roomData[j].slots);
+                        if(roomCell && roomCell.setIndex){
+                            roomCell.setIndex(idx);
+                        }
+                        idx++;
                         // if(PlayerMe.gameType == s_games_chanel[GameType.GAME_Poker]){
                         //     var roomCell = this.addRoomCell(roomList, serverId, roomId, betting, minMoney, userCount, metadata,roomData[j].slots);
                         // }else {

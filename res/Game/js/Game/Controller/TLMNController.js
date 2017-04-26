@@ -271,7 +271,7 @@ var TLMNGameController = GameController.extend({
         }
         else if (status == 2) { //play
             if(this.isSpectator){
-                this._view.showErrorMessage("Bàn đang chơi, vui lòng chờ", this._view);
+                this._view.showErrorMessage("Bàn đang chơi, vui lòng chờ");
             }
             else{
                 this._view.setXepBaiBtVisible(true);
@@ -280,7 +280,7 @@ var TLMNGameController = GameController.extend({
         }
         else if (status == 3) { //finish
             if(this.isSpectator){
-                this._view.showErrorMessage("Bàn đang chơi, vui lòng chờ", this._view);
+                this._view.showErrorMessage("Bàn đang chơi, vui lòng chờ");
             }
             else{
                 this._view.setDanhBaiBtVisible(false);
