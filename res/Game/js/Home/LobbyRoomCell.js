@@ -169,6 +169,7 @@ LobbyXocDiaCell = ccui.Widget.extend({
         roomName.setPosition(timer.x, 80);
         roomName.setColor(cc.color("#9ba5f3"));
         this.addChild(roomName, 1);
+        this.roomName = roomName;
 
         var bettingIcon1 = new cc.Sprite("#lobby_xocdia_icon_1.png");
         bettingIcon1.setPosition(165, 26);
@@ -371,6 +372,10 @@ LobbyXocDiaCell = ccui.Widget.extend({
         else{
             this._setTimeRemaining(0, 0);
         }
+    },
+
+    setIndex : function (idx) {
+        this.roomName.setString("PHÒNG " + idx.toString());
     },
 
     setHistory : function (history) {
