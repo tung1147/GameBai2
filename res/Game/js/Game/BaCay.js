@@ -2,6 +2,69 @@
  * Created by Quyet Nguyen on 7/25/2016.
  */
 
+
+var NoHuEffect = cc.ParticleSystem.extend ({
+    ctor: function ()
+    {
+        this._super();
+        var thizzz = this;
+        if(cc.ParticleSystem.prototype.initWithTotalParticles.call(thizzz, 300))
+        {
+            //     // duration
+            thizzz.setDuration(0.1);
+
+            thizzz.setEmitterMode(cc.ParticleSystem.MODE_GRAVITY);
+
+            // Gravity Mode: gravity
+            thizzz.setGravity(cc.p(0, 10));
+
+            // Gravity Mode: speed of particles
+            thizzz.setSpeed(70);
+            thizzz.setSpeedVar(40);
+
+            // Gravity Mode: radial
+            thizzz.setRadialAccel(0);
+            thizzz.setRadialAccelVar(0);
+
+            // Gravity Mode: tangential
+            thizzz.setTangentialAccel(0);
+            thizzz.setTangentialAccelVar(0);
+
+            // angle
+            thizzz.setAngle(90);
+            thizzz.setAngleVar(360);
+
+            // emitter position
+            var winSize = cc.director.getWinSize();
+            thizzz.setPosition(winSize.width / 2, winSize.height / 2);
+            thizzz.setPosVar(cc.p(0,0));
+
+            // life of particles
+            thizzz.setLife(5.0);
+            thizzz.setLifeVar(2);
+
+            // size, in pixels
+            thizzz.setStartSize(15.0);
+            thizzz.setStartSizeVar(10.0);
+            thizzz.setEndSize(cc.ParticleSystem.START_SIZE_EQUAL_TO_END_SIZE);
+
+            // emits per second
+            thizzz.setEmissionRate(this.getTotalParticles() / this.getDuration());
+
+            // color of particles
+            // thizzz.setStartColor(cc.color(0, 0, 0, 255));
+            // thizzz.setStartColorVar(cc.color(0, 0, 0, 255));
+            // thizzz.setEndColor(cc.color(255, 255, 255, 255));
+            // thizzz.setEndColorVar(cc.color(255, 255, 255, 255));
+
+            // additive
+            thizzz.setBlendAdditive(false);
+        }
+    },
+
+});
+
+
 var BaCayCardList = CardList.extend({
     dealCards: function (cards, animation) {
         this._super(cards, animation);
@@ -71,7 +134,7 @@ var BaCay = IGameScene.extend({
         table_bg.setPosition(cc.winSize.width / 2, 320);
         table_bg.setScale(cc.winSize.screenScale);
         this.sceneLayer.addChild(table_bg);
-
+        this.tabe_bg = table_bg;
         this.initPlayer();
         this.initButton();
 
@@ -103,28 +166,43 @@ var BaCay = IGameScene.extend({
         this.sceneLayer.addChild(huThuongValueLabel);
         this.huThuongValueLabel = huThuongValueLabel;
 
-        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_BoldCondensed_36_Glow, "");
-        timeLabel.setPosition(huThuongBg.x, 420);
-        timeLabel.setScale(2.0);
+        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_40, "", cc.TEXT_ALIGNMENT_CENTER, 500);
+        // timeLabel.setAnchorPoint(cc.p(0.5, 0.5));
+        timeLabel.setScale(1.5);
+        timeLabel.setPosition(cc.winSize.width/2, 420);
         this.sceneLayer.addChild(timeLabel);
         this.timeLabel = timeLabel;
-
+/*
         thizzzzze = this;
 
-        // this.runAction(new cc.Sequence(new cc.DelayTime(2), new cc.CallFunc((function () {
-        //     // var _emitter = ParticleExplosion.create();
-        //     // _emitter.setTexture(cc.TextureCache.addImage("bacayhuthuong_bg.png"));
-        //     // _emitter.setPosition(cc.winSize/2);
-        //
-        //     thizzzzze._emitter = new cc.ParticleExplosion();
-        //     thizzzzze.sceneLayer.addChild(thizzzzze._emitter, 10);
-        //
-        //     thizzzzze._emitter.texture = cc.textureCache.addImage("res/icon_gold_coin.png");
-        //     thizzzzze._emitter.shapeType = cc.ParticleSystem.STAR_SHAPE;
-        //     thizzzzze._emitter.setColor(cc.Color(255, 255, 255, 255));
-        //
-        //     thizzzzze._emitter.setAutoRemoveOnFinish(true);
-        // }))));
+        this.runAction(new cc.Sequence(new cc.DelayTime(2), new cc.CallFunc((function () {
+            // var _emitter = ParticleExplosion.create();
+            // // _emitter.setTexture(cc.TextureCache.addImage("bacayhuthuong_bg.png"));
+            // // _emitter.setPosition(cc.winSize/2);
+            //
+            // thizzzzze._emitter = new cc.ParticleExplosion();
+            // thizzzzze.sceneLayer.addChild(thizzzzze._emitter, 10);
+            //
+            // thizzzzze._emitter.texture = cc.textureCache.addImage("res/icon_gold_coin.png");
+            // thizzzzze._emitter.shapeType = cc.ParticleSystem.STAR_SHAPE;
+            // // thizzzzze._emitter.setColor(cc.Color(255, 255, 255, 255));
+            // // color of particles
+            // thizzzzze._emitter.setStartColor(cc.color(255, 255, 255, 255));
+            // thizzzzze._emitter.setStartColorVar(cc.color(255, 255, 255, 255));
+            // thizzzzze._emitter.setEndColor(cc.color(255, 255, 255, 255));
+            // thizzzzze._emitter.setEndColorVar(cc.color(255, 255, 255, 255));
+            //
+            // thizzzzze._emitter.setAutoRemoveOnFinish(true);
+
+            var _emitter = new NoHuEffect();
+            thizzzzze.sceneLayer.addChild(_emitter, 10);
+
+            _emitter.texture = cc.textureCache.addImage("res/icon_gold_coin.png");
+            // _emitter.shapeType = cc.ParticleSystem.STAR_SHAPE;
+            _emitter.setAutoRemoveOnFinish(true);
+
+        }))));
+        */
     },
 
     initPlayer: function () {
@@ -148,15 +226,15 @@ var BaCay = IGameScene.extend({
         this.sceneLayer.addChild(player1, 1);
 
         var player2 = new GamePlayer();
-        player2.setPosition(cc.winSize.width - 160.0 * cc.winSize.screenScale, cc.winSize.height - 270.00 / cc.winSize.screenScale);
+        player2.setPosition(cc.winSize.width - 180.0 * cc.winSize.screenScale, cc.winSize.height - 270.00 / cc.winSize.screenScale);
         this.sceneLayer.addChild(player2, 1);
 
         var player3 = new GamePlayer();
-        player3.setPosition(cc.winSize.width / 2, cc.winSize.height - 140.0 / cc.winSize.screenScale);
+        player3.setPosition(this.tabe_bg.x, this.tabe_bg.y + 250);
         this.sceneLayer.addChild(player3, 1);
 
         var player4 = new GamePlayer();
-        player4.setPosition(160.0 * cc.winSize.screenScale, player2.y);
+        player4.setPosition(180.0 * cc.winSize.screenScale, player2.y);
         this.sceneLayer.addChild(player4, 1);
 
         var player5 = new GamePlayer();
@@ -195,7 +273,7 @@ var BaCay = IGameScene.extend({
     initButton: function () {
         var thiz = this;
         var revealBt = new ccui.Button("game-lathetBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        revealBt.setPosition(cc.winSize.width - 420, 46);
+        revealBt.setPosition(cc.winSize.width - 420 * cc.winSize.screenScale, 46);
         this.sceneLayer.addChild(revealBt);
         this.revealBt = revealBt;
         this.setRevealBtVisible(false);
@@ -326,10 +404,13 @@ var BaCay = IGameScene.extend({
             }
     },
     showJackpot: function (nameNo,money) {
+        if(PlayerMe.username != nameNo)
+            return;
 
         var textNo = "Chúc mừng " + nameNo + " nổ hũ \n " + cc.Global.NumberFormat1(parseInt(money));
-        var lblText = new cc.LabelTTF(textNo,cc.res.font.Roboto_CondensedBold,45);
+        var lblText = new cc.LabelTTF(textNo,cc.res.font.Roboto_CondensedBold,45, 500, cc.TEXT_ALIGNMENT_CENTER);
         lblText.setColor(cc.color(255,245,91,255));
+        // lblText.setAlignment(cc.TEXT_ALIGNMENT_CENTER);
         lblText.enableStroke(cc.color(223,28,42,255),3);
         lblText.setPosition(cc.winSize.width/2, cc.winSize.height/2 + 50);
         lblText.setVisible(false);
@@ -347,9 +428,6 @@ var BaCay = IGameScene.extend({
                 lblText.removeFromParent(true);
             })
         ));
-        if(nameNo == PlayerMe.username){
-            this.showNodeArrangement(false);
-        }
 
     },
 });

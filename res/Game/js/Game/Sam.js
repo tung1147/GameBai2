@@ -12,13 +12,13 @@ var Sam = TienLen.extend({
         this._super();
 
         var baosamBt = new ccui.Button("game-baosamBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        baosamBt.setPosition(cc.winSize.width - 910, this.danhbaiBt.y);
+        baosamBt.setPosition(cc.winSize.width - 110, 46);
         this.sceneLayer.addChild(baosamBt);
         baosamBt.visible = false;
         this.baosamBt = baosamBt;
 
         var huysamBt = new ccui.Button("game-huysamBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        huysamBt.setPosition(cc.winSize.width - 710, baosamBt.y);
+        huysamBt.setPosition(cc.winSize.width - 310, 46);
         this.sceneLayer.addChild(huysamBt);
         huysamBt.visible = false;
         this.huysamBt = huysamBt;

@@ -72,8 +72,9 @@ var BaCayController = GameController.extend({
     },
 
     onNoHuBaCay: function (param){
-        var nameNo = param["u"];
-        var money = param["2"];
+        var data = param.data;
+        var nameNo = data["u"];
+        var money = data["2"];
 
         var thiz = this;
         thiz._view.showJackpot(nameNo,money);
@@ -82,7 +83,6 @@ var BaCayController = GameController.extend({
     onChangeRoomState: function (param) {
         var roomState = param["1"];
         var remainingTime = param["2"];
-        this.isBanDangChoi = false;
         switch (roomState) {
             case 0:
                 this._view.setStateString("Đang đợi người chơi");
@@ -151,35 +151,16 @@ var BaCayController = GameController.extend({
 
     onGameResult: function (param) {
         this.isPlaying = false;
-        var winner = param["u"];
-        // var userInfo = [];
         for (var i = 0; i < param["3"].length; i++) {
             var data = param["3"][i];
-            // userInfo.push({
-            //     cardArray: data["2"],
-            //     goldAfter: data["3"],
-            //     goldChange: data["4"],
-            //     winType: data["5"],
-            //     point: data["7"],
-            //     mostValuableCard: data["8"],
-            //     resultString: data["10"],
-            //     username: data["u"]
-            // });
-
             var cardArray = data["2"];
             var goldAfter = data["3"];
             var goldChange = data["4"];
             var resultString = data["10"];
-            var mostValuableCard = data["8"];
             var username = data["u"];
             this._view.revealCards(cardArray, username);
             this._view.setResultString(resultString, username);
             this._view.performAssetChange(goldChange, goldAfter, username);
-            // thizzz = this;
-            // this._view.runAction(new cc.Sequence(new cc.DelayTime(0.5), new cc.CallFunc(function () {
-            //     thizzz._view.playResultSound(winner);
-            // })));
-
         }
 
         this._view.setRevealBtVisible(false);
