@@ -12,6 +12,8 @@ sửa FileUtils, thêm FileDecryptor
 [HTML] CCBoot.js
 [HTML] CCLoaders.js
 
+[JSB] fix ParticleSystemQuad
+
 //win32
 config project
 

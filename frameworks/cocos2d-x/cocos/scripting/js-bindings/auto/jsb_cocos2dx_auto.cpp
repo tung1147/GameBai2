@@ -44714,7 +44714,7 @@ extern JSObject *jsb_cocos2d_ParticleSystem_prototype;
 
 void js_register_cocos2dx_ParticleSystemQuad(JSContext *cx, JS::HandleObject global) {
     jsb_cocos2d_ParticleSystemQuad_class = (JSClass *)calloc(1, sizeof(JSClass));
-    jsb_cocos2d_ParticleSystemQuad_class->name = "ParticleSystem";
+    jsb_cocos2d_ParticleSystemQuad_class->name = "ParticleSystemQuad";
     jsb_cocos2d_ParticleSystemQuad_class->addProperty = JS_PropertyStub;
     jsb_cocos2d_ParticleSystemQuad_class->delProperty = JS_DeletePropertyStub;
     jsb_cocos2d_ParticleSystemQuad_class->getProperty = JS_PropertyStub;
