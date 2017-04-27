@@ -26,6 +26,7 @@ package org.cocos2dx.lib;
 import android.app.Activity;
 import android.content.Context;
 import android.opengl.GLSurfaceView;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
@@ -33,6 +34,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 
 public class Cocos2dxGLSurfaceView extends GLSurfaceView {
@@ -167,6 +169,17 @@ public class Cocos2dxGLSurfaceView extends GLSurfaceView {
 
     public void setCocos2dxEditText(final Cocos2dxEditBox pCocos2dxEditText) {
         this.mCocos2dxEditText = pCocos2dxEditText;
+
+        /*mob by quyetnd*/
+        int currentImeOption = this.mCocos2dxEditText.getImeOptions();
+        int sdkVersion = Build.VERSION.SDK_INT;
+        if (sdkVersion >= 11) {
+            this.mCocos2dxEditText.setImeOptions(currentImeOption | EditorInfo.IME_FLAG_NO_EXTRACT_UI | EditorInfo.IME_FLAG_NO_FULLSCREEN );
+        } else {
+            this.mCocos2dxEditText.setImeOptions(currentImeOption | EditorInfo.IME_FLAG_NO_FULLSCREEN);
+        }
+        /**/
+
         if (null != this.mCocos2dxEditText && null != Cocos2dxGLSurfaceView.sCocos2dxTextInputWraper) {
             this.mCocos2dxEditText.setOnEditorActionListener(Cocos2dxGLSurfaceView.sCocos2dxTextInputWraper);
             this.requestFocus();

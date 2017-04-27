@@ -86,7 +86,7 @@ android {
         debug {
             externalNativeBuild {
                 ndkBuild {
-                    arguments 'NDK_DEBUG=1'
+                    arguments 'NDK_DEBUG=0'
                 }
             }
         }
@@ -150,21 +150,21 @@ android.applicationVariants.all { variant ->
         }
 
         copy {
-            from "${buildDir}/../../../../../main.js"
+           // from "${buildDir}/../../../../../main.js"
             from "${buildDir}/../../../../../project.json"
             into "${buildDir}/intermediates/assets/${variant.dirName}"
         }
 
         // compile the scripts if necessary
-        def compileScript = (variant.name.compareTo('release') == 0)
-        if (project.hasProperty('PROP_COMPILE_SCRIPT')) {
-            compileScript = (PROP_COMPILE_SCRIPT.compareTo('1') == 0)
-        }
-
-        if (compileScript) {
-            compileJS("${buildDir}/intermediates/assets/${variant.dirName}",
-                      "${buildDir}/intermediates/assets/${variant.dirName}")
-        }
+//        def compileScript = (variant.name.compareTo('release') == 0)
+//        if (project.hasProperty('PROP_COMPILE_SCRIPT')) {
+//            compileScript = (PROP_COMPILE_SCRIPT.compareTo('1') == 0)
+//        }
+//
+//        if (compileScript) {
+//            compileJS("${buildDir}/intermediates/assets/${variant.dirName}",
+//                      "${buildDir}/intermediates/assets/${variant.dirName}")
+//        }
     }
 }
 
