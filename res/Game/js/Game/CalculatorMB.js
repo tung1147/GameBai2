@@ -456,46 +456,60 @@ var LibMB = cc.Class.extend({
     },
     getarrColor:function  (arrValue){
         var resulft = [] ;
-        var item = Math.floor(arrValue[0]/4);
-        var indexItemNext = 1;
-        var isFinish = true;
-        while (isFinish){
-
+        for(var i = 0; i < 4; i++){
             var sub = [];
-            sub.push(arrValue[indexItemNext-1]);
-            var numberItem = 1;
-            if(indexItemNext >= arrValue.length-1)
-            {
-                isFinish = false;
-            }
-
-            for(var i = indexItemNext;i< arrValue.length;i++){
-                // (function () {
-                    var iNew = i;
-
-                    if (iNew == arrValue.length-1) {
-                        isFinish = false;
-                    }
-                    if(Math.floor(arrValue[iNew]%4) == item){
-                        numberItem++;
-                        sub.push(arrValue[iNew]);
-                    }
-                    else {
-                        item == arrValue[iNew]%4;
-                        indexItemNext = iNew+1;
-                        break;
-                    }
-                // })();
+            for(var j = 0; j < arrValue.length; j++){
+                if(arrValue[j]%4 == i){
+                    sub.push(arrValue[j]);
+                }
             }
             if(sub.length>1)
-            {
-                resulft.push(sub);
-            }
-
+                {
+                    resulft.push(sub);
+                }
         }
-
-        // tiep
         return resulft;
+        // var resulft = [] ;
+        // var item = Math.floor(arrValue[0]/4);
+        // var indexItemNext = 1;
+        // var isFinish = true;
+        // while (isFinish){
+        //
+        //     var sub = [];
+        //     sub.push(arrValue[indexItemNext-1]);
+        //     var numberItem = 1;
+        //     if(indexItemNext >= arrValue.length-1)
+        //     {
+        //         isFinish = false;
+        //     }
+        //
+        //     for(var i = indexItemNext;i< arrValue.length;i++){
+        //         // (function () {
+        //         //     var iNew = i;
+        //
+        //             if (i == arrValue.length-1) {
+        //                 isFinish = false;
+        //             }
+        //             if(Math.floor(arrValue[i]%4) == item){
+        //                 numberItem++;
+        //                 sub.push(arrValue[i]);
+        //             }
+        //             else {
+        //                 item == Math.floor(arrValue[i]%4);
+        //                 indexItemNext = i+1;
+        //                 break;
+        //             }
+        //         // })();
+        //     }
+        //     if(sub.length>1)
+        //     {
+        //         resulft.push(sub);
+        //     }
+        //
+        // }
+        //
+        // // tiep
+        // return resulft;
     },
     findSanh13:function (arrValue,index, value) {
         var resuft= [];
@@ -556,34 +570,34 @@ var LibMB = cc.Class.extend({
 
     findSanh13Nomarl:function (arrValue) {
         arrValue.sort(function (a,b) {
-            return a-b;
+            return b-a;
         });
         var resuft = [];
         var item = 0;
         var value = Math.floor(arrValue[0]/4);
         for(var i = 0 ;i < arrValue.length;i++)
         {
-            (function () {
-                var inew = i;
-                if( Math.floor(arrValue[inew]/4) != value )
+            // (function () {
+                // var inew = i;
+                if( Math.floor(arrValue[i]/4) != value )
                 {
                     resuft = [];
-                    value = arrValue[inew]/4;
+                    value = Math.floor(arrValue[i]/4);
                     item = 1;
-                    resuft.push(arrValue[inew]);
+                    resuft.push(arrValue[i]);
 
                 }
                 else
                 {
                     item++;
-                    resuft.push(arrValue[inew]);
+                    resuft.push(arrValue[i]);
                 }
                 if(item == 5)
                 {
                     return  resuft;
                 }
                 value--;
-            })();
+            // })();
 
         }
         if(item<4)

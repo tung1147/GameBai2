@@ -44,10 +44,14 @@ var PokerController = GameController.extend({
         SmartfoxClient.getInstance().addExtensionListener("652", this._onDrawCard, this);
          SmartfoxClient.getInstance().addExtensionListener("657", this._onRegeditStandup, this);
         SmartfoxClient.getInstance().addExtensionListener("654", this._onUpdateMoney, this);
+        // SmartfoxClient.getInstance().addExtensionListener("0", this._onupdateGoldRemain, this);
     },
 
 
-
+    onUpdateGold:function (cmd, content) {
+        this._super(cmd, content);
+        this._view.setGoldRemain(true,content.p["2"]);
+    },
     _updateStatusHandler : function(cmd, content){
         this.onGameStatus(content.p["1"]);
     },
@@ -118,6 +122,7 @@ var PokerController = GameController.extend({
             username: "",
         }
         if(data.p.u == PlayerMe.username){
+            this._view.setGoldRemain(false,"0");
             this._view.gameTopBar.backBt.loadTextureNormal("ingame-backBt.png",ccui.Widget.PLIST_TEXTURE) ;
             this._view.allSlot[0].setIsMe(false);
             this._view.stateMe =  PK_STATUSME_STANDUP;
@@ -273,7 +278,7 @@ var PokerController = GameController.extend({
         }
 
         this._view.updateInviteButton();
-
+        this._view.findSlotSitDown();
     },
 
     onUpdateMe:function (param) {
@@ -286,12 +291,22 @@ var PokerController = GameController.extend({
             }
         }
     },
-
+    showGoldRemainReconnect:function (param,gold) {
+        var arrListPlayer = param["5"];
+        for (var i =0; i < arrListPlayer.length; i++){
+            var play = arrListPlayer[i];
+            if(PlayerMe.username == play["u"] && play["4"] > -1){
+                this._view.setGoldRemain(true,gold);
+                break;
+            }
+        }
+    },
     onReconnect: function (param) {
         this.onInitJoin(param["1"]);
         this._super(param);
 
         this.onUpdateMe(param["1"]);
+        this.showGoldRemainReconnect(param["1"],param["2"]["3"]);
         this._updateRoomInfo(param["1"]["12"]);
         this._view.updateInviteButton();
         if(param["8"] && this._view.stateMe == PK_STATUSME_SITDOWN)
@@ -410,20 +425,24 @@ var PokerController = GameController.extend({
         if(this.turnId == 1){
             timeDelay = 1.2;
         }
-        this._view.runAction(new cc.Sequence(
-           new cc.DelayTime(timeDelay),
+        this._view.stopActionByTag(111);
+        var actionDraw = new cc.Sequence(
+            new cc.DelayTime(timeDelay),
             new cc.CallFunc(function () {
-                    thiz._view.allSlot[0].cardList.showBoderCards(cBorder);
-                    thiz._view.allSlot[0].cardList.showCardBlack(cLight);
+                thiz._view.allSlot[0].cardList.showBoderCards(cBorder);
+                thiz._view.allSlot[0].cardList.showCardBlack(cLight);
                 thiz._view.allSlot[0].setNameHand(S_TYPE_CARDS[typeHand],false);
-                 thiz._view.cardMix.showBoderCards(cBorder);
+                thiz._view.cardMix.showBoderCards(cBorder);
                 thiz._view.cardMix.showCardBlack(cLight);
             })
-        ));
+        );
+        actionDraw.setTag(111);
+        this._view.runAction(actionDraw);
     },
 
     onEndGame:function (param) {
         var  thiz = this;
+        this._view.stopActionByTag(111);
         var timeRemain = param["18"]/1000;
         for(var i = 0; i < thiz.playerSlot.length; i++){
 

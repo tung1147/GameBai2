@@ -63,15 +63,17 @@ var TimeOutMB = cc.Node.extend({
         }
     },
     startCoutDown:function (timeRemain, timeMax) {
-
-        if(timeMax==0){return};
+        this.lblTime.setOpacity(255);
+        this.lblTime.setColor(cc.color(255,255,255,255));
         this.timer.setColor(cc.color(255,201,15,255));
+        if(timeMax==0){return};
+
         this.isAlert = true;
         this._timeCount = timeRemain;
         this.scheduleUpdate();
         this.setVisible(true);
         var thiz = this;
-        this.lblTime.setColor(cc.color(255,255,255,255));
+
         this.lblTime.stopAllActions();
         this.timer.setPercentage(timeRemain*100/timeMax);
         this.timer.runAction(new cc.ProgressTo(timeRemain,0));
@@ -101,7 +103,25 @@ var MauBinhCard = Card.extend({
         else {
         }
     },
+    onTouchBegan: function (touch, event) {
+        cc.log("onTouchBegan");
+        if(!this.getParent().getParent().isVisible()){
+            return false;
+        }
+        if (this.canTouch && !this.isTouched) {
+            var p = this.convertToNodeSpace(touch.getLocation());
+            // var rect = this.getBoundingBox();
+            if (cc.rectContainsPoint(this.touchRect, p)) {
+                this.isTouched = true;
+                this.isMoved = false;
+                this.preTouchPoint = touch.getLocation();
+                return true;
+            }
+        }
+        return false;
+    },
     onTouchMoved: function (touch, event) {
+
         var p = touch.getLocation();
         if (!this.isMoved) {
             if (cc.pDistance(this.preTouchPoint, p) < 5.0) {
@@ -113,8 +133,8 @@ var MauBinhCard = Card.extend({
             }
         }
 
-        this.x += p.x - this.preTouchPoint.x;
-        this.y += p.y - this.preTouchPoint.y;
+        this.x += (p.x - this.preTouchPoint.x)/1.3;
+        this.y += (p.y - this.preTouchPoint.y)/1.3;
         this.preTouchPoint = p;
     }
 });
@@ -207,7 +227,12 @@ var ListChiMB = cc.Node.extend({
     },
 
     setNameChi:function (chi,name, isWin) {
+
         this.removeChildByTag(1234);
+        if(name == "")
+        {
+            return;
+        }
         var bg_name = new cc.Sprite("#mb_bg_text1.png");
         bg_name.setScale(1.3);
         bg_name.setPosition(0,-160 + 80*chi);
@@ -215,11 +240,11 @@ var ListChiMB = cc.Node.extend({
         this.addChild(bg_name,1234);
         var nameChi = new cc.LabelTTF(name,cc.res.font.Roboto_Condensed,25);
         if(isWin){
-            nameChi.enableStroke(cc.color(123,49,26,0.48*255),2);
-            nameChi.setColor(cc.color(229,195,17,255));
+            // nameChi.enableStroke(cc.color(123,49,26,0.48*255),2);
+            nameChi.setColor(cc.color(80,41,3,255));
         }else{
-            nameChi.enableStroke(cc.color(13,34,58,255),2);
-            nameChi.setColor(cc.color(142,145,255,255));
+            // nameChi.enableStroke(cc.color(142,155,255,255),2);
+            nameChi.setColor(cc.color(142,155,255,255));
             bg_name.setSpriteFrame("mb_bg_text2.png");
         }
 
@@ -366,7 +391,12 @@ var MauBinhCardList = cc.Node.extend({
         this.displayResultRight = displayResultRight;
         this.resultLabels = [];
     },
+    swapCardLeft: function (index) {
 
+    },
+    swapCardRight: function (index) {
+
+    },
     addCard: function (card) {
         if (this.deckPoint)
             card.setPosition(this.deckPoint);
@@ -660,6 +690,7 @@ var MauBinh = IGameScene.extend({
         // nodeArrange.setAnchorPoint(0.5,0);
         nodeArrange.setScale(cc.winSize.screenScale);
         var layerBlack = new cc.LayerColor(cc.color(0,0,0,150),1280,720);
+        layerBlack.setScaleY(2*(1/cc.winSize.screenScale));
         nodeArrange.addChild(layerBlack);
         this.arrangeLayer = nodeArrange;
         this.addChild(nodeArrange);
@@ -710,7 +741,7 @@ var MauBinh = IGameScene.extend({
         this.table_bg.addChild(playerMe, 1);
 
         var player1 = new GamePlayer();
-        player1.setPosition(this.table_bg.getContentSize().width/2 + 500 / cc.winSize.screenScale, this.table_bg.getContentSize().height/2);
+        player1.setPosition(this.table_bg.getContentSize().width/2 + 500 , this.table_bg.getContentSize().height/2);
         player1.cardList = new ListChiMB(cc.p(-80, 150));
         player1.inviteBt.setPosition(player1.inviteBt.getPositionX()-30,player1.inviteBt.getPositionY());
         player1.setPositionInfo(PL_POSITION_BOTTOM);
@@ -876,6 +907,7 @@ var MauBinh = IGameScene.extend({
     },
 
     setStartBtVisible: function (visible) {
+        cc.log("aaaaaa===========");
         this.startBt.visible = visible;
     },
 
@@ -947,16 +979,22 @@ var MauBinh = IGameScene.extend({
             this.isMeToiTrang = true;
             thiz.nhanhBt.setVisible(false);
         }
+
         if(typeTrang!=0){
             thiz.listCardMe.showResultChi(MB_CHI_GIUA,maubinh_wintypes[typeTrang]);
         }
+        if(typeTrang>6){
+            this.allSlot[0].cardList.setNameChi(MB_CHI_DAU,maubinh_wintypes[typeTrang],true);
+        }
         if(animation && typeTrang < 7){
-            this.runAction(new cc.Sequence(
+            var action = new cc.Sequence(
                 new cc.DelayTime(0.5),
                 new cc.CallFunc(function () {
                     thiz.showNodeArrangement(true);
                 })
-            ))
+            );
+            action.setTag(109);
+            this.runAction(action)
         }
     },
     dealCardWhenJoin: function (cards, animation,typeTrang) {
@@ -1015,7 +1053,12 @@ var MauBinh = IGameScene.extend({
     },
     showJackpot: function (nameNo,money) {
 
-        var textNo = "Chúc mừng " + nameNo + " nổ hũ \n " + cc.Global.NumberFormat1(parseInt(money));
+        var name = nameNo;
+        if (name.length > 15)
+            name = name.substring(0, 15) ;
+        if (name.length > 3 && name != PlayerMe.username)
+            name = name.substring(0, name.length - 3) + "***";
+        var textNo = "Chúc mừng " + name + " nổ hũ: " + cc.Global.NumberFormat1(parseInt(money) + "V");
         var lblText = new cc.LabelTTF(textNo,cc.res.font.Roboto_CondensedBold,45);
         lblText.setColor(cc.color(255,245,91,255));
         lblText.enableStroke(cc.color(223,28,42,255),3);
@@ -1030,7 +1073,7 @@ var MauBinh = IGameScene.extend({
                 var layer = new JackpotLayer();
                 layer.show();
             }),
-            new cc.DelayTime(4),
+            new cc.DelayTime(5),
             new cc.CallFunc(function () {
                 lblText.removeFromParent(true);
             })
@@ -1125,6 +1168,7 @@ var MauBinh = IGameScene.extend({
 
         var thiz = this;
         setTimeout(function () {
+            thiz.stopActionByTag(109);
             if (!thiz.resultEntries.length) {
                 cc.log("No result entry found");
                 return;

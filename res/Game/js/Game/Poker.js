@@ -104,6 +104,7 @@ var PokerGamePlayer = GamePlayer.extend({
         this.userLabel.removeFromParent();
         var userLabel =  new cc.LabelTTF("",cc.res.font.Roboto_CondensedBold,20);
         this.infoLayer.addChild(userLabel);
+        userLabel.setColor(cc.color(191, 242, 255,255));
          this.goldLabel.removeFromParent();
         var goldLabel =  new cc.LabelTTF("",cc.res.font.Roboto_CondensedBold,20);
         this.infoLayer.addChild(goldLabel);
@@ -266,6 +267,7 @@ var PokerGamePlayer = GamePlayer.extend({
 
     setUserNamePoker:function () {
       this.setUsername(this.username);
+        this.userLabel.setColor(cc.color(191, 242, 255,255));
     },
 
 
@@ -317,20 +319,27 @@ var PokerGamePlayer = GamePlayer.extend({
       if(idAction == PK_ACTION_PLAYER_CHECK)
       {
           this.userLabel.setString("CHECK");
+          this.userLabel.setColor(cc.color(185, 230, 78,255));
       }
       else if(idAction == PK_ACTION_PLAYER_CALL){
           this.userLabel.setString("CALL");
+          this.userLabel.setColor(cc.color(255, 174, 70,255));
       }
       else if(idAction == PK_ACTION_PLAYER_FOLD){
           this.userLabel.setString("FOLD");
+          this.userLabel.setColor(cc.color(255, 147, 147,255));
       }
       else if(idAction == PK_ACTION_PLAYER_RAISE){
           this.userLabel.setString("RAISE");
+          this.userLabel.setColor(cc.color(255, 174, 70,255));
       }
       else if(idAction == PK_ACTION_PLAYER_BET){
           this.userLabel.setString("BET");
+          this.userLabel.setColor(cc.color(255, 174, 70,255));
       }
       else if(idAction == PK_ACTION_PLAYER_ALL_IN){
+
+          this.userLabel.setColor(cc.color(255, 222, 0,255));
           this.userLabel.setString("ALL_IN");
       }
     },
@@ -403,9 +412,9 @@ var Poker = IGameScene.extend({
         // this.sceneLayer.addChild(table_bg);
         var pad = -150;
         var cardMix = new CardPoker(cc.size(600, 100));
-        cardMix.setPosition(cc.winSize.width / 2, cc.winSize.height / 2);
+        cardMix.setPosition(this.bgPoker.getContentSize().width / 2, this.bgPoker.getContentSize().height / 2 - 20);
         cardMix.visible = true;
-        this.sceneLayer.addChild(cardMix);
+        this.bgPoker.addChild(cardMix);
         this.cardMix = cardMix;
 
         // cardMix.setAnchorPoint(0,0)
@@ -474,9 +483,25 @@ var Poker = IGameScene.extend({
         this.bettingPoker.setMinMaxAgain(100,1000);
 
         var countDown =  new CountDownPoker();
-        countDown.setPosition(bgPoker.getContentSize().width/2,400+ pad);
+        countDown.setPosition(bgPoker.getContentSize().width/2,420+ pad);
         bgPoker.addChild(countDown,2);
         this.countDown = countDown;
+
+        var vcl = new cc.LabelTTF("Vàng còn lại:", cc.res.font.Roboto_Condensed,24);
+        vcl.setPosition(95,20);
+        vcl.setColor(cc.color(187,201,255,255));
+        this.vcl = vcl;
+        this.sceneLayer.addChild(vcl);
+
+        var lblVcl = new cc.LabelTTF("0", cc.res.font.Roboto_Condensed,24);
+        lblVcl.setAnchorPoint(cc.p(0,0.5));
+        lblVcl.setPosition(160,20);
+        lblVcl.setColor(cc.color(255,216,0,255));
+        vcl.setVisible(false);
+        lblVcl.setVisible(false);
+        this.lblVcl = lblVcl;
+        this.sceneLayer.addChild(lblVcl);
+
         // var cardData = [1,2,3,4,5];
         //
          this.runAction(new cc.Sequence(new cc.DelayTime(2), new cc.CallFunc(function () {
@@ -485,7 +510,17 @@ var Poker = IGameScene.extend({
 
     },
 
-
+    setGoldRemain:function (isShow,gold) {
+        if(isShow){
+            this.lblVcl.setVisible(true);
+            this.vcl.setVisible(true);
+            this.lblVcl.setString(cc.Global.NumberFormat1(parseInt(gold)));
+        }
+        else{
+            this.lblVcl.setVisible(false);
+            this.vcl.setVisible(false);
+        }
+    },
     updateGold: function (username, gold) {
 
     },
@@ -1127,7 +1162,8 @@ var Poker = IGameScene.extend({
         var thiz = this;
         if(this.minBuy > PlayerMe.gold)
         {
-            cc.log("Bạn không đủ vàng để chơi, vui lòng ra nạp vàng");
+            MessageNode.getInstance().show("Bạn không đủ vàng để chơi, vui lòng ra nạp vàng");
+
         }
         else {
             var isMax = false;
@@ -1146,7 +1182,31 @@ var Poker = IGameScene.extend({
             dialog.show();
         }
     },
+    findSlotSitDown:function () {
+        var thiz = this;
+        var isCanSit = false;
+        for(var z = 0; z < this.allSlot.length; z++ )
+        {
 
+            if(this.allSlot[z].username == "")
+            {
+                this.allSlot[z].runAction(new cc.Sequence(new cc.DelayTime(1), new cc.CallFunc( function () {
+                    cc.log("============= damn"+ z);
+                    thiz.showSitDownDialog(z);
+                })));
+                isCanSit = true;
+                break;
+        }
+        }
+        if(!isCanSit)
+        {
+            this.runAction(new cc.Sequence(new cc.DelayTime(0.1), new cc.CallFunc(function(){
+                MessageNode.getInstance().show("Hết ghế để ngồi, vui lòng sang bàn khác hoặc chờ!");
+        })));
+
+        };
+
+    },
     move4Chip:function (from, to) {
         // var distance = cc.pDistance(from,to);
         // var timeRun = distance/380;

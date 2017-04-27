@@ -21,6 +21,13 @@ var MauBinhController = GameController.extend({
         SmartfoxClient.getInstance().addExtensionListener("100004", this._onUpdateJackpotHandler, this);
 
     },
+    onUpdateOwner : function (params) {
+        this._super(params);
+
+        if (this.gameStatus == 1 && this.isOwnerMe) {
+            this._view.setStartBtVisible(true);
+        }
+    },
     _onUpdateJackpotHandler : function (cmd, content) {
         this._view.performChangeRewardFund(content.p.data["2"]);
     },
@@ -54,8 +61,8 @@ var MauBinhController = GameController.extend({
     },
     onNoHuHandler: function (param) {
 
-        var nameNo = param["u"];
-        var money = param["2"];
+        var nameNo = param["data"]["u"];
+        var money = param["data"]["2"];
 
         var thiz = this;
          thiz._view.showJackpot(nameNo,money);
@@ -65,6 +72,7 @@ var MauBinhController = GameController.extend({
 
     onGameStatus: function (param) {
         this._view.hideAllButton();
+        this.gameStatus = param["1"];
         cc.log(param);
         switch (param["1"]) {
             case 1:
@@ -288,6 +296,7 @@ var MauBinhController = GameController.extend({
             cardArray.push(CardList.prototype.getCardWithId(cards[i]));
         }
         var gameStatus = param["1"];
+        this.gameStatus = gameStatus;
         if(gameStatus == 2){
             this._view.showErrorMessage("Bàn đang chơi, vui lòng chờ", this._view);
             var userInfo = param["5"];

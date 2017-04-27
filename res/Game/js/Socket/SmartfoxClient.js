@@ -298,7 +298,7 @@ var SmartfoxClient = (function () {
                 retVal = new MauBinh();
             }
             else if (gameType == s_games_chanel[game = GameType.GAME_Poker]){
-                return new Poker();
+                retVal =  new Poker();
             }
             if (retVal) {
                 cc.log(game);
