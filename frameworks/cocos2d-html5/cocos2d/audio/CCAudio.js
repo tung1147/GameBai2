@@ -95,6 +95,14 @@ cc.Audio = cc.Class.extend({
     setBuffer: function (buffer) {
         this._AUDIO_TYPE = "WEBAUDIO";
         this._element = new cc.Audio.WebAudio(buffer);
+
+        /*mod by quyetnguyen*/
+        var thiz = this;
+        this._element.onSoundEnded = function () {
+            if(thiz.onSoundEnded){
+                thiz.onSoundEnded();
+            }
+        };
     },
 
     setElement: function (element) {
@@ -275,6 +283,14 @@ cc.Audio.WebAudio.prototype = {
         audio.buffer = this.buffer;
         audio["connect"](this._volume);
         audio.loop = this._loop;
+
+        /* mod by quyetnguyen */
+        var thiz = this;
+        audio.onended = function () {
+            if(thiz.onSoundEnded){
+                thiz.onSoundEnded();
+            }
+        };
 
         this._startTime = this.context.currentTime;
         offset = offset || this.playedLength;
@@ -680,7 +696,7 @@ cc.Audio.WebAudio.prototype = {
          * //example
          * var soundId = cc.audioEngine.playEffect(path);
          */
-        playEffect: function (url, loop) {
+        playEffect: function (url, loop, finishedCallback) {
 
             if (SWB && this._currMusic && this._currMusic.getPlaying()) {
                 cc.log('Browser is only allowed to play one audio');
@@ -711,6 +727,7 @@ cc.Audio.WebAudio.prototype = {
                 audio = effectList[i];
                 audio.setVolume(this._effectVolume);
                 audio.play(0, loop || false);
+                audio.onSoundEnded = finishedCallback;
                 return audio;
             }
 
@@ -727,13 +744,17 @@ cc.Audio.WebAudio.prototype = {
                     loader.loadBuffer(url, function (error, buffer) {
                         audio.setBuffer(buffer);
                         audio.setVolume(cc.audioEngine._effectVolume);
-                        if (!audio.getPlaying())
+                        if (!audio.getPlaying()){
                             audio.play(0, loop || false);
+                            audio.onSoundEnded = finishedCallback;
+                        }
+
                     });
                 } else {
                     audio = audio.cloneNode();
                     audio.setVolume(this._effectVolume);
                     audio.play(0, loop || false);
+                    audio.onSoundEnded = finishedCallback;
                     effectList.push(audio);
                     return audio;
                 }
@@ -747,6 +768,7 @@ cc.Audio.WebAudio.prototype = {
                 audio = audio.cloneNode();
                 audio.setVolume(cc.audioEngine._effectVolume);
                 audio.play(0, loop || false);
+                audio.onSoundEnded = finishedCallback;
                 effectList.push(audio);
             });
             loader.useWebAudio = cache;
@@ -857,6 +879,7 @@ cc.Audio.WebAudio.prototype = {
          */
         stopEffect: function (audio) {
             if (audio) {
+                audio.onSoundEnded = null;
                 audio.stop();
             }
         },
@@ -872,6 +895,7 @@ cc.Audio.WebAudio.prototype = {
             for (var p in ap) {
                 var list = ap[p];
                 for (var i = 0; i < list.length; i++) {
+                    list[i].onSoundEnded = null;
                     list[i].stop();
                 }
                 list.length = 0;

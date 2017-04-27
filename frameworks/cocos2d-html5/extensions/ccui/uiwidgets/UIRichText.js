@@ -457,6 +457,9 @@ ccui.RichText = ccui.Widget.extend(/** @lends ccui.RichText# */{
                 newContentSizeHeight += maxHeights[i];
             }
 
+            /*mod by quyetnd*/
+            this._customSize.height = newContentSizeHeight;
+
             var nextPosY = this._customSize.height;
 
             for (i = 0; i < locElementRenders.length; i++) {

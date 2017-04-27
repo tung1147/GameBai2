@@ -6,12 +6,11 @@ sửa FileUtils, thêm FileDecryptor
 
 [HTML] audio/CCAudio.js
 [HTML] core/labelttf/CCLabelTTFCanvasRenderCmd.js
-[HTML] core/renderer/RendererWebGL.js
+[HTML] core/renderer/RendererWebGL.js ->fixed
 [HTML] CCProgressTimerWebGLRenderCmd.js
 [HTML] UIRichText.js
 [HTML] CCBoot.js
-
-[JSB] CCLoaders.js
+[HTML] CCLoaders.js
 
 //win32
 config project
