@@ -1,9 +1,17 @@
 cocos2dx-x core
 sửa RichText
-
 sửa FileUtils, thêm FileDecryptor
 
-//sửa ScriptCore -> load js android
+[removed]//sửa ScriptCore -> load js android
+
+[HTML] audio/CCAudio.js
+[HTML] core/labelttf/CCLabelTTFCanvasRenderCmd.js
+[HTML] core/renderer/RendererWebGL.js
+[HTML] CCProgressTimerWebGLRenderCmd.js
+[HTML] UIRichText.js
+[HTML] CCBoot.js
+
+[JSB] CCLoaders.js
 
 //win32
 config project
