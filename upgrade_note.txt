@@ -1,7 +1,9 @@
 cocos2dx-x core
 sửa RichText
+
 sửa FileUtils, thêm FileDecryptor
-sửa ScriptCore -> load js android
+
+//sửa ScriptCore -> load js android
 
 //win32
 config project
