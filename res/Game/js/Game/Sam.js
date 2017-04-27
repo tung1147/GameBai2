@@ -102,12 +102,19 @@ var Sam = TienLen.extend({
         for (var i = 1; i < this.playerView.length; i++) {
             var oneCardNotify = new cc.LabelBMFont("Báo 1", cc.res.font.Roboto_CondensedBold_30);
             oneCardNotify.setColor(cc.color("#ff0000"));
-            oneCardNotify.setPosition(110, 110);
+            oneCardNotify.setPosition(90, 110);
             this.playerView[i].infoLayer.addChild(oneCardNotify);
             oneCardNotify.setVisible(false);
             this.playerView[i].oneCardNotify = oneCardNotify;
-
             this.playerView[i].cardRemaining.setVisible(false);
+
+            var oneNotifyBaoSam = new cc.LabelBMFont("Báo Sâm", cc.res.font.Roboto_CondensedBold_30);
+            oneNotifyBaoSam.setColor(cc.color("#ff0000"));
+            oneNotifyBaoSam.setPosition(80, 110);
+            this.playerView[i].infoLayer.addChild(oneNotifyBaoSam);
+            oneNotifyBaoSam.setVisible(false);
+            this.playerView[i].oneNotifyBaoSam = oneNotifyBaoSam;
+
         }
     },
 
@@ -151,10 +158,25 @@ var Sam = TienLen.extend({
     },
 
     notifyOne: function (username) {
-        this.alertMessage("Người chơi " + username + " chỉ còn lại 1 lá");
+        // this.alertMessage("Người chơi " + username + " chỉ còn lại 1 lá");
         var slot = this.getSlotByUsername(username);
         if (slot) {
             slot.oneCardNotify.setVisible(true);
+        }
+    },
+    notifyBaoSam: function (username, isbaosam) {
+        var slot = this.getSlotByUsername(username);
+        slot.oneNotifyBaoSam.setVisible(true);
+        if (slot) {
+            if(isbaosam)
+                slot.oneNotifyBaoSam.setString("Báo Sâm");
+            else
+                slot.oneNotifyBaoSam.setString("Huỷ Sâm");
+
+            var thiaaa = this;
+            this.runAction(new cc.Sequence(new cc.DelayTime(2), new cc.CallFunc((function () {
+                slot.oneNotifyBaoSam.setVisible(false);
+            }))));
         }
     },
     hideAllNotifyOne: function () {

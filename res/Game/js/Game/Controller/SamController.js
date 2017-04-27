@@ -3,6 +3,7 @@
  */
 
 s_sfs_error_msg[34] = "Không được để 2 cuối";
+s_sfs_error_msg[32] = "Hết thời gian báo sâm";
 
 var s_defWin_Sam = s_defWin_Sam || [];
 s_defWin_Sam[0]= "Ăn trắng 5 đôi";
@@ -71,16 +72,30 @@ var SamController = TLMNGameController.extend({
     },
 
     onUserCallSam : function (username) {
-        var msg = username == PlayerMe.username ? "Bạn" : ("Người chơi " + username);
-        msg += " đã báo sâm thành công";
-        this._view.alertMessage(msg);
+
+        if(username == PlayerMe.username)
+        {
+            var msg = "Bạn đã báo sâm thành công";
+            this._view.alertMessage(msg);
+        }
+        else
+        {
+            this._view.notifyBaoSam(username, true);
+        }
         this._view.setSamBtVisible(false);
     },
 
     onUserFoldSam : function (username) {
-        var msg = username == PlayerMe.username ? "Bạn" : ("Người chơi " + username);
-        msg+= " đã hủy sâm thành công";
-        this._view.alertMessage(msg);
+        if(username == PlayerMe.username)
+        {
+            var msg = "Bạn đã huỷ sâm thành công";
+            this._view.alertMessage(msg);
+        }
+        else
+        {
+            this._view.notifyBaoSam(username, false);
+        }
+
         if (PlayerMe.username == username){
             this._view.setSamBtVisible(false);
         }

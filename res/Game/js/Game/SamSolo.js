@@ -31,10 +31,17 @@ var SamSolo = Sam.extend({
         for (var i = 1; i < this.playerView.length; i++) {
             var oneCardNotify = new cc.LabelBMFont("Báo 1", cc.res.font.Roboto_CondensedBold_30);
             oneCardNotify.setColor(cc.color("#ff0000"));
-            oneCardNotify.setPosition(110, 110);
+            oneCardNotify.setPosition(90, 110);
             this.playerView[i].infoLayer.addChild(oneCardNotify);
             oneCardNotify.setVisible(false);
             this.playerView[i].oneCardNotify = oneCardNotify;
+
+            var oneNotifyBaoSam = new cc.LabelBMFont("Báo Sâm", cc.res.font.Roboto_CondensedBold_30);
+            oneNotifyBaoSam.setColor(cc.color("#ff0000"));
+            oneNotifyBaoSam.setPosition(80, 110);
+            this.playerView[i].infoLayer.addChild(oneNotifyBaoSam);
+            oneNotifyBaoSam.setVisible(false);
+            this.playerView[i].oneNotifyBaoSam = oneNotifyBaoSam;
         }
     }
 });

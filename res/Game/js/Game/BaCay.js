@@ -3,66 +3,66 @@
  */
 
 
-var NoHuEffect = cc.ParticleSystem.extend ({
-    ctor: function ()
-    {
-        this._super();
-        var thizzz = this;
-        if(cc.ParticleSystem.prototype.initWithTotalParticles.call(thizzz, 300))
-        {
-            //     // duration
-            thizzz.setDuration(0.1);
-
-            thizzz.setEmitterMode(cc.ParticleSystem.MODE_GRAVITY);
-
-            // Gravity Mode: gravity
-            thizzz.setGravity(cc.p(0, 10));
-
-            // Gravity Mode: speed of particles
-            thizzz.setSpeed(70);
-            thizzz.setSpeedVar(40);
-
-            // Gravity Mode: radial
-            thizzz.setRadialAccel(0);
-            thizzz.setRadialAccelVar(0);
-
-            // Gravity Mode: tangential
-            thizzz.setTangentialAccel(0);
-            thizzz.setTangentialAccelVar(0);
-
-            // angle
-            thizzz.setAngle(90);
-            thizzz.setAngleVar(360);
-
-            // emitter position
-            var winSize = cc.director.getWinSize();
-            thizzz.setPosition(winSize.width / 2, winSize.height / 2);
-            thizzz.setPosVar(cc.p(0,0));
-
-            // life of particles
-            thizzz.setLife(5.0);
-            thizzz.setLifeVar(2);
-
-            // size, in pixels
-            thizzz.setStartSize(15.0);
-            thizzz.setStartSizeVar(10.0);
-            thizzz.setEndSize(cc.ParticleSystem.START_SIZE_EQUAL_TO_END_SIZE);
-
-            // emits per second
-            thizzz.setEmissionRate(this.getTotalParticles() / this.getDuration());
-
-            // color of particles
-            // thizzz.setStartColor(cc.color(0, 0, 0, 255));
-            // thizzz.setStartColorVar(cc.color(0, 0, 0, 255));
-            // thizzz.setEndColor(cc.color(255, 255, 255, 255));
-            // thizzz.setEndColorVar(cc.color(255, 255, 255, 255));
-
-            // additive
-            thizzz.setBlendAdditive(false);
-        }
-    },
-
-});
+// var NoHuEffect = cc.ParticleSystem.extend ({
+//     ctor: function ()
+//     {
+//         this._super();
+//         var thizzz = this;
+//         if(cc.ParticleSystem.prototype.initWithTotalParticles.call(thizzz, 300))
+//         {
+//             //     // duration
+//             thizzz.setDuration(0.1);
+//
+//             thizzz.setEmitterMode(cc.ParticleSystem.MODE_GRAVITY);
+//
+//             // Gravity Mode: gravity
+//             thizzz.setGravity(cc.p(0, 10));
+//
+//             // Gravity Mode: speed of particles
+//             thizzz.setSpeed(70);
+//             thizzz.setSpeedVar(40);
+//
+//             // Gravity Mode: radial
+//             thizzz.setRadialAccel(0);
+//             thizzz.setRadialAccelVar(0);
+//
+//             // Gravity Mode: tangential
+//             thizzz.setTangentialAccel(0);
+//             thizzz.setTangentialAccelVar(0);
+//
+//             // angle
+//             thizzz.setAngle(90);
+//             thizzz.setAngleVar(360);
+//
+//             // emitter position
+//             var winSize = cc.director.getWinSize();
+//             thizzz.setPosition(winSize.width / 2, winSize.height / 2);
+//             thizzz.setPosVar(cc.p(0,0));
+//
+//             // life of particles
+//             thizzz.setLife(5.0);
+//             thizzz.setLifeVar(2);
+//
+//             // size, in pixels
+//             thizzz.setStartSize(15.0);
+//             thizzz.setStartSizeVar(10.0);
+//             thizzz.setEndSize(cc.ParticleSystem.START_SIZE_EQUAL_TO_END_SIZE);
+//
+//             // emits per second
+//             thizzz.setEmissionRate(this.getTotalParticles() / this.getDuration());
+//
+//             // color of particles
+//             // thizzz.setStartColor(cc.color(0, 0, 0, 255));
+//             // thizzz.setStartColorVar(cc.color(0, 0, 0, 255));
+//             // thizzz.setEndColor(cc.color(255, 255, 255, 255));
+//             // thizzz.setEndColorVar(cc.color(255, 255, 255, 255));
+//
+//             // additive
+//             thizzz.setBlendAdditive(false);
+//         }
+//     },
+//
+// });
 
 
 var BaCayCardList = CardList.extend({
