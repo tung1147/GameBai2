@@ -5,3 +5,4 @@
 *.v12.suo
 *.VC.db
 /Release.win32/
+*.vcxproj.user
