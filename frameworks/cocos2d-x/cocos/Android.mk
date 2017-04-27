@@ -89,6 +89,9 @@ cocos2d.cpp \
 2d/CCAutoPolygon.cpp \
 3d/CCFrustum.cpp \
 3d/CCPlane.cpp \
+platform/decryptor/crypt_aes.cpp \
+platform/decryptor/crypt_md5.cpp \
+platform/decryptor/Decryptor.cpp \
 platform/CCFileUtils.cpp \
 platform/CCGLView.cpp \
 platform/CCImage.cpp \
