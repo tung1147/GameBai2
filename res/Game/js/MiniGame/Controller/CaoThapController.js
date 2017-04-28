@@ -190,6 +190,7 @@ var CaoThapController = MiniGameController.extend({
         this.turnState = 0;
         // this.setRolling(false);
         this._view.clearTurn();
+        this._view.pushKing(false);
     },
 
     sendJoinGame: function () {

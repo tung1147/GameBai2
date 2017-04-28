@@ -65,6 +65,7 @@ var LobbyClient = (function () {
                 this.addListener("fetchCashinProductItems", this._onFetchCashinProductItemsHandler, this);
                 this.addListener("transferGold", this._onTransferGold, this);
                 this.addListener("fetchTransferConfig", this._onFetchTransferConfig, this);
+                this.addListener("updateLandmarkCompleted", this._onUpdateLandmarkCompleted, this);
 
                 FacebookPlugin.getInstance().onLoginFinished = function (returnCode, userId, accessToken) {
                     if(returnCode == 0){
@@ -373,6 +374,10 @@ var LobbyClient = (function () {
 
         _onInboxMessageHandler : function (cmd, event) {
             PlayerMe.messageCount = event["data"]["numberMessUnread"];
+        },
+
+        _onUpdateLandmarkCompleted : function (cmd, event) {
+            PlayerMe.missionCount = event["data"]["count"];
         },
 
         _onNewsHandler : function (cmd, event) {

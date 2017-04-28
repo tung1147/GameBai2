@@ -22,7 +22,7 @@ var HomeScene = IScene.extend({
         LobbyClient.getInstance().addListener("inboxMessage", this.onChangeRefeshUserInfo, this);
         // LobbyClient.getInstance().addListener("inventory", this.onChangeRefeshUserInfo, this);
         // LobbyClient.getInstance().addListener("updateItem", this.onChangeRefeshUserInfo, this);
-        LobbyClient.getInstance().addListener("markReadedMessageInbox", this.onChangeRefeshUserInfo, this);
+        //LobbyClient.getInstance().addListener("markReadedMessageInbox", this.onChangeRefeshUserInfo, this);
         LobbyClient.getInstance().addListener("news", this.onNewsMessage, this);
         LobbyClient.getInstance().addListener("miniGameReconnect", this.onMiniGameReconnect, this);
         SmartfoxClient.getInstance().addExtensionListener("0", this.onSFSChangeGold, this);

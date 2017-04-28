@@ -5,7 +5,7 @@
 var InboxCountNode = cc.Node.extend({
     ctor : function () {
         this._super();
-        LobbyClient.getInstance().addListener("inboxMessage", this._onInboxMessageHandler, this);
+        this._initListener();
 
         var bg = new cc.Sprite("#top_bar_news_bg.png");
         bg.setPosition(cc.p(0,0));
@@ -17,6 +17,11 @@ var InboxCountNode = cc.Node.extend({
         newLabel.setColor(cc.color("#682e2e"));
         bg.addChild(newLabel);
         this.newLabel = newLabel;
+    },
+
+    _initListener : function () {
+        LobbyClient.getInstance().addListener("inboxMessage", this._onInboxMessageHandler, this);
+        LobbyClient.getInstance().addListener("markReadedMessageInbox", this._onInboxMessageHandler, this);
     },
 
     refreshView : function () {
@@ -77,6 +82,10 @@ var LobbyTopBar = cc.Node.extend({
         var activityBt = new ccui.Button("top_bar_activityBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
         activityBt.setPosition(639, backBt.y);
         this.addChild(activityBt);
+
+        var activityNotif = new ActivityCountNode();
+        activityNotif.setPosition(70,80);
+        activityBt.getRendererNormal().addChild(activityNotif);
 
         var inboxBt = new ccui.Button("top_bar_inboxBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
         inboxBt.setPosition(786, backBt.y);

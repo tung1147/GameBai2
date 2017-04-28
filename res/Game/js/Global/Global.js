@@ -226,6 +226,7 @@ PlayerMe.vipExp = 1000;
 PlayerMe.avatar = "";
 PlayerMe.spin = 0;
 PlayerMe.messageCount = 0;
+PlayerMe.missionCount = 0;
 PlayerMe.SFS = PlayerMe.SFS || {};
 
 var GameConfig = GameConfig || {};

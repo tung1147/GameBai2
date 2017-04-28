@@ -10,6 +10,27 @@ var s_activity_tab_name = s_activity_tab_name || [
     "SỰ KIỆN"
 ];
 
+var ActivityCountNode = InboxCountNode.extend({
+    _initListener : function () {
+        LobbyClient.getInstance().addListener("updateLandmarkCompleted", this.refreshView, this);
+    },
+
+    refreshView : function () {
+        if(PlayerMe.missionCount <= 0){
+            this.newsBg.visible = false;
+        }
+        else{
+            this.newsBg.visible = true;
+            if(PlayerMe.missionCount > 9){
+                this.newLabel.setString("9+");
+            }
+            else{
+                this.newLabel.setString(PlayerMe.missionCount.toString());
+            }
+        }
+    }
+});
+
 var ActivityTab = ToggleNodeItem.extend({
     ctor : function (title) {
         this._super(cc.size(260, 60));

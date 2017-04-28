@@ -43,7 +43,7 @@ var InboxLayer = LobbySubLayer.extend({
         this.messageList = messageList;
 
         LobbyClient.getInstance().addListener("fetchMultiMessageInbox", this.onRecvMessageInbox, this);
-        LobbyClient.getInstance().addListener("markReadedMessageInbox", this.onMarkReadedMessageInbox, this);
+        //LobbyClient.getInstance().addListener("markReadedMessageInbox", this.onMarkReadedMessageInbox, this);
         LobbyClient.getInstance().addListener("inboxMessage", this.onUpdateMessageCount, this);
     },
     addMessage : function (messageId, time, sender, title, content, status) {
@@ -104,6 +104,10 @@ var InboxLayer = LobbySubLayer.extend({
                     messageId : messageId
                 };
                 LobbyClient.getInstance().send(request);
+
+                timeLabel.setColor(s_text_color_readed);
+                senderLabel.setColor(s_text_color_readed);
+                titleLabel.setColor(s_text_color_readed);
             }
         });
     },
@@ -135,22 +139,22 @@ var InboxLayer = LobbySubLayer.extend({
             cc.log("onRecvMessageInbox");
             this.messageList.removeAllItems();
             for(var i=0;i<msg.length;i++){
-                if(msg[i].type == 1){
+                if(msg[i].type === 1){
                     this.addMessage(msg[i].messageId, msg[i].sendTime, msg[i].senderName, msg[i].title, msg[i].content, msg[i].status);
                 }
             }
         }
-    },
-
-    onMarkReadedMessageInbox : function (cmd, data) {
-        var messageId = data["data"]["messageId"];
-        for(var i=0;i<this.messageList.size();i++){
-            var msgItem = this.messageList.getItem(i);
-            if(msgItem.messageId === messageId){
-                msgItem.timeLabel.setColor(s_text_color_readed);
-                msgItem.senderLabel.setColor(s_text_color_readed);
-                msgItem.titleLabel.setColor(s_text_color_readed);
-            }
-        }
     }
+
+    // onMarkReadedMessageInbox : function (cmd, data) {
+    //     var messageId = data["data"]["messageId"];
+    //     for(var i=0;i<this.messageList.size();i++){
+    //         var msgItem = this.messageList.getItem(i);
+    //         if(msgItem.messageId === messageId){
+    //             msgItem.timeLabel.setColor(s_text_color_readed);
+    //             msgItem.senderLabel.setColor(s_text_color_readed);
+    //             msgItem.titleLabel.setColor(s_text_color_readed);
+    //         }
+    //     }
+    // }
 });
