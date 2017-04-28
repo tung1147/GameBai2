@@ -137,6 +137,9 @@ var CaoThapController = MiniGameController.extend({
     },
 
     onInitGame: function (data) {
+        this._view.setLuotMoiBtEnable(false);
+        this._view.setHighLowBtEnable(true);
+
         this.processData(data);
         var resultCard = data["2"];
         this._view.showResultCard(resultCard);
@@ -144,8 +147,6 @@ var CaoThapController = MiniGameController.extend({
         this.result = resultCard;
         this.turnState = 1;
         this._view.setTipString("Quân tiếp theo cao hơn hay thấp hơn?");
-        this._view.setLuotMoiBtEnable(false);
-        this._view.setHighLowBtEnable(true);
     },
 
     sendInitGame: function (betType) {

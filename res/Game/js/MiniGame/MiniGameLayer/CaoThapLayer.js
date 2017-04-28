@@ -282,11 +282,11 @@ var CaoThapLayer = MiniGamePopup.extend({
         this.lowValueLabel.setString(cc.Global.NumberFormat1(lowReward));
         this.highValueLabel.setString(cc.Global.NumberFormat1(highReward));
 
-        this.highButton.enabled = highReward != 0;
-        this.highButton.setBright(highReward != 0);
-
-        this.lowButton.enabled = lowReward != 0;
-        this.lowButton.setBright(lowReward != 0);
+        // this.highButton.enabled = highReward != 0;
+        // this.highButton.setBright(highReward != 0);
+        //
+        // this.lowButton.enabled = lowReward != 0;
+        // this.lowButton.setBright(lowReward != 0);
     },
 
     setGameId: function (gameId) {
