@@ -76,5 +76,27 @@
 		<string>Icon-152</string>
 		<string>Icon-180</string>
 	</array>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb1515040885426467</string>
+			</array>
+		</dict>
+	</array>
+	<key>FacebookAppID</key>
+	<string>1515040885426467</string>
+	<key>FacebookAppIDLogin</key>
+	<string>1515040885426467</string>
+	<key>FacebookDisplayName</key>
+	<string>GameBai2</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbapi</string>
+		<string>fb-messenger-api</string>
+		<string>fbauth2</string>
+		<string>fbshareextension</string>
+	</array>
 </dict>
 </plist>
