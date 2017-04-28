@@ -70,7 +70,7 @@ var TienLen = IGameScene.extend({
 
         var cardOnTable = new CardOnTable();
         cardOnTable.setPosition(cc.p(0, 0));
-        this.sceneLayer.addChild(cardOnTable);
+        this.sceneLayer.addChild(cardOnTable, 2);
         this.cardOnTable = cardOnTable;
 
         //test

@@ -11,6 +11,7 @@ s_defWin_Sam[1]= "Ăn trắng 3 Xám";
 s_defWin_Sam[2]= "Ăn trắng đồng màu";
 s_defWin_Sam[3]= "Ăn trắng Tứ 2";
 s_defWin_Sam[4]= "Ăn trắng sảnh rồng";
+s_defWin_Sam[6]= "Ăn trắng sảnh";
 s_defWin_Sam[15]= "Hòa";
 s_defWin_Sam[16]= "Ăn sâm";
 s_defWin_Sam[17]= "Bị bắt sâm";
@@ -111,6 +112,10 @@ var SamController = TLMNGameController.extend({
 
     onGameFinished : function (params) {
        // this._super(params);
+        this._view.setDanhBaiBtVisible(false);
+        this._view.setXepBaiBtVisible(false);
+        this._view.setBoLuotBtVisible(false);
+        this._view.setStartBtVisible(false);
 
         this._view.onUpdateTurn(".",0,0);
 
