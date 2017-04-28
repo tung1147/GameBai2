@@ -106,7 +106,7 @@ var TransferGoldHistory = Dialog.extend({
                 var recv = items[i]["toUsername"];
                 var gold = items[i]["value"];
                 var content = items[i]["description"];
-                this.addItem(cc.Global.DateToString(new Date(time)), type, recv, gold, content);
+                this.addItem(cc.Global.DateToString(new Date(time * 1000)), type, recv, gold, content);
             }
         }
     },
@@ -153,7 +153,7 @@ var TransferGoldMerchantHistory = TransferGoldHistory.extend({
                 var recv = items[i]["info"];
                 var gold = items[i]["value"];
                 var content = items[i]["description"];
-                this.addItem(cc.Global.DateToString(new Date(time)), type, recv, gold, content);
+                this.addItem(cc.Global.DateToString(new Date(time * 1000)), type, recv, gold, content);
             }
         }
     },
