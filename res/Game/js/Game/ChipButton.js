@@ -27,19 +27,12 @@ var ChipGroup = cc.Node.extend({
     },
     getChip : function (idx) {
         return this.allChips[idx];
-    },
-
-    setTouchEnable : function (enable) {
-        for(var i=0;i<this.allChips.length;i++){
-            this.allChips[i].setTouchEnable(enable);
-        }
     }
 });
 
 var ChipButton = cc.Node.extend({
     ctor : function () {
         this._super();
-        this._touchEnabled = true;
         this.selected = false;
         this.rectTouch = cc.rect();
     },
@@ -59,9 +52,6 @@ var ChipButton = cc.Node.extend({
         cc.eventManager.removeListeners(this);
     },
     onTouchBegan : function (touch, event) {
-        if(!this._touchEnabled){
-            return false;
-        }
         if(!this.selected){
             var p = this.convertToNodeSpace(touch.getLocation());
             if(cc.rectContainsPoint(this.rectTouch, p)){
@@ -82,8 +72,5 @@ var ChipButton = cc.Node.extend({
         if(this.onUnSelect){
             this.onUnSelect(isForce);
         }
-    },
-    setTouchEnable : function (enable) {
-        this._touchEnabled = enable;
     }
 });

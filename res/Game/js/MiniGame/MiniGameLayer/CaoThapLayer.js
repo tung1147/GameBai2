@@ -10,8 +10,8 @@ var CaoThapLayer = MiniGamePopup.extend({
         this._boudingRect = cc.rect(30, 47, 930, 510);
 
         this.rolling = false;
-        this.timeRemainingInterval = null;
-        this.timeRemaining = 0;
+        // this.timeRemainingInterval = null;
+        // this.timeRemaining = 0;
         this.gameType = GameType.MiniGame_CaoThap;
 
         var bg = new cc.Sprite("#caothap_bg.png");
@@ -58,10 +58,10 @@ var CaoThapLayer = MiniGamePopup.extend({
         this.bankLabel = bankLabel;
         this.addChild(bankLabel, 1);
 
-        var timeLabel = new cc.LabelBMFont("", cc.res.font.Roboto_CondensedBold_30);
-        timeLabel.setPosition(500, 415);
-        this.timeLabel = timeLabel;
-        this.addChild(timeLabel, 1);
+        // var timeLabel = new cc.LabelBMFont("", cc.res.font.Roboto_CondensedBold_30);
+        // timeLabel.setPosition(500, 415);
+        // this.timeLabel = timeLabel;
+        // this.addChild(timeLabel, 1);
 
         var highLabel = new cc.LabelBMFont("CAO", cc.res.font.Roboto_CondensedBold_30);
         highLabel.setColor(cc.color("#c9ceff"));
@@ -124,7 +124,6 @@ var CaoThapLayer = MiniGamePopup.extend({
     onLuotMoiBtClick : function () {
         this._controller.sendLuotMoiRequest();
         SoundPlayer.playSound("mini_clickButton");
-        this.setBettingSelectEnable(true);
     },
 
     onLowPredictClick: function () {
@@ -149,7 +148,6 @@ var CaoThapLayer = MiniGamePopup.extend({
         this.setRolling(true);
         this._controller.sendInitGame(this.chipGroup.chipSelected.chipIndex);
         SoundPlayer.playSound("mini_clickButton");
-        this.setBettingSelectEnable(false);
     },
 
     initNoHu: function () {
@@ -296,21 +294,21 @@ var CaoThapLayer = MiniGamePopup.extend({
     },
 
     setTimeRemaining: function (timeRemaining) {
-        var thiz = this;
-        this.timeRemaining = timeRemaining;
-        if (this.timeRemainingInterval) {
-            clearInterval(this.timeRemainingInterval);
-        }
-        this.timeRemainingInterval = setInterval(function () {
-            if (thiz.timeRemaining <= 0) {
-                thiz.timeLabel.setString("");
-                clearInterval(thiz.timeRemainingInterval);
-                thiz.timeRemainingInterval = null;
-            } else {
-                thiz.timeLabel.setString(thiz.formatTime(thiz.timeRemaining));
-                thiz.timeRemaining--;
-            }
-        }, 1000);
+        // var thiz = this;
+        // this.timeRemaining = timeRemaining;
+        // if (this.timeRemainingInterval) {
+        //     clearInterval(this.timeRemainingInterval);
+        // }
+        // this.timeRemainingInterval = setInterval(function () {
+        //     if (thiz.timeRemaining <= 0) {
+        //         thiz.timeLabel.setString("");
+        //         clearInterval(thiz.timeRemainingInterval);
+        //         thiz.timeRemainingInterval = null;
+        //     } else {
+        //         thiz.timeLabel.setString(thiz.formatTime(thiz.timeRemaining));
+        //         thiz.timeRemaining--;
+        //     }
+        // }, 1000);
     },
 
     formatTime: function (timeRemaining) {
@@ -357,9 +355,9 @@ var CaoThapLayer = MiniGamePopup.extend({
         this.card.setSpriteFrame("gp_card_up.png");
         this.setHighLowBtEnable(false);
         this.setLuotMoiBtEnable(true);
-        if (this.timeRemainingInterval)
-            clearInterval(this.timeRemainingInterval);
-        this.timeLabel.setString("");
+        // if (this.timeRemainingInterval)
+        //     clearInterval(this.timeRemainingInterval);
+        //this.timeLabel.setString("");
     },
 
     onEnter: function () {

@@ -59,7 +59,6 @@ var CaoThapController = MiniGameController.extend({
         var betId = data["5"];
         var bankString = data["6"];
 
-        this._view.setBettingSelectEnable(false);
         this._view.setBankValue(parseInt(bankString));
         this._view.showResultCard(resultCard);
         this._view.setGameId(gameId);
