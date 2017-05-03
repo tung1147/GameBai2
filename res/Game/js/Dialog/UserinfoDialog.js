@@ -172,6 +172,7 @@ var UserinfoPasswordLayer = cc.Node.extend({
         passwordText.setPasswordEnable(true);
         passwordText.setPosition(bg1.getPosition());
         this.addChild(passwordText);
+        this.passwordText = passwordText;
 
         var passwordText1 = new newui.TextField(textSize, cc.res.font.Roboto_Condensed_18);
         passwordText1.setPlaceHolder("Mật khẩu mới");
@@ -179,6 +180,7 @@ var UserinfoPasswordLayer = cc.Node.extend({
         passwordText1.setPasswordEnable(true);
         passwordText1.setPosition(bg2.getPosition());
         this.addChild(passwordText1);
+        this.passwordText1 = passwordText1;
 
         var passwordText2 = new newui.TextField(textSize, cc.res.font.Roboto_Condensed_18);
         passwordText2.setPlaceHolder("Nhập lại mật khẩu");
@@ -186,6 +188,7 @@ var UserinfoPasswordLayer = cc.Node.extend({
         passwordText2.setPasswordEnable(true);
         passwordText2.setPosition(bg3.getPosition());
         this.addChild(passwordText2);
+        this.passwordText2 = passwordText2;
 
         okButton.addClickEventListener(function () {
             var password = passwordText.getText();
@@ -224,6 +227,15 @@ var UserinfoPasswordLayer = cc.Node.extend({
         LoadingDialog.getInstance().hide();
         if(data.status === 0){
             MessageNode.getInstance().show("Đổi mật khẩu thành công");
+            var newPassword = this.passwordText1.getText();
+            LobbyClient.getInstance()._password = newPassword;
+            if(cc.Global.getSavePassword() != ""){
+                cc.Global.setSavePassword(newPassword);
+            }
+
+            this.passwordText.setText("");
+            this.passwordText1.setText("");
+            this.passwordText2.setText("");
         }
         else{
             MessageNode.getInstance().show("Đổi mật khẩu thất bại");

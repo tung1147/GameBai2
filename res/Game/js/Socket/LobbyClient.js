@@ -535,11 +535,15 @@ var LobbyClient = (function () {
         },
         login: function (username, password, redirectFromSignup) {
             var thiz = this;
+
+            this._username = username;
+            this._password = password;
+
             this.loginHandler = function () {
                 var loginRequest = {
                     type: "normal",
-                    username: username,
-                    password: password
+                    username: thiz._username,
+                    password: thiz._password
                 };
                 thiz.sendLoginRequest(loginRequest);
             };
