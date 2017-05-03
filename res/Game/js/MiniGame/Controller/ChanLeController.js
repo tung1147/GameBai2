@@ -15,7 +15,7 @@ var ChanLeController = MiniGameController.extend({
     },
 
     onSFSExtension: function (messageType, content) {
-        if (content.p.group != this.gameGroup) {
+        if (content.p.group != this.gameGroup ) {
             return;
         }
         this._super(messageType, content);
@@ -43,11 +43,19 @@ var ChanLeController = MiniGameController.extend({
             case "713":
                 this._view.gameIdLabel.setString("ID: "+ content.p[1]);
                 break;
+            case "705":
+                this.onShowMoneyExchange(content.p);
+                break;
             case "22" :
                 this.onChangeAssets(content.p.data["1"],content.p.data["2"]);
                 break;
         }
     },
+    onShowMoneyExchange:function (param) {
+
+        this._view.onChangeAssets("",(parseInt(param[1])>0)? param[1]:0);
+    },
+
     onJoinGame:function (param) {
         var state = param[1];
         var timeState = param[2]/1000;
@@ -59,6 +67,26 @@ var ChanLeController = MiniGameController.extend({
             return;
         }
         this.handleStateGame(state,timeRemain,false);
+        var moneyMeTai = parseInt(param["9"]);
+        var moneyMeXiu = parseInt(param[10]);
+        this._view.lblTai.setString((moneyMeTai>0)? "Đã cược: " +cc.Global.NumberFormat1(moneyMeTai):"");
+        this._view.lblXiu.setString((moneyMeXiu>0)? "Đã cược: " +cc.Global.NumberFormat1(moneyMeXiu):"");
+        for(var i = 0; i < data.length; i++){
+            var idCua = data[i]["3"];
+            var moneyTotal = data[i]["2"];
+            var total =  parseInt(moneyTotal);
+            var userCount = data[i]["1"];
+            if(idCua == TX_CUA_TAI){
+
+                this._view.lblTotalTai.setString((total>0)? cc.Global.NumberFormat1(total):"");
+                this._view.lblNumTai.setString((userCount>0)? userCount:"");
+            }else{
+
+                this._view.lblTotalXiu.setString((total>0)? cc.Global.NumberFormat1(total):"");
+                this._view.lblNumXiu.setString((userCount>0)? userCount:"");
+            }
+        }
+
     },
     onBetSucess:function (param) {
         var idCua = param[4][3];
@@ -76,13 +104,14 @@ var ChanLeController = MiniGameController.extend({
         var moneyTaiTong =  parseInt(param[1][2]);
         this._view.lblTotalTai.setString((moneyTaiTong==0)?"":cc.Global.NumberFormat1(moneyTaiTong));
 
-        var monetTaiMe = param[1][1];
-       // this._view.lblTai.setString((monetTaiMe==0)?"":("Đã cược: " +cc.Global.NumberFormat1(monetTaiMe)));
+        var numTai = param[1][1];
+        this._view.lblNumTai.setString((numTai>0)? numTai:"");
 
         var moneyXiuTong =  parseInt(param[2][2]);
         this._view.lblTotalXiu.setString((moneyXiuTong==0)?"":cc.Global.NumberFormat1(moneyXiuTong));
 
-        var monetXiuMe = param[2][1];
+        var numXiu = param[2][1];
+        this._view.lblNumXiu.setString((numXiu>0)? numXiu:"");
       //  this._view.lblTai.setString((monetXiuMe==0)?"":("Đã cược: "+cc.Global.NumberFormat1(monetXiuMe)));
     },
     onResuft:function (param) {
@@ -134,7 +163,7 @@ var ChanLeController = MiniGameController.extend({
                       number : arr_his[iNew][2],
                         idVan : arr_his[iNew][3],
                     };
-                    thiz._view.pushItemHistory(iNew-1,dataItemTx)
+                    thiz._view.pushItemHistory((arr_his.length>11)?iNew-1:iNew,dataItemTx);
 
                 })();
             }

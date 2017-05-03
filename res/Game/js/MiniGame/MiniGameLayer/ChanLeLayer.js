@@ -86,6 +86,9 @@ var ChanLeLayer = MiniGamePopup.extend({
 
 
             if(cc.Global.IsNumber(numberText)){
+                if(parseInt(numberText)> PlayerMe.gold){
+                    numberText = PlayerMe.gold.toString();
+                }
                 thiz.moneyTF.setText(cc.Global.NumberFormat1(parseInt(numberText)));
                 thiz.moneyBet = parseInt(numberText);
             }
@@ -136,6 +139,21 @@ var ChanLeLayer = MiniGamePopup.extend({
         bg.addChild(btnXiu);
         this.btnXiu = btnXiu;
 
+
+        var lblNumTai = new cc.LabelTTF("", cc.res.font.Roboto_Condensed, 20);
+        lblNumTai.setPosition(105,29);
+        lblNumTai.setAnchorPoint(1,0.5);
+        lblNumTai.setColor(cc.color(1, 79, 174,255));
+        btnTai.addChild(lblNumTai);
+
+        var lblNumXiu = new cc.LabelTTF("", cc.res.font.Roboto_Condensed, 20);
+        lblNumXiu.setPosition(105,29);
+        lblNumXiu.setAnchorPoint(1,0.5);
+        lblNumXiu.setColor(cc.color(180, 47, 53,255));
+        btnXiu.addChild(lblNumXiu);
+        this.lblNumXiu = lblNumXiu;
+        this.lblNumTai = lblNumTai;
+
         var lblTotalTai = new  cc.LabelTTF ("", cc.res.font.Roboto_Condensed, 20);
         lblTotalTai.setColor(cc.color(191, 242, 255,255));
         lblTotalTai.setPosition(btnTai.getPositionX(), 368);
@@ -173,9 +191,10 @@ var ChanLeLayer = MiniGamePopup.extend({
         this.createAnimationNumber();
 
         this.initDisk();
-        var lblTime = new cc.LabelTTF("9",cc.res.font.Roboto_CondensedBold,40);
+        var lblTime = new cc.LabelTTF("",cc.res.font.Roboto_CondensedBold,40);
         lblTime.setPosition(this.diskSprite.getPosition());
         lblTime.enableStroke(cc.color(25,74,135,255),4);
+        lblTime.setColor(cc.color(255,222,0,255));
         this.bg.addChild(lblTime);
         this.lblTime = lblTime;
 
@@ -230,7 +249,7 @@ var ChanLeLayer = MiniGamePopup.extend({
     },
     setTextTaiXiu:function (name) {
         var sprite = new cc.Sprite(name);
-        sprite.setPosition(this.bg.getContentSize().width/2,100);
+        sprite.setPosition(this.bg.getContentSize().width/2,this.bg.getContentSize().height/2);
         this.bg.addChild(sprite);
         sprite.runAction(new cc.Sequence(
             new cc.DelayTime(2),
@@ -454,11 +473,12 @@ var ChanLeLayer = MiniGamePopup.extend({
         }
     },
     startTime:function (time) {
+        this.lblTime.setOpacity(255);
         this.scheduleUpdate();
         this.timer = time;
     },
     stopTime:function () {
-        this.lblTime.setColor(cc.color(255,255,255));
+        this.lblTime.setColor(cc.color(255,222,0,255));
       this.unscheduleUpdate();
         this.timer = 0;
         this.lblTime.stopAllActions();

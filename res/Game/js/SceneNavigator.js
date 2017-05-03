@@ -37,6 +37,9 @@ SceneNavigator.toHome = function (message) {
     if(s_CaoThapLayer){
         s_CaoThapLayer.hide();
     }
+    if(s_ChanLeLayer){
+        s_ChanLeLayer.hide();
+    }
 };
 
 SceneNavigator.toAccountActiveView = function () {
@@ -72,6 +75,9 @@ SceneNavigator.toLobby = function (message) {
 
     if(s_CaoThapLayer){
         s_CaoThapLayer.hide();
+    }
+    if(s_ChanLeLayer){
+        s_ChanLeLayer.hide();
     }
 };
 

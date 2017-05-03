@@ -140,11 +140,13 @@ var PokerGamePlayer = GamePlayer.extend({
             this.txtBetBg.setPosition(this.avt.getPositionX(),this.avt.getPositionY()+ 90+75);
             this.bg_nameHand.setPosition( this.avt.getPositionX(),this.avt.getPositionY()+100-55);
             this.lblHandWin.setPosition(this.avt.getPositionX(),this.avt.getPositionY()+100 +55);
+            this.phomVituarl.setVisible(false);
         }else {
             this.cardList.setPosition(this.avt.getPosition());
             this.txtBetBg.setPosition(this.avt.getPositionX(),this.avt.getPositionY()+75);
             this.bg_nameHand.setPosition( this.avt.getPositionX(),this.avt.getPositionY()-55);
             this.lblHandWin.setPosition(this.avt.getPositionX(),this.avt.getPositionY() +55);
+
         }
     },
     setPositionInfo:function (posBase, posBet,posDel) {
@@ -214,8 +216,8 @@ var PokerGamePlayer = GamePlayer.extend({
                 break;
             }
             case PK_POSITION_TOP:{
-                // this.imgDeal.setPosition(0,75);
-                // break;
+                this.imgDeal.setPosition(this.avt.getPositionX()+50,this.avt.getPositionY()+50);
+                break;
             }
             case PK_POSITION_BOTTOM:{
                 this.imgDeal.setPosition(this.avt.getPositionX()+50,this.avt.getPositionY()-50);
@@ -342,6 +344,9 @@ var PokerGamePlayer = GamePlayer.extend({
           this.userLabel.setColor(cc.color(255, 222, 0,255));
           this.userLabel.setString("ALL_IN");
       }
+      else {
+          this.userLabel.setColor(cc.color(191, 242, 255,255));
+      }
     },
 
 
@@ -358,6 +363,7 @@ var PokerGamePlayer = GamePlayer.extend({
     // },
 
     resetEndGame:function () {
+        cc.log("resetEndGame 2");
         this.cardList.removeAll();
         this.lblBet.setString("");
         this.phomVituarl.setVisible(false);
@@ -433,12 +439,12 @@ var Poker = IGameScene.extend({
         var thiz = this;
 
         var imgCave = new cc.Sprite("#pk_cave.png");
-        imgCave.setPosition(bgPoker.getContentSize().width / 2, 554+ pad);
+        imgCave.setPosition(bgPoker.getContentSize().width / 2, 590+ pad);
         bgPoker.addChild(imgCave);
         this.imgCave = imgCave;
 
         var caveBig = new cc.Sprite("#pk_cave_big.png");
-        caveBig.setPosition(bgPoker.getContentSize().width / 2, 554+ pad);
+        caveBig.setPosition(bgPoker.getContentSize().width / 2, 590+ pad);
         caveBig.runAction(new cc.RepeatForever(
             new cc.Sequence(
                 new cc.FadeTo(1,0),
@@ -617,12 +623,12 @@ var Poker = IGameScene.extend({
 
             var player1 = new PokerGamePlayer(i, this);
             player1.setPosition(sizeOrgX - distanceX, higtRow1);
-            player1.setPositionInfo(PK_POSITION_LEFT,PK_POSITION_RIGHT,PK_POSITION_LEFT);
+            player1.setPositionInfo(PK_POSITION_LEFT,PK_POSITION_RIGHT,PK_POSITION_RIGHT);
             this.bgPoker.addChild(player1, 1);
 
             var player2 = new PokerGamePlayer(i, this);
             player2.setPosition(sizeOrgX - distanceX, higtRow2);
-            player2.setPositionInfo(PK_POSITION_LEFT,PK_POSITION_RIGHT,PK_POSITION_LEFT);
+            player2.setPositionInfo(PK_POSITION_LEFT,PK_POSITION_RIGHT,PK_POSITION_RIGHT);
             this.bgPoker.addChild(player2, 1);
 
             var player3 = new PokerGamePlayer(i, this);
@@ -660,43 +666,43 @@ var Poker = IGameScene.extend({
 
             var player1 = new PokerGamePlayer(i, this);
             player1.setPosition(sizeOrgX - distanceX1, higtRow1);
-            player1.setPositionInfo(PK_POSITION_LEFT,PK_POSITION_RIGHT,PK_POSITION_LEFT);
+            player1.setPositionInfo(PK_POSITION_LEFT,PK_POSITION_RIGHT,PK_POSITION_RIGHT);
             this.bgPoker.addChild(player1, 1);
 
             var player2 = new PokerGamePlayer(i, this);
             player2.setPosition(sizeOrgX - distanceX2, higtRow2);
-            player2.setPositionInfo(PK_POSITION_BOTTOM,PK_POSITION_RIGHT,PK_POSITION_LEFT);
+            player2.setPositionInfo(PK_POSITION_BOTTOM,PK_POSITION_RIGHT,PK_POSITION_RIGHT);
             this.bgPoker.addChild(player2, 1);
 
             var player3 = new PokerGamePlayer(i, this);
             player3.setPosition(sizeOrgX - distanceX3, higtRow3);
-            player3.setPositionInfo(PK_POSITION_BOTTOM,PK_POSITION_RIGHT,PK_POSITION_LEFT);
+            player3.setPositionInfo(PK_POSITION_BOTTOM,PK_POSITION_RIGHT,PK_POSITION_RIGHT);
             this.bgPoker.addChild(player3, 1);
 
             var player4 = new PokerGamePlayer(i, this);
             player4.setPosition(sizeOrgX - distanceX4, higtRow4);
-            player4.setPositionInfo(PK_POSITION_LEFT,PK_POSITION_RIGHT,PK_POSITION_LEFT);
+            player4.setPositionInfo(PK_POSITION_LEFT,PK_POSITION_BOTTOM,PK_POSITION_BOTTOM);
             this.bgPoker.addChild(player4, 1);
 
             var player5 = new PokerGamePlayer(i, this);
             player5.setPosition(sizeOrgX + distanceX4, higtRow4);
-            player5.setPositionInfo(PK_POSITION_RIGHT,PK_POSITION_LEFT,PK_POSITION_RIGHT);
+            player5.setPositionInfo(PK_POSITION_RIGHT,PK_POSITION_BOTTOM,PK_POSITION_BOTTOM);
             this.bgPoker.addChild(player5, 1);
 
 
             var player6 = new PokerGamePlayer(i, this);
             player6.setPosition(sizeOrgX + distanceX3, higtRow3);
-            player6.setPositionInfo(PK_POSITION_BOTTOM,PK_POSITION_LEFT,PK_POSITION_RIGHT);
+            player6.setPositionInfo(PK_POSITION_BOTTOM,PK_POSITION_LEFT,PK_POSITION_LEFT);
             this.bgPoker.addChild(player6, 1);
 
             var player7 = new PokerGamePlayer(i, this);
             player7.setPosition(sizeOrgX + distanceX2, higtRow2);
-            player7.setPositionInfo(PK_POSITION_BOTTOM,PK_POSITION_LEFT,PK_POSITION_RIGHT);
+            player7.setPositionInfo(PK_POSITION_BOTTOM,PK_POSITION_LEFT,PK_POSITION_LEFT);
             this.bgPoker.addChild(player7, 1);
 
             var player8 = new PokerGamePlayer(i, this);
             player8.setPosition(sizeOrgX + distanceX1, higtRow1);
-            player8.setPositionInfo(PK_POSITION_RIGHT,PK_POSITION_LEFT,PK_POSITION_RIGHT);
+            player8.setPositionInfo(PK_POSITION_RIGHT,PK_POSITION_LEFT,PK_POSITION_LEFT);
             this.bgPoker.addChild(player8, 1);
 
 
@@ -1032,9 +1038,11 @@ var Poker = IGameScene.extend({
     },
 
     setTypePlayer: function (username, type) {
+        cc.log("username"+ username);
         var  slot  = this.getSlotByUsername(username);
         if(slot)
         {
+            cc.log("username" + username+ "==" + type);
             slot.setType(type);
         }
     },
@@ -1075,18 +1083,15 @@ var Poker = IGameScene.extend({
 
 
 
-                    for(var k = 1; k< thiz.allSlot.length;k++)
+                    for(var k = 0; k< thiz.allSlot.length;k++)
                     {(function () {
                         var kNew = k;
-                        if(thiz.allSlot[kNew].username !="" ){
+                        if(thiz.allSlot[kNew].username !="" && thiz.allSlot[kNew].username !=PlayerMe.username){
                             thiz.allSlot[kNew].phomVituarl.setVisible(true);
 
                         }
                     })();
                     }
-
-
-
 
         // var m =0;
         // for (var j = 0; j < 2; j++) {
@@ -1447,6 +1452,10 @@ var PopupSitdown = Dialog.extend({
         this.cancelButtonHandler = function () {
           thiz.hide();
         };
+        this.cancelTitle.setString("Hủy");
+        this.okTitle.setString("Đồng ý");
+        this.cancelTitle.setScale(1.3);
+        this.okTitle.setScale(1.3);
     },
     getGold:function () {
         return this.gold;

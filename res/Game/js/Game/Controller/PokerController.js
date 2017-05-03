@@ -304,7 +304,7 @@ var PokerController = GameController.extend({
     onReconnect: function (param) {
         this.onInitJoin(param["1"]);
         this._super(param);
-
+        this.statusRoom = param["1"]["1"];
         this.onUpdateMe(param["1"]);
         this.showGoldRemainReconnect(param["1"],param["2"]["3"]);
         this._updateRoomInfo(param["1"]["12"]);
@@ -450,6 +450,19 @@ var PokerController = GameController.extend({
             thiz.playerSlot[i].info.idAction=PK_ACTION_PLAYER_NONE;
             thiz.playerSlot[i].info.isDealer= PK_TYPE_PLAYER_NOMARL;
         }
+
+        var actionClearPlaew =new cc.Sequence(
+            new cc.DelayTime(timeRemain),
+            new cc.CallFunc(function () {
+                for(var i = 0; i<thiz._view.allSlot.length; i++){
+                    cc.log("call here");
+                    thiz._view.allSlot[i].resetEndGame();
+                }
+
+            }));
+        actionClearPlaew.setTag(222);
+        this._view.runAction(actionClearPlaew);
+
         this._view.runAction(new cc.Sequence(
             new cc.DelayTime(2),
             new cc.CallFunc(function () {
@@ -457,9 +470,10 @@ var PokerController = GameController.extend({
             }),
             new cc.DelayTime(timeRemain-2),
             new cc.CallFunc(function () {
-                for(var i = 0; i<thiz._view.allSlot.length; i++){
-                    thiz._view.allSlot[i].resetEndGame();
-                }
+                // for(var i = 0; i<thiz._view.allSlot.length; i++){
+                //     cc.log("call here");
+                //     thiz._view.allSlot[i].resetEndGame();
+                // }
                 for(var i = 0; i < thiz.playerSlot.length; i++){
                     thiz.playerSlot[i].info.moneyBet=0;
                     thiz.playerSlot[i].info.isPlaying=false;
@@ -554,8 +568,13 @@ var PokerController = GameController.extend({
         var bigBlind = param["3"];
         var smallBlind = param["2"];
         var dealer = param["1"];
+        this._view.stopActionByTag(222);
+
         for(var i = 0; i<this._view.allSlot.length; i++){
+            cc.log("resetEndGame 1");
             this._view.allSlot[i].resetEndGame();
+            cc.log("resetEndGame 3");
+
         }
         this._view.setTypePlayer(bigBlind, PK_TYPE_PLAYER_BIGBLIND);
         this._view.setTypePlayer(smallBlind, PK_TYPE_PLAYER_SMALLBLIND);
