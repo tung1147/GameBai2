@@ -280,18 +280,18 @@ MiniGameNavigator.createGameLayer = function (gameId) {
 MiniGameNavigator.showAll = function () {
     for (var key in MiniGameNavigator.allGame) {
         if (!MiniGameNavigator.allGame.hasOwnProperty(key)) continue;
-        if(MiniGameNavigator.allGame[key]){
+     //   if(MiniGameNavigator.allGame[key]){
             MiniGameNavigator.allGame[key].show();
-        }
+    //    }
     }
 };
 
 MiniGameNavigator.hideAll = function () {
     for (var key in MiniGameNavigator.allGame) {
         if (!MiniGameNavigator.allGame.hasOwnProperty(key)) continue;
-        if(MiniGameNavigator.allGame[key]){
+       // if(MiniGameNavigator.allGame[key]){
             MiniGameNavigator.allGame[key].hide();
-        }
+     //   }
     }
     MiniGameNavigator.allGame = {};
 };
@@ -314,6 +314,7 @@ MiniGameNavigator.showGame = function (gameId) {
 MiniGameNavigator.hideGame = function (gameId) {
     if(MiniGameNavigator.allGame[gameId]){
         MiniGameNavigator.allGame[gameId].hide();
-        MiniGameNavigator.allGame[gameId] = null;
+        delete MiniGameNavigator.allGame[gameId];
+      //  MiniGameNavigator.allGame[gameId] = null;
     }
 };
