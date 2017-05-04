@@ -497,11 +497,15 @@ var HomeScene = IScene.extend({
                 }
             }
         }
+
+        //MiniGameNavigator.showAll();
     },
 
     onExit: function () {
         this._super();
         LobbyClient.getInstance().removeListener(this);
         SmartfoxClient.getInstance().removeListener(this);
+
+        MiniGameNavigator.hideAll();
     }
 });

@@ -7,6 +7,7 @@ var MiniGamePopup = cc.Node.extend({
         if(!cc.sys.isNative){
             this.setScale((1 + Math.sqrt(5)) / 2 - 1);
         }
+        this.setPosition(cc.winSize.width / 2, cc.winSize.height / 2);
 
         this.initController();
 
@@ -219,8 +220,6 @@ var MiniGamePopup = cc.Node.extend({
             parent.removeFromParent(true);
         }
 
-        this.setPosition(cc.winSize.width / 2, cc.winSize.height / 2);
-
         var bg = new cc.LayerColor(cc.color(0, 0, 0, 0));
         bg.addChild(this);
 
@@ -279,11 +278,18 @@ MiniGameNavigator.createGameLayer = function (gameId) {
 };
 
 MiniGameNavigator.showAll = function () {
-
+    for (var key in MiniGameNavigator.allGame) {
+        if (!MiniGameNavigator.allGame.hasOwnProperty(key)) continue;
+        MiniGameNavigator.allGame[key].show();
+    }
 };
 
 MiniGameNavigator.hideAll = function () {
-
+    for (var key in MiniGameNavigator.allGame) {
+        if (!MiniGameNavigator.allGame.hasOwnProperty(key)) continue;
+        MiniGameNavigator.allGame[key].hide();
+    }
+    MiniGameNavigator.allGame = {};
 };
 
 MiniGameNavigator.showGame = function (gameId) {

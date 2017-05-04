@@ -365,7 +365,8 @@ var SmartfoxClient = (function () {
             else{
                 var gameScene = this._createGameSceneWithGameType(gameType, gameBetAmount);
                 if (gameScene) {
-                    cc.director.replaceScene(new cc.TransitionFade(0.5, gameScene, cc.color("#000000")));
+                    cc.director.replaceScene(gameScene);
+                   // cc.director.replaceScene(new cc.TransitionFade(0.5, gameScene, cc.color("#000000")));
                 }
             }
         },

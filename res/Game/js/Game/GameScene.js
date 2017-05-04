@@ -60,6 +60,10 @@ var GameTopBar = cc.Node.extend({
 var IGameScene = IScene.extend({
     ctor: function () {
         this._super();
+
+        this.miniGameLayer = new cc.Node();
+        this.addChild(this.miniGameLayer, 1);
+
         this.initController();
         this.type = "GameScene";
         this.isOwnerMe = false;
@@ -190,6 +194,8 @@ var IGameScene = IScene.extend({
                 }
             }
         }, this);
+
+        //MiniGameNavigator.showAll();
     },
 
     showErrorMessage: function (message, scene) {
