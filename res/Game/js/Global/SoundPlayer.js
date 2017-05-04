@@ -62,7 +62,7 @@ SoundPlayer.playSound = function (sound, loop) {
 
 SoundPlayer.stopSound = function (sound) {
     var soundId = s_sound_loop[sound];
-    if(soundId){
+    if(soundId !== null && soundId !== undefined){
         if(cc.sys.isNative){
             jsb.AudioEngine.stop(soundId);
         }
@@ -91,13 +91,15 @@ SoundPlayer.stopSound = function (sound) {
 };
 
 SoundPlayer.playSoundLoop = function (sound) {
+    cc.log("playSoundLoop");
     var soundID = SoundPlayer._playSingleSound(sound, true);
     return soundID;
 };
 
 SoundPlayer.stopSoundLoop = function (soundId) {
-    if(soundId){
+    if(soundId !== null && soundId !== undefined){
         if(cc.sys.isNative){
+            cc.log("stopSoundLoop");
             jsb.AudioEngine.stop(soundId);
         }
         else{

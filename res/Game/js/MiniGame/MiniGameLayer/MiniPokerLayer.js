@@ -240,7 +240,7 @@ var MiniPokerLayer = MiniGamePopup.extend({
             this.cardRollingSprites[i].visible = isRolling;
         }
         if (isRolling) {
-            this._rollingSound = SoundPlayer.playSoundLoop("lucky_wheel");
+            this._rollingSound = SoundPlayer.playSoundLoop("mini_flyCard");
         }
         else {
             SoundPlayer.stopSoundLoop(this._rollingSound);

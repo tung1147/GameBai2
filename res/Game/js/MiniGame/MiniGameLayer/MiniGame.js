@@ -260,7 +260,7 @@ var MiniGamePopup = cc.Node.extend({
 });
 
 var MiniGameNavigator = MiniGameNavigator || {};
-MiniGameNavigator.allGame = [];
+MiniGameNavigator.allGame = {};
 
 MiniGameNavigator.createGameLayer = function (gameId) {
     if(gameId === GameType.MiniGame_CaoThap){
