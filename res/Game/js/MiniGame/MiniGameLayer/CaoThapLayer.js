@@ -2,7 +2,7 @@
  * Created by QuyetNguyen on 12/20/2016.
  */
 
-var s_CaoThapLayer = null;
+//var s_CaoThapLayer = null;
 
 var CaoThapLayer = MiniGamePopup.extend({
     ctor: function () {
@@ -371,13 +371,13 @@ var CaoThapLayer = MiniGamePopup.extend({
     onEnter: function () {
         this._super();
         this.scheduleUpdate();
-        s_CaoThapLayer = this;
+        //s_CaoThapLayer = this;
     },
 
     onExit: function () {
         this._super();
         this.unscheduleUpdate();
-        s_CaoThapLayer = null;
+        //s_CaoThapLayer = null;
     },
 
     onError: function (param) {
@@ -389,11 +389,11 @@ var CaoThapLayer = MiniGamePopup.extend({
     }
 });
 
-CaoThapLayer.showPopup = function () {
-    if (s_CaoThapLayer) {
-        return null;
-    }
-    var popup = new CaoThapLayer();
-    popup.show();
-    return popup;
-};
+// CaoThapLayer.showPopup = function () {
+//     if (s_CaoThapLayer) {
+//         return null;
+//     }
+//     var popup = new CaoThapLayer();
+//     popup.show();
+//     return popup;
+// };

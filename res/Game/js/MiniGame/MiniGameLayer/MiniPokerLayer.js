@@ -1,7 +1,7 @@
 /**
  * Created by QuyetNguyen on 12/20/2016.
  */
-var s_MiniPokerLayer = null;
+//var s_MiniPokerLayer = null;
 var MiniPokerLayer = MiniGamePopup.extend({
     ctor: function () {
         this._super();
@@ -129,13 +129,13 @@ var MiniPokerLayer = MiniGamePopup.extend({
     onEnter: function () {
         this._super();
         this.scheduleUpdate();
-        s_MiniPokerLayer = this;
+        //s_MiniPokerLayer = this;
     },
 
     onExit: function () {
         this._super();
         this.unscheduleUpdate();
-        s_MiniPokerLayer = null;
+        //s_MiniPokerLayer = null;
     },
 
     onAutoRollClick: function () {
@@ -267,11 +267,11 @@ var MiniPokerLayer = MiniGamePopup.extend({
     }
 });
 
-MiniPokerLayer.showPopup = function () {
-    if (s_MiniPokerLayer) {
-        return null;
-    }
-    var popup = new MiniPokerLayer();
-    popup.show();
-    return popup;
-};
+// MiniPokerLayer.showPopup = function () {
+//     if (s_MiniPokerLayer) {
+//         return null;
+//     }
+//     var popup = new MiniPokerLayer();
+//     popup.show();
+//     return popup;
+// };

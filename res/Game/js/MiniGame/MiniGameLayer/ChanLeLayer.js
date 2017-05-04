@@ -1,7 +1,7 @@
 /**
  * Created by QuyetNguyen on 12/20/2016.
  */
-var s_ChanLeLayer = null;
+//var s_ChanLeLayer = null;
 var s_miniGame_chip_position = s_miniGame_chip_position || [
         {x: 112, y: 365},
         {x: 91, y: 262},
@@ -519,7 +519,7 @@ var ChanLeLayer = MiniGamePopup.extend({
         this._super();
         // this.timer = 0;
         // this.scheduleUpdate();
-        s_ChanLeLayer = this;
+        //s_ChanLeLayer = this;
         var thiz = this;
     },
 
@@ -531,7 +531,7 @@ var ChanLeLayer = MiniGamePopup.extend({
     onExit: function () {
         this._super();
         this.unscheduleUpdate();
-        s_ChanLeLayer = null;
+        //s_ChanLeLayer = null;
     },
 
     initController: function () {
@@ -548,12 +548,12 @@ var ChanLeLayer = MiniGamePopup.extend({
 
 });
 
-ChanLeLayer.showPopup = function () {
-    if (s_ChanLeLayer) {
-        return null;
-    }
-    var popup = new ChanLeLayer();
-    popup.show();
-    return popup;
-};
+// ChanLeLayer.showPopup = function () {
+//     if (s_ChanLeLayer) {
+//         return null;
+//     }
+//     var popup = new ChanLeLayer();
+//     popup.show();
+//     return popup;
+// };
 

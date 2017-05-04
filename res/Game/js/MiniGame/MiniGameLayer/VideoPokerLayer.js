@@ -1,7 +1,7 @@
 /**
  * Created by QuyetNguyen on 12/20/2016.
  */
-var s_VideoPokerLayer = null;
+//var s_VideoPokerLayer = null;
 var VideoPokerLayer = MiniGamePopup.extend({
     ctor: function () {
         this._super();
@@ -315,8 +315,8 @@ var VideoPokerLayer = MiniGamePopup.extend({
     onEnter: function () {
         this._super();
         this.scheduleUpdate();
-        s_VideoPokerLayer = this;
-        var thiz = this;
+       //s_VideoPokerLayer = this;
+       // var thiz = this;
     },
 
     onTouchBegan: function (touch, event) {
@@ -336,7 +336,7 @@ var VideoPokerLayer = MiniGamePopup.extend({
     onExit: function () {
         this._super();
         this.unscheduleUpdate();
-        s_VideoPokerLayer = null;
+        //s_VideoPokerLayer = null;
     },
 
     initController: function () {
@@ -379,12 +379,12 @@ var VideoPokerLayer = MiniGamePopup.extend({
     }
 });
 
-VideoPokerLayer.showPopup = function () {
-    if (s_VideoPokerLayer) {
-        return null;
-    }
-    var popup = new VideoPokerLayer();
-    popup.show();
-    return popup;
-};
+// VideoPokerLayer.showPopup = function () {
+//     if (s_VideoPokerLayer) {
+//         return null;
+//     }
+//     var popup = new VideoPokerLayer();
+//     popup.show();
+//     return popup;
+// };
 

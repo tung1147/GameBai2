@@ -35,7 +35,7 @@ var MiniGamePopup = cc.Node.extend({
 
         var thiz = this;
         closeButton.addClickEventListener(function () {
-            thiz.hide();
+            thiz.closeButtonHandler();
             SoundPlayer.playSound("mini_clickButton");
         });
 
@@ -213,6 +213,12 @@ var MiniGamePopup = cc.Node.extend({
     },
 
     show: function () {
+        var parent = this.getParent();
+        if(parent){
+            this.removeFromParent(true);
+            parent.removeFromParent(true);
+        }
+
         this.setPosition(cc.winSize.width / 2, cc.winSize.height / 2);
 
         var bg = new cc.LayerColor(cc.color(0, 0, 0, 0));
@@ -248,11 +254,56 @@ var MiniGamePopup = cc.Node.extend({
         this.chipGroup.setTouchEnable(enable);
     },
 
+    closeButtonHandler : function () {
+       // this.hide();
+        MiniGameNavigator.hideGame(this.gameType);
+    }
 });
 
 var MiniGameNavigator = MiniGameNavigator || {};
-MiniGameNavigator.onEnter = function () {
+MiniGameNavigator.allGame = [];
+
+MiniGameNavigator.createGameLayer = function (gameId) {
+    if(gameId === GameType.MiniGame_CaoThap){
+        return new CaoThapLayer();
+    }
+    else if(gameId === GameType.MiniGame_Poker){
+        return new MiniPokerLayer();
+    }
+    else if(gameId === GameType.MiniGame_VideoPoker){
+        return new VideoPokerLayer();
+    }
+    else if(gameId === GameType.MiniGame_ChanLe){
+        return new ChanLeLayer();
+    }
+};
+
+MiniGameNavigator.showAll = function () {
 
 };
 
-//MiniGameNavigator.onShow
+MiniGameNavigator.hideAll = function () {
+
+};
+
+MiniGameNavigator.showGame = function (gameId) {
+    if(MiniGameNavigator.allGame[gameId]){
+        if(MiniGameNavigator.allGame[gameId].isRunning()){
+            cc.log("MiniGame " + gameId + " is running !!!");
+        }
+        else{
+            MiniGameNavigator.allGame[gameId].show();
+        }
+    }
+    else{
+        MiniGameNavigator.allGame[gameId] = MiniGameNavigator.createGameLayer(gameId);
+        MiniGameNavigator.allGame[gameId].show();
+    }
+};
+
+MiniGameNavigator.hideGame = function (gameId) {
+    if(MiniGameNavigator.allGame[gameId]){
+        MiniGameNavigator.allGame[gameId].hide();
+        MiniGameNavigator.allGame[gameId] = null;
+    }
+};
