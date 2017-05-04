@@ -124,6 +124,8 @@ var CaoThapLayer = MiniGamePopup.extend({
     onLuotMoiBtClick : function () {
         this._controller.sendLuotMoiRequest();
         SoundPlayer.playSound("mini_clickButton");
+        this.setBettingSelectEnable(true);
+        this.setReward(0,0);
     },
 
     onLowPredictClick: function () {
@@ -148,6 +150,7 @@ var CaoThapLayer = MiniGamePopup.extend({
         this.setRolling(true);
         this._controller.sendInitGame(this.chipGroup.chipSelected.chipIndex);
         SoundPlayer.playSound("mini_clickButton");
+        this.setBettingSelectEnable(false);
     },
 
     initNoHu: function () {

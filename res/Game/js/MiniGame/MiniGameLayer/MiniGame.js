@@ -243,5 +243,16 @@ var MiniGamePopup = cc.Node.extend({
     hide: function () {
         this.getParent().removeFromParent(true);
         SoundPlayer.stopAllSound();
-    }
+    },
+    setBettingSelectEnable : function (enable) {
+        this.chipGroup.setTouchEnable(enable);
+    },
+
 });
+
+var MiniGameNavigator = MiniGameNavigator || {};
+MiniGameNavigator.onEnter = function () {
+
+};
+
+//MiniGameNavigator.onShow
