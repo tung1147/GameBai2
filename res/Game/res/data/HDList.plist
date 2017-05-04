@@ -49,7 +49,7 @@ Tính điểm thắng thua trong game:
         
 Các tình huống:
   - Chủ bàn thoát game, quyền chủ bàn sẽ được trao cho người kế tiếp.
-  - Thời gian 1 lượt đánh người chơi thực hiện thao tác “Xếp bài” và “Đánh” hoặc “Thôi”. Hết thời gian  người chơi ko thực hiện bất cứ thao tác nào thì máy sẽ tự động “Thôi” và nhường quyền đánh cho người kế tiếp.
+  - Thời gian 1 lượt đánh người chơi thực hiện thao tác "Xếp bài" và "Đánh" hoặc "Thôi". Hết thời gian  người chơi ko thực hiện bất cứ thao tác nào thì máy sẽ tự động "Thôi" và nhường quyền đánh cho người kế tiếp.
     </string>
 	<key>XOCDIA</key>
 	<string>Luật chơi xóc đĩa rất đơn giản, về cơ bản thì trong trò xóc đĩa sẽ có 2 phần: bộ đồ để xóc đĩa và bàn cược. Đầu tiên người chơi sẽ đặt cược trên bàn cược, chủ sới sẽ bắt đầu xóc đĩa. Sau đó, mở đĩa ra để so sánh kết quả thắng thua bằng màu của 4 nút.
@@ -177,74 +177,6 @@ Cách tính tiền :
      ăn 2 cây         |        2 lần cược
      ăn 3 cây         |        3 lần cược
 </string>
-	<key>Phom_String</key>
-	<array>
-		<string>NHÓM BÀI</string>
-		<string>Nổ hũ thưởng</string>
-		<string>Thùng phá sảnh</string>
-		<string>Tứ quý</string>
-		<string>Cù lũ</string>
-		<string>Thùng</string>
-		<string>Sảnh</string>
-		<string>Sám</string>
-		<string>Hai đôi</string>
-		<string>Đôi J trở lên</string>
-	</array>
-	<key>PhanThuong</key>
-	<array>
-		<string>PHẦN THƯỞNG</string>
-		<string>Quỹ Thưởng</string>
-		<string>x 1000 tiền cược</string>
-		<string>x 150 tiền cược</string>
-		<string>x 50 tiền cược</string>
-		<string>x 20 tiền cược</string>
-		<string>x 13 tiền cược</string>
-		<string>x 8 tiền cược</string>
-		<string>x 5 tiền cược</string>
-		<string>x 2.5 tiền cược</string>
-	</array>
-    <key>PhanThuong2</key>
-    <array>
-        <string>PHẦN THƯỞNG</string>
-        <string>Quỹ Thưởng</string>
-        <string>x 50 tiền cược</string>
-        <string>x 25 tiền cược</string>
-        <string>x 9 tiền cược</string>
-        <string>x 6 tiền cược</string>
-        <string>x 4 tiền cược</string>
-        <string>x 3 tiền cược</string>
-        <string>x 2 tiền cược</string>
-        <string>x 1 tiền cược</string>
-    </array>
-	<key>PokerMini1</key>
-	<string>B1 : Chọn mức cược
-B2 : Chọn “ QUAY “. Người chơi có thể chọn “quay tự động“ để hệ thống tự động quay và thông báo kết quả. Khi người chơi bỏ nút tick “quay tự động” thì sẽ dừng lại.
-- Chọn biểu tượng “?“ để xem hướng dẫn chơi.
-- Chọn biểu tượng “ cúp “ để xem lịch sử và bảng xếp hạng.
-ĐẶC BIỆT : 10-J-Q-K-A rô sẽ nổ hũ thưởng.
-Cách tính tiền theo mức cược như sau :
-    </string>
-	<key>PokerMini2</key>
-	<string>
-        Hũ thưởng : hệ thống sẽ bỏ ra hũ thưởng khác nhau với từng mức cược : 1k, 10k, 100k, trích 1% tiền quay mỗi lượt vào hũ thưởng.
-Lịch sử :
-- Lịch sử chơi của mình trong 20 lần gần nhất.
-- Lịch sử những người nổ hũ thưởng.
-- Những người chơi thắng được nhiều tiền nhất trong game.
-    </string>
-    <key>PokerMini3</key>
-    <string>
-Bước 1: Người chơi chọn mức. Chọn [Quay]. Hệ thống sẽ trả về ngẫu nhiên các quân bài. Mỗi lượt chơi hệ thống sẽ bỏ 1% mức cược của người chơi cho vào hũ thưởng.
-Bước 2: Người chơi sẽ lựa chọn cây bài để giữ lại. Chọn[quay]. Hệ thống sẽ trả về ngẫu nhiên các quân bài mà người chơi không chọn.
-Nếu có kết quả như trong bảng dưới đây người chơi sẽ được nhận thưởng khi Chọn[ Nhận thưởng].
-Cách tính tiền theo mức cược như sau:
-    </string>
-    <key>PokerMini4</key>
-    <string>
- • Chọn biểu tượng ? để xem hướng dẫn chơi.
- • Chọn [biểu tượng cúp] để xem lịch sử và bảng xếp hạng.
-    </string>
-
 	<key>ChanLe</key>
 	<string>B1 : Chọn cửa muốn đặt : chẵn/lẻ.
 B2 : Chọn mức cược muốn đặt : có 5 mức cược ( 1000, 10.000, 100.000, 1M, 10M).
@@ -271,7 +203,7 @@ Trường hợp người chơi bốc lại được đúng con vừa xuấn hi�
 
 Hũ thưởng :
 - Nếu quân bài được trả về kể từ lượt thứ 2 trở đi mà bằng với quân bài của lượt thứ nhất (không tính chất) thì người chơi sẽ bị mất 20% giá trị của bank đồng thời cho vào hũ thưởng.
-Quy tắc nổ hũ thưởng : Khi người chơi quay được vào 3 con K bất kỳ chất gì trong 1 lượt chơi thì hũ thưởng sẽ nổ. Người chơi được 50% số tiền trong hũ và 50% còn lại sẽ đẩy về hệ thống.
+Quy tắc nổ hũ thưởng : Khi người chơi quay được vào con 3K bất kỳ chất gì trong 1 lượt chơi thì hũ thưởng sẽ nổ. Người chơi được 50% số tiền trong hũ và 50% còn lại sẽ đẩy về hệ thống.
 
 Bảng thành tích
 - Danh sách những người chơi nổ hũ thưởng.
@@ -333,20 +265,205 @@ Lưu ý:
         + Bạn không thể đánh ké cửa khi bạn là chương.
 
     </string>
-    <key>MINITAIXIU</key>
-    <string>B1: Chọn mức cược để đặt
-        Có 2 cách cho người chơi lựa chọn là:
-        - Chọn mức cược hoặc chỉnh sửa mức cược có sẵn bên trái màn hình
-        - Nhập mức cược tùy ý trong ô "Nhập mức cược"
-        B2: Chọn cửa muốn đặt (Tài - Xỉu) bằng cách ẤN NÚT "Cược Tài" hoặc "Cược Xỉu"
-        B3: Thời gian chơi từng phiên
-        - Thời gian đặt cược: 60s
-        - Thời gian cân cửa: 5s
-        - Thời gian mở bát và trả thưởng hưởng: 5s
-        Chú ý:
-        - Để xem lại hướng dẫn bằng cách chọn biểu tượng "?"
-        - Để xem thống kê, lịch sử đặt cược chọn biểu tượng
-        
+	<key>VideoPoker</key>
+	<dict>
+		<key>text1</key>
+		<string>
+Bước 1: Người chơi chọn mức. Chọn [Quay]. Hệ thống sẽ trả về ngẫu nhiên các quân bài. Mỗi lượt chơi hệ thống sẽ bỏ 1% mức cược của người chơi cho vào hũ thưởng.
+Bước 2: Người chơi sẽ lựa chọn cây bài để giữ lại. Chọn[quay]. Hệ thống sẽ trả về ngẫu nhiên các quân bài mà người chơi không chọn.
+Nếu có kết quả như trong bảng dưới đây người chơi sẽ được nhận thưởng khi Chọn[ Nhận thưởng].
+Cách tính tiền theo mức cược như sau:
     </string>
+		<key>text2</key>
+		<string>
+ - Chọn biểu tượng ? để xem hướng dẫn chơi.
+ - Chọn [biểu tượng cúp] để xem lịch sử và bảng xếp hạng.
+    </string>
+		<key>Result</key>
+		<array>
+			<dict>
+				<key>Title</key>
+				<string>NHÓM BÀI</string>
+				<key>Reward</key>
+				<string>PHẦN THƯỞNG</string>
+				<key>cards</key>
+				<string></string>
+			</dict>
+			<dict>
+				<key>Title</key>
+				<string>Nổ hũ thưởng</string>
+				<key>Reward</key>
+				<string>Quỹ Thưởng</string>
+				<key>cards</key>
+				<string>33,34,35,36,37</string>
+			</dict>
+			<dict>
+				<key>Title</key>
+				<string>Thùng phá sảnh</string>
+				<key>Reward</key>
+				<string>x 50 tiền cược</string>
+				<key>cards</key>
+				<string>39,40,41,42,43</string>
+			</dict>
+			<dict>
+				<key>Title</key>
+				<string>Tứ quý</string>
+				<key>Reward</key>
+				<string>x 25 tiền cược</string>
+				<key>cards</key>
+				<string>12,25,38,51,37</string>
+			</dict>
+			<dict>
+				<key>Title</key>
+				<string>Cù lũ</string>
+				<key>Reward</key>
+				<string>x 9 tiền cược</string>
+				<key>cards</key>
+				<string>16,3,42,26,0</string>
+			</dict>
+			<dict>
+				<key>Title</key>
+				<string>Thùng</string>
+				<key>Reward</key>
+				<string>x 6 tiền cược</string>
+				<key>cards</key>
+				<string>0,1,4,7,9</string>
+			</dict>
+			<dict>
+				<key>Title</key>
+				<string>Sảnh</string>
+				<key>Reward</key>
+				<string>x 4 tiền cược</string>
+				<key>cards</key>
+				<string>33,21,9,49,37</string>
+			</dict>
+			<dict>
+				<key>Title</key>
+				<string>Sám</string>
+				<key>Reward</key>
+				<string>x 3 tiền cược</string>
+				<key>cards</key>
+				<string>14,1,40,29,30</string>
+			</dict>
+			<dict>
+				<key>Title</key>
+				<string>Hai đôi</string>
+				<key>Reward</key>
+				<string>x 2 tiền cược</string>
+				<key>cards</key>
+				<string>20,7,45,32,4</string>
+			</dict>
+			<dict>
+				<key>Title</key>
+				<string>Đôi J trở lên</string>
+				<key>Reward</key>
+				<string>x 1 tiền cược</string>
+				<key>cards</key>
+				<string>34,47,42,15,6</string>
+			</dict>
+		</array>
+	</dict>
+	<key>MiniPoker</key>
+	<dict>
+		<key>text1</key>
+		<string>B1 : Chọn mức cược
+B2 : Chọn " QUAY ". Người chơi có thể chọn "quay tự động" để hệ thống tự động quay và thông báo kết quả. Khi người chơi bỏ nút tick "quay tự động" thì sẽ dừng lại.
+- Chọn biểu tượng "?" để xem hướng dẫn chơi.
+- Chọn biểu tượng " cúp " để xem lịch sử và bảng xếp hạng.
+ĐẶC BIỆT : 10-J-Q-K-A rô sẽ nổ hũ thưởng.
+Cách tính tiền theo mức cược như sau :
+    </string>
+		<key>text2</key>
+		<string>
+Hũ thưởng : hệ thống sẽ bỏ ra hũ thưởng khác nhau với từng mức cược : 1k, 10k, 100k, mỗi lần thắng sẽ trích 1% tiền cược vào hũ.
+Lịch sử :
+- Lịch sử chơi của mình trong 20 lần gần nhất.
+- Lịch sử những người nổ hũ thưởng.
+- Những người chơi thắng được nhiều tiền nhất trong game.
+    </string>
+		<key>Result</key>
+		<array>
+			<dict>
+				<key>Title</key>
+				<string>NHÓM BÀI</string>
+				<key>Reward</key>
+				<string>PHẦN THƯỞNG</string>
+				<key>cards</key>
+				<string></string>
+			</dict>
+			<dict>
+				<key>Title</key>
+				<string>Nổ hũ thưởng</string>
+				<key>Reward</key>
+				<string>Quỹ Thưởng</string>
+				<key>cards</key>
+				<string>33,34,35,36,37</string>
+			</dict>
+			<dict>
+				<key>Title</key>
+				<string>Thùng phá sảnh</string>
+				<key>Reward</key>
+				<string>x 1000 tiền cược</string>
+				<key>cards</key>
+				<string>39,40,41,42,43</string>
+			</dict>
+			<dict>
+				<key>Title</key>
+				<string>Tứ quý</string>
+				<key>Reward</key>
+				<string>x 150 tiền cược</string>
+				<key>cards</key>
+				<string>12,25,38,51,37</string>
+			</dict>
+			<dict>
+				<key>Title</key>
+				<string>Cù lũ</string>
+				<key>Reward</key>
+				<string>x 50 tiền cược</string>
+				<key>cards</key>
+				<string>16,3,42,26,0</string>
+			</dict>
+			<dict>
+				<key>Title</key>
+				<string>Thùng</string>
+				<key>Reward</key>
+				<string>x 20 tiền cược</string>
+				<key>cards</key>
+				<string>0,1,4,7,9</string>
+			</dict>
+			<dict>
+				<key>Title</key>
+				<string>Sảnh</string>
+				<key>Reward</key>
+				<string>x 13 tiền cược</string>
+				<key>cards</key>
+				<string>33,21,9,49,37</string>
+			</dict>
+			<dict>
+				<key>Title</key>
+				<string>Sám</string>
+				<key>Reward</key>
+				<string>x 8 tiền cược</string>
+				<key>cards</key>
+				<string>14,1,40,29,30</string>
+			</dict>
+			<dict>
+				<key>Title</key>
+				<string>Hai đôi</string>
+				<key>Reward</key>
+				<string>x 5 tiền cược</string>
+				<key>cards</key>
+				<string>20,7,45,32,4</string>
+			</dict>
+			<dict>
+				<key>Title</key>
+				<string>Đôi J trở lên</string>
+				<key>Reward</key>
+				<string>x 2.5 tiền cược</string>
+				<key>cards</key>
+				<string>34,47,42,15,6</string>
+			</dict>
+		</array>
+	</dict>
 </dict>
 </plist>
