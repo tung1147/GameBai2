@@ -29,7 +29,13 @@ var PhomController = GameController.extend({
         SmartfoxClient.getInstance().addExtensionListener("109", this._onStatusChangedHandler, this);
         SmartfoxClient.getInstance().addExtensionListener("110", this._onUpdateDrawDeckHandler, this);
     },
+    onUpdateOwner : function (params) {
+        this._super(params);
 
+        if (this.gameStatus == 1 && this.isOwnerMe) {
+            this._view.setStartBtVisible(true);
+        }
+    },
     getMaxSlot: function () {
         return 4;
     },
@@ -137,6 +143,7 @@ var PhomController = GameController.extend({
             this._view.hideAllButton();
         }
         this._view.setDeckVisible(false);
+        this.gameStatus = param;
         switch (param) {
             case 0: // waiting
                 this._view.removeAllCards();
@@ -157,22 +164,85 @@ var PhomController = GameController.extend({
     onJoinRoom: function (params) {
         this._super(params);
         this.onGameStatus(params["1"]);
-        this.timeTurn = params["7"];
-    },
 
+
+        this.timeTurn = params["7"];
+        this.onInitJoin(params);
+        this._view.setXepBaiBtVisible(false);
+
+    },
+    onInitJoin:function (param) {
+
+
+        var userData = param["5"];
+
+
+        //surf through userData
+        for (var i = 0; i < userData.length; i++) {
+            var data = userData[i];
+            var username = data["u"];
+
+            // update my status
+            // if (username == PlayerMe.username)
+            //     this.onTurnChanged({s: userData[i]["s"], u: username});
+
+            // trash cards
+            if (data["10"])
+                this._view.setTrashCardList(data["10"], username,true);
+
+            if (data["11"]) {
+                var groupedCard = [];
+                for (var k = 0; k < data["11"].length; k++)
+                {
+
+                    groupedCard = groupedCard.concat(data["11"][k]);
+                }
+                if (username == PlayerMe.username)
+                    this._view.performHaBaiMeReconnect(groupedCard,true,data["12"]);
+                else
+                    this._view.performHaBaiOther(username, groupedCard, data["12"],true);
+
+            }
+
+            // stolen cards
+            if (data["12"]) {
+                // if (username == PlayerMe.username)
+                //     this._view.setStolenCardsMe(data["12"]);
+                // else
+                //     this._view.setStolenCardsOther(data["12"], username);
+            }
+        }
+
+
+        var turnInfo = param["12"];
+        if(turnInfo){
+            this._view.showTimeRemainUser(turnInfo["u"], turnInfo["2"] / 1000, 15);
+            this._view.performDrawDeckUpdate(turnInfo["3"]);
+            if(turnInfo["2"] / 1000>0){
+                this._view.showErrorMessage("Bàn đang chơi, vui lòng chờ");
+            }
+        }
+
+
+
+
+    },
     onReconnect: function (param) {
         this._super(param);
         //this._view.onReconnect(param);
-        var userData = param["1"]["5"];
-
-        //update turn
         this.onGameStatus(param["1"]["1"]);
+
+        // on-hand cards
+        this._view.setCardList(param["3"]);
+        // this.onInitJoin(param["1"]);
+        var userData = param["1"]["5"];
+        //update turn
+
         var turnInfo = param["1"]["12"];
         this._view.showTimeRemainUser(turnInfo["u"], turnInfo["2"] / 1000, 15);
         this._view.performDrawDeckUpdate(turnInfo["3"]);
 
-        // on-hand cards
-        this._view.setCardList(param["3"]);
+
 
         //surf through userData
         for (var i = 0; i < userData.length; i++) {
@@ -185,14 +255,21 @@ var PhomController = GameController.extend({
 
             // trash cards
             if (data["10"])
-                this._view.setTrashCardList(data["10"], username);
+                this._view.setTrashCardList(data["10"], username,true);
 
             // stolen cards
-            if (data["12"]) {
+            if (data["11"]) {
+                var groupedCard = [];
+                for (var k = 0; k < data["11"].length; k++)
+                {
+
+                    groupedCard = groupedCard.concat(data["11"][k]);
+                }
                 if (username == PlayerMe.username)
-                    this._view.setStolenCardsMe(data["12"]);
+                    this._view.performHaBaiMeReconnect(groupedCard,true,data["12"]);
                 else
-                    this._view.setStolenCardsOther(data["12"], username);
+                    this._view.performHaBaiOther(username, groupedCard, data["12"],true);
+
             }
         }
 
@@ -251,6 +328,7 @@ var PhomController = GameController.extend({
                 this._view.setDanhBaiBtVisible(true);
                 break;
             case 6: // co luot gui bai
+                this._view.setDanhBaiBtVisible(true);
                 this._view.setGuiBaiBtVisible(true);
                 break;
             case 7: // u`
@@ -261,10 +339,20 @@ var PhomController = GameController.extend({
                 this._view.setXepBaiBtVisible(false);
                 break;
         }
-        if (param["3"] && param["3"].length > 0)
-            this._view.suggestCards(param["3"]);
-        if (param["4"] && param["4"].length > 0)
-            this._view.suggestCards(param["4"]);
+        var thiz = this;
+        if (param["3"] && param["3"].length > 0){
+            this._view.runAction(new cc.Sequence(new cc.DelayTime(0.2),new cc.CallFunc(function () {
+                    thiz._view.suggestCards(param["3"])
+            }
+            )));
+        }
+
+        if (param["4"] && param["4"].length > 0){
+            this._view.runAction(new cc.Sequence(new cc.DelayTime(0.2),new cc.CallFunc(function () {
+                    thiz._view.suggestCards(param["4"])
+                }
+            )));
+        }
     },
 
     onStealCard: function (param) {
@@ -317,9 +405,9 @@ var PhomController = GameController.extend({
         var groupedCards = param["11"];
         var stolenCards = param["12"];
         if (username == PlayerMe.username)
-            this._view.performHaBaiMe(groupedCards);
+            this._view.performHaBaiMe(groupedCards,false);
         else
-            this._view.performHaBaiOther(username, groupedCards, stolenCards);
+            this._view.performHaBaiOther(username, groupedCards, stolenCards,false);
     },
 
     onGameFinished: function (param) {

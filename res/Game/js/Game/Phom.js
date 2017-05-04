@@ -2,13 +2,23 @@
  * Created by Quyet Nguyen on 7/25/2016.
  */
 
-var TrashCardOnTable = cc.Node.extend({
-    ctor: function () {
-        this._super();
+POSITION_PHOM_CENTER = 0;
+POSITION_PHOM_LEFT = -1;
+POSITION_PHOM_RIGHT = 1;
 
+var TrashCardOnTable = cc.Node.extend({
+    ctor: function (width_Phom,height_Phom,typeArrange) {
+
+        this._super();
         this.cardList = []; // list of card sprites
         this.cardSize = null;
-        this.cardScale = 0.5;
+        this.setContentSize(cc.size(width_Phom,height_Phom));
+        this.typeArrange = typeArrange;
+        this.width_Phom = width_Phom;
+        this.height_Phom = height_Phom;
+    },
+    setAnchor:function (anchor) {
+      this.anchor = anchor;
     },
     setCardPosition: function (x, y) {
         //this.cardPosition = cc.p(x, y);
@@ -31,60 +41,185 @@ var TrashCardOnTable = cc.Node.extend({
         return null;
     },
 
-    addCard: function (card) {
+    addCard: function (card, noAnimation) {
         var p = this.convertToNodeSpace(card.getPosition());
         card.setPosition(p);
-        var animationDuration = 0.3;
+        var animationDuration = 0.1;
 
         if (!this.cardSize)
             this.cardSize = card.getContentSize();
-        var dx = this.cardSize.width * this.cardScale;
-        var width = 4 * dx;
-        var x = this.cardPosition.x - width / 2 + dx / 2;
-        x += this.cardList.length * dx;
-
-        var moveAction = new cc.MoveTo(animationDuration, cc.p(x, this.cardPosition.y));
-        var scaleAction = new cc.ScaleTo(animationDuration, 0.5);
-        card.runAction(new cc.EaseBackIn(new cc.Spawn(moveAction, scaleAction)));
+        // var dx = this.cardSize.width ;
+        // var width = 4 * dx;
+        // var x = this.cardPosition.x - width / 2 + dx / 2;
+        // x += this.cardList.length * dx;
         card.canTouch = false;
         this.cardList.push(card);
         this.addChild(card, 0);
-        this.reOrder();
+        card.setScale(this.height_Phom/this.cardSize.height);
+
+        var moveAction = new cc.MoveTo(animationDuration, this.getNewPostionCard(this.cardList.length-1));
+        // var scaleAction = new cc.ScaleTo(animationDuration, 0.5);
+        var thiz = this;
+        var delay = new cc.DelayTime(animationDuration);
+        var orderAgain = new cc.CallFunc(function () {
+            thiz.reOrder(noAnimation);
+        });
+         // card.runAction(new cc.EaseBackIn(new cc.Spawn(moveAction,delay, orderAgain)));
+        if(noAnimation ){
+            thiz.reOrder(noAnimation);
+        }
+        else{
+            card.runAction(new cc.Sequence(moveAction, orderAgain));
+        }
+        thiz.reOrder(noAnimation);
+
+    },
+
+    getNewPostionCard:function (i) {
+
+        var tileCard = this.cardSize.width/this.cardSize.height;
+
+        var distanceCard = 0 ;
+        var lol =  this.cardList.length*this.height_Phom*tileCard - this.width_Phom;
+
+        if(lol > 0){
+            distanceCard =  lol/(this.cardList.length-1);
+        }
+
+
+        var y = this.getContentSize().height / 2;
+        var x = 0;
+        if(distanceCard<=0){
+            //se
+            if (this.typeArrange == POSITION_PHOM_CENTER)
+            {
+                //center
+                var wSub = this.cardList.length * this.height_Phom *tileCard;
+                var ogrFirst = -wSub / 2;
+                x = ogrFirst + i * this.height_Phom * tileCard + this.height_Phom * tileCard / 2;
+
+                //CCLOG("toa go %f", orgX);
+            }
+            else if (this.typeArrange == POSITION_PHOM_LEFT)
+            {
+                // can trai
+                //float wSub = numberCard * _height_Phom *tileCard;
+                var ogrFirst = - this.width_Phom/2 ;
+                x = ogrFirst + i * this.height_Phom * tileCard + this.height_Phom * tileCard / 2;
+
+            }
+            else
+            {
+                // canphai
+                var wSub = this.cardList.length * this.height_Phom *tileCard;
+                var ogrFirst = this.width_Phom/2 - wSub;
+                x = ogrFirst + i * this.height_Phom * tileCard + this.height_Phom * tileCard / 2;
+
+            }
+
+        }
+        else {
+            x = i*this.height_Phom*tileCard - i*distanceCard + this.height_Phom*tileCard/2 - this.width_Phom/2;
+        }
+        return cc.p(x,y);
     },
 
     reOrder: function (noAnimation) {
         if (this.cardList.length > 0) {
-            this.setContentSize(cc.size(this.cardList[0].width *
-                this.cardList.length * this.cardScale,
-                this.cardList[0].height * this.cardScale));
-            var width = this.cardSize.width * this.cardList.length * this.cardScale;
-            if (width > this.getContentSize().width) {
-                width = this.getContentSize().width;
+
+            var tileCard = this.cardSize.width/this.cardSize.height;
+
+            var distanceCard = 0 ;
+            var lol =  this.cardList.length*this.height_Phom*tileCard - this.width_Phom;
+
+            if(lol > 0){
+                distanceCard =  lol/(this.cardList.length-1);
             }
-            var dx = width / this.cardList.length;
-            var x = -this.getContentSize().width / 2 + dx / 2;
+
+
             var y = this.getContentSize().height / 2;
             for (var i = 0; i < this.cardList.length; i++) {
+
+                var x = 0;
+                if(distanceCard<=0){
+                    //se
+                    if (this.typeArrange == POSITION_PHOM_CENTER)
+                    {
+                        //center
+                        var wSub = this.cardList.length * this.height_Phom *tileCard;
+                        var ogrFirst = -wSub / 2;
+                        x = ogrFirst + i * this.height_Phom * tileCard + this.height_Phom * tileCard / 2;
+
+                        //CCLOG("toa go %f", orgX);
+                    }
+                    else if (this.typeArrange == POSITION_PHOM_LEFT)
+                    {
+                        // can trai
+                        //float wSub = numberCard * _height_Phom *tileCard;
+                        var ogrFirst = - this.width_Phom/2 ;
+                        x = ogrFirst + i * this.height_Phom * tileCard + this.height_Phom * tileCard / 2;
+
+                    }
+                    else
+                    {
+                        // canphai
+                        var wSub = this.cardList.length * this.height_Phom *tileCard;
+                        var ogrFirst = this.width_Phom/2 - wSub;
+                        x = ogrFirst + (this.cardList.length-i-1) * this.height_Phom * tileCard + this.height_Phom * tileCard / 2;
+
+                    }
+
+                }
+                else {
+                    x = i*this.height_Phom*tileCard - i*distanceCard + this.height_Phom*tileCard/2 - this.width_Phom/2;
+                }
+
                 var card = this.cardList[i];
-                card.setScale(this.cardScale);
                 card.origin = cc.p(x, y);
                 card.cardIndex = i;
-                card.cardDistance = dx;
                 if (noAnimation)
                     card.setPosition(card.origin);
                 else
                     card.moveToOriginPosition();
-                x += dx;
+
             }
         }
     },
 
-    addNewCard: function (card) {
+    addNewCard: function (card, posFrom) {
+        var cardSprite = new Card(card.rank, card.suit);
+        cardSprite.setPosition(posFrom);
+        cardSprite.canTouch = false;
+        this.addCard(cardSprite,true);
+    },
+
+    addCardObj: function (card) {
         var cardSprite = new Card(card.rank, card.suit);
         cardSprite.setPosition(this.getParent().getPosition());
         cardSprite.canTouch = false;
-        this.addCard(cardSprite);
+
+        var p = this.convertToNodeSpace(cardSprite.getPosition());
+        cardSprite.setPosition(p);
+        var animationDuration = 0.3;
+
+        if (!this.cardSize)
+            this.cardSize = cardSprite.getContentSize();
+        var dx = this.cardSize.width * this.height_Phom/this.cardSize.height;
+        cardSprite.setScale(this.height_Phom/this.cardSize.height);
+        // var width = 4 * dx;
+        // var x = this.cardPosition.x - width / 2 + dx / 2;
+        // x += this.cardList.length * dx;
+        //
+        // var moveAction = new cc.MoveTo(animationDuration, cc.p(x, this.cardPosition.y));
+        // var scaleAction = new cc.ScaleTo(animationDuration, 0.5);
+        // cardSprite.runAction(new cc.EaseBackIn(new cc.Spawn(moveAction, scaleAction)));
+        cardSprite.canTouch = false;
+        this.cardList.push(cardSprite);
+        this.addChild(cardSprite, 0);
+
     },
+
+
 
     addCardWithoutAnimation: function (cards) {
         if (!this.cardSize) {
@@ -105,6 +240,14 @@ var TrashCardOnTable = cc.Node.extend({
             x += dx;
         }
     },
+    addArrayCard: function (cards) {
+       this.removeAll();
+
+        for (var i = 0; i < cards.length; i++) {
+            this.addCardObj(cards[i]);
+        }
+        this.reOrder();
+    },
 
     removeAll: function () {
         this.cardList = [];
@@ -112,9 +255,16 @@ var TrashCardOnTable = cc.Node.extend({
     }
 });
 
+
+
+
 var PhomCardList = CardList.extend({
     dealCards: function (cards, animation) {
         this._super(cards, animation);
+        this.typeOrder = true;
+    },
+    setTypeOder:function () {
+        this.typeOrder = !this.typeOrder;
     },
     reArrangeCards: function () {
         // chia ra 2 array, grouped va ungrouped
@@ -128,10 +278,16 @@ var PhomCardList = CardList.extend({
             else
                 ungroupedCard.push(this.cardList[i]);
         }
+        if(this.typeOrder){
+            ungroupedCard.sort(function (a, b) {
+                return a.rank - b.rank;
+            });
+        }else {
+            ungroupedCard.sort(function (a, b) {
+                return a.suit - b.suit;
+            });
+        }
 
-        ungroupedCard.sort(function (a, b) {
-            return a.rank - b.rank;
-        });
 
         this.cardList = [];
         this.cardList = groupedCard.concat(ungroupedCard);
@@ -145,7 +301,9 @@ var PhomCardList = CardList.extend({
             cardSprite.setSelected(selected, true);
         }
     },
-
+    getCardScale:function () {
+        return this.cardList[0].getScale();
+    },
     processGroupedCard: function (param) {
         var groupedCard = [];
         for (var i = 0; i < param.length; i++)
@@ -157,6 +315,7 @@ var PhomCardList = CardList.extend({
                 this.cardList[i].suit);
             if (groupedCard.indexOf(id) != -1) {
                 var dotSprite = new cc.Sprite("#card-dot.png");
+                dotSprite.setTag(11);
                 dotSprite.setPosition(this.cardList[i].width - 20,
                     this.cardList[i].height - 20);
                 this.cardList[i].addChild(dotSprite);
@@ -175,36 +334,68 @@ var Phom = IGameScene.extend({
         table_bg.setPosition(cc.winSize.width / 2, 320);
         table_bg.setScale(cc.winSize.screenScale);
         this.sceneLayer.addChild(table_bg);
-
+        this.table_bg = table_bg;
         this.initPlayer();
         this.initButton();
 
-        var cardList = new PhomCardList(cc.size(cc.winSize.width - 10, 100));
+        var cardList = new PhomCardList(cc.size(cc.winSize.width - 10, 200));
+        cardList.setScale(1.0* cc.winSize.screenScale);
         cardList.setAnchorPoint(cc.p(0.5, 0.0));
-        cardList.setPosition(cc.winSize.width / 2, 100.0);
+        cardList.setPosition(cc.winSize.width / 2, 40.0);
         this.sceneLayer.addChild(cardList, 2);
         this.cardList = cardList;
 
         var drawDeck = new cc.Sprite("#gp_card_up.png");
-        drawDeck.setPosition(cc.winSize.width / 2, cc.winSize.height / 2 + 10);
+        drawDeck.setPosition(table_bg.getContentSize().width / 2, table_bg.getContentSize().height/2 + 60);
         var drawDeckLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, "");
         drawDeckLabel.setPosition(drawDeck.width / 2, drawDeck.height / 2);
-        drawDeckLabel.setVisible(false);
+        drawDeckLabel.setVisible(true);
         drawDeck.addChild(drawDeckLabel);
-        drawDeck.setScale(0.8);
+        drawDeck.setScale(0.7);
         this.drawDeckLabel = drawDeckLabel;
         this.drawDeck = drawDeck;
-        this.sceneLayer.addChild(drawDeck);
+        this.table_bg.addChild(drawDeck);
+
+        var cardArr = [];
+        for (var i = 0; i< 8; i++){
+            var card = CardList.prototype.getCardWithId(1);
+            cardArr.push(card);
+        }
+        var cardArr2 = [];
+        for (var i = 0; i< 4; i++){
+            var card = CardList.prototype.getCardWithId(i);
+            cardArr2.push(card);
+        }
+        var cardArr3 = [];
+        for (var i = 0; i< 10; i++){
+
+            cardArr3.push(i);
+        }
+        var thiz = this;
+        // this.runAction(new cc.Sequence(new cc.DelayTime(1), new cc.CallFunc(function () {
+        //     for(var i = 0; i< thiz.allSlot.length; i++){
+        //         thiz.allSlot[i].setVisible(true);
+        //         thiz.allSlot[i].dropCards.addArrayCard(cardArr);
+        //         thiz.allSlot[i].trashCards.addArrayCard(cardArr2);
+        //         thiz.allSlot[i].setUsername("nguyencongvan");
+        //         thiz.allSlot[i].setGold(10000);
+        //         thiz.allSlot[i].setEnable(true);
+        //     };
+        //     thiz.setCardList(cardArr3);
+        // })));
+
+
+
     },
     initController: function () {
         this._controller = new PhomController(this);
     },
-    setTrashCardList: function (cards, username) {
+    setTrashCardList: function (cards, username,noAnimation) {
         var slot = this.getSlotByUsername(username);
         slot.trashCards.removeAll();
         for (var j = 0; j < cards.length; j++) {
             var card = CardList.prototype.getCardWithId(cards[j]);
-            slot.trashCards.addCard(new Card(card.rank, card.suit));
+            slot.trashCards.addCard(new Card(card.rank, card.suit),noAnimation);
         }
     },
 
@@ -239,7 +430,7 @@ var Phom = IGameScene.extend({
             var redBorder = new cc.Sprite("#boder_do.png");
             redBorder.setPosition(cardSprite.width / 2, cardSprite.height / 2);
             cardSprite.addChild(redBorder);
-            slot.dropCards.addCard(cardSprite);
+            slot.dropCards.addCard(cardSprite,true);
         }
     },
 
@@ -269,7 +460,7 @@ var Phom = IGameScene.extend({
             for (var j = 0; j < resultData[i].cardList.length; j++) {
                 var cardData = CardList.prototype.getCardWithId(resultData[i].cardList[j]);
                 var card = new Card(cardData.rank, cardData.suit);
-                dialog.cardList[i].addCard(card);
+                dialog.cardList[i].addCard(card,true);
             }
 
             dialog.cardList[i].reOrderWithoutAnimation();
@@ -278,7 +469,7 @@ var Phom = IGameScene.extend({
         dialog.show();
     },
 
-    performHaBaiMe: function (groupedCards) {
+    performHaBaiMe: function (groupedCards,noAnimation) {
         var removeList = [];
         for (var i = 0; i < groupedCards.length; i++) {
             var list = groupedCards[i];
@@ -289,14 +480,33 @@ var Phom = IGameScene.extend({
 
         var arr = this.cardList.removeCard(removeList);
         for (var i = 0; i < arr.length; i++) {
-            this.playerView[0].dropCards.addCard(arr[i]);
+            arr[i].removeChildByTag(11,true);
+            this.playerView[0].dropCards.addCard(arr[i],noAnimation);
             arr[i].release();
         }
         this.playerView[0].dropCards.reOrder();
         this.cardList.reOrder();
     },
 
-    performHaBaiOther: function (username, groupedCards, stolenCards) {
+    performHaBaiMeReconnect: function (groupedCards,noAnimation,cardToMau) {
+
+        for (var i = 0; i < groupedCards.length; i++) {
+
+
+            var card = CardList.prototype.getCardWithId(groupedCards[i]);
+            var cardSprite = new Card(card.rank, card.suit);
+
+            var index = cardToMau.indexOf(groupedCards[i]);
+            if (index != -1) {// from hands, create new sprite
+                var borderSprite = new cc.Sprite("#boder_do.png");
+                borderSprite.setPosition(objCard.width / 2, objCard.height / 2);
+                cardSprite.addChild(borderSprite);
+            }
+            this.playerView[0].dropCards.addCard(cardSprite,true);
+        }
+    },
+
+    performHaBaiOther: function (username, groupedCards, stolenCards,noAnimation) {
         var slot = this.getSlotByUsername(username);
         var stolenCardsId = [];
         var stolenCardsSprite = [];
@@ -307,25 +517,76 @@ var Phom = IGameScene.extend({
                 CardList.prototype.getCardIdWithRank(slot.dropCards.cardList[i].rank,
                     slot.dropCards.cardList[i].suit)
             );
-            slot.dropCards.cardList[i].retain();
-            stolenCardsSprite.push(slot.dropCards.cardList[i]);
-            slot.dropCards.cardList[i].removeFromParent();
+            // slot.dropCards.cardList[i].retain();
+            // stolenCardsSprite.push(slot.dropCards.cardList[i]);
+            // slot.dropCards.cardList[i].removeFromParent();
+
         }
+        slot.dropCards.removeAll();
 
         //add to drop cards list
         for (var i = 0; i < groupedCards.length; i++) {
             for (var j = 0; j < groupedCards[i].length; j++) {
-                var index = stolenCardsId.indexOf(groupedCards[i][j]);
+                var index = stolenCards.indexOf(groupedCards[i][j]);
+                var card = CardList.prototype.getCardWithId(groupedCards[i][j]);
+                var objCard = new Card(card.rank, card.suit);
+                objCard.setPosition(slot.avt.getParent().convertToWorldSpace(slot.avt.getPosition()));
+                slot.dropCards.addCard(objCard,false);
                 if (index == -1) {// from hands, create new sprite
-                    var card = CardList.prototype.getCardWithId(groupedCards[i][j]);
-                    slot.dropCards.addCard(new Card(card.rank, card.suit));
+
                 }
                 else { // from exist drop card
-                    slot.dropCards.addCard(stolenCardsSprite[index]);
-                    stolenCardsSprite[index].release();
+                    // stolenCardsSprite[index].setPosition(stolenCardsSprite[index].origin)
+                    // slot.dropCards.addCard(stolenCardsSprite[index],false);
+                    // stolenCardsSprite[index].release();
+                    var borderSprite = new cc.Sprite("#boder_do.png");
+                    borderSprite.setPosition(objCard.width / 2, objCard.height / 2);
+                    objCard.addChild(borderSprite);
                 }
             }
         }
+        // slot.dropCards.reOrder(false);
+    },
+    performHaBaiOtherReconnect: function (username, groupedCards, stolenCards,noAnimation) {
+        var slot = this.getSlotByUsername(username);
+        var stolenCardsId = [];
+        var stolenCardsSprite = [];
+
+        //index stolen cards
+        for (var i = 0; i < slot.dropCards.cardList.length; i++) {
+            stolenCardsId.push(
+                CardList.prototype.getCardIdWithRank(slot.dropCards.cardList[i].rank,
+                    slot.dropCards.cardList[i].suit)
+            );
+            // slot.dropCards.cardList[i].retain();
+            // stolenCardsSprite.push(slot.dropCards.cardList[i]);
+            // slot.dropCards.cardList[i].removeFromParent();
+
+        }
+        slot.dropCards.removeAll();
+
+        //add to drop cards list
+        for (var i = 0; i < groupedCards.length; i++) {
+            for (var j = 0; j < groupedCards[i].length; j++) {
+                var index = stolenCards.indexOf(groupedCards[i][j]);
+                var card = CardList.prototype.getCardWithId(groupedCards[i][j]);
+                var objCard = new Card(card.rank, card.suit);
+                objCard.setPosition(slot.avt.getParent().convertToWorldSpace(slot.avt.getPosition()));
+                slot.dropCards.addCard(objCard,false);
+                if (index == -1) {// from hands, create new sprite
+
+                }
+                else { // from exist drop card
+                    // stolenCardsSprite[index].setPosition(stolenCardsSprite[index].origin)
+                    // slot.dropCards.addCard(stolenCardsSprite[index],false);
+                    // stolenCardsSprite[index].release();
+                    var borderSprite = new cc.Sprite("#boder_do.png");
+                    borderSprite.setPosition(objCard.width / 2, objCard.height / 2);
+                    objCard.addChild(borderSprite);
+                }
+            }
+        }
+        // slot.dropCards.reOrder(false);
     },
     performReorderCards: function () {
         this.cardList.reOrder();
@@ -340,33 +601,37 @@ var Phom = IGameScene.extend({
             if (cards.indexOf(groupedCardAfter[j]) == -1) {
                 // from grouped card before
                 var cardSprite = receiverSlot.dropCards.removeCardById(groupedCardAfter[j])
-                finalList.push(cardSprite);
-                cardSprite.release();
+                // finalList.push(cardSprite);
+                // cardSprite.release();
+                receiverSlot.dropCards.addCard(cardSprite,true);
             }
             else {
                 // from my deck
                 if (sender == PlayerMe.username) {
                     var cardSprite = this.cardList.removeCardById(groupedCardAfter[j])
-                    finalList.push(cardSprite);
-                    cardSprite.release();
+                    // finalList.push(cardSprite);
+                    // cardSprite.release();
+                    receiverSlot.dropCards.addCard(cardSprite,true);
                     cc.log("Removed card id " + groupedCardAfter[j] + " from my deck");
                 }
                 // from someone's deck
                 else {
                     var card = CardList.prototype.getCardWithId(groupedCardAfter[j]);
                     var cardSprite = new Card(card.rank, card.suit);
-                    cardSprite.setPosition(this.getSlotByUsername(sender).getPosition());
+                    var slotTemp = this.getSlotByUsername(sender);
+                    cardSprite.setPosition( slotTemp.avt.getParent().convertToWorldSpace(slotTemp.avt.getPosition()));
                     finalList.push(cardSprite);
                     cc.log("Added card id " + groupedCardAfter[j]);
+                    receiverSlot.dropCards.addCard(cardSprite,true);
                 }
             }
         }
 
         for (var i = 0; i < finalList.length; i++) {
             //add back to receiver drop cards
-            receiverSlot.dropCards.addCard(finalList[i]);
+            // receiverSlot.dropCards.addCard(finalList[i],true);
         }
-        receiverSlot.dropCards.reOrder();
+        // receiverSlot.dropCards.reOrder();
         this.cardList.reOrder();
     },
     performAssetChange: function (username, changeAmount, balance) {
@@ -390,7 +655,7 @@ var Phom = IGameScene.extend({
         var fromUser = this.getSlotByUsername(from);
         var toUser = this.getSlotByUsername(to);
         var cardSprite = fromUser.trashCards.removeCardById(card);
-        toUser.trashCards.addCard(cardSprite);
+        toUser.trashCards.addCard(cardSprite,false);
         cardSprite.release();
         toUser.trashCards.reOrder();
     },
@@ -404,23 +669,26 @@ var Phom = IGameScene.extend({
         var borderSprite = new cc.Sprite("#boder_do.png");
         borderSprite.setPosition(cardSprite.width / 2, cardSprite.height / 2);
         cardSprite.addChild(borderSprite);
+
         if (stealer == PlayerMe.username) {
-            this.cardList.addCard(cardSprite);
+            cardSprite.setScale(this.cardList.getCardScale());
+
+            this.cardList.addCard(cardSprite,false);
             cardSprite.release();
             this.cardList.processGroupedCard(groupedCard);
             this.cardList.reArrangeCards();
         }
         else {
             var stealerSlot = this.getSlotByUsername(stealer);
-            stealerSlot.dropCards.addCard(cardSprite);
-            stealerSlot.dropCards.reOrder();
+            stealerSlot.dropCards.addCard(cardSprite,false);
+            // stealerSlot.dropCards.reOrder();
         }
     },
     performDrawCardMe: function (cardId, groupedCard) {
         var card = CardList.prototype.getCardWithId(cardId);
         var cardSprite = new Card(card.rank, card.suit);
         cardSprite.setPosition(cc.winSize.width / 2, cc.winSize.height / 2);
-        this.cardList.addCard(cardSprite);
+        this.cardList.addCard(cardSprite,false);
         this.cardList.reOrder();
         this.cardList.processGroupedCard(groupedCard);
     },
@@ -431,7 +699,7 @@ var Phom = IGameScene.extend({
         this.sceneLayer.addChild(card);
         card.setScale(0.5);
         card.setPosition(cc.winSize.width / 2, cc.winSize.height / 2);
-        var moveAction = new cc.MoveTo(0.3, slot.getPosition());
+        var moveAction = new cc.MoveTo(0.3, slot.avt.getParent().convertToWorldSpace(slot.avt.getPosition()));
         var removeAction = new cc.CallFunc(function () {
             card.removeFromParent(true);
         });
@@ -474,7 +742,7 @@ var Phom = IGameScene.extend({
     },
     performDanhBaiMe: function (card) {
         var arr = this.cardList.removeCard([card]);
-        this.playerView[0].trashCards.addCard(arr[0]);
+        this.playerView[0].trashCards.addCard(arr[0],true);
         this.cardList.reOrder();
         for (var i = 0; i < arr.length; i++) {
             arr[i].removeAllChildren(true);
@@ -483,7 +751,7 @@ var Phom = IGameScene.extend({
     },
     performDanhBaiOther: function (username, card) {
         var slot = this.getSlotByUsername(username);
-        slot.trashCards.addNewCard(card);
+        slot.trashCards.addNewCard(card,slot.avt.getParent().convertToWorldSpace(slot.avt.getPosition()));
     },
 
     performDealCards: function (cards, groupedCards) {
@@ -491,71 +759,80 @@ var Phom = IGameScene.extend({
         this.cardList.processGroupedCard(groupedCards);
     },
     initPlayer: function () {
+
+        var withPhom = 280;
+
         var playerMe = new GamePlayerMe();
         playerMe.setPosition(150, 50.0);
-        playerMe.trashCards = new TrashCardOnTable();
-        playerMe.trashCards.setCardPosition(cc.winSize.width / 2, 200);
-        playerMe.dropCards = new TrashCardOnTable();
-        playerMe.dropCards.setCardPosition(playerMe.trashCards.x, playerMe.trashCards.y + 50);
+        playerMe.trashCards = new TrashCardOnTable(withPhom,80,POSITION_PHOM_CENTER);
+        playerMe.trashCards.setCardPosition(cc.winSize.width / 2/cc.winSize.screenScale, 180);
+        playerMe.dropCards = new TrashCardOnTable(withPhom,80,POSITION_PHOM_CENTER);
+        playerMe.dropCards.setCardPosition(playerMe.trashCards.x, playerMe.trashCards.y + 70);
         playerMe.addChild(playerMe.dropCards);
         playerMe.addChild(playerMe.trashCards);
+        playerMe.setScale(cc.winSize.screenScale);
         this.sceneLayer.addChild(playerMe, 1);
 
         var player1 = new GamePlayer();
-        player1.setPosition(cc.winSize.width - 144.0 * cc.winSize.screenScale, 320.0 * cc.winSize.screenScale);
-        player1.trashCards = new TrashCardOnTable();
-        player1.trashCards.setCardPosition(player1.width / 2 - 50, player1.height / 2 - 25);
-        player1.trashCards.setAnchorPoint(cc.p(1.0, 0.5));
-        player1.dropCards = new TrashCardOnTable();
-        player1.dropCards.setCardPosition(player1.trashCards.x, player1.trashCards.y + 50);
-        player1.dropCards.setAnchorPoint(cc.p(1.0, 0.5));
+        player1.setPosition(this.table_bg.getContentSize().width/2 + 500 , this.table_bg.getContentSize().height/2);
+        player1.trashCards = new TrashCardOnTable(withPhom,80,POSITION_PHOM_RIGHT);
+        player1.trashCards.setCardPosition(player1.width / 2 - (withPhom/2+50), player1.height / 2 - 15);
+
+        player1.dropCards = new TrashCardOnTable(withPhom,80,POSITION_PHOM_RIGHT);
+        player1.dropCards.setCardPosition(player1.trashCards.x, player1.trashCards.y + 70);
+
         player1.addChild(player1.dropCards);
         player1.addChild(player1.trashCards);
-        this.sceneLayer.addChild(player1, 1);
+        this.table_bg.addChild(player1, 1);
         player1.chatView.setAnchorPoint(cc.p(1.0, 0.0));
 
         var player2 = new GamePlayer();
-        player2.setPosition(cc.winSize.width / 2, cc.winSize.height - 140.0 / cc.winSize.screenScale);
-        player2.trashCards = new TrashCardOnTable();
-        player2.trashCards.setCardPosition(player2.width / 2, player2.height / 2 - 120);
-        player2.dropCards = new TrashCardOnTable();
-        player2.dropCards.setCardPosition(player2.trashCards.x, player2.trashCards.y + 50);
-        player2.addChild(player2.trashCards);
+        player2.setPosition(this.table_bg.getContentSize().width/2, this.table_bg.getContentSize().height+50);
+        player2.trashCards = new TrashCardOnTable(withPhom,80,POSITION_PHOM_RIGHT);
+        player2.trashCards.setCardPosition(player2.width / 2 - (withPhom/2+50), player2.height / 2 - 15);
+        player2.dropCards = new TrashCardOnTable(withPhom,80,POSITION_PHOM_RIGHT);
+        player2.dropCards.setCardPosition(player2.trashCards.x, player2.trashCards.y + 70);
+
         player2.addChild(player2.dropCards);
-        this.sceneLayer.addChild(player2, 1);
+        player2.addChild(player2.trashCards);
+        this.table_bg.addChild(player2, 1);
         // this.sceneLayer.addChild(player1, 1);
         player2.chatView.setAnchorPoint(cc.p(0.0, 1.0));
 
         var player3 = new GamePlayer();
-        player3.setPosition(144.0 * cc.winSize.screenScale, player1.y);
-        player3.trashCards = new TrashCardOnTable();
-        player3.trashCards.setCardPosition(player3.width / 2 + 125, player3.height / 2 - 25);
-        player3.trashCards.setAnchorPoint(cc.p(0.0, 0.5));
-        player3.dropCards = new TrashCardOnTable();
-        player3.dropCards.setCardPosition(player3.trashCards.x, player3.trashCards.y + 50);
-        player3.dropCards.setAnchorPoint(cc.p(0.0, 0.5));
-        player3.addChild(player3.trashCards);
+        player3.setPosition(this.table_bg.getContentSize().width/2 - 500, player1.y);
+        player3.trashCards = new TrashCardOnTable(withPhom,80,POSITION_PHOM_LEFT);
+        player3.trashCards.setCardPosition(player3.width / 2 +  (withPhom/2+50), player3.height / 2 - 15);
+
+        player3.dropCards = new TrashCardOnTable(withPhom,80,POSITION_PHOM_LEFT);
+        player3.dropCards.setCardPosition(player3.trashCards.x, player3.trashCards.y + 70);
         player3.addChild(player3.dropCards);
+        player3.addChild(player3.trashCards);
+
         player3.chatView.setAnchorPoint(cc.p(0.0, 0.0));
 
-        this.sceneLayer.addChild(player3, 1);
+        this.table_bg.addChild(player3, 1);
+
+
+
         this.playerView = [playerMe, player1, player2, player3];
+
     },
     initButton: function () {
         var danhbaiBt = new ccui.Button("game-danhbaiBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        danhbaiBt.setPosition(cc.winSize.width - 310, 46);
+        danhbaiBt.setPosition(cc.winSize.width - 310*cc.winSize.screenScale, 46);
         this.sceneLayer.addChild(danhbaiBt);
 
         var xepBaiBt = new ccui.Button("game-xepbaiBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        xepBaiBt.setPosition(cc.winSize.width - 710, danhbaiBt.y);
+        xepBaiBt.setPosition(cc.winSize.width - 710*cc.winSize.screenScale, danhbaiBt.y);
         this.sceneLayer.addChild(xepBaiBt);
 
         var uBt = new ccui.Button("game-uBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        uBt.setPosition(cc.winSize.width - 510, danhbaiBt.y);
+        uBt.setPosition(cc.winSize.width - 510*cc.winSize.screenScale, danhbaiBt.y);
         this.sceneLayer.addChild(uBt);
 
         var drawBt = new ccui.Button("game-bocbaiBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        drawBt.setPosition(cc.winSize.width - 110, danhbaiBt.y);
+        drawBt.setPosition(cc.winSize.width - 110*cc.winSize.screenScale, danhbaiBt.y);
         this.sceneLayer.addChild(drawBt);
 
         var startBt = new ccui.Button("game-startBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
@@ -563,7 +840,7 @@ var Phom = IGameScene.extend({
         this.sceneLayer.addChild(startBt);
 
         var habaiBt = new ccui.Button("game-habaiBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        habaiBt.setPosition(cc.winSize.width - 510, danhbaiBt.y);
+        habaiBt.setPosition(cc.winSize.width - 510*cc.winSize.screenScale, danhbaiBt.y);
         this.sceneLayer.addChild(habaiBt);
 
         var anbaiBt = new ccui.Button("game-anbaiBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
@@ -613,15 +890,27 @@ var Phom = IGameScene.extend({
         this.habaiBt = habaiBt;
         this.guibaiBt = guibaiBt;
 
+
+        this.danhbaiBt.setScale(cc.winSize.screenScale);
+        this.uBt.setScale(cc.winSize.screenScale);
+        this.xepBaiBt.setScale(cc.winSize.screenScale);
+        this.drawBt.setScale(cc.winSize.screenScale);
+        this.startBt.setScale(cc.winSize.screenScale);
+        this.anbaiBt.setScale(cc.winSize.screenScale);
+        this.habaiBt.setScale(cc.winSize.screenScale);
+        this.guibaiBt.setScale(cc.winSize.screenScale);
+
         this.allButton = [danhbaiBt, uBt, xepBaiBt, drawBt,
             startBt, anbaiBt, habaiBt, guibaiBt];
         this.hideAllButton();
     },
     hideAllButton: function () {
+
         for (var i = 0; i < this.allButton.length; i++)
             this.allButton[i].visible = false;
     },
     xepBai: function () {
+        this.cardList.setTypeOder();
         this.cardList.reArrangeCards();
     },
     sendURequest: function () {
