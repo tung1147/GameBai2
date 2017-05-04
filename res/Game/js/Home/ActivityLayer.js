@@ -2,12 +2,6 @@
  * Created by Quyet Nguyen on 3/21/2017.
  */
 
-var s_diemdanhContent = s_diemdanhContent || "Đăng nhập hằng ngày để nhận thưởng. Nếu điểm danh trống, đăng nhập lại sẽ tính ngày tiếp theo.\nVD: Đã nhận đến ngày thứ 3, không đăng nhập 2 ngày (thứ 4, 5). Khi đăng nhập lại (ngày 6) sẽ nhận phần quà của ngày thứ 4.";
-
-var s_loginContent = s_loginContent || "Đăng nhập liên tiếp  tích lũy đủ số ngày để nhận thưởng.\nNếu số ngày đăng nhập bị ngắt quãng thì số ngày tích lũy sẽ bị tính lại từ đầu.";
-
-var s_onlineContent = s_onlineContent || "Đăng nhập liên tiếp  tích lũy đủ số ngày để nhận thưởng.\nNếu số ngày đăng nhập bị ngắt quãng thì số ngày tích lũy sẽ bị tính lại từ đầu.";
-
 var _activity_request_reward = function (itemId) {
     var request = {
         command : "getBonusMission",
@@ -31,7 +25,7 @@ var ActivityDiemDanhLayer = cc.Node.extend({
         nameLabel.setPosition(356, 575);
         mNode.addChild(nameLabel);
 
-        var contentLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18,s_diemdanhContent,cc.TEXT_ALIGNMENT_LEFT, 570);
+        var contentLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18,cc.Global.getStringRes()["Mission"]["diemdanhContent"],cc.TEXT_ALIGNMENT_LEFT, 570);
         contentLabel.setColor(cc.color("#ffffff"));
         contentLabel.setAnchorPoint(cc.p(0.0, 1.0));
         contentLabel.setPosition(356, 550);
@@ -180,7 +174,7 @@ var ActivityLoginLayer = cc.Node.extend({
         nameLabel.setPosition(356, 575);
         mNode.addChild(nameLabel);
 
-        var contentLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, s_loginContent, cc.TEXT_ALIGNMENT_LEFT, 570);
+        var contentLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, cc.Global.getStringRes()["Mission"]["loginContent"], cc.TEXT_ALIGNMENT_LEFT, 570);
         contentLabel.setColor(cc.color("#ffffff"));
         contentLabel.setAnchorPoint(cc.p(0.0, 1.0));
         contentLabel.setPosition(356, 550);
@@ -328,7 +322,7 @@ var ActivityOnlineLayer = cc.Node.extend({
         nameLabel.setPosition(356, 575);
         mNode.addChild(nameLabel);
 
-        var contentLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, s_onlineContent, cc.TEXT_ALIGNMENT_LEFT, 570);
+        var contentLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, cc.Global.getStringRes()["Mission"]["onlineContent"], cc.TEXT_ALIGNMENT_LEFT, 570);
         contentLabel.setColor(cc.color("#ffffff"));
         contentLabel.setAnchorPoint(cc.p(0.0, 1.0));
         contentLabel.setPosition(356, 550);

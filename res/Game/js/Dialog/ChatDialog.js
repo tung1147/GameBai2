@@ -2,16 +2,16 @@
  * Created by QuyetNguyen on 12/7/2016.
  */
 
-var s_chat_message = s_chat_message || [
-        "Nhanh đi má !!!", "Bĩnh tĩnh em eei",
-        "Lại phải chia bài!", "Đen vd",
-        "Chết nè cưng !!!", "Mày hả bưởi ???",
-        "Tới luôn!", "Vô tư đê !!!",
-        "Mình xin!", " Đừng vội mừng!",
-        "Lâu vồn", "Lâu kệ tao",
-        "Ngu vồn!", "Đệch!",
-        "Nhào zo !!!", "Nhanh cmml!"
-];
+// var s_chat_message = s_chat_message || [
+//         "Nhanh đi má !!!", "Bĩnh tĩnh em eei",
+//         "Lại phải chia bài!", "Đen vd",
+//         "Chết nè cưng !!!", "Mày hả bưởi ???",
+//         "Tới luôn!", "Vô tư đê !!!",
+//         "Mình xin!", " Đừng vội mừng!",
+//         "Lâu vồn", "Lâu kệ tao",
+//         "Ngu vồn!", "Đệch!",
+//         "Nhào zo !!!", "Nhanh cmml!"
+// ];
 
 var ChatDialog = IDialog.extend({
     ctor : function () {
@@ -51,6 +51,7 @@ var ChatDialog = IDialog.extend({
         this.addChild(listMessage);
 
         var thiz = this;
+        var s_chat_message = cc.Global.getStringRes()["ChatMessage"];
         for(var i=0;i<s_chat_message.length;i++){
             var bg = new ccui.Button("dialog_chat_bg.png", "","",ccui.Widget.PLIST_TEXTURE);
             bg.setCapInsetsNormalRenderer(cc.rect(50,0,4,60));

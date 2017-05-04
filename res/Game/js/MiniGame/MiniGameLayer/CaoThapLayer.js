@@ -165,9 +165,14 @@ var CaoThapLayer = MiniGamePopup.extend({
     },
 
     showResultCard: function (cardId) {
-        this.setRolling(false);
-        var card = CardList.prototype.getCardWithId(cardId);
-        this.card.setSpriteFrame(card.rank + s_card_suit[card.suit] + ".png");
+        if(cardId > 0){
+            this.setRolling(false);
+            var card = CardList.prototype.getCardWithId(cardId);
+            this.card.setSpriteFrame(card.rank + s_card_suit[card.suit] + ".png");
+        }
+        else{
+            this.card.setSpriteFrame("gp_card_up.png");
+        }
     },
 
     playSoundLost : function () {

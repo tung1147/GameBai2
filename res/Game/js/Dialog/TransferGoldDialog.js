@@ -174,7 +174,7 @@ var TransferGoldDialog = Dialog.extend({
         tutorialBt.addClickEventListener(function () {
             var dialog = new TransferGoldTutorial();
             dialog.setTitle("Hướng dẫn chuyển vàng");
-            dialog.setMessage(ApplicationConfig.transferGoldTutorial);
+            dialog.setMessage(cc.Global.getStringRes()["TransferGold"]["Tutorial"]);
             dialog.show();
         });
 

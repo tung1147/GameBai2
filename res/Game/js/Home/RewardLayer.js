@@ -358,7 +358,7 @@ var RewardAgencyLayer = cc.Node.extend({
         tutorialBt.addClickEventListener(function () {
             var dialog = new TransferGoldTutorial();
             dialog.setTitle("Hướng dẫn chuyển vàng");
-            dialog.setMessage(ApplicationConfig.transferGoldMerchantTutorial);
+            dialog.setMessage(cc.Global.getStringRes()["TransferGold"]["MerchantTutorial"]);
             dialog.show();
         });
     },

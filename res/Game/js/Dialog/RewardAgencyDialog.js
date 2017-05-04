@@ -98,7 +98,7 @@ var RewardAgencyDialog = Dialog.extend({
         itemList.setPosition(cc.p(112, 98));
         this.addChild(itemList, 1);
 
-        var tutLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, ApplicationConfig.transferGoldMerchantTutorial, cc.TEXT_ALIGNMENT_LEFT, 300);
+        var tutLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, cc.Global.getStringRes()["TransferGold"]["MerchantTutorial"], cc.TEXT_ALIGNMENT_LEFT, 300);
         //var container =
         itemList.pushItem(tutLabel);
     },

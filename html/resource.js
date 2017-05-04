@@ -8,6 +8,7 @@ var s_resource = s_resource || [
 	"res/data/HDList.plist",
 	"res/data/LevelData.json",
 	"res/data/VipData.json",
+	"res/data/String.json",
 	"res/dialog.plist",
 	"res/dialog.png",
 	"res/effectMini.plist",
