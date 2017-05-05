@@ -106,7 +106,7 @@ var MiniPokerLayer = MiniGamePopup.extend({
         this.rewards.push("CỦ LŨ");
         this.rewards.push("THÙNG");
         this.rewards.push("SẢNH");
-        this.rewards.push("SÂM");
+        this.rewards.push("XÁM CÔ");
         this.rewards.push("HAI ĐÔI");
         this.rewards.push("ĐÔI");
     },
