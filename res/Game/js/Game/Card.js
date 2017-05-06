@@ -130,8 +130,8 @@ var Card = cc.Sprite.extend({
             }
         }
 
-        this.x += p.x - this.preTouchPoint.x;
-        this.y += p.y - this.preTouchPoint.y;
+        this.x += (p.x - this.preTouchPoint.x)/this.getParent().getScale();
+        this.y += (p.y - this.preTouchPoint.y)/this.getParent().getScale();
         this.preTouchPoint = p;
 
         var dx = this.x - this.origin.x;

@@ -44,7 +44,7 @@ var TrashCardOnTable = cc.Node.extend({
     addCard: function (card, noAnimation) {
         var p = this.convertToNodeSpace(card.getPosition());
         card.setPosition(p);
-        var animationDuration = 0.1;
+        var animationDuration = 0.2;
 
         if (!this.cardSize)
             this.cardSize = card.getContentSize();
@@ -71,7 +71,7 @@ var TrashCardOnTable = cc.Node.extend({
         else{
             card.runAction(new cc.Sequence(moveAction, orderAgain));
         }
-        thiz.reOrder(noAnimation);
+        // thiz.reOrder(noAnimation);
 
     },
 
@@ -175,13 +175,14 @@ var TrashCardOnTable = cc.Node.extend({
                 }
 
                 var card = this.cardList[i];
-                card.origin = cc.p(x, y);
-                card.cardIndex = i;
-                if (noAnimation)
-                    card.setPosition(card.origin);
-                else
-                    card.moveToOriginPosition();
-
+                if(card.origin){
+                    card.origin = cc.p(x, y);
+                    card.cardIndex = i;
+                    if (noAnimation)
+                        card.setPosition(card.origin);
+                    else
+                        card.moveToOriginPosition();
+                }
             }
         }
     },
@@ -314,6 +315,7 @@ var PhomCardList = CardList.extend({
             var id = CardList.prototype.getCardIdWithRank(this.cardList[i].rank,
                 this.cardList[i].suit);
             if (groupedCard.indexOf(id) != -1) {
+                this.cardList[i].removeChildByTag(11,true) ;
                 var dotSprite = new cc.Sprite("#card-dot.png");
                 dotSprite.setTag(11);
                 dotSprite.setPosition(this.cardList[i].width - 20,
@@ -549,8 +551,7 @@ var Phom = IGameScene.extend({
     },
     performHaBaiOtherReconnect: function (username, groupedCards, stolenCards,noAnimation) {
         var slot = this.getSlotByUsername(username);
-        var stolenCardsId = [];
-        var stolenCardsSprite = [];
+        var stolenCardsId = [];init
 
         //index stolen cards
         for (var i = 0; i < slot.dropCards.cardList.length; i++) {
@@ -657,7 +658,7 @@ var Phom = IGameScene.extend({
         var cardSprite = fromUser.trashCards.removeCardById(card);
         toUser.trashCards.addCard(cardSprite,false);
         cardSprite.release();
-        toUser.trashCards.reOrder();
+        fromUser.trashCards.reOrder();
     },
     performStealCard: function (stealer, stolenUser, stolenCard,
                                 groupedCard) { // in case I'm stealer
@@ -764,13 +765,14 @@ var Phom = IGameScene.extend({
 
         var playerMe = new GamePlayerMe();
         playerMe.setPosition(150, 50.0);
+        playerMe.setScale(cc.winSize.screenScale);
         playerMe.trashCards = new TrashCardOnTable(withPhom,80,POSITION_PHOM_CENTER);
-        playerMe.trashCards.setCardPosition(cc.winSize.width / 2/cc.winSize.screenScale, 180);
+        playerMe.trashCards.setCardPosition(playerMe.convertToNodeSpace(cc.p(cc.winSize.width / 2, 190*cc.winSize.screenScale)) );
         playerMe.dropCards = new TrashCardOnTable(withPhom,80,POSITION_PHOM_CENTER);
         playerMe.dropCards.setCardPosition(playerMe.trashCards.x, playerMe.trashCards.y + 70);
         playerMe.addChild(playerMe.dropCards);
         playerMe.addChild(playerMe.trashCards);
-        playerMe.setScale(cc.winSize.screenScale);
+
         this.sceneLayer.addChild(playerMe, 1);
 
         var player1 = new GamePlayer();

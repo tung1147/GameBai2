@@ -163,11 +163,9 @@ var PhomController = GameController.extend({
 
     onJoinRoom: function (params) {
         this._super(params);
-        this.onGameStatus(params["1"]);
-
-
         this.timeTurn = params["7"];
         this.onInitJoin(params);
+        this.onGameStatus(params["1"]);
         this._view.setXepBaiBtVisible(false);
 
     },
@@ -187,10 +185,10 @@ var PhomController = GameController.extend({
             //     this.onTurnChanged({s: userData[i]["s"], u: username});
 
             // trash cards
-            if (data["10"])
+            if (data["10"]&& param["1"]==2)
                 this._view.setTrashCardList(data["10"], username,true);
 
-            if (data["11"]) {
+            if (data["11"]&& param["1"]==2) {
                 var groupedCard = [];
                 for (var k = 0; k < data["11"].length; k++)
                 {
@@ -204,18 +202,11 @@ var PhomController = GameController.extend({
 
             }
 
-            // stolen cards
-            if (data["12"]) {
-                // if (username == PlayerMe.username)
-                //     this._view.setStolenCardsMe(data["12"]);
-                // else
-                //     this._view.setStolenCardsOther(data["12"], username);
-            }
         }
 
 
         var turnInfo = param["12"];
-        if(turnInfo){
+        if(turnInfo && param["1"]==2){
             this._view.showTimeRemainUser(turnInfo["u"], turnInfo["2"] / 1000, 15);
             this._view.performDrawDeckUpdate(turnInfo["3"]);
             if(turnInfo["2"] / 1000>0){
@@ -231,16 +222,14 @@ var PhomController = GameController.extend({
         this._super(param);
         //this._view.onReconnect(param);
         this.onGameStatus(param["1"]["1"]);
-
+       this._view.removeAllCards();
         // on-hand cards
         this._view.setCardList(param["3"]);
         // this.onInitJoin(param["1"]);
         var userData = param["1"]["5"];
-        //update turn
 
-        var turnInfo = param["1"]["12"];
-        this._view.showTimeRemainUser(turnInfo["u"], turnInfo["2"] / 1000, 15);
-        this._view.performDrawDeckUpdate(turnInfo["3"]);
+
+
 
 
 
@@ -250,15 +239,15 @@ var PhomController = GameController.extend({
             var username = data["u"];
 
             // update my status
-            if (username == PlayerMe.username)
+            if (username == PlayerMe.username && param["1"]["1"]==2)
                 this.onTurnChanged({s: userData[i]["s"], u: username});
 
             // trash cards
-            if (data["10"])
+            if (data["10"] && param["1"]["1"]==2)
                 this._view.setTrashCardList(data["10"], username,true);
 
             // stolen cards
-            if (data["11"]) {
+            if (data["11"] && param["1"]["1"]==2) {
                 var groupedCard = [];
                 for (var k = 0; k < data["11"].length; k++)
                 {
@@ -271,6 +260,12 @@ var PhomController = GameController.extend({
                     this._view.performHaBaiOther(username, groupedCard, data["12"],true);
 
             }
+        }
+        //update turn
+        var turnInfo = param["1"]["12"];
+        if(turnInfo){
+            this._view.showTimeRemainUser(turnInfo["u"], turnInfo["2"] / 1000, 15);
+            this._view.performDrawDeckUpdate(turnInfo["3"]);
         }
 
         // grouped card
@@ -302,7 +297,10 @@ var PhomController = GameController.extend({
         var username = param.u;
         this._view.showTimeRemainUser(username, this.timeTurn);
         this._view.hideAllButton();
-        this._view.setXepBaiBtVisible(true);
+        if(this._view.cardList.cardList.length>0){
+            this._view.setXepBaiBtVisible(true);
+        }
+
 
         if (!param.s)
             return; // not my turn
@@ -339,6 +337,9 @@ var PhomController = GameController.extend({
                 this._view.setXepBaiBtVisible(false);
                 break;
         }
+        // if(param.s>0){
+        //     this._view.setXepBaiBtVisible(true);
+        // }
         var thiz = this;
         if (param["3"] && param["3"].length > 0){
             this._view.runAction(new cc.Sequence(new cc.DelayTime(0.2),new cc.CallFunc(function () {
