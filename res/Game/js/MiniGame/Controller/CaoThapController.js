@@ -80,6 +80,10 @@ var CaoThapController = MiniGameController.extend({
             this._view.pushKing(true);
     },
 
+    onSFSChangeAssets: function (messageType, content) {
+        this.onChangeAssets(content.p["2"], content.p["1"]);
+    },
+
     processData: function (data) {
         var gameId = data["1"];
         var bankValue = data["3"];
