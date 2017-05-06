@@ -375,7 +375,7 @@ Cách tính tiền theo mức cược như sau :
     </string>
 		<key>text2</key>
 		<string>
-Hũ thưởng : hệ thống sẽ bỏ ra hũ thưởng khác nhau với từng mức cược : 1k, 10k, 100k, mỗi lần thắng sẽ trích 1% tiền cược vào hũ.
+Hũ thưởng : hệ thống sẽ bỏ ra hũ thưởng khác nhau với từng mức cược : 1k, 10k, 100k, mỗi lần quay hệ thống sẽ trích 1% tiền cược vào hũ.
 Lịch sử :
 - Lịch sử chơi của mình trong 20 lần gần nhất.
 - Lịch sử những người nổ hũ thưởng.
