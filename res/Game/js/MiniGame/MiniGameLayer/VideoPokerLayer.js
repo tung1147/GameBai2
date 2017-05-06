@@ -344,15 +344,15 @@ var VideoPokerLayer = MiniGamePopup.extend({
     },
 
     initRewards: function () {
-        this.rewards.push("HŨ THƯỞNG");
-        this.rewards.push("THÙNG PHÁ SẢNH");
-        this.rewards.push("TỨ QUÝ");
-        this.rewards.push("CỦ LŨ");
-        this.rewards.push("THÙNG");
-        this.rewards.push("SẢNH");
-        this.rewards.push("SÂM");
-        this.rewards.push("HAI ĐÔI");
-        this.rewards.push("ĐÔI");
+        this.rewards.push("Hũ thưởng");
+        this.rewards.push("Thùng phá sảnh");
+        this.rewards.push("Tứ quý");
+        this.rewards.push("Cù lũ");
+        this.rewards.push("Thùng");
+        this.rewards.push("Sảnh");
+        this.rewards.push("Xám cô");
+        this.rewards.push("Hai đôi");
+        this.rewards.push("Đôi");
     },
 
     onError: function (param) {
