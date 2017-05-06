@@ -242,7 +242,7 @@ var MiniGamePopup = cc.Node.extend({
         }
     },
     backToHomeScene: function () {
-        this.hide();
+        MiniGameNavigator.hideGame(this.gameType);
     },
 
     hide: function () {

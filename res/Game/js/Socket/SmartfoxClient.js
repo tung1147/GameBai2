@@ -211,7 +211,7 @@ var SmartfoxClient = (function () {
                 this.allListener[messageType] = arr;
             }
             for (var i = 0; i < arr.length; i++) {
-                if (arr[i].target == _target) {
+                if (arr[i] && arr[i].target === _target) {
                     return;
                 }
             }
