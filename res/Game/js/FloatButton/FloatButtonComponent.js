@@ -10,6 +10,12 @@ var FloatButtomComponent = cc.Node.extend({
         var img = new cc.Sprite("#floatBt-game-" + gameId + ".png");
         this.addChild(img);
         this.rectTouch = cc.rect(-img.getContentSize().width/2, -img.getContentSize().height/2, img.getContentSize().width, img.getContentSize().height);
+        if(gameId == GameType.MiniGame_ChanLe){
+            var newCountLayer = new MiniTaiXiuNotification();
+            newCountLayer.setPosition(cc.p(30, 30));
+            this.addChild(newCountLayer);
+        }
+
     },
     show : function (duration) {
         this.visible = true;

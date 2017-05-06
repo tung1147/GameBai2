@@ -104,8 +104,13 @@ var SamController = TLMNGameController.extend({
 
     onChangeSamState: function (state, timeRemaining) {
         this._view.setSamBtVisible(state == 1);
-        if (state == 1)
+
+        if (state == 1){
             this._view.showBaoSamTimeRemaining(Math.round(timeRemaining/1000));
+            this._view.setDanhBaiBtVisible(false);
+            for(var i = 0; i < this._view.playerView.length; i++)
+                this._view.playerView[i].stopTimeRemain();
+        }
         else
             this._view.showBaoSamTimeRemaining(0);
     },
@@ -116,6 +121,7 @@ var SamController = TLMNGameController.extend({
         this._view.setXepBaiBtVisible(false);
         this._view.setBoLuotBtVisible(false);
         this._view.setStartBtVisible(false);
+        this._view.setSamBtVisible(false);
 
         this._view.onUpdateTurn(".",0,0);
 
@@ -172,5 +178,6 @@ var SamController = TLMNGameController.extend({
 
     sendHuySamRequest:function(){
         SmartfoxClient.getInstance().sendExtensionRequestCurrentRoom("52",{});
-    }
+    },
+
 });

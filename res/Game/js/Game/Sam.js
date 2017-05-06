@@ -43,6 +43,7 @@ var Sam = TienLen.extend({
     },
     initPlayer: function () {
         var playerMe = new GamePlayerMe();
+        playerMe.stopTimeRemain();
         playerMe.setPosition(150, 50.0);
         this.sceneLayer.addChild(playerMe, 1);
 

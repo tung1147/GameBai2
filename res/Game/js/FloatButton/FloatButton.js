@@ -50,6 +50,13 @@ var FloatButton = (function() {
             this.addChild(bg);
             this.bg = bg;
 
+            var _newCountMiniTaiXiu = new MiniTaiXiuNotification();
+            _newCountMiniTaiXiu.setPosition(cc.p(30, 30));
+            this.addChild(_newCountMiniTaiXiu, 10);
+            _newCountMiniTaiXiu.setVisible(false);
+            this.newCountMiniTaiXiu = _newCountMiniTaiXiu;
+
+
             this.initComponent();
             this.initButtonCenter();
         },
@@ -116,6 +123,7 @@ var FloatButton = (function() {
         onExit : function () {
             this._super();
             cc.eventManager.removeListeners(this);
+            this.sendCommandSubrideMiniTaiXiu("unSubscribeMiniGameMetaData");
         },
         onTouchBegan : function (touch, event){
             if(!cc.Global.NodeIsVisible(this)){
@@ -190,6 +198,8 @@ var FloatButton = (function() {
             }
         },
         showAllComponent : function () {
+            this.newCountMiniTaiXiu.setVisible(false);
+
             this.showAll = true;
             this.btCenter.show();
             for(var i=0;i<this.allComponent.length;i++){
@@ -201,6 +211,7 @@ var FloatButton = (function() {
             this.bg.runAction(new cc.EaseSineOut(new cc.ScaleTo(s_float_button_animationDuration, 1.0)));
         },
         hideAllComponent : function () {
+            this.newCountMiniTaiXiu.setVisible(true);
             this.showAll = false;
             this.btCenter.hide();
             for(var i=0;i<this.allComponent.length;i++){
@@ -215,12 +226,32 @@ var FloatButton = (function() {
             this.bg.runAction(new cc.Sequence(scaleAction, finishedAction));
         },
         forceHide : function () {
+            this.newCountMiniTaiXiu.setVisible(false);
             this.showAll = false;
             this.btCenter.hide();
             for(var i=0;i<this.allComponent.length;i++){
                 this.allComponent[i].visible = false;
             }
             this.bg.visible = false;
+        },
+
+        setVisible: function (visible) {
+            this._super(visible);
+            this.newCountMiniTaiXiu.setVisible(visible);
+            if (visible) {
+                this.sendCommandSubrideMiniTaiXiu("subscribeMiniGameMetaData");
+            }
+            else
+            {
+                this.sendCommandSubrideMiniTaiXiu("unSubscribeMiniGameMetaData");
+            }
+        },
+        sendCommandSubrideMiniTaiXiu: function (command){
+            LobbyClient.getInstance().send({
+                command : command,
+                game: "mini.taixiu"
+
+            });
         },
     });
 
