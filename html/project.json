@@ -117,6 +117,7 @@
     "res/Game/js/Game/XocDia.js",
     "res/Game/js/Game/TaiXiu.js",
     "res/Game/js/Game/VongQuay.js",
+    "res/Game/js/MiniGame/MiniTaiXiuNotification.js",
     "res/Game/js/FloatButton/FloatButton.js",
     "res/Game/js/FloatButton/FloatButtonAnimation.js",
     "res/Game/js/FloatButton/FloatButtonComponent.js",
