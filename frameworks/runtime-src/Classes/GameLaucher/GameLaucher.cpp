@@ -394,22 +394,30 @@ void GameLaucher::updateResources(){
 	for (int i = 0; i < _resourceUpdate.size();i++){
 		auto res = _resourceUpdate[i];
 		WorkerManager::getInstance()->pushAction([=](){
-			auto pret = res->update(resourceHost, zipFileAvailable, [=](int bytes){
-				CCLOG("b: %d", bytes);
-				this->onUpdateDownloadProcess(bytes);
-			});
-			UIThread::getInstance()->runOnUI([=](){
-				if (pret == 0){
-					CCLOG("UPDATE OK: %s", res->fullPath.c_str());
-					stepIndex++;
-					if (stepIndex >= stepTarget){
-						this->loadResource();
+			while (true){
+				auto pret = res->update(resourceHost, zipFileAvailable, [=](int bytes){
+					CCLOG("b: %d", bytes);
+					this->onUpdateDownloadProcess(bytes);
+				});
+				UIThread::getInstance()->runOnUI([=](){
+					if (pret == 0){
+						CCLOG("UPDATE OK: %s", res->fullPath.c_str());
+						stepIndex++;
+						if (stepIndex >= stepTarget){
+							this->loadResource();
+						}
 					}
+					else{
+						this->onProcessStatus(GameLaucherStatus::UpdateFailure);
+					}
+				});
+				if (pret == 2){ //error network -> retry
+					std::this_thread::sleep_for(std::chrono::milliseconds(1000)); // 1000s
 				}
 				else{
-					this->onProcessStatus(GameLaucherStatus::UpdateFailure);
+					break;
 				}
-			});
+			}
 		});
 	}
 }
