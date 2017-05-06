@@ -6,7 +6,6 @@ var MiniPokerController = MiniGameController.extend({
         this._super();
         this.initWithView(view);
         this.rolling = false;
-        this.autoRoll = false;
         this.lastBetType = 1;
         this.gameGroup = "mini.poker"
     },
@@ -53,9 +52,6 @@ var MiniPokerController = MiniGameController.extend({
             this._view.onChangeAssets(this.goldAfter, this.changeAmount);
             this.goldAfter = this.changeAmount = null;
         }
-        this._view.setQuayBtEnable(true);
-        if (this.autoRoll)
-            this.sendRollRequest(this.lastBetType);
         this._view.onChangeAssets(null, changeAmount);
     },
 
@@ -79,10 +75,6 @@ var MiniPokerController = MiniGameController.extend({
             for (var i = 0; i < 5; i++)
                 this._view.setRollCard(i, true);
         }
-    },
-
-    setAutoRoll: function (isAuto) {
-        this.autoRoll = isAuto;
     },
 
     requestQuitRoom: function () {

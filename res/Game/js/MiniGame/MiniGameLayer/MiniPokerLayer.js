@@ -147,6 +147,13 @@ var MiniPokerLayer = MiniGamePopup.extend({
             thiz.onRollClick();
 
         SoundPlayer.playSound("mini_clickButton");
+
+        if(this.autoRoll){
+
+        }
+        else{
+
+        }
     },
 
     activateReward: function (id, rank) {
@@ -208,6 +215,8 @@ var MiniPokerLayer = MiniGamePopup.extend({
 
     onRollClick: function () {
         this.setRolling(true);
+        this.setBettingSelectEnable(false);
+        this.resultLabel.setString("");
         this._controller.sendRollRequest(this.chipGroup.chipSelected.chipIndex);
         SoundPlayer.playSound("mini_clickButton");
     },
@@ -222,11 +231,16 @@ var MiniPokerLayer = MiniGamePopup.extend({
             this.cardSprites[i].setSpriteFrame("" + card.rank + s_card_suit[card.suit] + ".png");
         }
         this.setRolling(false);
+
+        var thiz = this;
         if (this.autoRoll) {
-            var thiz = this;
             setTimeout(function () {
                 thiz.onRollClick();
             }, 500);
+        }
+        else{
+            this.setQuayBtEnable(true);
+            this.setBettingSelectEnable(true);
         }
     },
 
@@ -264,7 +278,7 @@ var MiniPokerLayer = MiniGamePopup.extend({
     showJackpot: function () {
         var layer = new JackpotLayer();
         layer.show();
-    }
+    },
 });
 
 // MiniPokerLayer.showPopup = function () {
