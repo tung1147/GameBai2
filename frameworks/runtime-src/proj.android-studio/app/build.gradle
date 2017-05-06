@@ -93,51 +93,51 @@ android {
     }
 }
 
-def getCocosCommandPath() {
-    if (Os.isFamily(Os.FAMILY_WINDOWS)) {
-        return 'cocos.bat'
-    }
-    else {
-        // on unix like system, can not get environments variables easily
-        // so run a shell script to get environment variable sets by cocos2d-x setup.py
-        new ByteArrayOutputStream().withStream { os ->
-            def result = exec {
-                executable = project.file('get_environment.sh')
-                standardOutput = os
-            }
-            ext.console_path = os.toString().trim()
-        }
-        return new File(console_path + '/cocos').absolutePath;
-    }
-}
+//def getCocosCommandPath() {
+//    if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+//        return 'cocos.bat'
+//    }
+//    else {
+//        // on unix like system, can not get environments variables easily
+//        // so run a shell script to get environment variable sets by cocos2d-x setup.py
+//        new ByteArrayOutputStream().withStream { os ->
+//            def result = exec {
+//                executable = project.file('get_environment.sh')
+//                standardOutput = os
+//            }
+//            ext.console_path = os.toString().trim()
+//        }
+//        return new File(console_path + '/cocos').absolutePath;
+//    }
+//}
 
 
 // a method used to invoke the cocos jscompile command
-def compileJS(srcDir, dstDir) {
-    def compileArgs = ['jscompile', '-s', srcDir, '-d', dstDir]
-
-    println 'running command : ' + 'cocos ' + compileArgs.join(' ')
-    exec {
-        // if you meet problem, just replace `getCocosCommandPath()` to the path of cocos command
-        executable getCocosCommandPath()
-        args compileArgs
-    }
-
-    // remove the js files in dstDir
-    delete fileTree(dstDir) {
-        include '**/*.js'
-    }
-}
+//def compileJS(srcDir, dstDir) {
+//    def compileArgs = ['jscompile', '-s', srcDir, '-d', dstDir]
+//
+//    println 'running command : ' + 'cocos ' + compileArgs.join(' ')
+//    exec {
+//        // if you meet problem, just replace `getCocosCommandPath()` to the path of cocos command
+//        executable getCocosCommandPath()
+//        args compileArgs
+//    }
+//
+//    // remove the js files in dstDir
+//    delete fileTree(dstDir) {
+//        include '**/*.js'
+//    }
+//}
 
 android.applicationVariants.all { variant ->
     // delete previous files first
     delete "${buildDir}/intermediates/assets/${variant.dirName}"
 
     variant.mergeAssets.doLast {
-        copy {
-           from "${buildDir}/../../../../../res"
-           into "${buildDir}/intermediates/assets/${variant.dirName}/res"
-        }
+//        copy {
+//           from "${buildDir}/../../../../../res"
+//           into "${buildDir}/intermediates/assets/${variant.dirName}/res"
+//        }
 
         copy {
             from "${buildDir}/../../../../../src"
