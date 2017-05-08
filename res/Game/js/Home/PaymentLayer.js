@@ -2,6 +2,9 @@
  * Created by Quyet Nguyen on 7/11/2016.
  */
 
+var s_currency_icon = s_currency_icon || {};
+s_currency_icon["USD"] = "$";
+
 var PaymentInAppLayer = cc.Node.extend({
     ctor: function () {
         this._super();
@@ -41,8 +44,6 @@ var PaymentInAppLayer = cc.Node.extend({
                         thiz._selectInappItem(inappId);
                     });
                 })();
-
-
             }
         }
     },
