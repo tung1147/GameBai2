@@ -90,12 +90,8 @@ var LobbyBottomBar = cc.Node.extend({
         }
 
         var paymentBt = new ccui.Button("bot_bar_paymentBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        paymentBt.setPosition(933, 35);
+        paymentBt.setPosition(1040, 35);
         this.addChild(paymentBt);
-
-        var rewardBt = new ccui.Button("bot_bar_rewardBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        rewardBt.setPosition(1166, 46);
-        this.addChild(rewardBt);
 
         var userinfoBt = new ccui.Widget();
         userinfoBt.setContentSize(cc.size(200, 80));
@@ -107,7 +103,6 @@ var LobbyBottomBar = cc.Node.extend({
         this.setScale(cc.winSize.screenScale);
 
         this.paymentBt = paymentBt;
-        this.rewardBt = rewardBt;
         this.userinfoBt = userinfoBt;
 
         this.refreshView();

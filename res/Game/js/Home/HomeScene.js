@@ -84,9 +84,6 @@ var HomeScene = IScene.extend({
         this.userInfo.paymentBt.addClickEventListener(function () {
             thiz.paymentButtonHandler();
         });
-        this.userInfo.rewardBt.addClickEventListener(function () {
-            thiz.rewardButtonHandler();
-        });
         this.userInfo.userinfoBt.addClickEventListener(function () {
             thiz.userInfoButtonHandler();
         });
