@@ -1,17 +1,11 @@
 #include "AppDelegate.h"
-#include "cocos2d.h"
-#include "audio/include/AudioEngine.h"
-
-USING_NS_CC;
-
-//#include "audio/include/SimpleAudioEngine.h"
-//using namespace CocosDenshion;
 
 #include "scripting/js-bindings/auto/jsb_cocos2dx_3d_auto.hpp"
 #include "scripting/js-bindings/auto/jsb_cocos2dx_3d_extension_auto.hpp"
 #include "scripting/js-bindings/auto/jsb_cocos2dx_auto.hpp"
 #include "scripting/js-bindings/auto/jsb_cocos2dx_builder_auto.hpp"
 #include "scripting/js-bindings/auto/jsb_cocos2dx_extension_auto.hpp"
+#include "scripting/js-bindings/auto/jsb_cocos2dx_network_auto.hpp"
 #include "scripting/js-bindings/auto/jsb_cocos2dx_navmesh_auto.hpp"
 #include "scripting/js-bindings/auto/jsb_cocos2dx_physics3d_auto.hpp"
 #include "scripting/js-bindings/auto/jsb_cocos2dx_spine_auto.hpp"
@@ -49,7 +43,6 @@ USING_NS_CC;
 #include "cocos/scripting/js-bindings/manual/platform/ios/JavaScriptObjCBridge.h"
 #endif
 
-
 /**/
 #include "Action/jsb_quyetnd_action.hpp"
 #include "NewGUI/jsb_quyetnd_newui.hpp"
@@ -76,12 +69,34 @@ using namespace quyetnd;
 #include "iOS_native_linker.h"
 #endif
 
+#define USE_AUDIO_ENGINE 1
+// #define USE_SIMPLE_AUDIO_ENGINE 1
+
+#if USE_AUDIO_ENGINE && USE_SIMPLE_AUDIO_ENGINE
+#error "Don't use AudioEngine and SimpleAudioEngine at the same time. Please just select one in your game!"
+#endif
+
+#if USE_AUDIO_ENGINE
+#include "audio/include/AudioEngine.h"
+using namespace cocos2d::experimental;
+#elif USE_SIMPLE_AUDIO_ENGINE
+#include "audio/include/SimpleAudioEngine.h"
+using namespace CocosDenshion;
+#endif
+
+USING_NS_CC;
+
 AppDelegate::AppDelegate()
 {
 }
 
 AppDelegate::~AppDelegate()
 {
+#if USE_AUDIO_ENGINE
+    AudioEngine::end();
+#elif USE_SIMPLE_AUDIO_ENGINE
+    SimpleAudioEngine::end();
+#endif
     ScriptEngineManager::destroyInstance();
 }
 
@@ -93,7 +108,7 @@ void AppDelegate::initGLContextAttrs()
 }
 
 bool AppDelegate::applicationDidFinishLaunching()
-{		
+{	
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
 	UUIDEncrypt::getInstance()->getUUID();
@@ -103,106 +118,106 @@ bool AppDelegate::applicationDidFinishLaunching()
     auto director = Director::getInstance();
     auto glview = director->getOpenGLView();
     if(!glview) {
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-		glview = cocos2d::GLViewImpl::createWithRect("GameBai", Rect(0, 0, 640, 480));
-		//glview = cocos2d::GLViewImpl::createWithRect("GameBai", Rect(0, 0, 800, 480));
-		//glview = cocos2d::GLViewImpl::createWithRect("GameBai", Rect(0, 0, 854, 480));
-		//glview = cocos2d::GLViewImpl::createWithRect("GameBai", Rect(0, 0, 720, 480));
-#else	
-		glview = cocos2d::GLViewImpl::create("GameBai");
+#if(CC_TARGET_PLATFORM == CC_PLATFORM_WP8) || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
+        glview = cocos2d::GLViewImpl::create("GameBai2");
+#else
+        glview = cocos2d::GLViewImpl::createWithRect("GameBai2", Rect(0,0,960,640));
 #endif
         director->setOpenGLView(glview);
 }
 
     // set FPS. the default value is 1.0/60 if you don't call this
-    director->setAnimationInterval(1.0 / 60);
-    
+    director->setAnimationInterval(1.0f / 60);
+
 	std::string externalPath = FileUtils::getInstance()->getWritablePath() + "Game/";
 	FileUtils::getInstance()->addSearchPath("res/Game/", true);
-//	FileUtils::getInstance()->addSearchPath("src/", false);
+	FileUtils::getInstance()->addSearchPath("src/", false);
 	FileUtils::getInstance()->addSearchPath(externalPath, true);
 
 	/*decrypt*/
 	std::vector<unsigned char> aesKey = { 0x2c, 0x32, 0xc3, 0xfe, 0x2c, 0xd9, 0x37, 0xf0, 0x74, 0x38, 0xe5, 0xda, 0xed, 0xc0, 0x72, 0x99 };
 	// aes: LDLD/izZN/B0OOXa7cBymQ==
-	decryptor::Decryptor::getInstance()->setDecryptKey((const char*) aesKey.data());
+	decryptor::Decryptor::getInstance()->setDecryptKey((const char*)aesKey.data());
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
-    // set writePath no backup
-    auto writePath = FileUtils::getInstance()->getWritablePath();
-    c_to_objC_set_iClound_no_backup_folder(writePath.c_str());
+	// set writePath no backup
+	auto writePath = FileUtils::getInstance()->getWritablePath();
+	c_to_objC_set_iClound_no_backup_folder(writePath.c_str());
 #endif
 
-	/*startJS*/
-	ScriptingCore* sc = ScriptingCore::getInstance();
-	sc->addRegisterCallback(register_all_cocos2dx);
-	sc->addRegisterCallback(register_cocos2dx_js_core);
-	sc->addRegisterCallback(jsb_register_system);
 
-	// extension can be commented out to reduce the package
-	sc->addRegisterCallback(register_all_cocos2dx_extension);
-	sc->addRegisterCallback(register_all_cocos2dx_extension_manual);
+    ScriptingCore* sc = ScriptingCore::getInstance();
+    sc->addRegisterCallback(register_all_cocos2dx);
+    sc->addRegisterCallback(register_cocos2dx_js_core);
+    sc->addRegisterCallback(jsb_register_system);
 
-	// chipmunk can be commented out to reduce the package
-	sc->addRegisterCallback(jsb_register_chipmunk);
-	// opengl can be commented out to reduce the package
-	sc->addRegisterCallback(JSB_register_opengl);
+    // extension can be commented out to reduce the package
+    sc->addRegisterCallback(register_all_cocos2dx_extension);
+    sc->addRegisterCallback(register_all_cocos2dx_extension_manual);
 
-	// builder can be commented out to reduce the package
-	sc->addRegisterCallback(register_all_cocos2dx_builder);
-	sc->addRegisterCallback(register_CCBuilderReader);
+    // chipmunk can be commented out to reduce the package
+    sc->addRegisterCallback(jsb_register_chipmunk);
+    // opengl can be commented out to reduce the package
+    sc->addRegisterCallback(JSB_register_opengl);
 
-	// ui can be commented out to reduce the package, attension studio need ui module
-	sc->addRegisterCallback(register_all_cocos2dx_ui);
-	sc->addRegisterCallback(register_all_cocos2dx_ui_manual);
+    // builder can be commented out to reduce the package
+    sc->addRegisterCallback(register_all_cocos2dx_builder);
+    sc->addRegisterCallback(register_CCBuilderReader);
 
-	// studio can be commented out to reduce the package,
-	sc->addRegisterCallback(register_all_cocos2dx_studio);
-	sc->addRegisterCallback(register_all_cocos2dx_studio_manual);
+    // ui can be commented out to reduce the package, attention studio need ui module
+    sc->addRegisterCallback(register_all_cocos2dx_ui);
+    sc->addRegisterCallback(register_all_cocos2dx_ui_manual);
 
-	// spine can be commented out to reduce the package
-	sc->addRegisterCallback(register_all_cocos2dx_spine);
-	sc->addRegisterCallback(register_all_cocos2dx_spine_manual);
+    // studio can be commented out to reduce the package,
+    sc->addRegisterCallback(register_all_cocos2dx_studio);
+    sc->addRegisterCallback(register_all_cocos2dx_studio_manual);
 
-	// XmlHttpRequest can be commented out to reduce the package
-	sc->addRegisterCallback(MinXmlHttpRequest::_js_register);
-	// websocket can be commented out to reduce the package
-	sc->addRegisterCallback(register_jsb_websocket);
-	// sokcet io can be commented out to reduce the package
-	sc->addRegisterCallback(register_jsb_socketio);
+    // spine can be commented out to reduce the package
+    sc->addRegisterCallback(register_all_cocos2dx_spine);
+    sc->addRegisterCallback(register_all_cocos2dx_spine_manual);
 
-	// 3d can be commented out to reduce the package
-	sc->addRegisterCallback(register_all_cocos2dx_3d);
-	sc->addRegisterCallback(register_all_cocos2dx_3d_manual);
+    // XmlHttpRequest can be commented out to reduce the package
+    sc->addRegisterCallback(MinXmlHttpRequest::_js_register);
+    // websocket can be commented out to reduce the package
+    sc->addRegisterCallback(register_jsb_websocket);
+    // socket io can be commented out to reduce the package
+    sc->addRegisterCallback(register_jsb_socketio);
+    // Downloader
+    sc->addRegisterCallback(register_all_cocos2dx_network);
 
-	// 3d extension can be commented out to reduce the package
-	sc->addRegisterCallback(register_all_cocos2dx_3d_extension);
+    // 3d can be commented out to reduce the package
+    sc->addRegisterCallback(register_all_cocos2dx_3d);
+    sc->addRegisterCallback(register_all_cocos2dx_3d_manual);
+
+    // 3d extension can be commented out to reduce the package
+    sc->addRegisterCallback(register_all_cocos2dx_3d_extension);
 
 #if CC_USE_3D_PHYSICS && CC_ENABLE_BULLET_INTEGRATION
-	// Physics 3d can be commented out to reduce the package
-	sc->addRegisterCallback(register_all_cocos2dx_physics3d);
-	sc->addRegisterCallback(register_all_cocos2dx_physics3d_manual);
+    // Physics 3d can be commented out to reduce the package
+    sc->addRegisterCallback(register_all_cocos2dx_physics3d);
+    sc->addRegisterCallback(register_all_cocos2dx_physics3d_manual);
 #endif
 
 #if CC_USE_NAVMESH
-	sc->addRegisterCallback(register_all_cocos2dx_navmesh);
-	sc->addRegisterCallback(register_all_cocos2dx_navmesh_manual);
+    sc->addRegisterCallback(register_all_cocos2dx_navmesh);
+    sc->addRegisterCallback(register_all_cocos2dx_navmesh_manual);
 #endif
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-	sc->addRegisterCallback(register_all_cocos2dx_experimental_video);
-	sc->addRegisterCallback(register_all_cocos2dx_experimental_video_manual);
-	sc->addRegisterCallback(register_all_cocos2dx_experimental_webView);
-	sc->addRegisterCallback(register_all_cocos2dx_experimental_webView_manual);
+    sc->addRegisterCallback(register_all_cocos2dx_experimental_video);
+    sc->addRegisterCallback(register_all_cocos2dx_experimental_video_manual);
+    sc->addRegisterCallback(register_all_cocos2dx_experimental_webView);
+    sc->addRegisterCallback(register_all_cocos2dx_experimental_webView_manual);
 #endif
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT || CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_MAC || CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-	sc->addRegisterCallback(register_all_cocos2dx_audioengine);
+    sc->addRegisterCallback(register_all_cocos2dx_audioengine);
 #endif
+
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	sc->addRegisterCallback(JavascriptJavaBridge::_js_register);
+    sc->addRegisterCallback(JavascriptJavaBridge::_js_register);
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
-	sc->addRegisterCallback(JavaScriptObjCBridge::_js_register);
+    sc->addRegisterCallback(JavaScriptObjCBridge::_js_register);
 #endif
 
 	//custom
@@ -215,53 +230,31 @@ bool AppDelegate::applicationDidFinishLaunching()
 	sc->addRegisterCallback(register_all_quyetnd_facebook_plugin);
 	sc->addRegisterCallback(register_all_quyetnd_resourcesloader);
 
-	sc->start();
-
-	sc->runScript("script/jsb_boot.js");
+    sc->start();
+    sc->runScript("script/jsb_boot.js");
 #if defined(COCOS2D_DEBUG) && (COCOS2D_DEBUG > 0)
-	sc->enableDebugger();
+    sc->enableDebugger();
 #endif
+    ScriptEngineProtocol *engine = ScriptingCore::getInstance();
+    ScriptEngineManager::getInstance()->setScriptEngine(engine);
+    ScriptingCore::getInstance()->runScript("src/main.js");
 
-	ScriptEngineProtocol *engine = ScriptingCore::getInstance();
-	ScriptEngineManager::getInstance()->setScriptEngine(engine);
-
-	//std::string mainJSFilename = "main.js";
-	//GameFile* mainJs = GameLaucher::getInstance()->getFile("js/" + mainJSFilename);
-	//if (!mainJs){
-	//	MD5 md5;
-	//	md5.update(mainJSFilename.data(), mainJSFilename.size());
-	//	md5.update(aesKey.data(), aesKey.size());
-	//	md5.finalize();
-
-	//	mainJSFilename = md5.hexdigest() + ".js";
-	//	mainJs = GameLaucher::getInstance()->getFile("js/" + mainJSFilename);
-	//}
-	//
-	//if (mainJs && mainJs->test()){
-	//	std::string file = FileUtils::getInstance()->fullPathForFilename(mainJs->fileName);
-	//	if (file != ""){
-	//		bool b = ScriptingCore::getInstance()->runScript(file);
-	//		if (b){
-	//			return true;
-	//		}		
-	//	}
-	//}
-	
-	std::string file = FileUtils::getInstance()->fullPathForFilename("src/main.js");
-	ScriptingCore::getInstance()->runScript(file);
     return true;
 }
 
-
-// This function will be called when the app is inactive. When comes a phone call,it's be invoked too
+// This function will be called when the app is inactive. Note, when receiving a phone call it is invoked.
 void AppDelegate::applicationDidEnterBackground()
 {
     auto director = Director::getInstance();
     director->stopAnimation();
     director->getEventDispatcher()->dispatchCustomEvent("game_on_hide");
-    //SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
-    //SimpleAudioEngine::getInstance()->pauseAllEffects();
-	cocos2d::experimental::AudioEngine::pauseAll();
+
+#if USE_AUDIO_ENGINE
+    AudioEngine::pauseAll();
+#elif USE_SIMPLE_AUDIO_ENGINE
+    SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
+    SimpleAudioEngine::getInstance()->pauseAllEffects();
+#endif
 }
 
 // this function will be called when the app is active again
@@ -270,7 +263,11 @@ void AppDelegate::applicationWillEnterForeground()
     auto director = Director::getInstance();
     director->startAnimation();
     director->getEventDispatcher()->dispatchCustomEvent("game_on_show");
-    //SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
-    //SimpleAudioEngine::getInstance()->resumeAllEffects();
-	cocos2d::experimental::AudioEngine::resumeAll();
+
+#if USE_AUDIO_ENGINE
+    AudioEngine::resumeAll();
+#elif USE_SIMPLE_AUDIO_ENGINE
+    SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
+    SimpleAudioEngine::getInstance()->resumeAllEffects();
+#endif
 }

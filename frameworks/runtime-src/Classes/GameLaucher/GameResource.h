@@ -16,29 +16,28 @@ namespace quyetnd {
 typedef std::function<void(int)> UpdateHandler;
     
 struct WriteDataHandler{
-	//std::function<size_t(void*, size_t, size_t)> mHander;
     FILE* file;
 	MD5* md5;
     UpdateHandler handler;
 };
 class GameFile {
 	bool isExistFile(const std::string& filePath);
-	bool checkHashFile();
 	bool checkHashFileContent();
-
-	//size_t writeData(void *ptr, size_t size, size_t nmemb, FILE *fp);
+	
 	std::string downloadHash;
-public:
+
 	std::string fileName;
-	std::string filePath;
 	std::string md5Digest;
+public:
+	std::string fullPath;
 	int fileSize;
 public:
-	GameFile();
+	GameFile(const std::string& fileName, const std::string& md5Digest, int fileSize);
+
 	virtual ~GameFile();
 	bool test();
 	int update(const std::string& url, bool zipFileAvailable, UpdateHandler handler = nullptr);
-   // int updateNoHandler(const std::string& url, std::function<void(int)> updateHandler = nullptr);
+	void getFullPath();
 };
 
 

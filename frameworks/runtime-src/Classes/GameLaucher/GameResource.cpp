@@ -19,22 +19,36 @@
 #include <sys/stat.h>
 #include "../Plugin/MD5.h"
 USING_NS_CC;
-#include "network/HttpClient.h"
+//#include "network/HttpClient.h"
 #include "GameLaucher.h"
 #include <stdio.h>
 
+static std::mutex s_fileUtils_mutex;
+static std::string s_getWritablePath = "";
+
 namespace quyetnd {
 
-GameFile::GameFile() {
+GameFile::GameFile(const std::string& fileName, const std::string& md5Digest, int fileSize) {
 	// TODO Auto-generated constructor stub
-	fileName = "";
-	filePath = "";
-	md5Digest = "";
+	this->fileName = fileName;
+	this->md5Digest = md5Digest;
+	this->fileSize = fileSize;
 	downloadHash = "";
+	this->getFullPath(); 
 }
 
 GameFile::~GameFile() {
 	// TODO Auto-generated destructor stub
+}
+
+void GameFile::getFullPath(){
+	//s_fileUtils_mutex.lock();
+	if (s_getWritablePath == ""){
+		s_getWritablePath = FileUtils::getInstance()->getWritablePath();
+		CCLOG("s_getWritablePath: %s", s_getWritablePath.c_str());
+	}
+	fullPath = FileUtils::getInstance()->fullPathForFilename(fileName);
+	//s_fileUtils_mutex.unlock();
 }
 
 bool GameFile::isExistFile(const std::string& filePath){
@@ -51,42 +65,9 @@ bool GameFile::isExistFile(const std::string& filePath){
 	return pret;
 }
 
-#define HASH_BUFFER_SIZE 1024
-static char *s_hashBuffer = 0;
-bool GameFile::checkHashFile(){
-	std::string fullPath = FileUtils::getInstance()->fullPathForFilename(filePath);
-	FILE *file = fopen(fullPath.c_str(), "rb");
-	if (file){
-		if (!s_hashBuffer){
-			s_hashBuffer = new char[HASH_BUFFER_SIZE];
-		}
-		MD5 md5;
-		size_t n;
-		bool pret = false;
-		while (true){
-			n = fread(s_hashBuffer, 1, HASH_BUFFER_SIZE, file);
-			if (n > 0){
-				md5.update(s_hashBuffer, n);
-			}
-			else{
-				break;
-			}
-		}
-		md5.finalize();
-		std::string md5Str = md5.hexdigest();
-		//std::transform(md5Str.begin(), md5Str.end(), md5Str.begin(), ::tolower);
-		if (md5Str == md5Digest){
-			pret = true;
-		}
-		fclose(file);
-		return pret;
-	}
-	return checkHashFileContent();
-}
-
 bool GameFile::checkHashFileContent(){
 	Data d;
-	FileUtils::getInstance()->getContents(filePath, &d);
+	FileUtils::getInstance()->getContents(fullPath, &d);
 	char* mData = (char*)d.getBytes();
 	ssize_t fileSize = d.getSize();
 
@@ -126,82 +107,20 @@ bool GameFile::test(){
 		return true;
 	}
 #endif
-	filePath = FileUtils::getInstance()->getWritablePath() + "Game/" + fileName;
-//	filePath = FileUtils::getInstance()->fullPathForFilename(filePath);
-	if (!isExistFile(filePath)){
-		filePath = "res/Game/" + fileName;
-		if (!FileUtils::getInstance()->isFileExist(filePath)){
-			filePath = "";
-		}
-	}
-	
-	if (filePath != ""){
-		bool b = checkHashFile();
-		if (b){
-			return true;
-		}
-		else{
-			CCLOG("Test Invalid hash");
-		}
-	}
-	else{
+	if (!FileUtils::getInstance()->isFileExist(fullPath)){
+		fullPath = "";
+
 		CCLOG("Test file not found");
+		return false;
 	}
-	//failure	
-	filePath = FileUtils::getInstance()->getWritablePath() + "Game/" + fileName;
+
+	if (checkHashFileContent()){
+		return true;
+	}
+	CCLOG("Test Invalid hash");
 	return false;
 #endif
 }
-
-//inline void _gamefile_create_folder_tree(const std::string& filePath){
-//	//create parent
-//	size_t n = filePath.find_last_of("/");
-//	std::string parentFolder = filePath.substr(0, n);
-//	
-//	//create folder
-//	struct stat info;
-//	bool _parent = false;
-//	if (stat(parentFolder.c_str(), &info) != 0){
-//		_parent = false;
-//	}
-//	else if (info.st_mode & S_IFDIR){  // S_ISDIR() doesn't exist on my windows
-//		_parent = true;
-//	}
-//	else{
-//		_parent = false;
-//	}
-//	if (!_parent){
-//		_gamefile_create_folder_tree(parentFolder);
-//	}
-//
-//#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
-//	_mkdir(filePath.c_str());
-//#else
-//	mkdir(filePath.c_str(), 0770);
-//#endif
-//}
-//
-//inline void _gamefile_create_parent_folder(const std::string& filePath){
-//	size_t n = filePath.find_last_of("/");
-//	std::string parentFolder = filePath.substr(0, n);
-//
-//	struct stat info;
-//	bool folderExist = false;
-//
-//	if (stat(parentFolder.c_str(), &info) != 0){
-//		folderExist = false;
-//	}
-//	else if (info.st_mode & S_IFDIR){  // S_ISDIR() doesn't exist on my windows
-//		folderExist = true;
-//	}
-//	else{
-//		folderExist = false;
-//	}
-//
-//	if (!folderExist){		
-//		_gamefile_create_folder_tree(parentFolder);
-//	}
-//}
 
 size_t _GameFile_write_data_handler(void *ptr, size_t size, size_t nmemb, WriteDataHandler* writer) {
     size_t written = fwrite(ptr, size, nmemb, writer->file);
@@ -214,17 +133,6 @@ size_t _GameFile_write_data_handler(void *ptr, size_t size, size_t nmemb, WriteD
     return written;
 }
 
-//size_t _GameFile_write_data(void *ptr, size_t size, size_t nmemb, FILE *fp) {
-//	size_t written = fwrite(ptr, size, nmemb, fp);
-//	return written;
-//}
-//
-//size_t GameFile::writeData(void *ptr, size_t size, size_t nmemb, FILE *fp){
-//	size_t written = fwrite(ptr, size, nmemb, fp);
-//	GameLaucher::getInstance()->onUpdateDownloadProcess((int)(nmemb * size));
-//	return written;
-//}
-
 inline std::string _getFileName(const std::string& filePath){
 	auto pos =  filePath.find_last_of("/");
 	if (pos != std::string::npos){
@@ -234,31 +142,37 @@ inline std::string _getFileName(const std::string& filePath){
 	return filePath;
 }
 
-int GameFile::update(const std::string& url, bool zipFileAvailable, UpdateHandler handler){
+int GameFile::update(const std::string& host, bool zipFileAvailable, UpdateHandler handler){
 	//load from url
+	std::string url = host + fileName;
+
 	CURL *curl;
 	CURLcode res;
 	curl = curl_easy_init();
 	if (curl != NULL) {
 		//_gamefile_create_parent_folder(filePath);
-		size_t n = filePath.find_last_of("/");
-		std::string parentFolder = filePath.substr(0, n);
+		std::string writePath = s_getWritablePath + "Game/" + fileName;
+		size_t n = writePath.find_last_of("/");
+		std::string parentFolder = writePath.substr(0, n);
+
+		s_fileUtils_mutex.lock();
 		if (!FileUtils::getInstance()->isDirectoryExist(parentFolder)){
 			FileUtils::getInstance()->createDirectory(parentFolder);
 		}
+		s_fileUtils_mutex.unlock();
 
 		FILE *fp;
 		std::string zipFilePath = "";
 		std::string zipFileName = "";
 
 		if (zipFileAvailable){
-			zipFilePath = filePath + ".zip";
+			zipFilePath = writePath + ".zip";
 			fp = fopen(zipFilePath.c_str(), "wb");
 
 			zipFileName = _getFileName(fileName);
 		}
 		else{
-			fp = fopen(filePath.c_str(), "wb");
+			fp = fopen(writePath.c_str(), "wb");
 		}
 		
 		if (fp != NULL) {
@@ -296,7 +210,7 @@ int GameFile::update(const std::string& url, bool zipFileAvailable, UpdateHandle
 					CCLOG("unzip: %s", zipFilePath.c_str());
 					unsigned char* data = FileUtils::getInstance()->getFileDataFromZip(zipFilePath, zipFileName, &dataSize);
 					if (data && dataSize > 0){
-						FILE* file = fopen(filePath.c_str(), "wb");
+						FILE* file = fopen(writePath.c_str(), "wb");
 						fwrite(data, 1, dataSize, file);
 						fclose(file);
 
@@ -320,14 +234,14 @@ int GameFile::update(const std::string& url, bool zipFileAvailable, UpdateHandle
 					}
 					else{
 						CCLOG("download file invalid hash: %s -> delete file", url.c_str());
-						remove(filePath.c_str());
+						remove(fileName.c_str());
 						return 1;
 					}
 				}			
 			}
 			else{
 				CCLOG("download file network error[%d]: %s", res, url.c_str());
-				remove(filePath.c_str());
+				remove(fileName.c_str());
 				return 2;
 			}		
 			
@@ -339,57 +253,5 @@ int GameFile::update(const std::string& url, bool zipFileAvailable, UpdateHandle
 	}
 	return 4;
 }
-
-//int GameFile::updateNoHandler(const std::string& url){
-//	//load from url
-//	CURL *curl;
-//	CURLcode res;
-//	auto root = FileUtils::getInstance()->getWritablePath();
-//	curl = curl_easy_init();
-//
-//	int pret = 0;
-//	if (curl != NULL) {
-//		_gamefile_create_parent_folder(filePath);
-//
-//		FILE *fp;
-//		fp = fopen(filePath.c_str(), "wb");
-//		if (fp != NULL) {
-//			curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
-//			curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, true);
-//			curl_easy_setopt(curl, CURLOPT_AUTOREFERER, true);
-//			curl_easy_setopt(curl, CURLOPT_MAXREDIRS, 10);
-//			curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, 120);
-//			curl_easy_setopt(curl, CURLOPT_TIMEOUT, 120);
-//			curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, true);
-//			curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, _GameFile_write_data);
-//			curl_easy_setopt(curl, CURLOPT_WRITEDATA, fp);
-//			res = curl_easy_perform(curl);
-//			curl_easy_cleanup(curl);
-//			if (res == CURLE_OK) {
-//				fclose(fp);				
-//				if (this->test()){ 
-//					CCLOG("download file OK : %s", url.c_str());
-//					return 0;
-//				}
-//				else{
-//					CCLOG("download file invalid hash: %s -> delete file", url.c_str());
-//					remove(filePath.c_str());
-//					return 1;
-//				}
-//			}
-//			else{
-//				CCLOG("download file network error[%d]: %s", res, url.c_str());
-//				fclose(fp);
-//				return 2;
-//			}
-//
-//		}
-//		else{
-//			CCLOG("download file cannot create file:  %s", url.c_str());
-//			return 3;
-//		}
-//	}
-//	return 4;
-//}
 
 } /* namespace quyetnd */
