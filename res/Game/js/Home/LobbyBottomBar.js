@@ -7,15 +7,20 @@ var LobbyBottomBar = cc.Node.extend({
         this._super();
         this.setAnchorPoint(cc.p(0,0));
 
-        var bg = new cc.Sprite("#bot_bar_bg.png");
-        bg.setAnchorPoint(cc.p(0,0));
-        bg.setPosition(cc.p(0,0));
-        this.addChild(bg);
+        var barBg = new cc.Sprite("#login_bar_bg.png");
+        barBg.setAnchorPoint(cc.p(0,0));
+        barBg.setPosition(cc.p(0,0));
+        this.addChild(barBg);
 
-        var bg2 = new cc.Sprite("#bot_bar_avt_bg.png");
-        bg2.setAnchorPoint(cc.p(0,0));
-        bg2.setPosition(cc.p(0,0));
-        this.addChild(bg2);
+        var barBg1 = new cc.Sprite("#login_bar_bg_1.png");
+        barBg1.setAnchorPoint(cc.p(0,0));
+        barBg1.setPosition(cc.p(0,0));
+        this.addChild(barBg1);
+
+        var barBg2 = new cc.Sprite("#login_bar_bg_2.png");
+        barBg2.setAnchorPoint(cc.p(0,0));
+        barBg2.setPosition(cc.p(0,0));
+        this.addChild(barBg2);
 
         var logo = new cc.Sprite("#bot_bar_logo.png");
         logo.setPosition(640, 68);
@@ -41,13 +46,14 @@ var LobbyBottomBar = cc.Node.extend({
         this.goldLabel = goldLabel;
 
         var level = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "6");
-        level.setPosition(340, 41);
+        level.setPosition(400, 41);
         level.setColor(cc.color("#009cff"));
         this.addChild(level, 1);
         this.levelLabel = level;
 
         var vip = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "6");
-        vip.setPosition(400, 41);
+       // vip.setPosition(400, 41);
+        vip.setPosition(1280 - 400, 41);
         vip.setColor(cc.color("#ffde00"));
         this.addChild(vip, 1);
         this.vipLabel = vip;
@@ -90,7 +96,7 @@ var LobbyBottomBar = cc.Node.extend({
         }
 
         var paymentBt = new ccui.Button("bot_bar_paymentBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        paymentBt.setPosition(1040, 35);
+        paymentBt.setPosition(1140, 40);
         this.addChild(paymentBt);
 
         var userinfoBt = new ccui.Widget();

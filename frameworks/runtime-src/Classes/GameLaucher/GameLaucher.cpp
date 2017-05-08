@@ -18,6 +18,70 @@
 #include "scripting/js-bindings/manual/cocos2d_specifics.hpp"
 #include "WorkerManager.h"
 
+static unsigned char aes_key[16] = { 0x33, 0x5a, 0x35, 0x16, 0x96, 0xff, 0xe8, 0x20, 0xa1, 0x62, 0x16, 0xbe, 0x77, 0x6a, 0x4e, 0xea };
+std::string _createJsonConfig(const std::map<std::string, std::string>& params){
+	rapidjson::Document document;
+	document.SetObject();
+
+	for (auto it = params.begin(); it != params.end(); it++){
+		rapidjson::Value value;
+		value.SetString(it->second.data(), it->second.size(), document.GetAllocator());
+
+		rapidjson::Value key;
+		key.SetString(it->first.data(), it->first.size(), document.GetAllocator());
+		document.AddMember(key, value, document.GetAllocator());
+	}
+
+	rapidjson::StringBuffer buffer;
+	buffer.Clear();
+	rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
+	document.Accept(writer);
+	return std::string(buffer.GetString());
+}
+
+static const char HEX_CHAR[17] = "0123456789ABCDEF";
+std::string _URLEncode(const std::string& data){
+	std::string pRet = "";
+	for (int i = 0; i<data.size(); i++){
+		if (('0' <= data[i] && data[i] <= '9') ||
+			('a' <= data[i] && data[i] <= 'z') ||
+			('A' <= data[i] && data[i] <= 'Z') ||
+			(data[i] == '-' || data[i] == '_' || data[i] == '.' || data[i] == '~')){
+			pRet.append(&data[i], 1);
+		}
+		else{
+			//to hext
+			pRet.append("%");
+			char dig1 = (data[i] & 0xF0) >> 4;
+			char dig2 = (data[i] & 0x0F);
+			pRet.append(&HEX_CHAR[dig1], 1);
+			pRet.append(&HEX_CHAR[dig2], 1);
+		}
+	}
+	return pRet;
+}
+//inline bool _isxdigit(char c){
+//	if ('0' <= c && c <= '9'){
+//		return true;
+//	}
+//	if ('a' <= c && c <= 'f'){
+//		return true;
+//	}
+//	if ('A' <= c && c <= 'F'){
+//		return true;
+//	}
+//	return false;
+//}
+//char _charxtoint(char c){
+//	if ('0' <= c && c <= '9'){
+//		return (c - '0');
+//	}
+//	if ('a' <= c && c <= 'f'){
+//		return (c - 'a' + 10);
+//	}
+//	return (c - 'A' + 10);
+//}
+
 namespace quyetnd {
 
 GameLaucher::GameLaucher() {
@@ -95,56 +159,82 @@ void GameLaucher::update(float dt){
 	}
 }
 
+/*acs config*/
+#define ACS_URL "http://42.112.25.165/gaia_acs?"
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+#define ACS_PLATFORM_NAME "Android"
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+#define ACS_PLATFORM_NAME "IOS"
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
+#define ACS_PLATFORM_NAME "Winphone"
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+#define ACS_PLATFORM_NAME "Win32"
+#else
+#define ACS_PLATFORM_NAME "Android"
+#endif
+
 void GameLaucher::requestGetUpdate(){
 #ifdef FORCE_UPDATE
 	this->checkVersionFile();
 	return;
-#endif
+#else
 
-	//resourceHost = "";
-	versionHash = "";
-//	this->checkVersionFile();
-	this->checkFiles();
-	return;
+	std::string versionName = quyetnd::SystemPlugin::getInstance()->getVersionName();
+	std::string bundleName = quyetnd::SystemPlugin::getInstance()->getPackageName();
+	std::map<std::string, std::string> params;
+	params.insert(std::make_pair("bundleName", bundleName));
+	params.insert(std::make_pair("version", versionName));
+	params.insert(std::make_pair("platformName", ACS_PLATFORM_NAME));
+	std::string json = _createJsonConfig(params);
+	std::string paramsStr = quyetnd::SystemPlugin::getInstance()->dataEncryptBase64((char*)aes_key, json);
+	std::string httpString = std::string(ACS_URL) + "params=" + _URLEncode(paramsStr);
 
-	std::string urlRequest = "http://10.0.1.106/quyetnd/GBVCity/acs.json";
 	cocos2d::network::HttpRequest* request = new cocos2d::network::HttpRequest();
-	request->setUrl(urlRequest.c_str());
+	request->setUrl(httpString.c_str());
 	request->setRequestType(cocos2d::network::HttpRequest::Type::GET);
 	request->setResponseCallback([=](cocos2d::network::HttpClient* client, cocos2d::network::HttpResponse* response){
 		if (response->isSucceed()){
 			std::vector<char>* mData = response->getResponseData();
-			std::string data(mData->begin(), mData->end());
+			mData->push_back('\0');
+			CCLOG("data: %s", mData->data());
+
+			std::string base64Encrypt(mData->data());
+			std::string json = quyetnd::SystemPlugin::getInstance()->dataDecryptBase64((char*)aes_key, base64Encrypt);
+			//std::string json = "{\"UpdateConfig\":{\"host\":\"https://c567vip.com/demo/0/\",\"versionHash\":\"40faea0cff55e29873ae0d04ffeb6d68\"}}";
+			CCLOG("json: %s", json.c_str());
+
 			rapidjson::Document doc;
-			bool error = doc.Parse<0>(data.data()).HasParseError();
+			bool error = doc.Parse<0>(json.data()).HasParseError();
 			if (!error){
-				std::string updateHost = doc["UpdateHost"].GetString();
-				std::string versionHash = doc["LastVersionHash"].GetString();
+				if (doc.HasMember("UpdateConfig")){
+					std::string updateHost = doc["UpdateConfig"]["host"].GetString();
+					std::string versionHash = doc["UpdateConfig"]["versionHash"].GetString();
 
-				const rapidjson::Value& configValue = doc["config"];
-				rapidjson::StringBuffer stringBuffer;
-				rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(stringBuffer);
-				configValue.Accept(writer);
-				std::string gameConfig = stringBuffer.GetString();
+					CCLOG("updateHost: %s", updateHost.c_str());
+					CCLOG("hashVersionFile: %s", versionHash.c_str());
 
-				CCLOG("updateHost: %s", updateHost.c_str());
-				CCLOG("hashVersionFile: %s", versionHash.c_str());
-				CCLOG("config: %s", gameConfig.c_str());
+					this->resourceHost = updateHost;
+					this->versionHash = versionHash;
 
-				this->resourceHost = updateHost;
-				this->versionHash = versionHash;
-
-				this->checkVersionFile();
-				return;
+					this->checkVersionFile();
+					return;
+				}
+				
 			}
 		}
 
 		CCLOG("loi ket noi mang");
-		this->requestGetUpdate();
+		this->onProcessStatus(GameLaucherStatus::UpdateFailure);
+
+		Director::getInstance()->getScheduler()->schedule([=](float){
+			Director::getInstance()->getScheduler()->unschedule("acs_update", this);
+			this->requestGetUpdate();
+		}, this, 1.0, false, "acs_update");
 	});
 
 	cocos2d::network::HttpClient::getInstance()->send(request);
 	request->release();
+#endif
 }
 
 void GameLaucher::checkVersionFile(){

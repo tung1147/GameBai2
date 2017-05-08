@@ -183,7 +183,6 @@ var XocDiaBettingSlot = cc.Node.extend({
 var XocDiaScene = IGameScene.extend({
     ctor: function () {
         this._super();
-        this.gameTopBar.chatBt.visible = false;
         this._historyData = [];
         this.chipTagMe = 100;
         this.chipTagOther = 200;

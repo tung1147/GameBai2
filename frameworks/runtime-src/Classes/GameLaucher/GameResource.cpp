@@ -86,7 +86,7 @@ bool GameFile::checkHashFileContent(){
 
 #if defined(COCOS2D_DEBUG) && (COCOS2D_DEBUG > 0)
 #ifndef FORCE_UPDATE
-#define GAME_FILE_NOT_HASH 1
+//#define GAME_FILE_NOT_HASH 1
 #endif
 #endif
 
@@ -99,7 +99,7 @@ inline bool string_end_with(const std::string &str, const std::string &strend) {
 
 bool GameFile::test(){
 #ifdef GAME_FILE_NOT_HASH
-	filePath = "res/Game/" + fileName;
+	fullPath = "res/Game/" + fileName;
 	return true;
 #else	
 #if CC_TARGET_PLATFORM != CC_PLATFORM_ANDROID
