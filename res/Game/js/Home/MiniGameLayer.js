@@ -10,18 +10,18 @@ var MiniGameCell = ccui.Widget.extend({
         this.allMiniLayer = [];
 
         var gameIcon = new cc.Sprite("#lobby-minigame" + (gameId) + ".png");
-        gameIcon.setPosition(46, this.getContentSize().height / 2);
+        gameIcon.setPosition(66, this.getContentSize().height / 2);
         this.addChild(gameIcon);
 
         var gameGold = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, "0V");
         gameGold.setAnchorPoint(cc.p(0.0, 0.5));
-        gameGold.setPosition(92.0, this.getContentSize().height / 2 - 18.0);
+        gameGold.setPosition(112.0, this.getContentSize().height / 2 - 18.0);
         gameGold.setColor(cc.color(255, 222, 0));
         this.addChild(gameGold);
 
         var gameNameLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, gameName);
         gameNameLabel.setAnchorPoint(cc.p(0.0, 0.5));
-        gameNameLabel.setPosition(92.0, this.getContentSize().height / 2 + 18.0);
+        gameNameLabel.setPosition(112.0, this.getContentSize().height / 2 + 18.0);
         this.addChild(gameNameLabel);
 
         this.gameGold = gameGold;
@@ -75,7 +75,7 @@ var MiniGameLayer = cc.Node.extend({
         rightBt.setFlippedX(true);
         miniGameBar.addChild(rightBt);
 
-        var bg = new ccui.Scale9Sprite("home-minigame-bg.png", cc.rect(8, 0, 4, 384));
+        var bg = new ccui.Scale9Sprite("home-minigame-bg.png", cc.rect(10, 10, 4, 4));
         bg.setPreferredSize(cc.size(right - left, top - bottom));
         bg.setAnchorPoint(cc.p(0, 0));
         bg.setPosition(left, bottom);
