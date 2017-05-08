@@ -165,7 +165,7 @@ var LobbyTopBar = cc.Node.extend({
         this.messageText.runAction(new cc.RepeatForever(action));
     },
     refreshView : function () {
-        this.setMessage(GameConfig.broadcastMessage);
+        this.setMessage("Chào mừng bạn đến với game bài !!!");
     },
 
     onEnter : function () {
