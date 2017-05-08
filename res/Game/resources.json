@@ -94,7 +94,6 @@
         {"img": "res/game-poker-bg.png"},
         {"img": "res/gp_table.png"},
         {"img": "res/gp_table_poker.png"},
-        {"img": "res/loading_bg.jpg"},
         {
             "img": "res/CaoThap.png",
             "plist": "res/CaoThap.plist"
@@ -114,10 +113,6 @@
         {
             "img": "res/effectMini.png",
             "plist": "res/effectMini.plist"
-        },
-        {
-            "img": "res/emotion.png",
-            "plist": "res/emotion.plist"
         },
         {
             "img": "res/FloatButton.png",

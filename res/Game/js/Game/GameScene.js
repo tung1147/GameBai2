@@ -15,10 +15,6 @@ var GameTopBar = cc.Node.extend({
         settingBt.setPosition(1220, backBt.y);
         this.addChild(settingBt);
 
-        var chatBt = new ccui.Button("ingame-chatBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        chatBt.setPosition(1120, backBt.y);
-        this.addChild(chatBt);
-
         this.setAnchorPoint(0.0, 1.0);
         this.setContentSize(1280.0, 720.0);
         this.setPosition(0.0, 720.0);
@@ -26,8 +22,6 @@ var GameTopBar = cc.Node.extend({
 
         this.backBt = backBt;
         this.settingBt = settingBt;
-        this.chatBt = chatBt;
-
     },
     onExit: function () {
         this._super();
@@ -85,17 +79,6 @@ var IGameScene = IScene.extend({
 
         gameTopBar.settingBt.addClickEventListener(function () {
             thiz.onSettingButtonHandler();
-        });
-
-        gameTopBar.chatBt.addClickEventListener(function () {
-            var dialog = new ChatDialog();
-            dialog.onTouchMessage = function (message) {
-                thiz.sendChatMessage(message);
-            };
-            dialog.onTouchEmotion = function (icon) {
-                thiz.sendEmotion(icon);
-            },
-            dialog.show();
         });
     },
     initController: function () {
