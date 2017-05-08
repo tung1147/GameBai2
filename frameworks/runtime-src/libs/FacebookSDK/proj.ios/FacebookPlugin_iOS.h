@@ -14,6 +14,7 @@
 @interface FacebookPlugin_iOS : NSObject{
     UIViewController* viewController;
     FBSDKLoginManager *loginManager;
+    NSString* loginID;
 }
 
 + (FacebookPlugin_iOS*) getInstance;

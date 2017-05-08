@@ -169,6 +169,7 @@ public class Cocos2dxGLSurfaceView extends GLSurfaceView {
 
     public void setCocos2dxEditText(final Cocos2dxEditBox pCocos2dxEditText) {
         this.mCocos2dxEditText = pCocos2dxEditText;
+
         /*mob by quyetnd*/
         int currentImeOption = this.mCocos2dxEditText.getImeOptions();
         int sdkVersion = Build.VERSION.SDK_INT;
@@ -178,6 +179,7 @@ public class Cocos2dxGLSurfaceView extends GLSurfaceView {
             this.mCocos2dxEditText.setImeOptions(currentImeOption | EditorInfo.IME_FLAG_NO_FULLSCREEN);
         }
         /**/
+
         if (null != this.mCocos2dxEditText && null != Cocos2dxGLSurfaceView.sCocos2dxTextInputWraper) {
             this.mCocos2dxEditText.setOnEditorActionListener(Cocos2dxGLSurfaceView.sCocos2dxTextInputWraper);
             this.requestFocus();

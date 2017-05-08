@@ -1,5 +1,5 @@
 /****************************************************************************
- Copyright (c) 2014 Chukong Technologies Inc.
+ Copyright (c) 2014-2017 Chukong Technologies Inc.
 
  http://www.cocos2d-x.org
 
@@ -66,6 +66,21 @@ std::unordered_map<int, AudioEngine::AudioInfo> AudioEngine::_audioIDInfoMap;
 AudioEngineImpl* AudioEngine::_audioEngineImpl = nullptr;
 
 AudioEngine::AudioEngineThreadPool* AudioEngine::s_threadPool = nullptr;
+
+AudioEngine::AudioInfo::AudioInfo()
+: filePath(nullptr)
+, profileHelper(nullptr)
+, volume(1.0f)
+, loop(false)
+, duration(TIME_UNKNOWN)
+, state(AudioState::INITIALIZING)
+{
+
+}
+
+AudioEngine::AudioInfo::~AudioInfo()
+{
+}
 
 class AudioEngine::AudioEngineThreadPool
 {
@@ -393,7 +408,7 @@ void AudioEngine::uncacheAll()
 float AudioEngine::getDuration(int audioID)
 {
     auto it = _audioIDInfoMap.find(audioID);
-    if (it != _audioIDInfoMap.end() && it->second.state != AudioState::INITIALZING)
+    if (it != _audioIDInfoMap.end() && it->second.state != AudioState::INITIALIZING)
     {
         if (it->second.duration == TIME_UNKNOWN)
         {
@@ -408,7 +423,7 @@ float AudioEngine::getDuration(int audioID)
 bool AudioEngine::setCurrentTime(int audioID, float time)
 {
     auto it = _audioIDInfoMap.find(audioID);
-    if (it != _audioIDInfoMap.end() && it->second.state != AudioState::INITIALZING){
+    if (it != _audioIDInfoMap.end() && it->second.state != AudioState::INITIALIZING) {
         return _audioEngineImpl->setCurrentTime(audioID, time);
     }
 
@@ -418,7 +433,7 @@ bool AudioEngine::setCurrentTime(int audioID, float time)
 float AudioEngine::getCurrentTime(int audioID)
 {
     auto it = _audioIDInfoMap.find(audioID);
-    if (it != _audioIDInfoMap.end() && it->second.state != AudioState::INITIALZING){
+    if (it != _audioIDInfoMap.end() && it->second.state != AudioState::INITIALIZING) {
         return _audioEngineImpl->getCurrentTime(audioID);
     }
     return 0.0f;
