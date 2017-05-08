@@ -87,6 +87,7 @@ var MiniGamePopup = cc.Node.extend({
             SoundPlayer.stopSoundLoop(this._rollingSound);
             this._rollingSound = null;
         }
+        this.setBettingSelectEnable(true);
     },
 
     performChangeRewardFund: function (data) {
