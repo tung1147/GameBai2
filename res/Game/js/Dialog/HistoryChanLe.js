@@ -34,7 +34,7 @@ var HistoryChanLe = IDialog.extend({
         }
 
         var listTai = new newui.ListViewWithAdaptor(mSize);
-        listTai.setPosition(dx , 100);
+        listTai.setPosition(dx+50 , 100);
         this.addChild(listTai);
         listTai.setCreateItemCallback(function () {
             return thiz._createCell();
@@ -59,7 +59,7 @@ var HistoryChanLe = IDialog.extend({
             view.cuaLabel.setColor(cc.color("#ffde00"));
         }
 
-        view.bettingLabel.setString(data["betting"]);
+        view.bettingLabel.setString(cc.Global.NumberFormat1(data["betting"]));
 
         if(data["ketqua"] == TX_CUA_TAI){
             view.resuftabel.setString("Tài");
@@ -71,15 +71,15 @@ var HistoryChanLe = IDialog.extend({
         }
 
 
-        view.returnLabel.setString(data["tra"]);
-        view.receiewLabel.setString(data["nhan"]);
+        view.returnLabel.setString(cc.Global.NumberFormat1(data["tra"]));
+        view.receiewLabel.setString(cc.Global.NumberFormat1(data["nhan"]));
     },
     _createCell : function () {
 
         // var _arrPos = [61, 211, 362, 477, 605, 733, 857];
         var _arrPos = _arrPosHisoty ;
         var container = new ccui.Widget();
-        container.setContentSize(cc.size(900, 67));
+        container.setContentSize(cc.size(1000, 67));
 
         var phienLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "time", cc.TEXT_ALIGNMENT_CENTER, 100);
         phienLabel.setPosition(_arrPos[0], 33);

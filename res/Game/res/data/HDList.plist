@@ -49,7 +49,7 @@ Tính điểm thắng thua trong game:
         
 Các tình huống:
   - Chủ bàn thoát game, quyền chủ bàn sẽ được trao cho người kế tiếp.
-  - Thời gian 1 lượt đánh người chơi thực hiện thao tác "Xếp bài" và "Đánh" hoặc "Thôi". Hết thời gian  người chơi ko thực hiện bất cứ thao tác nào thì máy sẽ tự động "Thôi" và nhường quyền đánh cho người kế tiếp.
+  - Thời gian 1 lượt đánh người chơi thực hiện thao tác &quot;Xếp bài&quot; và &quot;Đánh&quot; hoặc &quot;Thôi&quot;. Hết thời gian  người chơi ko thực hiện bất cứ thao tác nào thì máy sẽ tự động &quot;Thôi&quot; và nhường quyền đánh cho người kế tiếp.
     </string>
 	<key>XOCDIA</key>
 	<string>Luật chơi xóc đĩa rất đơn giản, về cơ bản thì trong trò xóc đĩa sẽ có 2 phần: bộ đồ để xóc đĩa và bàn cược. Đầu tiên người chơi sẽ đặt cược trên bàn cược, chủ sới sẽ bắt đầu xóc đĩa. Sau đó, mở đĩa ra để so sánh kết quả thắng thua bằng màu của 4 nút.
@@ -367,9 +367,9 @@ Cách tính tiền theo mức cược như sau:
 	<dict>
 		<key>text1</key>
 		<string>B1 : Chọn mức cược
-B2 : Chọn " QUAY ". Người chơi có thể chọn "quay tự động" để hệ thống tự động quay và thông báo kết quả. Khi người chơi bỏ nút tick "quay tự động" thì sẽ dừng lại.
-- Chọn biểu tượng "?" để xem hướng dẫn chơi.
-- Chọn biểu tượng " cúp " để xem lịch sử và bảng xếp hạng.
+B2 : Chọn &quot; QUAY &quot;. Người chơi có thể chọn &quot;quay tự động&quot; để hệ thống tự động quay và thông báo kết quả. Khi người chơi bỏ nút tick &quot;quay tự động&quot; thì sẽ dừng lại.
+- Chọn biểu tượng &quot;?&quot; để xem hướng dẫn chơi.
+- Chọn biểu tượng &quot; cúp &quot; để xem lịch sử và bảng xếp hạng.
 ĐẶC BIỆT : 10-J-Q-K-A rô sẽ nổ hũ thưởng.
 Cách tính tiền theo mức cược như sau :
     </string>
@@ -465,5 +465,20 @@ Lịch sử :
 			</dict>
 		</array>
 	</dict>
+	<key>MINITAIXIU</key>
+	<string>B1: Chọn mức cược để đặt
+        Có 2 cách cho người chơi lựa chọn là:
+        - Chọn mức cược hoặc chỉnh sửa mức cược có sẵn bên trái màn hình
+        - Nhập mức cược tùy ý trong ô &quot;Nhập mức cược&quot;
+        B2: Chọn cửa muốn đặt (Tài - Xỉu) bằng cách ẤN NÚT &quot;Cược Tài&quot; hoặc &quot;Cược Xỉu&quot;
+        B3: Thời gian chơi từng phiên
+        - Thời gian đặt cược: 60s
+        - Thời gian cân cửa: 5s
+        - Thời gian mở bát và trả thưởng hưởng: 5s
+        Chú ý:
+        - Để xem lại hướng dẫn bằng cách chọn biểu tượng &quot;?&quot;
+        - Để xem thống kê, lịch sử đặt cược chọn biểu tượng
+        
+    </string>
 </dict>
 </plist>

@@ -86,11 +86,14 @@ var ChanLeLayer = MiniGamePopup.extend({
 
 
             if(cc.Global.IsNumber(numberText)){
-                if(parseInt(numberText)> PlayerMe.gold){
-                    numberText = PlayerMe.gold.toString();
-                }
-                thiz.moneyTF.setText(cc.Global.NumberFormat1(parseInt(numberText)));
-                thiz.moneyBet = parseInt(numberText);
+
+                    if(parseInt(numberText)> PlayerMe.gold){
+                        numberText = PlayerMe.gold.toString();
+                    }
+                    thiz.moneyTF.setText(cc.Global.NumberFormat1(parseInt(numberText)));
+                    thiz.moneyBet = parseInt(numberText);
+
+
             }
             return true;
         });
@@ -114,6 +117,10 @@ var ChanLeLayer = MiniGamePopup.extend({
             {
                 MessageNode.getInstance().show("Bạn chưa chọn mức cược");
             }
+            else if(thiz.moneyBet < 1000){
+                MessageNode.getInstance().show("Mức cược tối thiểu là 1,000 vàng");
+            }
+
             else if(thiz.gameState == 1) {
                     thiz._controller.sendBetTaiXiu(1, thiz.moneyBet);
             }
@@ -132,13 +139,16 @@ var ChanLeLayer = MiniGamePopup.extend({
             {
                 MessageNode.getInstance().show("Bạn chưa chọn mức cược");
             }
+            else if(thiz.moneyBet < 1000){
+                MessageNode.getInstance().show("Mức cược tối thiểu là 1,000 vàng");
+            }
             else if(thiz.gameState == 1){
                     thiz._controller.sendBetTaiXiu(2,thiz.moneyBet);
             }
         });
         bg.addChild(btnXiu);
         this.btnXiu = btnXiu;
-
+        this.setActiveBt(btnXiu,false);
 
         var lblNumTai = new cc.LabelTTF("", cc.res.font.Roboto_Condensed, 20);
         lblNumTai.setPosition(105,29);

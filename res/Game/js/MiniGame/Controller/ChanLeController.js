@@ -53,7 +53,7 @@ var ChanLeController = MiniGameController.extend({
     },
     onShowMoneyExchange:function (param) {
 
-        this._view.onChangeAssets("",(parseInt(param[1])>0)? param[1]:0);
+        this._view.onChangeAssets("",(parseInt(param[1])>0)? parseInt(param[1]):0);
     },
 
     onJoinGame:function (param) {
@@ -138,10 +138,15 @@ var ChanLeController = MiniGameController.extend({
                     thiz._view.effXiu.setVisible(true);
                     thiz._view.effTai.setVisible(false);
                 }
-                thiz._view.setTextTaiXiu(nameCua);
+
                 // var sCua = new cc.Sprite(nameCua);
                 // sCua.setPosition(100,0);
                 // thiz._view.diskNode.addChild(sCua);
+            }),
+            new cc.DelayTime(2),
+            new cc.CallFunc(function () {
+
+                thiz._view.setTextTaiXiu(nameCua);
             })
         ));
 
@@ -155,6 +160,7 @@ var ChanLeController = MiniGameController.extend({
         if(arr_his){
             var len = (arr_his.length>11)?11:arr_his.length;
             this._view.wgResuft.removeAllChildren();
+            var z = 0;
             for(var i = arr_his.length - len; i < arr_his.length;i++){
                 (function () {
                     var iNew = i;
@@ -163,7 +169,8 @@ var ChanLeController = MiniGameController.extend({
                       number : arr_his[iNew][2],
                         idVan : arr_his[iNew][3],
                     };
-                    thiz._view.pushItemHistory((arr_his.length>11)?iNew-1:iNew,dataItemTx);
+                    thiz._view.pushItemHistory((arr_his.length>11)?z:iNew,dataItemTx);
+                    z++;
 
                 })();
             }

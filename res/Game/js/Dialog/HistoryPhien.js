@@ -16,7 +16,7 @@ var HistoryPhien = Dialog.extend({
         this.addChild(lblDate);
         this.lblDate = lblDate;
 
-        var typeStr = data["data"] === 1 ? "TÀI" : "XỈU";
+        var typeStr = data["type"] == 1 ? "TÀI" : "XỈU";
         var lblCua = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, typeStr + " " + data["number"]);
         lblCua.setColor(cc.color("#77cbee"));
         lblCua.setPosition(this.getContentSize().width / 2, 561 );
@@ -197,6 +197,12 @@ var HistoryPhien = Dialog.extend({
         var items = data["p"]["1"]["2"];
         for(var i=0;i<items.length;i++){
             var name = items[i]["1"];
+
+            if (name.length > 15)
+                name = name.substring(0, 15) ;
+            if (name.length > 3 && name != PlayerMe.username)
+                name = name.substring(0, name.length - 3) + "***";
+
             var type = items[i]["2"]["2"];
             var betting = parseInt(items[i]["2"]["5"]);
             var retValue = parseInt(items[i]["2"]["6"]);

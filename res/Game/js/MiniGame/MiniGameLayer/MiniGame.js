@@ -107,8 +107,8 @@ var MiniGamePopup = cc.Node.extend({
 
         var parent = this.getParent();
 
-        var changeSprite = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, "");
-        var changeText = (changeAmount >= 0 ? "+" : "") + changeAmount;
+        var changeSprite = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, "");
+        var changeText = (changeAmount >= 0 ? "+" : "") + cc.Global.NumberFormat1(changeAmount);
         changeSprite.setString(changeText);
         changeSprite.setColor(cc.color(changeAmount >= 0 ? "#ffde00" : "#ff0000"));
         changeSprite.setPosition(50, 70);
