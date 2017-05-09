@@ -134,10 +134,10 @@ android.applicationVariants.all { variant ->
     delete "${buildDir}/intermediates/assets/${variant.dirName}"
 
     variant.mergeAssets.doLast {
-//        copy {
-//           from "${buildDir}/../../../../../res"
-//           into "${buildDir}/intermediates/assets/${variant.dirName}/res"
-//        }
+        copy {
+            from "${buildDir}/../../../../../res"
+            into "${buildDir}/intermediates/assets/${variant.dirName}/res"
+        }
 
         copy {
             from "${buildDir}/../../../../../src"
@@ -145,7 +145,8 @@ android.applicationVariants.all { variant ->
         }
 
         copy {
-            from "${buildDir}/../../../../cocos2d-x/cocos/scripting/js-bindings/script"
+            //from "${buildDir}/../../../../cocos2d-x/cocos/scripting/js-bindings/script"
+            from "${buildDir}/../../../../../js_min/prebuilt/script"
             into  "${buildDir}/intermediates/assets/${variant.dirName}/script"
         }
 
