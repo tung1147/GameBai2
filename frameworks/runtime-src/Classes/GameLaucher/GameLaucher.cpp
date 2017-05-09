@@ -160,7 +160,7 @@ void GameLaucher::update(float dt){
 }
 
 /*acs config*/
-#define ACS_URL "http://42.112.25.165/gaia_acs?"
+#define ACS_URL "http://the-new-acs.c567vip.com/gaia_acs?"
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 #define ACS_PLATFORM_NAME "Android"
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
@@ -168,7 +168,7 @@ void GameLaucher::update(float dt){
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
 #define ACS_PLATFORM_NAME "Winphone"
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-#define ACS_PLATFORM_NAME "Win32"
+#define ACS_PLATFORM_NAME "Android"
 #else
 #define ACS_PLATFORM_NAME "Android"
 #endif
@@ -189,6 +189,8 @@ void GameLaucher::requestGetUpdate(){
 	std::string paramsStr = quyetnd::SystemPlugin::getInstance()->dataEncryptBase64((char*)aes_key, json);
 	std::string httpString = std::string(ACS_URL) + "params=" + _URLEncode(paramsStr);
 
+	CCLOG("httpString: %s", httpString.c_str());
+
 	cocos2d::network::HttpRequest* request = new cocos2d::network::HttpRequest();
 	request->setUrl(httpString.c_str());
 	request->setRequestType(cocos2d::network::HttpRequest::Type::GET);
@@ -206,24 +208,32 @@ void GameLaucher::requestGetUpdate(){
 			rapidjson::Document doc;
 			bool error = doc.Parse<0>(json.data()).HasParseError();
 			if (!error){
-				if (doc.HasMember("UpdateConfig")){
-					std::string updateHost = doc["UpdateConfig"]["host"].GetString();
-					std::string versionHash = doc["UpdateConfig"]["versionHash"].GetString();
+				if (doc.HasMember("data")){
+					const rapidjson::Value& data = doc["data"];
+					if (data.HasMember("UpdateConfig")){
+						std::string updateHost = data["UpdateConfig"]["host"].GetString();
+						std::string versionHash = data["UpdateConfig"]["versionHash"].GetString();
 
-					CCLOG("updateHost: %s", updateHost.c_str());
-					CCLOG("hashVersionFile: %s", versionHash.c_str());
+						CCLOG("updateHost: %s", updateHost.c_str());
+						CCLOG("hashVersionFile: %s", versionHash.c_str());
 
-					this->resourceHost = updateHost;
-					this->versionHash = versionHash;
+						this->resourceHost = updateHost;
+						this->versionHash = versionHash;
 
-					this->checkVersionFile();
-					return;
-				}
-				
+						this->checkVersionFile();
+						return;
+					}
+				}		
 			}
+			else{
+				CCLOG("ACS error getConfig");
+			}
+			
+		}
+		else{
+			CCLOG("ACS error network");
 		}
 
-		CCLOG("loi ket noi mang");
 		this->onProcessStatus(GameLaucherStatus::UpdateFailure);
 
 		Director::getInstance()->getScheduler()->schedule([=](float){
