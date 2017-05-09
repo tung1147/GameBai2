@@ -54,8 +54,8 @@ var MiniGameLayer = cc.Node.extend({
 
         var top = 550.0;
         var bottom = 193.0;
-        var left = 30.0;
-        var right = 290.0;
+        var left = 0.0;
+        var right = 260.0;
 
         var miniGameBar = new cc.Sprite("#home-minigame-bar.png");
         miniGameBar.setPosition((right + left ) /2, 168);

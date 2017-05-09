@@ -95,7 +95,7 @@ var PokerGamePlayer = GamePlayer.extend({
         this.addChild(lblHandWin,2);
         this.lblHandWin = lblHandWin;
 
-        var bgText = new ccui.Scale9Sprite("dialog-textinput-bg.png",cc.rect(10, 10, 4, 4));
+        var bgText = new ccui.Scale9Sprite("dialog-textinput-bg.png",cc.rect(12, 12, 4, 4));
         bgText.setPreferredSize(cc.size(180, 60));
         bgText.setVisible(false);
         bgText.setPosition(thiz.avt.getPosition());

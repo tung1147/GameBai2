@@ -7,59 +7,59 @@ var LobbyBottomBar = cc.Node.extend({
         this._super();
         this.setAnchorPoint(cc.p(0,0));
 
-        var bg = new cc.Sprite("#bot_bar_bg.png");
-        bg.setAnchorPoint(cc.p(0,0));
-        bg.setPosition(cc.p(0,0));
-        this.addChild(bg);
+        // var bg = new cc.Sprite("#bot_bar_bg.png");
+        // bg.setAnchorPoint(cc.p(0,0));
+        // bg.setPosition(cc.p(0,0));
+        // this.addChild(bg);
 
-        var bg2 = new cc.Sprite("#bot_bar_avt_bg.png");
-        bg2.setAnchorPoint(cc.p(0,0));
-        bg2.setPosition(cc.p(0,0));
-        this.addChild(bg2);
+        // var bg2 = new cc.Sprite("#bot_bar_avt_bg.png");
+        // bg2.setAnchorPoint(cc.p(0,0));
+        // bg2.setPosition(cc.p(0,0));
+        // this.addChild(bg2);
 
-        var logo = new cc.Sprite("#bot_bar_logo.png");
-        logo.setPosition(640, 68);
-        this.addChild(logo);
+        // var logo = new cc.Sprite("#bot_bar_logo.png");
+        // logo.setPosition(640, 68);
+        // this.addChild(logo);
 
         var avt = UserAvatar.createMe();
-        avt.setPosition(49, 49);
+        avt.setPosition(60, 48);
         this.addChild(avt, 0);
         this.avatar = avt;
 
         var nameLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_18, "Name2221231312313213212312312332132");
         nameLabel.setAnchorPoint(0.0, 0.5);
-        nameLabel.setColor(cc.color("#63b0f1"));
-        nameLabel.setPosition(92, 54);
+        nameLabel.setColor(cc.color("#bff2ff"));
+        nameLabel.setPosition(110, 59);
         this.addChild(nameLabel,1);
         this.nameLabel = nameLabel;
 
         var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "100,1111V");
         goldLabel.setAnchorPoint(0.0, 0.5);
         goldLabel.setColor(cc.color("#ffde00"));
-        goldLabel.setPosition(92, 32);
+        goldLabel.setPosition(110, 36);
         this.addChild(goldLabel,1);
         this.goldLabel = goldLabel;
 
         var level = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "6");
-        level.setPosition(340, 41);
-        level.setColor(cc.color("#009cff"));
+        level.setPosition(340, 50);
+        level.setColor(cc.color("#36c9ff"));
         this.addChild(level, 1);
         this.levelLabel = level;
 
         var vip = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "6");
-        vip.setPosition(400, 41);
+        vip.setPosition(400, 50);
         vip.setColor(cc.color("#ffde00"));
         this.addChild(vip, 1);
         this.vipLabel = vip;
 
         var _levelText = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_14, "Level");
-        _levelText.setColor(cc.color("#6a8fcc"));
-        _levelText.setPosition(level.x, 9);
+        _levelText.setColor(cc.color("#36c9ff"));
+        _levelText.setPosition(level.x, 19);
         this.addChild(_levelText, 1);
 
         var _vipText = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_14, "V.I.P");
-        _vipText.setColor(cc.color("#6a8fcc"));
-        _vipText.setPosition(vip.x, 9);
+        _vipText.setColor(cc.color("#ffde00"));
+        _vipText.setPosition(vip.x, 19);
         this.addChild(_vipText, 1);
 
         var levelBar = new cc.ProgressTimer(new cc.Sprite("#bot_bar_levelBar_1.png"));
@@ -90,7 +90,7 @@ var LobbyBottomBar = cc.Node.extend({
         }
 
         var paymentBt = new ccui.Button("bot_bar_paymentBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        paymentBt.setPosition(933, 35);
+        paymentBt.setPosition(933, 46);
         this.addChild(paymentBt);
 
         var rewardBt = new ccui.Button("bot_bar_rewardBt.png", "", "", ccui.Widget.PLIST_TEXTURE);

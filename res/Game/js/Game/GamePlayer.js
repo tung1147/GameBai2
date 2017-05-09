@@ -64,7 +64,7 @@ var GamePlayer = cc.Node.extend({
         this.infoLayer.addChild(goldLabel, 1);
 
 
-        var bgInfor = new ccui.Scale9Sprite("dialog-textinput-bg.png",cc.rect(10, 10, 4, 4));
+        var bgInfor = new ccui.Scale9Sprite("dialog-textinput-bg.png",cc.rect(12, 12, 4, 4));
         bgInfor.setPreferredSize(cc.size(180, 60));
         bgInfor.setVisible(false);
         bgInfor.setPosition(avt.getPosition());

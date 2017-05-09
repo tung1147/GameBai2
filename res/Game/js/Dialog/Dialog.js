@@ -8,8 +8,8 @@ var s_Dialog_Create_Button1 = function (size, title) {
     bt.setCapInsets(cc.rect(10,10,4,4));
     bt.setContentSize(size);
     if(title){
-        var btTitle = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, title);
-        btTitle.setColor(cc.color("#682e2e"));
+        var btTitle = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, title);
+        btTitle.setColor(cc.color("#835238"));
         btTitle.setPosition(size.width/2, size.height/2);
         bt.getRendererNormal().addChild(btTitle);
         bt.buttonTitleLabel = btTitle;
@@ -23,7 +23,7 @@ var s_Dialog_Create_Button2 = function (size, title) {
     bt.setCapInsets(cc.rect(10,10,4,4));
     bt.setContentSize(size);
     if(title){
-        var btTitle = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, title);
+        var btTitle = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, title);
         btTitle.setColor(cc.color("#40485a"));
         btTitle.setPosition(size.width/2, size.height/2);
         bt.getRendererNormal().addChild(btTitle);
@@ -193,17 +193,21 @@ var IDialog = cc.Node.extend({
 var Dialog = IDialog.extend({
     ctor : function () {
         this._super();
-        this._marginLeft = 98.0;
-        this._marginRight = 98.0;
-        this._marginTop = 98.0;
-        this._marginBottom = 98.0;
+        this._marginLeft = 0.0;
+        this._marginRight = 0.0;
+        this._marginTop = 0.0;
+        this._marginBottom = 0.0;
 
-        var dialogBg = new ccui.Scale9Sprite("dialog-bg.png", cc.rect(120,186,4,4));
+        var dialogBg = new ccui.Scale9Sprite("dialog-bg.png", cc.rect(20, 20, 4, 4));
         dialogBg.setAnchorPoint(cc.p(0.0,0.0));
         this.addChild(dialogBg);
 
+        var dialogBgTitle = new cc.Scale9Sprite("dialog-bg-title.png", cc.Rect(20, 0, 4, 60));
+        dialogBg.addChild(dialogBgTitle);
+
+
         var title = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, "Title");
-        title.setColor(cc.color("#c5e2ff"));
+        title.setColor(cc.color("#77cbee"));
         this.addChild(title);
 
         var closeButton = new ccui.Button("dialog-button-close.png","","", ccui.Widget.PLIST_TEXTURE);
@@ -222,6 +226,7 @@ var Dialog = IDialog.extend({
         this.cancelButton = cancelButton;
         this.okTitle = okButton.buttonTitleLabel;
         this.cancelTitle = cancelButton.buttonTitleLabel;
+        this.dialogBgTitle = dialogBgTitle;
 
         var thiz = this;
         closeButton.addClickEventListener(function () {
@@ -247,8 +252,12 @@ var Dialog = IDialog.extend({
         this.dialogBg.setPreferredSize(cc.size(mSize.width + this._marginLeft + this._marginRight, mSize.height + this._marginTop + this._marginBottom));
         this.setContentSize(this.dialogBg.getContentSize());
 
-        this.title.setPosition(this.getContentSize().width/2, this.getContentSize().height - 127.0);
-        this.closeButton.setPosition(this.getContentSize().width - 127.0, this.title.y);
+        this.dialogBgTitle.setPreferredSize(cc.size(this.dialogBg.getContentSize().width, 60));
+        this.dialogBgTitle.setPosition(cc.p(this.dialogBg.getContentSize().width/2, this.dialogBg.height - this.dialogBgTitle.getContentSize().height/2));
+
+
+        this.title.setPosition(this.getContentSize().width/2, this.dialogBgTitle.getPosition().y);
+        this.closeButton.setPosition(this.getContentSize().width - 33.0, this.title.y);
         this.okButton.setPosition(this.getContentSize().width/2 - this.okButton.getContentSize().width/2 - 15.0, 156);
         this.cancelButton.setPosition(this.getContentSize().width/2 + this.cancelButton.getContentSize().width/2 + 15.0, 156);
 

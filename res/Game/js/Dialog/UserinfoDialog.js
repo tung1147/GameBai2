@@ -9,22 +9,22 @@ var UserInfoChangeLayer = cc.Node.extend({
         LobbyClient.getInstance().addListener("getProfile", this.onGetProfile, this);
         LobbyClient.getInstance().addListener("updateProfile", this.onUpdateProfile, this);
 
-        var bg1 = new ccui.Scale9Sprite("dialog-textinput-bg.png", cc.rect(10,10,4,4));
+        var bg1 = new ccui.Scale9Sprite("dialog-textinput-bg.png", cc.rect(12,12,4,4));
         bg1.setPreferredSize(cc.size(280, 44));
         bg1.setPosition(769, 477);
         this.addChild(bg1);
 
-        var bg2 = new ccui.Scale9Sprite("dialog-textinput-bg.png", cc.rect(10,10,4,4));
+        var bg2 = new ccui.Scale9Sprite("dialog-textinput-bg.png", cc.rect(12,12,4,4));
         bg2.setPreferredSize(cc.size(280, 44));
         bg2.setPosition(bg1.x, 407);
         this.addChild(bg2);
 
-        var bg3 = new ccui.Scale9Sprite("dialog-textinput-bg.png", cc.rect(10,10,4,4));
+        var bg3 = new ccui.Scale9Sprite("dialog-textinput-bg.png", cc.rect(12,12,4,4));
         bg3.setPreferredSize(cc.size(280, 44));
         bg3.setPosition(bg1.x, 337);
         this.addChild(bg3);
 
-        var bg4 = new ccui.Scale9Sprite("dialog-textinput-bg.png", cc.rect(10,10,4,4));
+        var bg4 = new ccui.Scale9Sprite("dialog-textinput-bg.png", cc.rect(12,12,4,4));
         bg4.setPreferredSize(cc.size(280, 44));
         bg4.setPosition(bg1.x, 267);
         this.addChild(bg4);
@@ -136,17 +136,17 @@ var UserinfoPasswordLayer = cc.Node.extend({
         this._super();
         LobbyClient.getInstance().addListener("changePassword", this.onRecvChangePassword, this);
 
-        var bg1 = new ccui.Scale9Sprite("dialog-textinput-bg.png", cc.rect(10,10,4,4));
+        var bg1 = new ccui.Scale9Sprite("dialog-textinput-bg.png", cc.rect(12,12,4,4));
         bg1.setPreferredSize(cc.size(280, 44));
         bg1.setPosition(769, 447);
         this.addChild(bg1);
 
-        var bg2 = new ccui.Scale9Sprite("dialog-textinput-bg.png", cc.rect(10,10,4,4));
+        var bg2 = new ccui.Scale9Sprite("dialog-textinput-bg.png", cc.rect(12,12,4,4));
         bg2.setPreferredSize(cc.size(280, 44));
         bg2.setPosition(bg1.x, 377);
         this.addChild(bg2);
 
-        var bg3 = new ccui.Scale9Sprite("dialog-textinput-bg.png", cc.rect(10,10,4,4));
+        var bg3 = new ccui.Scale9Sprite("dialog-textinput-bg.png", cc.rect(12,12,4,4));
         bg3.setPreferredSize(cc.size(280, 44));
         bg3.setPosition(bg1.x, 307);
         this.addChild(bg3);

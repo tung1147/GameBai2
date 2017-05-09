@@ -6,45 +6,45 @@ var SettingDialog = Dialog.extend({
         this._super();
         var thiz = this;
 
-        this.initWithSize(cc.size(518, 318));
-        this.title.setString("Cài đặt");
+        this.initWithSize(cc.size(540, 340));
+        this.title.setString("CÀI ĐẶT");
        // this.closeButton.visible = false;
         this.okButton.visible = false;
         this.cancelButton.visible = false;
 
         var soundLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_14, "ÂM THANH");
-        soundLabel.setPosition(this.getContentSize().width/2 - 130, 207);
-        soundLabel.setColor(cc.color("#a6bde0"));
+        soundLabel.setPosition(this.getContentSize().width/2 - 130, 124);
+        soundLabel.setColor(cc.color("#5be2ff"));
         this.addChild(soundLabel, 1);
 
         var vibratorLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_14, "RUNG");
         vibratorLabel.setPosition(this.getContentSize().width/2, soundLabel.y);
-        vibratorLabel.setColor(cc.color("#a6bde0"));
+        vibratorLabel.setColor(cc.color("#5be2ff"));
         this.addChild(vibratorLabel, 1);
 
         var inviteLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_14, "NHẬN LỜI MỜI");
         inviteLabel.setPosition(this.getContentSize().width/2 + 130, vibratorLabel.y);
-        inviteLabel.setColor(cc.color("#a6bde0"));
+        inviteLabel.setColor(cc.color("#5be2ff"));
         this.addChild(inviteLabel, 1);
 
-        var emailIcon = new cc.Sprite("#setting-email-icon.png");
-        emailIcon.setPosition(580, 125);
-        this.addChild(emailIcon);
+        // var emailIcon = new cc.Sprite("#setting-email-icon.png");
+        // emailIcon.setPosition(580, 125);
+        // this.addChild(emailIcon);
 
         var emailLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, GameConfig.email);
-        emailLabel.setAnchorPoint(cc.p(1.0, 0.5));
-        emailLabel.setPosition(emailIcon.x - 20, emailIcon.y);
-        emailLabel.setColor(cc.color("#4d5f7b"));
+        // emailLabel.setAnchorPoint(cc.p(1.0, 0.5));
+        emailLabel.setPosition(this.getContentSize().width/2, 49);
+        emailLabel.setColor(cc.color("#77cbee"));
         this.addChild(emailLabel, 1);
 
         var versionLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Ver " + SystemPlugin.getInstance().getVersionName());
-        versionLabel.setAnchorPoint(cc.p(0.0, 0.5));
-        versionLabel.setPosition(122, emailLabel.y);
-        versionLabel.setColor(cc.color("#4d5f7b"));
+        // versionLabel.setAnchorPoint(cc.p(0.0, 0.5));
+        versionLabel.setPosition(this.getContentSize().width/2, 29);
+        versionLabel.setColor(cc.color("#77cbee"));
         this.addChild(versionLabel, 1);
 
         var soundOnOff = new newui.ButtonToggle("#setting-sound-icon-2.png","#setting-sound-icon.png");
-        soundOnOff.setPosition(soundLabel.x, 260);
+        soundOnOff.setPosition(soundLabel.x, 182);
         soundOnOff.onSelect = function (target,selected) {
             thiz._setSoundEnable(selected);
             if (!selected){
@@ -78,7 +78,7 @@ var SettingDialog = Dialog.extend({
 
     _setSoundEnable : function (enable, force) {
         cc.Global.SetSetting("sound",enable);
-        this.soundLabel.setColor(cc.color(enable ? "#ffde00" : "#435878"));
+        this.soundLabel.setColor(cc.color(enable ? "#77cbee" : "#51a6d7"));
         if(force){
             this.soundOnOff.select(enable);
         }
@@ -86,7 +86,7 @@ var SettingDialog = Dialog.extend({
 
     _setVibratorEnable : function (enable, force) {
         cc.Global.SetSetting("vibrator",enable);
-        this.vibratorLabel.setColor(cc.color(enable ? "#ffde00" : "#435878"));
+        this.vibratorLabel.setColor(cc.color(enable ? "#77cbee" : "#51a6d7"));
         if(force){
             this.vibratorOnOff.select(enable);
         }
@@ -100,7 +100,7 @@ var SettingDialog = Dialog.extend({
 
     _setInviteEnable : function (enable, force) {
         cc.Global.SetSetting("invite",enable);
-        this.inviteLabel.setColor(cc.color(enable ? "#ffde00" : "#435878"));
+        this.inviteLabel.setColor(cc.color(enable ? "#77cbee" : "#51a6d7"));
         if(force){
             this.inviteOnOff.select(enable);
         }

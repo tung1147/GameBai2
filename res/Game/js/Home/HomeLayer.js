@@ -27,23 +27,23 @@ var LoginDialog = Dialog.extend({
         this.okButton.visible = false;
         this.cancelButton.visible = false;
         this.title.setString("ĐĂNG NHẬP");
-        this.initWithSize(cc.size(478, 448));
+        this.initWithSize(cc.size(680, 520));
 
         /* login text field */
-        var userNameBg = new ccui.Scale9Sprite("dialog-textinput-bg.png", cc.rect(10,10,4,4));
-        userNameBg.setPreferredSize(cc.size(280, 44));
-        userNameBg.setPosition(cc.p(this.getContentSize().width/2, 421));
+        var userNameBg = new ccui.Scale9Sprite("dialog-textinput-bg.png", cc.rect(12,12,4,4));
+        userNameBg.setPreferredSize(cc.size(420, 60));
+        userNameBg.setPosition(cc.p(this.getContentSize().width/2, 355));
         this.addChild(userNameBg);
 
-        var passwordBg = new ccui.Scale9Sprite("dialog-textinput-bg.png", cc.rect(10,10,4,4));
-        passwordBg.setPreferredSize(cc.size(280, 44));
-        passwordBg.setPosition(cc.p(this.getContentSize().width/2, 351));
+        var passwordBg = new ccui.Scale9Sprite("dialog-textinput-bg.png", cc.rect(12,12,4,4));
+        passwordBg.setPreferredSize(cc.size(420, 60));
+        passwordBg.setPosition(cc.p(this.getContentSize().width/2, 273));
         this.addChild(passwordBg);
 
-        this.userText = new newui.TextField(cc.size(270, 44), cc.res.font.Roboto_Condensed_18);
+        this.userText = new newui.TextField(cc.size(420, 60), cc.res.font.Roboto_Condensed_25);
         this.userText.setPlaceHolder("Tài khoản");
-        this.userText.setTextColor(cc.color("#c4e1ff"));
-        this.userText.setPlaceHolderColor(cc.color("#909090"));
+        this.userText.setTextColor(cc.color("#ffffff"));
+        this.userText.setPlaceHolderColor(cc.color("#45b8e3"));
         this.userText.setMaxLength(32);
         this.userText.setPosition(userNameBg.getPosition());
         this.userText.setReturnCallback(function () {
@@ -52,11 +52,11 @@ var LoginDialog = Dialog.extend({
         });
         this.addChild(this.userText,1);
 
-        this.passwordText = new newui.TextField(cc.size(270, 44), cc.res.font.Roboto_Condensed_18);
+        this.passwordText = new newui.TextField(cc.size(420, 60), cc.res.font.Roboto_Condensed_25);
         this.passwordText.setPasswordEnable(true);
         this.passwordText.setPlaceHolder("Mật khẩu");
-        this.passwordText.setTextColor(cc.color("#c4e1ff"));
-        this.passwordText.setPlaceHolderColor(cc.color("#909090"));
+        this.passwordText.setTextColor(cc.color("#ffffff"));
+        this.passwordText.setPlaceHolderColor(cc.color("#45b8e3"));
         this.passwordText.setMaxLength(30);
         this.passwordText.setPosition(passwordBg.getPosition());
         this.passwordText.setReturnCallback(function () {
@@ -71,10 +71,10 @@ var LoginDialog = Dialog.extend({
         this.userText.setText(cc.Global.getSaveUsername());
         this.passwordText.setText(cc.Global.getSavePassword());
 
-        var label1 = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Lưu mật khẩu");
+        var label1 = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Lưu mật khẩu      |");
         label1.setAnchorPoint(1.0, 0.5);
-        label1.setColor(cc.color("#4a8ed3"));
-        label1.setPosition(this.getContentSize().width/2 - 15, 272);
+        label1.setColor(cc.color("#77cbee"));
+        label1.setPosition(this.getContentSize().width/2, 200);
         this.addChild(label1,1);
 
         this.checkBox = new ccui.CheckBox();
@@ -87,9 +87,9 @@ var LoginDialog = Dialog.extend({
             cc.Global.SetSetting("savePassword", event == ccui.CheckBox.EVENT_SELECTED);
         });
 
-        var resetPassword = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Quên mật khẩu?");
+        var resetPassword = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Quên mật khẩu?");
         resetPassword.setAnchorPoint(0.0, 0.5);
-        resetPassword.setColor(cc.color("#4a8ed3"));
+        resetPassword.setColor(cc.color("#77cbee"));
         resetPassword.setPosition(this.getContentSize().width/2 + 15, label1.y);
         this.addChild(resetPassword,1);
 
@@ -99,14 +99,14 @@ var LoginDialog = Dialog.extend({
         resetPasswordBt.setTouchEnabled(true);
         this.addChild(resetPasswordBt);
 
-        var loginBt = s_Dialog_Create_Button1(cc.size(284, 44), "ĐĂNG NHẬP");
-        loginBt.setPosition(this.getContentSize().width/2, 204);
-        loginBt.setZoomScale(0.02);
+        var loginBt = s_Dialog_Create_Button1(cc.size(420, 50), "ĐĂNG NHẬP");
+        loginBt.setPosition(this.getContentSize().width/2, 115);
+        // loginBt.setZoomScale(0.02);
         this.addChild(loginBt);
 
-        var regLabel = new cc.LabelBMFont("ĐĂNG KÝ", cc.res.font.Roboto_Condensed_18);
-        regLabel.setColor(cc.color("#4c6080"));
-        regLabel.setPosition(this.getContentSize().width/2, 134.0);
+        var regLabel = new cc.LabelBMFont("ĐĂNG KÝ", cc.res.font.Roboto_CondensedBold_25);
+        regLabel.setColor(cc.color("#77cbee"));
+        regLabel.setPosition(this.getContentSize().width/2, 45.0);
         this.addChild(regLabel, 1);
 
         var regButton = new ccui.Widget();
@@ -155,51 +155,51 @@ var SignupDialog = Dialog.extend({
         this.okButton.visible = false;
         this.cancelButton.visible = false;
         this.title.setString("ĐĂNG KÝ");
-        this.initWithSize(cc.size(478, 587));
+        this.initWithSize(cc.size(680, 640));
         var thiz = this;
 
         var titleLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, s_signup_title, cc.TEXT_ALIGNMENT_CENTER);
-        titleLabel.setPosition(this.getContentSize().width/2, 560);
-        titleLabel.setColor(cc.color("#4d5f7b"));
+        titleLabel.setPosition(this.getContentSize().width/2, 514);
+        titleLabel.setColor(cc.color("#77cbee"));
         this.addChild(titleLabel, 2);
 
         /* login text field */
-        var userNameBg = new ccui.Scale9Sprite("dialog-textinput-bg.png", cc.rect(10,10,4,4));
-        userNameBg.setPreferredSize(cc.size(280, 44));
-        userNameBg.setPosition(cc.p(this.getContentSize().width/2, 495));
+        var userNameBg = new ccui.Scale9Sprite("dialog-textinput-bg.png", cc.rect(12,12,4,4));
+        userNameBg.setPreferredSize(cc.size(420, 60));
+        userNameBg.setPosition(cc.p(this.getContentSize().width/2, 436));
         this.addChild(userNameBg);
 
-        var passwordBg = new ccui.Scale9Sprite("dialog-textinput-bg.png", cc.rect(10,10,4,4));
-        passwordBg.setPreferredSize(cc.size(280, 44));
-        passwordBg.setPosition(cc.p(this.getContentSize().width/2, 425));
+        var passwordBg = new ccui.Scale9Sprite("dialog-textinput-bg.png", cc.rect(12,12,4,4));
+        passwordBg.setPreferredSize(cc.size(420, 60));
+        passwordBg.setPosition(cc.p(this.getContentSize().width/2, 355));
         this.addChild(passwordBg);
 
-        var phoneBg = new ccui.Scale9Sprite("dialog-textinput-bg.png", cc.rect(10,10,4,4));
-        phoneBg.setPreferredSize(cc.size(280, 44));
-        phoneBg.setPosition(cc.p(this.getContentSize().width/2, 355));
+        var phoneBg = new ccui.Scale9Sprite("dialog-textinput-bg.png", cc.rect(12,12,4,4));
+        phoneBg.setPreferredSize(cc.size(420, 60));
+        phoneBg.setPosition(cc.p(this.getContentSize().width/2, 270));
         this.addChild(phoneBg);
 
-        this.userText = new newui.TextField(cc.size(270, 44), cc.res.font.Roboto_Condensed_18);
+        this.userText = new newui.TextField(cc.size(270, 44), cc.res.font.Roboto_Condensed_25);
         this.userText.setPlaceHolder("Tài khoản");
-        this.userText.setTextColor(cc.color("#c4e1ff"));
-        this.userText.setPlaceHolderColor(cc.color("#909090"));
+        this.userText.setTextColor(cc.color("#ffffff"));
+        this.userText.setPlaceHolderColor(cc.color("#45b8e3"));
         this.userText.setMaxLength(32);
         this.userText.setPosition(userNameBg.getPosition());
         this.addChild(this.userText,1);
 
-        this.passwordText = new newui.TextField(cc.size(270, 44), cc.res.font.Roboto_Condensed_18);
+        this.passwordText = new newui.TextField(cc.size(270, 44), cc.res.font.Roboto_Condensed_25);
         this.passwordText.setPasswordEnable(true);
         this.passwordText.setPlaceHolder("Mật khẩu");
-        this.passwordText.setTextColor(cc.color("#c4e1ff"));
-        this.passwordText.setPlaceHolderColor(cc.color("#909090"));
+        this.passwordText.setTextColor(cc.color("#ffffff"));
+        this.passwordText.setPlaceHolderColor(cc.color("#45b8e3"));
         this.passwordText.setMaxLength(30);
         this.passwordText.setPosition(passwordBg.getPosition());
         this.addChild(this.passwordText,1);
 
-        this.phoneText = new newui.TextField(cc.size(270, 44), cc.res.font.Roboto_Condensed_18);
+        this.phoneText = new newui.TextField(cc.size(270, 44), cc.res.font.Roboto_Condensed_25);
         this.phoneText.setPlaceHolder("Số điện thoại");
-        this.phoneText.setTextColor(cc.color("#c4e1ff"));
-        this.phoneText.setPlaceHolderColor(cc.color("#909090"));
+        this.phoneText.setTextColor(cc.color("#ffffff"));
+        this.phoneText.setPlaceHolderColor(cc.color("#45b8e3"));
         this.phoneText.setMaxLength(30);
         this.phoneText.setPosition(phoneBg.getPosition());
         this.addChild(this.phoneText,1);
@@ -208,25 +208,25 @@ var SignupDialog = Dialog.extend({
         this.passwordText.nextTextField = this.phoneText;
         this.phoneText.nextTextField = this.userText;
 
-        var signupBt = s_Dialog_Create_Button1(cc.size(284, 44), "ĐĂNG KÝ");
-        signupBt.setPosition(this.getContentSize().width/2, 210.0);
+        var signupBt = s_Dialog_Create_Button1(cc.size(420, 50), "ĐĂNG KÝ");
+        signupBt.setPosition(this.getContentSize().width/2, 118.0);
         this.addChild(signupBt);
 
         var toggleIcon1 = new cc.Sprite("#dialog-checkBox-2.png");
-        toggleIcon1.setPosition(this.getContentSize().width/2 - 120, 280);
+        toggleIcon1.setPosition(this.getContentSize().width/2 - 120, 197);
         this.addChild(toggleIcon1);
-        var toggleLabel1 = new cc.LabelBMFont("Nam", cc.res.font.Roboto_Condensed_18);
+        var toggleLabel1 = new cc.LabelBMFont("Nam", cc.res.font.Roboto_Condensed_25);
         toggleLabel1.setAnchorPoint(cc.p(0.0, 0.5));
-        toggleLabel1.setColor(cc.color("#72acd6"));
+        toggleLabel1.setColor(cc.color("#77cbee"));
         toggleLabel1.setPosition(toggleIcon1.x + 30, toggleIcon1.y);
         this.addChild(toggleLabel1,1);
 
         var toggleIcon2 = new cc.Sprite("#dialog-checkBox-2.png");
         toggleIcon2.setPosition(this.getContentSize().width/2 + 30, toggleIcon1.y);
         this.addChild(toggleIcon2);
-        var toggleLabel2 = new cc.LabelBMFont("Nữ", cc.res.font.Roboto_Condensed_18);
+        var toggleLabel2 = new cc.LabelBMFont("Nữ", cc.res.font.Roboto_Condensed_25);
         toggleLabel2.setAnchorPoint(cc.p(0.0, 0.5));
-        toggleLabel2.setColor(cc.color("#72acd6"));
+        toggleLabel2.setColor(cc.color("#77cbee"));
         toggleLabel2.setPosition(toggleIcon2.x + 30, toggleIcon2.y);
         this.addChild(toggleLabel2,1);
 
@@ -270,8 +270,8 @@ var SignupDialog = Dialog.extend({
 
 
         var loginLabel = new cc.LabelBMFont("ĐĂNG NHẬP", cc.res.font.Roboto_Condensed_18);
-        loginLabel.setColor(cc.color("#4c6080"));
-        loginLabel.setPosition(this.getContentSize().width/2, 140.0);
+        loginLabel.setColor(cc.color("#45b8e3"));
+        loginLabel.setPosition(this.getContentSize().width/2, 45.0);
         this.addChild(loginLabel, 1);
 
         var loginBt = new ccui.Widget();

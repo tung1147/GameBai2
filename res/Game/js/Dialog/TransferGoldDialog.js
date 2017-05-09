@@ -41,12 +41,12 @@ var TransferGoldDialog = Dialog.extend({
     _initView : function () {
         var thiz = this;
 
-        var bg1 = new ccui.Scale9Sprite("dialog-textinput-bg.png", cc.rect(10,10,4,4));
+        var bg1 = new ccui.Scale9Sprite("dialog-textinput-bg.png", cc.rect(12,12,4,4));
         bg1.setPreferredSize(cc.size(280, 44));
         bg1.setPosition(this.getContentSize().width/2, 489);
         this.addChild(bg1);
 
-        var bg2 = new ccui.Scale9Sprite("dialog-textinput-bg.png", cc.rect(10,10,4,4));
+        var bg2 = new ccui.Scale9Sprite("dialog-textinput-bg.png", cc.rect(12,12,4,4));
         bg2.setPreferredSize(cc.size(280, 44));
         bg2.setPosition(this.getContentSize().width/2, 419);
         this.addChild(bg2);

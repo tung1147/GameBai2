@@ -23,7 +23,7 @@ var GameLayer = cc.Node.extend({
         var bottom = 210.0;
 
         var gameNav = new cc.Sprite("#home-gameNav-bg.png");
-        gameNav.setPosition((right + left) / 2, 168);
+        gameNav.setPosition((right + left) / 2 - 12, 168);
         this.addChild(gameNav);
 
         var dx = gameNav.getContentSize().width / 5;

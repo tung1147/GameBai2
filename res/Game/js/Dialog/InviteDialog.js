@@ -9,13 +9,13 @@ var InviteDialog = Dialog.extend({
         this.okButton.visible = false;
         this.cancelButton.visible = false;
         this.title.setString("MỜI CHƠI");
-        this.initWithSize(cc.size(718, 478));
+        this.initWithSize(cc.size(720, 480));
 
-        var listItem = new newui.TableView(cc.size(704, 417), 2);
+        var listItem = new newui.TableView(cc.size(625, 335), 2);
         listItem.setScrollBarEnabled(false);
         listItem.setMargin(20, 20, 0, 0);
         listItem.setPadding(20.0);
-        listItem.setPosition(105, 98);
+        listItem.setPosition(50, 50);
         this.addChild(listItem);
         this.listItem = listItem;
 
@@ -25,9 +25,9 @@ var InviteDialog = Dialog.extend({
         this.addChild(noPlayerLabel);
         this.noPlayerLabel = noPlayerLabel;
 
-        // for(var i=0;i<100;i++){
-        //     this.addItem("", "username", 10000);
-        // }
+        for(var i=0;i<100;i++){
+            this.addItem("", "username", 10000);
+        }
     },
 
     onGetChannelUser: function (command, data) {
@@ -35,8 +35,8 @@ var InviteDialog = Dialog.extend({
         this.allUsers = [];
 
         for (var i = 0; i < users.length; i++) {
-            this.addItem(users[i]["avtUrl"], users[i]["username"], users[i]["gold"]);
-            this.allUsers.push(users[i]["username"]);
+            // this.addItem(users[i]["avtUrl"], users[i]["username"], users[i]["gold"]);
+            // this.allUsers.push(users[i]["username"]);
         }
 
         this.noPlayerLabel.setVisible(users.length <= 0);

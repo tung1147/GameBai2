@@ -15,17 +15,17 @@ var RewardAgencyDialog = Dialog.extend({
         this.okButton.visible = false;
         this.cancelButton.visible = false;
 
-        var bg1 = new ccui.Scale9Sprite("dialog-textinput-bg.png",cc.rect(10,10,4,4));
+        var bg1 = new ccui.Scale9Sprite("dialog-textinput-bg.png",cc.rect(12,12,4,4));
         bg1.setPreferredSize(cc.size(280, 44));
         bg1.setPosition(587, 426);
         this.addChild(bg1);
 
-        var bg2 = new ccui.Scale9Sprite("dialog-textinput-bg.png",cc.rect(10,10,4,4));
+        var bg2 = new ccui.Scale9Sprite("dialog-textinput-bg.png",cc.rect(12,12,4,4));
         bg2.setPreferredSize(cc.size(280, 44));
         bg2.setPosition(bg1.x, 356);
         this.addChild(bg2);
 
-        var bg3 = new ccui.Scale9Sprite("dialog-textinput-bg.png",cc.rect(10,10,4,4));
+        var bg3 = new ccui.Scale9Sprite("dialog-textinput-bg.png",cc.rect(12,12,4,4));
         bg3.setPreferredSize(cc.size(280, 44));
         bg3.setPosition(bg1.x, 286);
         this.addChild(bg3);
