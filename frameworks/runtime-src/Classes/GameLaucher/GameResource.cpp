@@ -99,7 +99,7 @@ inline bool string_end_with(const std::string &str, const std::string &strend) {
 
 bool GameFile::test(){
 #ifdef GAME_FILE_NOT_HASH
-	filePath = "res/Game/" + fileName;
+	fullPath = "res/Game/" + fileName;
 	return true;
 #else	
 #if CC_TARGET_PLATFORM != CC_PLATFORM_ANDROID
