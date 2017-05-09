@@ -26,7 +26,7 @@ var MiniGamePopup = cc.Node.extend({
         historyButton.setPosition(694, 430);
         this.addChild(historyButton, 5);
         this.historyButton = historyButton;
-        var jackpotLabel = new cc.LabelBMFont("100.000", cc.res.font.Roboto_CondensedBold_30);
+        var jackpotLabel = new cc.LabelBMFont("", cc.res.font.Roboto_CondensedBold_30);
         jackpotLabel.setColor(cc.color("#ffea00"));
         jackpotLabel.setPosition(500, 462);
         this.jackpotLabel = jackpotLabel;

@@ -50,6 +50,7 @@ var VideoPokerController = MiniGameController.extend({
                 break;
             case "255" :
                 this._view.lblHD.setString("");
+                this._view.setBettingSelectEnable(false);
                 break;
         }
     },
@@ -95,7 +96,12 @@ var VideoPokerController = MiniGameController.extend({
         this._view.setCardArray(cardArray);
         this._view.setBankValue(bankValue);
         this._view.setFlashing(resultId < 9, resultId < 9);
+
         this._view.setQuayBtEnable(true);
+
+        if(resultId>=9){
+            this._view.setBettingSelectEnable(true);
+        }
     },
 
     onRequestDoubleResult: function (param) {
@@ -120,7 +126,9 @@ var VideoPokerController = MiniGameController.extend({
         if(resuft == 1 || resuft == 0){ //hoa
             this._view.lblHD.setString("Nhân đôi " + cc.Global.NumberFormat1(parseInt(bankValue)) + " thành " +  cc.Global.NumberFormat1(2*parseInt(bankValue) ) );
         }
-
+        else{
+            this._view.setBettingSelectEnable(true);
+        }
 
         this._view.setBankValue(bankValue);
         console.log(cardArray);
@@ -206,11 +214,25 @@ var VideoPokerController = MiniGameController.extend({
         var data = param["data"]["10"];
         var gameId = data["1"];
         var status = data["2"];
+        this._view.setBettingSelectEnable(true);
         if(status == 2 || status == 3){
             this._view.lblHD.setString("");
+        }else if(status == 1){
+            this._view.lblHD.setString("Chọn quân bài muốn giữ lại");
+        }
+        if(status == 1 || status == 2 || status == 3){
+            this._view.setBettingSelectEnable(false);
         }
 
-        var bankString = data["3"];
+
+        var bankString =   data["3"];
+        var indexChip = 0;
+        if(bankString == "10000"){
+            indexChip = 1;
+        }else if(bankString == "100000"){
+            indexChip = 2;
+        }
+        this._view.chipGroup.selectChipAtIndex(indexChip,false);
         this._view.setBankValue(parseInt(bankString));
         if (data["5"]) {
             this.setTurnState(1);
@@ -219,6 +241,7 @@ var VideoPokerController = MiniGameController.extend({
             for (var i = 0; i < 5; i++)
                 this.holdingList[i] = ((holdIndexes >> i) & 1);
             this._view.setHoldArray(this.holdingList);
+
             return;
         }
 
@@ -233,6 +256,9 @@ var VideoPokerController = MiniGameController.extend({
             var rewardId = data["9"]["2"];
             this._view.activateReward(rewardId);
             this._view.setFlashing(rewardId < 9, rewardId < 9);
+            if(status == 2 && rewardId < 9){
+                this._view.setNhanThuongBtEnable(true);
+            }
             return;
         }
 
@@ -242,6 +268,7 @@ var VideoPokerController = MiniGameController.extend({
                     this.setTurnState(3);
                     this._view.showDoubleTurn(data["10"]["1"]);
                     this._view.setFlashing(true, false);
+
                     break;
 
                 case 2: // da pick la'

@@ -201,9 +201,15 @@ var ChanLeLayer = MiniGamePopup.extend({
         this.createAnimationNumber();
 
         this.initDisk();
-        var lblTime = new cc.LabelTTF("",cc.res.font.Roboto_CondensedBold,40);
+        // var classicLabel =
+
+        var lblTime = cc.Label.createWithBMFont(cc.res.font.Roboto_fonttime, "", cc.TEXT_ALIGNMENT_CENTER);
         lblTime.setPosition(this.diskSprite.getPosition());
-        lblTime.enableStroke(cc.color(25,74,135,255),4);
+        // lblTime.enableStroke(cc.color(25,74,135,255),4);
+        // if( !cc.sys.isNative){
+        //     lblTime.enableShadow(cc.color(0,0,0,255),4,4);
+        // }
+
         lblTime.setColor(cc.color(255,222,0,255));
         this.bg.addChild(lblTime);
         this.lblTime = lblTime;

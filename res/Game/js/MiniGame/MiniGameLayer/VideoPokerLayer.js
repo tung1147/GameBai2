@@ -145,6 +145,7 @@ var VideoPokerLayer = MiniGamePopup.extend({
             case 4:
                 this.setHoldArray([0, 0, 0, 0, 0]);
                 this.setRolling(true);
+                this.setBettingSelectEnable(false)
                 this._controller.sendRollRequest(betType);
                 break;
 

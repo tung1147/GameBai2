@@ -213,7 +213,7 @@ var HistoryPhien = Dialog.extend({
                 betting : cc.Global.NumberFormat1(betting),
                 retValue : cc.Global.NumberFormat1(retValue)
             };
-            if(type === 1){
+            if(type != 1){
                 this.arrTai.push(obj);
             }
             else{

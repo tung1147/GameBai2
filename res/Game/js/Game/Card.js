@@ -61,7 +61,7 @@ var Card = cc.Sprite.extend({
             var afterMove = new cc.CallFunc(function () {
                 thiz.getParent().reorderChild(thiz, thiz.cardIndex);
             });
-            var move = new cc.MoveTo(0.1, cc.p(this.origin.x, this.origin.y));
+            var move = new cc.MoveTo(0.2, cc.p(this.origin.x, this.origin.y));
             this.runAction(new cc.Sequence(beforeMove, move, afterMove));
 
             this._cardSelected = false;
@@ -130,8 +130,8 @@ var Card = cc.Sprite.extend({
             }
         }
 
-        this.x += (p.x - this.preTouchPoint.x)/this.getParent().getScale();
-        this.y += (p.y - this.preTouchPoint.y)/this.getParent().getScale();
+        this.x += p.x - this.preTouchPoint.x/this.getParent();
+        this.y += p.y - this.preTouchPoint.y;
         this.preTouchPoint = p;
 
         var dx = this.x - this.origin.x;
