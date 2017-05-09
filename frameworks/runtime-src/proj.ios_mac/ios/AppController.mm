@@ -107,10 +107,12 @@ static AppDelegate s_sharedApplication;
                          stringByReplacingOccurrencesOfString:@">" withString:@""]
                         stringByReplacingOccurrencesOfString: @" " withString: @""];
     NSString* uniqueIdentifier = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
-    objC_to_c_registedNotificationSuccess([token UTF8String], [uniqueIdentifier UTF8String]);
+    
+    
+    objC_to_c_registedNotificationSuccess([uniqueIdentifier UTF8String],[token UTF8String]);
 }
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error{
-    NSLog(@"didFailToRegisterForRemoteNotificationsWithError");
+    NSLog(@"didFailToRegisterForRemoteNotificationsWithError %@", [error description]);
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
