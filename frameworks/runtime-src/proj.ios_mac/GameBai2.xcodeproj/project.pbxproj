@@ -14,6 +14,7 @@
 		1AE159EC18C9DF3600FCA372 /* project.json in Resources */ = {isa = PBXBuildFile; fileRef = 1A1A081B18C9DF05005C6854 /* project.json */; };
 		270C7D801EC17A7C00E8D4E3 /* script in Resources */ = {isa = PBXBuildFile; fileRef = 270C7D7F1EC17A7C00E8D4E3 /* script */; };
 		270C7D811EC17A7C00E8D4E3 /* script in Resources */ = {isa = PBXBuildFile; fileRef = 270C7D7F1EC17A7C00E8D4E3 /* script */; };
+		270C7D9E1EC1CE7D00E8D4E3 /* WorkerManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2799BC0D1EC0645A00057795 /* WorkerManager.cpp */; };
 		2799BC0F1EC0645A00057795 /* WorkerManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2799BC0D1EC0645A00057795 /* WorkerManager.cpp */; };
 		294D0D681D0D56F400F7F5D4 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 294D0D671D0D56F400F7F5D4 /* CoreText.framework */; };
 		502380DC17EBB88200990C9B /* libcurl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 502380DB17EBB88200990C9B /* libcurl.dylib */; };
@@ -1162,6 +1163,7 @@
 				560F84EB1EB3802200C3C032 /* SmartfoxClient.cpp in Sources */,
 				560F84B71EB3802200C3C032 /* ListViewWithAdapter.cpp in Sources */,
 				560F84A91EB3802200C3C032 /* jsb_quyetnd_action.cpp in Sources */,
+				270C7D9E1EC1CE7D00E8D4E3 /* WorkerManager.cpp in Sources */,
 				560F84BF1EB3802200C3C032 /* NewWidget.cpp in Sources */,
 				509D4A8117EBB24E00697056 /* AppDelegate.cpp in Sources */,
 				560F84AF1EB3802200C3C032 /* GameResource.cpp in Sources */,
@@ -1302,6 +1304,7 @@
 				INFOPLIST_FILE = mac/Info.plist;
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.songbaivip.fullhd;
 				SDKROOT = macosx;
 				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../../cocos2d-x/external/glfw3/include/mac $(SRCROOT)/../../cocos2d-x/external/spidermonkey/include/mac $(SRCROOT)/../libs/ElectroClient $(SRCROOT)/../libs/LobbyClient/src $(SRCROOT)/../libs/SmartfoxClient/src";
 			};
@@ -1323,6 +1326,7 @@
 				INFOPLIST_FILE = mac/Info.plist;
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.songbaivip.fullhd;
 				SDKROOT = macosx;
 				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../../cocos2d-x/external/glfw3/include/mac $(SRCROOT)/../../cocos2d-x/external/spidermonkey/include/mac $(SRCROOT)/../libs/ElectroClient $(SRCROOT)/../libs/LobbyClient/src $(SRCROOT)/../libs/SmartfoxClient/src";
 			};
