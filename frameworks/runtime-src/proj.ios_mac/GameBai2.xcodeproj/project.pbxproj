@@ -1262,7 +1262,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				CODE_SIGN_ENTITLEMENTS = "GameBai2-mobile.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Han Pham (Y52PM9ZC42)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Han Pham (P3834447FW)";
 				COMPRESS_PNG_FILES = NO;
 				DEVELOPMENT_TEAM = P3834447FW;
 				ENABLE_BITCODE = NO;
@@ -1279,8 +1279,8 @@
 				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../../cocos2d-x/external/curl/prebuilt/ios";
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.c567vip.gamebaihot;
-				PROVISIONING_PROFILE = "91f53b22-7eb2-49f7-b51e-5db7d9407bfd";
-				PROVISIONING_PROFILE_SPECIFIER = c567vip_dev;
+				PROVISIONING_PROFILE = "76bbab19-8df8-4e06-a357-25766ad15678";
+				PROVISIONING_PROFILE_SPECIFIER = c567vip_dis;
 				SDKROOT = iphoneos;
 				STRIP_PNG_TEXT = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1294,7 +1294,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				CODE_SIGN_ENTITLEMENTS = "GameBai2-mobile.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Han Pham (Y52PM9ZC42)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Han Pham (P3834447FW)";
 				COMPRESS_PNG_FILES = NO;
 				DEVELOPMENT_TEAM = P3834447FW;
 				ENABLE_BITCODE = NO;
@@ -1310,8 +1310,8 @@
 				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../../cocos2d-x/external/curl/prebuilt/ios";
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.c567vip.gamebaihot;
-				PROVISIONING_PROFILE = "91f53b22-7eb2-49f7-b51e-5db7d9407bfd";
-				PROVISIONING_PROFILE_SPECIFIER = c567vip_dev;
+				PROVISIONING_PROFILE = "76bbab19-8df8-4e06-a357-25766ad15678";
+				PROVISIONING_PROFILE_SPECIFIER = c567vip_dis;
 				SDKROOT = iphoneos;
 				STRIP_PNG_TEXT = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";

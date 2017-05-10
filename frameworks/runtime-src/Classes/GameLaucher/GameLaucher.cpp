@@ -89,7 +89,8 @@ GameLaucher::GameLaucher() {
 	versionFile = "version.json";
 	versionHash = "";
 //	jsMainFile = "js/main.js";
-	resourceHost = "https://c567vip.com/demo/mobile/";
+    resourceHost = "";
+	//resourceHost = "https://c567vip.com/demo/mobile/";
 	//resourceHost = "http://sandbox.c567vip.com/tuyennc/mobile/";
 	//resourceHost = "http://sandbox.c567vip.com/tampn/mobile/";
 }
@@ -504,6 +505,7 @@ void GameLaucher::updateResources(){
 						CCLOG("UPDATE OK: %s", res->fullPath.c_str());
 						stepIndex++;
 						if (stepIndex >= stepTarget){
+                            this->resourceHost = "";
 							this->loadResource();
 						}
 					}
