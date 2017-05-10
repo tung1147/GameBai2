@@ -112,12 +112,6 @@
     <ClCompile Include="..\Classes\Socket\LobbyClient.cpp">
       <Filter>Classes\Socket</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Socket\ElectroClient.cpp">
-      <Filter>Classes\Socket</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Socket\jsb_quyetnd_electro_socket.cpp">
-      <Filter>Classes\Socket</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Plugin\ResourcesDownloader.cpp">
       <Filter>Classes\Plugin</Filter>
     </ClCompile>
@@ -215,12 +209,6 @@
       <Filter>Classes\Socket</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Socket\LobbyClient.h">
-      <Filter>Classes\Socket</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Socket\ElectroClient.h">
-      <Filter>Classes\Socket</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Socket\jsb_quyetnd_electro_socket.hpp">
       <Filter>Classes\Socket</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Plugin\ResourcesDownloader.h">

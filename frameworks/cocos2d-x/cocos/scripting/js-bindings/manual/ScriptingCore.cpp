@@ -712,6 +712,7 @@ JS::PersistentRootedScript* ScriptingCore::compileScript(const std::string& path
     if (futil->isFileExist(byteCodePath))
     {
         Data data = futil->getDataFromFile(byteCodePath);
+		cocos2d::log("data: %s", data.getBytes());
         if (!data.isNull())
         {
             *script = JS_DecodeScript(cx, data.getBytes(), static_cast<uint32_t>(data.getSize()), nullptr);
@@ -735,15 +736,11 @@ JS::PersistentRootedScript* ScriptingCore::compileScript(const std::string& path
         op.setFileAndLine(fullPath.c_str(), 1);
 
         bool ok = false;
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-        std::string jsFileContent = futil->getStringFromFile(fullPath);
-        if (!jsFileContent.empty())
-        {
-            ok = JS::Compile(cx, obj, op, jsFileContent.c_str(), jsFileContent.size(), &(*script));
-        }
-#else
-        ok = JS::Compile(cx, obj, op, fullPath.c_str(), &(*script));
-#endif
+		std::string jsFileContent = futil->getStringFromFile(fullPath);
+		if (!jsFileContent.empty())
+		{
+			ok = JS::Compile(cx, obj, op, jsFileContent.c_str(), jsFileContent.size(), &(*script));
+		}
         if (ok) {
             compileSucceed = true;
             filename_script[fullPath] = script;
