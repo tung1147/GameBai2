@@ -158,10 +158,10 @@ var SignupDialog = Dialog.extend({
         this.initWithSize(cc.size(478, 587));
         var thiz = this;
 
-        var titleLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, s_signup_title, cc.TEXT_ALIGNMENT_CENTER);
-        titleLabel.setPosition(this.getContentSize().width/2, 560);
-        titleLabel.setColor(cc.color("#4d5f7b"));
-        this.addChild(titleLabel, 2);
+        // var titleLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, s_signup_title, cc.TEXT_ALIGNMENT_CENTER);
+        // titleLabel.setPosition(this.getContentSize().width/2, 560);
+        // titleLabel.setColor(cc.color("#4d5f7b"));
+        // this.addChild(titleLabel, 2);
 
         /* login text field */
         var userNameBg = new ccui.Scale9Sprite("dialog-textinput-bg.png", cc.rect(10,10,4,4));
@@ -174,10 +174,6 @@ var SignupDialog = Dialog.extend({
         passwordBg.setPosition(cc.p(this.getContentSize().width/2, 425));
         this.addChild(passwordBg);
 
-        var phoneBg = new ccui.Scale9Sprite("dialog-textinput-bg.png", cc.rect(10,10,4,4));
-        phoneBg.setPreferredSize(cc.size(280, 44));
-        phoneBg.setPosition(cc.p(this.getContentSize().width/2, 355));
-        this.addChild(phoneBg);
 
         this.userText = new newui.TextField(cc.size(270, 44), cc.res.font.Roboto_Condensed_18);
         this.userText.setPlaceHolder("Tài khoản");
@@ -196,24 +192,17 @@ var SignupDialog = Dialog.extend({
         this.passwordText.setPosition(passwordBg.getPosition());
         this.addChild(this.passwordText,1);
 
-        this.phoneText = new newui.TextField(cc.size(270, 44), cc.res.font.Roboto_Condensed_18);
-        this.phoneText.setPlaceHolder("Số điện thoại");
-        this.phoneText.setTextColor(cc.color("#c4e1ff"));
-        this.phoneText.setPlaceHolderColor(cc.color("#909090"));
-        this.phoneText.setMaxLength(30);
-        this.phoneText.setPosition(phoneBg.getPosition());
-        this.addChild(this.phoneText,1);
+
 
         this.userText.nextTextField = this.passwordText;
-        this.passwordText.nextTextField = this.phoneText;
-        this.phoneText.nextTextField = this.userText;
+        this.passwordText.nextTextField = this.userText;
 
         var signupBt = s_Dialog_Create_Button1(cc.size(284, 44), "ĐĂNG KÝ");
-        signupBt.setPosition(this.getContentSize().width/2, 210.0);
+        signupBt.setPosition(this.getContentSize().width/2, 290.0);
         this.addChild(signupBt);
 
         var toggleIcon1 = new cc.Sprite("#dialog-checkBox-2.png");
-        toggleIcon1.setPosition(this.getContentSize().width/2 - 120, 280);
+        toggleIcon1.setPosition(this.getContentSize().width/2 - 120, 360);
         this.addChild(toggleIcon1);
         var toggleLabel1 = new cc.LabelBMFont("Nam", cc.res.font.Roboto_Condensed_18);
         toggleLabel1.setAnchorPoint(cc.p(0.0, 0.5));
@@ -263,7 +252,7 @@ var SignupDialog = Dialog.extend({
                 MessageNode.getInstance().show("Bạn phải nhập mật khẩu");
                 return;
             }
-            var phoneNumber = thiz.phoneText.getText();
+            var phoneNumber = "";
             LoadingDialog.getInstance().show("Đang đăng ký");
             LobbyClient.getInstance().signup(username, password, phoneNumber, thiz._male);
         });
@@ -271,7 +260,7 @@ var SignupDialog = Dialog.extend({
 
         var loginLabel = new cc.LabelBMFont("ĐĂNG NHẬP", cc.res.font.Roboto_Condensed_18);
         loginLabel.setColor(cc.color("#4c6080"));
-        loginLabel.setPosition(this.getContentSize().width/2, 140.0);
+        loginLabel.setPosition(this.getContentSize().width/2, 240.0);
         this.addChild(loginLabel, 1);
 
         var loginBt = new ccui.Widget();

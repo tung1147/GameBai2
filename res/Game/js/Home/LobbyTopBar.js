@@ -67,20 +67,16 @@ var LobbyTopBar = cc.Node.extend({
         backBt.setPosition(54, 660);
         this.addChild(backBt);
 
-        var callBt = new ccui.Button("top_bar_callBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        callBt.setPosition(200, backBt.y);
-        this.addChild(callBt);
-
         var transferGoldBt = new ccui.Button("top_bar_goldBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        transferGoldBt.setPosition(347, backBt.y);
+        transferGoldBt.setPosition(221, backBt.y);
         this.addChild(transferGoldBt);
 
         var shopBt = new ccui.Button("top_bar_shopBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        shopBt.setPosition(493, backBt.y);
+        shopBt.setPosition(388, backBt.y);
         this.addChild(shopBt);
 
         var activityBt = new ccui.Button("top_bar_activityBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        activityBt.setPosition(639, backBt.y);
+        activityBt.setPosition(555, backBt.y);
         this.addChild(activityBt);
 
         var activityNotif = new ActivityCountNode();
@@ -88,7 +84,7 @@ var LobbyTopBar = cc.Node.extend({
         activityBt.getRendererNormal().addChild(activityNotif);
 
         var inboxBt = new ccui.Button("top_bar_inboxBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        inboxBt.setPosition(786, backBt.y);
+        inboxBt.setPosition(722, backBt.y);
         this.addChild(inboxBt);
 
         var notif = new InboxCountNode();
@@ -96,11 +92,11 @@ var LobbyTopBar = cc.Node.extend({
         inboxBt.getRendererNormal().addChild(notif);
 
         var newsBt = new ccui.Button("top_bar_newsBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        newsBt.setPosition(932, backBt.y);
+        newsBt.setPosition(889, backBt.y);
         this.addChild(newsBt);
 
         var rankBt = new ccui.Button("top_bar_rankBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        rankBt.setPosition(1078, backBt.y);
+        rankBt.setPosition(1056, backBt.y);
         this.addChild(rankBt);
 
         var settingBt = new ccui.Button("top_bar_settingBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
@@ -110,7 +106,6 @@ var LobbyTopBar = cc.Node.extend({
         this._initMessageLabel();
 
         this.backBt = backBt;
-        this.callBt = callBt;
         this.transferGoldBt = transferGoldBt;
         this.shopBt = shopBt;
         this.activityBt = activityBt;

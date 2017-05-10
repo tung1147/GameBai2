@@ -63,9 +63,6 @@ var HomeScene = IScene.extend({
         this.topBar.rankBt.addClickEventListener(function () {
             thiz.rankButtonHandler();
         });
-        this.topBar.callBt.addClickEventListener(function () {
-            thiz.callButtonHandler();
-        });
         this.topBar.settingBt.addClickEventListener(function () {
             thiz.settingButtonHandler();
         });
@@ -83,9 +80,6 @@ var HomeScene = IScene.extend({
         });
         this.userInfo.paymentBt.addClickEventListener(function () {
             thiz.paymentButtonHandler();
-        });
-        this.userInfo.userinfoBt.addClickEventListener(function () {
-            thiz.userInfoButtonHandler();
         });
 
         this.homeLayer.fbButton.addClickEventListener(function () {
