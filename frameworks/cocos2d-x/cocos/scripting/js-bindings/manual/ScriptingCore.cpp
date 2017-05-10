@@ -712,7 +712,6 @@ JS::PersistentRootedScript* ScriptingCore::compileScript(const std::string& path
     if (futil->isFileExist(byteCodePath))
     {
         Data data = futil->getDataFromFile(byteCodePath);
-		cocos2d::log("data: %s", data.getBytes());
         if (!data.isNull())
         {
             *script = JS_DecodeScript(cx, data.getBytes(), static_cast<uint32_t>(data.getSize()), nullptr);
