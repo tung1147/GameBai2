@@ -127,7 +127,7 @@ var MiniGamePopup = cc.Node.extend({
         var thiz = this;
         var chip1 = new MiniLayerChip(1);
         chip1.setPosition(centerPosition.x + 21, centerPosition.y + 105);
-        chip1.setScale(cc.winSize.screenScale);
+       // chip1.setScale(cc.winSize.screenScale);
         chip1.originPoint = chip1.getPosition();
         chip1.onSelect = function () {
             thiz.onSelectChip(1);
@@ -136,7 +136,7 @@ var MiniGamePopup = cc.Node.extend({
 
         var chip2 = new MiniLayerChip(2);
         chip2.setPosition(centerPosition.x, centerPosition.y);
-        chip2.setScale(cc.winSize.screenScale);
+       // chip2.setScale(cc.winSize.screenScale);
         chip2.originPoint = chip2.getPosition();
         chip2.onSelect = function () {
             thiz.onSelectChip(2);
@@ -145,7 +145,7 @@ var MiniGamePopup = cc.Node.extend({
 
         var chip3 = new MiniLayerChip(3);
         chip3.setPosition(centerPosition.x + 19, centerPosition.y - 105);
-        chip3.setScale(cc.winSize.screenScale);
+      //  chip3.setScale(cc.winSize.screenScale);
         chip3.originPoint = chip3.getPosition();
         chip3.onSelect = function () {
             thiz.onSelectChip(3);
