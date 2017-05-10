@@ -6,7 +6,7 @@ import org.cocos2dx.javascript.AppActivity;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.puppet.gamebai2.R;
+import com.c567vip.gamebaihot.R;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -350,7 +350,7 @@ public class SystemPlugin {
 
       Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
       NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(activity)
-			  .setSmallIcon(R.mipmap.ic_launcher)
+			  .setSmallIcon(R.mipmap.icon)
               .setContentTitle(title)
               .setContentText(message)
               .setStyle(new NotificationCompat.BigTextStyle().bigText(title))

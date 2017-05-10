@@ -7,11 +7,11 @@ android {
     buildToolsVersion "25.0.0"
 
     defaultConfig {
-        applicationId "com.puppet.gamebai2"
+        applicationId "com.c567vip.gamebaihot"
         minSdkVersion 15
         targetSdkVersion PROP_TARGET_SDK_VERSION
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
 
         externalNativeBuild {
             ndkBuild {
