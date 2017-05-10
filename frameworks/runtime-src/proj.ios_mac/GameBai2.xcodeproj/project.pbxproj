@@ -58,8 +58,6 @@
 		560F84A71EB3802200C3C032 /* CustomAction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 560F845E1EB3802200C3C032 /* CustomAction.cpp */; };
 		560F84A81EB3802200C3C032 /* jsb_quyetnd_action.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 560F84601EB3802200C3C032 /* jsb_quyetnd_action.cpp */; };
 		560F84A91EB3802200C3C032 /* jsb_quyetnd_action.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 560F84601EB3802200C3C032 /* jsb_quyetnd_action.cpp */; };
-		560F84AA1EB3802200C3C032 /* jsb_quyetnd_action_api.js in Resources */ = {isa = PBXBuildFile; fileRef = 560F84621EB3802200C3C032 /* jsb_quyetnd_action_api.js */; };
-		560F84AB1EB3802200C3C032 /* jsb_quyetnd_action_api.js in Resources */ = {isa = PBXBuildFile; fileRef = 560F84621EB3802200C3C032 /* jsb_quyetnd_action_api.js */; };
 		560F84AC1EB3802200C3C032 /* GameLaucher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 560F84641EB3802200C3C032 /* GameLaucher.cpp */; };
 		560F84AD1EB3802200C3C032 /* GameLaucher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 560F84641EB3802200C3C032 /* GameLaucher.cpp */; };
 		560F84AE1EB3802200C3C032 /* GameResource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 560F84661EB3802200C3C032 /* GameResource.cpp */; };
@@ -68,8 +66,6 @@
 		560F84B11EB3802200C3C032 /* ResourceLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 560F84681EB3802200C3C032 /* ResourceLoader.cpp */; };
 		560F84B21EB3802200C3C032 /* jsb_quyetnd_newui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 560F846B1EB3802200C3C032 /* jsb_quyetnd_newui.cpp */; };
 		560F84B31EB3802200C3C032 /* jsb_quyetnd_newui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 560F846B1EB3802200C3C032 /* jsb_quyetnd_newui.cpp */; };
-		560F84B41EB3802200C3C032 /* jsb_quyetnd_newui_api.js in Resources */ = {isa = PBXBuildFile; fileRef = 560F846D1EB3802200C3C032 /* jsb_quyetnd_newui_api.js */; };
-		560F84B51EB3802200C3C032 /* jsb_quyetnd_newui_api.js in Resources */ = {isa = PBXBuildFile; fileRef = 560F846D1EB3802200C3C032 /* jsb_quyetnd_newui_api.js */; };
 		560F84B61EB3802200C3C032 /* ListViewWithAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 560F846E1EB3802200C3C032 /* ListViewWithAdapter.cpp */; };
 		560F84B71EB3802200C3C032 /* ListViewWithAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 560F846E1EB3802200C3C032 /* ListViewWithAdapter.cpp */; };
 		560F84B81EB3802200C3C032 /* NewTableView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 560F84701EB3802200C3C032 /* NewTableView.cpp */; };
@@ -94,8 +90,6 @@
 		560F84CB1EB3802200C3C032 /* jsb_quyetnd_resourcedownloader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 560F84831EB3802200C3C032 /* jsb_quyetnd_resourcedownloader.cpp */; };
 		560F84CC1EB3802200C3C032 /* jsb_quyetnd_systemplugin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 560F84851EB3802200C3C032 /* jsb_quyetnd_systemplugin.cpp */; };
 		560F84CD1EB3802200C3C032 /* jsb_quyetnd_systemplugin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 560F84851EB3802200C3C032 /* jsb_quyetnd_systemplugin.cpp */; };
-		560F84CE1EB3802200C3C032 /* jsb_quyetnd_systemplugin_api.js in Resources */ = {isa = PBXBuildFile; fileRef = 560F84871EB3802200C3C032 /* jsb_quyetnd_systemplugin_api.js */; };
-		560F84CF1EB3802200C3C032 /* jsb_quyetnd_systemplugin_api.js in Resources */ = {isa = PBXBuildFile; fileRef = 560F84871EB3802200C3C032 /* jsb_quyetnd_systemplugin_api.js */; };
 		560F84D01EB3802200C3C032 /* MD5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 560F84881EB3802200C3C032 /* MD5.cpp */; };
 		560F84D11EB3802200C3C032 /* MD5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 560F84881EB3802200C3C032 /* MD5.cpp */; };
 		560F84D21EB3802200C3C032 /* ResourcesDownloader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 560F848A1EB3802200C3C032 /* ResourcesDownloader.cpp */; };
@@ -106,20 +100,10 @@
 		560F84D71EB3802200C3C032 /* SystemPlugin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 560F848E1EB3802200C3C032 /* SystemPlugin.cpp */; };
 		560F84D81EB3802200C3C032 /* UUIDEncrypt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 560F84901EB3802200C3C032 /* UUIDEncrypt.cpp */; };
 		560F84D91EB3802200C3C032 /* UUIDEncrypt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 560F84901EB3802200C3C032 /* UUIDEncrypt.cpp */; };
-		560F84DA1EB3802200C3C032 /* ElectroClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 560F84931EB3802200C3C032 /* ElectroClient.cpp */; };
-		560F84DB1EB3802200C3C032 /* ElectroClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 560F84931EB3802200C3C032 /* ElectroClient.cpp */; };
-		560F84DC1EB3802200C3C032 /* jsb_quyetnd_electro_socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 560F84951EB3802200C3C032 /* jsb_quyetnd_electro_socket.cpp */; };
-		560F84DD1EB3802200C3C032 /* jsb_quyetnd_electro_socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 560F84951EB3802200C3C032 /* jsb_quyetnd_electro_socket.cpp */; };
-		560F84DE1EB3802200C3C032 /* jsb_quyetnd_electro_socket_api.js in Resources */ = {isa = PBXBuildFile; fileRef = 560F84971EB3802200C3C032 /* jsb_quyetnd_electro_socket_api.js */; };
-		560F84DF1EB3802200C3C032 /* jsb_quyetnd_electro_socket_api.js in Resources */ = {isa = PBXBuildFile; fileRef = 560F84971EB3802200C3C032 /* jsb_quyetnd_electro_socket_api.js */; };
 		560F84E01EB3802200C3C032 /* jsb_quyetnd_lobbysocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 560F84981EB3802200C3C032 /* jsb_quyetnd_lobbysocket.cpp */; };
 		560F84E11EB3802200C3C032 /* jsb_quyetnd_lobbysocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 560F84981EB3802200C3C032 /* jsb_quyetnd_lobbysocket.cpp */; };
-		560F84E21EB3802200C3C032 /* jsb_quyetnd_lobbysocket_api.js in Resources */ = {isa = PBXBuildFile; fileRef = 560F849A1EB3802200C3C032 /* jsb_quyetnd_lobbysocket_api.js */; };
-		560F84E31EB3802200C3C032 /* jsb_quyetnd_lobbysocket_api.js in Resources */ = {isa = PBXBuildFile; fileRef = 560F849A1EB3802200C3C032 /* jsb_quyetnd_lobbysocket_api.js */; };
 		560F84E41EB3802200C3C032 /* jsb_quyetnd_sfssocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 560F849B1EB3802200C3C032 /* jsb_quyetnd_sfssocket.cpp */; };
 		560F84E51EB3802200C3C032 /* jsb_quyetnd_sfssocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 560F849B1EB3802200C3C032 /* jsb_quyetnd_sfssocket.cpp */; };
-		560F84E61EB3802200C3C032 /* jsb_quyetnd_sfssocket_api.js in Resources */ = {isa = PBXBuildFile; fileRef = 560F849D1EB3802200C3C032 /* jsb_quyetnd_sfssocket_api.js */; };
-		560F84E71EB3802200C3C032 /* jsb_quyetnd_sfssocket_api.js in Resources */ = {isa = PBXBuildFile; fileRef = 560F849D1EB3802200C3C032 /* jsb_quyetnd_sfssocket_api.js */; };
 		560F84E81EB3802200C3C032 /* LobbyClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 560F849E1EB3802200C3C032 /* LobbyClient.cpp */; };
 		560F84E91EB3802200C3C032 /* LobbyClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 560F849E1EB3802200C3C032 /* LobbyClient.cpp */; };
 		560F84EA1EB3802200C3C032 /* SmartfoxClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 560F84A01EB3802200C3C032 /* SmartfoxClient.cpp */; };
@@ -132,10 +116,8 @@
 		560F84FC1EB3807200C3C032 /* Icon-180.png in Resources */ = {isa = PBXBuildFile; fileRef = 560F84FA1EB3807200C3C032 /* Icon-180.png */; };
 		560F84FF1EB3808800C3C032 /* Default-736h@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 560F84FD1EB3808800C3C032 /* Default-736h@3x.png */; };
 		560F85001EB3808800C3C032 /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 560F84FE1EB3808800C3C032 /* Default-Landscape~ipad.png */; };
-		560F851F1EB382FB00C3C032 /* libElectroSocket_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 560F850C1EB382C600C3C032 /* libElectroSocket_ios.a */; };
 		560F85201EB382FB00C3C032 /* libLobbySocket_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 560F85151EB382D200C3C032 /* libLobbySocket_ios.a */; };
 		560F85211EB382FB00C3C032 /* libSmartfoxSocket_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 560F851E1EB382D700C3C032 /* libSmartfoxSocket_ios.a */; };
-		560F85221EB3830700C3C032 /* libElectroSocket_mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 560F850A1EB382C600C3C032 /* libElectroSocket_mac.a */; };
 		560F85231EB3830700C3C032 /* libLobbySocket_mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 560F85131EB382D200C3C032 /* libLobbySocket_mac.a */; };
 		560F85241EB3830700C3C032 /* libSmartfoxSocket_mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 560F851C1EB382D700C3C032 /* libSmartfoxSocket_mac.a */; };
 		560F854C1EB384F300C3C032 /* MacOS_native_linker.mm in Sources */ = {isa = PBXBuildFile; fileRef = 560F854B1EB384F300C3C032 /* MacOS_native_linker.mm */; };
@@ -216,20 +198,6 @@
 			remoteGlobalIDString = 507B40FD1C31BDD30067B53E;
 			remoteInfo = "libcocos2d tvOS";
 		};
-		560F85091EB382C600C3C032 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 560F85041EB382C600C3C032 /* libElectroSocket.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 56A440641E2E673200999418;
-			remoteInfo = libElectroSocket_mac;
-		};
-		560F850B1EB382C600C3C032 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 560F85041EB382C600C3C032 /* libElectroSocket.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 56A440651E2E673A00999418;
-			remoteInfo = libElectroSocket_ios;
-		};
 		560F85121EB382D200C3C032 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 560F850D1EB382D200C3C032 /* libLobbySocket.xcodeproj */;
@@ -272,13 +240,6 @@
 			remoteGlobalIDString = A07A4FB5178387750073F6A7;
 			remoteInfo = libLobbySocket_ios;
 		};
-		560F85291EB3834400C3C032 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 560F85041EB382C600C3C032 /* libElectroSocket.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = A07A4FB5178387750073F6A7;
-			remoteInfo = libElectroSocket_ios;
-		};
 		560F852B1EB3834B00C3C032 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 560F85161EB382D700C3C032 /* libSmartfoxSocket.xcodeproj */;
@@ -292,13 +253,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = A03F31E81781479B006731B9;
 			remoteInfo = libLobbySocket_mac;
-		};
-		560F852F1EB3834B00C3C032 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 560F85041EB382C600C3C032 /* libElectroSocket.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = A03F31E81781479B006731B9;
-			remoteInfo = libElectroSocket_mac;
 		};
 		C037820618BF76AF00FE4F13 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -379,7 +333,6 @@
 		560F845F1EB3802200C3C032 /* CustomAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomAction.h; sourceTree = "<group>"; };
 		560F84601EB3802200C3C032 /* jsb_quyetnd_action.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jsb_quyetnd_action.cpp; sourceTree = "<group>"; };
 		560F84611EB3802200C3C032 /* jsb_quyetnd_action.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = jsb_quyetnd_action.hpp; sourceTree = "<group>"; };
-		560F84621EB3802200C3C032 /* jsb_quyetnd_action_api.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jsb_quyetnd_action_api.js; sourceTree = "<group>"; };
 		560F84641EB3802200C3C032 /* GameLaucher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameLaucher.cpp; sourceTree = "<group>"; };
 		560F84651EB3802200C3C032 /* GameLaucher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameLaucher.h; sourceTree = "<group>"; };
 		560F84661EB3802200C3C032 /* GameResource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameResource.cpp; sourceTree = "<group>"; };
@@ -388,7 +341,6 @@
 		560F84691EB3802200C3C032 /* ResourceLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourceLoader.h; sourceTree = "<group>"; };
 		560F846B1EB3802200C3C032 /* jsb_quyetnd_newui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jsb_quyetnd_newui.cpp; sourceTree = "<group>"; };
 		560F846C1EB3802200C3C032 /* jsb_quyetnd_newui.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = jsb_quyetnd_newui.hpp; sourceTree = "<group>"; };
-		560F846D1EB3802200C3C032 /* jsb_quyetnd_newui_api.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jsb_quyetnd_newui_api.js; sourceTree = "<group>"; };
 		560F846E1EB3802200C3C032 /* ListViewWithAdapter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ListViewWithAdapter.cpp; sourceTree = "<group>"; };
 		560F846F1EB3802200C3C032 /* ListViewWithAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListViewWithAdapter.h; sourceTree = "<group>"; };
 		560F84701EB3802200C3C032 /* NewTableView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NewTableView.cpp; sourceTree = "<group>"; };
@@ -413,7 +365,6 @@
 		560F84841EB3802200C3C032 /* jsb_quyetnd_resourcedownloader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = jsb_quyetnd_resourcedownloader.hpp; sourceTree = "<group>"; };
 		560F84851EB3802200C3C032 /* jsb_quyetnd_systemplugin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jsb_quyetnd_systemplugin.cpp; sourceTree = "<group>"; };
 		560F84861EB3802200C3C032 /* jsb_quyetnd_systemplugin.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = jsb_quyetnd_systemplugin.hpp; sourceTree = "<group>"; };
-		560F84871EB3802200C3C032 /* jsb_quyetnd_systemplugin_api.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jsb_quyetnd_systemplugin_api.js; sourceTree = "<group>"; };
 		560F84881EB3802200C3C032 /* MD5.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MD5.cpp; sourceTree = "<group>"; };
 		560F84891EB3802200C3C032 /* MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MD5.h; sourceTree = "<group>"; };
 		560F848A1EB3802200C3C032 /* ResourcesDownloader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ResourcesDownloader.cpp; sourceTree = "<group>"; };
@@ -424,17 +375,10 @@
 		560F848F1EB3802200C3C032 /* SystemPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemPlugin.h; sourceTree = "<group>"; };
 		560F84901EB3802200C3C032 /* UUIDEncrypt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UUIDEncrypt.cpp; sourceTree = "<group>"; };
 		560F84911EB3802200C3C032 /* UUIDEncrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UUIDEncrypt.h; sourceTree = "<group>"; };
-		560F84931EB3802200C3C032 /* ElectroClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ElectroClient.cpp; sourceTree = "<group>"; };
-		560F84941EB3802200C3C032 /* ElectroClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ElectroClient.h; sourceTree = "<group>"; };
-		560F84951EB3802200C3C032 /* jsb_quyetnd_electro_socket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jsb_quyetnd_electro_socket.cpp; sourceTree = "<group>"; };
-		560F84961EB3802200C3C032 /* jsb_quyetnd_electro_socket.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = jsb_quyetnd_electro_socket.hpp; sourceTree = "<group>"; };
-		560F84971EB3802200C3C032 /* jsb_quyetnd_electro_socket_api.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jsb_quyetnd_electro_socket_api.js; sourceTree = "<group>"; };
 		560F84981EB3802200C3C032 /* jsb_quyetnd_lobbysocket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jsb_quyetnd_lobbysocket.cpp; sourceTree = "<group>"; };
 		560F84991EB3802200C3C032 /* jsb_quyetnd_lobbysocket.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = jsb_quyetnd_lobbysocket.hpp; sourceTree = "<group>"; };
-		560F849A1EB3802200C3C032 /* jsb_quyetnd_lobbysocket_api.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jsb_quyetnd_lobbysocket_api.js; sourceTree = "<group>"; };
 		560F849B1EB3802200C3C032 /* jsb_quyetnd_sfssocket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jsb_quyetnd_sfssocket.cpp; sourceTree = "<group>"; };
 		560F849C1EB3802200C3C032 /* jsb_quyetnd_sfssocket.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = jsb_quyetnd_sfssocket.hpp; sourceTree = "<group>"; };
-		560F849D1EB3802200C3C032 /* jsb_quyetnd_sfssocket_api.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jsb_quyetnd_sfssocket_api.js; sourceTree = "<group>"; };
 		560F849E1EB3802200C3C032 /* LobbyClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LobbyClient.cpp; sourceTree = "<group>"; };
 		560F849F1EB3802200C3C032 /* LobbyClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LobbyClient.h; sourceTree = "<group>"; };
 		560F84A01EB3802200C3C032 /* SmartfoxClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SmartfoxClient.cpp; sourceTree = "<group>"; };
@@ -451,7 +395,6 @@
 		560F84FA1EB3807200C3C032 /* Icon-180.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-180.png"; path = "ios/Icon-180.png"; sourceTree = "<group>"; };
 		560F84FD1EB3808800C3C032 /* Default-736h@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-736h@3x.png"; path = "ios/Default-736h@3x.png"; sourceTree = "<group>"; };
 		560F84FE1EB3808800C3C032 /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape~ipad.png"; path = "ios/Default-Landscape~ipad.png"; sourceTree = "<group>"; };
-		560F85041EB382C600C3C032 /* libElectroSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libElectroSocket.xcodeproj; path = ../libs/ElectroClient/proj.ios_mac/libElectroSocket.xcodeproj; sourceTree = "<group>"; };
 		560F850D1EB382D200C3C032 /* libLobbySocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libLobbySocket.xcodeproj; path = ../libs/LobbyClient/proj.ios_mac/libLobbySocket.xcodeproj; sourceTree = "<group>"; };
 		560F85161EB382D700C3C032 /* libSmartfoxSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libSmartfoxSocket.xcodeproj; path = ../libs/SmartfoxClient/proj.ios_mac/libSmartfoxSocket.xcodeproj; sourceTree = "<group>"; };
 		560F854A1EB384F300C3C032 /* MacOS_native_linker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MacOS_native_linker.h; sourceTree = "<group>"; };
@@ -496,7 +439,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				560F85221EB3830700C3C032 /* libElectroSocket_mac.a in Frameworks */,
 				560F85231EB3830700C3C032 /* libLobbySocket_mac.a in Frameworks */,
 				560F85241EB3830700C3C032 /* libSmartfoxSocket_mac.a in Frameworks */,
 				ED545A841B68A21C00C3958E /* libiconv.dylib in Frameworks */,
@@ -523,7 +465,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				560F85731EB38BAF00C3C032 /* MessageUI.framework in Frameworks */,
-				560F851F1EB382FB00C3C032 /* libElectroSocket_ios.a in Frameworks */,
 				560F85201EB382FB00C3C032 /* libLobbySocket_ios.a in Frameworks */,
 				560F856C1EB3880300C3C032 /* FBSDKShareKit.framework in Frameworks */,
 				560F85211EB382FB00C3C032 /* libSmartfoxSocket_ios.a in Frameworks */,
@@ -622,7 +563,6 @@
 				560F845F1EB3802200C3C032 /* CustomAction.h */,
 				560F84601EB3802200C3C032 /* jsb_quyetnd_action.cpp */,
 				560F84611EB3802200C3C032 /* jsb_quyetnd_action.hpp */,
-				560F84621EB3802200C3C032 /* jsb_quyetnd_action_api.js */,
 			);
 			path = Action;
 			sourceTree = "<group>";
@@ -647,7 +587,6 @@
 			children = (
 				560F846B1EB3802200C3C032 /* jsb_quyetnd_newui.cpp */,
 				560F846C1EB3802200C3C032 /* jsb_quyetnd_newui.hpp */,
-				560F846D1EB3802200C3C032 /* jsb_quyetnd_newui_api.js */,
 				560F846E1EB3802200C3C032 /* ListViewWithAdapter.cpp */,
 				560F846F1EB3802200C3C032 /* ListViewWithAdapter.h */,
 				560F84701EB3802200C3C032 /* NewTableView.cpp */,
@@ -679,7 +618,6 @@
 				560F84841EB3802200C3C032 /* jsb_quyetnd_resourcedownloader.hpp */,
 				560F84851EB3802200C3C032 /* jsb_quyetnd_systemplugin.cpp */,
 				560F84861EB3802200C3C032 /* jsb_quyetnd_systemplugin.hpp */,
-				560F84871EB3802200C3C032 /* jsb_quyetnd_systemplugin_api.js */,
 				560F84881EB3802200C3C032 /* MD5.cpp */,
 				560F84891EB3802200C3C032 /* MD5.h */,
 				560F848A1EB3802200C3C032 /* ResourcesDownloader.cpp */,
@@ -697,17 +635,10 @@
 		560F84921EB3802200C3C032 /* Socket */ = {
 			isa = PBXGroup;
 			children = (
-				560F84931EB3802200C3C032 /* ElectroClient.cpp */,
-				560F84941EB3802200C3C032 /* ElectroClient.h */,
-				560F84951EB3802200C3C032 /* jsb_quyetnd_electro_socket.cpp */,
-				560F84961EB3802200C3C032 /* jsb_quyetnd_electro_socket.hpp */,
-				560F84971EB3802200C3C032 /* jsb_quyetnd_electro_socket_api.js */,
 				560F84981EB3802200C3C032 /* jsb_quyetnd_lobbysocket.cpp */,
 				560F84991EB3802200C3C032 /* jsb_quyetnd_lobbysocket.hpp */,
-				560F849A1EB3802200C3C032 /* jsb_quyetnd_lobbysocket_api.js */,
 				560F849B1EB3802200C3C032 /* jsb_quyetnd_sfssocket.cpp */,
 				560F849C1EB3802200C3C032 /* jsb_quyetnd_sfssocket.hpp */,
-				560F849D1EB3802200C3C032 /* jsb_quyetnd_sfssocket_api.js */,
 				560F849E1EB3802200C3C032 /* LobbyClient.cpp */,
 				560F849F1EB3802200C3C032 /* LobbyClient.h */,
 				560F84A01EB3802200C3C032 /* SmartfoxClient.cpp */,
@@ -730,15 +661,6 @@
 			);
 			name = Plugin;
 			path = ios/Plugin;
-			sourceTree = "<group>";
-		};
-		560F85051EB382C600C3C032 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				560F850A1EB382C600C3C032 /* libElectroSocket_mac.a */,
-				560F850C1EB382C600C3C032 /* libElectroSocket_ios.a */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		560F850E1EB382D200C3C032 /* Products */ = {
@@ -789,7 +711,6 @@
 				2799BC141EC06FA700057795 /* GameBai2-mobile.entitlements */,
 				560F85161EB382D700C3C032 /* libSmartfoxSocket.xcodeproj */,
 				560F850D1EB382D200C3C032 /* libLobbySocket.xcodeproj */,
-				560F85041EB382C600C3C032 /* libElectroSocket.xcodeproj */,
 				C037820118BF76AF00FE4F13 /* cocos2d_js_bindings.xcodeproj */,
 				1AC6FB34180E9ACB004C840B /* cocos2d_libs.xcodeproj */,
 				560F85711EB38A0F00C3C032 /* curl */,
@@ -905,7 +826,6 @@
 			dependencies = (
 				560F852C1EB3834B00C3C032 /* PBXTargetDependency */,
 				560F852E1EB3834B00C3C032 /* PBXTargetDependency */,
-				560F85301EB3834B00C3C032 /* PBXTargetDependency */,
 				C037820E18BF77D100FE4F13 /* PBXTargetDependency */,
 				1A676820180E9BF70076BC67 /* PBXTargetDependency */,
 			);
@@ -927,7 +847,6 @@
 			dependencies = (
 				560F85261EB3834400C3C032 /* PBXTargetDependency */,
 				560F85281EB3834400C3C032 /* PBXTargetDependency */,
-				560F852A1EB3834400C3C032 /* PBXTargetDependency */,
 				C037820B18BF77BC00FE4F13 /* PBXTargetDependency */,
 				1A67682F180E9C110076BC67 /* PBXTargetDependency */,
 			);
@@ -975,10 +894,6 @@
 					ProjectRef = 1AC6FB34180E9ACB004C840B /* cocos2d_libs.xcodeproj */;
 				},
 				{
-					ProductGroup = 560F85051EB382C600C3C032 /* Products */;
-					ProjectRef = 560F85041EB382C600C3C032 /* libElectroSocket.xcodeproj */;
-				},
-				{
 					ProductGroup = 560F850E1EB382D200C3C032 /* Products */;
 					ProjectRef = 560F850D1EB382D200C3C032 /* libLobbySocket.xcodeproj */;
 				},
@@ -1022,20 +937,6 @@
 			fileType = archive.ar;
 			path = "libcocos2d tvOS.a";
 			remoteRef = 560F84571EB37FE500C3C032 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		560F850A1EB382C600C3C032 /* libElectroSocket_mac.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libElectroSocket_mac.a;
-			remoteRef = 560F85091EB382C600C3C032 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		560F850C1EB382C600C3C032 /* libElectroSocket_ios.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libElectroSocket_ios.a;
-			remoteRef = 560F850B1EB382C600C3C032 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		560F85131EB382D200C3C032 /* libLobbySocket_mac.a */ = {
@@ -1090,13 +991,7 @@
 				270C7D811EC17A7C00E8D4E3 /* script in Resources */,
 				1AC22EDE18CA0E11007112B9 /* project.json in Resources */,
 				C0799CBA18BAE62000E9C828 /* res in Resources */,
-				560F84B51EB3802200C3C032 /* jsb_quyetnd_newui_api.js in Resources */,
-				560F84E31EB3802200C3C032 /* jsb_quyetnd_lobbysocket_api.js in Resources */,
 				509D4ACF17EBB2BE00697056 /* Icon.icns in Resources */,
-				560F84AB1EB3802200C3C032 /* jsb_quyetnd_action_api.js in Resources */,
-				560F84DF1EB3802200C3C032 /* jsb_quyetnd_electro_socket_api.js in Resources */,
-				560F84E71EB3802200C3C032 /* jsb_quyetnd_sfssocket_api.js in Resources */,
-				560F84CF1EB3802200C3C032 /* jsb_quyetnd_systemplugin_api.js in Resources */,
 				C03780EC18BEE0E400FE4F13 /* src in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1105,26 +1000,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				560F84AA1EB3802200C3C032 /* jsb_quyetnd_action_api.js in Resources */,
 				1AE159EC18C9DF3600FCA372 /* project.json in Resources */,
 				509D4ABE17EBB2AB00697056 /* Default.png in Resources */,
 				5091731E17ECDF7A00D62437 /* Icon-80.png in Resources */,
 				5091731F17ECDF7A00D62437 /* Icon-100.png in Resources */,
 				560F84FC1EB3807200C3C032 /* Icon-180.png in Resources */,
-				560F84DE1EB3802200C3C032 /* jsb_quyetnd_electro_socket_api.js in Resources */,
 				509D4AC117EBB2AB00697056 /* Icon-72.png in Resources */,
-				560F84B41EB3802200C3C032 /* jsb_quyetnd_newui_api.js in Resources */,
 				509D4AC017EBB2AB00697056 /* Icon-57.png in Resources */,
-				560F84CE1EB3802200C3C032 /* jsb_quyetnd_systemplugin_api.js in Resources */,
 				5091731A17ECDF7A00D62437 /* Icon-29.png in Resources */,
 				C03780EB18BEE0E400FE4F13 /* src in Resources */,
 				509D4AC617EBB2AB00697056 /* Icon-152.png in Resources */,
-				560F84E21EB3802200C3C032 /* jsb_quyetnd_lobbysocket_api.js in Resources */,
 				C0799CB918BAE62000E9C828 /* res in Resources */,
 				509D4AC517EBB2AB00697056 /* Icon-144.png in Resources */,
 				509D4AC317EBB2AB00697056 /* Icon-114.png in Resources */,
 				560F85651EB3880300C3C032 /* FacebookSDKStrings.bundle in Resources */,
-				560F84E61EB3802200C3C032 /* jsb_quyetnd_sfssocket_api.js in Resources */,
 				509D4ABD17EBB2AB00697056 /* Default-568h@2x.png in Resources */,
 				509D4ABF17EBB2AB00697056 /* Default@2x.png in Resources */,
 				270C7D801EC17A7C00E8D4E3 /* script in Resources */,
@@ -1149,7 +1038,6 @@
 				560F84D11EB3802200C3C032 /* MD5.cpp in Sources */,
 				560F84D91EB3802200C3C032 /* UUIDEncrypt.cpp in Sources */,
 				560F84C11EB3802200C3C032 /* base64.cpp in Sources */,
-				560F84DD1EB3802200C3C032 /* jsb_quyetnd_electro_socket.cpp in Sources */,
 				560F84D31EB3802200C3C032 /* ResourcesDownloader.cpp in Sources */,
 				560F84AD1EB3802200C3C032 /* GameLaucher.cpp in Sources */,
 				560F84E11EB3802200C3C032 /* jsb_quyetnd_lobbysocket.cpp in Sources */,
@@ -1159,7 +1047,6 @@
 				560F84CB1EB3802200C3C032 /* jsb_quyetnd_resourcedownloader.cpp in Sources */,
 				560F84D51EB3802200C3C032 /* sha1.cpp in Sources */,
 				560F84B91EB3802200C3C032 /* NewTableView.cpp in Sources */,
-				560F84DB1EB3802200C3C032 /* ElectroClient.cpp in Sources */,
 				560F84EB1EB3802200C3C032 /* SmartfoxClient.cpp in Sources */,
 				560F84B71EB3802200C3C032 /* ListViewWithAdapter.cpp in Sources */,
 				560F84A91EB3802200C3C032 /* jsb_quyetnd_action.cpp in Sources */,
@@ -1199,7 +1086,6 @@
 				560F85641EB3880300C3C032 /* FacebookPlugin_iOS.mm in Sources */,
 				560F84A41EB3802200C3C032 /* ActionShake2D.cpp in Sources */,
 				560F84C81EB3802200C3C032 /* jsb_quyetnd_facebook_plugin.cpp in Sources */,
-				560F84DA1EB3802200C3C032 /* ElectroClient.cpp in Sources */,
 				560F84D61EB3802200C3C032 /* SystemPlugin.cpp in Sources */,
 				509D4AC917EBB2AB00697056 /* RootViewController.mm in Sources */,
 				560F84BA1EB3802200C3C032 /* NewTextField.cpp in Sources */,
@@ -1220,7 +1106,6 @@
 				2799BC0F1EC0645A00057795 /* WorkerManager.cpp in Sources */,
 				560F84F31EB3803900C3C032 /* InAppPurchare.mm in Sources */,
 				560F84B21EB3802200C3C032 /* jsb_quyetnd_newui.cpp in Sources */,
-				560F84DC1EB3802200C3C032 /* jsb_quyetnd_electro_socket.cpp in Sources */,
 				560F84C01EB3802200C3C032 /* base64.cpp in Sources */,
 				560F84F41EB3803900C3C032 /* SMSPlugin.m in Sources */,
 				560F84B01EB3802200C3C032 /* ResourceLoader.cpp in Sources */,
@@ -1255,11 +1140,6 @@
 			name = libLobbySocket_ios;
 			targetProxy = 560F85271EB3834400C3C032 /* PBXContainerItemProxy */;
 		};
-		560F852A1EB3834400C3C032 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = libElectroSocket_ios;
-			targetProxy = 560F85291EB3834400C3C032 /* PBXContainerItemProxy */;
-		};
 		560F852C1EB3834B00C3C032 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = libSmartfoxSocket_mac;
@@ -1269,11 +1149,6 @@
 			isa = PBXTargetDependency;
 			name = libLobbySocket_mac;
 			targetProxy = 560F852D1EB3834B00C3C032 /* PBXContainerItemProxy */;
-		};
-		560F85301EB3834B00C3C032 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = libElectroSocket_mac;
-			targetProxy = 560F852F1EB3834B00C3C032 /* PBXContainerItemProxy */;
 		};
 		C037820B18BF77BC00FE4F13 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
