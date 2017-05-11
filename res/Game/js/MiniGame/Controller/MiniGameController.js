@@ -2,6 +2,9 @@
  * Created by anhvt on 12/5/2016.
  */
 
+s_sfs_error_msg[10] = "Không đủ tiền đặt cược";
+s_sfs_error_msg[777] = "Tiền cược không hợp lệ";
+
 var MiniGameController = cc.Class.extend({
     ctor: function () {
 
