@@ -6,6 +6,7 @@ var s_sfs_error_msg = s_sfs_error_msg || [];
 SmartfoxClient.errorHandler = function (data) {
     if(data["message"]){
         MessageNode.getInstance().show(data["message"]);
+        return;
     }
 
     var ec = data["code"];

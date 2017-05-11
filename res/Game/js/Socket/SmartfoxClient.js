@@ -442,6 +442,7 @@ var SmartfoxClient = (function () {
         },
 
         _onSFSError : function (cmd, contents) {
+            LoadingDialog.getInstance().hide();
             SmartfoxClient.errorHandler(contents["p"]);
         },
 
