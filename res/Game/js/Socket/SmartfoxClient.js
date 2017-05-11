@@ -29,6 +29,7 @@ var SmartfoxClient = (function () {
                 this.addExtensionListener("13", this._onReconnectHandler, this);
                 this.addExtensionListener("262", this._onReconnectMiniGameHandler, this);
                 this.addExtensionListener("fullRoom", this._onFullRoomHandler, this);
+                this.addExtensionListener("___err___", this._onSFSError, this);
             }
         },
 
@@ -440,6 +441,9 @@ var SmartfoxClient = (function () {
             MessageNode.getInstance().show("Phòng đầy");
         },
 
+        _onSFSError : function (cmd, contents) {
+            SmartfoxClient.errorHandler(contents["p"]);
+        },
 
         prePostEvent: function (messageType, contents) {
             cc.log("messageType : " + messageType);
