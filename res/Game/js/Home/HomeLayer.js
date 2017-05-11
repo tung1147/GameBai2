@@ -296,7 +296,7 @@ var HomeLayer = cc.Node.extend({
         this._super();
         this.setScale(cc.winSize.screenScale);
 
-        var barBg = new cc.Sprite("#login_bar_bg.png");
+        var barBg = new cc.Sprite("#bot_bar_bg.png");
         barBg.setAnchorPoint(cc.p(0,0));
         barBg.setPosition(cc.p(0,0));
         this.addChild(barBg);
@@ -310,6 +310,11 @@ var HomeLayer = cc.Node.extend({
         barBg2.setAnchorPoint(cc.p(0,0));
         barBg2.setPosition(cc.p(0,0));
         this.addChild(barBg2);
+
+        var logoBg = new cc.Sprite("#bot_bar_logo_bg.png");
+        logoBg.setAnchorPoint(cc.p(0,0));
+        logoBg.setPosition(cc.p(0,0));
+        this.addChild(logoBg);
 
         var logo = new cc.Sprite("#bot_bar_logo.png");
         logo.setPosition(640, 98);

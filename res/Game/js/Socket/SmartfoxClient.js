@@ -133,16 +133,28 @@ var SmartfoxClient = (function () {
                 this.sfsSocket.close();
             }
         },
+
         findAndJoinRoom: function (serverInfo, gameType, betting, roomId) {
             var thiz = this;
             this.connect(serverInfo, function () {
                 thiz._sendFindAndJoinRoom(gameType, betting, roomId);
             });
         },
+
         joinMiniGame: function (serverInfo, joinCommand) {
             var thiz = this;
             this.connect(serverInfo, function () {
                 thiz.sendExtensionRequest(-1, joinCommand, null);
+            });
+        },
+
+        playNow : function (serverInfo, gameTYpe) {
+            var thiz = this;
+            this.connect(serverInfo, function () {
+                var params = {
+                    gameType : gameTYpe
+                };
+                thiz.sendExtensionRequest(-1, "playNow", params);
             });
         },
 

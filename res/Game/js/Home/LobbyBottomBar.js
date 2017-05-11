@@ -5,6 +5,7 @@
 var LobbyBottomBar = cc.Node.extend({
     ctor : function () {
         this._super();
+        var thiz = this;
         this.setAnchorPoint(cc.p(0,0));
 
         var bg = new cc.Sprite("#bot_bar_bg.png");
@@ -17,9 +18,29 @@ var LobbyBottomBar = cc.Node.extend({
         bg2.setPosition(cc.p(0,0));
         this.addChild(bg2);
 
+        var logoBg = new cc.Sprite("#bot_bar_logo_bg.png");
+        logoBg.setAnchorPoint(cc.p(0,0));
+        logoBg.setPosition(cc.p(0,0));
+        this.addChild(logoBg);
+        this.logoView = logoBg;
+
         var logo = new cc.Sprite("#bot_bar_logo.png");
         logo.setPosition(640, 68);
-        this.addChild(logo);
+        logoBg.addChild(logo);
+
+        var playBg = new cc.Sprite("#bot_bar_playBg.png");
+        playBg.setAnchorPoint(cc.p(0.5,0.0));
+        playBg.setPosition(640, 0);
+        this.addChild(playBg);
+
+        var playButton = new ccui.Button("bot_bar_playBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        playButton.setPosition(192, 35);
+        playBg.addChild(playButton);
+        this.playNow = playBg;
+        this.playNow.setVisible(false);
+        playButton.addClickEventListener(function () {
+            thiz.playNowButtonHandler();
+        });
 
         var avt = UserAvatar.createMe();
         avt.setPosition(49, 49);
@@ -131,5 +152,19 @@ var LobbyBottomBar = cc.Node.extend({
         var vip = cc.Global.GetVipMe();
         this.vipLabel.setString(vip.level.toString());
         this.vipBar.setPercentage(vip.expPer);
-    }
+    },
+
+    startGame : function () {
+        this.logoView.setVisible(true);
+        this.playNow.setVisible(false);
+    },
+
+    startLobby : function () {
+        this.logoView.setVisible(false);
+        this.playNow.setVisible(true);
+    },
+
+    playNowButtonHandler : function () {
+
+    },
 });

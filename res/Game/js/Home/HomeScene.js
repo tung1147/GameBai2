@@ -20,6 +20,8 @@ var HomeScene = IScene.extend({
         LobbyClient.getInstance().addListener("LobbyStatus", this.onLobbyStatusHandler, this);
         LobbyClient.getInstance().addListener("changeAsset", this.onChangeRefeshUserInfo, this);
         LobbyClient.getInstance().addListener("inboxMessage", this.onChangeRefeshUserInfo, this);
+        LobbyClient.getInstance().addListener("getPlayNowServer", this.onGetPlayNowServer, this);
+
         // LobbyClient.getInstance().addListener("inventory", this.onChangeRefeshUserInfo, this);
         // LobbyClient.getInstance().addListener("updateItem", this.onChangeRefeshUserInfo, this);
         //LobbyClient.getInstance().addListener("markReadedMessageInbox", this.onChangeRefeshUserInfo, this);
@@ -90,6 +92,9 @@ var HomeScene = IScene.extend({
         this.userInfo.userinfoBt.addClickEventListener(function () {
             thiz.userInfoButtonHandler();
         });
+        this.userInfo.playNowButtonHandler = function () {
+            thiz.playNowButtonHandler();
+        };
 
         this.homeLayer.fbButton.addClickEventListener(function () {
             SceneNavigator.showLoginFacebook();
@@ -105,6 +110,7 @@ var HomeScene = IScene.extend({
        // LobbyClient.getInstance().addListener("fetchProducts", this.onFetchProduct, this);
        // LobbyClient.getInstance().addListener("fetchCashinProductItems", this.onFetchCashin, this);
     },
+
     onFetchProduct: function (command, data) {
         // data = data["data"];
         // cc.Global.thecaoData = cc.Global.thecaoData || data["1"];
@@ -217,6 +223,7 @@ var HomeScene = IScene.extend({
         FloatButton.getInstance().setVisible(false);
     },
     startGame: function () {
+        this.userInfo.startGame();
         PlayerMe.lastGroupSelected = null;
         this.popupLayer.removeAllChildren();
         if (this.homeLocation == 0 || this.homeLocation == 1) {
@@ -247,11 +254,20 @@ var HomeScene = IScene.extend({
         this.lobbyLayer.setVisible(true);
         this.userInfo.visible = true;
         this.userInfo.refreshView();
-        if (arguments.length == 1) {
-            this.lobbyLayer.startGame(arguments[0]);
-            LobbyClient.getInstance().subscribe(arguments[0]);
+        if (arguments.length === 1) {
+            var gameId = arguments[0];
+            this.lobbyLayer.startGame(gameId);
+            LobbyClient.getInstance().subscribe(gameId);
+            if(gameId === GameType.GAME_TaiXiu || gameId === GameType.GAME_XocDia){
+                this.userInfo.startGame();
+            }
+            else{
+                this.currentLobbyId = gameId;
+                this.userInfo.startLobby();
+            }
         }
         else {
+            this.userInfo.startGame();
             this.lobbyLayer.startGame(-1);
         }
         this.homeLocation = 3;
@@ -435,6 +451,20 @@ var HomeScene = IScene.extend({
         }
         var dialog = new UserinfoDialog();
         dialog.show();
+    },
+
+    playNowButtonHandler : function () {
+        var request = {
+            command : "getPlayNowServer",
+            gameType : s_games_chanel[this.currentLobbyId]
+        };
+        LobbyClient.getInstance().send(request);
+        LoadingDialog.getInstance().show("Đang tìm phòng chơi");
+    },
+
+    onGetPlayNowServer : function (cmd, data) {
+        var serverInfo = LobbyClient.getInstance().createServerInfo(data["data"]);
+        SmartfoxClient.getInstance().playNow(serverInfo, s_games_chanel[this.currentLobbyId]);
     },
 
     transferGoldButtonHandler : function () {
