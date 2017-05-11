@@ -130,15 +130,7 @@ var GameController = cc.Class.extend({
     },
 
     onError: function (cmd, content) {
-        var params = content.p;
-        var ec = params.code;
-        var msg = s_sfs_error_msg[ec];
-        if (msg) {
-            this._view.showErrorMessage(msg);
-        }
-        else {
-            this._view.showErrorMessage("Mã lỗi không xác định[" + ec + "]");
-        }
+
     },
 
     onExitGame: function (cmd, content) {
