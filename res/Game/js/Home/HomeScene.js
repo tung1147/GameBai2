@@ -526,6 +526,22 @@ var HomeScene = IScene.extend({
                     }
                 }
             }
+            else{
+                //mobile auto login
+                var loginType = cc.Global.GetSetting("lastLoginType", "");
+                if(loginType === "normalLogin"){
+                    var username = cc.Global.getSaveUsername();
+                    var password = cc.Global.getSavePassword();
+                    if(username !== "" && password != ""){
+                        LoadingDialog.getInstance().show("Đang đăng nhập");
+                        LobbyClient.getInstance().loginNormal(username, password, true);
+                    }
+                }
+                else if(loginType === "facebookLogin"){
+                    LoadingDialog.getInstance().show("Đang đăng nhập");
+                    FacebookPlugin.getInstance().showLogin();
+                }
+            }
         }
 
         //MiniGameNavigator.showAll();
