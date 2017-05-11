@@ -61,7 +61,7 @@ var Card = cc.Sprite.extend({
             var afterMove = new cc.CallFunc(function () {
                 thiz.getParent().reorderChild(thiz, thiz.cardIndex);
             });
-            var move = new cc.MoveTo(0.1, cc.p(this.origin.x, this.origin.y));
+            var move = new cc.MoveTo(0.2, cc.p(this.origin.x, this.origin.y));
             this.runAction(new cc.Sequence(beforeMove, move, afterMove));
 
             this._cardSelected = false;

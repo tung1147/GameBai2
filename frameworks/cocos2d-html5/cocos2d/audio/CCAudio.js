@@ -368,6 +368,15 @@ cc.Audio.WebAudio.prototype = {
         if (SWA) {
             var context = new (window.AudioContext || window.webkitAudioContext || window.mozAudioContext)();
             cc.Audio._context = context;
+            // check context integrity
+            if (
+                !context["createBufferSource"] ||
+                !context["createGain"] ||
+                !context["destination"] ||
+                !context["decodeAudioData"]
+            ) {
+                throw 'context is incomplete';
+            }
             if (polyfill.DELAY_CREATE_CTX)
                 setTimeout(function () {
                     context = new (window.AudioContext || window.webkitAudioContext || window.mozAudioContext)();
@@ -383,7 +392,7 @@ cc.Audio.WebAudio.prototype = {
 
         cache: {},
 
-        useWebAudio: SWA,
+        useWebAudio: true,
 
         loadBuffer: function (url, cb) {
             if (!SWA) return; // WebAudio Buffer

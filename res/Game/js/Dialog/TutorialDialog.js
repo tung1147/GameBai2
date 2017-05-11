@@ -84,14 +84,14 @@ var TutorialDialog = IDialog.extend({
         this.initPokerTutorial("VideoPoker");
     },
     initChanLeTutorial:function () {
-        var tutorialLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, this.HDList["ChanLe"]);
+        var tutorialLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, this.HDList["MINITAIXIU"]);
         var icon1 = new cc.Sprite("#mntx_btn_bxh.png");
         icon1.setScale(0.7);
-        icon1.setPosition(180, 50);
+        icon1.setPosition(570, 83);
         this.contentTable.addChild(icon1);
-        var icon2 = new cc.Sprite("#caothap_tutorialBt.png");
+        var icon2 = new cc.Sprite("#caothap_historyBt.png");
         icon2.setScale(0.7);
-        icon2.setPosition(220, 50);
+        icon2.setPosition(620, 83);
         this.contentTable.addChild(icon2);
         tutorialLabel.setBoundingWidth(this.bouldingWidth);
         this.contentTable.pushItem(tutorialLabel);

@@ -41,6 +41,7 @@
     "res/Game/js/Socket/LobbyError.js",
     "res/Game/js/Socket/SmartfoxUtils.js",
     "res/Game/js/Socket/SmartfoxClient.js",
+    "res/Game/js/Socket/SmartfoxError.js",
     "res/Game/js/Global/UserAvatar.js",
     "res/Game/js/Global/SoundPlayer.js",
     "res/Game/js/Dialog/Dialog.js",

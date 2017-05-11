@@ -75,6 +75,14 @@ cc.game.onStart = function(){
 
     // Pass true to enable retina display, on Android disabled by default to improve performance
     cc.view.enableRetina(cc.sys.os === cc.sys.OS_IOS ? true : false);
+
+    // Disable auto full screen on baidu and wechat, you might also want to eliminate sys.BROWSER_TYPE_MOBILE_QQ
+    if (cc.sys.isMobile &&
+        cc.sys.browserType !== cc.sys.BROWSER_TYPE_BAIDU &&
+        cc.sys.browserType !== cc.sys.BROWSER_TYPE_WECHAT) {
+        cc.view.enableAutoFullScreen(true);
+    }
+
     // Adjust viewport meta
     cc.view.adjustViewPort(true);
     var frameSize = cc.view.getFrameSize();

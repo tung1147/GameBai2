@@ -36,6 +36,7 @@ static FacebookPlugin_iOS* s_FacebookPlugin_iOS = 0;
 - (id) initWithView:(UIViewController*) view{
     viewController = view;
     loginManager = [[FBSDKLoginManager alloc] init];
+    loginID =  [[NSBundle mainBundle] objectForInfoDictionaryKey:@"FacebookAppIDLogin"];
     
     return self;
 }
@@ -63,6 +64,10 @@ static FacebookPlugin_iOS* s_FacebookPlugin_iOS = 0;
         [self requestGetProfile];
     }
     else{
+        if(loginID){
+            [FBSDKSettings setAppID:loginID];
+        }
+        
         [loginManager logInWithReadPermissions:@[@"public_profile"] fromViewController:viewController handler:^(FBSDKLoginManagerLoginResult *result, NSError *error){
             if (error) {
                 //NSLog(@"Process error");

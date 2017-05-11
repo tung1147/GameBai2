@@ -86,11 +86,14 @@ var ChanLeLayer = MiniGamePopup.extend({
 
 
             if(cc.Global.IsNumber(numberText)){
-                if(parseInt(numberText)> PlayerMe.gold){
-                    numberText = PlayerMe.gold.toString();
-                }
-                thiz.moneyTF.setText(cc.Global.NumberFormat1(parseInt(numberText)));
-                thiz.moneyBet = parseInt(numberText);
+
+                    if(parseInt(numberText)> PlayerMe.gold){
+                        numberText = PlayerMe.gold.toString();
+                    }
+                    thiz.moneyTF.setText(cc.Global.NumberFormat1(parseInt(numberText)));
+                    thiz.moneyBet = parseInt(numberText);
+
+
             }
             return true;
         });
@@ -114,6 +117,10 @@ var ChanLeLayer = MiniGamePopup.extend({
             {
                 MessageNode.getInstance().show("Bạn chưa chọn mức cược");
             }
+            else if(thiz.moneyBet < 1000){
+                MessageNode.getInstance().show("Mức cược tối thiểu là 1,000 vàng");
+            }
+
             else if(thiz.gameState == 1) {
                     thiz._controller.sendBetTaiXiu(1, thiz.moneyBet);
             }
@@ -132,13 +139,16 @@ var ChanLeLayer = MiniGamePopup.extend({
             {
                 MessageNode.getInstance().show("Bạn chưa chọn mức cược");
             }
+            else if(thiz.moneyBet < 1000){
+                MessageNode.getInstance().show("Mức cược tối thiểu là 1,000 vàng");
+            }
             else if(thiz.gameState == 1){
                     thiz._controller.sendBetTaiXiu(2,thiz.moneyBet);
             }
         });
         bg.addChild(btnXiu);
         this.btnXiu = btnXiu;
-
+        this.setActiveBt(btnXiu,false);
 
         var lblNumTai = new cc.LabelTTF("", cc.res.font.Roboto_Condensed, 20);
         lblNumTai.setPosition(105,29);
@@ -191,9 +201,15 @@ var ChanLeLayer = MiniGamePopup.extend({
         this.createAnimationNumber();
 
         this.initDisk();
-        var lblTime = new cc.LabelTTF("",cc.res.font.Roboto_CondensedBold,40);
+        // var classicLabel =
+
+        var lblTime = cc.Label.createWithBMFont(cc.res.font.Roboto_fonttime, "", cc.TEXT_ALIGNMENT_CENTER);
         lblTime.setPosition(this.diskSprite.getPosition());
-        lblTime.enableStroke(cc.color(25,74,135,255),4);
+        // lblTime.enableStroke(cc.color(25,74,135,255),4);
+        // if( !cc.sys.isNative){
+        //     lblTime.enableShadow(cc.color(0,0,0,255),4,4);
+        // }
+
         lblTime.setColor(cc.color(255,222,0,255));
         this.bg.addChild(lblTime);
         this.lblTime = lblTime;

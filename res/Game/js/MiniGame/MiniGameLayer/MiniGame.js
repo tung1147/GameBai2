@@ -26,7 +26,7 @@ var MiniGamePopup = cc.Node.extend({
         historyButton.setPosition(694, 430);
         this.addChild(historyButton, 5);
         this.historyButton = historyButton;
-        var jackpotLabel = new cc.LabelBMFont("100.000", cc.res.font.Roboto_CondensedBold_30);
+        var jackpotLabel = new cc.LabelBMFont("", cc.res.font.Roboto_CondensedBold_30);
         jackpotLabel.setColor(cc.color("#ffea00"));
         jackpotLabel.setPosition(500, 462);
         this.jackpotLabel = jackpotLabel;
@@ -81,7 +81,7 @@ var MiniGamePopup = cc.Node.extend({
     },
 
     onError: function (param) {
-        MessageNode.getInstance().show(LobbyClient.Error[param.code]["message"]);
+        //MessageNode.getInstance().show(LobbyClient.Error[param.code]["message"]);
         //SoundPlayer.stopSound("lucky_wheel");
         if(this._rollingSound){
             SoundPlayer.stopSoundLoop(this._rollingSound);
@@ -107,8 +107,8 @@ var MiniGamePopup = cc.Node.extend({
 
         var parent = this.getParent();
 
-        var changeSprite = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, "");
-        var changeText = (changeAmount >= 0 ? "+" : "") + changeAmount;
+        var changeSprite = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, "");
+        var changeText = (changeAmount >= 0 ? "+" : "") + cc.Global.NumberFormat1(changeAmount);
         changeSprite.setString(changeText);
         changeSprite.setColor(cc.color(changeAmount >= 0 ? "#ffde00" : "#ff0000"));
         changeSprite.setPosition(50, 70);
@@ -127,7 +127,7 @@ var MiniGamePopup = cc.Node.extend({
         var thiz = this;
         var chip1 = new MiniLayerChip(1);
         chip1.setPosition(centerPosition.x + 21, centerPosition.y + 105);
-        chip1.setScale(cc.winSize.screenScale);
+       // chip1.setScale(cc.winSize.screenScale);
         chip1.originPoint = chip1.getPosition();
         chip1.onSelect = function () {
             thiz.onSelectChip(1);
@@ -136,7 +136,7 @@ var MiniGamePopup = cc.Node.extend({
 
         var chip2 = new MiniLayerChip(2);
         chip2.setPosition(centerPosition.x, centerPosition.y);
-        chip2.setScale(cc.winSize.screenScale);
+       // chip2.setScale(cc.winSize.screenScale);
         chip2.originPoint = chip2.getPosition();
         chip2.onSelect = function () {
             thiz.onSelectChip(2);
@@ -145,7 +145,7 @@ var MiniGamePopup = cc.Node.extend({
 
         var chip3 = new MiniLayerChip(3);
         chip3.setPosition(centerPosition.x + 19, centerPosition.y - 105);
-        chip3.setScale(cc.winSize.screenScale);
+      //  chip3.setScale(cc.winSize.screenScale);
         chip3.originPoint = chip3.getPosition();
         chip3.onSelect = function () {
             thiz.onSelectChip(3);

@@ -123,6 +123,12 @@ var VideoPokerLayer = MiniGamePopup.extend({
         nhanThuongBt.addClickEventListener(function () {
             thiz.onGetRewardButtonClick();
         });
+
+        var lblHD = new cc.LabelTTF("", cc.res.font.Roboto_CondensedBold, 25);
+        lblHD.setColor(cc.color(190,240,253));
+        lblHD.setPosition(bg.getContentSize().width/2, 370);
+        bg.addChild(lblHD);
+        this.lblHD = lblHD;
         //   this.setScale(0.5);
     },
 
@@ -139,6 +145,7 @@ var VideoPokerLayer = MiniGamePopup.extend({
             case 4:
                 this.setHoldArray([0, 0, 0, 0, 0]);
                 this.setRolling(true);
+                this.setBettingSelectEnable(false)
                 this._controller.sendRollRequest(betType);
                 break;
 

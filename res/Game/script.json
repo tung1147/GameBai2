@@ -10,6 +10,7 @@
 	"js/Socket/LobbyError.js",
 	"js/Socket/SmartfoxUtils.js",
 	"js/Socket/SmartfoxClient.js",
+	"js/Socket/SmartfoxError.js",
 	"js/Global/UserAvatar.js",
 	"js/Global/SoundPlayer.js",
 	"js/Dialog/Dialog.js",

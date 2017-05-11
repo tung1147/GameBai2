@@ -103,6 +103,9 @@ cc.res.font.Roboto_CondensedBold_18 = "res/fonts/RobotoBoldCondensed_18.fnt";
 cc.res.font.Roboto_Condensed_20 = "res/fonts/RobotoCondensed_20.fnt";
 cc.res.font.Roboto_CondensedBold_20 = "res/fonts/RobotoBoldCondensed_20.fnt";
 
+cc.res.font.Roboto_fonttime = "res/fonts/fonttime1.fnt";
+cc.res.font.Roboto_fonttime = "res/fonts/fonttime1.fnt";
+
 var GameType = GameType || {};
 GameType.GAME_MauBinh = 0;
 GameType.GAME_TienLenMN = 1;
@@ -350,7 +353,7 @@ ApplicationConfig.DISPLAY_TYPE = "room"; //room - betting
             ApplicationConfig.PLATFORM = 3;
         }
         else{
-            ApplicationConfig.PLATFORM = 4;
+            ApplicationConfig.PLATFORM = 2;
         }
     }
     else{

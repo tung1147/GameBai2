@@ -15,7 +15,7 @@ import com.facebook.Profile;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
-import com.game.jsversion.R;
+import com.puppet.gamebai2.R;
 
 import android.app.Activity;
 import android.content.Intent;

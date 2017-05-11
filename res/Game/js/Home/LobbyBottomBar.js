@@ -131,5 +131,17 @@ var LobbyBottomBar = cc.Node.extend({
         var vip = cc.Global.GetVipMe();
         this.vipLabel.setString(vip.level.toString());
         this.vipBar.setPercentage(vip.expPer);
+    },
+
+    startGame : function () {
+
+    },
+
+    startLobby : function () {
+
+    },
+
+    playNowButtonHandler : function () {
+
     }
 });
