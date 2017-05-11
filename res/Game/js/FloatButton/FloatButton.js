@@ -80,7 +80,7 @@ var FloatButton = (function() {
             this.boudingSize = this.boudingSizeMin;
         },
         initComponent : function () {
-            var radius = cc.p(0,120);
+            var radius = cc.p(0,100);
             var size = s_float_button_games.length;
             var allComponent = [];
             for(var i=0;i<size;i++){
