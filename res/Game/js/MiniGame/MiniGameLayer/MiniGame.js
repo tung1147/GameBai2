@@ -7,7 +7,9 @@ var MiniGamePopup = cc.Node.extend({
         if(!cc.sys.isNative){
             this.setScale((1 + Math.sqrt(5)) / 2 - 1);
         }
-        this.setPosition(cc.winSize.width / 2, cc.winSize.height / 2);
+        var x = 30 - Math.random() * 60;
+        var y = 30 - Math.random() * 60;
+        this.setPosition(cc.winSize.width / 2 + x, cc.winSize.height / 2 + y);
 
         this.initController();
 
