@@ -76,7 +76,7 @@ var HistoryNoHu = IDialog.extend({
                     name = name.substring(0, 15) ;
                 if (name.length > 3 && name != PlayerMe.username)
                     name = name.substring(0, name.length - 3) + "***";
-                var money =  cc.Global.NumberFormat1(parseInt(items[i]["4"]));
+                var money =  items[i]["4"];//cc.Global.NumberFormat1(parseInt());
 
                 this.addItem(time,name,money);
             }
