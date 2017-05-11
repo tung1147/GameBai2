@@ -1,488 +1,573 @@
 {"files": [
     {
         "file": "js/app.js",
-        "size": 1492,
-        "hash": "e8b7f4750ff44238438c5a5c7d124cc8"
+        "size": 1441,
+        "hash": "09e95ca1250b03ea833248cc6dcf458f"
     },
     {
         "file": "js/Core/ButtonToggle.js",
-        "size": 1455,
-        "hash": "22f82347993a575a326827e0d9a2380f"
+        "size": 1408,
+        "hash": "991ea17cd7839e985792ea54020a49b9"
     },
     {
         "file": "js/Core/NewAction.js",
-        "size": 3553,
-        "hash": "39f99389e6ebda4053b2482c86ef23f6"
+        "size": 3649,
+        "hash": "5845b40340e83075aeef10f7eb5b2f7b"
     },
     {
         "file": "js/Core/ToggleNodeGroup.js",
-        "size": 1802,
-        "hash": "aaf760af308a6331f8505d0208408cad"
+        "size": 1733,
+        "hash": "4b7064cbf9cc42b93c91ded3df1ab9f5"
     },
     {
         "file": "js/Core/WebSprite.js",
-        "size": 2314,
-        "hash": "8339e3bdb1d4104ab823e80d4fa52c5b"
+        "size": 2238,
+        "hash": "d161c7b9acdba84f66580dcf188d97fc"
+    },
+    {
+        "file": "js/Core/WidgetButton.js",
+        "size": 274,
+        "hash": "74108e0e4d84528e96804a265b807ae1"
+    },
+    {
+        "file": "js/Dialog/AvatarDialog.js",
+        "size": 2637,
+        "hash": "818f32526cc4078bbedbc0d0f21859d5"
     },
     {
         "file": "js/Dialog/ChatDialog.js",
-        "size": 2094,
-        "hash": "6bf5dd70247a811aba4e773843700f02"
+        "size": 4031,
+        "hash": "3db34ee01f84b8b07c7b52cc4223799c"
     },
     {
         "file": "js/Dialog/ContactDialog.js",
-        "size": 1854,
-        "hash": "1de85792fed63a9295bb78ed602b20b5"
+        "size": 2123,
+        "hash": "fff71b3eabdef63044fd115a4351812e"
     },
     {
         "file": "js/Dialog/Dialog.js",
-        "size": 6506,
-        "hash": "e056cbe5126e88ca06d4638d32276fa3"
+        "size": 8805,
+        "hash": "9da98b2cf48f63cb5f99e2317faa43dd"
+    },
+    {
+        "file": "js/Dialog/HistoryChanLe.js",
+        "size": 6364,
+        "hash": "d4e02e8db117ec61768e394e6a3afe91"
+    },
+    {
+        "file": "js/Dialog/HistoryNoHu.js",
+        "size": 3918,
+        "hash": "c681f746ed3543a6c5f0bb270add426a"
+    },
+    {
+        "file": "js/Dialog/HistoryPhien.js",
+        "size": 9079,
+        "hash": "96a32bf8eede697a86458ee8ce0625bd"
     },
     {
         "file": "js/Dialog/InviteDialog.js",
-        "size": 10120,
-        "hash": "e32d5641cf640df22ae422f449a0e665"
+        "size": 8628,
+        "hash": "aae28e1154d11d32c68abcb51917d12f"
     },
     {
         "file": "js/Dialog/LoadingDialog.js",
-        "size": 3217,
-        "hash": "261a3c000df16178cd72cdd5339d45b2"
+        "size": 3117,
+        "hash": "5108e79486e2439b2627a501599465d7"
     },
     {
         "file": "js/Dialog/MessageDialog.js",
-        "size": 3344,
-        "hash": "296c5f51b049c44625d1183efcb9b8ee"
+        "size": 3266,
+        "hash": "e167cbd542e464903e6338a0e336d769"
     },
     {
         "file": "js/Dialog/MessageNode.js",
-        "size": 3612,
-        "hash": "55fcbef77d1d84f6948360b2cb305b1d"
+        "size": 3498,
+        "hash": "056ce15e86033aa381b2b719e4559295"
     },
     {
         "file": "js/Dialog/ResultDialog.js",
-        "size": 2758,
-        "hash": "4ed41da963ccafbc8043d7405655d5b4"
+        "size": 2683,
+        "hash": "12b67663cec5801bd1629e78e17f4495"
     },
     {
         "file": "js/Dialog/RewardAgencyDialog.js",
-        "size": 6313,
-        "hash": "3fc831898642e9676ca7decd5f10360c"
+        "size": 6565,
+        "hash": "9e16ce00865c784af18002c54f6ea4a3"
     },
     {
         "file": "js/Dialog/RewardBankDialog.js",
-        "size": 8445,
-        "hash": "53a81e043bd19278da01189374eb2b27"
+        "size": 8306,
+        "hash": "991ebbe85a4d653035527072f96f56f9"
     },
     {
         "file": "js/Dialog/RewardDialog.js",
-        "size": 4500,
-        "hash": "56e7248bdbd1b5be6d0426c41e725781"
+        "size": 4411,
+        "hash": "cf822fec4eba19fbbfc8ca5d9c5bfcb0"
     },
     {
         "file": "js/Dialog/SettingDialog.js",
-        "size": 3361,
-        "hash": "b75df4d279c7cc8a05c385a952ca99ce"
+        "size": 4550,
+        "hash": "66fce551d6e6a09c00df4b637472ca2b"
     },
     {
         "file": "js/Dialog/SMSPayDialog.js",
-        "size": 5549,
-        "hash": "49b14f32307644014639f70e5d92cb8c"
+        "size": 5126,
+        "hash": "ad1f30dfb56098d3e1dba0838eb17268"
     },
     {
         "file": "js/Dialog/StatisticBoard.js",
-        "size": 20231,
-        "hash": "34b6a7d4eea4efb706c83fa21ff4e38a"
+        "size": 19792,
+        "hash": "682493fa57acfd835df9532bf3152c04"
+    },
+    {
+        "file": "js/Dialog/ThongKeChanLe.js",
+        "size": 6743,
+        "hash": "e3cfa109474501821f758faeb6fe8802"
+    },
+    {
+        "file": "js/Dialog/TransferGoldDialog.js",
+        "size": 13313,
+        "hash": "6f4190ea5e609dd1dedbc0a0212e2204"
+    },
+    {
+        "file": "js/Dialog/TransferGoldHistory.js",
+        "size": 6059,
+        "hash": "6813928bf3b696fc07f3b2223a944220"
     },
     {
         "file": "js/Dialog/TutorialDialog.js",
-        "size": 6685,
-        "hash": "805e21b850acafc53347c56b525080b5"
+        "size": 7557,
+        "hash": "a6d7682d20fc517bf1b92555cd990d6e"
     },
     {
         "file": "js/Dialog/UserDialog.js",
-        "size": 1432,
-        "hash": "6cf9f92a058024cb118985f099108fcb"
+        "size": 1393,
+        "hash": "26f4f990023e5898ee3c97d7d199f63f"
     },
     {
         "file": "js/Dialog/UserinfoDialog.js",
-        "size": 20451,
-        "hash": "061506c07d60c8b7f38ea7ba741f71f8"
+        "size": 24991,
+        "hash": "37436c29837bbab8e1cca775765aaf68"
     },
     {
         "file": "js/Dialog/UserListDialog.js",
-        "size": 3269,
-        "hash": "072489d7b7f5890f271ae9deefcdfb95"
+        "size": 3184,
+        "hash": "5013da92de02c1d80791432260044762"
     },
     {
         "file": "js/FloatButton/FloatButton.js",
-        "size": 8195,
-        "hash": "3a4ba8447bf37b933bc6a2999d6c9ed8"
+        "size": 9225,
+        "hash": "a46789818acba5696dcea65daa6c4532"
     },
     {
         "file": "js/FloatButton/FloatButtonAnimation.js",
-        "size": 1540,
-        "hash": "58a0607631df38ac30f4d77424134b83"
+        "size": 1495,
+        "hash": "3833e808e884452e5f0952e4fcf4c981"
     },
     {
         "file": "js/FloatButton/FloatButtonComponent.js",
-        "size": 3132,
-        "hash": "9bba33251fa88b7006e4289bd3f7ac7c"
+        "size": 3260,
+        "hash": "08cf2db2e4a0f12bd4ca39da376d4d1f"
     },
     {
         "file": "js/Game/BaCay.js",
-        "size": 11193,
-        "hash": "b3c657665497e1284135c79c5714d7be"
+        "size": 16920,
+        "hash": "38565e5b46a383ee918822ed51727fb5"
     },
     {
         "file": "js/Game/BaCayChuong.js",
-        "size": 52,
-        "hash": "f1e4ed83237227ebb698a429906e5974"
+        "size": 49,
+        "hash": "6533b39d6961864c166d7244ad52301a"
+    },
+    {
+        "file": "js/Game/CalculatorMB.js",
+        "size": 31772,
+        "hash": "1e6deaa587360dca5e7260896e195fc8"
     },
     {
         "file": "js/Game/Card.js",
-        "size": 16975,
-        "hash": "303cbaeea0044cb52baf3d3f78f239d7"
+        "size": 16857,
+        "hash": "e6a65946f1c412bb50ff28a556a029c1"
     },
     {
         "file": "js/Game/ChipButton.js",
-        "size": 2138,
-        "hash": "13c774d932876cfe64716f98178609d7"
+        "size": 2412,
+        "hash": "e81569348a743f29f35177750cafb2ba"
     },
     {
         "file": "js/Game/Controller/BaCayController.js",
-        "size": 5559,
-        "hash": "50e0f25abdfd85cc9e027f494e6dbd8b"
+        "size": 5878,
+        "hash": "71a0e31e801c616e6024efdb72a8989f"
     },
     {
         "file": "js/Game/Controller/GameController.js",
-        "size": 10833,
-        "hash": "703ecf10824d828489df34e218c89ddf"
+        "size": 10967,
+        "hash": "f9a19af871345c5edb2b13af56b26028"
     },
     {
         "file": "js/Game/Controller/MauBinhController.js",
-        "size": 6295,
-        "hash": "7955898f02a5d4532abd940528ce4004"
+        "size": 12073,
+        "hash": "77b8483c973eeb7f28deb4a95757b126"
     },
     {
         "file": "js/Game/Controller/PhomController.js",
-        "size": 14222,
-        "hash": "e592d8099d284b8510183254e14e57a4"
+        "size": 16551,
+        "hash": "8552fa9509c5a26ddfb68af3d13b7a91"
     },
     {
         "file": "js/Game/Controller/PokerController.js",
-        "size": 11391,
-        "hash": "816083a76a2a7e50ba64d4afacdbb8c3"
+        "size": 28469,
+        "hash": "27778077f5a1adc3c5e413992648069e"
     },
     {
         "file": "js/Game/Controller/SamController.js",
-        "size": 5151,
-        "hash": "80e42a11f62e75cf4231e503a612c257"
+        "size": 5653,
+        "hash": "73641ac0e231a0970028e94e45d37712"
     },
     {
         "file": "js/Game/Controller/TaiXiuController.js",
-        "size": 209,
-        "hash": "78334c0f94f7434428ca101528aeb31b"
+        "size": 200,
+        "hash": "68bc1fb53713417cc2ba3ee84b87ff19"
     },
     {
         "file": "js/Game/Controller/TLMNController.js",
-        "size": 12377,
-        "hash": "3599d6fcb2f1405a1e21c86681750b1b"
+        "size": 12391,
+        "hash": "5834c1c5f593067735658ba43990efd5"
     },
     {
         "file": "js/Game/Controller/XocDiaController.js",
-        "size": 11844,
-        "hash": "da1bdd434125fa75371bdeb589e609ea"
+        "size": 11666,
+        "hash": "01767561def52df88f35ce294df6ed44"
     },
     {
         "file": "js/Game/GamePlayer.js",
-        "size": 10969,
-        "hash": "c600bd4845176090cf2ae158cf4ddd1d"
+        "size": 13735,
+        "hash": "bc37b2c3b67d2e8a2990b9cb7c95bae3"
     },
     {
         "file": "js/Game/GameScene.js",
-        "size": 10152,
-        "hash": "3ab6cc28deaa1b0b2b8436ed5b7f75d2"
+        "size": 12131,
+        "hash": "7d152b34ffb959a63d3478033d63c3f3"
     },
     {
         "file": "js/Game/MauBinh.js",
-        "size": 22284,
-        "hash": "bf9cdf66d6b71279aea6730b73881d3e"
+        "size": 44257,
+        "hash": "7bcc704e577f1fc0768ea928bcef9e2a"
     },
     {
         "file": "js/Game/Phom.js",
-        "size": 27557,
-        "hash": "02120bbed8c07353cb167afe7778d12d"
+        "size": 38823,
+        "hash": "6c2cfc1b8b57a8540f52c0a22713e11e"
     },
     {
         "file": "js/Game/Poker.js",
-        "size": 16103,
-        "hash": "49e254d81d2502a189163c2644c7941b"
+        "size": 69454,
+        "hash": "179effd1bfb4b603b902c625b0e8537e"
     },
     {
         "file": "js/Game/Sam.js",
-        "size": 6195,
-        "hash": "4340ec6aff983e5e5b6059ace4a447d1"
+        "size": 7157,
+        "hash": "3eefb1236e5c210ccea4a22bf59b89a3"
     },
     {
         "file": "js/Game/SamSolo.js",
-        "size": 1613,
-        "hash": "003f37f3d0c3f453ed7765a0139dd70e"
+        "size": 1988,
+        "hash": "e0ee58252f3e1917faaa7033551e70e1"
     },
     {
         "file": "js/Game/TaiXiu.js",
-        "size": 14829,
-        "hash": "3243539e19f777b7cc27b82fa8f72bcf"
+        "size": 14939,
+        "hash": "b100490e89ffca826f886224223f2b83"
     },
     {
         "file": "js/Game/TienLen.js",
-        "size": 15530,
-        "hash": "9e3598877d09ad347758e7ca32431390"
+        "size": 15223,
+        "hash": "e66673969a1efa546a6b129c27fcd755"
     },
     {
         "file": "js/Game/TLMNSolo.js",
-        "size": 836,
-        "hash": "50b162828046364f43190bf4fcc10c49"
+        "size": 829,
+        "hash": "f1791953c9205a8d8899a562f5d5c9b5"
     },
     {
         "file": "js/Game/TLMNUtility.js",
-        "size": 14175,
-        "hash": "e87c6ca15a6b60b65e225999b494a624"
+        "size": 13779,
+        "hash": "88044a7a1e2c5b55659c2e66f4361e47"
     },
     {
         "file": "js/Game/VongQuay.js",
-        "size": 2938,
-        "hash": "7d4923b514cd5daf91e92ca367d1c976"
+        "size": 2846,
+        "hash": "1ce3fbbddd7bbeb38b3994e84039adb6"
     },
     {
         "file": "js/Game/XocDia.js",
-        "size": 35401,
-        "hash": "6481845d7097a07ace7ab577a1595faa"
+        "size": 37018,
+        "hash": "00129e00728205b9acaaa80d77ab6025"
     },
     {
         "file": "js/Game/XocDiaChip.js",
-        "size": 2191,
-        "hash": "7ae0225e58eb684bc778ea0acddcdf44"
+        "size": 2123,
+        "hash": "7e3219b0e8977785f20a829c72cc7ca8"
     },
     {
         "file": "js/Global/Global.js",
-        "size": 11652,
-        "hash": "5b93fd7357df26ba378c05feaea7aa9e"
+        "size": 13264,
+        "hash": "589a2e3bdcba20036efda3a4259d58b4"
     },
     {
         "file": "js/Global/SoundPlayer.js",
-        "size": 2627,
-        "hash": "69354fa67f5450681607ecab5bade073"
+        "size": 3023,
+        "hash": "0f9e1a686104ef367d99a9007ab2671f"
     },
     {
         "file": "js/Global/UserAvatar.js",
-        "size": 3326,
-        "hash": "328bc6c8524e2de870c8a0b4dd22e8b6"
+        "size": 3754,
+        "hash": "3650350db0851cea72f6f4a1c16f5a9a"
     },
     {
         "file": "js/Home/ActivityDialog.js",
-        "size": 4675,
-        "hash": "109e2f3635f43b08c08dff2cabd7a19e"
+        "size": 6695,
+        "hash": "d68084d8ba905b28b9070a405f071c6f"
     },
     {
         "file": "js/Home/ActivityLayer.js",
-        "size": 6654,
-        "hash": "adba99719eb211e5c076c5ac897921d8"
+        "size": 29390,
+        "hash": "9988a727602f33f803d33a4760ab1ba7"
     },
     {
         "file": "js/Home/GameLayer.js",
-        "size": 4291,
-        "hash": "ff67bf3ea7e4571cadac571a8788f63c"
+        "size": 4196,
+        "hash": "045c79fb6a004d9a6b6e971124331bea"
     },
     {
         "file": "js/Home/HomeLayer.js",
-        "size": 17037,
-        "hash": "e054e0e67e4a50133b013704f4183fbc"
+        "size": 14422,
+        "hash": "94688c9278ebdc292e1361b54bef501f"
     },
     {
         "file": "js/Home/HomeScene.js",
-        "size": 15962,
-        "hash": "4ff3440881ef47a9301f5919ee503094"
+        "size": 18504,
+        "hash": "f56295a7ed42b9856d78ba522407266c"
+    },
+    {
+        "file": "js/Home/HomeShopLayer.js",
+        "size": 1604,
+        "hash": "cbc8ae4dece216fe803434670b0ee3ad"
     },
     {
         "file": "js/Home/InboxLayer.js",
-        "size": 6331,
-        "hash": "8a0baf4da487af81318c88f0651a0545"
+        "size": 6457,
+        "hash": "b5f43d787ec7eb06b47795b1108f36cf"
+    },
+    {
+        "file": "js/Home/InventoryDialog.js",
+        "size": 10904,
+        "hash": "427d6c7465b4207d07b47a831150425a"
+    },
+    {
+        "file": "js/Home/InventoryItemIcon.js",
+        "size": 2051,
+        "hash": "19817e7aebda0868c79b571d2a43e75d"
     },
     {
         "file": "js/Home/LobbyBottomBar.js",
-        "size": 5466,
-        "hash": "50e22e274b76da6f61cc8e6089fdef64"
+        "size": 6035,
+        "hash": "d866a09a7cb17e3dc88720dae43a0ccb"
     },
     {
         "file": "js/Home/LobbyLayer.js",
-        "size": 8876,
-        "hash": "1be07ebbd6c168ca149d0c473559e69c"
+        "size": 8658,
+        "hash": "25bce61d24c10ab257e6a3879571e644"
     },
     {
         "file": "js/Home/LobbyLayer2.js",
-        "size": 11497,
-        "hash": "1f536105cd74af22e6b95a23971313ac"
+        "size": 12644,
+        "hash": "8f31719040e200504ea1a4e6758cd8e5"
     },
     {
         "file": "js/Home/LobbyRoomCell.js",
-        "size": 15381,
-        "hash": "83e74ad782c991ebf237aef4fe058af8"
+        "size": 15070,
+        "hash": "1b3dad89cae9e7b36b10203aba381c6c"
     },
     {
         "file": "js/Home/LobbySubLayer.js",
-        "size": 977,
-        "hash": "75b4428ed4e4c02ae443426f92866aa2"
+        "size": 4420,
+        "hash": "e4ca922cd8578d044beb5644f16cc2a1"
     },
     {
         "file": "js/Home/LobbyTopBar.js",
-        "size": 4312,
-        "hash": "7c7977242ffc69625f0761c5b3b415fa"
+        "size": 6087,
+        "hash": "c4b1249ac1c2e036831477430db3057c"
     },
     {
         "file": "js/Home/MiniGameLayer.js",
-        "size": 7498,
-        "hash": "500a0decfed1d4a28c62acb816158e6e"
+        "size": 7327,
+        "hash": "0ef6408cf3ba7568d5f7fc56d4f6b143"
     },
     {
         "file": "js/Home/NewsLayer.js",
-        "size": 12170,
-        "hash": "444790fde42de8e77485881b3eeb26e6"
+        "size": 8558,
+        "hash": "f322c8e4c9340716757d4a82f911477b"
     },
     {
         "file": "js/Home/PaymentLayer.js",
-        "size": 26948,
-        "hash": "fadfe300c1b1c3938ae8688cd5bdf764"
+        "size": 23835,
+        "hash": "9a39d56a5010f3b6e433abc3e4e567bb"
     },
     {
         "file": "js/Home/RankLayer.js",
-        "size": 17489,
-        "hash": "811c196f435d2c876fafe572f2b1651e"
+        "size": 14262,
+        "hash": "c2e60d0952e9f603f60a539e4b6ea5d4"
     },
     {
         "file": "js/Home/RewardLayer.js",
-        "size": 23991,
-        "hash": "8b2e40c62a6ddbd8ecb9e072d7505c44"
+        "size": 26805,
+        "hash": "1d0a1f3c911b0a1c8272c7528a43fc2f"
+    },
+    {
+        "file": "js/Home/ShopItemDialog.js",
+        "size": 10054,
+        "hash": "48aae46526a713b68fe593e64d15b568"
     },
     {
         "file": "js/IScene.js",
-        "size": 910,
-        "hash": "f44b2ea40927eec48597649c6fc57034"
+        "size": 875,
+        "hash": "16de639fa0a1243abb5f7e2fb70757c8"
     },
     {
         "file": "js/md5.min.js",
-        "size": 8211,
-        "hash": "3bc349417a3baf2c8aa98f427db175cb"
+        "size": 8201,
+        "hash": "c0083607286eb594ee2763c574dd52bb"
     },
     {
         "file": "js/MiniGame/CaoThapScene.js",
-        "size": 14457,
-        "hash": "e854f08f79df2e3be26c482658c6917c"
+        "size": 14094,
+        "hash": "18b35c065468652fa020f0e91ee2d41e"
     },
     {
         "file": "js/MiniGame/Controller/CaoThapController.js",
         "size": 7386,
-        "hash": "41a451580ca8dbb7f3c529648a570d67"
+        "hash": "1003b2eb2466fba3ea0154f993414b98"
+    },
+    {
+        "file": "js/MiniGame/Controller/ChanLeController.js",
+        "size": 8780,
+        "hash": "e13db8f255b4ad6bd2cd0252f1b7b5be"
     },
     {
         "file": "js/MiniGame/Controller/MiniGameController.js",
-        "size": 3113,
-        "hash": "63bc7c154a31ff9b2db7c9ff769b6cdd"
+        "size": 3217,
+        "hash": "f6b8b12967438ef7c870ad17e5e27978"
     },
     {
         "file": "js/MiniGame/Controller/MiniPokerController.js",
-        "size": 3338,
-        "hash": "be5670897cf08543f5775f4b3f8d3870"
+        "size": 3007,
+        "hash": "6a618f6d9486a50da60bb8f5834cf79b"
     },
     {
         "file": "js/MiniGame/Controller/VideoPokerController.js",
-        "size": 8591,
-        "hash": "eafd7b6a9f5c6722532e82da2c6dff79"
+        "size": 9884,
+        "hash": "7fda65c2482027f5edd64af0f142a4c7"
     },
     {
         "file": "js/MiniGame/JackpotLayer.js",
-        "size": 6391,
-        "hash": "b2afa39f141b52cb2476c83603a1a1fb"
+        "size": 6188,
+        "hash": "74518112cd440d984244ef7ebeab3a12"
     },
     {
         "file": "js/MiniGame/MiniGameChip.js",
-        "size": 1635,
-        "hash": "a34e3480cc93e23d6bda5103c391083b"
+        "size": 1586,
+        "hash": "14cd3ad237a5721621feedec1c2ce2e0"
     },
     {
         "file": "js/MiniGame/MiniGameLayer/CaoThapLayer.js",
-        "size": 13157,
-        "hash": "6aa813caa5050776f16fe37329115558"
+        "size": 13209,
+        "hash": "8c65765a3f4a0b6b0de9c15e99854dbf"
+    },
+    {
+        "file": "js/MiniGame/MiniGameLayer/ChanLeLayer.js",
+        "size": 19736,
+        "hash": "930b3895b2c8d2e46d7dc1b974be68a4"
     },
     {
         "file": "js/MiniGame/MiniGameLayer/MiniGame.js",
-        "size": 7875,
-        "hash": "208aaf76ba11e7b086aef7fb45085429"
+        "size": 10300,
+        "hash": "7614eac8f29e3f3ba3d6e6c7e455d027"
     },
     {
         "file": "js/MiniGame/MiniGameLayer/MiniLayerChip.js",
-        "size": 1007,
-        "hash": "fbf072807de5fcec39c9eb47646e7ef7"
+        "size": 976,
+        "hash": "4436286d76710440241842f050fd9ba1"
     },
     {
         "file": "js/MiniGame/MiniGameLayer/MiniPokerLayer.js",
-        "size": 9347,
-        "hash": "081918660079664056142a09bd92025e"
+        "size": 9430,
+        "hash": "36ea9d3be4b78c7572c045d3abd5608f"
     },
     {
         "file": "js/MiniGame/MiniGameLayer/VideoPokerLayer.js",
-        "size": 13423,
-        "hash": "4874d987478059cf943bd1a53a9dc5ab"
+        "size": 13440,
+        "hash": "4a8d73ee336e553b426b1ac09f80c35b"
     },
     {
         "file": "js/MiniGame/MiniGameScene.js",
-        "size": 4823,
-        "hash": "0b2d265637f77b1a820319fc5e96ac39"
+        "size": 4705,
+        "hash": "78bddf548fd65440df1446a44882a3f6"
     },
     {
         "file": "js/MiniGame/MiniPockerScene.js",
-        "size": 18343,
-        "hash": "4ed1da992b81fee89db76292595854bc"
+        "size": 17908,
+        "hash": "2965ed55cc65687d28675efa6562e561"
+    },
+    {
+        "file": "js/MiniGame/MiniTaiXiuNotification.js",
+        "size": 1701,
+        "hash": "f790212062eb47115ed5ffb2ece03948"
     },
     {
         "file": "js/MiniGame/VideoPockerScene.js",
-        "size": 24202,
-        "hash": "b582194cc756e371e2a522fe97451659"
+        "size": 23642,
+        "hash": "b3d3ce917dcbd3e305b47c70097f5e0e"
     },
     {
         "file": "js/SceneNavigator.js",
-        "size": 4248,
-        "hash": "1aa23125524d956c2c77757e77e88ff0"
+        "size": 4718,
+        "hash": "b6d2267932bcdf123fc8374cb6fd77ff"
     },
     {
         "file": "js/Socket/ElectroClient.js",
-        "size": 4664,
-        "hash": "6e555a787411285e8cd0a4269ee5d872"
+        "size": 4528,
+        "hash": "d692154509688707e356e8ceafcd55ba"
     },
     {
         "file": "js/Socket/LobbyClient.js",
-        "size": 35298,
-        "hash": "2543d03d9076132fdb89b8511d7bf380"
+        "size": 29413,
+        "hash": "b0596ecc7bd06dae4b6f8149b502dd55"
     },
     {
         "file": "js/Socket/LobbyError.js",
-        "size": 6816,
-        "hash": "7bfae3dc8a66fa0846d3ab234d0c3288"
+        "size": 6548,
+        "hash": "a7f9e58ae980929a4312260db592955a"
     },
     {
         "file": "js/Socket/SmartfoxClient.js",
-        "size": 22139,
-        "hash": "817f337c5d5f911235204903fe8092c8"
+        "size": 16475,
+        "hash": "3ea1cf6d6db4761bb6940b54e13a8f7b"
+    },
+    {
+        "file": "js/Socket/SmartfoxError.js",
+        "size": 479,
+        "hash": "c26afcaea16fb7e302ea7793d8509777"
     },
     {
         "file": "js/Socket/SmartfoxUtils.js",
-        "size": 1812,
-        "hash": "53b85dd4a52bf73ee0f1d9c90177ae0d"
+        "size": 1752,
+        "hash": "191f07ea1fa48f154a6ffbe62214206a"
     },
     {
         "file": "res/CaoThap.plist",
-        "size": 9960,
-        "hash": "005025134267ef853f982c156a1df64d"
+        "size": 9694,
+        "hash": "748a93ba1ec0334ee5f9948cd3883cf8"
     },
     {
         "file": "res/CaoThap.png",
@@ -491,43 +576,58 @@
     },
     {
         "file": "res/Card.plist",
-        "size": 21317,
-        "hash": "0ac598aac7e28752f7d3d384730ff2b1"
+        "size": 36272,
+        "hash": "09b982027a2d2a355180b9c4d54a2b2b"
     },
     {
         "file": "res/Card.png",
-        "size": 283144,
-        "hash": "d6fb409adc3eaff96eb445d78776b98c"
+        "size": 364894,
+        "hash": "6f4ca367e2d81bc812dc857a6e49236f"
+    },
+    {
+        "file": "res/ChanLe.plist",
+        "size": 18336,
+        "hash": "22830f4506b77a1dce516ec2ef4740ee"
+    },
+    {
+        "file": "res/ChanLe.png",
+        "size": 311884,
+        "hash": "924c1a293290f84c54ea33f8e8db1ec8"
     },
     {
         "file": "res/data/HDList.plist",
-        "size": 29770,
-        "hash": "f8bfab6166233b9f28d1f9a34e08b719"
+        "size": 30244,
+        "hash": "3d06f66d1eb5d9a8ef9aa5511cd17deb"
     },
     {
         "file": "res/data/LevelData.json",
-        "size": 1236,
-        "hash": "f101e866e31b5af43f3aadf8ce7c97bb"
+        "size": 948,
+        "hash": "ab3c3296770bdcd47e3cb2e63d04fd12"
+    },
+    {
+        "file": "res/data/String.json",
+        "size": 2787,
+        "hash": "e4e8794edee4a2696571776f22dfa0dc"
     },
     {
         "file": "res/data/VipData.json",
-        "size": 1854,
-        "hash": "87eedca7947ea3c0b9d4d997c95f9444"
+        "size": 1566,
+        "hash": "d6ab0728468e5e8fe9b548aaede66560"
     },
     {
         "file": "res/dialog.plist",
-        "size": 31037,
-        "hash": "7ce873780eab2feea6c2502d73148305"
+        "size": 39175,
+        "hash": "d14e8a9dbc304137fef5781e14856c43"
     },
     {
         "file": "res/dialog.png",
-        "size": 254133,
-        "hash": "1e81accb865f47d667bc3804f31c7fb7"
+        "size": 254770,
+        "hash": "cfbffc9d02fcc7f0b9973bee6b1cd4d1"
     },
     {
         "file": "res/effectMini.plist",
-        "size": 3765,
-        "hash": "f499460b8c34b6a9756e6b2b7cf21d0a"
+        "size": 3664,
+        "hash": "70e6e71260011e5402cce8dccc77dca5"
     },
     {
         "file": "res/effectMini.png",
@@ -535,19 +635,29 @@
         "hash": "9c1f9850a6dfa6918f4cdc289b3a4836"
     },
     {
+        "file": "res/emotion.plist",
+        "size": 23602,
+        "hash": "0fc1b311e8c67ce5b1b2c2693d019690"
+    },
+    {
+        "file": "res/emotion.png",
+        "size": 194878,
+        "hash": "f60806fceff9c445a3930e6f9e7ec7ab"
+    },
+    {
         "file": "res/FloatButton.plist",
-        "size": 5463,
-        "hash": "3cfaa7847fb0ca2108ddf4e3c2dc898d"
+        "size": 5311,
+        "hash": "4efde665e2cd402a79a5cb50dfcd0728"
     },
     {
         "file": "res/FloatButton.png",
-        "size": 179799,
-        "hash": "fe2e39d12ea3a6ec956575ca3153e9fa"
+        "size": 171778,
+        "hash": "c9f59cd2435febefa5269f03696b4f22"
     },
     {
         "file": "res/fonts/bigsmall_number_font.fnt",
-        "size": 2587,
-        "hash": "213c0eaf9d72974dc1e2c2cf6336175e"
+        "size": 2554,
+        "hash": "862e5806b97a80e4e45c0ace150bca0a"
     },
     {
         "file": "res/fonts/bigsmall_number_font.png",
@@ -555,9 +665,19 @@
         "hash": "1d744fd3e6e7320a4ee4a0a541570bda"
     },
     {
+        "file": "res/fonts/fonttime1.fnt",
+        "size": 1735,
+        "hash": "0ec61fb8a4af4ef378cd2fce0c71e922"
+    },
+    {
+        "file": "res/fonts/fonttime1.png",
+        "size": 14563,
+        "hash": "9b33d00fac45f35c1bcafe0fb0a2563e"
+    },
+    {
         "file": "res/fonts/game-result-font1.fnt",
-        "size": 1890,
-        "hash": "5b98a0dbd4f00bfccfdf5c3a3226fbba"
+        "size": 1868,
+        "hash": "7184cf87e29565f307a6c8f86d74eec7"
     },
     {
         "file": "res/fonts/game-result-font1.png",
@@ -566,8 +686,8 @@
     },
     {
         "file": "res/fonts/game-result-font2.fnt",
-        "size": 1890,
-        "hash": "da8c543207693494729cba2e9f616c3f"
+        "size": 1868,
+        "hash": "66a705c908e6bfbca0fcee20920a81d6"
     },
     {
         "file": "res/fonts/game-result-font2.png",
@@ -576,8 +696,8 @@
     },
     {
         "file": "res/fonts/minigame-number-1.fnt",
-        "size": 2079,
-        "hash": "c3153ef00ccd68a7ba4eac9dbe42987f"
+        "size": 2055,
+        "hash": "00fabf81f5b1f11a383e1f57db3af13f"
     },
     {
         "file": "res/fonts/minigame-number-1.png",
@@ -595,9 +715,59 @@
         "hash": "8f7b8dc753ec34b0c7c3d748a835c38c"
     },
     {
+        "file": "res/fonts/Roboto_BoldCondensed_36_Glow.fnt",
+        "size": 1602,
+        "hash": "ae6c45e761aa5ab8ad4715ea6647a0a8"
+    },
+    {
+        "file": "res/fonts/Roboto_BoldCondensed_36_Glow.png",
+        "size": 31162,
+        "hash": "68e9d767e942a9d8dbe28b590c580322"
+    },
+    {
+        "file": "res/fonts/RobotoBoldCondensed_14.fnt",
+        "size": 36756,
+        "hash": "dad046e79f33c4f44cb3907e2ec962a8"
+    },
+    {
+        "file": "res/fonts/RobotoBoldCondensed_14.png",
+        "size": 31444,
+        "hash": "7fe45f74a7c1e1255d15f02071d8de51"
+    },
+    {
+        "file": "res/fonts/RobotoBoldCondensed_16.fnt",
+        "size": 36756,
+        "hash": "637f20c2481558db69b9434c6b2b6428"
+    },
+    {
+        "file": "res/fonts/RobotoBoldCondensed_16.png",
+        "size": 38192,
+        "hash": "ef802787378b55a6b673914eb177620b"
+    },
+    {
+        "file": "res/fonts/RobotoBoldCondensed_18.fnt",
+        "size": 36756,
+        "hash": "6f603f39c6dbf4c883cdae877710e007"
+    },
+    {
+        "file": "res/fonts/RobotoBoldCondensed_18.png",
+        "size": 43486,
+        "hash": "e2fe3ce0ccfe5975d19a566cfcf39706"
+    },
+    {
+        "file": "res/fonts/RobotoBoldCondensed_20.fnt",
+        "size": 36756,
+        "hash": "5808ff62bd4f58f162ae4201221c864a"
+    },
+    {
+        "file": "res/fonts/RobotoBoldCondensed_20.png",
+        "size": 48729,
+        "hash": "d5154e505057757476fed0468c56af1d"
+    },
+    {
         "file": "res/fonts/RobotoBoldCondensed_25.fnt",
-        "size": 43875,
-        "hash": "a118eabdb36566878b544eb4ae755e9e"
+        "size": 43261,
+        "hash": "3034b562cdd41cb4087a02775feae0f8"
     },
     {
         "file": "res/fonts/RobotoBoldCondensed_25.png",
@@ -606,8 +776,8 @@
     },
     {
         "file": "res/fonts/RobotoBoldCondensed_30.fnt",
-        "size": 44342,
-        "hash": "19dc4f4ed9e8a56f3b742a69f41b6ce2"
+        "size": 43716,
+        "hash": "871c046350caa6edb862fdf0477c0bdd"
     },
     {
         "file": "res/fonts/RobotoBoldCondensed_30.png",
@@ -616,8 +786,8 @@
     },
     {
         "file": "res/fonts/RobotoBoldCondensed_40.fnt",
-        "size": 49972,
-        "hash": "73c00aedcd8cc50e384e0adb55d6ae24"
+        "size": 49201,
+        "hash": "5a9d5834eb833f4bb26829b84f311e33"
     },
     {
         "file": "res/fonts/RobotoBoldCondensed_40.png",
@@ -625,9 +795,49 @@
         "hash": "5353c6b02c57ed0510468068decc7e8d"
     },
     {
+        "file": "res/fonts/RobotoCondensed_14.fnt",
+        "size": 36752,
+        "hash": "7d3b05c5f962e2ca4ec6f2310e4ee26a"
+    },
+    {
+        "file": "res/fonts/RobotoCondensed_14.png",
+        "size": 29514,
+        "hash": "0f500ec2505b09a3a114346a40c5238f"
+    },
+    {
+        "file": "res/fonts/RobotoCondensed_16.fnt",
+        "size": 36752,
+        "hash": "01a85f73998865a966b3a07d58bf159e"
+    },
+    {
+        "file": "res/fonts/RobotoCondensed_16.png",
+        "size": 35580,
+        "hash": "0ec344c14045007eadb277e331359b9b"
+    },
+    {
+        "file": "res/fonts/RobotoCondensed_18.fnt",
+        "size": 36752,
+        "hash": "63de2129d7835382d143edc7d2624c51"
+    },
+    {
+        "file": "res/fonts/RobotoCondensed_18.png",
+        "size": 40801,
+        "hash": "dce6d05a0e0b0efe6712d36022e7d9f2"
+    },
+    {
+        "file": "res/fonts/RobotoCondensed_20.fnt",
+        "size": 36752,
+        "hash": "e42f65d99d9b1956940fc3285a5a905a"
+    },
+    {
+        "file": "res/fonts/RobotoCondensed_20.png",
+        "size": 46237,
+        "hash": "2adccd3618579967f1d2d85653be9662"
+    },
+    {
         "file": "res/fonts/RobotoCondensed_25.fnt",
-        "size": 43871,
-        "hash": "0396d6cb71335ce5fc654e220f77553a"
+        "size": 43257,
+        "hash": "d2cae588daa57dae4956b24232a2fb03"
     },
     {
         "file": "res/fonts/RobotoCondensed_25.png",
@@ -636,23 +846,13 @@
     },
     {
         "file": "res/fonts/RobotoCondensed_30.fnt",
-        "size": 44338,
-        "hash": "bd0c5347113683cb32e5049189ca2578"
+        "size": 43712,
+        "hash": "e6dc4721ddbf68b6b54e417e4e5bd8cb"
     },
     {
         "file": "res/fonts/RobotoCondensed_30.png",
         "size": 58799,
         "hash": "791e36d59c48c9ebeb61d8279418b555"
-    },
-    {
-        "file": "res/fonts/Roboto_BoldCondensed_36_Glow.fnt",
-        "size": 1621,
-        "hash": "0a6dfc1ee3886c554b4f81fac455a5e4"
-    },
-    {
-        "file": "res/fonts/Roboto_BoldCondensed_36_Glow.png",
-        "size": 31162,
-        "hash": "68e9d767e942a9d8dbe28b590c580322"
     },
     {
         "file": "res/fonts/UTM-AvoBold.ttf",
@@ -661,8 +861,8 @@
     },
     {
         "file": "res/fonts/UTMAvoBold_25.fnt",
-        "size": 35671,
-        "hash": "5493a4b1be064cf82cbbb8a560555d3e"
+        "size": 35267,
+        "hash": "010dadc6be0bd6b1f09960fc7a86f0fa"
     },
     {
         "file": "res/fonts/UTMAvoBold_25.png",
@@ -671,8 +871,8 @@
     },
     {
         "file": "res/fonts/UTMAvoBold_30.fnt",
-        "size": 39066,
-        "hash": "b65d4ca28e14944816efea1226d17184"
+        "size": 38574,
+        "hash": "058b5f895673d69deae71e76fe1e5493"
     },
     {
         "file": "res/fonts/UTMAvoBold_30.png",
@@ -681,8 +881,8 @@
     },
     {
         "file": "res/fonts/UTMAvoBold_40.fnt",
-        "size": 39066,
-        "hash": "325a5875b946c8dac87b8a76c7d71d24"
+        "size": 38574,
+        "hash": "1e51f6c7ca6e3a6070ffd7791e8b2715"
     },
     {
         "file": "res/fonts/UTMAvoBold_40.png",
@@ -691,8 +891,8 @@
     },
     {
         "file": "res/fonts/videoPokerRewardFont.fnt",
-        "size": 1595,
-        "hash": "dfb3a1df31265a04264deee7f523c618"
+        "size": 1576,
+        "hash": "e470362b09d56767c721758a2b11c078"
     },
     {
         "file": "res/fonts/videoPokerRewardFont.png",
@@ -711,18 +911,18 @@
     },
     {
         "file": "res/GameList.plist",
-        "size": 11066,
-        "hash": "fbd4558fef80dd874cebff6dc81ac8bc"
+        "size": 11313,
+        "hash": "41185f7203d7f5c313da0b532f8628ba"
     },
     {
         "file": "res/GameList.png",
-        "size": 791337,
-        "hash": "25345850e2f0ff82d740d0582b39545a"
+        "size": 703188,
+        "hash": "2eb36e3258bb218ae9bc070e0890be11"
     },
     {
         "file": "res/gamemini.plist",
-        "size": 9409,
-        "hash": "2bfbad2d5ca89384fd0e53b0b804e4e5"
+        "size": 9158,
+        "hash": "deb441fa98a47962e6c69bf300126687"
     },
     {
         "file": "res/gamemini.png",
@@ -731,18 +931,18 @@
     },
     {
         "file": "res/GameScene.plist",
-        "size": 22220,
-        "hash": "7501cbab97ea397204d57bb173c03e54"
+        "size": 22682,
+        "hash": "ff7e6143c6402552f11e0db25cee618a"
     },
     {
         "file": "res/GameScene.png",
-        "size": 239669,
-        "hash": "21f6d08eb64d16e12c444a1563d09e88"
+        "size": 191707,
+        "hash": "29fe2f95bb131f8a8f80545caa72e57a"
     },
     {
         "file": "res/gp_table.png",
-        "size": 119683,
-        "hash": "356c104acebc8c7f947adcdefe3116c2"
+        "size": 1645487,
+        "hash": "0cec3d8e9256a2055423294520657884"
     },
     {
         "file": "res/gp_table_poker.png",
@@ -751,28 +951,23 @@
     },
     {
         "file": "res/home.plist",
-        "size": 149475,
-        "hash": "1d08d81c2a25d99e4accc91f4274d738"
+        "size": 130221,
+        "hash": "c1dacb50f5d7e5430dffec32b4676f82"
     },
     {
         "file": "res/home.png",
-        "size": 1209738,
-        "hash": "6843957ffb7bd282b3402ab58af9301b"
+        "size": 897971,
+        "hash": "1d8914202895c3c905343f921f71afdb"
     },
     {
-        "file": "res/loading.plist",
-        "size": 12855,
-        "hash": "489916e4488da69439841acc613c9d39"
-    },
-    {
-        "file": "res/loading.png",
-        "size": 391667,
-        "hash": "48403c14ce6a0388f05020ef9046fc64"
+        "file": "res/loading_bg.jpg",
+        "size": 64125,
+        "hash": "dcd31b11c6ba98287844fcbfdbfc359b"
     },
     {
         "file": "res/MiniPoker.plist",
-        "size": 6594,
-        "hash": "ad22d4dd99c1fc88fc798d5a90d92bda"
+        "size": 6418,
+        "hash": "6660a453cc5d88a38a6e56bd3c03ec78"
     },
     {
         "file": "res/MiniPoker.png",
@@ -781,13 +976,13 @@
     },
     {
         "file": "res/pokerGame.plist",
-        "size": 31546,
-        "hash": "7c446563d284acec24bfdcf1b36bef47"
+        "size": 30737,
+        "hash": "70af613a84ed3098da8a127a94cb3831"
     },
     {
         "file": "res/pokerGame.png",
-        "size": 243040,
-        "hash": "803034fd45bef9d7835e2b94bc915cf5"
+        "size": 254670,
+        "hash": "72fdacc17772c1d1e5ad59f80f621e06"
     },
     {
         "file": "res/Sound/ahihi.mp3",
@@ -1431,8 +1626,8 @@
     },
     {
         "file": "res/videopoker.plist",
-        "size": 13336,
-        "hash": "5eabec2bd89ab0188cef921838262733"
+        "size": 12980,
+        "hash": "a5da705106f8edb1236e6d12ee4b39eb"
     },
     {
         "file": "res/videopoker.png",
@@ -1441,8 +1636,8 @@
     },
     {
         "file": "res/VongQuay.plist",
-        "size": 3777,
-        "hash": "af63ec26fbb7d2d0626d45487f20efaa"
+        "size": 3677,
+        "hash": "f913fe3979fc38dda02b8a0cf6429fb7"
     },
     {
         "file": "res/VongQuay.png",
@@ -1451,22 +1646,22 @@
     },
     {
         "file": "res/XocDia.plist",
-        "size": 26271,
-        "hash": "ef4a5f8f3ee2c8d1e9671dd4c78467dd"
+        "size": 25570,
+        "hash": "f4d1f0aa76e608494f28f536c636d480"
     },
     {
         "file": "res/XocDia.png",
-        "size": 810487,
-        "hash": "6028ccf0e6a748dc46ed03417a317e21"
+        "size": 801091,
+        "hash": "367c1ec8e7cd7ed39807a490ee900903"
     },
     {
         "file": "resources.json",
-        "size": 7788,
-        "hash": "ce4fada5e84c807d535c2e7a7d38cb5c"
+        "size": 9109,
+        "hash": "758c84cc6f98e6e3b4fd48c5d2f9f47e"
     },
     {
         "file": "script.json",
-        "size": 2949,
-        "hash": "3a635dadb7cc0bd699cabd3601b0ca0d"
+        "size": 3455,
+        "hash": "500eeee0bbc1d67389faf21f5f66120c"
     }
 ]}
