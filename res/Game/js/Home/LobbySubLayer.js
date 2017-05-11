@@ -42,7 +42,7 @@ var LobbySubLayer = cc.Node.extend({
 
         var gameNav = new ccui.Scale9Sprite("sublobby-tab-bg.png", cc.rect(40, 0, 4, 44));
         gameNav.setPreferredSize(cc.size(166 * allLayer.length, 44));
-        gameNav.setPosition(cc.p(cc.winSize.width/2, 67));
+        gameNav.setPosition(cc.p(cc.winSize.width/2, 15));
         bottomBar.addChild(gameNav);
 
         // var gameNav = new ccui.Scale9Sprite("sublobby-tab-bg.png", cc.rect(20, 0, 4, 49));

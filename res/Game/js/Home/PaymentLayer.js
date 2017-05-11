@@ -15,11 +15,13 @@ var PaymentCardLayer = cc.Node.extend({
         var bg1 = new ccui.Scale9Sprite("lobby-text-input.png", cc.rect(10, 10, 4, 4));
         bg1.setPreferredSize(cc.size(360, 50));
         bg1.setPosition(cc.winSize.width/2 + 220, 390);
+        bg1.setOpacity(25);
         this.addChild(bg1);
 
         var bg2 = new ccui.Scale9Sprite("lobby-text-input.png", cc.rect(10, 10, 4, 4));
         bg2.setPreferredSize(bg1.getContentSize());
         bg2.setPosition(bg1.x, 302);
+        bg2.setOpacity(25);
         this.addChild(bg2);
 
         var maThe = new newui.EditBox(cc.size(bg1.getContentSize().width - 6, bg1.getContentSize().height - 2));
@@ -27,6 +29,8 @@ var PaymentCardLayer = cc.Node.extend({
         maThe.setPlaceholderFont(cc.res.font.Roboto_Condensed, 18);
         maThe.setInputMode(cc.EDITBOX_INPUT_MODE_SINGLELINE);
         maThe.setReturnType(cc.KEYBOARD_RETURNTYPE_DONE);
+        maThe.setFontColor(cc.color("#ffffff"));
+        maThe.setPlaceholderFontColor(cc.color("#45b8e3"));
         maThe.setPlaceHolder("Mã thẻ");
         maThe.setPosition(bg1.getPosition());
         this.addChild(maThe, 1);
@@ -39,6 +43,8 @@ var PaymentCardLayer = cc.Node.extend({
         serialThe.setInputMode(cc.EDITBOX_INPUT_MODE_SINGLELINE);
         serialThe.setReturnType(cc.KEYBOARD_RETURNTYPE_DONE);
         serialThe.setPlaceHolder("Serial thẻ");
+        serialThe.setFontColor(cc.color("#ffffff"));
+        serialThe.setPlaceholderFontColor(cc.color("#45b8e3"));
         serialThe.setPosition(bg2.getPosition());
         this.addChild(serialThe, 1);
         this.serialThe = serialThe;
@@ -48,9 +54,9 @@ var PaymentCardLayer = cc.Node.extend({
         okButton.setCapInsets(cc.rect(10, 10, 4, 4));
         okButton.setContentSize(cc.size(bg1.getContentSize().width, 55));
         okButton.setPosition(bg1.x, 192);
-        okButton.setTitleText("Nạp vàng");
+        okButton.setTitleText("NẠP VÀNG");
         okButton.setTitleFontName(cc.res.font.Roboto_Condensed);
-        okButton.setTitleColor(cc.color("#682e2e"));
+        okButton.setTitleColor(cc.color("#835238"));
         okButton.setTitleFontSize(25);
         this.addChild(okButton);
 
@@ -146,10 +152,11 @@ var PaymentCardLayer = cc.Node.extend({
         this.type = this.cardSelected.type;
     },
     initTiGia: function () {
-        var bg = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
+        var bg = new ccui.Scale9Sprite("lobby-text-input.png", cc.rect(10, 10, 4, 4));
         bg.setPreferredSize(cc.size(420, 260));
         bg.setAnchorPoint(cc.p(0.5, 0.5));
         bg.setPosition(370 * cc.winSize.screenScale, 290);
+        bg.setOpacity(25);
         this.addChild(bg);
 
         var listItem = new newui.TableView(cc.size(bg.getContentSize().width - 4, bg.getContentSize().height), 1);
