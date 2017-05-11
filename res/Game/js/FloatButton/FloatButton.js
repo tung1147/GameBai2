@@ -59,6 +59,14 @@ var FloatButton = (function() {
 
             this.initComponent();
             this.initButtonCenter();
+
+            var left = this.rectTouch.width/2;
+            var right = cc.winSize.width - left;
+            var bottom = this.rectTouch.height/2;
+            var top = cc.winSize.height - bottom;
+            var x = left + Math.random() * (right - left);
+            var y = bottom + Math.random() * (top - bottom);
+            this.setPosition(x, y);
         },
         initButtonCenter : function () {
             var btCenter = new FloatButtonCenter();
@@ -67,6 +75,8 @@ var FloatButton = (function() {
 
             this.rectTouch = cc.rect(-btCenter.getContentSize().width/2, -btCenter.getContentSize().height/2, btCenter.getContentSize().width, btCenter.getContentSize().height);
             this.btCenter = btCenter;
+
+
         },
         initComponent : function () {
             var radius = cc.p(0,120);
@@ -84,6 +94,39 @@ var FloatButton = (function() {
             }
             this.allComponent = allComponent;
         },
+        _moveToBoder : function () {
+            this.stopAllActions();
+
+            var left = this.rectTouch.width/2;
+            var right = cc.winSize.width - left;
+            var bottom = this.rectTouch.height/2;
+            var top = cc.winSize.height - bottom;
+
+            var dx1 = Math.abs(this.x - left);
+            var dx2 = Math.abs(this.x - right);
+            var dx = dx1 < dx2 ? dx1 : dx2;
+
+            var dy1 = Math.abs(this.y - bottom);
+            var dy2 = Math.abs(this.y - top);
+            var dy = dy1 < dy2 ? dy1 : dy2;
+
+            if(dx < dy){
+                if(dx1 < dx2){
+                    this.runAction(new cc.MoveTo(0.2, cc.p(left, this.y)));
+                }
+                else{
+                    this.runAction(new cc.MoveTo(0.2, cc.p(right, this.y)));
+                }
+            }
+            else{
+                if(dy1 < dy2){
+                    this.runAction(new cc.MoveTo(0.2, cc.p(this.x, bottom)));
+                }
+                else{
+                    this.runAction(new cc.MoveTo(0.2, cc.p(this.x, top)));
+                }
+            }
+        },
         show : function (parent) {
             var currentParent = this.getParent();
             if(currentParent){
@@ -96,6 +139,7 @@ var FloatButton = (function() {
         onEnter : function () {
             this._super();
             this.isTouch = false;
+            this._moveToBoder();
 
             var thiz = this;
             cc.eventManager.addListener({
@@ -131,6 +175,8 @@ var FloatButton = (function() {
             }
             var p = this.convertToNodeSpace(touch.getLocation());
             if(cc.rectContainsPoint(this.rectTouch, p)){
+                this.stopAllActions();
+
                 this.startPosition = touch.getLocation();
                 this.isMoved = false;
                 this.canMoved = true;
@@ -196,6 +242,7 @@ var FloatButton = (function() {
                     this.showAllComponent();
                 }
             }
+            this._moveToBoder();
         },
         showAllComponent : function () {
             this.newCountMiniTaiXiu.setVisible(false);
