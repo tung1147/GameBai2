@@ -39,68 +39,111 @@ var LobbySubLayer = cc.Node.extend({
         this.addChild(bottomBar);
         bottomBar.setScale(cc.winSize.screenScale);
 
-        var gameNav = new ccui.Scale9Sprite("sublobby-tab-bg.png", cc.rect(20, 0, 4, 49));
-        gameNav.setPreferredSize(cc.size(960, 49));
-        gameNav.setPosition(640, gameNav.getContentSize().height/2);
+
+        var gameNav = new ccui.Scale9Sprite("sublobby-tab-bg.png", cc.rect(40, 0, 4, 44));
+        gameNav.setPreferredSize(cc.size(166 * allLayer.length, 44));
+        gameNav.setPosition(cc.p(cc.winSize.width/2, 67));
         bottomBar.addChild(gameNav);
 
-        var dx = gameNav.getContentSize().width / normalFrame.length;
-        var x = gameNav.x - gameNav.getContentSize().width / 2 + dx / 2;
-
-        var selectedSprite = new ccui.Scale9Sprite("home-gameNav-selected.png", cc.rect(4,4,4,4));
-        selectedSprite.setPreferredSize(cc.size(dx, gameNav.getContentSize().height));
-        selectedSprite.setPosition(0, gameNav.y);
-        bottomBar.addChild(selectedSprite, 1);
+        // var gameNav = new ccui.Scale9Sprite("sublobby-tab-bg.png", cc.rect(20, 0, 4, 49));
+        // gameNav.setPreferredSize(cc.size(960, 49));
+        // gameNav.setPosition(640, gameNav.getContentSize().height/2);
+        // bottomBar.addChild(gameNav);
+        //
+        // var dx = gameNav.getContentSize().width / normalFrame.length;
+        // var x = gameNav.x - gameNav.getContentSize().width / 2 + dx / 2;
+        //
+        // var selectedSprite = new ccui.Scale9Sprite("home-gameNav-selected.png", cc.rect(4,4,4,4));
+        // selectedSprite.setPreferredSize(cc.size(dx, gameNav.getContentSize().height));
+        // selectedSprite.setPosition(0, gameNav.y);
+        // bottomBar.addChild(selectedSprite, 1);
 
         var mToggle = new ToggleNodeGroup();
         bottomBar.addChild(mToggle);
 
         for (var i = 0; i < normalFrame.length; i++) {
             (function () {
-                var icon1 = new cc.Sprite(subLayer_icon_img1[i]);
-                icon1.setPosition(x + dx * i, gameNav.y);
-                bottomBar.addChild(icon1);
+                // var icon1 = new cc.Sprite(subLayer_icon_img1[i]);
+                // icon1.setPosition(x + dx * i, gameNav.y);
+                // bottomBar.addChild(icon1);
+                //
+                // var icon2 = new cc.Sprite(subLayer_icon_img2[i]);
+                // icon2.setPosition(icon1.getPosition());
+                // bottomBar.addChild(icon2);
+                //
+                // var tabName1 = new cc.Sprite(normalFrame[i]);
+                // tabName1.setPosition(icon1.getPosition());
+                // bottomBar.addChild(tabName1);
+                //
+                // var tabName2 = new cc.Sprite(selectedFrame[i]);
+                // tabName2.setPosition(icon1.getPosition());
+                // bottomBar.addChild(tabName2);
 
-                var icon2 = new cc.Sprite(subLayer_icon_img2[i]);
-                icon2.setPosition(icon1.getPosition());
-                bottomBar.addChild(icon2);
+                // var button = 0;
+                //
+                // if (i == 0) {
+                //     button = new ccui.Scale9Sprite("goldv_btn_right_select.png", cc.rect(25, 0, 4, 44));
+                //     button.setPreferredSize(cc.size(166, 68));
+                //     button.setRotation(180);
+                //     button.setPosition(button.getContentSize().width/2 + button.getContentSize().width * i, gameNav.getContentSize().height/2);
+                //     gameNav.addChild(button);
+                // }
+                // else if(i === allLayer.length - 1)
+                // {
+                //     button = new ccui.Scale9Sprite("goldv_btn_right_select.png", cc.rect(25, 0, 4, 44));
+                //     button.setPreferredSize(cc.size(166, 68));
+                //     button.setPosition(button.getContentSize().width/2 + button.getContentSize().width * i, gameNav.getContentSize().height/2);
+                //     gameNav.addChild(button);
+                // }
+                // else
+                // {
+                //     button = new ccui.Scale9Sprite("goldv_btn_center_select.png", cc.rect(25, 0, 4, 44));
+                //     button.setPreferredSize(cc.size(166, 68));
+                //     button.setPosition(button.getContentSize().width/2 + button.getContentSize().width * i + 1, gameNav.getContentSize().height/2);
+                //     gameNav.addChild(button);
+                // }
+                //
+                //
+                // var label = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "aaa");
+                // label.setColor(cc.color("#8de8ff"));
+                // label.setPosition(button.getPosition());
+                // gameNav.addChild(label);
+                //
+                // if (i < allLayer.length - 1) {
+                //     var light = new cc.Sprite("#goldv_linedung.png");
+                //     light.setPosition(button.getPositionX() + button.getContentSize().width/2, button.getPositionY());
+                //     gameNav.addChild(light);
+                // }
 
-                var tabName1 = new cc.Sprite(normalFrame[i]);
-                tabName1.setPosition(icon1.getPosition());
-                bottomBar.addChild(tabName1);
-
-                var tabName2 = new cc.Sprite(selectedFrame[i]);
-                tabName2.setPosition(icon1.getPosition());
-                bottomBar.addChild(tabName2);
 
                 var mNode = allLayer[i];
 
-                var toggleItem = new ToggleNodeItem(icon1.getContentSize());
-                toggleItem.setPosition(icon1.x, selectedSprite.y);
+                var toggleItem = new ToggleNodeItem(cc.size(100, 100));
+                toggleItem.setPosition(100, 100);
                 mToggle.addItem(toggleItem);
                 
                 toggleItem.onSelect = function (force) {
-                    icon1.visible = false;
-                    icon2.visible = true;
-                    tabName1.visible = false;
-                    tabName2.visible = true;
+                    // icon1.visible = false;
+                    // icon2.visible = true;
+                    // tabName1.visible = false;
+                    // tabName2.visible = true;
                     mNode.setVisible(false);
 
-                    selectedSprite.stopAllActions();
-                    if(force){
-                        selectedSprite.x = icon1.x;
-                    }
-                    else{
-
-                        selectedSprite.runAction(new cc.MoveTo(0.1, cc.p(icon1.x, selectedSprite.y)));
-                    }
+                    // selectedSprite.stopAllActions();
+                    // if(force){
+                    //     selectedSprite.x = icon1.x;
+                    // }
+                    // else{
+                    //
+                    //     selectedSprite.runAction(new cc.MoveTo(0.1, cc.p(icon1.x, selectedSprite.y)));
+                    // }
                     thiz._onSelectTabLayer(mNode);
                 };
                 toggleItem.onUnSelect = function () {
-                    icon1.visible = true;
-                    icon2.visible = false;
-                    tabName1.visible = true;
-                    tabName2.visible = false;
+                    // icon1.visible = true;
+                    // icon2.visible = false;
+                    // tabName1.visible = true;
+                    // tabName2.visible = false;
                     mNode.setVisible(false);
                 }
             })();

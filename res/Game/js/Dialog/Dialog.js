@@ -258,8 +258,8 @@ var Dialog = IDialog.extend({
 
         this.title.setPosition(this.getContentSize().width/2, this.dialogBgTitle.getPosition().y);
         this.closeButton.setPosition(this.getContentSize().width - 33.0, this.title.y);
-        this.okButton.setPosition(this.getContentSize().width/2 - this.okButton.getContentSize().width/2 - 15.0, 156);
-        this.cancelButton.setPosition(this.getContentSize().width/2 + this.cancelButton.getContentSize().width/2 + 15.0, 156);
+        this.okButton.setPosition(this.getContentSize().width/2 - this.okButton.getContentSize().width/2 - 15.0, 50);
+        this.cancelButton.setPosition(this.getContentSize().width/2 + this.cancelButton.getContentSize().width/2 + 15.0, 50);
 
         this.mTouch = cc.rect(this._marginLeft, this._marginBottom, mSize.width, mSize.height);
 

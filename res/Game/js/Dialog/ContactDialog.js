@@ -7,8 +7,8 @@ var ContactDialog = Dialog.extend({
         this._super();
         this.okButton.visible = false;
         this.cancelButton.visible = false;
-        this.title.setString("Liên hệ");
-        this.initWithSize(cc.size(478, 278));
+        this.title.setString("LIÊN HỆ");
+        this.initWithSize(cc.size(682, 365));
         this.showContactInfo();
     },
 
@@ -18,7 +18,7 @@ var ContactDialog = Dialog.extend({
 
     showContactInfo : function () {
         var contactDial = new ccui.Button("contactDial.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        contactDial.setPosition(this.width/2 + 63, 189);
+        contactDial.setPosition(this.width/2 + 63, 92);
         this.addChild(contactDial);
 
         var contactFacebook = new ccui.Button("contactFacebook.png", "", "", ccui.Widget.PLIST_TEXTURE);
@@ -27,7 +27,7 @@ var ContactDialog = Dialog.extend({
 
         var contactStr = "Vui lòng gọi vào hotline hoặc nhắn tin qua fanpage Facebook để được hỗ trợ trực tiếp";
         var contactLabel = new cc.LabelBMFont(contactStr,cc.res.font.Roboto_Condensed_18, 440, cc.TEXT_ALIGNMENT_CENTER);
-        contactLabel.setPosition(this.width/2, 264);
+        contactLabel.setPosition(this.width/2, 205);
 
         var dialLabel = new cc.LabelBMFont(GameConfig.hotline,cc.res.font.Roboto_Condensed_18);
         dialLabel.setPosition(contactDial.x,contactDial.y - 53);

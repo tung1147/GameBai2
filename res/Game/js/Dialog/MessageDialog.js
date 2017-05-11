@@ -67,7 +67,7 @@ var MessageConfirmDialog = Dialog.extend({
     ctor : function () {
         this._super();
         this.initWithSize(cc.size(600,400));
-        this.title.setString("Thông báo");
+        this.title.setString("THÔNG BÁO");
         this.closeButton.visible = false;
         this.okTitle.setString("Đồng ý");
         this.cancelTitle.setString("Đóng");
