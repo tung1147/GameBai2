@@ -335,28 +335,31 @@ var PaymentGiftcode = cc.Node.extend({
     ctor: function () {
         this._super();
         var bg = new ccui.Scale9Sprite("lobby-text-input.png", cc.rect(10, 10, 4, 4));
-        bg.setPreferredSize(cc.size(420, 60));
-        bg.setPosition(cc.winSize.width / 2, 420);
+        bg.setPreferredSize(cc.size(280, 45));
+        bg.setPosition(cc.winSize.width/2, 390);
+        bg.setOpacity(25);
         this.addChild(bg);
 
         var giftCode = new newui.EditBox(cc.size(bg.getContentSize().width - 6, bg.getContentSize().height - 2));
-        giftCode.setFont(cc.res.font.Roboto_Condensed, 30.0 * cc.winSize.screenScale);
-        giftCode.setPlaceholderFont(cc.res.font.Roboto_Condensed, 30.0 * cc.winSize.screenScale);
+        giftCode.setFont(cc.res.font.Roboto_Condensed, 18.0 * cc.winSize.screenScale);
+        giftCode.setPlaceholderFont(cc.res.font.Roboto_Condensed, 18.0 * cc.winSize.screenScale);
         giftCode.setInputMode(cc.EDITBOX_INPUT_MODE_SINGLELINE);
         giftCode.setReturnType(cc.KEYBOARD_RETURNTYPE_DONE);
         giftCode.setPlaceHolder("Nhập giftcode");
+        giftCode.setFontColor(cc.color("#ffffff"));
+        giftCode.setPlaceholderFontColor(cc.color("#45b8e3"));
         giftCode.setPosition(bg.getPosition());
         this.addChild(giftCode, 1);
 
         var okButton = new ccui.Button("sublobby-button.png", "sublobby-button-2.png", "", ccui.Widget.PLIST_TEXTURE);
         okButton.setScale9Enabled(true);
         okButton.setCapInsets(cc.rect(10, 10, 4, 4));
-        okButton.setContentSize(cc.size(bg.getContentSize().width, 55));
+        okButton.setContentSize(cc.size(bg.getContentSize().width, 45));
         okButton.setPosition(bg.x, 300);
-        okButton.setTitleText("Nạp vàng");
+        okButton.setTitleText("NẠP VÀNG");
         okButton.setTitleFontName(cc.res.font.Roboto_Condensed);
         okButton.setTitleFontSize(25);
-        okButton.setTitleColor(cc.color(255, 255, 255));
+        okButton.setTitleColor(cc.color(131, 82, 56));
         this.addChild(okButton);
 
         okButton.addClickEventListener(function () {

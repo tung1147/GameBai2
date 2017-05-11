@@ -15,7 +15,7 @@ var FloatButtonCenter = cc.Node.extend({
         this._super();
         var normalSprite = new cc.Sprite("#floatBt-hide.png");
         this.addChild(normalSprite);
-        this.setContentSize(cc.size(84, 84));
+        this.setContentSize(cc.size(90, 90));
 
         var showSprite = new cc.Sprite("#floatbt-show.png");
         showSprite.visible = false;
