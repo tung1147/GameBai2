@@ -59,7 +59,7 @@ var LobbySubLayer = cc.Node.extend({
         // bottomBar.addChild(selectedSprite, 1);
 
         var mToggle = new ToggleNodeGroup();
-        bottomBar.addChild(mToggle);
+        gameNav.addChild(mToggle);
 
         for (var i = 0; i < normalFrame.length; i++) {
             (function () {
@@ -79,47 +79,47 @@ var LobbySubLayer = cc.Node.extend({
                 // tabName2.setPosition(icon1.getPosition());
                 // bottomBar.addChild(tabName2);
 
-                // var button = 0;
+                var button = 0;
                 //
-                // if (i == 0) {
-                //     button = new ccui.Scale9Sprite("goldv_btn_right_select.png", cc.rect(25, 0, 4, 44));
-                //     button.setPreferredSize(cc.size(166, 68));
-                //     button.setRotation(180);
-                //     button.setPosition(button.getContentSize().width/2 + button.getContentSize().width * i, gameNav.getContentSize().height/2);
-                //     gameNav.addChild(button);
-                // }
-                // else if(i === allLayer.length - 1)
-                // {
-                //     button = new ccui.Scale9Sprite("goldv_btn_right_select.png", cc.rect(25, 0, 4, 44));
-                //     button.setPreferredSize(cc.size(166, 68));
-                //     button.setPosition(button.getContentSize().width/2 + button.getContentSize().width * i, gameNav.getContentSize().height/2);
-                //     gameNav.addChild(button);
-                // }
-                // else
-                // {
-                //     button = new ccui.Scale9Sprite("goldv_btn_center_select.png", cc.rect(25, 0, 4, 44));
-                //     button.setPreferredSize(cc.size(166, 68));
-                //     button.setPosition(button.getContentSize().width/2 + button.getContentSize().width * i + 1, gameNav.getContentSize().height/2);
-                //     gameNav.addChild(button);
-                // }
-                //
-                //
-                // var label = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "aaa");
-                // label.setColor(cc.color("#8de8ff"));
-                // label.setPosition(button.getPosition());
-                // gameNav.addChild(label);
-                //
-                // if (i < allLayer.length - 1) {
-                //     var light = new cc.Sprite("#goldv_linedung.png");
-                //     light.setPosition(button.getPositionX() + button.getContentSize().width/2, button.getPositionY());
-                //     gameNav.addChild(light);
-                // }
+                if (i == 0) {
+                    button = new ccui.Scale9Sprite("goldv_btn_right_select.png", cc.rect(25, 0, 4, 44));
+                    button.setPreferredSize(cc.size(166, 44));
+                    button.setRotation(180);
+                    button.setPosition(button.getContentSize().width/2 + button.getContentSize().width * i, gameNav.getContentSize().height/2);
+                    gameNav.addChild(button);
+                }
+                else if(i === normalFrame.length - 1)
+                {
+                    button = new ccui.Scale9Sprite("goldv_btn_right_select.png", cc.rect(25, 0, 4, 44));
+                    button.setPreferredSize(cc.size(166, 44));
+                    button.setPosition(button.getContentSize().width/2 + button.getContentSize().width * i, gameNav.getContentSize().height/2);
+                    gameNav.addChild(button);
+                }
+                else
+                {
+                    button = new ccui.Scale9Sprite("goldv_btn_center_select.png", cc.rect(25, 0, 4, 44));
+                    button.setPreferredSize(cc.size(166, 44));
+                    button.setPosition(button.getContentSize().width/2 + button.getContentSize().width * i, gameNav.getContentSize().height/2);
+                    gameNav.addChild(button);
+                }
+
+
+                var label = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, normalFrame[i]);
+                label.setColor(cc.color("#8de8ff"));
+                label.setPosition(button.getPosition());
+                gameNav.addChild(label);
+
+                if (i < normalFrame.length - 1) {
+                    var light = new cc.Sprite("#goldv_linedung.png");
+                    light.setPosition(button.getPositionX() + button.getContentSize().width/2, button.getPositionY());
+                    gameNav.addChild(light);
+                }
 
 
                 var mNode = allLayer[i];
 
-                var toggleItem = new ToggleNodeItem(cc.size(100, 100));
-                toggleItem.setPosition(100, 100);
+                var toggleItem = new ToggleNodeItem(button.getContentSize());
+                toggleItem.setPosition(button.getPosition());
                 mToggle.addItem(toggleItem);
                 
                 toggleItem.onSelect = function (force) {
@@ -128,6 +128,10 @@ var LobbySubLayer = cc.Node.extend({
                     // tabName1.visible = false;
                     // tabName2.visible = true;
                     mNode.setVisible(false);
+                    button.setVisible(true);
+                    // mNode.setVisible(true);
+                    label.setColor(cc.color("#835238"));
+
 
                     // selectedSprite.stopAllActions();
                     // if(force){
@@ -145,6 +149,9 @@ var LobbySubLayer = cc.Node.extend({
                     // tabName1.visible = true;
                     // tabName2.visible = false;
                     mNode.setVisible(false);
+                    button.setVisible(false);
+                    // mNode.setVisible(false);
+                    label.setColor(cc.color("#8de8ff"));
                 }
             })();
         }

@@ -553,21 +553,21 @@ var PaymentLayer = LobbySubLayer.extend({
             ];
 
             var payment_tab_1 = [
-                "#payment-tab-1.png",
+                "THẺ CÀO",
                 //"#payment-tab-2.png",
-                "#payment-tab-3.png",
-                "#payment-tab-4.png",
-                "#payment-tab-5.png",
-                "#payment-tab-6.png"
+                "TÍN DỤNG",
+                "GIFTCODE",
+                "SMS",
+                "LỊCH SỬ"
             ];
 
             var payment_tab_2 = [
-                "#payment-tab-selected-1.png",
-                //"#payment-tab-selected-2.png",
-                "#payment-tab-selected-3.png",
-                "#payment-tab-selected-4.png",
-                "#payment-tab-selected-5.png",
-                "#payment-tab-selected-6.png"
+                "THẺ CÀO",
+                //"#payment-tab-2.png",
+                "TÍN DỤNG",
+                "GIFTCODE",
+                "SMS",
+                "LỊCH SỬ"
             ];
         }
         else{
@@ -581,17 +581,17 @@ var PaymentLayer = LobbySubLayer.extend({
             ];
 
             var payment_tab_1 = [
-                "#payment-tab-1.png",
-                "#payment-tab-4.png",
-                "#payment-tab-5.png",
-                "#payment-tab-6.png"
+                "THẺ CÀO",
+                "GIFTCODE",
+                "SMS",
+                "LỊCH SỬ"
             ];
 
             var payment_tab_2 = [
-                "#payment-tab-selected-1.png",
-                "#payment-tab-selected-4.png",
-                "#payment-tab-selected-5.png",
-                "#payment-tab-selected-6.png"
+                "THẺ CÀO",
+                "GIFTCODE",
+                "SMS",
+                "LỊCH SỬ"
             ];
         }
 
