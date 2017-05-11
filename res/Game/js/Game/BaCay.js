@@ -318,7 +318,7 @@ var BaCay = IGameScene.extend({
     performAssetChange: function (amount, goldAfter, username) {
         var slot = this.getSlotByUsername(username);
         var changeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, "");
-        changeLabel.setString(amount > 0 ? ("+" + amount) : amount);
+        changeLabel.setString(amount > 0 ? ("+" + cc.Global.NumberFormat1(amount)) : cc.Global.NumberFormat1(amount));
         changeLabel.setColor(cc.color(amount > 0 ? "#ffde00" : "#c52829"));
         changeLabel.setPosition(slot.assetChangePos);
         // if (username == PlayerMe.username)
@@ -408,11 +408,11 @@ var BaCay = IGameScene.extend({
             return;
 
         var textNo = "Chúc mừng " + nameNo + " nổ hũ \n " + cc.Global.NumberFormat1(parseInt(money));
-        var lblText = new cc.LabelTTF(textNo,cc.res.font.Roboto_CondensedBold,45, 500, cc.TEXT_ALIGNMENT_CENTER);
+        var lblText = new cc.LabelTTF(textNo,cc.res.font.Roboto_CondensedBold,45, cc.size(500, 0), cc.TEXT_ALIGNMENT_CENTER);
         lblText.setColor(cc.color(255,245,91,255));
         // lblText.setAlignment(cc.TEXT_ALIGNMENT_CENTER);
         lblText.enableStroke(cc.color(223,28,42,255),3);
-        lblText.setPosition(cc.winSize.width/2, cc.winSize.height/2 + 50);
+        lblText.setPosition(cc.winSize.width/2, cc.winSize.height/2 + 70);
         lblText.setVisible(false);
         this.addChild(lblText);
         var thiz = this;
