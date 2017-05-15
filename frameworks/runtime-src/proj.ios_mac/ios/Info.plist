@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleDisplayName</key>
-	<string>C567 VIP</string>
+	<string>G67 VIP</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIconFile</key>
@@ -70,13 +70,13 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>20170512</string>
+	<string>20170515</string>
 	<key>FacebookAppID</key>
 	<string>1847504665484148</string>
 	<key>FacebookAppIDLogin</key>
 	<string>1847504665484148</string>
 	<key>FacebookDisplayName</key>
-	<string>GameBai2</string>
+	<string>G67 VIP</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>
