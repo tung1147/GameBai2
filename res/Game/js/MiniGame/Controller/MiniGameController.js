@@ -15,7 +15,7 @@ var MiniGameController = cc.Class.extend({
         SmartfoxClient.getInstance().addListener(socket.SmartfoxClient.SocketStatus, this.onSmartfoxSocketStatus, this);
         SmartfoxClient.getInstance().addListener(socket.SmartfoxClient.CallExtension, this.onSFSExtension, this);
         SmartfoxClient.getInstance().addExtensionListener("___err___", this.onSFSError, this);
-        SmartfoxClient.getInstance().addExtensionListener("0", this.onSFSChangeAssets, this);
+        //SmartfoxClient.getInstance().addExtensionListener("0", this.onSFSChangeAssets, this);
         LobbyClient.getInstance().addListener("getLastSessionInfo", this.onGetLastSessionInfo, this);
     },
 
