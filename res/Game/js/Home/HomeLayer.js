@@ -300,9 +300,9 @@ var HomeLayer = cc.Node.extend({
         barBg2.setPosition(cc.p(0,0));
         this.addChild(barBg2);
 
-        var logo = new cc.Sprite("#bot_bar_logo.png");
-        logo.setPosition(640, 98);
-        this.addChild(logo);
+        // var logo = new cc.Sprite("#bot_bar_logo.png");
+        // logo.setPosition(640, 98);
+        // this.addChild(logo);
 
         var fbButton = new ccui.Button("home-bg-bt.png","","", ccui.Widget.PLIST_TEXTURE);
         fbButton.setPosition(cc.p(640.0, 30));

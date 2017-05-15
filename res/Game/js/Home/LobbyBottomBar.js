@@ -22,9 +22,9 @@ var LobbyBottomBar = cc.Node.extend({
         barBg2.setPosition(cc.p(0,0));
         this.addChild(barBg2);
 
-        var logo = new cc.Sprite("#bot_bar_logo.png");
-        logo.setPosition(640, 68);
-        this.addChild(logo);
+        // var logo = new cc.Sprite("#bot_bar_logo.png");
+        // logo.setPosition(640, 68);
+        // this.addChild(logo);
 
         var avt = UserAvatar.createMe();
         avt.setPosition(49, 49);

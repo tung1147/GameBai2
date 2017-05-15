@@ -99,7 +99,8 @@ var LoadingScene = cc.Scene.extend({
     },
 
     onLoadResourceProcess : function (current, target) {
-        this.title.setString("Đang tải tài nguyên[" + current + "/" + target + "]");
+        //this.title.setString("Đang tải tài nguyên[" + current + "/" + target + "]");
+        this.title.setString("Đang tải tài nguyên[" + Math.floor(current / target * 100) + "%]");
     },
 
     _formatBytesCount : function (bytes) {
