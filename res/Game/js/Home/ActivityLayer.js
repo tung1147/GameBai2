@@ -19,7 +19,7 @@ var ActivityDiemDanhLayer = cc.Node.extend({
         this.addChild(mNode);
         this.mNode = mNode;
 
-        var nameLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "Điểm danh");
+        var nameLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, "Điểm danh");
         nameLabel.setColor(cc.color("#ffde00"));
         nameLabel.setAnchorPoint(cc.p(0.0, 0.5));
         nameLabel.setPosition(356, 575);
@@ -32,18 +32,18 @@ var ActivityDiemDanhLayer = cc.Node.extend({
         mNode.addChild(contentLabel);
 
         var dateLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_16, "Ngày");
-        dateLabel.setColor(cc.color("#4d6181"));
+        dateLabel.setColor(cc.color("#77cbee"));
         dateLabel.setPosition(394, 433);
         mNode.addChild(dateLabel);
 
         var rewardLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_16, "Phần thưởng");
-        rewardLabel.setColor(cc.color("#4d6181"));
+        rewardLabel.setColor(cc.color("#77cbee"));
         rewardLabel.setPosition(529, 433);
         mNode.addChild(rewardLabel);
 
         var statusLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_16, "Trạng thái");
         statusLabel.setAnchorPoint(cc.p(0.0, 0.5));
-        statusLabel.setColor(cc.color("#4d6181"));
+        statusLabel.setColor(cc.color("#77cbee"));
         statusLabel.setPosition(664, 433);
         mNode.addChild(statusLabel);
 
@@ -118,7 +118,7 @@ var ActivityDiemDanhLayer = cc.Node.extend({
         container.addChild(dateBg);
 
         var dateLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_18, date);
-        dateLabel.setColor(cc.color("#ffde00"));
+        dateLabel.setColor(cc.color("#77cbee"));
         dateLabel.setPosition(dateBg.getPosition());
         container.addChild(dateLabel);
 
@@ -129,7 +129,7 @@ var ActivityDiemDanhLayer = cc.Node.extend({
 
         if(status === 0 || status === 1){
             var statusLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Đã nhận");
-            statusLabel.setColor(cc.color("#ffde00"));
+            statusLabel.setColor(cc.color("#154c6b"));
             statusLabel.setAnchorPoint(cc.p(0.0, 0.5));
             statusLabel.setPosition(310, dateLabel.y);
             container.addChild(statusLabel);
@@ -168,7 +168,7 @@ var ActivityLoginLayer = cc.Node.extend({
         this.addChild(mNode);
         this.mNode = mNode;
 
-        var nameLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "Tích lũy đăng nhập");
+        var nameLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, "Tích lũy đăng nhập");
         nameLabel.setColor(cc.color("#ffde00"));
         nameLabel.setAnchorPoint(cc.p(0.0, 0.5));
         nameLabel.setPosition(356, 575);
@@ -181,18 +181,18 @@ var ActivityLoginLayer = cc.Node.extend({
         mNode.addChild(contentLabel);
 
         var dateLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_16, "Ngày");
-        dateLabel.setColor(cc.color("#4d6181"));
+        dateLabel.setColor(cc.color("#77cbee"));
         dateLabel.setPosition(394, 485);
         mNode.addChild(dateLabel);
 
         var rewardLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_16, "Phần thưởng");
-        rewardLabel.setColor(cc.color("#4d6181"));
+        rewardLabel.setColor(cc.color("#77cbee"));
         rewardLabel.setPosition(529, 485);
         mNode.addChild(rewardLabel);
 
         var statusLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_16, "Trạng thái");
         statusLabel.setAnchorPoint(cc.p(0.0, 0.5));
-        statusLabel.setColor(cc.color("#4d6181"));
+        statusLabel.setColor(cc.color("#77cbee"));
         statusLabel.setPosition(664, 485);
         mNode.addChild(statusLabel);
 

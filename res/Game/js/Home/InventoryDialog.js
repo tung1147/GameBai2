@@ -45,8 +45,8 @@ var InventoryUseDialog = Dialog.extend({
         this._bgColor = cc.color(0,0,0,0);
         this.okButton.visible = false;
         this.cancelButton.visible = false;
-        this.title.setString("Vật phẩm");
-        this.initWithSize(cc.size(478, 278));
+        this.title.setString("VẬT PHẨM");
+        this.initWithSize(cc.size(480, 280));
 
         this._initView(info);
     },
@@ -59,7 +59,7 @@ var InventoryUseDialog = Dialog.extend({
 
         var iconBg = new ccui.Scale9Sprite("shop_item_bg.png", cc.rect(20,20,4,4));
         iconBg.setPreferredSize(cc.size(100,100));
-        iconBg.setPosition(168,236);
+        iconBg.setPosition(68,145);
         this.addChild(iconBg);
 
         var icon = new InventoryItemIcon();
@@ -69,7 +69,7 @@ var InventoryUseDialog = Dialog.extend({
 
         var contentLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, info.itemContent, cc.TEXT_ALIGNMENT_LEFT, 340);
         contentLabel.setAnchorPoint(cc.p(0.0, 1.0));
-        contentLabel.setPosition(229, 277);
+        contentLabel.setPosition(129, 178);
         this.addChild(contentLabel,1);
 
         var countLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Số lượng: " + info.count.toString());
@@ -81,7 +81,7 @@ var InventoryUseDialog = Dialog.extend({
         okButton.setScale9Enabled(true);
         okButton.setCapInsets(cc.rect(10,10,4,4));
         okButton.setContentSize(cc.size(180, 50));
-        okButton.setPosition(this.getContentSize().width/2, 145);
+        okButton.setPosition(this.getContentSize().width/2, 45);
         okButton.setZoomScale(0.02);
         this.addChild(okButton);
 
@@ -113,25 +113,36 @@ var InventoryDialog = Dialog.extend({
        // this._bgColor = cc.color(0,0,0,0);
         this.okButton.visible = false;
         this.cancelButton.visible = false;
-        this.title.setString("Kho đồ");
-        this.initWithSize(cc.size(466, 648));
+        this.title.setString("KHO ĐỒ");
+        this.initWithSize(cc.size(470, 640));
 
         this.initItemListView();
         this.initUsedItemView();
     },
 
     initItemListView : function () {
-        var _left = 106;
-        var _right = 556;
+        var _left = 56;
+        var _right = 506;
         var _top = 558;
         var _bottom = 98;
 
         var listItem = new newui.TableView(cc.size(_right - _left, _top - _bottom), 4);
-        listItem.setPosition(cc.p(_left, _bottom));
+        listItem.setPosition(cc.p(10, 0));
         listItem.setMargin(20,20,0,0);
         listItem.setPadding(10);
         this.addChild(listItem, 1);
         this.listItem = listItem;
+
+        var info = {
+            iconUrl:"aaaa",
+            itemName:"ccccc",
+            itemContent:"cccc",
+            count:10,
+            itemId:"ideddd"
+        };
+
+        var dialog = new InventoryUseDialog(info);
+        dialog.show();
 
         // for(var i=0;i<30;i++){
         //     this.addItem("","name","content", 10,"itemId");
@@ -178,10 +189,10 @@ var InventoryDialog = Dialog.extend({
     },
 
     initUsedItemView : function () {
-        var _left = 119;
-        var _right = 543;
-        var _top = 657;
-        var _bottom = 575;
+        var _left = 19;
+        var _right = 453;
+        var _top = 557;
+        var _bottom = 475;
 
         var usedItemBg = new ccui.Scale9Sprite("shop_item_bg.png", cc.rect(20,20,4,4));
         usedItemBg.setPreferredSize(cc.size(_right - _left + 4, _top - _bottom + 4));
@@ -190,7 +201,7 @@ var InventoryDialog = Dialog.extend({
 
         var listUsedItem = new newui.TableView(cc.size(_right - _left, _top - _bottom), 1);
         listUsedItem.setDirection(ccui.ScrollView.DIR_HORIZONTAL);
-        listUsedItem.setPosition(cc.p(_left, _bottom));
+        listUsedItem.setPosition(cc.p(20, _bottom));
         listUsedItem.setBounceEnabled(false);
         this.addChild(listUsedItem, 1);
         this.listUsedItem = listUsedItem;

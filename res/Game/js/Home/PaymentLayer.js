@@ -271,20 +271,15 @@ var PaymentInAppLayer = cc.Node.extend({
         bg.setPosition(container.getContentSize().width / 2, container.getContentSize().height/2);
         container.addChild(bg);
 
-        var icon = new cc.Sprite("#payment-inapp-icon-" + logoId + ".png");
-        icon.setPosition(bg.getPosition());
-        container.addChild(icon);
-
-        //var goldIcon = new cc.Sprite("#payment-inapp-goldicon.png");
         var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, gold);
-        goldLabel.setAnchorPoint(cc.p(0.0, 0.5));
-        goldLabel.setPosition(100, 108);
+        // goldLabel.setAnchorPoint(cc.p(0.0, 0.5));
+        goldLabel.setPosition(container.getContentSize().width/2, 85);
         goldLabel.setColor(cc.color("#ffde00"));
         container.addChild(goldLabel);
 
         var priceLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, price);
-        priceLabel.setAnchorPoint(cc.p(1.0, 0.5));
-        priceLabel.setPosition(260,25);
+        // priceLabel.setAnchorPoint(cc.p(1.0, 0.5));
+        priceLabel.setPosition(container.getContentSize().width/2,18);
         container.addChild(priceLabel, 1);
         container.setTouchEnabled(true);
 
@@ -405,31 +400,31 @@ var PaymentHistoryLayer = cc.Node.extend({
         // this.x5 = this.x4 + this.width4 / 2 + this.width5 / 2 + padding;
 
         var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Thời gian");
-        timeLabel.setColor(cc.color("#576eb0"));
+        timeLabel.setColor(cc.color("#2776a4"));
         timeLabel.setAnchorPoint(cc.p(0.0, 0.5));
         timeLabel.setPosition(87, 576);
         this.addChild(timeLabel, 1);
 
         var typeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Loại");
-        typeLabel.setColor(cc.color("#576eb0"));
+        typeLabel.setColor(cc.color("#2776a4"));
         typeLabel.setAnchorPoint(cc.p(0.0, 0.5));
         typeLabel.setPosition(292, 576);
         this.addChild(typeLabel, 1);
 
         var infoLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Thông tin");
-        infoLabel.setColor(cc.color("#576eb0"));
+        infoLabel.setColor(cc.color("#2776a4"));
         infoLabel.setAnchorPoint(cc.p(0.0, 0.5));
         infoLabel.setPosition(491, 576);
         this.addChild(infoLabel, 1);
 
         var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Vàng");
-        goldLabel.setColor(cc.color("#576eb0"));
+        goldLabel.setColor(cc.color("#2776a4"));
         goldLabel.setAnchorPoint(cc.p(0.0, 0.5));
         goldLabel.setPosition(837, 576);
         this.addChild(goldLabel, 1);
 
         var priceLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "VNĐ");
-        priceLabel.setColor(cc.color("#576eb0"));
+        priceLabel.setColor(cc.color("#2776a4"));
         priceLabel.setAnchorPoint(cc.p(0.0, 0.5));
         priceLabel.setPosition(1020, 576);
         this.addChild(priceLabel, 1);
@@ -446,11 +441,19 @@ var PaymentHistoryLayer = cc.Node.extend({
         this.itemList = itemList;
 
         LobbyClient.getInstance().addListener("fetchCashinItems", this.onRecvHistory, this);
+
+
+        for(var i = 0; i < 10; ++i){
+            this.addItem("122222", "122222", "122222", "122222", "122222");
+        }
+
+
+
     },
     setVisible : function (visible) {
         this._super(visible);
         if(visible){
-            this.itemList.removeAllItems();
+            // this.itemList.removeAllItems();
             var request = {command: "fetchCashinItems"};
             LobbyClient.getInstance().send(request);
         }
@@ -471,14 +474,15 @@ var PaymentHistoryLayer = cc.Node.extend({
                 var info = data[i]["detail"];
                 var gold = data[i]["gold"];
                 var price = data[i]["price"];
-                this.addItem(timeString, type, info, gold, price);
+                // this.addItem(timeString, type, info, gold, price);
             }
         }
     },
 
     _createBg : function (size) {
-        var itemBg = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
+        var itemBg = new ccui.Scale9Sprite("lobby-text-input.png", cc.rect(10, 10, 4, 4));
         itemBg.setPreferredSize(size);
+        itemBg.setOpacity(25);
         itemBg.setAnchorPoint(cc.p(0.0, 0.5));
         return itemBg;
     },
@@ -526,14 +530,17 @@ var PaymentHistoryLayer = cc.Node.extend({
 
         timeLabel.setAnchorPoint(cc.p(0.0, 0.5));
         timeLabel.setPosition(87, container.getContentSize().height/2);
+        timeLabel.setColor(cc.color("#8de8ff"));
         container.addChild(timeLabel);
 
         typeLabel.setAnchorPoint(cc.p(0.0, 0.5));
         typeLabel.setPosition(292, timeLabel.y);
+        typeLabel.setColor(cc.color("#8de8ff"));
         container.addChild(typeLabel);
 
         infoLabel.setAnchorPoint(cc.p(0.0, 0.5));
         infoLabel.setPosition(491, timeLabel.y);
+        infoLabel.setColor(cc.color("#8de8ff"));
         container.addChild(infoLabel);
 
         goldLabel.setAnchorPoint(cc.p(0.0, 0.5));

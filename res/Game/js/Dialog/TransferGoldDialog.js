@@ -7,7 +7,7 @@ var s_transferGoldToggle = s_transferGoldToggle || ["Người gửi chịu phí"
 var TransferGoldTutorial = MessageDialog.extend({
     setMessage : function (message) {
         this.scrollView.removeAllItems();
-        var messageLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, message, cc.TEXT_ALIGNMENT_LEFT, this.scrollView.getContentSize().width - 10);
+        var messageLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, message, cc.TEXT_ALIGNMENT_LEFT, this.scrollView.getContentSize().width - 10);
 
         var height = messageLabel.getContentSize().height + 20.0;
         if(height <= this.scrollView.getContentSize().height){
@@ -33,7 +33,7 @@ var TransferGoldDialog = Dialog.extend({
         this._super();
         this.okButton.visible = false;
         this.cancelButton.visible = false;
-        this.title.setString("Chuyển vàng");
+        this.title.setString("CHUYỂN VÀNG");
         this.initWithSize(cc.size(578,518));
         this._initView();
     },
@@ -43,25 +43,25 @@ var TransferGoldDialog = Dialog.extend({
 
         var bg1 = new ccui.Scale9Sprite("dialog-textinput-bg.png", cc.rect(12,12,4,4));
         bg1.setPreferredSize(cc.size(280, 44));
-        bg1.setPosition(this.getContentSize().width/2, 489);
+        bg1.setPosition(this.getContentSize().width/2, 389);
         this.addChild(bg1);
 
         var bg2 = new ccui.Scale9Sprite("dialog-textinput-bg.png", cc.rect(12,12,4,4));
         bg2.setPreferredSize(cc.size(280, 44));
-        bg2.setPosition(this.getContentSize().width/2, 419);
+        bg2.setPosition(this.getContentSize().width/2, 319);
         this.addChild(bg2);
 
         var recvUser = new newui.TextField(cc.size(262,44), cc.res.font.Roboto_Condensed_18);
         recvUser.setPlaceHolder("Người nhận");
-        recvUser.setPlaceHolderColor(cc.color("#787878"));
-        recvUser.setTextColor(cc.color("#c4e1ff"));
+        recvUser.setPlaceHolderColor(cc.color("#45b8e3"));
+        recvUser.setTextColor(cc.color("#ffffff"));
         recvUser.setPosition(bg1.getPosition());
         this.addChild(recvUser, 1);
         this.recvUser = recvUser;
 
         var goldTransfer = new newui.TextField(cc.size(262,44), cc.res.font.Roboto_Condensed_18);
         goldTransfer.setPlaceHolder("Số tiền chuyển");
-        goldTransfer.setPlaceHolderColor(cc.color("#787878"));
+        goldTransfer.setPlaceHolderColor(cc.color("#45b8e3"));
         goldTransfer.setTextColor(cc.color("#fede01"));
         goldTransfer.setPosition(bg2.getPosition());
        // goldTransfer.setMaxLength(15);
@@ -83,7 +83,7 @@ var TransferGoldDialog = Dialog.extend({
         var label1 = new ccui.RichText();
         label1.pushBackElement(new ccui.RichElementText(0, cc.color("#ffffff"), 255, "Còn lại ", cc.res.font.Roboto_Condensed, 18));
         label1.pushBackElement(new ccui.RichElementText(1, cc.color("#ffde00"), 255, "100,000 V", cc.res.font.Roboto_CondensedBold, 18));
-        label1.setPosition(cc.p(bg1.x, 360));
+        label1.setPosition(cc.p(bg1.x, 260));
         this.addChild(label1, 1);
         this.label1 = label1;
 
@@ -91,7 +91,7 @@ var TransferGoldDialog = Dialog.extend({
         label2.pushBackElement(new ccui.RichElementText(0, cc.color("#77cbee"), 255, "Name ", cc.res.font.Roboto_CondensedBold, 18));
         label2.pushBackElement(new ccui.RichElementText(1, cc.color("#ffffff"), 255, "Nhận ", cc.res.font.Roboto_Condensed, 18));
         label2.pushBackElement(new ccui.RichElementText(2, cc.color("#ffde00"), 255, "100,000 V", cc.res.font.Roboto_CondensedBold, 18));
-        label2.setPosition(cc.p(bg1.x, 330));
+        label2.setPosition(cc.p(bg1.x, 230));
         this.addChild(label2, 1);
         this.label2 = label2;
 
@@ -101,7 +101,7 @@ var TransferGoldDialog = Dialog.extend({
         for(var i=0;i<s_transferGoldToggle.length;i++){
             (function () {
                 var icon1 = new cc.Sprite("#dialog_toggle_1.png");
-                icon1.setPosition(219 + 188 * i, 291);
+                icon1.setPosition(119 + 188 * i, 191);
                 thiz.addChild(icon1);
 
                 var icon2 = new cc.Sprite("#dialog_toggle_2.png");
@@ -134,20 +134,20 @@ var TransferGoldDialog = Dialog.extend({
         okButton.setCapInsets(cc.rect(10,10,4,4));
         okButton.setContentSize(cc.size(280, 44));
         okButton.setZoomScale(0.01);
-        okButton.setPosition(this.getContentSize().width/2, 209);
+        okButton.setPosition(this.getContentSize().width/2, 109);
         this.addChild(okButton);
         okButton.addClickEventListener(function () {
             thiz._onOkButtonHandler();
         });
 
-        var okLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "CHUYỂN VÀNG");
+        var okLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, "CHUYỂN VÀNG");
         okLabel.setColor(cc.color("#682e2e"));
         okLabel.setPosition(okButton.getContentSize().width/2, okButton.getContentSize().height/2);
         okButton.getRendererNormal().addChild(okLabel);
 
         var padding = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18,"|");
          padding.setColor(cc.color("#72acd6"));
-        padding.setPosition(this.getContentSize().width/2, 132);
+        padding.setPosition(this.getContentSize().width/2, 32);
         this.addChild(padding,1);
 
         var historyLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18,"LỊCH SỬ");
@@ -173,7 +173,7 @@ var TransferGoldDialog = Dialog.extend({
         this.addChild(tutorialBt);
         tutorialBt.addClickEventListener(function () {
             var dialog = new TransferGoldTutorial();
-            dialog.setTitle("Hướng dẫn chuyển vàng");
+            dialog.setTitle("HƯỚNG DẪN CHUYỂN VÀNG");
             dialog.setMessage(cc.Global.getStringRes()["TransferGold"]["Tutorial"]);
             dialog.show();
         });

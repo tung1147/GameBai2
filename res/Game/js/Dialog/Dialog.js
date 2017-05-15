@@ -198,9 +198,14 @@ var Dialog = IDialog.extend({
         this._marginTop = 0.0;
         this._marginBottom = 0.0;
 
-        var dialogBg = new ccui.Scale9Sprite("dialog-bg.png", cc.rect(20, 20, 4, 4));
+        var dialogBg = new ccui.Scale9Sprite("dialog-bg.png", cc.rect(90, 90, 4, 4));
         dialogBg.setAnchorPoint(cc.p(0.0,0.0));
         this.addChild(dialogBg);
+
+        // var dialogBg2 = new ccui.Scale9Sprite("dialog-bg.png", cc.rect(90, 90, 4, 4));
+        // dialogBg2.setAnchorPoint(cc.p(0.0,0.0));
+        // dialogBg2.setVisible(false);
+        // this.addChild(dialogBg2);
 
         var dialogBgTitle = new cc.Scale9Sprite("dialog-bg-title.png", cc.Rect(20, 0, 4, 60));
         dialogBg.addChild(dialogBgTitle);
@@ -220,6 +225,7 @@ var Dialog = IDialog.extend({
         this.addChild(cancelButton);
 
         this.dialogBg = dialogBg;
+        // this.dialogBg2 = dialogBg2;
         this.title = title;
         this.closeButton = closeButton;
         this.okButton = okButton;
@@ -227,6 +233,8 @@ var Dialog = IDialog.extend({
         this.okTitle = okButton.buttonTitleLabel;
         this.cancelTitle = cancelButton.buttonTitleLabel;
         this.dialogBgTitle = dialogBgTitle;
+
+
 
         var thiz = this;
         closeButton.addClickEventListener(function () {

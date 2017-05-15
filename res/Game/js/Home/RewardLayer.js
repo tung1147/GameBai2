@@ -52,8 +52,8 @@ var RewardCardLayer = RewardSublayer.extend({
         if (goldBgWidth < 170.0) {
             goldBgWidth = 170.0;
         }
-        var goldBg = new ccui.Scale9Sprite("reward-gold-bg.png", cc.rect(50, 0, 4, 44));
-        goldBg.setPreferredSize(cc.size(goldBgWidth, 44));
+        var goldBg = new ccui.Scale9Sprite("reward-gold-bg.png", cc.rect(10, 10, 4, 4));
+        goldBg.setPreferredSize(cc.size(goldBgWidth, 37));
 
         // var cardMoney = null;
         if (cardType === "VTT") {
@@ -98,7 +98,7 @@ var RewardCardLayer = RewardSublayer.extend({
         cardValue.setPosition(cardImg.x + 90, 90);
         container.addChild(cardValue);
 
-        goldLabel.setPosition(goldBg.x + 20.0, goldBg.y);
+        goldLabel.setPosition(goldBg.x, goldBg.y);
         goldLabel.setColor(cc.color("#ffde00"));
         container.addChild(goldLabel);
         container.setTouchEnabled(true);
@@ -157,12 +157,12 @@ var RewardItemLayer = RewardSublayer.extend({
         if (goldBgWidth < 170.0) {
             goldBgWidth = 170.0;
         }
-        var goldBg = new ccui.Scale9Sprite("reward-gold-bg.png", cc.rect(50, 0, 4, 44));
-        goldBg.setPreferredSize(cc.size(goldBgWidth, 44));
+        var goldBg = new ccui.Scale9Sprite("reward-gold-bg.png", cc.rect(10, 10, 4, 4));
+        goldBg.setPreferredSize(cc.size(goldBgWidth, 37));
 
-        var itemBg = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
-        itemBg.setPreferredSize(cc.size(210, 276));
-        var itemBgPadding = new cc.Sprite("#reward-item-bg-2.png");
+        var itemBg = new cc.Sprite("#reward-bg-item.png");
+        // itemBg.setPreferredSize(cc.size(210, 276));
+        // var itemBgPadding = new cc.Sprite("#reward-item-bg-2.png");
 
        // var itemIcon = new cc.Sprite("#" + itemId + ".png");
         var itemIcon = new WebSprite(cc.size(itemBg.getContentSize().width, itemBg.getContentSize().width));
@@ -175,22 +175,23 @@ var RewardItemLayer = RewardSublayer.extend({
 
         itemBg.setPosition(container.getContentSize().width / 2, container.getContentSize().height - itemBg.getContentSize().height / 2);
         container.addChild(itemBg);
-        itemBgPadding.setPosition(itemBg.x, itemBg.y - 69);
-        container.addChild(itemBgPadding);
+        // itemBgPadding.setPosition(itemBg.x, itemBg.y - 69);
+        // container.addChild(itemBgPadding);
 
         itemIcon.setPosition(itemBg.x, itemBg.y + 36);
         container.addChild(itemIcon);
 
-        var itemNameLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, itemName,cc.TEXT_ALIGNMENT_CENTER, 180);
+        var itemNameLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, itemName,cc.TEXT_ALIGNMENT_CENTER, 150);
         //itemNameLabel.setDimensions(180,0);
      //   itemNameLabel.setAnchorPoint(cc.p(0.5,1.0));
-        itemNameLabel.setPosition(itemBgPadding.x,itemBgPadding.y - 36);
+        itemNameLabel.setColor(cc.color("#8de8ff"));
+        itemNameLabel.setPosition(itemBg.x, itemBg.y - 85);
         container.addChild(itemNameLabel);
 
         goldBg.setPosition(itemBg.x, goldBg.getContentSize().height / 2);
         container.addChild(goldBg);
 
-        goldLabel.setPosition(itemBg.x + 20.0, goldBg.y);
+        goldLabel.setPosition(itemBg.x, goldBg.y);
         goldLabel.setColor(cc.color("#ffde00"));
         container.addChild(goldLabel);
 
@@ -281,37 +282,37 @@ var RewardAgencyLayer = cc.Node.extend({
         this.setScale(cc.winSize.screenScale);
 
         var agencyLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Mã đại lý");
-        agencyLabel.setColor(cc.color("#576eb0"));
+        agencyLabel.setColor(cc.color("#77cbee"));
         agencyLabel.setAnchorPoint(cc.p(0.0, 0.5));
         agencyLabel.setPosition(89, 576);
         this.addChild(agencyLabel);
 
         var nameLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Tên");
-        nameLabel.setColor(cc.color("#576eb0"));
+        nameLabel.setColor(cc.color("#77cbee"));
         nameLabel.setAnchorPoint(cc.p(0.0, 0.5));
         nameLabel.setPosition(233, agencyLabel.y);
         this.addChild(nameLabel);
 
         var phoneLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Điện thoại");
-        phoneLabel.setColor(cc.color("#576eb0"));
+        phoneLabel.setColor(cc.color("#77cbee"));
         phoneLabel.setAnchorPoint(cc.p(0.0, 0.5));
         phoneLabel.setPosition(411, agencyLabel.y);
         this.addChild(phoneLabel);
 
         var addressLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Địa chỉ");
-        addressLabel.setColor(cc.color("#576eb0"));
+        addressLabel.setColor(cc.color("#77cbee"));
         addressLabel.setAnchorPoint(cc.p(0.0, 0.5));
         addressLabel.setPosition(593, agencyLabel.y);
         this.addChild(addressLabel);
 
         var fbLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Facebook");
-        fbLabel.setColor(cc.color("#576eb0"));
+        fbLabel.setColor(cc.color("#77cbee"));
         fbLabel.setAnchorPoint(cc.p(0.0, 0.5));
         fbLabel.setPosition(834, agencyLabel.y);
         this.addChild(fbLabel);
 
         var sendLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Giao dịch");
-        sendLabel.setColor(cc.color("#576eb0"));
+        sendLabel.setColor(cc.color("#77cbee"));
         sendLabel.setAnchorPoint(cc.p(0.0, 0.5));
         sendLabel.setPosition(1027, agencyLabel.y);
         this.addChild(sendLabel);
@@ -357,15 +358,16 @@ var RewardAgencyLayer = cc.Node.extend({
         this.addChild(tutorialBt);
         tutorialBt.addClickEventListener(function () {
             var dialog = new TransferGoldTutorial();
-            dialog.setTitle("Hướng dẫn chuyển vàng");
+            dialog.setTitle("HƯỚNG DẪN CHUYỂN VÀNG");
             dialog.setMessage(cc.Global.getStringRes()["TransferGold"]["MerchantTutorial"]);
             dialog.show();
         });
     },
 
     _createBg : function (size) {
-        var itemBg = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
+        var itemBg = new ccui.Scale9Sprite("lobby-text-input.png", cc.rect(10, 10, 4, 4));
         itemBg.setPreferredSize(size);
+        itemBg.setOpacity(25);
         itemBg.setAnchorPoint(cc.p(0.0, 0.5));
         return itemBg;
     },
@@ -421,15 +423,16 @@ var RewardAgencyLayer = cc.Node.extend({
         addressLabel.setPosition(593, agencyLabel.y);
         container.addChild(addressLabel);
 
-        var fbLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, facebookLink);
+        var fbLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, facebookLink, cc.TEXT_ALIGNMENT_LEFT, 180);
         fbLabel.setAnchorPoint(cc.p(0.0, 0.5));
+        // fbLabel.setDimensions(cc.size(192, 0));
         fbLabel.setPosition(834, agencyLabel.y);
         container.addChild(fbLabel);
 
         var okButton = new ccui.Button("reward_transferGoldBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        okButton.setScale9Enabled(true);
-        okButton.setCapInsets(cc.rect(10,10,4,4));
-        okButton.setContentSize(cc.size(150,42));
+        // okButton.setScale9Enabled(true);
+        // okButton.setCapInsets(cc.rect(10,10,4,4));
+        // okButton.setContentSize(cc.size(150,42));
         okButton.setAnchorPoint(cc.p(0.0, 0.5));
         okButton.setPosition(1027, agencyLabel.y);
         container.addChild(okButton);
@@ -495,23 +498,23 @@ var RewardHistoryLayer = RewardSublayer.extend({
         this.x3 = this.x2 + this.width2 / 2 + this.width3 / 2 + padding;
         this.x4 = this.x3 + this.width3 / 2 + this.width4 / 2 + padding;
 
-        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "THỜI GIAN");
-        timeLabel.setColor(cc.color("#576eb0"));
+        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Thời gian");
+        timeLabel.setColor(cc.color("#2776a4"));
         timeLabel.setPosition(this.x1, 576);
         this.addChild(timeLabel, 1);
 
-        var typeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "LOẠI");
-        typeLabel.setColor(cc.color("#576eb0"));
+        var typeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Loại");
+        typeLabel.setColor(cc.color("#2776a4"));
         typeLabel.setPosition(this.x2, 576);
         this.addChild(typeLabel, 1);
 
-        var infoLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "THÔNG TIN");
-        infoLabel.setColor(cc.color("#576eb0"));
+        var infoLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Thông tin ");
+        infoLabel.setColor(cc.color("#2776a4"));
         infoLabel.setPosition(this.x3, 576);
         this.addChild(infoLabel, 1);
 
-        var statusLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "TRẠNG THÁI");
-        statusLabel.setColor(cc.color("#576eb0"));
+        var statusLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Trạng thái ");
+        statusLabel.setColor(cc.color("#2776a4"));
         statusLabel.setPosition(this.x4, 576);
         this.addChild(statusLabel, 1);
 
@@ -573,23 +576,27 @@ var RewardHistoryLayer = RewardSublayer.extend({
         container.setContentSize(cc.size(this.itemList.getContentSize().width, height));
         this.itemList.pushItem(container);
 
-        var bg1 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
+        var bg1 = new ccui.Scale9Sprite("lobby-text-input.png", cc.rect(10, 10, 4, 4));
         bg1.setPreferredSize(cc.size(this.width1, container.getContentSize().height));
+        bg1.setOpacity(25);
         bg1.setPosition(this.x1, container.getContentSize().height / 2);
         container.addChild(bg1);
 
-        var bg2 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
+        var bg2 = new ccui.Scale9Sprite("lobby-text-input.png", cc.rect(10, 10, 4, 4));
         bg2.setPreferredSize(cc.size(this.width2, container.getContentSize().height));
+        bg2.setOpacity(25);
         bg2.setPosition(this.x2, container.getContentSize().height / 2);
         container.addChild(bg2);
 
-        var bg3 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
+        var bg3 = new ccui.Scale9Sprite("lobby-text-input.png", cc.rect(10, 10, 4, 4));
         bg3.setPreferredSize(cc.size(this.width3, container.getContentSize().height));
+        bg3.setOpacity(25);
         bg3.setPosition(this.x3, container.getContentSize().height / 2);
         container.addChild(bg3);
 
-        var bg4 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
+        var bg4 = new ccui.Scale9Sprite("lobby-text-input.png", cc.rect(10, 10, 4, 4));
         bg4.setPreferredSize(cc.size(this.width4, container.getContentSize().height));
+        bg4.setOpacity(25);
         bg4.setPosition(this.x4, container.getContentSize().height / 2);
         container.addChild(bg4);
 
@@ -625,19 +632,19 @@ var RewardHistoryLayer = RewardSublayer.extend({
 });
 
 var reward_tab_1 = reward_tab_1 || [
-    "#reward-tab-1.png",
-    "#reward-tab-2.png",
+    "THẺ CÀO",
+    "VẬT PHẨM",
    // "#reward-tab-3.png",
-    "#reward-tab-4.png",
-    "#reward-tab-5.png"
+    "ĐẠI LÝ",
+    "NHẬN THƯỞNG"
 ];
 
 var reward_tab_2 = reward_tab_2 || [
-    "#reward-tab-selected-1.png",
-    "#reward-tab-selected-2.png",
-    //"#reward-tab-selected-3.png",
-    "#reward-tab-selected-4.png",
-    "#reward-tab-selected-5.png"
+        "THẺ CÀO",
+        "VẬT PHẨM",
+        // "#reward-tab-3.png",
+        "ĐẠI LÝ",
+        "NHẬN THƯỞNG"
 ];
 
 var RewardLayer = LobbySubLayer.extend({

@@ -153,17 +153,17 @@ var ShopItemDialog = Dialog.extend({
 
         this.okButton.visible = false;
         this.cancelButton.visible = false;
-        this.title.setString("Cửa hàng");
-        this.initWithSize(cc.size(686, 648));
+        this.title.setString("CỬA HÀNG");
+        this.initWithSize(cc.size(690, 640));
 
-        var _left = 106;
-        var _right = 776;
+        var _left = 56;
+        var _right = 726;
         var _top = 572;
         var _bottom = 98;
 
         var tabBg = new ccui.Scale9Sprite("shop_tab_0.png", cc.rect(10,10,4,4));
         tabBg.setPreferredSize(cc.size(420, 50));
-        tabBg.setPosition(this.getContentSize().width/2, 617);
+        tabBg.setPosition(this.getContentSize().width/2, 517);
         this.addChild(tabBg);
 
         var mToggle = new ToggleNodeGroup();
@@ -190,18 +190,18 @@ var ShopItemDialog = Dialog.extend({
                 mToggle.addItem(mItem);
                 mItem.onSelect =  function () {
                     icon.visible = true;
-                    tabLabel.setColor(cc.color("#ffffff"));
+                    tabLabel.setColor(cc.color("#835238"));
                     thiz._sendRefreshItem(tabIdx);
                 };
                 mItem.onUnSelect = function () {
                     icon.visible = false;
-                    tabLabel.setColor(cc.color("#626ea5"));
+                    tabLabel.setColor(cc.color("#8de8ff"));
                 };
             })();
         }
 
         var listItem = new newui.TableView(cc.size(_right - _left, _top - _bottom), 6);
-        listItem.setPosition(cc.p(_left, _bottom));
+        listItem.setPosition(cc.p(0, 0));
         listItem.setMargin(20,20,0,0);
         listItem.setPadding(10);
         this.addChild(listItem);

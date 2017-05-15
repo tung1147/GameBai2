@@ -11,22 +11,22 @@ var UserInfoChangeLayer = cc.Node.extend({
 
         var bg1 = new ccui.Scale9Sprite("dialog-textinput-bg.png", cc.rect(12,12,4,4));
         bg1.setPreferredSize(cc.size(280, 44));
-        bg1.setPosition(769, 477);
+        bg1.setPosition(640, 337);
         this.addChild(bg1);
 
         var bg2 = new ccui.Scale9Sprite("dialog-textinput-bg.png", cc.rect(12,12,4,4));
         bg2.setPreferredSize(cc.size(280, 44));
-        bg2.setPosition(bg1.x, 407);
+        bg2.setPosition(bg1.x, bg1.y - 70);
         this.addChild(bg2);
 
         var bg3 = new ccui.Scale9Sprite("dialog-textinput-bg.png", cc.rect(12,12,4,4));
         bg3.setPreferredSize(cc.size(280, 44));
-        bg3.setPosition(bg1.x, 337);
+        bg3.setPosition(bg1.x, bg2.y - 70);
         this.addChild(bg3);
 
         var bg4 = new ccui.Scale9Sprite("dialog-textinput-bg.png", cc.rect(12,12,4,4));
         bg4.setPreferredSize(cc.size(280, 44));
-        bg4.setPosition(bg1.x, 267);
+        bg4.setPosition(bg1.x, bg3.y - 70);
         this.addChild(bg4);
 
         var okButton = new ccui.Button("dialog-button-1.png","","", ccui.Widget.PLIST_TEXTURE);
@@ -34,14 +34,14 @@ var UserInfoChangeLayer = cc.Node.extend({
         okButton.setZoomScale(0.03);
         okButton.setCapInsets(cc.rect(10,10,4,4));
         okButton.setContentSize(280, 44);
-        okButton.setPosition(bg1.x, 180);
+        okButton.setPosition(bg1.x, 50);
         okButton.addClickEventListener(function () {
            thiz.requestSetUserinfo();
         });
         this.addChild(okButton);
 
         var okTitle = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "LƯU");
-        okTitle.setColor(cc.color("#682e2e"));
+        okTitle.setColor(cc.color("#835238"));
         okTitle.setPosition(okButton.getContentSize().width/2, okButton.getContentSize().height/2);
         okButton.getRendererNormal().addChild(okTitle);
 
@@ -49,25 +49,25 @@ var UserInfoChangeLayer = cc.Node.extend({
 
         var addressText = new newui.TextField(textSize, cc.res.font.Roboto_Condensed_18);
         addressText.setPlaceHolder("Địa chỉ");
-        addressText.setPlaceHolderColor(cc.color("#787878"));
+        addressText.setPlaceHolderColor(cc.color("#45b8e3"));
         addressText.setPosition(bg1.getPosition());
         this.addChild(addressText);
 
         var idText = new newui.TextField(textSize, cc.res.font.Roboto_Condensed_18);
         idText.setPlaceHolder("Số CMND");
-        idText.setPlaceHolderColor(cc.color("#787878"));
+        idText.setPlaceHolderColor(cc.color("#45b8e3"));
         idText.setPosition(bg2.getPosition());
         this.addChild(idText);
 
         var emailText = new newui.TextField(textSize, cc.res.font.Roboto_Condensed_18);
         emailText.setPlaceHolder("Email");
-        emailText.setPlaceHolderColor(cc.color("#787878"));
+        emailText.setPlaceHolderColor(cc.color("#45b8e3"));
         emailText.setPosition(bg3.getPosition());
         this.addChild(emailText);
 
         var merchantText = new newui.TextField(textSize, cc.res.font.Roboto_Condensed_18);
         merchantText.setPlaceHolder("Mã đại lý");
-        merchantText.setPlaceHolderColor(cc.color("#787878"));
+        merchantText.setPlaceHolderColor(cc.color("#45b8e3"));
         merchantText.setPosition(bg4.getPosition());
         this.addChild(merchantText);
 
@@ -138,17 +138,17 @@ var UserinfoPasswordLayer = cc.Node.extend({
 
         var bg1 = new ccui.Scale9Sprite("dialog-textinput-bg.png", cc.rect(12,12,4,4));
         bg1.setPreferredSize(cc.size(280, 44));
-        bg1.setPosition(769, 447);
+        bg1.setPosition(640, 337);
         this.addChild(bg1);
 
         var bg2 = new ccui.Scale9Sprite("dialog-textinput-bg.png", cc.rect(12,12,4,4));
         bg2.setPreferredSize(cc.size(280, 44));
-        bg2.setPosition(bg1.x, 377);
+        bg2.setPosition(bg1.x, bg1.y - 70);
         this.addChild(bg2);
 
         var bg3 = new ccui.Scale9Sprite("dialog-textinput-bg.png", cc.rect(12,12,4,4));
         bg3.setPreferredSize(cc.size(280, 44));
-        bg3.setPosition(bg1.x, 307);
+        bg3.setPosition(bg1.x, bg2.y - 70);
         this.addChild(bg3);
 
         var okButton = new ccui.Button("dialog-button-1.png","","", ccui.Widget.PLIST_TEXTURE);
@@ -156,11 +156,11 @@ var UserinfoPasswordLayer = cc.Node.extend({
         okButton.setZoomScale(0.03);
         okButton.setCapInsets(cc.rect(10,10,4,4));
         okButton.setContentSize(280, 44);
-        okButton.setPosition(bg1.x, 220);
+        okButton.setPosition(bg1.x, 110);
         this.addChild(okButton);
 
-        var okTitle = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Đổi mật khẩu");
-        okTitle.setColor(cc.color("#682e2e"));
+        var okTitle = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "ĐỔI MẬT KHẨU");
+        okTitle.setColor(cc.color("#835238"));
         okTitle.setPosition(okButton.getContentSize().width/2, okButton.getContentSize().height/2);
         okButton.getRendererNormal().addChild(okTitle);
 
@@ -168,7 +168,7 @@ var UserinfoPasswordLayer = cc.Node.extend({
 
         var passwordText = new newui.TextField(textSize, cc.res.font.Roboto_Condensed_18);
         passwordText.setPlaceHolder("Mật khẩu cũ");
-        passwordText.setPlaceHolderColor(cc.color("#787878"));
+        passwordText.setPlaceHolderColor(cc.color("#45b8e3"));
         passwordText.setPasswordEnable(true);
         passwordText.setPosition(bg1.getPosition());
         this.addChild(passwordText);
@@ -176,7 +176,7 @@ var UserinfoPasswordLayer = cc.Node.extend({
 
         var passwordText1 = new newui.TextField(textSize, cc.res.font.Roboto_Condensed_18);
         passwordText1.setPlaceHolder("Mật khẩu mới");
-        passwordText1.setPlaceHolderColor(cc.color("#787878"));
+        passwordText1.setPlaceHolderColor(cc.color("#45b8e3"));
         passwordText1.setPasswordEnable(true);
         passwordText1.setPosition(bg2.getPosition());
         this.addChild(passwordText1);
@@ -184,7 +184,7 @@ var UserinfoPasswordLayer = cc.Node.extend({
 
         var passwordText2 = new newui.TextField(textSize, cc.res.font.Roboto_Condensed_18);
         passwordText2.setPlaceHolder("Nhập lại mật khẩu");
-        passwordText2.setPlaceHolderColor(cc.color("#787878"));
+        passwordText2.setPlaceHolderColor(cc.color("#45b8e3"));
         passwordText2.setPasswordEnable(true);
         passwordText2.setPosition(bg3.getPosition());
         this.addChild(passwordText2);
@@ -246,13 +246,18 @@ var UserinfoPasswordLayer = cc.Node.extend({
 var VerifyPhoneLayer = cc.Node.extend({
     ctor : function () {
         this._super();
+
+        var iconSuc = new cc.Sprite("#userinfo-vertify-successful.png");
+        iconSuc.setPosition(640, 250);
+        this.addChild(iconSuc);
+
         var label1 = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Số điện thoại xác nhận tài khoản");
-        label1.setPosition(777, 410);
+        label1.setPosition(640, 190);
         this.addChild(label1);
 
         var phoneLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, "0123456789");
-        phoneLabel.setColor(cc.color("#009cff"));
-        phoneLabel.setPosition(label1.x, 365);
+        phoneLabel.setColor(cc.color("#46d1ff"));
+        phoneLabel.setPosition(label1.x, 120);
         this.addChild(phoneLabel);
         this.phoneLabel = phoneLabel;
 
@@ -290,11 +295,11 @@ var VerifySendSMSLayer = cc.Node.extend({
         this.mToggle = mToggle;
         this.addChild(mToggle);
 
-        var left = 600;
-        var right = 1000;
+        var left = 500;
+        var right = 850;
         var dx = (right - left)/(s_Verify_SMS_Provider.length);
         var x = left + dx/2;
-        var y = 450;
+        var y = 290;
 
         this.smsLabel = [];
         var thiz = this;
@@ -316,7 +321,7 @@ var VerifySendSMSLayer = cc.Node.extend({
                 thiz.addChild(bg2);
 
                 var smsContent = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "sms", cc.TEXT_ALIGNMENT_CENTER, 1000);
-                smsContent.setPosition((right + left)/2 - 30, 350);
+                smsContent.setPosition((right + left)/2 - 30, 190);
                 thiz.addChild(smsContent, 1);
                 thiz.smsLabel.push(smsContent);
 
@@ -338,7 +343,7 @@ var VerifySendSMSLayer = cc.Node.extend({
 
         if(cc.sys.isNative){
             var okButton = s_Dialog_Create_Button1(cc.size(280, 44), "Xác nhận");
-            okButton.setPosition((right + left)/2 - 30, 230);
+            okButton.setPosition((right + left)/2 - 30, 100);
             this.addChild(okButton);
             this.okButton = okButton;
 
@@ -451,13 +456,13 @@ var UserinfoDialog = Dialog.extend({
         LobbyClient.getInstance().addListener("verifyCodeBySms", this.onRecvVerifyCode, this);
 
         var thiz = this;
-        this.initWithSize(cc.size(918, 538));
-        this.title.setString("Thông tin cá nhân");
+        this.initWithSize(cc.size(860, 480));
+        this.title.setString("THÔNG TIN CÁ NHÂN");
         this.okButton.visible = false;
         this.cancelButton.visible = false;
 
         var avatar = UserAvatar.createMe();
-        avatar.setPosition(190, 500);
+        avatar.setPosition(95, 350);
         this.addChild(avatar,2);
 
         var avatarBt = new ccui.Widget();
@@ -475,9 +480,9 @@ var UserinfoDialog = Dialog.extend({
             displayName = displayName.substring(0, 15);
         }
         var userLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_18, displayName);
-        userLabel.setColor(cc.color("#63b0f1"));
+        userLabel.setColor(cc.color("#bff2ff"));
         userLabel.setAnchorPoint(cc.p(0.0, 0.5));
-        userLabel.setPosition(233, avatar.y + 12);
+        userLabel.setPosition(142, avatar.y + 12);
         this.addChild(userLabel,1);
         this.userLabel = userLabel;
 
@@ -489,24 +494,24 @@ var UserinfoDialog = Dialog.extend({
         this.goldLabel = goldLabel;
 
         var levelLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "99");
-        levelLabel.setColor(cc.color("#009cff"));
-        levelLabel.setPosition(433, avatar.y);
+        levelLabel.setColor(cc.color("#8de8ff"));
+        levelLabel.setPosition(325, avatar.y);
         this.addChild(levelLabel,1);
         this.levelLabel = levelLabel;
 
         var levelLabelBg = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_14, "Level");
-        levelLabelBg.setColor(cc.color("#6a8fcc"));
+        levelLabelBg.setColor(cc.color("#8de8ff"));
         levelLabelBg.setPosition(levelLabel.x, levelLabel.y - 34);
         this.addChild(levelLabelBg,1);
 
         var vipLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "99");
         vipLabel.setColor(cc.color("#ffde00"));
-        vipLabel.setPosition(493, avatar.y);
+        vipLabel.setPosition(400, avatar.y);
         this.addChild(vipLabel,1);
         this.vipLabel = vipLabel;
 
         var vipLabelBg = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_14, "V.I.P");
-        vipLabelBg.setColor(cc.color("#6a8fcc"));
+        vipLabelBg.setColor(cc.color("#8de8ff"));
         vipLabelBg.setPosition(vipLabel.x, vipLabel.y - 34);
         this.addChild(vipLabelBg,1);
 
@@ -544,7 +549,7 @@ var UserinfoDialog = Dialog.extend({
         // });
 
         var logoutBt = new ccui.Button("userinfo-logout.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        logoutBt.setPosition(203 , 156);
+        logoutBt.setPosition(140 , 35);
         this.addChild(logoutBt);
         logoutBt.addClickEventListener(function () {
             SceneNavigator.toHome();
@@ -561,10 +566,10 @@ var UserinfoDialog = Dialog.extend({
         var thiz = this;
         this.selectTab = 0;
 
-        var infoBg = new ccui.Scale9Sprite("userinfo-bg.png", cc.rect(12,12,4,4));
-        infoBg.setPreferredSize(cc.size(420,400));
-        infoBg.setPosition(769,338);
-        this.addChild(infoBg);
+        // var infoBg = new ccui.Scale9Sprite("userinfo-bg.png", cc.rect(12,12,4,4));
+        // infoBg.setPreferredSize(cc.size(420,400));
+        // infoBg.setPosition(769,338);
+        // this.addChild(infoBg);
 
         var allLayer = [new UserInfoChangeLayer(), new UserinfoPasswordLayer(), new UserinfoVerifyLayer()];
         for(var i=0;i<allLayer.length;i++){
@@ -576,8 +581,8 @@ var UserinfoDialog = Dialog.extend({
         var img1 = ["#userinfo-tab1.png", "#userinfo-tab2.png","#userinfo-tab3.png"];
         var img2 = ["#userinfo-tab4.png", "#userinfo-tab5.png","#userinfo-tab6.png"];
 
-        var x = 370.0;
-        var y = 390.0;
+        var x = 280.0;
+        var y = 260.0;
         var dy = 70.0;
 
         var mToggle = new ToggleNodeGroup();

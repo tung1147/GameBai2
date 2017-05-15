@@ -51,13 +51,13 @@ var ActivityTab = ToggleNodeItem.extend({
         this.statusLabel.setString(status);
     },
     select : function (isForce, ext) {
-        this.titleLabel.setColor(cc.color("#682e2e"));
-        this.statusLabel.setColor(cc.color("#682e2e"));
+        this.titleLabel.setColor(cc.color("#835238"));
+        this.statusLabel.setColor(cc.color("#835238"));
         this._super(isForce, ext);
     },
     unSelect : function (isForce, ext) {
-        this.titleLabel.setColor(cc.color("#4c6080"));
-        this.statusLabel.setColor(cc.color("#4c6080"));
+        this.titleLabel.setColor(cc.color("#77cbee"));
+        this.statusLabel.setColor(cc.color("#77cbee"));
         this._super(isForce, ext);
     }
 });
@@ -69,7 +69,7 @@ var ActivityDialog = Dialog.extend({
 
         this.okButton.visible = false;
         this.cancelButton.visible = false;
-        this.title.setString("Hoạt động");
+        this.title.setString("HOẠT ĐỘNG");
         this.initWithSize(cc.size(918, 578));
         this._initView();
     },
@@ -85,12 +85,12 @@ var ActivityDialog = Dialog.extend({
 
         for(var i=0;i<allLayer.length;i++){
             // allLayer[i].setAnchorPoint(cc.p(0,0));
-            // allLayer[i].setPosition(cc.p(this._marginLeft, this._marginBottom));
+            allLayer[i].setPosition(cc.p(-100, -100));
             this.addChild(allLayer[i]);
         }
 
         var selectSprite = new cc.Sprite("#activiti_tab_2.png");
-        selectSprite.setPosition(210, 100);
+        selectSprite.setPosition(111, 100);
         this.addChild(selectSprite);
 
         var mToggle = new ToggleNodeGroup();
@@ -104,7 +104,7 @@ var ActivityDialog = Dialog.extend({
 
                 var tab = new ActivityTab(s_activity_tab_name[i]);
                 thiz.allTab.push(tab);
-                tab.setPosition(thiz._marginLeft + tab.getContentSize().width/2, thiz._marginBottom + 480 - i * 60);
+                tab.setPosition(thiz._marginLeft + tab.getContentSize().width/2, thiz._marginBottom + 450 - i * 60);
                 tab.onSelect = function (isForce) {
                     mNode.setVisible(true);
                     if(isForce){

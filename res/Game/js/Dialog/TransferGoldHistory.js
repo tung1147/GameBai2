@@ -8,48 +8,49 @@ var TransferGoldHistory = Dialog.extend({
 
         this.okButton.visible = false;
         this.cancelButton.visible = false;
-        this.title.setString("Lịch sử chuyển vàng");
-        this.initWithSize(cc.size(858, 458));
+        this.title.setString("LỊCH SỬ CHUYỂN VÀNG");
+        this.initWithSize(cc.size(960, 540));
         this._initView();
     },
 
     _initView : function () {
         var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Thời gian");
-        timeLabel.setColor(cc.color("#4d5f7b"));
+        timeLabel.setColor(cc.color("#77cbee"));
         timeLabel.setAnchorPoint(cc.p(0.0, 0.5));
-        timeLabel.setPosition(143, 453);
+        timeLabel.setPosition(47, 425);
         this.addChild(timeLabel);
 
         var typeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Loại");
-        typeLabel.setColor(cc.color("#4d5f7b"));
+        typeLabel.setColor(cc.color("#77cbee"));
         typeLabel.setAnchorPoint(cc.p(0.0, 0.5));
-        typeLabel.setPosition(314, timeLabel.y);
+        typeLabel.setPosition(215, timeLabel.y);
         this.addChild(typeLabel);
 
         var recvLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Người nhận");
-        recvLabel.setColor(cc.color("#4d5f7b"));
+        recvLabel.setColor(cc.color("#77cbee"));
         recvLabel.setAnchorPoint(cc.p(0.0, 0.5));
-        recvLabel.setPosition(448, timeLabel.y);
+        recvLabel.setPosition(346, timeLabel.y);
         this.addChild(recvLabel);
         this.recvLabel = recvLabel;
 
         var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Vàng");
-        goldLabel.setColor(cc.color("#4d5f7b"));
+        goldLabel.setColor(cc.color("#77cbee"));
         goldLabel.setAnchorPoint(cc.p(0.0, 0.5));
-        goldLabel.setPosition(616, timeLabel.y);
+        goldLabel.setPosition(520, timeLabel.y);
         this.addChild(goldLabel);
 
         var contentLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Nội dung");
-        contentLabel.setColor(cc.color("#4d5f7b"));
+        contentLabel.setColor(cc.color("#77cbee"));
         contentLabel.setAnchorPoint(cc.p(0.0, 0.5));
-        contentLabel.setPosition(745, timeLabel.y);
+        contentLabel.setPosition(650, timeLabel.y);
         this.addChild(contentLabel);
 
-        var listItem = new newui.TableView(cc.size(800, 335), 1);
+        var listItem = new newui.TableView(cc.size(900, 400), 1);
         listItem.setBounceEnabled(true);
         listItem.setMargin(30,30,0,0);
         listItem.setScrollBarEnabled(false);
-        listItem.setPosition(127, 100);
+        listItem.setAnchorPoint(cc.p(0.5, 0.0));
+        listItem.setPosition(this.getContentSize().width/2, 0);
         this.addChild(listItem);
         this.listItem = listItem;
 
