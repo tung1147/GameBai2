@@ -15,6 +15,7 @@
 		270C7D801EC17A7C00E8D4E3 /* script in Resources */ = {isa = PBXBuildFile; fileRef = 270C7D7F1EC17A7C00E8D4E3 /* script */; };
 		270C7D811EC17A7C00E8D4E3 /* script in Resources */ = {isa = PBXBuildFile; fileRef = 270C7D7F1EC17A7C00E8D4E3 /* script */; };
 		270C7D9E1EC1CE7D00E8D4E3 /* WorkerManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2799BC0D1EC0645A00057795 /* WorkerManager.cpp */; };
+		276DDF9A1EC9A190006FE5A8 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 276DDF991EC9A190006FE5A8 /* StoreKit.framework */; };
 		2799BC0F1EC0645A00057795 /* WorkerManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2799BC0D1EC0645A00057795 /* WorkerManager.cpp */; };
 		294D0D681D0D56F400F7F5D4 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 294D0D671D0D56F400F7F5D4 /* CoreText.framework */; };
 		502380DC17EBB88200990C9B /* libcurl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 502380DB17EBB88200990C9B /* libcurl.dylib */; };
@@ -290,6 +291,7 @@
 		1A96A4F2174A3432008653A9 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = "../../cocos2d-x/cocos2dx/platform/third_party/ios/libraries/libcurl.a"; sourceTree = "<group>"; };
 		1AC6FB34180E9ACB004C840B /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = "../../cocos2d-x/build/cocos2d_libs.xcodeproj"; sourceTree = "<group>"; };
 		270C7D7F1EC17A7C00E8D4E3 /* script */ = {isa = PBXFileReference; lastKnownFileType = folder; name = script; path = ../../../js_min/prebuilt/script; sourceTree = "<group>"; };
+		276DDF991EC9A190006FE5A8 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/StoreKit.framework; sourceTree = DEVELOPER_DIR; };
 		2799BC0D1EC0645A00057795 /* WorkerManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WorkerManager.cpp; sourceTree = "<group>"; };
 		2799BC0E1EC0645A00057795 /* WorkerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkerManager.h; sourceTree = "<group>"; };
 		2799BC141EC06FA700057795 /* GameBai2-mobile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "GameBai2-mobile.entitlements"; sourceTree = "<group>"; };
@@ -482,6 +484,7 @@
 				D454520C156E22BD00887EB5 /* libz.dylib in Frameworks */,
 				A92275421517C094001B78AA /* QuartzCore.framework in Frameworks */,
 				560F85621EB3880300C3C032 /* Bolts.framework in Frameworks */,
+				276DDF9A1EC9A190006FE5A8 /* StoreKit.framework in Frameworks */,
 				A92275441517C094001B78AA /* OpenGLES.framework in Frameworks */,
 				A92275461517C094001B78AA /* OpenAL.framework in Frameworks */,
 				A92275481517C094001B78AA /* AudioToolbox.framework in Frameworks */,
@@ -736,6 +739,7 @@
 		A92275401517C094001B78AA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				276DDF991EC9A190006FE5A8 /* StoreKit.framework */,
 				560F85721EB38BAF00C3C032 /* MessageUI.framework */,
 				294D0D671D0D56F400F7F5D4 /* CoreText.framework */,
 				9FA3AE451BE9BBCA00FC9645 /* GameController.framework */,
@@ -867,6 +871,9 @@
 						DevelopmentTeam = P3834447FW;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
 							com.apple.Push = {
 								enabled = 1;
 							};
