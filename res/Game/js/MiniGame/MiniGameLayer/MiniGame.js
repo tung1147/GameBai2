@@ -165,7 +165,7 @@ var MiniGamePopup = cc.Node.extend({
 
     onExit: function () {
         this._super();
-        this._controller.releaseController();
+        //this._controller.releaseController();
     },
 
     onTouchBegan: function (touch, event) {
@@ -249,6 +249,7 @@ var MiniGamePopup = cc.Node.extend({
     },
 
     hide: function () {
+        this._controller.releaseController();
         this.getParent().removeFromParent(true);
         SoundPlayer.stopAllSound();
     },

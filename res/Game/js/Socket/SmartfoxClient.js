@@ -143,10 +143,20 @@ var SmartfoxClient = (function () {
         },
 
         joinMiniGame: function (serverInfo, joinCommand) {
-            var thiz = this;
-            this.connect(serverInfo, function () {
-                thiz.sendExtensionRequest(-1, joinCommand, null);
-            });
+            // var thiz = this;
+            // this.connect(serverInfo, function () {
+            //     thiz.sendExtensionRequest(-1, joinCommand, null);
+            // });
+
+            if(this.isConnected()){
+                this.sendExtensionRequest(-1, joinCommand, null);
+            }
+            else{
+                var thiz = this;
+                this.connect(serverInfo, function () {
+                    thiz.sendExtensionRequest(-1, joinCommand, null);
+                });
+            }
         },
 
         playNow : function (serverInfo, gameTYpe) {
