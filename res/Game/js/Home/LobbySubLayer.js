@@ -76,7 +76,7 @@ var LobbySubLayer = cc.Node.extend({
                 }
 
 
-                var label = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, normalFrame[i]);
+                var label = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, normalFrame[i]);
                 label.setColor(cc.color("#8de8ff"));
                 label.setPosition(button.getPosition());
                 gameNav.addChild(label);

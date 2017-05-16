@@ -6,14 +6,17 @@ var NewsSubLayer = cc.Node.extend({
     ctor: function () {
         this._super();
         var _top = 554.0;
-        var _bottom = 100.0 * cc.winSize.screenScale;
+        var _bottom = 90.0 * cc.winSize.screenScale;
 
-        var itemList = new newui.TableView(cc.size(cc.winSize.width, _top - _bottom), 1);
+        var _left = 160.0;
+        var _right = 1120.0;
+
+        var itemList = new newui.TableView(cc.size(_right - _left , _top - _bottom), 1);
         itemList.setDirection(ccui.ScrollView.DIR_VERTICAL);
         itemList.setScrollBarEnabled(false);
-        itemList.setPadding(10);
+        // itemList.setPadding(10);
         itemList.setMargin(10, 30, 0, 0);
-        itemList.setPosition(cc.p(0, _bottom));
+        itemList.setPosition(cc.p(_left, _bottom));
         this.addChild(itemList, 1);
         this.itemList = itemList;
     }
@@ -23,18 +26,27 @@ var NewsNotificationLayer = NewsSubLayer.extend({
     ctor: function () {
         this._super();
         this.newsType = "event";
-        this.dialogTitle = "Thông báo";
-        var titleLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "THÔNG BÁO");
-        titleLabel.setPosition(489.0 * cc.winSize.screenScale, 576);
-        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "THỜI GIAN");
-        timeLabel.setPosition(1070.0 * cc.winSize.screenScale, 576);
-        titleLabel.setOpacity(0.2 * 255);
-        timeLabel.setOpacity(0.2 * 255);
+        this.dialogTitle = "THÔNG BÁO";
+
+        var titleLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "Thông báo");
+        titleLabel.setPosition(510.0 * cc.winSize.screenScale, 576);
+        titleLabel.setColor(cc.color("#2776A4"));
+
+        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "Thời gian");
+        timeLabel.setPosition(950.0 * cc.winSize.screenScale, 576);
+        timeLabel.setColor(cc.color("#2776A4"));
+        // titleLabel.setOpacity(0.2 * 255);
+        // timeLabel.setOpacity(0.2 * 255);
         this.addChild(titleLabel);
         this.addChild(timeLabel);
         this.titleLabel = titleLabel;
 
         LobbyClient.getInstance().addListener("getNews", this.onNewData, this);
+
+
+        // for(var i = 0; i < 30; i++){
+        //     this.addMessage("title", "createTime", "content");
+        // }
     },
 
     onNewData: function (command, data) {
@@ -62,26 +74,31 @@ var NewsNotificationLayer = NewsSubLayer.extend({
 
     addMessage: function (title, time, content) {
         var container = new ccui.Widget();
-        container.setContentSize(cc.size(this.itemList.getContentSize().width, 80));
+        container.setContentSize(cc.size(this.itemList.getContentSize().width, 60));
         this.itemList.pushItem(container);
 
-        var bg1 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
-        bg1.setPreferredSize(cc.size(858 * cc.winSize.screenScale, 80));
-        bg1.setPosition(489.0 * cc.winSize.screenScale, bg1.getContentSize().height / 2);
-        container.addChild(bg1);
+        if(this.itemList.size() % 2){
+            var bg = new ccui.Scale9Sprite("activity_cell_bg.png", cc.rect(10, 10, 4, 4));
+            bg.setPreferredSize(container.getContentSize());
+            bg.setAnchorPoint(cc.p(0,0));
+            container.addChild(bg);
 
-        var bg2 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
-        bg2.setPreferredSize(cc.size(300 * cc.winSize.screenScale, 80));
-        bg2.setPosition(1070.0 * cc.winSize.screenScale, bg1.y);
-        container.addChild(bg2);
+            var bg1 = new ccui.Scale9Sprite("activity_cell_bg.png", cc.rect(10, 10, 4, 4));
+            bg1.setPreferredSize(cc.size(1, 50));
+            bg1.setPosition(650, 30);
+            container.addChild(bg1);
+        }
+
 
         var titleLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, title);
-        titleLabel.setPosition(bg1.getPosition());
+        titleLabel.setPosition(350, 30);
+        titleLabel.setColor(cc.color("#8de8ff"))
         container.addChild(titleLabel);
 
         var d = new Date(time);
         var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, cc.Global.DateToString(d), cc.TEXT_ALIGNMENT_CENTER, 1000);
-        timeLabel.setPosition(bg2.getPosition());
+        timeLabel.setPosition(800, 30);
+        timeLabel.setColor(cc.color("#8de8ff"))
         container.addChild(timeLabel);
 
         container.setTouchEnabled(true);
@@ -116,27 +133,27 @@ var NewsLevelLayer = NewsSubLayer.extend({
     ctor: function () {
         this._super();
 
-        var _left = 60.0 * cc.winSize.screenScale;
+        var _left = 170.0 * cc.winSize.screenScale;
         var _padding = 2.0;
         this.width1 = 80.0;
         this.width2 = 180.0;
         this.width3 = cc.winSize.width - this.width1 - this.width2 - _padding * 2 - _left * 2;
 
-        var levelLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "CẤP");
+        var levelLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "Cấp");
         levelLabel.setPosition(_left + this.width1 / 2, 576);
-        levelLabel.setOpacity(0.2 * 255);
+        levelLabel.setColor(cc.color("#2776A4"));
         this.addChild(levelLabel);
         this.levelLabel = levelLabel;
 
-        var scoreLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "ĐIỂM");
-        scoreLabel.setPosition(_left + this.width1 + this.width2 / 2 + _padding, 576);
-        scoreLabel.setOpacity(0.2 * 255);
+        var scoreLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "Điểm");
+        scoreLabel.setPosition(_left + this.width1 + this.width2 / 2 + _padding - 10, 576);
+        scoreLabel.setColor(cc.color("#2776A4"));
         this.addChild(scoreLabel);
         this.scoreLabel = scoreLabel;
 
-        var contentLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "NỘI DUNG");
-        contentLabel.setPosition(_left + this.width1 + this.width2 + this.width3 / 2 + _padding * 2, 576);
-        contentLabel.setOpacity(0.2 * 255);
+        var contentLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "Nội dung");
+        contentLabel.setPosition(_left + this.width1 + this.width2 + this.width3 / 2 + _padding * 2 - 20, 576);
+        contentLabel.setColor(cc.color("#2776A4"));
         this.addChild(contentLabel);
         this.contentLabel = contentLabel;
 
@@ -144,40 +161,41 @@ var NewsLevelLayer = NewsSubLayer.extend({
     },
 
     addItem: function (level, score, content) {
-        var contentlabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, content, cc.TEXT_ALIGNMENT_CENTER, this.width3 - 10.0);
+        var contentlabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, content, cc.TEXT_ALIGNMENT_CENTER, this.width3 - 10.0);
         var container = new ccui.Widget();
         this.itemList.pushItem(container);
-        var containerHeight = contentlabel.getContentSize().height + 10;
-        if (containerHeight < 80.0) {
-            containerHeight = 80.0;
+        // var containerHeight = contentlabel.getContentSize().height + 10;
+        // if (containerHeight < 80.0) {
+        //     containerHeight = 80.0;
+        // }
+        container.setContentSize(cc.size(this.itemList.getContentSize().width, 60));
+
+        if(this.itemList.size() % 2){
+            var bg = new ccui.Scale9Sprite("activity_cell_bg.png", cc.rect(10, 10, 4, 4));
+            bg.setPreferredSize(container.getContentSize());
+            bg.setAnchorPoint(cc.p(0,0));
+            container.addChild(bg);
+
+            var bg1 = new ccui.Scale9Sprite("activity_cell_bg.png", cc.rect(10, 10, 4, 4));
+            bg1.setPreferredSize(cc.size(1, 50));
+            bg1.setPosition(100, 30);
+            container.addChild(bg1);
+            //
+            var bg2 = new ccui.Scale9Sprite("activity_cell_bg.png", cc.rect(10, 10, 4, 4));
+            bg2.setPreferredSize(cc.size(1, 50));
+            bg2.setPosition(250, 30);
+            container.addChild(bg2);
         }
-        container.setContentSize(cc.size(this.itemList.getContentSize().width, containerHeight));
 
-        var bg1 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
-        bg1.setPreferredSize(cc.size(this.width1, container.getContentSize().height));
-
-        var bg2 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
-        bg2.setPreferredSize(cc.size(this.width2, container.getContentSize().height));
-
-        var bg3 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
-        bg3.setPreferredSize(cc.size(this.width3, container.getContentSize().height));
-
-        bg1.setPosition(this.levelLabel.x, bg1.getContentSize().height / 2);
-        container.addChild(bg1);
-        bg2.setPosition(this.scoreLabel.x, bg1.y);
-        container.addChild(bg2);
-        bg3.setPosition(this.contentLabel.x, bg1.y);
-        container.addChild(bg3);
-
-        var levelLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, level.toString());
-        levelLabel.setPosition(bg1.getPosition());
+        var levelLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, level.toString());
+        levelLabel.setPosition(50, 30);
         container.addChild(levelLabel);
 
-        var scoreLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, cc.Global.NumberFormat1(score));
-        scoreLabel.setPosition(bg2.getPosition());
+        var scoreLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, cc.Global.NumberFormat1(score));
+        scoreLabel.setPosition(170, 30);
         container.addChild(scoreLabel);
 
-        contentlabel.setPosition(bg3.getPosition());
+        contentlabel.setPosition(600, 30);
         container.addChild(contentlabel);
     },
     initData: function () {
@@ -200,17 +218,17 @@ var NewsVipLayer = NewsLevelLayer.extend({
 });
 
 var news_tab_1 = news_tab_1 || [
-    "#news-tab-1.png",
-    "#news-tab-2.png",
-    "#news-tab-3.png",
-    "#news-tab-4.png"
+    "THÔNG BÁO",
+    "TÍNH ĐIỂM KN",
+    "TÍNH ĐIỂM VIP",
+    "HƯỚNG DẪN"
 ];
 
 var news_tab_2 = news_tab_2 || [
-    "#news-tab-selected-1.png",
-    "#news-tab-selected-2.png",
-    "#news-tab-selected-3.png",
-    "#news-tab-selected-4.png"
+        "THÔNG BÁO",
+        "TÍNH ĐIỂM KN",
+        "TÍNH ĐIỂM VIP",
+        "HƯỚNG DẪN"
 ];
 
 var NewsLayer = LobbySubLayer.extend({

@@ -198,17 +198,17 @@ var Dialog = IDialog.extend({
         this._marginTop = 0.0;
         this._marginBottom = 0.0;
 
-        var dialogBg = new ccui.Scale9Sprite("dialog-bg.png", cc.rect(90, 90, 4, 4));
+        var dialogBg = new ccui.Scale9Sprite("dialog-bg.png", cc.rect(20, 20, 4, 4));
         dialogBg.setAnchorPoint(cc.p(0.0,0.0));
         this.addChild(dialogBg);
 
-        // var dialogBg2 = new ccui.Scale9Sprite("dialog-bg.png", cc.rect(90, 90, 4, 4));
-        // dialogBg2.setAnchorPoint(cc.p(0.0,0.0));
-        // dialogBg2.setVisible(false);
-        // this.addChild(dialogBg2);
+        var dialogBg2 = new ccui.Scale9Sprite("dialog-bg2.png", cc.rect(90, 90, 4, 4));
+        dialogBg2.setAnchorPoint(cc.p(0.0,0.0));
+        dialogBg2.setVisible(false);
+        this.addChild(dialogBg2);
 
         var dialogBgTitle = new cc.Scale9Sprite("dialog-bg-title.png", cc.Rect(20, 0, 4, 60));
-        dialogBg.addChild(dialogBgTitle);
+        this.addChild(dialogBgTitle);
 
 
         var title = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, "Title");
@@ -225,7 +225,7 @@ var Dialog = IDialog.extend({
         this.addChild(cancelButton);
 
         this.dialogBg = dialogBg;
-        // this.dialogBg2 = dialogBg2;
+        this.dialogBg2 = dialogBg2;
         this.title = title;
         this.closeButton = closeButton;
         this.okButton = okButton;
@@ -233,7 +233,7 @@ var Dialog = IDialog.extend({
         this.okTitle = okButton.buttonTitleLabel;
         this.cancelTitle = cancelButton.buttonTitleLabel;
         this.dialogBgTitle = dialogBgTitle;
-
+        this.isBgDialogShadow = false;
 
 
         var thiz = this;
@@ -257,6 +257,32 @@ var Dialog = IDialog.extend({
     },
 
     initWithSize : function (mSize) {
+        this.dialogBg.setVisible(!this.isBgDialogShadow);
+        this.dialogBg2.setVisible(this.isBgDialogShadow);
+        if(this.isBgDialogShadow)
+        {
+            this.dialogBg2.setPreferredSize(cc.size(mSize.width, mSize.height));
+            this.setContentSize(this.dialogBg2.getContentSize());
+
+            this.dialogBgTitle.setPreferredSize(cc.size(this.dialogBg2.getContentSize().width - 50, 60));
+            this.dialogBgTitle.setPosition(cc.p(this.dialogBg2.width/2, this.dialogBg2.height - this.dialogBgTitle.getContentSize().height/2));
+
+
+            this.title.setPosition(this.getContentSize().width/2, this.dialogBgTitle.getPosition().y);
+            this.closeButton.setPosition(this.getContentSize().width - 58.0, this.title.y);
+            this.okButton.setPosition(this.getContentSize().width/2 - this.okButton.getContentSize().width/2 - 15.0, 50);
+            this.cancelButton.setPosition(this.getContentSize().width/2 + this.cancelButton.getContentSize().width/2 + 15.0, 50);
+
+            this.mTouch = cc.rect(this._marginLeft, this._marginBottom, mSize.width, mSize.height);
+
+            this._maxLeft = mSize.width/2 + 4;
+            this._maxRight = cc.winSize.width - mSize.width/2 - 4;
+            this._maxBottom = mSize.height/2 + 4;
+            this._maxTop = cc.winSize.height - mSize.height/2 - 4;
+
+            return;
+        }
+
         this.dialogBg.setPreferredSize(cc.size(mSize.width + this._marginLeft + this._marginRight, mSize.height + this._marginTop + this._marginBottom));
         this.setContentSize(this.dialogBg.getContentSize());
 

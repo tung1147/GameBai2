@@ -46,6 +46,7 @@ var InventoryUseDialog = Dialog.extend({
         this.okButton.visible = false;
         this.cancelButton.visible = false;
         this.title.setString("VẬT PHẨM");
+        this.isBgDialogShadow = true;
         this.initWithSize(cc.size(480, 280));
 
         this._initView(info);
@@ -59,7 +60,7 @@ var InventoryUseDialog = Dialog.extend({
 
         var iconBg = new ccui.Scale9Sprite("shop_item_bg.png", cc.rect(20,20,4,4));
         iconBg.setPreferredSize(cc.size(100,100));
-        iconBg.setPosition(68,145);
+        iconBg.setPosition(93,155);
         this.addChild(iconBg);
 
         var icon = new InventoryItemIcon();
@@ -69,7 +70,7 @@ var InventoryUseDialog = Dialog.extend({
 
         var contentLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, info.itemContent, cc.TEXT_ALIGNMENT_LEFT, 340);
         contentLabel.setAnchorPoint(cc.p(0.0, 1.0));
-        contentLabel.setPosition(129, 178);
+        contentLabel.setPosition(154, 188);
         this.addChild(contentLabel,1);
 
         var countLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Số lượng: " + info.count.toString());
@@ -81,7 +82,7 @@ var InventoryUseDialog = Dialog.extend({
         okButton.setScale9Enabled(true);
         okButton.setCapInsets(cc.rect(10,10,4,4));
         okButton.setContentSize(cc.size(180, 50));
-        okButton.setPosition(this.getContentSize().width/2, 45);
+        okButton.setPosition(this.getContentSize().width/2, 65);
         okButton.setZoomScale(0.02);
         this.addChild(okButton);
 
@@ -132,17 +133,17 @@ var InventoryDialog = Dialog.extend({
         listItem.setPadding(10);
         this.addChild(listItem, 1);
         this.listItem = listItem;
-
-        var info = {
-            iconUrl:"aaaa",
-            itemName:"ccccc",
-            itemContent:"cccc",
-            count:10,
-            itemId:"ideddd"
-        };
-
-        var dialog = new InventoryUseDialog(info);
-        dialog.show();
+        //
+        // var info = {
+        //     iconUrl:"aaaa",
+        //     itemName:"ccccc",
+        //     itemContent:"cccc",
+        //     count:10,
+        //     itemId:"ideddd"
+        // };
+        //
+        // var dialog = new InventoryUseDialog(info);
+        // dialog.show();
 
         // for(var i=0;i<30;i++){
         //     this.addItem("","name","content", 10,"itemId");

@@ -19,19 +19,19 @@ var RankSubLayer = cc.Node.extend({
 
         var rankLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Cấp");
         rankLabel.setPosition(_left + this.x1, 576);
-        rankLabel.setColor(cc.color("#576eb0"));
+        rankLabel.setColor(cc.color("#2776a4"));
         this.addChild(rankLabel);
         this.rankLabel = rankLabel;
 
         var userLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Người chơi");
         userLabel.setPosition(_left + this.x2, 576);
-        userLabel.setColor(cc.color("#576eb0"));
+        userLabel.setColor(cc.color("#2776a4"));
         this.addChild(userLabel);
         this.userLabel = userLabel;
 
         var scoreLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Điểm");
         scoreLabel.setPosition(_left + this.x3, 576);
-        scoreLabel.setColor(cc.color("#576eb0"));
+        scoreLabel.setColor(cc.color("#2776a4"));
         this.addChild(scoreLabel);
         this.scoreLabel = scoreLabel;
     },
@@ -44,7 +44,7 @@ var RankSubLayer = cc.Node.extend({
         var itemList = new newui.TableView(cc.size(680, _top - _bottom), 1);
         itemList.setDirection(ccui.ScrollView.DIR_VERTICAL);
         itemList.setScrollBarEnabled(false);
-        itemList.setPadding(10);
+        // itemList.setPadding(10);
         itemList.setMargin(10, 30, 0, 0);
         itemList.setPosition(cc.p(_left, _bottom));
         this.addChild(itemList, 1);
@@ -170,18 +170,18 @@ var RankLevelLayer = RankSubLayer.extend({
         this._left = _left;
 
         this.scoreLabel.removeFromParent(true);
-        this.userLabel.setPositionX(_left + this.x1);
-        this.rankLabel.setPositionX(_left + this.x2);
+        this.userLabel.setPositionX(_left + this.x2);
+        this.rankLabel.setPositionX(_left + this.x1);
         /**/
 
         var winLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Thắng");
         winLabel.setPosition(_left + this.x3, this.rankLabel.y);
-        winLabel.setColor(cc.color("#576eb0"));
+        winLabel.setColor(cc.color("#2776a4"));
         this.addChild(winLabel);
 
         var loseLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Thua");
         loseLabel.setPosition(_left + this.x4, this.rankLabel.y);
-        loseLabel.setColor(cc.color("#576eb0"));
+        loseLabel.setColor(cc.color("#2776a4"));
         this.addChild(loseLabel);
 
         var typeToggle = new ToggleNodeGroup();
@@ -294,32 +294,54 @@ var RankLevelLayer = RankSubLayer.extend({
     },
     addItem: function (rank, username, win, lose) {
         var container = new ccui.Widget();
-        container.setContentSize(cc.size(this.itemList.getContentSize().width, 58));
+        container.setContentSize(cc.size(this.itemList.getContentSize().width, 60));
         this.itemList.pushItem(container);
 
-        var bg1 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
-        bg1.setPreferredSize(cc.size(this.width1, container.getContentSize().height));
-        bg1.setPosition(this.x1, container.getContentSize().height / 2);
-        container.addChild(bg1);
+        if(this.itemList.size() % 2){
+            var bg = new ccui.Scale9Sprite("activity_cell_bg.png", cc.rect(10, 10, 4, 4));
+            bg.setPreferredSize(container.getContentSize());
+            bg.setAnchorPoint(cc.p(0,0));
+            container.addChild(bg);
 
-        var bg2 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
-        bg2.setPreferredSize(cc.size(this.width2, container.getContentSize().height));
-        bg2.setPosition(this.x2, container.getContentSize().height / 2);
-        container.addChild(bg2);
+            var bg1 = new ccui.Scale9Sprite("activity_cell_bg.png", cc.rect(10, 10, 4, 4));
+            bg1.setPreferredSize(cc.size(1, 50));
+            bg1.setPosition(100, 30);
+            container.addChild(bg1);
+            //
+            var bg2 = new ccui.Scale9Sprite("activity_cell_bg.png", cc.rect(10, 10, 4, 4));
+            bg2.setPreferredSize(cc.size(1, 50));
+            bg2.setPosition(250, 30);
+            container.addChild(bg2);
 
-        var bg3 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
-        bg3.setPreferredSize(cc.size(this.width3, container.getContentSize().height));
-        bg3.setPosition(this.x3, container.getContentSize().height / 2);
-        container.addChild(bg3);
+            var bg3 = new ccui.Scale9Sprite("activity_cell_bg.png", cc.rect(10, 10, 4, 4));
+            bg3.setPreferredSize(cc.size(1, 50));
+            bg3.setPosition(350, 30);
+            container.addChild(bg3);
+        }
 
-        var bg4 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
-        bg4.setPreferredSize(cc.size(this.width4, container.getContentSize().height));
-        bg4.setPosition(this.x4, container.getContentSize().height / 2);
-        container.addChild(bg4);
+        // var bg1 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
+        // bg1.setPreferredSize(cc.size(this.width1, container.getContentSize().height));
+        // bg1.setPosition(this.x1, container.getContentSize().height / 2);
+        // container.addChild(bg1);
+        //
+        // var bg2 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
+        // bg2.setPreferredSize(cc.size(this.width2, container.getContentSize().height));
+        // bg2.setPosition(this.x2, container.getContentSize().height / 2);
+        // container.addChild(bg2);
+        //
+        // var bg3 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
+        // bg3.setPreferredSize(cc.size(this.width3, container.getContentSize().height));
+        // bg3.setPosition(this.x3, container.getContentSize().height / 2);
+        // container.addChild(bg3);
+        //
+        // var bg4 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
+        // bg4.setPreferredSize(cc.size(this.width4, container.getContentSize().height));
+        // bg4.setPosition(this.x4, container.getContentSize().height / 2);
+        // container.addChild(bg4);
 
         var rankLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, rank);
         rankLabel.setColor(cc.color("#ffde00"));
-        rankLabel.setPosition(bg1.getPosition());
+        rankLabel.setPosition(this.x1, 30);
         container.addChild(rankLabel);
 
         if (username.length > 3 && (username != PlayerMe.username)) {
@@ -328,17 +350,17 @@ var RankLevelLayer = RankSubLayer.extend({
 
         var userLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, username, cc.TEXT_ALIGNMENT_CENTER);
         userLabel.setLineBreakWithoutSpace(true);
-        userLabel.setDimensions(bg2.getContentSize().width - 10, userLabel.getLineHeight());
-        userLabel.setPosition(bg2.getPosition());
+        userLabel.setDimensions(cc.size(100, 0));
+        userLabel.setPosition(this.x2, 30);
         container.addChild(userLabel);
 
         var winLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, win);
         winLabel.setColor(cc.color("#ffde00"));
-        winLabel.setPosition(bg3.getPosition());
+        winLabel.setPosition(this.x3, 30);
         container.addChild(winLabel);
 
         var loseLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, lose);
-        loseLabel.setPosition(bg4.getPosition());
+        loseLabel.setPosition(this.x4, 30);
         container.addChild(loseLabel);
     },
     onExit: function () {
@@ -348,15 +370,15 @@ var RankLevelLayer = RankSubLayer.extend({
 });
 
 var rank_tab_1 = rank_tab_1 || [
-    "#rank-tab-1.png",
-    "#rank-tab-2.png",
-    "#rank-tab-3.png"
+    "ĐẠI GIA",
+    "VIP",
+    "CAO THỦ"
 ];
 
 var rank_tab_2 = rank_tab_2 || [
-    "#rank-tab-selected-1.png",
-    "#rank-tab-selected-2.png",
-    "#rank-tab-selected-3.png"
+        "ĐẠI GIA",
+        "VIP",
+        "CAO THỦ"
 ];
 
 var RankLayer = LobbySubLayer.extend({
