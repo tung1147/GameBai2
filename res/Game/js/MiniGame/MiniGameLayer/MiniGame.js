@@ -219,8 +219,8 @@ var MiniGamePopup = cc.Node.extend({
     show: function () {
         var parent = this.getParent();
         if(parent){
-            this.removeFromParent(true);
-            parent.removeFromParent(true);
+            this.removeFromParent(false);
+            parent.removeFromParent(false);
         }
 
         var bg = new cc.LayerColor(cc.color(0, 0, 0, 0));
@@ -264,7 +264,7 @@ var MiniGamePopup = cc.Node.extend({
 });
 
 var MiniGameNavigator = MiniGameNavigator || {};
-MiniGameNavigator.allGame = {};
+MiniGameNavigator.allGame = [];
 
 MiniGameNavigator.createGameLayer = function (gameId) {
     if(gameId === GameType.MiniGame_CaoThap){
@@ -282,43 +282,56 @@ MiniGameNavigator.createGameLayer = function (gameId) {
 };
 
 MiniGameNavigator.showAll = function () {
-    for (var key in MiniGameNavigator.allGame) {
-        if (!MiniGameNavigator.allGame.hasOwnProperty(key)) continue;
-     //   if(MiniGameNavigator.allGame[key]){
-            MiniGameNavigator.allGame[key].show();
-    //    }
+    // for(var i=0;i<MiniGameNavigator.allGame.length;i++){
+    //     MiniGameNavigator.allGame[i].show();
+    // }
+
+    for(var i=0;i<MiniGameNavigator.allGame.length;){
+        var miniGame = MiniGameNavigator.allGame[i];
+        if(miniGame.gameType === GameType.MiniGame_ChanLe){
+            miniGame.hide();
+            MiniGameNavigator.allGame.splice(i, 1);
+        }
+        else{
+            miniGame.show();
+            i++;
+        }
     }
 };
 
 MiniGameNavigator.hideAll = function () {
-    for (var key in MiniGameNavigator.allGame) {
-        if (!MiniGameNavigator.allGame.hasOwnProperty(key)) continue;
-       // if(MiniGameNavigator.allGame[key]){
-            MiniGameNavigator.allGame[key].hide();
-     //   }
+    for(var i=0;i<MiniGameNavigator.allGame.length;i++){
+        MiniGameNavigator.allGame[i].hide();
     }
-    MiniGameNavigator.allGame = {};
+    MiniGameNavigator.allGame = [];
 };
 
 MiniGameNavigator.showGame = function (gameId) {
-    if(MiniGameNavigator.allGame[gameId]){
-        if(MiniGameNavigator.allGame[gameId].isRunning()){
-            cc.log("MiniGame " + gameId + " is running !!!");
-        }
-        else{
-            MiniGameNavigator.allGame[gameId].show();
+    for(var i=0;i<MiniGameNavigator.allGame.length;i++){
+        var miniGame = MiniGameNavigator.allGame[i];
+        if(miniGame.gameType === gameId){
+            if(miniGame.isRunning()){
+                cc.log("MiniGame " + gameId + " is running !!!");
+            }
+            else{
+                miniGame.show();
+            }
+            return;
         }
     }
-    else{
-        MiniGameNavigator.allGame[gameId] = MiniGameNavigator.createGameLayer(gameId);
-        MiniGameNavigator.allGame[gameId].show();
-    }
+
+    var newMiniGame = MiniGameNavigator.createGameLayer(gameId);
+    MiniGameNavigator.allGame.push(newMiniGame);
+    newMiniGame.show();
 };
 
 MiniGameNavigator.hideGame = function (gameId) {
-    if(MiniGameNavigator.allGame[gameId]){
-        MiniGameNavigator.allGame[gameId].hide();
-        delete MiniGameNavigator.allGame[gameId];
-      //  MiniGameNavigator.allGame[gameId] = null;
+    for(var i=0;i<MiniGameNavigator.allGame.length;i++){
+        var miniGame = MiniGameNavigator.allGame[i];
+        if(miniGame.gameType === gameId){
+            MiniGameNavigator.allGame.splice(i, 1);
+            miniGame.hide();
+            return;
+        }
     }
 };

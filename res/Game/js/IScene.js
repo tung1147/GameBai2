@@ -27,6 +27,9 @@ var IScene = cc.Scene.extend({
     },
 
     onExit : function () {
+        if(this.miniGameLayer){
+            this.miniGameLayer.removeAllChildrenWithCleanup(false);
+        }
         this._super();
         this.popupLayer.removeAllChildren(true);
         this.messageLayer.removeAllChildren(true);
