@@ -176,6 +176,7 @@ var MiniGamePopup = cc.Node.extend({
         this._touchStartPoint = touch.getLocation();
         var p = this.convertToNodeSpace(this._touchStartPoint);
         if (cc.rectContainsPoint(this._boudingRect, p)) {
+            MiniGameNavigator.focus(this);
             return true;
         }
         this._touchStartPoint = null;
@@ -244,6 +245,15 @@ var MiniGamePopup = cc.Node.extend({
             // }, bg);
         }
     },
+    changeLayerOrder : function (order) {
+        // var thiz = this;
+        // setTimeout(function () {
+        //     var mParent = thiz.getParent();
+        //     if(mParent){
+        //         mParent.setLocalZOrder(order);
+        //     }
+        // }, 0);
+    },
     backToHomeScene: function () {
         MiniGameNavigator.hideGame(this.gameType);
     },
@@ -296,6 +306,20 @@ MiniGameNavigator.showAll = function () {
             miniGame.show();
             i++;
         }
+    }
+};
+
+MiniGameNavigator.focus = function (view) {
+    for(var i=0;i<MiniGameNavigator.allGame.length;i++){
+        if(MiniGameNavigator.allGame[i] === view){
+            MiniGameNavigator.allGame.splice(i, 1);
+            break;
+        }
+    }
+    MiniGameNavigator.allGame.push(view);
+
+    for(var i=0;i<MiniGameNavigator.allGame.length;i++){
+        MiniGameNavigator.allGame[i].changeLayerOrder(i);
     }
 };
 
