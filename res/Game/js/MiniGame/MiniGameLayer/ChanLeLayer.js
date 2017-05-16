@@ -14,6 +14,9 @@ var s_money_betEx = s_money_betEx || [1000, 10000, 100000, 1000000, 10000000];
 var ChanLeLayer = MiniGamePopup.extend({
     ctor: function () {
         this._super();
+       // this._customAction = new cc.ActionManager();
+        this._isUpdateTime = false;
+
         this.jackpotLabel.setVisible(false);
         this.baseCardHeight = 0;
 
@@ -414,7 +417,6 @@ var ChanLeLayer = MiniGamePopup.extend({
     },
     drawResuft:function (arrNumer) {
         var thiz = this;
-
     },
     pushItemHistory:function (index,data) {
         var thiz = this;
@@ -479,23 +481,24 @@ var ChanLeLayer = MiniGamePopup.extend({
         this.setMoneyBet(this.moneyBet);
     },
     update: function (dt) {
-        this.timer -= dt;
-        if(this.timer>0){
-
-            this.setTimeFomat();
-        }
-        else {
-           this.stopTime();
+        if(this._isUpdateTime){
+            this.timer -= dt;
+            if(this.timer>0){
+                this.setTimeFomat();
+            }
+            else {
+                this.stopTime();
+            }
         }
     },
     startTime:function (time) {
         this.lblTime.setOpacity(255);
-        this.scheduleUpdate();
+        this._isUpdateTime = true;
         this.timer = time;
     },
     stopTime:function () {
         this.lblTime.setColor(cc.color(255,222,0,255));
-      this.unscheduleUpdate();
+        this._isUpdateTime = false;
         this.timer = 0;
         this.lblTime.stopAllActions();
         this.lblTime.setString("");
@@ -533,43 +536,17 @@ var ChanLeLayer = MiniGamePopup.extend({
     },
     onEnter: function () {
         this._super();
-        // this.timer = 0;
-        // this.scheduleUpdate();
-        //s_ChanLeLayer = this;
-        var thiz = this;
-    },
-
-    onTouchBegan: function (touch, event) {
-
-        return this._super(touch, event);
+        this.scheduleUpdate();
     },
 
     onExit: function () {
         this._super();
         this.unscheduleUpdate();
-        //s_ChanLeLayer = null;
     },
 
     initController: function () {
         this._controller = new ChanLeController(this);
-    },
-
-
-
-    onError: function (param) {
-        this._super(param);
-
-    },
-
-
+    }
 });
 
-// ChanLeLayer.showPopup = function () {
-//     if (s_ChanLeLayer) {
-//         return null;
-//     }
-//     var popup = new ChanLeLayer();
-//     popup.show();
-//     return popup;
-// };
 

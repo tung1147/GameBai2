@@ -21,9 +21,15 @@ var IScene = cc.Scene.extend({
 
         this.messageLayer = new cc.Node();
         this.addChild(this.messageLayer, 101);
+
+        this.floatButtonLayer = new cc.Node();
+        this.addChild(this.floatButtonLayer, 2);
     },
 
     onExit : function () {
+        if(this.miniGameLayer){
+            this.miniGameLayer.removeAllChildrenWithCleanup(false);
+        }
         this._super();
         this.popupLayer.removeAllChildren(true);
         this.messageLayer.removeAllChildren(true);

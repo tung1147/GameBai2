@@ -5,6 +5,10 @@
             "fnt": "res/fonts/bigsmall_number_font.fnt"
         },
         {
+            "img": "res/fonts/fonttime1.png",
+            "fnt": "res/fonts/fonttime1.fnt"
+        },
+        {
             "img": "res/fonts/game-result-font1.png",
             "fnt": "res/fonts/game-result-font1.fnt"
         },
@@ -15,6 +19,10 @@
         {
             "img": "res/fonts/minigame-number-1.png",
             "fnt": "res/fonts/minigame-number-1.fnt"
+        },
+        {
+            "img": "res/fonts/Roboto_BoldCondensed_36_Glow.png",
+            "fnt": "res/fonts/Roboto_BoldCondensed_36_Glow.fnt"
         },
         {
             "img": "res/fonts/RobotoBoldCondensed_14.png",
@@ -67,10 +75,6 @@
         {
             "img": "res/fonts/RobotoCondensed_30.png",
             "fnt": "res/fonts/RobotoCondensed_30.fnt"
-        },
-        {
-            "img": "res/fonts/Roboto_BoldCondensed_36_Glow.png",
-            "fnt": "res/fonts/Roboto_BoldCondensed_36_Glow.fnt"
         },
         {
             "img": "res/fonts/UTMAvoBold_25.png",

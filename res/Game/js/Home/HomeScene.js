@@ -10,9 +10,6 @@ var HomeScene = IScene.extend({
         this.miniGameLayer = new cc.Node();
         this.addChild(this.miniGameLayer, 1);
 
-        this.floatButtonLayer = new cc.Node();
-        this.addChild(this.floatButtonLayer, 2);
-
         this.type = "HomeScene";
         this.homeLocation = 0;
 
@@ -544,7 +541,7 @@ var HomeScene = IScene.extend({
             }
         }
 
-        //MiniGameNavigator.showAll();
+        MiniGameNavigator.showAll();
     },
 
     onExit: function () {
@@ -552,6 +549,6 @@ var HomeScene = IScene.extend({
         LobbyClient.getInstance().removeListener(this);
         SmartfoxClient.getInstance().removeListener(this);
 
-        MiniGameNavigator.hideAll();
+        //MiniGameNavigator.hideAll();
     }
 });

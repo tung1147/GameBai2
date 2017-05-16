@@ -88,8 +88,9 @@ var FloatButtomComponent = cc.Node.extend({
         var p = this.convertToNodeSpace(touch.getLocation());
         if(cc.rectContainsPoint(this.rectTouch, p)){
            // cc.log("clicked");
-            var homeScene = cc.director.getRunningScene();
-            homeScene.onTouchGame(this.gameId);
+            MiniGameNavigator.showGame(this.gameId);
+           //  var homeScene = cc.director.getRunningScene();
+           //  homeScene.onTouchGame(this.gameId);
         }
     },
 });

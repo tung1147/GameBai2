@@ -27,7 +27,7 @@ var SmartfoxClient = (function () {
                 this.addListener(socket.SmartfoxClient.UserExitRoom, this._onUserExitRoomHandler, this);
                 this.addExtensionListener("1", this._onStartGameHandler, this);
                 this.addExtensionListener("13", this._onReconnectHandler, this);
-                this.addExtensionListener("262", this._onReconnectMiniGameHandler, this);
+               // this.addExtensionListener("262", this._onReconnectMiniGameHandler, this);
                 this.addExtensionListener("fullRoom", this._onFullRoomHandler, this);
                 this.addExtensionListener("___err___", this._onSFSError, this);
             }
@@ -143,10 +143,20 @@ var SmartfoxClient = (function () {
         },
 
         joinMiniGame: function (serverInfo, joinCommand) {
-            var thiz = this;
-            this.connect(serverInfo, function () {
-                thiz.sendExtensionRequest(-1, joinCommand, null);
-            });
+            // var thiz = this;
+            // this.connect(serverInfo, function () {
+            //     thiz.sendExtensionRequest(-1, joinCommand, null);
+            // });
+
+            if(this.isConnected()){
+                this.sendExtensionRequest(-1, joinCommand, null);
+            }
+            else{
+                var thiz = this;
+                this.connect(serverInfo, function () {
+                    thiz.sendExtensionRequest(-1, joinCommand, null);
+                });
+            }
         },
 
         playNow : function (serverInfo, gameTYpe) {
@@ -406,34 +416,34 @@ var SmartfoxClient = (function () {
         },
 
         _onReconnectMiniGameHandler: function (cmd, contents) {
-            LoadingDialog.getInstance().hide();
-
-            var scene = cc.director.getRunningScene();
-            if (scene.type == "GameScene") {
-                return false;
-            }
-            var gameScene;
-            var group = contents.p["group"];
-            if (group == "mini.caothap") {
-                //gameScene = new CaoThapScene();
-                // PlayerMe.gameType = GameType.MiniGame_CaoThap;
-                SceneNavigator.toMiniGame(GameType.MiniGame_CaoThap, true);
-                LoadingDialog.getInstance().hide();
-            }
-            else if (group == "mini.videopoker") {
-                //gameScene = new VideoPockerScene();
-                //PlayerMe.gameType = GameType.MiniGame_VideoPoker;
-                SceneNavigator.toMiniGame(GameType.MiniGame_VideoPoker, true);
-                LoadingDialog.getInstance().hide();
-            }
-            else if(group === "mini.taixiu"){
-                SceneNavigator.toMiniGame(GameType.MiniGame_ChanLe, true);
-                LoadingDialog.getInstance().hide();
-            }
-            if (gameScene) {
-                gameScene.isReconnect = true;
-                cc.director.replaceScene(gameScene);
-            }
+            // LoadingDialog.getInstance().hide();
+            //
+            // var scene = cc.director.getRunningScene();
+            // if (scene.type == "GameScene") {
+            //     return false;
+            // }
+            // var gameScene;
+            // var group = contents.p["group"];
+            // if (group == "mini.caothap") {
+            //     //gameScene = new CaoThapScene();
+            //     // PlayerMe.gameType = GameType.MiniGame_CaoThap;
+            //     SceneNavigator.toMiniGame(GameType.MiniGame_CaoThap, true);
+            //     LoadingDialog.getInstance().hide();
+            // }
+            // else if (group == "mini.videopoker") {
+            //     //gameScene = new VideoPockerScene();
+            //     //PlayerMe.gameType = GameType.MiniGame_VideoPoker;
+            //     SceneNavigator.toMiniGame(GameType.MiniGame_VideoPoker, true);
+            //     LoadingDialog.getInstance().hide();
+            // }
+            // else if(group === "mini.taixiu"){
+            //     SceneNavigator.toMiniGame(GameType.MiniGame_ChanLe, true);
+            //     LoadingDialog.getInstance().hide();
+            // }
+            // if (gameScene) {
+            //     gameScene.isReconnect = true;
+            //     cc.director.replaceScene(gameScene);
+            // }
         },
 
         _onFullRoomHandler: function (cmd, contents) {

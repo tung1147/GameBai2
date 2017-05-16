@@ -19,6 +19,8 @@ var s_resource = s_resource || [
 	"res/FloatButton.png",
 	"res/fonts/bigsmall_number_font.fnt",
 	"res/fonts/bigsmall_number_font.png",
+	"res/fonts/fonttime1.fnt",
+	"res/fonts/fonttime1.png",
 	"res/fonts/game-result-font1.fnt",
 	"res/fonts/game-result-font1.png",
 	"res/fonts/game-result-font2.fnt",
@@ -238,6 +240,7 @@ var s_texture = s_texture || [
 
 var s_bitmap_font = s_bitmap_font || [
 	{src:"res/fonts/bigsmall_number_font.png",fnt:"res/fonts/bigsmall_number_font.fnt"},
+	{src:"res/fonts/fonttime1.png",fnt:"res/fonts/fonttime1.fnt"},
 	{src:"res/fonts/game-result-font1.png",fnt:"res/fonts/game-result-font1.fnt"},
 	{src:"res/fonts/game-result-font2.png",fnt:"res/fonts/game-result-font2.fnt"},
 	{src:"res/fonts/minigame-number-1.png",fnt:"res/fonts/minigame-number-1.fnt"},

@@ -550,7 +550,7 @@ var Phom = IGameScene.extend({
     },
     performHaBaiOtherReconnect: function (username, groupedCards, stolenCards,noAnimation) {
         var slot = this.getSlotByUsername(username);
-        var stolenCardsId = [];init
+        var stolenCardsId = [];
 
         //index stolen cards
         for (var i = 0; i < slot.dropCards.cardList.length; i++) {

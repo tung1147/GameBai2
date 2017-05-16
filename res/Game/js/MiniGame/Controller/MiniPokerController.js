@@ -20,7 +20,7 @@ var MiniPokerController = MiniGameController.extend({
             case "351": // ket qua luot roll
                 setTimeout(function () {
                     thiz.onRollResult(content.p.data);
-                }, 1000);
+                }, 0);
                 break;
         }
     },
@@ -31,28 +31,30 @@ var MiniPokerController = MiniGameController.extend({
     },
 
     onRollResult: function (data) {
-        var gameId = data["1"];
+        //var gameId = data["1"];
         var cardArray = data["2"];
         var result = data["3"];
         var rewardIndexes = data["4"];
         var rewardCardRank = data["5"];
-        var changeAmount = data["6"];
+        //var changeAmount = data["6"];
         var rewardIndexesArray = [];
-        for (var i = 0; i < 5; i++)
+        for (var i = 0; i < 5; i++){
             rewardIndexesArray[i] = (rewardIndexes >> i) & 1;
+        }
+
         this._view.setCardArray(cardArray);
-        var thiz = this;
-        var index = 0;
         this._view.activateReward(result, rewardCardRank);
-        if (result == 0) {
+        if (result === 0) {
             this._view.showJackpot();
         }
         this._view.setRewardCards(rewardIndexesArray);
-        if (this.changeAmount) {
-            this._view.onChangeAssets(this.goldAfter, this.changeAmount);
-            this.goldAfter = this.changeAmount = null;
-        }
-        this._view.onChangeAssets(null, changeAmount);
+
+
+        // if (this.changeAmount) {
+        //     this._view.onChangeAssets(this.goldAfter, this.changeAmount);
+        //     this.goldAfter = this.changeAmount = null;
+        // }
+        // this._view.onChangeAssets(null, changeAmount);
     },
 
     sendJoinGame: function () {

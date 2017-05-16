@@ -195,7 +195,9 @@ var IGameScene = IScene.extend({
             }
         }, this);
 
-        //MiniGameNavigator.showAll();
+        MiniGameNavigator.showAll();
+        FloatButton.getInstance().show(this.floatButtonLayer);
+        FloatButton.getInstance().setVisible(true);
     },
 
     showErrorMessage: function (message, scene) {

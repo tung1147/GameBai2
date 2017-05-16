@@ -50,7 +50,7 @@ var VideoPokerController = MiniGameController.extend({
                 break;
             case "255" :
                 this._view.lblHD.setString("");
-                this._view.setBettingSelectEnable(false);
+                this._view.setBettingSelectEnable(true);
                 break;
         }
     },
