@@ -263,7 +263,10 @@ var MiniGamePopup = cc.Node.extend({
 
     hide: function () {
         this._controller.releaseController();
-        this.getParent().removeFromParent(true);
+        var parent = this.getParent();
+        if(parent){
+            parent.removeFromParent(true)
+        }
         SoundPlayer.stopAllSound();
     },
     setBettingSelectEnable : function (enable) {
