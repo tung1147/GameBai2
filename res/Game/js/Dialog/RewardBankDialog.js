@@ -8,7 +8,7 @@ var RewardBankDialog = Dialog.extend({
         this._super();
 
         this.initWithSize(cc.size(600,680));
-        this.title.setString("Nhận thưởng");
+        this.title.setString("NHẬN THƯỞNG");
         this.closeButton.visible = false;
         this.okTitle.setString("Nhận thưởng");
         this.cancelTitle.setString("Hủy");

@@ -207,7 +207,7 @@ var Dialog = IDialog.extend({
         dialogBg2.setVisible(false);
         this.addChild(dialogBg2);
 
-        var dialogBgTitle = new cc.Scale9Sprite("dialog-bg-title.png", cc.Rect(20, 0, 4, 60));
+        var dialogBgTitle = new cc.Scale9Sprite("dialog-bg-title.png", cc.rect(20, 0, 4, 60));
         this.addChild(dialogBgTitle);
 
 
@@ -266,32 +266,23 @@ var Dialog = IDialog.extend({
 
             this.dialogBgTitle.setPreferredSize(cc.size(this.dialogBg2.getContentSize().width - 50, 60));
             this.dialogBgTitle.setPosition(cc.p(this.dialogBg2.width/2, this.dialogBg2.height - this.dialogBgTitle.getContentSize().height/2));
+            this.title.setPosition(this.getContentSize().width/2, this.dialogBgTitle.getPosition().y);
+            this.closeButton.setPosition(this.getContentSize().width - 58.0, this.title.y);
+        }
+        else
+        {
+            this.dialogBg.setPreferredSize(cc.size(mSize.width + this._marginLeft + this._marginRight, mSize.height + this._marginTop + this._marginBottom));
+            this.setContentSize(this.dialogBg.getContentSize());
+
+            this.dialogBgTitle.setPreferredSize(cc.size(this.dialogBg.getContentSize().width, 60));
+            this.dialogBgTitle.setPosition(cc.p(this.dialogBg.getContentSize().width/2, this.dialogBg.height - this.dialogBgTitle.getContentSize().height/2));
 
 
             this.title.setPosition(this.getContentSize().width/2, this.dialogBgTitle.getPosition().y);
-            this.closeButton.setPosition(this.getContentSize().width - 58.0, this.title.y);
-            this.okButton.setPosition(this.getContentSize().width/2 - this.okButton.getContentSize().width/2 - 15.0, 50);
-            this.cancelButton.setPosition(this.getContentSize().width/2 + this.cancelButton.getContentSize().width/2 + 15.0, 50);
-
-            this.mTouch = cc.rect(this._marginLeft, this._marginBottom, mSize.width, mSize.height);
-
-            this._maxLeft = mSize.width/2 + 4;
-            this._maxRight = cc.winSize.width - mSize.width/2 - 4;
-            this._maxBottom = mSize.height/2 + 4;
-            this._maxTop = cc.winSize.height - mSize.height/2 - 4;
-
-            return;
+            this.closeButton.setPosition(this.getContentSize().width - 33.0, this.title.y);
         }
 
-        this.dialogBg.setPreferredSize(cc.size(mSize.width + this._marginLeft + this._marginRight, mSize.height + this._marginTop + this._marginBottom));
-        this.setContentSize(this.dialogBg.getContentSize());
 
-        this.dialogBgTitle.setPreferredSize(cc.size(this.dialogBg.getContentSize().width, 60));
-        this.dialogBgTitle.setPosition(cc.p(this.dialogBg.getContentSize().width/2, this.dialogBg.height - this.dialogBgTitle.getContentSize().height/2));
-
-
-        this.title.setPosition(this.getContentSize().width/2, this.dialogBgTitle.getPosition().y);
-        this.closeButton.setPosition(this.getContentSize().width - 33.0, this.title.y);
         this.okButton.setPosition(this.getContentSize().width/2 - this.okButton.getContentSize().width/2 - 15.0, 50);
         this.cancelButton.setPosition(this.getContentSize().width/2 + this.cancelButton.getContentSize().width/2 + 15.0, 50);
 

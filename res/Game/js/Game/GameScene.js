@@ -115,17 +115,24 @@ var IGameScene = IScene.extend({
     showGameInfo: function (gameName, betAmount) {
         var nameTitle = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, gameName);
         nameTitle.setAnchorPoint(cc.p(0.0, 0.5));
+        nameTitle.setColor(cc.color("#bff2ff"));
         nameTitle.setPosition(96, 684);
         this.gameTopBar.addChild(nameTitle);
 
-        var goldIcon = new cc.Sprite("#ingame-goldIcon.png");
-        goldIcon.setPosition(109, 656);
-        this.gameTopBar.addChild(goldIcon);
+        // var goldIcon = new cc.Sprite("#ingame-goldIcon.png");
+        // goldIcon.setPosition(109, 656);
+        // this.gameTopBar.addChild(goldIcon);
+
+        var betTitle1 = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Cược ");
+        betTitle1.setAnchorPoint(cc.p(0.0, 0.5));
+        betTitle1.setColor(cc.color("#bff2ff"));
+        betTitle1.setPosition(100, 656);
+        this.gameTopBar.addChild(betTitle1);
 
         var betTitle = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, cc.Global.NumberFormat1(betAmount));
         betTitle.setAnchorPoint(cc.p(0.0, 0.5));
         betTitle.setColor(cc.color("#ffde00"));
-        betTitle.setPosition(126, 656);
+        betTitle.setPosition(146, 656);
         this.gameTopBar.addChild(betTitle);
     },
 

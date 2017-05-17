@@ -5,12 +5,12 @@ var RewardDialog = Dialog.extend({
     ctor : function () {
         this._super();
         this.initWithSize(cc.size(600,420));
-        this.title.setString("Nhận thưởng");
+        this.title.setString("NHẬN THƯỞNG");
         this.closeButton.visible = false;
         this.okTitle.setString("Nhận thưởng");
         this.cancelTitle.setString("Hủy");
 
-        var bg = new ccui.Scale9Sprite("lobby-text-input.png",cc.rect(10,10,4,4));
+        var bg = new ccui.Scale9Sprite("dialog-textinput-bg.png",cc.rect(12,12,4,4));
         bg.setPreferredSize(cc.size(420, 60));
         bg.setPosition(this.getContentSize().width/2, this.getContentSize().height/2 - 30);
         this.addChild(bg);
@@ -27,8 +27,8 @@ var RewardDialog = Dialog.extend({
 
         var phoneText = new newui.TextField(cc.size(bg.getContentSize().width - 6, bg.getContentSize().height-2), cc.res.font.Roboto_Condensed_25);
         phoneText.setPlaceHolder("Nhập số điện thoại");
-        phoneText.setTextColor(cc.color(255,255,255));
-        phoneText.setPlaceHolderColor(cc.color(144, 144, 144));
+        phoneText.setTextColor(cc.color("#ffffff"));
+        phoneText.setPlaceHolderColor(cc.color("#45b8e3"));
         phoneText.setPosition(bg.getPosition());
         this.phoneText = phoneText;
         this.addChild(phoneText, 1);

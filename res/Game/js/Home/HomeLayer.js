@@ -315,8 +315,11 @@ var HomeLayer = cc.Node.extend({
         // logo.setPosition(640, 98);
         // this.addChild(logo);
 
+
+
+
         var fbButton = new ccui.Button("home-bg-bt.png","","", ccui.Widget.PLIST_TEXTURE);
-        fbButton.setPosition(cc.p(cc.winSize.width/2, 30));
+        fbButton.setPosition(cc.p(cc.winSize.width/2, 50));
         fbButton.setScale(cc.winSize.screenScale);
         this.addChild(fbButton);
 
@@ -334,10 +337,33 @@ var HomeLayer = cc.Node.extend({
 
         loginBt.addClickEventListener(function () {
             SceneNavigator.showLoginNormal();
+
         });
 
         signupBt.addClickEventListener(function () {
             SceneNavigator.showSignup();
+            // var dialog = new ResultDialog(4);
+            // var cardListData = [12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12];
+            // var cardList = [];
+            // for(var j=0;j<cardListData.length;j++){
+            //     cardList.push(CardList.prototype.getCardWithId(cardListData[j]));
+            // }
+            //
+            // for (var i = 0; i < 4; i++)
+            // {
+            //     for (var j = 0; j < cardList.length; j++) {
+            //         var cardNew = new Card(cardList[i].rank, cardList[i].suit);
+            //         dialog.cardList[i].addCard(cardNew);
+            //     }
+            //     dialog.cardList[i].reOrderWithoutAnimation();
+            // }
+            // dialog.setWinLose(true);
+            //
+            // dialog.show();
         });
+
+
+
+
     }
 });

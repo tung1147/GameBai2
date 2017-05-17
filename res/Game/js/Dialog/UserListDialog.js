@@ -7,14 +7,14 @@ var UserListDialog = Dialog.extend({
         this._super();
         this.okButton.visible = false;
         this.cancelButton.visible = false;
-        this.title.setString("Danh sách người chơi");
+        this.title.setString("DANH SÁCH NGƯỜI CHƠI");
         this.initWithSize(cc.size(680, 450));
         this.userSelected = [];
 
-        var top = this.getContentSize().height - 178.0;
-        var bottom = 98.0;
+        var top = this.getContentSize().height - 70.0;
+        var bottom = 10.0;
 
-        var listItem = new newui.TableView(cc.size(680.0, top - bottom), 2);
+        var listItem = new newui.TableView(cc.size(660.0, top - bottom), 2);
         listItem.setScrollBarEnabled(false);
         listItem.setMargin(20,20,0,0);
         listItem.setPadding(20.0);
@@ -22,6 +22,11 @@ var UserListDialog = Dialog.extend({
         listItem.setPosition(this.getContentSize().width/2, (top + bottom)/2);
         this.addChild(listItem);
         this.listItem = listItem;
+
+        for(var i=0;i<20;i++){
+            this.addItem("33333", "asdad", 2342342);
+        }
+
 
         SmartfoxClient.getInstance().addListener(socket.SmartfoxClient.CallExtension, this.onSmartfoxExtension, this);
     },
@@ -33,7 +38,7 @@ var UserListDialog = Dialog.extend({
         if(data.c == "18"){
             var list = data["p"]["1"];
             for(var i=0;i<list.length;i++){
-                this.addItem(list[i].avtUrl, list[i].u, parseInt(list[i]["1"]));
+                // this.addItem(list[i].avtUrl, list[i].u, parseInt(list[i]["1"]));
             }
         }
     },
@@ -50,10 +55,10 @@ var UserListDialog = Dialog.extend({
         SmartfoxClient.getInstance().removeListener(this);
     },
     addItem : function (avt, username, gold) {
-        var bg1 = new ccui.Scale9Sprite("dialob-invite-bg1.png", cc.rect(14,14,4,4));
+        var bg1 = new ccui.Scale9Sprite("dialog-textinput-bg.png", cc.rect(12,12,4,4));
         bg1.setPreferredSize(cc.size(286, 80));
         bg1.setPosition(bg1.getContentSize().width/2, bg1.getContentSize().height/2);
-        bg1.visible = true;
+        // bg1.visible = true;
 
         var container = new ccui.Widget();
         container.setContentSize(bg1.getContentSize());

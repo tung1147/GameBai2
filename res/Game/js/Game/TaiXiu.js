@@ -119,7 +119,7 @@ var TaiXiuBettingSlot = cc.Node.extend({
 
 
         var slotGoldLabel = new cc.LabelBMFont("100", cc.res.font.Roboto_Condensed_25);
-        slotGoldLabel.setColor(cc.color("#767eb6"));
+        slotGoldLabel.setColor(cc.color("#4494c2"));
         slotGoldLabel.setPosition(this.x + size.width * 0.25, this.y + 16);
         slotGoldLabel.setScale(20.0 / 25.0);
         parentNode.addChild(slotGoldLabel, 2);
@@ -280,7 +280,7 @@ var TaiXiuScene = XocDiaScene.extend({
         timerBg.setPosition(timer.getContentSize().width / 2, timer.getContentSize().height / 2);
         timer.addChild(timerBg, -1);
 
-        var timeLabel = new cc.LabelTTF("100", cc.res.font.Roboto_CondensedBold, 40);
+        var timeLabel = new cc.LabelTTF("100", cc.res.font.Roboto_CondensedBold, 30);
         timeLabel.setPosition(timer.getPosition());
         timeLabel.setColor(cc.color("#ffcf00"));
         timeLabel.setScale(cc.winSize.screenScale);
@@ -415,7 +415,7 @@ var TaiXiuScene = XocDiaScene.extend({
 
             if (sum > 10) {
                 var label = new cc.LabelBMFont("TÀI", cc.res.font.Roboto_Condensed_25);
-                label.setColor(cc.color("#00ccff"));
+                label.setColor(cc.color("#bff2ff"));
             }
             else {
                 var label = new cc.LabelBMFont("XỈU", cc.res.font.Roboto_Condensed_25);
@@ -427,6 +427,7 @@ var TaiXiuScene = XocDiaScene.extend({
 
             var sumLabel = new cc.LabelBMFont(sum.toString(), cc.res.font.Roboto_Condensed_25);
             sumLabel.setScale(20.0 / 25.0);
+            sumLabel.setColor(cc.color("#bff2ff"));
             sumLabel.setPosition(sumBg.getPosition());
             this.historyNode.addChild(sumLabel, 1);
         }
