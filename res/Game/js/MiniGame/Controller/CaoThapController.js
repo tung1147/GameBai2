@@ -25,14 +25,14 @@ var CaoThapController = MiniGameController.extend({
         SmartfoxClient.getInstance().addExtensionListener("408", this._onFinishedGame, this);
     },
 
-    _onInitGame : function () {
+    _onInitGame : function (messageType, content) {
         var thiz = this;
         setTimeout(function () {
             thiz.onInitGame(content.p.data);
         }, 1000);
     },
 
-    _onFinishedGame : function () {
+    _onFinishedGame : function (messageType, content) {
         var thiz = this;
         setTimeout(function () {
             thiz.onPredictResult(content.p.data);
