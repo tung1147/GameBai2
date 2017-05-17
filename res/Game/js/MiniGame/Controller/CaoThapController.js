@@ -19,32 +19,50 @@ var CaoThapController = MiniGameController.extend({
         this.gameGroup = "mini.caothap";
     },
 
-
-    onSFSExtension: function (messageType, content) {
-        if (content.p.group != this.gameGroup){
-            return;
-        }
-        this._super(messageType, content);
-        var thiz = this;
-        // var interval = null;
-        switch (content.c) {
-            case "407": // nhan thong tin la dau tien
-                setTimeout(function () {
-                    thiz.onInitGame(content.p.data);
-                }, 1000);
-                break;
-
-            case "408": // nhan ket qua cao thap
-                setTimeout(function () {
-                    thiz.onPredictResult(content.p.data);
-                }, 1000);
-                break;
-            case "22" :
-                this.onChangeAssets(content.p.data["1"],content.p.data["2"]);
-                break;
-        }
+    initWithView : function (view) {
+        this._super(view);
+        SmartfoxClient.getInstance().addExtensionListener("407", this._onInitGame, this);
+        SmartfoxClient.getInstance().addExtensionListener("408", this._onFinishedGame, this);
     },
 
+    _onInitGame : function () {
+        var thiz = this;
+        setTimeout(function () {
+            thiz.onInitGame(content.p.data);
+        }, 1000);
+    },
+
+    _onFinishedGame : function () {
+        var thiz = this;
+        setTimeout(function () {
+            thiz.onPredictResult(content.p.data);
+        }, 1000);
+    },
+
+    // onSFSExtension: function (messageType, content) {
+    //     if (content.p.group != this.gameGroup){
+    //         return;
+    //     }
+    //     this._super(messageType, content);
+    //     var thiz = this;
+    //     // var interval = null;
+    //     switch (content.c) {
+    //         case "407": // nhan thong tin la dau tien
+    //             setTimeout(function () {
+    //                 thiz.onInitGame(content.p.data);
+    //             }, 1000);
+    //             break;
+    //
+    //         case "408": // nhan ket qua cao thap
+    //             setTimeout(function () {
+    //                 thiz.onPredictResult(content.p.data);
+    //             }, 1000);
+    //             break;
+    //         case "22" :
+    //             this.onChangeAssets(content.p.data["1"],content.p.data["2"]);
+    //             break;
+    //     }
+    // },
 
     onReconnect: function (param) {
         var data = param["data"];

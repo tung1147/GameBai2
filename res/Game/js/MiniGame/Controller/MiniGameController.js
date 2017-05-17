@@ -15,6 +15,9 @@ var MiniGameController = cc.Class.extend({
         SmartfoxClient.getInstance().addListener(socket.SmartfoxClient.SocketStatus, this.onSmartfoxSocketStatus, this);
         SmartfoxClient.getInstance().addListener(socket.SmartfoxClient.CallExtension, this.onSFSExtension, this);
         SmartfoxClient.getInstance().addExtensionListener("___err___", this.onSFSError, this);
+        SmartfoxClient.getInstance().addExtensionListener("100000", this._onPerformChangeRewardFund, this);
+        SmartfoxClient.getInstance().addExtensionListener("260", this._onJoinGame, this);
+        SmartfoxClient.getInstance().addExtensionListener("262", this._onReconnect, this);
         //SmartfoxClient.getInstance().addExtensionListener("0", this.onSFSChangeAssets, this);
         LobbyClient.getInstance().addListener("getLastSessionInfo", this.onGetLastSessionInfo, this);
     },
@@ -42,23 +45,36 @@ var MiniGameController = cc.Class.extend({
             this._view.backToHomeScene();
         }
     },
+    
+    _onPerformChangeRewardFund : function (messageType, content) {
+        this._view.performChangeRewardFund(content.p.data["1"]);
+    },
+
+    _onJoinGame : function(messageType, content){
+        this._view.performChangeRewardFund(content.p.data["pbs"]); // thay doi hu thuong
+        cc.log(content);
+    },
+    
+    _onReconnect : function (messageType, content) {
+        this.onReconnect(content.p);
+    },
 
     onSFSExtension: function (messageType, content) {
-        switch (content.c) {
-
-            case "100000":
-                this._view.performChangeRewardFund(content.p.data["1"]);
-                break;
-            case "260": // thong tin game
-                //this._view.setupMucCuoc(content.p.data["bts"]); // cac muc cuoc
-                this._view.performChangeRewardFund(content.p.data["pbs"]); // thay doi hu thuong
-                cc.log(content);
-                break;
-
-            case "262": // reconnect
-                this.onReconnect(content.p);
-                break;
-        }
+        // switch (content.c) {
+        //
+        //     case "100000":
+        //         this._view.performChangeRewardFund(content.p.data["1"]);
+        //         break;
+        //     case "260": // thong tin game
+        //         //this._view.setupMucCuoc(content.p.data["bts"]); // cac muc cuoc
+        //         this._view.performChangeRewardFund(content.p.data["pbs"]); // thay doi hu thuong
+        //         cc.log(content);
+        //         break;
+        //
+        //     case "262": // reconnect
+        //         this.onReconnect(content.p);
+        //         break;
+        // }
     },
 
     onReconnect: function (param) {
