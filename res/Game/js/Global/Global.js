@@ -233,7 +233,7 @@ PlayerMe.missionCount = 0;
 PlayerMe.SFS = PlayerMe.SFS || {};
 
 var GameConfig = GameConfig || {};
-GameConfig.email = "c567vip@gmail.com";
+GameConfig.email = "gamebaivip@gmail.com";
 GameConfig.hotline = "0903.229.747";
 GameConfig.fanpage = "https://www.facebook.com/C567gamebaidoithuong/";
 GameConfig.broadcastMessage = "";

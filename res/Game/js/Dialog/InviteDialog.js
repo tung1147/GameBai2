@@ -47,10 +47,10 @@ var InviteDialog = Dialog.extend({
         var thiz = this;
 
         var container = new ccui.Widget();
-        container.setContentSize(cc.size(322, 70));
+        container.setContentSize(cc.size(300, 70));
         this.listItem.pushItem(container);
 
-        var bg1 = new ccui.Scale9Sprite("dialob-invite-bg1.png", cc.rect(14, 14, 4, 4));
+        var bg1 = new ccui.Scale9Sprite("dialog-textinput-bg.png", cc.rect(12, 12, 4, 4));
         bg1.setPreferredSize(container.getContentSize());
         bg1.setPosition(container.getContentSize().width / 2, container.getContentSize().height / 2);
         container.addChild(bg1);
@@ -77,7 +77,7 @@ var InviteDialog = Dialog.extend({
         container.addChild(goldLabel);
 
         var inviteBt = s_Dialog_Create_Button1(cc.size(58, 40), "MỜI");
-        inviteBt.setPosition(279, avt.y);
+        inviteBt.setPosition(259, avt.y);
         container.addChild(inviteBt);
         inviteBt.addClickEventListener(function () {
             thiz._requestInvite([username]);
@@ -117,7 +117,7 @@ var RecvInviteDialog = (function () {
             this.title.setString("MỜI CHƠI");
 
             var ignoreBt = s_Dialog_Create_Button2(cc.size(180, 50), "TỪ CHỐI TẤT CẢ");
-            ignoreBt.setPosition(this.getContentSize().width/2 - 200, 150);
+            ignoreBt.setPosition(this.getContentSize().width/2 - 200, 55);
             ignoreBt.setZoomScale(0.02);
             this.addChild(ignoreBt);
             ignoreBt.addClickEventListener(function () {
@@ -125,7 +125,7 @@ var RecvInviteDialog = (function () {
             });
 
             var cancelBt = s_Dialog_Create_Button2(cc.size(180, 50), "HỦY BỎ");
-            cancelBt.setPosition(this.getContentSize().width/2, 150);
+            cancelBt.setPosition(this.getContentSize().width/2, 55);
             cancelBt.setZoomScale(0.02);
             this.addChild(cancelBt);
             cancelBt.addClickEventListener(function () {
@@ -133,7 +133,7 @@ var RecvInviteDialog = (function () {
             });
 
             var okButton = s_Dialog_Create_Button1(cc.size(180, 50), "ĐỒNG Ý");
-            okButton.setPosition(this.getContentSize().width/2 + 200, 150);
+            okButton.setPosition(this.getContentSize().width/2 + 200, 55);
             okButton.setZoomScale(0.02);
             this.addChild(okButton);
             okButton.addClickEventListener(function () {
@@ -171,7 +171,7 @@ var RecvInviteDialog = (function () {
             msgLabel.pushBackElement(new ccui.RichElementText(0, cc.color("#ffffff"), 255, gameName + " ", cc.res.font.Roboto_Condensed, 18));
             msgLabel.pushBackElement(new ccui.RichElementText(0, cc.color("#ffde00"), 255, cc.Global.NumberFormat1(betting) + " V", cc.res.font.Roboto_Condensed, 18));
 
-            msgLabel.setPosition(this.getContentSize().width/2 , 248);
+            msgLabel.setPosition(this.getContentSize().width/2 , 148);
             this.messageNode.addChild(msgLabel);
         },
 
@@ -181,7 +181,7 @@ var RecvInviteDialog = (function () {
             msgLabel.pushBackElement(new ccui.RichElementText(0, cc.color("#ffffff"), 255, gameName + " ", cc.res.font.Roboto_Condensed, 18));
             msgLabel.pushBackElement(new ccui.RichElementText(0, cc.color("#ffde00"), 255, cc.Global.NumberFormat1(betting) + " V", cc.res.font.Roboto_Condensed, 18));
 
-            msgLabel.setPosition(this.getContentSize().width/2 , 248);
+            msgLabel.setPosition(this.getContentSize().width/2 , 148);
             this.messageNode.addChild(msgLabel);
         },
         cancelButtonHandler: function () {

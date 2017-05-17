@@ -344,15 +344,15 @@ var HomeLayer = cc.Node.extend({
             SceneNavigator.showSignup();
             // var dialog = new ResultDialog(4);
             // var cardListData = [12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12];
-            // var cardList = [];
+            // var cardListss = [];
             // for(var j=0;j<cardListData.length;j++){
-            //     cardList.push(CardList.prototype.getCardWithId(cardListData[j]));
+            //     cardListss.push(CardList.prototype.getCardWithId(cardListData[j]));
             // }
             //
             // for (var i = 0; i < 4; i++)
             // {
-            //     for (var j = 0; j < cardList.length; j++) {
-            //         var cardNew = new Card(cardList[i].rank, cardList[i].suit);
+            //     for (var j = 0; j < cardListss.length; j++) {
+            //         var cardNew = new Card(cardListss[j].rank, cardListss[j].suit);
             //         dialog.cardList[i].addCard(cardNew);
             //     }
             //     dialog.cardList[i].reOrderWithoutAnimation();

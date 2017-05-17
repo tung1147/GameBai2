@@ -74,7 +74,7 @@ var ResultDialog = Dialog.extend({
             cards.setTouchEnable(false);
            // cards.addNewCard(cardTest);
             cards.setAnchorPoint(cc.p(0.0, 0.5));
-            cards.setPosition(x - 90, h/2 + 10);
+            cards.setPosition(x - 90, y - h/2 + 50);
             this.dialogBg.addChild(cards, 2);
             cardList.push(cards);
 

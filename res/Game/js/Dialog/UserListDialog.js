@@ -23,9 +23,9 @@ var UserListDialog = Dialog.extend({
         this.addChild(listItem);
         this.listItem = listItem;
 
-        for(var i=0;i<20;i++){
-            this.addItem("33333", "asdad", 2342342);
-        }
+        // for(var i=0;i<20;i++){
+        //     this.addItem("33333", "asdad", 2342342);
+        // }
 
 
         SmartfoxClient.getInstance().addListener(socket.SmartfoxClient.CallExtension, this.onSmartfoxExtension, this);
@@ -38,7 +38,7 @@ var UserListDialog = Dialog.extend({
         if(data.c == "18"){
             var list = data["p"]["1"];
             for(var i=0;i<list.length;i++){
-                // this.addItem(list[i].avtUrl, list[i].u, parseInt(list[i]["1"]));
+                this.addItem(list[i].avtUrl, list[i].u, parseInt(list[i]["1"]));
             }
         }
     },
