@@ -214,11 +214,15 @@ var MiniPokerLayer = MiniGamePopup.extend({
     },
 
     onRollClick: function () {
+        this.rollCard();
+        this._controller.sendRollRequest(this.chipGroup.chipSelected.chipIndex);
+        SoundPlayer.playSound("mini_clickButton");
+    },
+
+    rollCard : function () {
         this.setRolling(true);
         this.setBettingSelectEnable(false);
         this.resultLabel.setString("");
-        this._controller.sendRollRequest(this.chipGroup.chipSelected.chipIndex);
-        SoundPlayer.playSound("mini_clickButton");
     },
 
     initController: function () {
