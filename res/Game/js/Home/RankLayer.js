@@ -38,7 +38,7 @@ var RankSubLayer = cc.Node.extend({
 
     initItemList : function () {
         var _top = 554.0;
-        var _bottom = 100.0 * cc.winSize.screenScale;
+        var _bottom = 90.0 * cc.winSize.screenScale;
         var _left = cc.winSize.width/2 - 340;
 
         var itemList = new newui.TableView(cc.size(680, _top - _bottom), 1);
@@ -49,31 +49,36 @@ var RankSubLayer = cc.Node.extend({
         itemList.setPosition(cc.p(_left, _bottom));
         this.addChild(itemList, 1);
         this.itemList = itemList;
+
     },
 
     addItem: function (rank, username, score) {
         var container = new ccui.Widget();
-        container.setContentSize(cc.size(this.itemList.getContentSize().width, 58));
+        container.setContentSize(cc.size(this.itemList.getContentSize().width, 60));
         this.itemList.pushItem(container);
 
-        var bg1 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
-        bg1.setPreferredSize(cc.size(this.width1, container.getContentSize().height));
-        bg1.setPosition(this.x1, container.getContentSize().height / 2);
-        container.addChild(bg1);
+        if(this.itemList.size() % 2){
+            var bg = new ccui.Scale9Sprite("activity_cell_bg.png", cc.rect(10, 10, 4, 4));
+            bg.setPreferredSize(container.getContentSize());
+            bg.setAnchorPoint(cc.p(0,0));
+            container.addChild(bg);
 
-        var bg2 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
-        bg2.setPreferredSize(cc.size(this.width2, container.getContentSize().height));
-        bg2.setPosition(this.x2, container.getContentSize().height / 2);
-        container.addChild(bg2);
+            var bg1 = new ccui.Scale9Sprite("activity_cell_bg.png", cc.rect(10, 10, 4, 4));
+            bg1.setPreferredSize(cc.size(1, 50));
+            bg1.setPosition(100, 30);
+            container.addChild(bg1);
+            //
+            var bg2 = new ccui.Scale9Sprite("activity_cell_bg.png", cc.rect(10, 10, 4, 4));
+            bg2.setPreferredSize(cc.size(1, 50));
+            bg2.setPosition(480, 30);
+            container.addChild(bg2);
 
-        var bg3 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
-        bg3.setPreferredSize(cc.size(this.width3, container.getContentSize().height));
-        bg3.setPosition(this.x3, container.getContentSize().height / 2);
-        container.addChild(bg3);
+        }
+
 
         var rankLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, rank);
         rankLabel.setColor(cc.color("#ffde00"));
-        rankLabel.setPosition(bg1.getPosition());
+        rankLabel.setPosition(this.x1, 30);
         container.addChild(rankLabel);
 
         if (username.length > 3 && (username != PlayerMe.username)) {
@@ -82,12 +87,13 @@ var RankSubLayer = cc.Node.extend({
 
         var userLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, username, cc.TEXT_ALIGNMENT_CENTER);
         userLabel.setLineBreakWithoutSpace(true);
-        userLabel.setDimensions(bg2.getContentSize().width - 10, userLabel.getLineHeight());
-        userLabel.setPosition(bg2.getPosition());
+        userLabel.setColor(cc.color("#8de8ff"));
+        userLabel.setDimensions(200, userLabel.getLineHeight());
+        userLabel.setPosition(this.x2, 30);
         container.addChild(userLabel);
 
         var scoreLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_18, score);
-        scoreLabel.setPosition(bg3.getPosition());
+        scoreLabel.setPosition(this.x3, 30);
         scoreLabel.setColor(cc.color("#ffde00"));
         container.addChild(scoreLabel);
     }
@@ -310,34 +316,14 @@ var RankLevelLayer = RankSubLayer.extend({
             //
             var bg2 = new ccui.Scale9Sprite("activity_cell_bg.png", cc.rect(10, 10, 4, 4));
             bg2.setPreferredSize(cc.size(1, 50));
-            bg2.setPosition(250, 30);
+            bg2.setPosition(360, 30);
             container.addChild(bg2);
 
             var bg3 = new ccui.Scale9Sprite("activity_cell_bg.png", cc.rect(10, 10, 4, 4));
             bg3.setPreferredSize(cc.size(1, 50));
-            bg3.setPosition(350, 30);
+            bg3.setPosition(520, 30);
             container.addChild(bg3);
         }
-
-        // var bg1 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
-        // bg1.setPreferredSize(cc.size(this.width1, container.getContentSize().height));
-        // bg1.setPosition(this.x1, container.getContentSize().height / 2);
-        // container.addChild(bg1);
-        //
-        // var bg2 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
-        // bg2.setPreferredSize(cc.size(this.width2, container.getContentSize().height));
-        // bg2.setPosition(this.x2, container.getContentSize().height / 2);
-        // container.addChild(bg2);
-        //
-        // var bg3 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
-        // bg3.setPreferredSize(cc.size(this.width3, container.getContentSize().height));
-        // bg3.setPosition(this.x3, container.getContentSize().height / 2);
-        // container.addChild(bg3);
-        //
-        // var bg4 = new ccui.Scale9Sprite("sublobby-cell-bg.png", cc.rect(10, 0, 4, 78));
-        // bg4.setPreferredSize(cc.size(this.width4, container.getContentSize().height));
-        // bg4.setPosition(this.x4, container.getContentSize().height / 2);
-        // container.addChild(bg4);
 
         var rankLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, rank);
         rankLabel.setColor(cc.color("#ffde00"));
@@ -351,6 +337,7 @@ var RankLevelLayer = RankSubLayer.extend({
         var userLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, username, cc.TEXT_ALIGNMENT_CENTER);
         userLabel.setLineBreakWithoutSpace(true);
         userLabel.setDimensions(cc.size(100, 0));
+        userLabel.setColor(cc.color("#8de8ff"));
         userLabel.setPosition(this.x2, 30);
         container.addChild(userLabel);
 

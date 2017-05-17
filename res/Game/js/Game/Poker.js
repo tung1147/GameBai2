@@ -495,6 +495,7 @@ var Poker = IGameScene.extend({
 
         var vcl = new cc.LabelTTF("Vàng còn lại:", cc.res.font.Roboto_Condensed,24);
         vcl.setPosition(95,20);
+        vcl.setColor(cc.color("#bff2ff"));
         vcl.setColor(cc.color(187,201,255,255));
         this.vcl = vcl;
         this.sceneLayer.addChild(vcl);
@@ -1416,14 +1417,14 @@ var PopupSitdown = Dialog.extend({
         var lblAuto = new cc.LabelTTF("Tự động đổi khi hết chip",cc.res.font.Roboto_Condensed,24);
         lblAuto.setColor(cc.color(119,203,238,255));
         lblAuto.setAnchorPoint(0,0.5);
-        lblAuto.setPosition(400,280);
+        lblAuto.setPosition(300,180);
         this.addChild(lblAuto);
 
         var cbAutoBuy = new ccui.CheckBox();
         cbAutoBuy.loadTextureBackGround("home-checkBox.png",ccui.Widget.PLIST_TEXTURE);
         cbAutoBuy.loadTextureFrontCross("home-checkCross.png",ccui.Widget.PLIST_TEXTURE);
         cbAutoBuy.setSelected(true);
-        cbAutoBuy.setPosition(370,280);
+        cbAutoBuy.setPosition(270,lblAuto.y);
         this.addChild(cbAutoBuy);
         this.cbAutoBuy = cbAutoBuy;
 

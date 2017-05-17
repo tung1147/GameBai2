@@ -286,9 +286,13 @@ var TienLen = IGameScene.extend({
 
             if (gold >= 0) {
                 dialog.goldLabel[i].setColor(cc.color("#ffde00"));
+                dialog.userLabel[i].setColor(cc.color("#ffde00"));
+                dialog.setWinLose(true);
             }
             else {
-                dialog.goldLabel[i].setColor(cc.color("#ff0000"));
+                dialog.goldLabel[i].setColor(cc.color("#cfcfcf"));
+                dialog.userLabel[i].setColor(cc.color("#ffffff"));
+                dialog.setWinLose(false);
             }
 
             this.performAssetChange(gold, null, player[i].username);

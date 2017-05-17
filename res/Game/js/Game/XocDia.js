@@ -73,18 +73,18 @@ var XocDiaBettingSlot = cc.Node.extend({
 
         if (idx < 2) {
             var slotGoldLabel = new cc.LabelBMFont("10.00.000", cc.res.font.Roboto_Condensed_25);
-            slotGoldLabel.setColor(cc.color("#392d2e"));
+            slotGoldLabel.setColor(cc.color("#ffffff"));
             slotGoldLabel.setPosition(this.x - this.getContentSize().width / 4, this.y - this.getContentSize().height / 2 + 25);
             parentNode.addChild(slotGoldLabel, 1);
 
             var userGoldLabel = new cc.LabelBMFont("1.00.000", cc.res.font.Roboto_CondensedBold_25);
-            userGoldLabel.setColor(cc.color("#392d2e"));
+            userGoldLabel.setColor(cc.color("#ffffff"));
             userGoldLabel.setPosition(this.x + this.getContentSize().width / 4, slotGoldLabel.y);
             parentNode.addChild(userGoldLabel, 1);
         }
         else {
             var slotGoldLabel = new cc.LabelBMFont("100.000", cc.res.font.Roboto_Condensed_25);
-            slotGoldLabel.setColor(cc.color("#767eb6"));
+            slotGoldLabel.setColor(cc.color("#bff2ff"));
             slotGoldLabel.setPosition(this.x - this.getContentSize().width / 4, this.y - this.getContentSize().height / 2 + 20);
             slotGoldLabel.setScale(20.0 / 25.0);
             parentNode.addChild(slotGoldLabel, 1);
@@ -291,7 +291,7 @@ var XocDiaScene = IGameScene.extend({
 
         var tongCuocLabal = new cc.LabelBMFont("Tổng cược : 1000", cc.res.font.Roboto_Condensed_25);
         tongCuocLabal.setScale(cc.winSize.screenScale);
-        tongCuocLabal.setColor(cc.color("#bac2f9"));
+        tongCuocLabal.setColor(cc.color("#bff2ff"));
         tongCuocLabal.setPosition(resultBg1.x, resultBg1.y + resultBg1.getContentSize().height / 4);
         tongCuocLabal.setVisible(false);
         this.sceneLayer.addChild(tongCuocLabal, 1);
@@ -299,7 +299,7 @@ var XocDiaScene = IGameScene.extend({
 
         var winLabel = new cc.LabelBMFont("Thắng : 1000", cc.res.font.Roboto_Condensed_25);
         winLabel.setScale(cc.winSize.screenScale);
-        winLabel.setColor(cc.color("#bac2f9"));
+        winLabel.setColor(cc.color("#bff2ff"));
         winLabel.setPosition(resultBg1.x, resultBg1.y - resultBg1.getContentSize().height / 4);
         winLabel.setVisible(false);
         this.sceneLayer.addChild(winLabel, 1);
@@ -361,7 +361,7 @@ var XocDiaScene = IGameScene.extend({
         timerBg.setPosition(timer.getContentSize().width / 2, timer.getContentSize().height / 2);
         timer.addChild(timerBg, -1);
 
-        var timeLabel = new cc.LabelTTF("100", cc.res.font.Roboto_CondensedBold, 60);
+        var timeLabel = new cc.LabelTTF("100", cc.res.font.Roboto_CondensedBold, 40);
         timeLabel.setPosition(timer.getPosition());
         timeLabel.setColor(cc.color("#ffcf00"));
         slotNode.addChild(timeLabel);

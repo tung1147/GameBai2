@@ -6,7 +6,7 @@ var SMSPayDialog = Dialog.extend({
     ctor: function () {
         this._super();
         this.initWithSize(cc.size(660, 360));
-        this.title.setString("Chọn nhà mạng");
+        this.title.setString("CHỌN NHÀ MẠNG");
         this.okButton.visible = false;
         this.cancelButton.visible = false;
 
@@ -16,7 +16,7 @@ var SMSPayDialog = Dialog.extend({
         var thiz = this;
 
         var viettelBt = new ccui.Button("payment-card-viettel.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        viettelBt.setPosition(this.getContentSize().width/2 - 210, 330);
+        viettelBt.setPosition(this.getContentSize().width/2 - 210, 230);
         viettelBt.setZoomScale(0.01);
         viettelBt.select = function () {
             viettelBt.setOpacity(255);
@@ -64,18 +64,18 @@ var SMSPayDialog = Dialog.extend({
         this.vinaBt = vinaBt;
 
         var smsTitle = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Gửi tin nhắn");
-        smsTitle.setPosition(this.getContentSize().width/2, 270);
+        smsTitle.setPosition(this.getContentSize().width/2, 170);
         this.addChild(smsTitle);
 
         var smsContent = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "SMS Content");
         smsContent.setColor(cc.color("#ffde00"));
-        smsContent.setPosition(this.getContentSize().width/2, 240);
+        smsContent.setPosition(this.getContentSize().width/2, 140);
         this.addChild(smsContent);
         this.smsContent = smsContent;
 
         var smsGateway = cc.Global.SMSList[0].smsGateway;
         var smsPhoneNumber = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Đến đầu số "+smsGateway);
-        smsPhoneNumber.setPosition(this.getContentSize().width/2, 210);
+        smsPhoneNumber.setPosition(this.getContentSize().width/2, 110);
         this.addChild(smsPhoneNumber);
 
         this.selectTelCo(0);
@@ -89,7 +89,7 @@ var SMSPayDialog = Dialog.extend({
             okButton.setTitleFontSize(18);
             okButton.setTitleColor(cc.color("#682e2e"))
             okButton.setTitleText("NẠP");
-            okButton.setPosition(this.getContentSize().width/2, 150);
+            okButton.setPosition(this.getContentSize().width/2, 55);
             okButton.addClickEventListener(function () {
                 thiz.okButtonHandler();
             });

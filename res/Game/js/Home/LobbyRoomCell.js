@@ -135,6 +135,7 @@ LobbyXocDiaCell = ccui.Widget.extend({
         }
         timer.setReverseDirection(true);
         timer.setPosition(70, 159);
+        timer.setColor(cc.color("#ffde00"));
         timer.setPercentage(30.0);
         this.addChild(timer);
         this.timer = timer;
@@ -145,7 +146,7 @@ LobbyXocDiaCell = ccui.Widget.extend({
 
         var timeLabel = new cc.LabelBMFont("100", cc.res.font.Roboto_CondensedBold_25);
         timeLabel.setPosition(timer.getPosition());
-        timeLabel.setColor(cc.color("#ffcf00"));
+        timeLabel.setColor(cc.color("#ffde00"));
         this.addChild(timeLabel, 1);
         this.timeLabel = timeLabel;
 
@@ -167,7 +168,7 @@ LobbyXocDiaCell = ccui.Widget.extend({
 
         var roomName = new cc.LabelBMFont("PHÒNG 1", cc.res.font.Roboto_CondensedBold_25);
         roomName.setPosition(timer.x, 80);
-        roomName.setColor(cc.color("#9ba5f3"));
+        roomName.setColor(cc.color("#bff2ff"));
         this.addChild(roomName, 1);
         this.roomName = roomName;
 
@@ -181,13 +182,13 @@ LobbyXocDiaCell = ccui.Widget.extend({
 
         var bettingLabel1 = new cc.LabelBMFont("Thấp nhất", cc.res.font.Roboto_Condensed_25);
         bettingLabel1.setAnchorPoint(cc.p(0.0, 0.5));
-        bettingLabel1.setColor(cc.color("#9ba5f3"));
+        bettingLabel1.setColor(cc.color("#bff2ff"));
         bettingLabel1.setPosition(190, bettingIcon1.y);
         this.addChild(bettingLabel1, 2);
 
         var bettingLabel2 = new cc.LabelBMFont("Cao nhất", cc.res.font.Roboto_Condensed_25);
         bettingLabel2.setAnchorPoint(cc.p(0.0, 0.5));
-        bettingLabel2.setColor(cc.color("#9ba5f3"));
+        bettingLabel2.setColor(cc.color("#bff2ff"));
         bettingLabel2.setPosition(470, bettingIcon1.y);
         this.addChild(bettingLabel2, 2);
 
@@ -293,8 +294,8 @@ LobbyXocDiaCell = ccui.Widget.extend({
         this.timer.stopAllActions();
         this.timeLabel.stopAllActions();
         if(maxTime <= 0.0){
-            this.timeLabel.setColor(cc.color("#ffcf00"));
-            this.timer.setColor(cc.color("#ffcf00"));
+            this.timeLabel.setColor(cc.color("#ffde00"));
+            this.timer.setColor(cc.color("#ffde00"));
             this.timeLabel.setString("0");
             this.timer.setPercentage(0.0);
 
@@ -314,8 +315,8 @@ LobbyXocDiaCell = ccui.Widget.extend({
 
         var thiz = this;
         if(currentTime > 5){
-            this.timeLabel.setColor(cc.color("#ffcf00"));
-            this.timer.setColor(cc.color("#ffcf00"));
+            this.timeLabel.setColor(cc.color("#ffde00"));
+            this.timer.setColor(cc.color("#ffde00"));
 
             this.timeLabel.runAction(new cc.Sequence(
                 new cc.DelayTime(currentTime - 5),
@@ -444,8 +445,9 @@ LobbyTaiXiuCell = LobbyXocDiaCell.extend({
             label.setPosition(x, 72.0);
             this.historyNode.addChild(label, 1);
 
-            var sumLabel = new cc.LabelBMFont(sum.toString(), cc.res.font.Roboto_Condensed_25);
+            var sumLabel = new cc.LabelBMFont(sum.toString(), cc.res.font.Roboto_Condensed_20);
             sumLabel.setScale(20.0/25.0);
+            sumLabel.setColor(cc.color("#bff2ff"));
             sumLabel.setPosition(sumBg.getPosition());
             this.historyNode.addChild(sumLabel, 1);
         }
