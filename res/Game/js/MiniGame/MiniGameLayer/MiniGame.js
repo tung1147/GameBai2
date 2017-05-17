@@ -7,6 +7,9 @@ var MiniGamePopup = cc.Node.extend({
         if(!cc.sys.isNative){
             this.setScale((1 + Math.sqrt(5)) / 2 - 1);
         }
+        else{
+            this.setScale(0.7);
+        }
         var x = 30 - Math.random() * 60;
         var y = 30 - Math.random() * 60;
         this.setPosition(cc.winSize.width / 2 + x, cc.winSize.height / 2 + y);
@@ -104,21 +107,21 @@ var MiniGamePopup = cc.Node.extend({
     },
 
     onChangeAssets: function (gold, changeAmount) {
-        if (changeAmount == 0)
-            return;
-
-        var parent = this.getParent();
-
-        var changeSprite = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, "");
-        var changeText = (changeAmount >= 0 ? "+" : "") + cc.Global.NumberFormat1(changeAmount);
-        changeSprite.setString(changeText);
-        changeSprite.setColor(cc.color(changeAmount >= 0 ? "#ffde00" : "#ff0000"));
-        changeSprite.setPosition(50, 70);
-        parent.addChild(changeSprite, 420);
-
-        changeSprite.runAction(new cc.Sequence(new cc.MoveTo(1.0, changeSprite.x, changeSprite.y + 50), new cc.CallFunc(function () {
-            changeSprite.removeFromParent(true);
-        })));
+        // if (changeAmount == 0)
+        //     return;
+        //
+        // var parent = this.getParent();
+        //
+        // var changeSprite = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, "");
+        // var changeText = (changeAmount >= 0 ? "+" : "") + cc.Global.NumberFormat1(changeAmount);
+        // changeSprite.setString(changeText);
+        // changeSprite.setColor(cc.color(changeAmount >= 0 ? "#ffde00" : "#ff0000"));
+        // changeSprite.setPosition(50, 70);
+        // parent.addChild(changeSprite, 420);
+        //
+        // changeSprite.runAction(new cc.Sequence(new cc.MoveTo(1.0, changeSprite.x, changeSprite.y + 50), new cc.CallFunc(function () {
+        //     changeSprite.removeFromParent(true);
+        // })));
     },
 
     initChip: function (centerPosition) {
@@ -246,13 +249,13 @@ var MiniGamePopup = cc.Node.extend({
         }
     },
     changeLayerOrder : function (order) {
-        // var thiz = this;
-        // setTimeout(function () {
-        //     var mParent = thiz.getParent();
-        //     if(mParent){
-        //         mParent.setLocalZOrder(order);
-        //     }
-        // }, 0);
+        var thiz = this;
+        setTimeout(function () {
+            var mParent = thiz.getParent();
+            if(mParent){
+                mParent.setLocalZOrder(order);
+            }
+        }, 0);
     },
     backToHomeScene: function () {
         MiniGameNavigator.hideGame(this.gameType);
@@ -260,7 +263,10 @@ var MiniGamePopup = cc.Node.extend({
 
     hide: function () {
         this._controller.releaseController();
-        this.getParent().removeFromParent(true);
+        var parent = this.getParent();
+        if(parent){
+            parent.removeFromParent(true)
+        }
         SoundPlayer.stopAllSound();
     },
     setBettingSelectEnable : function (enable) {
@@ -296,10 +302,12 @@ MiniGameNavigator.showAll = function () {
     //     MiniGameNavigator.allGame[i].show();
     // }
 
+    /*fix minitaixiu*/
     for(var i=0;i<MiniGameNavigator.allGame.length;){
         var miniGame = MiniGameNavigator.allGame[i];
         if(miniGame.gameType === GameType.MiniGame_ChanLe){
             miniGame.hide();
+            miniGame.release();
             MiniGameNavigator.allGame.splice(i, 1);
         }
         else{
@@ -310,22 +318,23 @@ MiniGameNavigator.showAll = function () {
 };
 
 MiniGameNavigator.focus = function (view) {
-    for(var i=0;i<MiniGameNavigator.allGame.length;i++){
-        if(MiniGameNavigator.allGame[i] === view){
-            MiniGameNavigator.allGame.splice(i, 1);
-            break;
-        }
-    }
-    MiniGameNavigator.allGame.push(view);
-
-    for(var i=0;i<MiniGameNavigator.allGame.length;i++){
-        MiniGameNavigator.allGame[i].changeLayerOrder(i);
-    }
+    // for(var i=0;i<MiniGameNavigator.allGame.length;i++){
+    //     if(MiniGameNavigator.allGame[i] === view){
+    //         MiniGameNavigator.allGame.splice(i, 1);
+    //         break;
+    //     }
+    // }
+    // MiniGameNavigator.allGame.push(view);
+    //
+    // for(var i=0;i<MiniGameNavigator.allGame.length;i++){
+    //     MiniGameNavigator.allGame[i].changeLayerOrder(i);
+    // }
 };
 
 MiniGameNavigator.hideAll = function () {
     for(var i=0;i<MiniGameNavigator.allGame.length;i++){
         MiniGameNavigator.allGame[i].hide();
+        MiniGameNavigator.allGame[i].release();
     }
     MiniGameNavigator.allGame = [];
 };
@@ -347,6 +356,7 @@ MiniGameNavigator.showGame = function (gameId) {
     var newMiniGame = MiniGameNavigator.createGameLayer(gameId);
     MiniGameNavigator.allGame.push(newMiniGame);
     newMiniGame.show();
+    newMiniGame.retain();
 };
 
 MiniGameNavigator.hideGame = function (gameId) {
@@ -355,6 +365,7 @@ MiniGameNavigator.hideGame = function (gameId) {
         if(miniGame.gameType === gameId){
             MiniGameNavigator.allGame.splice(i, 1);
             miniGame.hide();
+            miniGame.release();
             return;
         }
     }
