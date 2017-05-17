@@ -10,20 +10,39 @@ var MiniPokerController = MiniGameController.extend({
         this.gameGroup = "mini.poker"
     },
 
-    onSFSExtension: function (messageType, content) {
-        if (content.p.group != this.gameGroup){
-            return;
-        }
-        this._super(messageType, content);
-        var thiz = this;
-        switch (content.c) {
-            case "351": // ket qua luot roll
-                setTimeout(function () {
-                    thiz.onRollResult(content.p.data);
-                }, 0);
-                break;
+    initWithView : function (view) {
+        this._super(view);
+        SmartfoxClient.getInstance().addExtensionListener("351", this.onRollFinished, this);
+        SmartfoxClient.getInstance().addExtensionListener("357", this.onMiniGameStatus, this);
+    },
+
+    onRollFinished : function (msg, content) {
+        this.onRollResult(content.p.data);
+    },
+
+    onMiniGameStatus : function (msg, content) {
+        var param = content["p"];
+        var status = param["1"];
+        if(status === 2){ //rolling
+            this._view.setQuayBtEnable(false);
+            this._view.rollCard();
         }
     },
+
+    // onSFSExtension: function (messageType, content) {
+    //     if (content.p.group != this.gameGroup){
+    //         return;
+    //     }
+    //     this._super(messageType, content);
+    //     var thiz = this;
+    //     switch (content.c) {
+    //         case "351": // ket qua luot roll
+    //             setTimeout(function () {
+    //                 thiz.onRollResult(content.p.data);
+    //             }, 0);
+    //             break;
+    //     }
+    // },
 
     onChangeAssets: function (gold, changeAmount) {
         // changeAmount = changeAmount < 0 ? changeAmount : 0;
