@@ -204,7 +204,9 @@ var MiniPokerLayer = MiniGamePopup.extend({
         }
 
         this.resultLabel.setString(str);
-        SoundPlayer.playSound(this.rewards[id] ? "NormalWin" : "mini_slotLost");
+        if(this.rolling){
+            SoundPlayer.playSound(this.rewards[id] ? "NormalWin" : "mini_slotLost");
+        }
     },
 
     setRewardCards: function (rewardArrayIndex) {
