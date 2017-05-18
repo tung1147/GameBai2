@@ -12,6 +12,7 @@
 		1A82F5FB169AC92500C4B13A /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A82F5FA169AC92500C4B13A /* libsqlite3.dylib */; };
 		1AC22EDE18CA0E11007112B9 /* project.json in Resources */ = {isa = PBXBuildFile; fileRef = 1A1A081B18C9DF05005C6854 /* project.json */; };
 		1AE159EC18C9DF3600FCA372 /* project.json in Resources */ = {isa = PBXBuildFile; fileRef = 1A1A081B18C9DF05005C6854 /* project.json */; };
+		2714514C1ECC2E9A00A17CA0 /* WorkerManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2799BC0D1EC0645A00057795 /* WorkerManager.cpp */; };
 		2799BC0F1EC0645A00057795 /* WorkerManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2799BC0D1EC0645A00057795 /* WorkerManager.cpp */; };
 		294D0D681D0D56F400F7F5D4 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 294D0D671D0D56F400F7F5D4 /* CoreText.framework */; };
 		502380DC17EBB88200990C9B /* libcurl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 502380DB17EBB88200990C9B /* libcurl.dylib */; };
@@ -1162,6 +1163,7 @@
 				560F84EB1EB3802200C3C032 /* SmartfoxClient.cpp in Sources */,
 				560F84B71EB3802200C3C032 /* ListViewWithAdapter.cpp in Sources */,
 				560F84A91EB3802200C3C032 /* jsb_quyetnd_action.cpp in Sources */,
+				2714514C1ECC2E9A00A17CA0 /* WorkerManager.cpp in Sources */,
 				560F84BF1EB3802200C3C032 /* NewWidget.cpp in Sources */,
 				509D4A8117EBB24E00697056 /* AppDelegate.cpp in Sources */,
 				560F84AF1EB3802200C3C032 /* GameResource.cpp in Sources */,
