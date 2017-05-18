@@ -18,6 +18,7 @@ var VongQuayView = cc.Node.extend({
         this.vongquay = vong_quay;
         this.isRunning = false;
         this.accelerate = 1000.0;
+        this.spin = 1.0;
 
 
         // this.startWithSpeed(1000);
@@ -36,19 +37,34 @@ var VongQuayView = cc.Node.extend({
     startWithSpeed:function (speed) {
         if (!this.isRunning){
             this.isRunning = true;
-            this.rotateSpeed = -speed;
+            this.rotateSpeed = Math.abs(speed);
+            if(speed > 0){
+                this.spin = 1.0;
+            }
+            else{
+                this.spin = -1.0;
+            }
+            //this.spin = -1.0;
             this._status = VQ_ROTATE_NOMARL;
-            this.scheduleUpdate();
         }
     },
 
     stopAtRotate:function (rotate) {
-        if (this._status == VQ_ROTATE_NOMARL){
+        if (this._status === VQ_ROTATE_NOMARL){
             var a = this.vongquay.getRotation();
-            while (rotate < a){
-                rotate += 360.0;
-            }
             var ds = rotate - a;
+            if(this.spin > 0){
+                while (ds < 0){
+                    ds += 360.0;
+                }
+            }
+            else{
+                while (ds > 0){
+                    ds -= 360.0;
+                }
+            }
+            ds = Math.abs(ds);
+
             this.rotateToStop = 0.5*this.rotateSpeed*this.rotateSpeed / this.accelerate;
             this.rotateBeforeStop = ds -  this.rotateToStop;
             while (this.rotateBeforeStop <= 0){
@@ -56,7 +72,6 @@ var VongQuayView = cc.Node.extend({
             }
             this._status = VQ_ROTATE_BEFORE;
         }
-
     },
     update:function (dt) {
         if (this.isRunning){
@@ -91,7 +106,7 @@ var VongQuayView = cc.Node.extend({
         this.rotateToStop -= ds;
         this.rotateSpeed -= dv;
 
-        var rotate = this.vongquay.getRotation() + ds;
+        var rotate = this.vongquay.getRotation() + ds * this.spin;
         if (rotate > 360.0){
             rotate -= 360.0;
         }
@@ -99,10 +114,7 @@ var VongQuayView = cc.Node.extend({
 
         if (!this.isRunning){
             this.onFinishedRotate();
-            this.unscheduleUpdate();
         }
-
-
     },
     updateRotateBeforeStop:function (dt) {
         var ds = this.rotateSpeed*dt;
@@ -112,7 +124,7 @@ var VongQuayView = cc.Node.extend({
         }
         this.rotateBeforeStop -= ds;
 
-        var rotate = this.vongquay.getRotation() + ds;
+        var rotate = this.vongquay.getRotation() + ds * this.spin;
         if (rotate > 360.0){
             rotate -= 360.0;
         }
@@ -120,11 +132,15 @@ var VongQuayView = cc.Node.extend({
     },
 
     updateRotateNormal:function (dt) {
-        var rotate = this.vongquay.getRotation() + this.rotateSpeed*dt;
+        var rotate = this.vongquay.getRotation() + this.rotateSpeed * dt * this.spin;
         if (rotate > 360.0){
             rotate -= 360.0;
         }
         this.vongquay.setRotation(rotate);
+    },
+    onEnter : function () {
+        this._super();
+        this.scheduleUpdate();
     },
     onExit: function () {
         this._super();
