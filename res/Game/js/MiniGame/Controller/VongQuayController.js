@@ -56,6 +56,9 @@ var VongQuayController = MiniGameController.extend({
         }
 
     },
+    _onJoinGame : function(messageType, content){
+
+    },
     onShowMoneyExchange:function (param) {
 
       //  this._view.onChangeAssets("",(parseInt(param[1])>0)? parseInt(param[1]):0);

@@ -24,9 +24,9 @@ var HistoryVongQuay = Dialog.extend({
             timeLaybel.setColor(cc.color(87, 110, 176,255));
             this.addChild(timeLaybel);
         }
-        for(var i= 0; i<20;i++){
-            this.addItem("1","aaa",1000,1000);
-        }
+        // for(var i= 0; i<20;i++){
+        //     this.addItem("1","aaa",1000,1000);
+        // }
     },
     onSFSExtension: function (messageType, content) {
 

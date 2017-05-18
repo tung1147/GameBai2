@@ -24,14 +24,23 @@ var RankVongQuay = Dialog.extend({
             timeLaybel.setColor(cc.color(87, 110, 176,255));
             this.addChild(timeLaybel);
         }
-        for(var i= 0; i<20;i++){
-            this.addItem("1","aaa",1000);
-        }
+        // for(var i= 0; i<20;i++){
+        //     this.addItem("1","aaa",1000);
+        // }
     },
     onSFSExtension: function (messageType, content) {
 
         if(content.c == 506){
-                var arr = [];
+                var arr = content.p[1];
+            for(var i= 0; i<arr.length;i++){
+                var name = arr[i][1];
+                if (name.length > 15)
+                    name = name.substring(0, 15) ;
+                if (name.length > 3 && name != PlayerMe.username)
+                    name = name.substring(0, name.length - 3) + "***";
+
+                this.addItem(i+1,name,arr[i][2]);
+            }
         }
     },
     addItem:function (timeCreate, userName,gold) {
