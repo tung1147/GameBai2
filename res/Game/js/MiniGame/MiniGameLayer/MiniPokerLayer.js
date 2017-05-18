@@ -214,6 +214,9 @@ var MiniPokerLayer = MiniGamePopup.extend({
     },
 
     onRollClick: function () {
+        if(this.rolling){
+            return;
+        }
         this.rollCard();
         this._controller.sendRollRequest(this.chipGroup.chipSelected.chipIndex);
         SoundPlayer.playSound("mini_clickButton");
