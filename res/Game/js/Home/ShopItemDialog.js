@@ -10,7 +10,8 @@ var ShopItemBuyDialog = Dialog.extend({
         this.okButton.visible = false;
         this.cancelButton.visible = false;
         this.title.setString("Vật phẩm");
-        this.initWithSize(cc.size(518, 348));
+        this.isBgDialogShadow = true;
+        this.initWithSize(cc.size(570, 400));
 
         this._initView(info);
 
@@ -26,7 +27,7 @@ var ShopItemBuyDialog = Dialog.extend({
 
         var iconBg = new ccui.Scale9Sprite("shop_item_bg.png", cc.rect(20,20,4,4));
         iconBg.setPreferredSize(cc.size(100,100));
-        iconBg.setPosition(197,306);
+        iconBg.setPosition(126,232);
         this.addChild(iconBg);
 
         var icon = new InventoryItemIcon();
@@ -36,7 +37,7 @@ var ShopItemBuyDialog = Dialog.extend({
 
         var contentLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, info.itemContent, cc.TEXT_ALIGNMENT_LEFT, 350);
         contentLabel.setAnchorPoint(cc.p(0.0, 1.0));
-        contentLabel.setPosition(262, 355);
+        contentLabel.setPosition(192, 279);
         this.addChild(contentLabel,1);
 
         var buyBg = new cc.Sprite("#shop_buy_bg.png");
@@ -75,20 +76,20 @@ var ShopItemBuyDialog = Dialog.extend({
 
         var currentGold = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_20, "Số vàng còn lại: ");
         currentGold.setAnchorPoint(cc.p(1.0, 0.5));
-        currentGold.setPosition(362, 140);
+        currentGold.setPosition(300, 64);
         this.addChild(currentGold,1);
 
         var currentGoldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_20, "100,100");
         currentGoldLabel.setColor(cc.color("#f4d501"));
         currentGoldLabel.setAnchorPoint(cc.p(0.0, 0.5));
-        currentGoldLabel.setPosition(362, 140);
+        currentGoldLabel.setPosition(300, 64);
         this.addChild(currentGoldLabel,1);
 
         var okButton = new ccui.Button("inventory_button.png", "", "", ccui.Widget.PLIST_TEXTURE);
         okButton.setScale9Enabled(true);
         okButton.setCapInsets(cc.rect(10,10,4,4));
         okButton.setContentSize(cc.size(180, 50));
-        okButton.setPosition(buyBg.x, 190);
+        okButton.setPosition(buyBg.x, 110);
         okButton.setZoomScale(0.02);
         this.addChild(okButton);
 
