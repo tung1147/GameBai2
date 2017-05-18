@@ -214,6 +214,10 @@ void GameLaucher::requestGetUpdate(){
 					if (data.HasMember("UpdateConfig")){
 						std::string updateHost = data["UpdateConfig"]["host"].GetString();
 						std::string versionHash = data["UpdateConfig"]["versionHash"].GetString();
+						bool isDemo = false;
+						if (data.HasMember("demo")){
+							isDemo = data["demo"].GetBool();
+						}
 
 						CCLOG("updateHost: %s", updateHost.c_str());
 						CCLOG("hashVersionFile: %s", versionHash.c_str());
@@ -221,7 +225,13 @@ void GameLaucher::requestGetUpdate(){
 						this->resourceHost = updateHost;
 						this->versionHash = versionHash;
 
-						this->checkVersionFile();
+						if (isDemo){ //ignore check versionFile
+							this->checkFiles();
+						}
+						else{
+							this->checkVersionFile();
+						}
+						
 						return;
 					}
 				}		
