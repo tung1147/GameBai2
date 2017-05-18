@@ -171,7 +171,7 @@ void GameLaucher::update(float dt){
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 #define ACS_PLATFORM_NAME "Android"
 #else
-#define ACS_PLATFORM_NAME "Android"
+#define ACS_PLATFORM_NAME "IOS"
 #endif
 
 void GameLaucher::requestGetUpdate(){
@@ -212,11 +212,13 @@ void GameLaucher::requestGetUpdate(){
 				if (doc.HasMember("data")){
 					const rapidjson::Value& data = doc["data"];
 					if (data.HasMember("UpdateConfig")){
-						std::string updateHost = data["UpdateConfig"]["host"].GetString();
-						std::string versionHash = data["UpdateConfig"]["versionHash"].GetString();
+                        const rapidjson::Value& config = data["UpdateConfig"];
+                        
+						std::string updateHost = config["host"].GetString();
+						std::string versionHash = config["versionHash"].GetString();
 						bool isDemo = false;
-						if (data.HasMember("demo")){
-							isDemo = data["demo"].GetBool();
+						if (config.HasMember("demo")){
+							isDemo = config["demo"].GetBool();
 						}
 
 						CCLOG("updateHost: %s", updateHost.c_str());
@@ -226,6 +228,7 @@ void GameLaucher::requestGetUpdate(){
 						this->versionHash = versionHash;
 
 						if (isDemo){ //ignore check versionFile
+                            FileUtils::getInstance()->setSearchPaths({"res/Game/","src/"});
 							this->checkFiles();
 						}
 						else{
