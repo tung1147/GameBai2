@@ -211,8 +211,12 @@ var VideoPokerController = MiniGameController.extend({
     },
 
     onReconnect: function (param) {
+        if(!param["data"]["10"]){
+            return;
+        }
         var data = param["data"]["10"];
-        var gameId = data["1"];
+
+        // var gameId = data["1"];
         var status = data["2"];
         this._view.setBettingSelectEnable(true);
         if(status == 2 || status == 3){

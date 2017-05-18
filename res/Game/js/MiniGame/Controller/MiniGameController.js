@@ -47,15 +47,24 @@ var MiniGameController = cc.Class.extend({
     },
     
     _onPerformChangeRewardFund : function (messageType, content) {
+        if (content.p.group !== this.gameGroup){
+            return;
+        }
         this._view.performChangeRewardFund(content.p.data["1"]);
     },
 
     _onJoinGame : function(messageType, content){
+        if (content.p.group !== this.gameGroup){
+            return;
+        }
         this._view.performChangeRewardFund(content.p.data["pbs"]); // thay doi hu thuong
         cc.log(content);
     },
     
     _onReconnect : function (messageType, content) {
+        if (content.p.group !== this.gameGroup){
+            return;
+        }
         this.onReconnect(content.p);
     },
 

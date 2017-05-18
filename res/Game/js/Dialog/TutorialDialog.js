@@ -62,6 +62,9 @@ var TutorialDialog = IDialog.extend({
             case GameType.MiniGame_ChanLe:
                 this.initChanLeTutorial();
                 break;
+            case GameType.GAME_VongQuayMayMan:
+                this.initVongQuayTutorial();
+                break;
         }
     },
 
@@ -93,6 +96,11 @@ var TutorialDialog = IDialog.extend({
         icon2.setScale(0.7);
         icon2.setPosition(620, 83);
         this.contentTable.addChild(icon2);
+        tutorialLabel.setBoundingWidth(this.bouldingWidth);
+        this.contentTable.pushItem(tutorialLabel);
+    },
+    initVongQuayTutorial:function () {
+        var tutorialLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, this.HDList["VQGD"]);
         tutorialLabel.setBoundingWidth(this.bouldingWidth);
         this.contentTable.pushItem(tutorialLabel);
     },
@@ -145,6 +153,7 @@ var s_MiniPockerTutorialDialog = null;
 var s_VideoPockerTutorialDialog = null;
 var s_CaoThapTutorialDialog = null;
 var s_ChanLeTutorialDialog = null;
+var s_VongQuayTutorialDialog = null;
 
 TutorialDialog.getTutorial = function (gameType) {
     switch (gameType) {
@@ -180,6 +189,14 @@ TutorialDialog.getTutorial = function (gameType) {
                 s_ChanLeTutorialDialog.retain();
             }
             return s_ChanLeTutorialDialog;
+            break;
+        }
+        case GameType.GAME_VongQuayMayMan:{
+            if(!s_VongQuayTutorialDialog){
+                s_VongQuayTutorialDialog = new TutorialDialog(gameType);
+                s_VongQuayTutorialDialog.retain();
+            }
+            return s_VongQuayTutorialDialog;
             break;
         }
     }

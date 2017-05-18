@@ -21,7 +21,7 @@ var MiniGamePopup = cc.Node.extend({
         var closeButton = new ccui.Button("caothap_closeBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
         closeButton.setPosition(895, 407);
         this.addChild(closeButton, 5);
-
+        this.closeButton = closeButton;
         var tutorialButton = new ccui.Button("caothap_tutorialBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
         tutorialButton.setPosition(769, 426);
         this.addChild(tutorialButton, 5);
@@ -294,6 +294,10 @@ MiniGameNavigator.createGameLayer = function (gameId) {
     }
     else if(gameId === GameType.MiniGame_ChanLe){
         return new ChanLeLayer();
+    }
+    else if(gameId === GameType.GAME_VongQuayMayMan){
+
+        return new VongQuayLayer();
     }
 };
 
