@@ -288,15 +288,15 @@ var VongQuayLayer = MiniGamePopup.extend({
         rotateBt.setPosition(vongnho.getPosition());
         bg.addChild(rotateBt);
         rotateBt.addClickEventListener(function () {
-           // if(thiz.soLuot < 1)
-           // {
-           //     MessageNode.getInstance().show("Không đủ lượt để quay");
-           //     return;
-           // }
+           if(thiz.soLuot < 1)
+           {
+               MessageNode.getInstance().show("Không đủ lượt để quay");
+               return;
+           }
             thiz.vongto.resetVongQuay();
             thiz.vongto.startWithSpeed(1000);
-            // thiz.vongnho.startWithSpeed(1000);
-            // thiz._controller.sendRotate( thiz.vongnho.getIdPiece());
+            thiz.vongnho.startWithSpeed(-1000);
+            thiz._controller.sendRotate( thiz.vongnho.getIdPiece());
         });
 
         var lblLuot = new cc.LabelTTF("",cc.res.font.Roboto_Condensed,18);
@@ -332,19 +332,19 @@ var VongQuayLayer = MiniGamePopup.extend({
         bg.addChild(btnRank);
 
 
-        var buyBt = new ccui.Button("game-xepbaiBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        buyBt.setPosition(cc.winSize.width - 310*cc.winSize.screenScale, 100);
-        this.addChild(buyBt);
-        buyBt.addClickEventListener(function () {
-
-
-            var index = thiz.getIndexVongTo(7);
-            thiz.vongto.stopAtRotate(index*30);
-
-            // var index2 = thiz.getIndexVongNho(106);
-            // thiz.vongnho.stopAtRotate(index2*45);
-
-        });
+        // var buyBt = new ccui.Button("game-xepbaiBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        // buyBt.setPosition(cc.winSize.width - 310*cc.winSize.screenScale, 100);
+        // this.addChild(buyBt);
+        // buyBt.addClickEventListener(function () {
+        //
+        //
+        //     var index = thiz.getIndexVongTo(7);
+        //     thiz.vongto.stopAtRotate(index*30);
+        //
+        //     var index2 = thiz.getIndexVongNho(106);
+        //     thiz.vongnho.stopAtRotate(index2*45);
+        //
+        // });
 
         var gameIdLabel = new  cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "ID : 1231231233", cc.TEXT_ALIGNMENT_LEFT);
         gameIdLabel.setColor(cc.color(191, 242, 255,255));
