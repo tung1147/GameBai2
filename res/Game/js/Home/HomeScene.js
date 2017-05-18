@@ -372,6 +372,10 @@ var HomeScene = IScene.extend({
     },
 
     addSubLayer: function (subLayer) {
+        if(this.subLayer){
+            return;
+        }
+        
         var thiz = this;
         subLayer.backBt.addClickEventListener(function () {
             thiz.backButtonHandler();
