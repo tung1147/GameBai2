@@ -268,6 +268,7 @@ var LobbyClient = (function () {
                 PlayerMe.username = userinfo.username;
                 PlayerMe.gameType = "";
                 PlayerMe.SFS.betting = 0;
+                PlayerMe.accountType = data["type"];
 
                 //server list
                 var serverData = data["server"];
