@@ -344,9 +344,17 @@ var CaoThapLayer = MiniGamePopup.extend({
     },
 
     setHighLowBtEnable: function (enabled) {
+        this.setHighBtEnable(enabled);
+        this.setLowBtEnable(enabled);
+    },
+
+    setHighBtEnable : function (enabled) {
         this.highButton.enabled = enabled;
-        this.lowButton.enabled = enabled;
         this.highButton.setBright(enabled);
+    },
+
+    setLowBtEnable : function (enabled) {
+        this.lowButton.enabled = enabled;
         this.lowButton.setBright(enabled);
     },
 
