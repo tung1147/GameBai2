@@ -60,9 +60,8 @@ var MiniPokerController = MiniGameController.extend({
         for (var i = 0; i < 5; i++){
             rewardIndexesArray[i] = (rewardIndexes >> i) & 1;
         }
-
-        this._view.setCardArray(cardArray);
         this._view.activateReward(result, rewardCardRank);
+        this._view.setCardArray(cardArray);
         if (result === 0) {
             this._view.showJackpot();
         }

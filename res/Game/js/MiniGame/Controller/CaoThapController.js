@@ -91,11 +91,18 @@ var CaoThapController = MiniGameController.extend({
         this._view.setReward(lowReward, highReward);
         this._view.setLuotMoiBtEnable(oldCards.length > 1);
         this._view.setLuotMoiBtVisible(oldCards.length > 1);
-        for (var i = 0; i < oldCards.length - 1; i++)
+        for (var i = 0; i < oldCards.length - 1; i++){
             this._view.addHistory(oldCards[i], true);
+        }
 
-        for (var i = 0; i < kingCount; i++)
+        for (var i = 0; i < kingCount; i++){
             this._view.pushKing(true);
+        }
+
+        if(data["2"]["sg"]){
+            this._view.setHighBtEnable(data["2"]["sg"]["1"] ? true : false);
+            this._view.setLowBtEnable(data["2"]["sg"]["1"] ? true : false);
+        }
     },
 
     onSFSChangeAssets: function (messageType, content) {
@@ -157,6 +164,11 @@ var CaoThapController = MiniGameController.extend({
         this.processData(data);
         this._view.setLuotMoiBtVisible(true);
         this._view.setLuotMoiBtEnable(true);
+
+        if(data["sg"]){
+            this._view.setHighBtEnable(data["sg"]["1"] ? true : false);
+            this._view.setLowBtEnable(data["sg"]["1"] ? true : false);
+        }
     },
 
     onInitGame: function (data) {
@@ -170,6 +182,11 @@ var CaoThapController = MiniGameController.extend({
         this.result = resultCard;
         this.turnState = 1;
         this._view.setTipString("Quân tiếp theo cao hơn hay thấp hơn?");
+
+        if(data["sg"]){
+            this._view.setHighBtEnable(data["sg"]["1"] ? true : false);
+            this._view.setLowBtEnable(data["sg"]["1"] ? true : false);
+        }
     },
 
     sendInitGame: function (betType) {

@@ -388,8 +388,9 @@ cc.Global.setSavePassword = function (passwords) {
 };
 
 cc.Global.IsNumber = function (str) {
+    var numberText = str.replace(/[.,]/g,'');
     var re = new RegExp("^[0-9]+$");
-    return re.test(str);
+    return re.test(numberText);
 };
 
 if(cc.sys.isNative){
