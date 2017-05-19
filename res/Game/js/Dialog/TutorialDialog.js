@@ -2,22 +2,24 @@
  * Created by VGA10 on 1/9/2017.
  */
 
-var TutorialDialog = IDialog.extend({
+var TutorialDialog = Dialog.extend({
     ctor: function (gameType) {
         this._super();
 
         this.bouldingWidth = 800;
-        var board_bg = new ccui.Scale9Sprite("board_bg.png", cc.rect(105, 105, 147, 147));
-        board_bg.setAnchorPoint(cc.p(0, 0));
-        this.addChild(board_bg);
-        this.board_bg = board_bg;
+        // var board_bg = new ccui.Scale9Sprite("board_bg.png", cc.rect(105, 105, 147, 147));
+        // board_bg.setAnchorPoint(cc.p(0, 0));
+        // this.addChild(board_bg);
+        // this.board_bg = board_bg;
 
-        this.initWithSize(cc.size(1080, 720));
-
-        var title = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, "HƯỚNG DẪN CHƠI");
-        title.setPosition(this.getContentSize().width / 2, this.getContentSize().height - 138);
-        title.setColor(cc.color("#ffde00"));
-        this.addChild(title);
+        this.initWithSize(cc.size(880, 580));
+        this.okButton.visible = false;
+        this.cancelButton.visible = false;
+        this.title.setString("HƯỚNG DẪN CHƠI");
+        // var title = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, "HƯỚNG DẪN CHƠI");
+        // title.setPosition(this.getContentSize().width / 2, this.getContentSize().height - 138);
+        // title.setColor(cc.color("#ffde00"));
+        // this.addChild(title);
 
         // var clippingLayout = new ccui.Layout();
         // clippingLayout.setContentSize(this.getContentSize().width, this.getContentSize().height - 275);
@@ -68,10 +70,10 @@ var TutorialDialog = IDialog.extend({
         }
     },
 
-    initWithSize: function (mSize) {
-        this.board_bg.setPreferredSize(cc.size(mSize.width, mSize.height));
-        this.setContentSize(this.board_bg.getContentSize());
-    },
+    // initWithSize: function (mSize) {
+    //     this.board_bg.setPreferredSize(cc.size(mSize.width, mSize.height));
+    //     this.setContentSize(this.board_bg.getContentSize());
+    // },
 
     initCaoThapTutorial: function () {
         var tutorialLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, this.HDList["CaoThap"]);
