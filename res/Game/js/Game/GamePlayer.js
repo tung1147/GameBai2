@@ -41,7 +41,7 @@ var GamePlayer = cc.Node.extend({
 
         var timer2 = new cc.ProgressTimer(new cc.Sprite("#player-progress-1.png"));
         timer2.setType(cc.ProgressTimer.TYPE_RADIAL);
-        timer2.setReverseDirection(true);
+       // timer2.setReverseDirection(true);
         timer2.setPosition(avt.getPosition());
         timer2.setPercentage(0.0);
         this.infoLayer.addChild(timer2);
@@ -244,8 +244,10 @@ var GamePlayer = cc.Node.extend({
         }
     },
     setProgressPercentage: function (percentage) {
-        this.timer.setPercentage(100.0 - percentage);
+        this.timer.setPercentage(percentage);
         this.timer2.setPercentage(percentage);
+        // this.timer.setPercentage(100.0 - percentage);
+        // this.timer2.setPercentage(percentage);
     },
     stopTimeRemain: function () {
         if (this.timer) {
@@ -289,7 +291,7 @@ var GamePlayerMe = GamePlayer.extend({
         var timer = new cc.ProgressTimer(new cc.Sprite("#player-progress-2.png"));
         timer.setType(cc.ProgressTimer.TYPE_RADIAL);
         timer.setPosition(avt.getPosition());
-        timer.setReverseDirection(true);
+       // timer.setReverseDirection(true);
         timer.setPercentage(100.0);
         this.infoLayer.addChild(timer);
         this.timer = timer;
