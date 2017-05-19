@@ -31,6 +31,8 @@ var InviteDialog = Dialog.extend({
     },
 
     onGetChannelUser: function (command, data) {
+        this.listItem.removeAllItems();
+
         var users = data["users"];
         this.allUsers = [];
 
