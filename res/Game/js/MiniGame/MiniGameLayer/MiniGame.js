@@ -343,7 +343,7 @@ MiniGameNavigator.hideAll = function () {
     MiniGameNavigator.allGame = [];
 };
 
-MiniGameNavigator.showGame = function (gameId) {
+MiniGameNavigator.showGame = function (gameId, position) {
     for(var i=0;i<MiniGameNavigator.allGame.length;i++){
         var miniGame = MiniGameNavigator.allGame[i];
         if(miniGame.gameType === gameId){
@@ -352,6 +352,9 @@ MiniGameNavigator.showGame = function (gameId) {
             }
             else{
                 miniGame.show();
+                if(position){
+                    miniGame.setPosition(position);
+                }
             }
             return;
         }
@@ -360,6 +363,9 @@ MiniGameNavigator.showGame = function (gameId) {
     var newMiniGame = MiniGameNavigator.createGameLayer(gameId);
     MiniGameNavigator.allGame.push(newMiniGame);
     newMiniGame.show();
+    if(position){
+        miniGame.setPosition(position);
+    }
     newMiniGame.retain();
 };
 
