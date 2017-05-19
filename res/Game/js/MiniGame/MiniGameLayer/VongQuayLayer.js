@@ -17,7 +17,7 @@ var VongQuayView = cc.Node.extend({
 
         this.vongquay = vong_quay;
         this.isRunning = false;
-        this.accelerate = 1000.0;
+        this.accelerate = 9000.0;
         this.spin = 1.0;
 
 
@@ -31,10 +31,12 @@ var VongQuayView = cc.Node.extend({
 
 
     onFinishedRotate:function () {
-        this.running = false;
+        this.isRunning = false;
+
     },
 
     startWithSpeed:function (speed) {
+        this.accelerate = 400.0;
         if (!this.isRunning){
             this.isRunning = true;
             this.rotateSpeed = Math.abs(speed);
@@ -48,8 +50,14 @@ var VongQuayView = cc.Node.extend({
             this._status = VQ_ROTATE_NOMARL;
         }
     },
-
+    stopForce:function (rotate) {
+        this.vongquay.setRotation(rotate);
+        this.onFinishedRotate();
+    },
     stopAtRotate:function (rotate) {
+        // if(!this.running){
+        //
+        // }
         if (this._status === VQ_ROTATE_NOMARL){
             var a = this.vongquay.getRotation();
             var ds = rotate - a;
@@ -107,9 +115,12 @@ var VongQuayView = cc.Node.extend({
         this.rotateSpeed -= dv;
 
         var rotate = this.vongquay.getRotation() + ds * this.spin;
-        if (rotate > 360.0){
-            rotate -= 360.0;
+        while(Math.floor(rotate) > 360){
+            rotate -= 360 * this.spin;
         }
+        // if (rotate > 360.0){
+        //     rotate -= 360.0;
+        // }
         this.vongquay.setRotation(rotate);
 
         if (!this.isRunning){
@@ -125,17 +136,23 @@ var VongQuayView = cc.Node.extend({
         this.rotateBeforeStop -= ds;
 
         var rotate = this.vongquay.getRotation() + ds * this.spin;
-        if (rotate > 360.0){
-            rotate -= 360.0;
+        while(Math.floor(rotate) > 360){
+            rotate -= 360 * this.spin;
         }
+        // if (rotate > 360.0){
+        //     rotate -= 360.0;
+        // }
         this.vongquay.setRotation(rotate);
     },
 
     updateRotateNormal:function (dt) {
         var rotate = this.vongquay.getRotation() + this.rotateSpeed * dt * this.spin;
-        if (rotate > 360.0){
-            rotate -= 360.0;
+        while(Math.floor(rotate) > 360){
+            rotate -= 360 * this.spin;
         }
+        // if (rotate > 360.0){
+        //     rotate -= 360.0;
+        // }
         this.vongquay.setRotation(rotate);
     },
     onEnter : function () {
@@ -169,6 +186,7 @@ var VongTo = VongQuayView.extend({
                 // this.arrPiece[i].setVisible((i== this.indexStop)?true:false);
             this.arrPiece[i].setVisible((i== this.indexStop)?true:false);
         }
+        this.getParent().getParent().onFinishedRotate();
     },
     stopAtRotate:function (rotate) {
         this._super(rotate);
@@ -179,6 +197,7 @@ var VongTo = VongQuayView.extend({
             this.arrPiece[i].setVisible(false);
         }
     }
+
 });
 
 var VongNho = VongQuayView.extend({
@@ -207,11 +226,9 @@ var VongNho = VongQuayView.extend({
         this.arrPiece[7].setVisible(true);
     },
     getIdPiece:function () {
-        if(this.piece == -1){
-            return -1;
-        }else{
+
             return  ID_VONG_NHO[this.piece];
-        }
+
     },
     onTouchBegan: function (touch, event) {
 
@@ -219,22 +236,36 @@ var VongNho = VongQuayView.extend({
 
         // var rect = this.getBoundingBox();
         if (cc.rectContainsPoint(this.touchRect, p)) {
-            cc.log("vao vong");
-            var angle =  cc.radiansToDegrees(cc.pAngleSigned(cc.p(1,0),p))+ this.vongquay.getRotation();
-            if(angle<0){
-                angle += 360;
-            }
-            angle += 45/2;
-            if(angle>360)
-            {
-                angle -=360;
-            }
-            this.piece =  Math.floor(angle/45);
-            cc.log("goc  " + angle + " manh" + Math.floor(angle/45));
-            for(var i = 0; i < this.arrPiece.length;i++){
-                // this.arrPiece[i].setVisible((i== this.indexStop)?true:false);
-                this.arrPiece[i].setVisible((i== Math.floor(angle/45))?true:false);
-            }
+
+
+           if(!this.isRunning){
+               //cc.log("vao vong"+ cc.radiansToDegrees(cc.pAngleSigned(cc.p(1,0),p)));
+               var p1 = this.vongquay.convertToNodeSpace(touch.getLocation());
+               var p2 = cc.p(this.vongquay.getContentSize().width/2, this.vongquay.getContentSize().height/2);
+               var p3 = cc.pSub(p1, p2);
+
+               var gocTouch = cc.radiansToDegrees(cc.pAngleSigned(cc.p(1,0),p3) );
+               if(gocTouch<0){
+                   gocTouch += 360;
+               }
+               gocTouch += 45/2;
+               var angle = Math.floor((gocTouch%360)/45) ;
+               //var angle = Math.floor((-this.vongquay.getRotation()%360 )/45);
+               // var total = 8;
+               // if(angle> 0){
+               //     total =  7;
+               // }
+               // var gocNew =  (total - angle) + gocTouch;
+               // if(gocNew>7){
+               //     gocNew = gocNew - 8;
+               // }
+               this.piece = angle;
+               cc.log("gocNew: " + angle);
+               for(var i = 0; i < this.arrPiece.length;i++){
+                   this.arrPiece[i].setVisible((i== angle)?true:false);
+               }
+           }
+
             return true;
         }
 
@@ -249,8 +280,9 @@ var VongNho = VongQuayView.extend({
 });
 //            100exp,50.000,500,200.000,10.000, 500.000, thanks, 1.000,100.000,2.000,20.000,5.000
 ID_VONG_TO = [11    ,7      ,1 ,9      ,5      ,10       ,12      ,2     ,8    ,3    ,6    ,4],
-//             them, 100exp,100k,50k, 10k,5k,1k,500
-ID_VONG_NHO = [108    ,107  ,106 ,105      ,104      ,103       ,102      ,101    ]
+//             1k,500,them, 100exp,100k,50k, 10k,5k,
+ID_VONG_NHO = [102      ,101,108    ,107  ,106 ,105      ,104      ,103  ]
+ID_VONG_NHO2 = [108    ,107  ,106 ,105      ,104      ,103 ,102      ,101]
 var VongQuayLayer = MiniGamePopup.extend({
     ctor: function () {
         this._super();
@@ -293,13 +325,15 @@ var VongQuayLayer = MiniGamePopup.extend({
                MessageNode.getInstance().show("Không đủ lượt để quay");
                return;
            }
+            thiz.setActiveBt(rotateBt,false);
             thiz.vongto.resetVongQuay();
             thiz.vongto.startWithSpeed(1000);
             thiz.vongnho.startWithSpeed(-1000);
             thiz._controller.sendRotate( thiz.vongnho.getIdPiece());
         });
-
-        var lblLuot = new cc.LabelTTF("",cc.res.font.Roboto_Condensed,18);
+        this.rotateBt = rotateBt;
+        // this.setActiveBt(this.rotateBt,false);
+        var lblLuot = new cc.LabelTTF("0",cc.res.font.Roboto_Condensed,18);
         lblLuot.setColor(cc.color(164,106,60,255));
         lblLuot.setPosition( cc.p(rotateBt.getContentSize().width/2,rotateBt.getContentSize().height/2-15));
         rotateBt.addChild(lblLuot);
@@ -331,20 +365,23 @@ var VongQuayLayer = MiniGamePopup.extend({
         });
         bg.addChild(btnRank);
 
+        this.moneyTF = new newui.TextField(cc.size(240, 55), cc.res.font.Roboto_Condensed_30);
+        this.moneyTF.setPlaceHolder("vong ngoai");
+        this.moneyTF.setTextColor(cc.color(255,255,255));
+        this.moneyTF.setPlaceHolderColor(cc.color(190, 240, 253,255));
 
-        // var buyBt = new ccui.Button("game-xepbaiBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        // buyBt.setPosition(cc.winSize.width - 310*cc.winSize.screenScale, 100);
-        // this.addChild(buyBt);
-        // buyBt.addClickEventListener(function () {
-        //
-        //
-        //     var index = thiz.getIndexVongTo(7);
-        //     thiz.vongto.stopAtRotate(index*30);
-        //
-        //     var index2 = thiz.getIndexVongNho(106);
-        //     thiz.vongnho.stopAtRotate(index2*45);
-        //
-        // });
+        this.moneyTF.setPosition(cc.winSize.width - 310*cc.winSize.screenScale, 150);
+        this.addChild(this.moneyTF);
+        var buyBt = new ccui.Button("game-xepbaiBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        buyBt.setPosition(cc.winSize.width - 310*cc.winSize.screenScale, 100);
+        this.addChild(buyBt);
+        buyBt.addClickEventListener(function () {
+
+            thiz.vongto.startWithSpeed(1000);
+            thiz.vongnho.startWithSpeed(-1000);
+            var aa = thiz.moneyTF.getText() + ";"+ thiz.vongnho.getIdPiece();
+            SmartfoxClient.getInstance().sendExtensionRequest(-1, "cvq", {1:thiz.vongnho.getIdPiece() ,2:aa  });
+        });
 
         var gameIdLabel = new  cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "ID : 1231231233", cc.TEXT_ALIGNMENT_LEFT);
         gameIdLabel.setColor(cc.color(191, 242, 255,255));
@@ -369,6 +406,28 @@ var VongQuayLayer = MiniGamePopup.extend({
 
 
     },
+    setActiveBt : function(btn,enabled){
+        btn.setBright(enabled);
+        btn.setEnabled(enabled);
+    },
+    setResuft:function (idVongNho,idVongTo) {
+        var index = this.getIndexVongTo(idVongTo);
+        if(index==-1){
+            return;
+        }
+        this.vongto.stopForce(index*30);
+
+        var index2 = this.getIndexVongNho(idVongNho);
+        if(index2==-1){
+            return;
+        }
+        this.vongnho.stopForce(index2*45);
+    },
+
+    onFinishedRotate:function () {
+      cc.log("onFinishedRotate");
+      //  this.setActiveBt(this.rotateBt,true);
+    },
     onUpdateLuot:function (soLuot) {
         this.soLuot = soLuot;
         this.lblLuot.setString(soLuot + " lượt");
@@ -384,8 +443,8 @@ var VongQuayLayer = MiniGamePopup.extend({
       return  -1;
     },
     getIndexVongNho:function (index) {
-        for(var i=0; ID_VONG_NHO.length;i++ ){
-            if(ID_VONG_NHO[i] == index)
+        for(var i=0; ID_VONG_NHO2.length;i++ ){
+            if(ID_VONG_NHO2[i] == index)
             {
                 return  i;
             }
@@ -394,9 +453,15 @@ var VongQuayLayer = MiniGamePopup.extend({
     },
     handelResuft:function (idVongNho,idVongTo ) {
         var index = this.getIndexVongTo(idVongTo);
+        if(index==-1){
+            return;
+        }
         this.vongto.stopAtRotate(index*30);
 
         var index2 = this.getIndexVongNho(idVongNho);
+        if(index2==-1){
+            return;
+        }
         this.vongnho.stopAtRotate(index2*45);
     },
     buyLuot:function (index) {
