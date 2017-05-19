@@ -312,7 +312,7 @@ var TransferGoldDialog = Dialog.extend({
         var request = {
             command : "transferGold",
             toUsername : recvName,
-            value : parseInt(goldStr),
+            value : cc.Global.NumberFromString(goldStr),
             feeOnSender : this.mToggle.itemClicked.feeType === 1
         };
         LobbyClient.getInstance().send(request);
