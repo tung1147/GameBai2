@@ -160,45 +160,50 @@ var s_VongQuayTutorialDialog = null;
 TutorialDialog.getTutorial = function (gameType) {
     switch (gameType) {
         case GameType.MiniGame_CaoThap:{
-            if(!s_CaoThapTutorialDialog){
-                s_CaoThapTutorialDialog = new TutorialDialog(gameType);
-                s_CaoThapTutorialDialog.retain();
-            }
-            return s_CaoThapTutorialDialog;
+            // if(!s_CaoThapTutorialDialog){
+            //     s_CaoThapTutorialDialog = new TutorialDialog(gameType);
+            //     s_CaoThapTutorialDialog.retain();
+            // }
+            // return s_CaoThapTutorialDialog;
+            return new TutorialDialog(gameType)
             break;
         }
 
         case GameType.MiniGame_Poker:{
-            if(!s_MiniPockerTutorialDialog){
-                s_MiniPockerTutorialDialog = new TutorialDialog(gameType);
-                s_MiniPockerTutorialDialog.retain();
-            }
-            return s_MiniPockerTutorialDialog;
+            // if(!s_MiniPockerTutorialDialog){
+            //     s_MiniPockerTutorialDialog = new TutorialDialog(gameType);
+            //     s_MiniPockerTutorialDialog.retain();
+            // }
+            // return s_MiniPockerTutorialDialog;
+            new TutorialDialog(gameType);
             break;
         }
 
         case GameType.MiniGame_VideoPoker:{
-            if(!s_VideoPockerTutorialDialog){
-                s_VideoPockerTutorialDialog = new TutorialDialog(gameType);
-                s_VideoPockerTutorialDialog.retain();
-            }
-            return s_VideoPockerTutorialDialog;
+            // if(!s_VideoPockerTutorialDialog){
+            //     s_VideoPockerTutorialDialog = new TutorialDialog(gameType);
+            //     s_VideoPockerTutorialDialog.retain();
+            // }
+            // return s_VideoPockerTutorialDialog;
+            return new TutorialDialog(gameType);
             break;
         }
         case GameType.MiniGame_ChanLe:{
-            if(!s_ChanLeTutorialDialog){
-                s_ChanLeTutorialDialog = new TutorialDialog(gameType);
-                s_ChanLeTutorialDialog.retain();
-            }
-            return s_ChanLeTutorialDialog;
+            // if(!s_ChanLeTutorialDialog){
+            //     s_ChanLeTutorialDialog = new TutorialDialog(gameType);
+            //     s_ChanLeTutorialDialog.retain();
+            // }
+            // return s_ChanLeTutorialDialog;
+            return new TutorialDialog(gameType);
             break;
         }
         case GameType.GAME_VongQuayMayMan:{
-            if(!s_VongQuayTutorialDialog){
-                s_VongQuayTutorialDialog = new TutorialDialog(gameType);
-                s_VongQuayTutorialDialog.retain();
-            }
-            return s_VongQuayTutorialDialog;
+            // if(!s_VongQuayTutorialDialog){
+            //     s_VongQuayTutorialDialog = new TutorialDialog(gameType);
+            //     s_VongQuayTutorialDialog.retain();
+            // }
+            // return s_VongQuayTutorialDialog;
+            return new TutorialDialog(gameType);
             break;
         }
     }
