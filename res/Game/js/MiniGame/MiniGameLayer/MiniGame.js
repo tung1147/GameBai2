@@ -54,7 +54,7 @@ var MiniGamePopup = cc.Node.extend({
         tutorialButton.addClickEventListener(function () {
             if (thiz.gameType){
                 var tutorialDialog = TutorialDialog.getTutorial(thiz.gameType);
-                tutorialDialog.showWithAnimationScale();
+                tutorialDialog.show();
             }
             SoundPlayer.playSound("mini_clickButton");
         });

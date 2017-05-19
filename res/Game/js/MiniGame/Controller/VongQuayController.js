@@ -44,8 +44,16 @@ var VongQuayController = MiniGameController.extend({
             case "503":
                 this.onResuft(content.p);
                 break;
+            case "511":
+               this.onStatusGame(content.p);
+                break;
             case "509":
                 this.onUpdateLuot(content.p);
+                break;
+            case "513":
+
+                this._view.setActiveBt(thiz._view.rotateBt,content.p[1]);
+                // this.onUpdateLuot();
                 break;
             case "713":
                 this._view.gameIdLabel.setString("ID: "+ content.p[1]);
@@ -70,6 +78,26 @@ var VongQuayController = MiniGameController.extend({
     },
     onUpdateLuot:function (param) {
         this._view.onUpdateLuot( param[1]);
+
+    },
+
+    onStatusGame:function (param) {
+
+        if(param[2] == null){
+            return;
+        }
+    if(param[1] == 1){// choi xong
+        // this._view.vongto.startWithSpeed(1000);
+        // this._view.vongnho.startWithSpeed(-1000);
+        this._view.setResuft(param[2][1],param[2][2]);
+
+    }else
+    {
+        this._view.vongto.startWithSpeed(1000);
+        this._view.vongnho.startWithSpeed(-1000);
+        this._view.handelResuft(param[2][1],param[2][2]);
+    }
+
 
     },
     onJoinGame:function (param) {

@@ -109,8 +109,8 @@ Cược chẵn lẻ là cược tổng kết quả là số chẵn hay số lẻ
 </string>
 	<key>VQGD</key>
 	<string>Bước 1: Người chơi phải mua lượt quay, có thể mua 1 lượt hoặc mua số lượng. Mua số lượng sẽ được giảm giá
-Bước 2: Chọn ô phần thưởng chỉ định trong vòng quay nhỏ (Nếu không chọn ô phần thưởng trong vòng quay nhỏ thì vòng quay nhỏ sẽ không quay)
-Bước 3: Ấn nút “Quay” và chờ kết quả</string>
+Bước 2: Chọn ô phần thưởng chỉ định trong vòng quay nhỏ (Hệ thống sẽ ngẫu nhiên chọn cho bạn 1 phần thưởng nếu bạn chưa chọn phần thưởng)
+Bước 3: Ấn nút (Quay) và chờ kết quả</string>
 	<key>BACAYNHATANTAT</key>
 	<string>Game 3 cây là game dân gian quen thuộc, nhanh và dễ chơi. Mỗi người sẽ được chia 3 lá bài, sau khi đặt cược sẽ lật bài và so điểm với các người chơi khác để phân định thắng thua.
   - Bộ bài để chơi gồm 36 lá gồm các quân từ Át tới 9 (bỏ các quân 10, J, Q, K). Trong đó Át được tính là 1 điểm.
