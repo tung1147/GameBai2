@@ -353,7 +353,16 @@ var LobbyClient = (function () {
         },
 
         _onChangeAssetHandler : function (cmd, event) {
-            PlayerMe.gold = event["data"]["userAssets"]["gold"];
+            var userAssets = event["data"]["userAssets"];
+            if(userAssets["gold"]){
+                PlayerMe.gold = userAssets["gold"];
+            }
+            if(userAssets["exp"]){
+                PlayerMe.exp = userAssets["exp"];
+            }
+            if(userAssets["vipexp"]){
+                PlayerMe.vipExp = userAssets["vipexp"];
+            }
         },
 
         _onInventoryHandler : function (cmd, event) {
