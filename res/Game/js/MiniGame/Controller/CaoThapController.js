@@ -105,6 +105,11 @@ var CaoThapController = MiniGameController.extend({
         }
     },
 
+    onSFSError: function (messageType, content) {
+        this._super(messageType, content);
+        this.turnState = 0;
+    },
+
     onSFSChangeAssets: function (messageType, content) {
         this.onChangeAssets(content.p["2"], content.p["1"]);
     },
