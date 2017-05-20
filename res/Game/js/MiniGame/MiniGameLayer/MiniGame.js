@@ -270,7 +270,9 @@ var MiniGamePopup = cc.Node.extend({
         SoundPlayer.stopAllSound();
     },
     setBettingSelectEnable : function (enable) {
-        this.chipGroup.setTouchEnable(enable);
+        if(this.chipGroup){
+            this.chipGroup.setTouchEnable(enable);
+        }
     },
 
     closeButtonHandler : function () {
