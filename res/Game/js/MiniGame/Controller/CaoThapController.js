@@ -133,7 +133,7 @@ var CaoThapController = MiniGameController.extend({
     },
 
     onPredictResult: function (data) {
-        if(this._view){
+        if(!this._view){
             return;
         }
 
@@ -184,7 +184,7 @@ var CaoThapController = MiniGameController.extend({
     },
 
     onInitGame: function (data) {
-        if(this._view){
+        if(!this._view){
             return;
         }
 
