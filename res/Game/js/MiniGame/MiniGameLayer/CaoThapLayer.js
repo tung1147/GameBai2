@@ -168,13 +168,13 @@ var CaoThapLayer = MiniGamePopup.extend({
     },
 
     showResultCard: function (cardId) {
-        if(cardId > 0){
-            this.setRolling(false);
-            var card = CardList.prototype.getCardWithId(cardId);
-            this.card.setSpriteFrame(card.rank + s_card_suit[card.suit] + ".png");
+        this.setRolling(false);
+        if(cardId < 0){
+            this.card.setSpriteFrame("gp_card_up.png");
         }
         else{
-            this.card.setSpriteFrame("gp_card_up.png");
+            var card = CardList.prototype.getCardWithId(cardId);
+            this.card.setSpriteFrame(card.rank + s_card_suit[card.suit] + ".png");
         }
     },
 
@@ -371,6 +371,7 @@ var CaoThapLayer = MiniGamePopup.extend({
         this.card.setSpriteFrame("gp_card_up.png");
         this.setHighLowBtEnable(false);
         this.setLuotMoiBtEnable(true);
+        this.setReward(0,0);
         // if (this.timeRemainingInterval)
         //     clearInterval(this.timeRemainingInterval);
         //this.timeLabel.setString("");
@@ -388,13 +389,13 @@ var CaoThapLayer = MiniGamePopup.extend({
         //s_CaoThapLayer = null;
     },
 
-    onError: function (param) {
-        this._super(param);
-
-        //het tien
-        this.setRolling(false);
-        this.clearTurn();
-    }
+    // onError: function (param) {
+    //     this._super(param);
+    //
+    //     //het tien
+    //     this.setRolling(false);
+    //     this.clearTurn();
+    // }
 });
 
 // CaoThapLayer.showPopup = function () {

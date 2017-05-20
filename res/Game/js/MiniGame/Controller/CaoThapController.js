@@ -105,6 +105,14 @@ var CaoThapController = MiniGameController.extend({
         }
     },
 
+    onSFSError: function (messageType, content) {
+        this._super(messageType, content);
+
+        this.turnState = 0;
+        this._view.setRolling(false);
+        this._view.clearTurn();
+    },
+
     onSFSChangeAssets: function (messageType, content) {
         this.onChangeAssets(content.p["2"], content.p["1"]);
     },
@@ -125,6 +133,10 @@ var CaoThapController = MiniGameController.extend({
     },
 
     onPredictResult: function (data) {
+        if(!this._view){
+            return;
+        }
+
         var winType = data["9"]; // win(0), same(1), lose(2), bigwin(3)
         switch (winType) {
             case 0: // win
@@ -172,6 +184,10 @@ var CaoThapController = MiniGameController.extend({
     },
 
     onInitGame: function (data) {
+        if(!this._view){
+            return;
+        }
+
         this._view.setLuotMoiBtEnable(false);
         this._view.setHighLowBtEnable(true);
 
