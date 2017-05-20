@@ -11,37 +11,37 @@ var RewardAgencyDialog = Dialog.extend({
         this._initTutorial();
 
         this.initWithSize(cc.size(678,458));
-        this.title.setString("Chuyển vàng");
+        this.title.setString("CHUYỂN VÀNG");
         this.okButton.visible = false;
         this.cancelButton.visible = false;
 
         var bg1 = new ccui.Scale9Sprite("dialog-textinput-bg.png",cc.rect(12,12,4,4));
         bg1.setPreferredSize(cc.size(280, 44));
-        bg1.setPosition(587, 426);
+        bg1.setPosition(487, 326);
         this.addChild(bg1);
 
         var bg2 = new ccui.Scale9Sprite("dialog-textinput-bg.png",cc.rect(12,12,4,4));
         bg2.setPreferredSize(cc.size(280, 44));
-        bg2.setPosition(bg1.x, 356);
+        bg2.setPosition(bg1.x, 256);
         this.addChild(bg2);
 
         var bg3 = new ccui.Scale9Sprite("dialog-textinput-bg.png",cc.rect(12,12,4,4));
         bg3.setPreferredSize(cc.size(280, 44));
-        bg3.setPosition(bg1.x, 286);
+        bg3.setPosition(bg1.x, 186);
         this.addChild(bg3);
 
         var agencyCode = new newui.TextField(cc.size(bg1.getContentSize().width - 20, bg1.getContentSize().height), cc.res.font.Roboto_Condensed_18);
         agencyCode.setPlaceHolder("Mã đại lý");
-        agencyCode.setTextColor(cc.color("#c4e1ff"));
-        agencyCode.setPlaceHolderColor(cc.color("#909090"));
+        agencyCode.setTextColor(cc.color("#ffffff"));
+        agencyCode.setPlaceHolderColor(cc.color("#45b8e3"));
         agencyCode.setPosition(bg1.getPosition());
         this.agencyCode = agencyCode;
         this.addChild(agencyCode);
 
         var goldText = new newui.TextField(cc.size(bg2.getContentSize().width - 20, bg2.getContentSize().height), cc.res.font.Roboto_Condensed_18);
         goldText.setPlaceHolder("Số vàng chuyển");
-        goldText.setTextColor(cc.color("#c4e1ff"));
-        goldText.setPlaceHolderColor(cc.color("#909090"));
+        goldText.setTextColor(cc.color("#ffffff"));
+        goldText.setPlaceHolderColor(cc.color("#45b8e3"));
         goldText.setPosition(bg2.getPosition());
       //  goldText.setMaxLength(16);
         goldText.setTextChangeListener(function (type, newString) {
@@ -62,15 +62,15 @@ var RewardAgencyDialog = Dialog.extend({
 
         var contentText = new newui.TextField(cc.size(bg3.getContentSize().width - 20, bg3.getContentSize().height), cc.res.font.Roboto_Condensed_18);
         contentText.setPlaceHolder("Nội dung");
-        contentText.setTextColor(cc.color("#c4e1ff"));
-        contentText.setPlaceHolderColor(cc.color("#909090"));
+        contentText.setTextColor(cc.color("#ffffff"));
+        contentText.setPlaceHolderColor(cc.color("#45b8e3"));
         contentText.setPosition(bg3.getPosition());
         this.contentText = contentText;
         this.addChild(contentText);
 
         var feeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Phí chuyển vàng");
-        feeLabel.setColor(cc.color("#4d5f7b"));
-        feeLabel.setPosition(bg1.x, 224);
+        feeLabel.setColor(cc.color("#ffffff"));
+        feeLabel.setPosition(bg1.x, 124);
         this.addChild(feeLabel);
         this.feeLabel = feeLabel;
 
@@ -78,10 +78,10 @@ var RewardAgencyDialog = Dialog.extend({
         okButton.setScale9Enabled(true);
         okButton.setCapInsets(cc.rect(10,10,4,4));
         okButton.setContentSize(cc.size(280, 44));
-        okButton.setPosition(bg1.x, 160);
+        okButton.setPosition(bg1.x, 60);
         this.addChild(okButton);
 
-        var okLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "HOÀN THÀNH");
+        var okLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_18, "HOÀN THÀNH");
         okLabel.setColor(cc.color("#682e2e"));
         okLabel.setPosition(okButton.getContentSize().width/2, okButton.getContentSize().height/2);
         okButton.getRendererNormal().addChild(okLabel);
@@ -91,11 +91,11 @@ var RewardAgencyDialog = Dialog.extend({
     },
 
     _initTutorial : function () {
-        var itemList = new newui.TableView(cc.size(313, 397), 1);
+        var itemList = new newui.TableView(cc.size(313, 367), 1);
         itemList.setDirection(ccui.ScrollView.DIR_VERTICAL);
         itemList.setScrollBarEnabled(false);
         itemList.setMargin(10, 10, 0, 0);
-        itemList.setPosition(cc.p(112, 98));
+        itemList.setPosition(cc.p(12, 10));
         this.addChild(itemList, 1);
 
         var tutLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, cc.Global.getStringRes()["TransferGold"]["MerchantTutorial"], cc.TEXT_ALIGNMENT_LEFT, 300);

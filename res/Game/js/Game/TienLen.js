@@ -268,6 +268,7 @@ var TienLen = IGameScene.extend({
             dialog.userLabel[i].setString(username);
             if (player[i].username == PlayerMe.username) {
                 SoundPlayer.playSound(player[i].isWinner ? "winning" : "losing");
+                dialog.setWinLose(player[i].isWinner);
             }
             dialog.contentLabel[i].setString(player[i].title);
 
@@ -287,12 +288,10 @@ var TienLen = IGameScene.extend({
             if (gold >= 0) {
                 dialog.goldLabel[i].setColor(cc.color("#ffde00"));
                 dialog.userLabel[i].setColor(cc.color("#ffde00"));
-                dialog.setWinLose(true);
             }
             else {
                 dialog.goldLabel[i].setColor(cc.color("#cfcfcf"));
                 dialog.userLabel[i].setColor(cc.color("#ffffff"));
-                dialog.setWinLose(false);
             }
 
             this.performAssetChange(gold, null, player[i].username);

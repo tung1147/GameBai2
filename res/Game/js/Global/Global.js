@@ -235,7 +235,7 @@ PlayerMe.SFS = PlayerMe.SFS || {};
 var GameConfig = GameConfig || {};
 GameConfig.email = "gamebaivip@gmail.com";
 GameConfig.hotline = "0903.229.747";
-GameConfig.fanpage = "https://www.facebook.com/C567gamebaidoithuong/";
+GameConfig.fanpage = "https://www.facebook.com/danhbaivip/";
 GameConfig.broadcastMessage = "";
 GameConfig.DeviceIDKey = "";
 

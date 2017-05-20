@@ -490,7 +490,7 @@ var PaymentHistoryLayer = cc.Node.extend({
     addItem: function (time, type, info, gold, price) {
         var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, time, cc.TEXT_ALIGNMENT_CENTER, 200);
         var typeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, type);
-        var infoLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, info);
+        var infoLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, info,cc.TEXT_ALIGNMENT_LEFT, 200);
         var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, gold);
         var priceLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Thành công");
 
@@ -547,6 +547,7 @@ var PaymentHistoryLayer = cc.Node.extend({
         container.addChild(typeLabel);
 
         infoLabel.setAnchorPoint(cc.p(0.0, 0.5));
+
         infoLabel.setPosition(432, timeLabel.y);
         infoLabel.setColor(cc.color("#8de8ff"));
         container.addChild(infoLabel);

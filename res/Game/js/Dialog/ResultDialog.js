@@ -9,8 +9,6 @@ var ResultDialog = Dialog.extend({
         this.cancelButton.visible = false;
         this.title.setString("KẾT QUẢ");
 
-
-
         var n = size;
         if(n < 3){
             n = 3;
@@ -20,9 +18,10 @@ var ResultDialog = Dialog.extend({
         var height = 80.0 + (this.componentHeight * n) + this.componentPadding*(n+1);
         this.initWithSize(cc.size(870, height));
 
-        var iconWinLose = new cc.Sprite("result-icon-lose.png");
-        iconWinLose.setPosition(cc.p(95, this.getContentSize().height - 32));
-        this.addChild(iconWinLose);
+        var iconWinLose = new cc.Sprite("#result-icon-lose.png");
+        iconWinLose.setAnchorPoint(cc.p(0.0,0.0));
+        iconWinLose.setPosition(0, 0);
+        this.dialogBgTitle.addChild(iconWinLose);
         this.iconWinLose = iconWinLose;
 
         this.initComponent(size);

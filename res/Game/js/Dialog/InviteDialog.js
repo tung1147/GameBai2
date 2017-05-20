@@ -19,7 +19,7 @@ var InviteDialog = Dialog.extend({
         this.addChild(listItem);
         this.listItem = listItem;
 
-        var noPlayerLabel = new cc.LabelBMFont("Hiện tại không có người chơi trong sảnh, vui lòng chờ", cc.res.font.Roboto_Condensed_30, this.getContentSize().width - 100);
+        var noPlayerLabel = new cc.LabelBMFont("Hiện tại không có người chơi trong sảnh, vui lòng chờ", cc.res.font.Roboto_Condensed_30, this.getContentSize().width - 200, cc.TEXT_ALIGNMENT_CENTER);
         noPlayerLabel.setVisible(false);
         noPlayerLabel.setPosition(this.getContentSize().width/2, this.getContentSize().height/2);
         this.addChild(noPlayerLabel);
