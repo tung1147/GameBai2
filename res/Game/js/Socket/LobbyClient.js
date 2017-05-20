@@ -355,13 +355,13 @@ var LobbyClient = (function () {
 
         _onChangeAssetHandler : function (cmd, event) {
             var userAssets = event["data"]["userAssets"];
-            if(userAssets["gold"]){
+            if(userAssets["gold"] != null &&  userAssets["gold"] != undefined){
                 PlayerMe.gold = userAssets["gold"];
             }
-            if(userAssets["exp"]){
+            if(userAssets["exp"] != null && userAssets["exp"] != undefined){
                 PlayerMe.exp = userAssets["exp"];
             }
-            if(userAssets["vipexp"]){
+            if(userAssets["vipexp"]!= null && userAssets["vipexp"]!= undefined){
                 PlayerMe.vipExp = userAssets["vipexp"];
             }
         },
