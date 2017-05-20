@@ -56,6 +56,10 @@ var VideoPokerController = MiniGameController.extend({
     },
 
     onFirstRollResult: function (param) {
+        if(!this._view){
+            return;
+        }
+
         var gameId = param["1"];
         var cardArray = param["2"];
         var holdValue = param["3"]["1"];
@@ -75,6 +79,10 @@ var VideoPokerController = MiniGameController.extend({
     },
 
     onNextRollResult: function (param) {
+        if(!this._view){
+            return;
+        }
+
         var cardArray = param["4"];
         var resultId = param["5"]["2"];
         var bankValue = param["6"];
