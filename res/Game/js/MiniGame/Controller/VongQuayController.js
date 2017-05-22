@@ -3,16 +3,16 @@
  * Rat la dep trai
  */
 
-    VQ_TYPE_NONE = 0,
-    VQ_TYPE_GOLD = 1,
-    VQ_TYPE_ADD = 2,
-    VQ_TYPE_EXP = 3,
-        VQ_TYPE_KT = 4,
-        VQ_BUY_FIRST = 0,
-        VQ_BUY_SECOND = 1,
-        VQ_BUY_INGAME = 2
+var VQ_TYPE_NONE = 0;
+var VQ_TYPE_GOLD = 1;
+var VQ_TYPE_ADD = 2;
+var VQ_TYPE_EXP = 3;
+var VQ_TYPE_KT = 4;
+var VQ_BUY_FIRST = 0;
+var VQ_BUY_SECOND = 1;
+var VQ_BUY_INGAME = 2;
 s_sfs_error_msg[520] = "Bạn không đủ lượt quay!";
-s_sfs_error_msg[10] = "Không đủ tiền để mua lượt";
+//s_sfs_error_msg[10] = "Không đủ tiền để mua lượt";
 
 var VongQuayController = MiniGameController.extend({
     ctor: function (view) {

@@ -35,7 +35,9 @@ var MiniGameController = cc.Class.extend({
         var gameName = params["groupName"];
         if(gameName === this.gameGroup){
             this._view.onError(params);
+            return true;
         }
+        return false;
     },
 
     onSFSChangeAssets: function (messageType, content) {

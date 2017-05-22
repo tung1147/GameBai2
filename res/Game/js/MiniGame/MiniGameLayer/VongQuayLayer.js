@@ -3,9 +3,9 @@
  */
 //var s_ChanLeLayer = null;
 
-VQ_ROTATE_NOMARL = 0,
-VQ_ROTATE_BEFORE = 1,
-VQ_ROTATE_TOSTOP = 2
+var VQ_ROTATE_NOMARL = 0;
+var VQ_ROTATE_BEFORE = 1;
+var VQ_ROTATE_TOSTOP = 2;
 
 var VongQuayView = cc.Node.extend({
     isRunning:false,
@@ -279,10 +279,10 @@ var VongNho = VongQuayView.extend({
     }
 });
 //            100exp,50.000,500,200.000,10.000, 500.000, thanks, 1.000,100.000,2.000,20.000,5.000
-ID_VONG_TO = [11    ,7      ,1 ,9      ,5      ,10       ,12      ,2     ,8    ,3    ,6    ,4],
+var ID_VONG_TO = [11    ,7      ,1 ,9      ,5      ,10       ,12      ,2     ,8    ,3    ,6    ,4];
 //             1k,500,them, 100exp,100k,50k, 10k,5k,
-ID_VONG_NHO = [102      ,101,108    ,107  ,106 ,105      ,104      ,103  ]
-ID_VONG_NHO2 = [108    ,107  ,106 ,105      ,104      ,103 ,102      ,101]
+var ID_VONG_NHO = [102      ,101,108    ,107  ,106 ,105      ,104      ,103  ];
+var ID_VONG_NHO2 = [108    ,107  ,106 ,105      ,104      ,103 ,102      ,101];
 var VongQuayLayer = MiniGamePopup.extend({
     ctor: function () {
         this._super();
