@@ -21,9 +21,10 @@ var ResultDialog = Dialog.extend({
         var iconWinLose = new cc.Sprite("#result-icon-lose.png");
         iconWinLose.setAnchorPoint(cc.p(0.0,0.0));
         iconWinLose.setPosition(0, 0);
+        iconWinLose.setVisible(false);
         this.dialogBgTitle.addChild(iconWinLose);
         this.iconWinLose = iconWinLose;
-
+        this.isHoa = false;
         this.initComponent(size);
     },
     initComponent : function (size) {
@@ -88,7 +89,16 @@ var ResultDialog = Dialog.extend({
 
     setWinLose : function(isWin)
     {
-        this.iconWinLose.setSpriteFrame(isWin===true?"result-icon-win.png":"result-icon-lose.png");
+        if(this.isHoa === true)
+        {
+            this.iconWinLose.setVisible(false);
+        }
+        else
+        {
+            this.iconWinLose.setVisible(true);
+            this.iconWinLose.setSpriteFrame(isWin===true?"result-icon-win.png":"result-icon-lose.png");
+        }
+
     }
 
 

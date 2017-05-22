@@ -67,7 +67,7 @@ var MiniGameLayer = cc.Node.extend({
         this.goldTitle = goldTitle;
 
         var leftBt = new ccui.Button("home-minigame-leftBt.png","","", ccui.Widget.PLIST_TEXTURE);
-        leftBt.setPosition(28.0, 34.0);
+        leftBt.setPosition(28.0, 23.0);
         miniGameBar.addChild(leftBt);
 
         var rightBt = new ccui.Button("home-minigame-leftBt.png","","", ccui.Widget.PLIST_TEXTURE);

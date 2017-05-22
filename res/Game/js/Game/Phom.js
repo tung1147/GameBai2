@@ -450,6 +450,7 @@ var Phom = IGameScene.extend({
             dialog.userLabel[i].setString(username);
             if (resultData[i].username = PlayerMe.username) {
                 SoundPlayer.playSound(resultData[i].isWinner ? "winning" : "losing");
+                dialog.setWinLose(resultData[i].isWinner);
             }
             var goldStr = resultData[i].gold >= 0 ? "+" : "-";
             goldStr += (cc.Global.NumberFormat1(Math.abs(resultData[i].gold)) + " V");

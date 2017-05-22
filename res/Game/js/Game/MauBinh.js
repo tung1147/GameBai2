@@ -1182,6 +1182,17 @@ var MauBinh = IGameScene.extend({
                 }
                 dialog.userLabel[i].setString(username);
 
+                if(thiz.resultEntries[i].moneyChange !== 0)
+                {
+                    dialog.setWinLose(thiz.resultEntries[i].moneyChange >= 0?true:false);
+                }
+                else
+                {
+                    dialog.isHoa = true;
+                }
+
+
+
                 var goldStr = thiz.resultEntries[i].moneyChange >= 0 ? "+" : "-";
                 goldStr += (cc.Global.NumberFormat1(Math.abs(thiz.resultEntries[i].moneyChange)) + " V");
                 dialog.goldLabel[i].setString(goldStr);
