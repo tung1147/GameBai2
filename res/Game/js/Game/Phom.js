@@ -448,7 +448,7 @@ var Phom = IGameScene.extend({
                 username = username.substring(0,username.length - 3) + "***";
             }
             dialog.userLabel[i].setString(username);
-            if (resultData[i].username = PlayerMe.username) {
+            if (resultData[i].username == PlayerMe.username) {
                 SoundPlayer.playSound(resultData[i].isWinner ? "winning" : "losing");
             }
             var goldStr = resultData[i].gold >= 0 ? "+" : "-";
