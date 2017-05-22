@@ -2,8 +2,8 @@
  * Created by VGA10 on 12/8/2016.
  * Rat la dep trai
  */
-    TX_CUA_TAI = 1,
-    TX_CUA_XIU = 2
+var TX_CUA_TAI = 1;
+var TX_CUA_XIU = 2;
 
 var ChanLeController = MiniGameController.extend({
     ctor: function (view) {

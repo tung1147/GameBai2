@@ -16,6 +16,7 @@ var GameController = cc.Class.extend({
         SmartfoxClient.getInstance().addListener(socket.SmartfoxClient.GenericMessage, this.onSmartfoxRecvChatMessage, this);
 
         SmartfoxClient.getInstance().addExtensionListener("0", this.onUpdateGold, this);
+        SmartfoxClient.getInstance().addExtensionListener("ca", this.onChangeAsset, this);
         SmartfoxClient.getInstance().addExtensionListener("1", this._onJoinRoomHandler, this);
         SmartfoxClient.getInstance().addExtensionListener("2", this._onUserJoinRoomHandler, this);
         SmartfoxClient.getInstance().addExtensionListener("9", this.onUserExit, this);
@@ -103,6 +104,18 @@ var GameController = cc.Class.extend({
             PlayerMe.gold = parseInt(params["2"]);
         }
     },
+
+    onChangeAsset: function (cmd, content) {
+        var params = content.p;
+
+        this._view.updateGold(params["un"], params["1"]);
+        this._view.changeGoldEffect(params["un"], params["d"]);
+
+        // if (params.u == PlayerMe.username) {
+        //     PlayerMe.gold = parseInt(params["2"]);
+        // }
+    },
+
     onUserExit: function (cmd, content) {
         var params = content.p;
         if (params.u != PlayerMe.username) {

@@ -31,7 +31,13 @@ var MiniGameController = cc.Class.extend({
     },
 
     onSFSError: function (messageType, content) {
-        this._view.onError(content.p);
+        var params = content["p"];
+        var gameName = params["groupName"];
+        if(gameName === this.gameGroup){
+            this._view.onError(params);
+            return true;
+        }
+        return false;
     },
 
     onSFSChangeAssets: function (messageType, content) {
