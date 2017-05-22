@@ -353,6 +353,14 @@ var SmartfoxClient = (function () {
                     this._loginHandler();
                     this._loginHandler = null;
                 }
+                else{
+                    var params = contents["p"];
+                    var isReconnect = params["isReconnect"];
+                    if(isReconnect === false){
+                        LoadingDialog.getInstance().hide();
+                        SceneNavigator.toLobby();
+                    }
+                }
             }
         },
 
