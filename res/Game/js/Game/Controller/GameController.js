@@ -107,13 +107,10 @@ var GameController = cc.Class.extend({
 
     onChangeAsset: function (cmd, content) {
         var params = content.p;
-
-        this._view.updateGold(params["un"], params["1"]);
-        this._view.changeGoldEffect(params["un"], params["d"]);
-
-        // if (params.u == PlayerMe.username) {
-        //     PlayerMe.gold = parseInt(params["2"]);
-        // }
+        if(params["1"] !== null & params["1"] !== undefined){
+            this._view.updateGold(params["un"], params["1"]);
+            this._view.changeGoldEffect(params["un"], params["d"]);
+        }
     },
 
     onUserExit: function (cmd, content) {
