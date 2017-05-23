@@ -300,22 +300,22 @@ var TienLen = IGameScene.extend({
     onChatChem: function (params) {
         var player1 = params["7"];
         var gold1 = params["3"];
-        var changeGold1 = params["2"];
+       // var changeGold1 = params["2"];
 
         var player2 = params["8"];
         var gold2 = params["6"];
-        var changeGold2 = params["5"];
+       // var changeGold2 = params["5"];
 
-        for (var i = 0; i < this.allSlot.length; i++) {
-            if (this.allSlot[i].username == player1) {
-                this.allSlot[i].runChangeGoldEffect(changeGold1);
-                //+ tien changeGold1
-            }
-            if (this.allSlot[i].username == player2) {
-                this.allSlot[i].runChangeGoldEffect("-" + changeGold2);
-                //- tien changeGold2
-            }
-        }
+        // for (var i = 0; i < this.allSlot.length; i++) {
+        //     if (this.allSlot[i].username == player1) {
+        //         this.allSlot[i].runChangeGoldEffect(changeGold1);
+        //         //+ tien changeGold1
+        //     }
+        //     if (this.allSlot[i].username == player2) {
+        //         this.allSlot[i].runChangeGoldEffect("-" + changeGold2);
+        //         //- tien changeGold2
+        //     }
+        // }
 
         this.updateGold(player1, gold1);
         this.updateGold(player2, gold2);

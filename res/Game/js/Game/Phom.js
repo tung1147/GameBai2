@@ -634,6 +634,7 @@ var Phom = IGameScene.extend({
         // receiverSlot.dropCards.reOrder();
         this.cardList.reOrder();
     },
+
     performAssetChange: function (username, changeAmount, balance) {
         this._super(changeAmount,balance,username);
         // var slot = this.getSlotByUsername(username);
@@ -651,6 +652,7 @@ var Phom = IGameScene.extend({
         //     changeSprite.removeFromParent(true);
         // })));
     },
+
     performBalanceCard: function (from, to, card) {
         var fromUser = this.getSlotByUsername(from);
         var toUser = this.getSlotByUsername(to);
