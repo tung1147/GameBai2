@@ -315,24 +315,24 @@ var BaCay = IGameScene.extend({
         }
     },
 
-    performAssetChange: function (amount, goldAfter, username) {
-        var slot = this.getSlotByUsername(username);
-        var changeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, "");
-        changeLabel.setString(amount > 0 ? ("+" + cc.Global.NumberFormat1(amount)) : cc.Global.NumberFormat1(amount));
-        changeLabel.setColor(cc.color(amount > 0 ? "#ffde00" : "#c52829"));
-        changeLabel.setPosition(slot.assetChangePos);
-        // if (username == PlayerMe.username)
-        //     this.sceneLayer.addChild(changeLabel);
-        // else
-            slot.addChild(changeLabel);
-
-        slot.setGold(goldAfter);
-        var moveAction = new cc.MoveTo(1.0, slot.assetChangePos.x, slot.assetChangePos.y + 50);
-        var removeAction = new cc.CallFunc(function () {
-            changeLabel.removeFromParent(true);
-        });
-        changeLabel.runAction(new cc.Sequence(moveAction, removeAction));
-    },
+    // performAssetChange: function (amount, goldAfter, username) {
+    //     var slot = this.getSlotByUsername(username);
+    //     var changeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, "");
+    //     changeLabel.setString(amount > 0 ? ("+" + cc.Global.NumberFormat1(amount)) : cc.Global.NumberFormat1(amount));
+    //     changeLabel.setColor(cc.color(amount > 0 ? "#ffde00" : "#c52829"));
+    //     changeLabel.setPosition(slot.assetChangePos);
+    //     // if (username == PlayerMe.username)
+    //     //     this.sceneLayer.addChild(changeLabel);
+    //     // else
+    //         slot.addChild(changeLabel);
+    //
+    //     slot.setGold(goldAfter);
+    //     var moveAction = new cc.MoveTo(1.0, slot.assetChangePos.x, slot.assetChangePos.y + 50);
+    //     var removeAction = new cc.CallFunc(function () {
+    //         changeLabel.removeFromParent(true);
+    //     });
+    //     changeLabel.runAction(new cc.Sequence(moveAction, removeAction));
+    // },
 
     revealCards: function (cards, username) {
         var slot = this.getSlotByUsername(username);

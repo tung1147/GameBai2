@@ -264,6 +264,12 @@ var IGameScene = IScene.extend({
                 changeSprite.removeFromParent(true);
             })));
         }
+        else{
+            var slot = this.getSlotByUsername(username);
+            if(slot){
+                slot.runChangeGoldEffect(deltaGold);
+            }
+        }
     },
 
     getSlotByUsername: function (username) {
@@ -379,22 +385,28 @@ var IGameScene = IScene.extend({
     },
     performAssetChange: function (amount, goldAfter, username) {
         var slot = this.getSlotByUsername(username);
-        var changeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, "");
-        changeLabel.setString(amount > 0 ? ("+" + amount) : amount);
-        changeLabel.setColor(cc.color(amount > 0 ? "#ffde00" : "#c52829"));
-        changeLabel.setPosition(slot.avt.getPosition());
-        if (username == PlayerMe.username)
-            this.sceneLayer.addChild(changeLabel);
-        else
-            slot.addChild(changeLabel);
+        if (slot){
+            if(goldAfter !== null && goldAfter !== undefined){
+                slot.setGold(goldAfter);
+            }
+        }
 
-        if (goldAfter)
-            slot.setGold(goldAfter);
-
-        var moveAction = new cc.MoveTo(1.0, slot.avt.x, slot.avt.y + 50);
-        var removeAction = new cc.CallFunc(function () {
-            changeLabel.removeFromParent(true);
-        });
-        changeLabel.runAction(new cc.Sequence(moveAction, removeAction));
-    },
+        // var changeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, "");
+        // changeLabel.setString(amount > 0 ? ("+" + amount) : amount);
+        // changeLabel.setColor(cc.color(amount > 0 ? "#ffde00" : "#c52829"));
+        // changeLabel.setPosition(slot.avt.getPosition());
+        // if (username == PlayerMe.username)
+        //     this.sceneLayer.addChild(changeLabel);
+        // else
+        //     slot.addChild(changeLabel);
+        //
+        // if (goldAfter)
+        //     slot.setGold(goldAfter);
+        //
+        // var moveAction = new cc.MoveTo(1.0, slot.avt.x, slot.avt.y + 50);
+        // var removeAction = new cc.CallFunc(function () {
+        //     changeLabel.removeFromParent(true);
+        // });
+        // changeLabel.runAction(new cc.Sequence(moveAction, removeAction));
+    }
 });
