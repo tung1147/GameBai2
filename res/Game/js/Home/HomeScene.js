@@ -15,7 +15,7 @@ var HomeScene = IScene.extend({
 
         LobbyClient.getInstance().addListener("login", this.onLoginHandler, this);
         LobbyClient.getInstance().addListener("LobbyStatus", this.onLobbyStatusHandler, this);
-        LobbyClient.getInstance().addListener("changeAsset", this.onChangeAsset, this);
+        LobbyClient.getInstance().addListener("ca", this.onChangeAsset, this);
         LobbyClient.getInstance().addListener("inboxMessage", this.onChangeRefeshUserInfo, this);
         LobbyClient.getInstance().addListener("getPlayNowServer", this.onGetPlayNowServer, this);
 

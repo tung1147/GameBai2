@@ -55,7 +55,7 @@ var LobbyClient = (function () {
                 this.addListener("getGameServer", this._onGetGameServerHandler, this);
                 this.addListener("verifyCode", this._onVerifyCodeHandler, this);
                 this.addListener("verifyCodeBySms", this._onVerifyCodeBySmsHandler, this);
-                this.addListener("changeAsset", this._onChangeAssetHandler, this);
+                this.addListener("ca", this._onChangeAssetHandler, this);
                 this.addListener("inventory", this._onInventoryHandler, this);
                 this.addListener("updateItem", this._onUpdateItemHandler, this);
                 this.addListener("inboxMessage", this._onInboxMessageHandler, this);
