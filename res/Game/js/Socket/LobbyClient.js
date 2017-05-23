@@ -8,7 +8,7 @@
 if (cc.sys.isNative) { //mobile
     var s_lobbyServer = s_lobbyServer || [
         {
-            host: "vuabaivip.com",
+            host: "42.112.25.164",
             port: 9999
         }
     ];

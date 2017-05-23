@@ -21,13 +21,13 @@ var CaoThapLayer = MiniGamePopup.extend({
         this.addChild(bg);
 
         var highButton = new ccui.Button("caothap_up.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        highButton.setPosition(270, 292);
+        highButton.setPosition(270, 280);
         highButton.setScale9Enabled(true);
         this.addChild(highButton);
         this.highButton = highButton;
 
         var lowButton = new ccui.Button("caothap_down.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        lowButton.setPosition(730, 292);
+        lowButton.setPosition(730, 280);
         lowButton.setScale9Enabled(true);
         this.addChild(lowButton);
         this.lowButton = lowButton;
@@ -63,19 +63,19 @@ var CaoThapLayer = MiniGamePopup.extend({
         // this.timeLabel = timeLabel;
         // this.addChild(timeLabel, 1);
 
-        var highLabel = new cc.LabelBMFont("CAO", cc.res.font.Roboto_CondensedBold_30);
-        highLabel.setColor(cc.color("#c9ceff"));
-        highLabel.setPosition(highButton.x, 192);
-        this.addChild(highLabel, 1);
-
-        var lowLabel = new cc.LabelBMFont("THẤP", cc.res.font.Roboto_CondensedBold_30);
-        lowLabel.setColor(cc.color("#c9ceff"));
-        lowLabel.setPosition(lowButton.x, highLabel.y);
-        this.addChild(lowLabel, 1);
+        // var highLabel = new cc.LabelBMFont("CAO", cc.res.font.Roboto_CondensedBold_30);
+        // highLabel.setColor(cc.color("#c9ceff"));
+        // highLabel.setPosition(highButton.x, 192);
+        // this.addChild(highLabel, 1);
+        //
+        // var lowLabel = new cc.LabelBMFont("THẤP", cc.res.font.Roboto_CondensedBold_30);
+        // lowLabel.setColor(cc.color("#c9ceff"));
+        // lowLabel.setPosition(lowButton.x, highLabel.y);
+        // this.addChild(lowLabel, 1);
 
         var highValueLabel = new cc.LabelBMFont("0", cc.res.font.Roboto_Condensed_25);
         highValueLabel.setColor(cc.color("#ffea00"));
-        highValueLabel.setPosition(highButton.x, 160);
+        highValueLabel.setPosition(highButton.x, 170);
         this.highValueLabel = highValueLabel;
         this.addChild(highValueLabel, 2);
 
@@ -92,9 +92,9 @@ var CaoThapLayer = MiniGamePopup.extend({
         this.card = card;
 
         var gameIdLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "", cc.TEXT_ALIGNMENT_LEFT);
-        gameIdLabel.setColor(cc.color("#5366cb"));
+        gameIdLabel.setColor(cc.color("#2e7fae"));
         gameIdLabel.setScale(0.8);
-        gameIdLabel.setPosition(lowButton.x, lowValueLabel.y - 25);
+        gameIdLabel.setPosition(lowButton.x, lowValueLabel.y - 30);
         this.addChild(gameIdLabel);
         this.gameIdLabel = gameIdLabel;
 

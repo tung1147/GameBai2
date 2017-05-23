@@ -426,6 +426,7 @@ var PhomController = GameController.extend({
             resultEntry.cardList = userData[i]["2"];
             resultEntry.resultString = resultStringArray[userData[i]["5"]];
             resultEntry.isWinner = [1, 2, 3, 4, 5].indexOf(userData[i]["5"]) != -1;
+
             if ([0, 5, 6, 7].indexOf(userData[i]["5"]) != -1) {
                 // them thong tin diem
                 if (userData[i]["7"])

@@ -15,9 +15,9 @@
                 <key>spriteSourceSize</key>
                 <string>{208,272}</string>
                 <key>textureRect</key>
-                <string>{{1,640},{208,272}}</string>
+                <string>{{1,655},{208,272}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>caothap_bg.png</key>
             <dict>
@@ -26,11 +26,11 @@
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{1001,637}</string>
+                <string>{1001,652}</string>
                 <key>spriteSourceSize</key>
-                <string>{1001,637}</string>
+                <string>{1001,652}</string>
                 <key>textureRect</key>
-                <string>{{1,1},{1001,637}}</string>
+                <string>{{1,1},{1001,652}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -45,9 +45,9 @@
                 <key>spriteSourceSize</key>
                 <string>{75,74}</string>
                 <key>textureRect</key>
-                <string>{{531,794},{75,74}}</string>
+                <string>{{881,811},{75,74}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>caothap_coinIcon.png</key>
             <dict>
@@ -56,11 +56,11 @@
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{38,38}</string>
+                <string>{35,35}</string>
                 <key>spriteSourceSize</key>
-                <string>{38,38}</string>
+                <string>{35,35}</string>
                 <key>textureRect</key>
-                <string>{{559,752},{38,38}}</string>
+                <string>{{506,836},{35,35}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -69,15 +69,15 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,1}</string>
+                <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{156,156}</string>
+                <string>{154,153}</string>
                 <key>spriteSourceSize</key>
-                <string>{174,172}</string>
+                <string>{154,153}</string>
                 <key>textureRect</key>
-                <string>{{211,640},{156,156}}</string>
+                <string>{{677,655},{154,153}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>caothap_historyBt.png</key>
             <dict>
@@ -90,7 +90,7 @@
                 <key>spriteSourceSize</key>
                 <string>{51,50}</string>
                 <key>textureRect</key>
-                <string>{{666,825},{51,50}}</string>
+                <string>{{275,836},{51,50}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -105,7 +105,7 @@
                 <key>spriteSourceSize</key>
                 <string>{39,48}</string>
                 <key>textureRect</key>
-                <string>{{687,640},{39,48}}</string>
+                <string>{{381,836},{39,48}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -114,13 +114,13 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{-1,0}</string>
+                <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{42,48}</string>
+                <string>{40,46}</string>
                 <key>spriteSourceSize</key>
-                <string>{56,64}</string>
+                <string>{40,46}</string>
                 <key>textureRect</key>
-                <string>{{772,825},{42,48}}</string>
+                <string>{{422,836},{40,46}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -131,11 +131,11 @@
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{56,64}</string>
+                <string>{40,46}</string>
                 <key>spriteSourceSize</key>
-                <string>{56,64}</string>
+                <string>{40,46}</string>
                 <key>textureRect</key>
-                <string>{{608,825},{56,64}}</string>
+                <string>{{464,836},{40,46}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -146,13 +146,13 @@
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{158,110}</string>
+                <string>{179,132}</string>
                 <key>spriteSourceSize</key>
-                <string>{158,110}</string>
+                <string>{179,132}</string>
                 <key>textureRect</key>
-                <string>{{211,798},{158,110}}</string>
+                <string>{{275,655},{179,132}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>caothap_nextButton_off.png</key>
             <dict>
@@ -161,13 +161,13 @@
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{158,110}</string>
+                <string>{179,132}</string>
                 <key>spriteSourceSize</key>
-                <string>{158,110}</string>
+                <string>{179,132}</string>
                 <key>textureRect</key>
-                <string>{{371,798},{158,110}}</string>
+                <string>{{409,655},{179,132}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>caothap_startButton.png</key>
             <dict>
@@ -176,13 +176,13 @@
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{158,110}</string>
+                <string>{179,132}</string>
                 <key>spriteSourceSize</key>
-                <string>{158,110}</string>
+                <string>{179,132}</string>
                 <key>textureRect</key>
-                <string>{{527,640},{158,110}}</string>
+                <string>{{543,655},{179,132}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>caothap_tutorialBt.png</key>
             <dict>
@@ -195,7 +195,7 @@
                 <key>spriteSourceSize</key>
                 <string>{51,50}</string>
                 <key>textureRect</key>
-                <string>{{719,825},{51,50}}</string>
+                <string>{{328,836},{51,50}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -204,15 +204,15 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,1}</string>
+                <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{156,156}</string>
+                <string>{154,153}</string>
                 <key>spriteSourceSize</key>
-                <string>{174,172}</string>
+                <string>{154,153}</string>
                 <key>textureRect</key>
-                <string>{{369,640},{156,156}}</string>
+                <string>{{832,655},{154,153}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>luotmoi.png</key>
             <dict>
@@ -225,7 +225,7 @@
                 <key>spriteSourceSize</key>
                 <string>{210,85}</string>
                 <key>textureRect</key>
-                <string>{{608,752},{202,71}}</string>
+                <string>{{677,811},{202,71}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -240,7 +240,7 @@
                 <key>spriteSourceSize</key>
                 <string>{30,40}</string>
                 <key>textureRect</key>
-                <string>{{527,752},{30,40}}</string>
+                <string>{{543,836},{30,40}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -256,9 +256,9 @@
             <key>realTextureFileName</key>
             <string>CaoThap.png</string>
             <key>size</key>
-            <string>{1003,913}</string>
+            <string>{1003,887}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:52d27905e5148ba4863334c80238b29e:c52db40d93b6141f8f3063781e5d96b2:13d0f2017af527b106a08d98d6a7a24f$</string>
+            <string>$TexturePacker:SmartUpdate:4531ce479b542a2a225f13701fb83262:cda2b2166cb2e4e6762797d1d061afd9:13d0f2017af527b106a08d98d6a7a24f$</string>
             <key>textureFileName</key>
             <string>CaoThap.png</string>
         </dict>

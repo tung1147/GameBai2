@@ -240,11 +240,11 @@ var ListChiMB = cc.Node.extend({
         this.addChild(bg_name,1234);
         var nameChi = new cc.LabelTTF(name,cc.res.font.Roboto_Condensed,25);
         if(isWin){
-            // nameChi.enableStroke(cc.color(123,49,26,0.48*255),2);
-            nameChi.setColor(cc.color(80,41,3,255));
+            // nameChi.enableStroke(cc.color("#fefe8c"),2);
+            nameChi.setColor(cc.color("#915200"));
         }else{
-            // nameChi.enableStroke(cc.color(142,155,255,255),2);
-            nameChi.setColor(cc.color(142,155,255,255));
+            // nameChi.enableStroke(cc.color("#0d223a"),2);
+            nameChi.setColor(cc.color("#8e9bff"));
             bg_name.setSpriteFrame("mb_bg_text2.png");
         }
 
@@ -1182,16 +1182,18 @@ var MauBinh = IGameScene.extend({
                 }
                 dialog.userLabel[i].setString(username);
 
-                if(thiz.resultEntries[i].moneyChange !== 0)
+                if(username == PlayerMe.username)
                 {
-                    dialog.setWinLose(thiz.resultEntries[i].moneyChange >= 0?true:false);
+                    var convertMoney = parseInt(thiz.resultEntries[i].moneyChange);
+                    if(convertMoney != 0)
+                    {
+                        dialog.setWinLose(convertMoney >= 0?true:false);
+                    }
+                    else
+                    {
+                        dialog.isHoa = true;
+                    }
                 }
-                else
-                {
-                    dialog.isHoa = true;
-                }
-
-
 
                 var goldStr = thiz.resultEntries[i].moneyChange >= 0 ? "+" : "-";
                 goldStr += (cc.Global.NumberFormat1(Math.abs(thiz.resultEntries[i].moneyChange)) + " V");
