@@ -101,7 +101,7 @@ var CaoThapController = MiniGameController.extend({
 
         if(data["2"]["sg"]){
             this._view.setHighBtEnable(data["2"]["sg"]["1"] ? true : false);
-            this._view.setLowBtEnable(data["2"]["sg"]["1"] ? true : false);
+            this._view.setLowBtEnable(data["2"]["sg"]["2"] ? true : false);
         }
     },
 
@@ -179,7 +179,7 @@ var CaoThapController = MiniGameController.extend({
 
         if(data["sg"]){
             this._view.setHighBtEnable(data["sg"]["1"] ? true : false);
-            this._view.setLowBtEnable(data["sg"]["1"] ? true : false);
+            this._view.setLowBtEnable(data["sg"]["2"] ? true : false);
         }
     },
 
@@ -201,7 +201,7 @@ var CaoThapController = MiniGameController.extend({
 
         if(data["sg"]){
             this._view.setHighBtEnable(data["sg"]["1"] ? true : false);
-            this._view.setLowBtEnable(data["sg"]["1"] ? true : false);
+            this._view.setLowBtEnable(data["sg"]["2"] ? true : false);
         }
     },
 
