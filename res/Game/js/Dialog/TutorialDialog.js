@@ -160,32 +160,32 @@ var s_VongQuayTutorialDialog = null;
 TutorialDialog.getTutorial = function (gameType) {
     switch (gameType) {
         case GameType.MiniGame_CaoThap:{
-            // if(!s_CaoThapTutorialDialog){
-            //     s_CaoThapTutorialDialog = new TutorialDialog(gameType);
-            //     s_CaoThapTutorialDialog.retain();
-            // }
-            // return s_CaoThapTutorialDialog;
-            return new TutorialDialog(gameType)
+            if(!s_CaoThapTutorialDialog){
+                s_CaoThapTutorialDialog = new TutorialDialog(gameType);
+                s_CaoThapTutorialDialog.retain();
+            }
+            return s_CaoThapTutorialDialog;
+           // return new TutorialDialog(gameType)
             break;
         }
 
         case GameType.MiniGame_Poker:{
-            // if(!s_MiniPockerTutorialDialog){
-            //     s_MiniPockerTutorialDialog = new TutorialDialog(gameType);
-            //     s_MiniPockerTutorialDialog.retain();
-            // }
-            // return s_MiniPockerTutorialDialog;
-            new TutorialDialog(gameType);
+            if(!s_MiniPockerTutorialDialog){
+                s_MiniPockerTutorialDialog = new TutorialDialog(gameType);
+                s_MiniPockerTutorialDialog.retain();
+            }
+            return s_MiniPockerTutorialDialog;
+            //return new TutorialDialog(gameType);
             break;
         }
 
         case GameType.MiniGame_VideoPoker:{
-            // if(!s_VideoPockerTutorialDialog){
-            //     s_VideoPockerTutorialDialog = new TutorialDialog(gameType);
-            //     s_VideoPockerTutorialDialog.retain();
-            // }
-            // return s_VideoPockerTutorialDialog;
-            return new TutorialDialog(gameType);
+            if(!s_VideoPockerTutorialDialog){
+                s_VideoPockerTutorialDialog = new TutorialDialog(gameType);
+                s_VideoPockerTutorialDialog.retain();
+            }
+            return s_VideoPockerTutorialDialog;
+           // return new TutorialDialog(gameType);
             break;
         }
         case GameType.MiniGame_ChanLe:{

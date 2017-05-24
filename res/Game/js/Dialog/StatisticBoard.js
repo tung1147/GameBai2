@@ -326,13 +326,13 @@ var StatisticBoard = IDialog.extend({
         rewardLabel.setColor(cc.color("#ffde00"));
         container.addChild(rewardLabel);
 
-        container.setTouchEnabled(true);
-        container.addClickEventListener(function () {
-            var dialog = new MessageDialog();
-            dialog.title.setString("An tien");
-            dialog.setMessage(reward);
-            dialog.showWithAnimationScale();
-        });
+        // container.setTouchEnabled(true);
+        // container.addClickEventListener(function () {
+        //     var dialog = new MessageDialog();
+        //     dialog.title.setString("An tien");
+        //     dialog.setMessage(reward);
+        //     dialog.showWithAnimationScale();
+        // });
     },
     addTopEarningEntry: function (order, account, reward) {
         var container = new ccui.Widget();
@@ -390,13 +390,13 @@ var StatisticBoard = IDialog.extend({
         rewardLabel.setColor(cc.color("#ffde00"));
         container.addChild(rewardLabel);
 
-        container.setTouchEnabled(true);
-        container.addClickEventListener(function () {
-            var dialog = new MessageDialog();
-            dialog.title.setString("An tien");
-            dialog.setMessage(reward);
-            dialog.showWithAnimationScale();
-        });
+        // container.setTouchEnabled(true);
+        // container.addClickEventListener(function () {
+        //     var dialog = new MessageDialog();
+        //     dialog.title.setString("An tien");
+        //     dialog.setMessage(reward);
+        //     dialog.showWithAnimationScale();
+        // });
     },
     addHistoryEntry: function (time, deck, rewardName, reward) {
         var container = new ccui.Widget();
@@ -486,12 +486,12 @@ var StatisticBoard = IDialog.extend({
             container.addChild(cardSprite);
         }
 
-        container.setTouchEnabled(true);
-        container.addClickEventListener(function () {
-            var dialog = new MessageDialog();
-            dialog.title.setString("An tien");
-            dialog.setMessage(reward);
-            dialog.showWithAnimationScale();
-        });
+        // container.setTouchEnabled(true);
+        // container.addClickEventListener(function () {
+        //     var dialog = new MessageDialog();
+        //     dialog.title.setString("An tien");
+        //     dialog.setMessage(reward);
+        //     dialog.showWithAnimationScale();
+        // });
     }
 });
