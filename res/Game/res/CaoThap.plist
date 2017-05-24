@@ -101,11 +101,11 @@
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{39,48}</string>
+                <string>{39,47}</string>
                 <key>spriteSourceSize</key>
-                <string>{39,48}</string>
+                <string>{39,47}</string>
                 <key>textureRect</key>
-                <string>{{381,836},{39,48}}</string>
+                <string>{{465,836},{39,47}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -120,7 +120,7 @@
                 <key>spriteSourceSize</key>
                 <string>{40,46}</string>
                 <key>textureRect</key>
-                <string>{{422,836},{40,46}}</string>
+                <string>{{381,836},{40,46}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -135,7 +135,7 @@
                 <key>spriteSourceSize</key>
                 <string>{40,46}</string>
                 <key>textureRect</key>
-                <string>{{464,836},{40,46}}</string>
+                <string>{{423,836},{40,46}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -258,7 +258,7 @@
             <key>size</key>
             <string>{1003,887}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:4531ce479b542a2a225f13701fb83262:cda2b2166cb2e4e6762797d1d061afd9:13d0f2017af527b106a08d98d6a7a24f$</string>
+            <string>$TexturePacker:SmartUpdate:b506707b06cc47a90041014d66a0fbc9:95802dfa64d991014c78c3dfb7030b80:13d0f2017af527b106a08d98d6a7a24f$</string>
             <key>textureFileName</key>
             <string>CaoThap.png</string>
         </dict>

@@ -5,9 +5,9 @@
 var s_miniGame_chip_position = s_miniGame_chip_position || [
         {x: 112, y: 365},
         {x: 91, y: 262},
-        {x: 115, y: 154},
-        {x: 192, y: 108},
-        {x: 302, y:100}
+        {x: 117, y: 155},
+        {x: 193, y: 110},
+        {x: 302, y:101}
 
     ];
 var s_money_betEx = s_money_betEx || [1000, 10000, 100000, 1000000, 10000000];
