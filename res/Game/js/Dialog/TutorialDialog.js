@@ -189,21 +189,21 @@ TutorialDialog.getTutorial = function (gameType) {
             break;
         }
         case GameType.MiniGame_ChanLe:{
-            // if(!s_ChanLeTutorialDialog){
-            //     s_ChanLeTutorialDialog = new TutorialDialog(gameType);
-            //     s_ChanLeTutorialDialog.retain();
-            // }
-            // return s_ChanLeTutorialDialog;
-            return new TutorialDialog(gameType);
+            if(!s_ChanLeTutorialDialog){
+                s_ChanLeTutorialDialog = new TutorialDialog(gameType);
+                s_ChanLeTutorialDialog.retain();
+            }
+            return s_ChanLeTutorialDialog;
+           // return new TutorialDialog(gameType);
             break;
         }
         case GameType.GAME_VongQuayMayMan:{
-            // if(!s_VongQuayTutorialDialog){
-            //     s_VongQuayTutorialDialog = new TutorialDialog(gameType);
-            //     s_VongQuayTutorialDialog.retain();
-            // }
-            // return s_VongQuayTutorialDialog;
-            return new TutorialDialog(gameType);
+            if(!s_VongQuayTutorialDialog){
+                s_VongQuayTutorialDialog = new TutorialDialog(gameType);
+                s_VongQuayTutorialDialog.retain();
+            }
+            return s_VongQuayTutorialDialog;
+            //return new TutorialDialog(gameType);
             break;
         }
     }

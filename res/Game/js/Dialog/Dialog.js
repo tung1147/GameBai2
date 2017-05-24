@@ -60,9 +60,11 @@ var IDialog = cc.Node.extend({
         this._isShow = true;
         var parentNode = this.getParent();
         if(parentNode){
-            parentNode.removeFromParent();
+            this.removeFromParent(true);
+            parentNode.removeFromParent(true);
             parentNode = null;
         }
+
         if(!rootNode){
             rootNode = cc.director.getRunningScene();
         }
@@ -105,6 +107,8 @@ var IDialog = cc.Node.extend({
         if(parent){
             parent.removeFromParent(true);
         }
+
+        this.removeFromParent(true);
     },
 
     isShow : function () {
