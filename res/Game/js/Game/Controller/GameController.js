@@ -16,7 +16,7 @@ var GameController = cc.Class.extend({
         SmartfoxClient.getInstance().addListener(socket.SmartfoxClient.GenericMessage, this.onSmartfoxRecvChatMessage, this);
 
         SmartfoxClient.getInstance().addExtensionListener("0", this.onUpdateGold, this);
-        SmartfoxClient.getInstance().addExtensionListener("ca", this.onChangeAsset, this);
+        SmartfoxClient.getInstance().addExtensionListener("-1", this.onChangeAsset, this);
         SmartfoxClient.getInstance().addExtensionListener("1", this._onJoinRoomHandler, this);
         SmartfoxClient.getInstance().addExtensionListener("2", this._onUserJoinRoomHandler, this);
         SmartfoxClient.getInstance().addExtensionListener("9", this.onUserExit, this);
