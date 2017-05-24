@@ -52,6 +52,11 @@ var PokerController = GameController.extend({
         this._super(cmd, content);
         this._view.setGoldRemain(true,content.p["2"]);
     },
+
+    onChangeAsset: function (cmd, content) {
+
+    },
+
     _updateStatusHandler : function(cmd, content){
         this.onGameStatus(content.p["1"]);
     },
