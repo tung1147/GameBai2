@@ -12,7 +12,7 @@ var MiniPokerController = MiniGameController.extend({
 
     initWithView : function (view) {
         this._super(view);
-        SmartfoxClient.getInstance().addExtensionListener("351", this.onRollFinished, this);
+        SmartfoxClient.getInstance().addExtensionListener("358", this.onRollFinished, this);
         SmartfoxClient.getInstance().addExtensionListener("357", this.onMiniGameStatus, this);
     },
 
