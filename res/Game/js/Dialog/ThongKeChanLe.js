@@ -5,14 +5,22 @@ var ThongKeChanLe = IDialog.extend({
         this.addChild(historyNode, 3);
         this.historyNode = historyNode;
 
-        var board_bg = new ccui.Scale9Sprite("board_bg.png", cc.rect(105, 105, 147, 147));
+        var board_bg = new ccui.Scale9Sprite("dialog-bg.png", cc.rect(20, 20, 4, 4));
         board_bg.setAnchorPoint(cc.p(0, 0));
         this.addChild(board_bg);
         this.board_bg = board_bg;
-        this.initWithSize(cc.size(1080, 590));
+        this.initWithSize(cc.size(930, 440));
+
+        var dialogBgTitle = new cc.Scale9Sprite("dialog-bg-title.png", cc.rect(20, 0, 4, 60));
+        dialogBgTitle.setAnchorPoint(cc.p(0.5, 1.0));
+        dialogBgTitle.setPreferredSize(cc.size(board_bg.width, 60));
+        dialogBgTitle.setPosition(cc.p(board_bg.width/2, board_bg.height));
+        this.addChild(dialogBgTitle);
+
+
         var title = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, "THỐNG KÊ");
-        title.setPosition(this.getContentSize().width / 2, this.getContentSize().height - 138);
-        title.setColor(cc.color("#ffde00"));
+        title.setPosition(dialogBgTitle.x, dialogBgTitle.y - 30);
+        title.setColor(cc.color("#77cbee"));
         this.addChild(title);
 
         var bg = new ccui.Scale9Sprite("lobby_xocdia_bg_1.png", cc.rect(4,4,4,4));
@@ -26,12 +34,12 @@ var ThongKeChanLe = IDialog.extend({
 
         var lblXiu = new cc.LabelTTF("XỈU 0",cc.res.font.Roboto_CondensedBold,30);
         lblXiu.setColor(cc.color(255, 222, 0,255));
-        lblXiu.setPosition(this.getContentSize().width / 2 - 237, 400);
+        lblXiu.setPosition(this.getContentSize().width / 2 - 237, 300);
         this.addChild(lblXiu);
         this.lblXiu = lblXiu;
 
         var lblTai = new cc.LabelTTF("TÀI 0",cc.res.font.Roboto_CondensedBold,30);
-        lblTai.setPosition(this.getContentSize().width / 2 + 237, 400);
+        lblTai.setPosition(this.getContentSize().width / 2 + 237, 300);
         lblTai.setColor(cc.color(119, 203, 238,255));
         this.addChild(lblTai);
         this.lblTai = lblTai;
@@ -72,7 +80,8 @@ var ThongKeChanLe = IDialog.extend({
 
 
                         for(var j=0;j<arrXucXac.length;j++){
-                            var sprite = new cc.Sprite("#lobby_taixiu_dice_" + arrXucXac[j] + ".png");
+                            var sprite = new cc.Sprite("#mntx_dice" + arrXucXac[j] + ".png");
+                            sprite.setScale(0.3);
                             sprite.setPosition(x, 153 + 28*j+ pad);
                             this.bg.addChild(sprite, 0);
                         }
@@ -89,8 +98,9 @@ var ThongKeChanLe = IDialog.extend({
                         label.setPosition(x, 72.0+ pad);
                         this.bg.addChild(label, 1);
 
-                        var sumLabel = new cc.LabelBMFont(total.toString(), cc.res.font.Roboto_Condensed_25);
+                        var sumLabel = new cc.LabelBMFont(total.toString(), cc.res.font.Roboto_Condensed_20);
                         sumLabel.setScale(20.0/25.0);
+                        sumLabel.setColor(cc.color("#bff2ff"));
                         sumLabel.setPosition(sumBg.getPosition());
                         this.bg.addChild(sumLabel, 1);
 

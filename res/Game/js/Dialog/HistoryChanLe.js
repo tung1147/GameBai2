@@ -1,40 +1,46 @@
 
-_arrPosHisoty = [174, 300, 425, 530, 637, 760, 874];
+_arrPosHisoty = [64, 218, 329, 439, 560, 670, 780];
 var HistoryChanLe = IDialog.extend({
     ctor: function () {
         this._super();
-        var board_bg = new ccui.Scale9Sprite("board_bg.png", cc.rect(105, 105, 147, 147));
+        var board_bg = new ccui.Scale9Sprite("dialog-bg.png", cc.rect(20, 20, 4, 4));
         board_bg.setAnchorPoint(cc.p(0, 0));
         this.addChild(board_bg);
         this.board_bg = board_bg;
-        this.initWithSize(cc.size(1060, 700));
-        var title = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, "LỊCH SỬ ĐẶT CƯỢC");
-        title.setPosition(this.getContentSize().width / 2, this.getContentSize().height - 138);
-        title.setColor(cc.color("#ffde00"));
+        this.initWithSize(cc.size(860, 600));
+
+        var dialogBgTitle = new cc.Scale9Sprite("dialog-bg-title.png", cc.rect(20, 0, 4, 60));
+        dialogBgTitle.setAnchorPoint(cc.p(0.5, 1.0));
+        dialogBgTitle.setPreferredSize(cc.size(board_bg.width, 60));
+        dialogBgTitle.setPosition(cc.p(board_bg.width/2, board_bg.height));
+        this.addChild(dialogBgTitle);
+
+
+        var title = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, "THỐNG KÊ");
+        title.setPosition(dialogBgTitle.x, dialogBgTitle.y - 30);
+        title.setColor(cc.color("#77cbee"));
         this.addChild(title);
         this._createHistory();
 
     },
 
     _createHistory : function () {
-        var mSize = cc.size(900, 370);
+        var mSize = cc.size(860, 460);
         var dx = 0.0;
         var thiz = this;
 
         this.arrHis = [];
-
-
         var arrTitle = ["Phiên","Thời gian","Cửa","Cược","Kết quả", "Trả lại","Thắng"];
 
         for(var i =0; i < arrTitle.length; i++){
-            var lblTitle = new cc.LabelTTF(arrTitle[i], cc.res.font.Roboto_Condensed,23);
-            lblTitle.setColor(cc.color(196, 225, 255,255));
+            var lblTitle = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, arrTitle[i]);
+            lblTitle.setColor(cc.color("#24436c"));
             lblTitle.setPosition(_arrPosHisoty[i],492);
             this.addChild(lblTitle);
         }
 
         var listTai = new newui.ListViewWithAdaptor(mSize);
-        listTai.setPosition(dx+50 , 100);
+        listTai.setPosition(dx, 0);
         this.addChild(listTai);
         listTai.setCreateItemCallback(function () {
             return thiz._createCell();
@@ -79,15 +85,26 @@ var HistoryChanLe = IDialog.extend({
         // var _arrPos = [61, 211, 362, 477, 605, 733, 857];
         var _arrPos = _arrPosHisoty ;
         var container = new ccui.Widget();
-        container.setContentSize(cc.size(1000, 67));
+        container.setContentSize(cc.size(860, 64));
+
+
+        if(this.listHis._allItems.length % 2){
+            var bg = new ccui.Scale9Sprite("activity_cell_bg.png", cc.rect(10, 10, 4, 4));
+            bg.setPreferredSize(container.getContentSize());
+            bg.setAnchorPoint(cc.p(0,0));
+            container.addChild(bg);
+        }
+
 
         var phienLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "time", cc.TEXT_ALIGNMENT_CENTER, 100);
-        phienLabel.setPosition(_arrPos[0], 33);
+        phienLabel.setColor(cc.color("#77cbee"));
+        phienLabel.setPosition(_arrPos[0], 32);
         container.addChild(phienLabel);
 
 
         var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "time", cc.TEXT_ALIGNMENT_CENTER, 100);
-        timeLabel.setPosition(_arrPos[1], 30);
+        timeLabel.setPosition(_arrPos[1], 32);
+        timeLabel.setColor(cc.color("#77cbee"));
         container.addChild(timeLabel);
 
         var cuaLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "time");
@@ -96,6 +113,7 @@ var HistoryChanLe = IDialog.extend({
 
         var bettingLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "time");
         bettingLabel.setPosition(_arrPos[3], timeLabel.y);
+        bettingLabel.setColor(cc.color("#77cbee"));
         container.addChild(bettingLabel);
 
         var resuftabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "time");
@@ -104,6 +122,7 @@ var HistoryChanLe = IDialog.extend({
 
         var returnLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "time");
         returnLabel.setPosition(_arrPos[5], timeLabel.y);
+        returnLabel.setColor(cc.color("#77cbee"));
         container.addChild(returnLabel);
 
 

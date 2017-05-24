@@ -157,7 +157,7 @@ var CaoThapLayer = MiniGamePopup.extend({
         this._kingCards = [];
         for (var i = 0; i < 3; i++) {
             var kingCard = new cc.Sprite("#caothap_kingCard_1.png");
-            kingCard.setPosition(227 + i * 45, 429);
+            kingCard.setPosition(221 + i * 45, 427);
             this.addChild(kingCard, 1);
             this._kingCards.push(kingCard);
         }
@@ -250,7 +250,7 @@ var CaoThapLayer = MiniGamePopup.extend({
         var cardIndex = card.rank;
         if (this.historyList.size() > 0) {
             var item = this.historyList.getItem(0);
-            item.label.setColor(cc.color("#8d9de6"));
+            item.label.setColor(cc.color("#bff2ff"));
             item.lastCardSprite.setVisible(false);
         }
 
@@ -271,7 +271,7 @@ var CaoThapLayer = MiniGamePopup.extend({
             cardString = cardIndex.toString();
 
         var label = new cc.LabelBMFont(cardString, cc.res.font.Roboto_CondensedBold_30);
-        label.setColor(cc.color("#7adfff"));
+        label.setColor(cc.color("#fff600"));
         label.setPosition(container.getContentSize().width / 2, container.getContentSize().height / 2);
         container.addChild(label);
         container.label = label;

@@ -29,16 +29,16 @@ var VideoPokerLayer = MiniGamePopup.extend({
 
         this.initRewards();
 
-        var resultLabel = new cc.LabelBMFont("", cc.res.font.Roboto_CondensedBold_30);
-        resultLabel.setColor(cc.color("#c9ceff"));
+        var resultLabel = new cc.LabelBMFont("", cc.res.font.Roboto_Condensed_30);
+        resultLabel.setColor(cc.color("#bef0fd"));
         resultLabel.setPosition(500, 370);
         this.resultLabel = resultLabel;
         this.addChild(resultLabel, 1);
 
         var gameIdLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "ID : 1231231233", cc.TEXT_ALIGNMENT_LEFT);
-        gameIdLabel.setColor(cc.color("#5366cb"));
+        gameIdLabel.setColor(cc.color("#2e7fae"));
         gameIdLabel.setScale(0.8);
-        gameIdLabel.setPosition(730, 135);
+        gameIdLabel.setPosition(730, 145);
         this.addChild(gameIdLabel);
         this.gameIdLabel = gameIdLabel;
 
