@@ -16,7 +16,7 @@ var HistoryChanLe = IDialog.extend({
         this.addChild(dialogBgTitle);
 
 
-        var title = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, "THỐNG KÊ");
+        var title = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, "LỊCH SỬ");
         title.setPosition(dialogBgTitle.x, dialogBgTitle.y - 30);
         title.setColor(cc.color("#77cbee"));
         this.addChild(title);
@@ -49,11 +49,19 @@ var HistoryChanLe = IDialog.extend({
             return thiz.arrHis.length;
         });
         listTai.setItemAdaptor(function (idx, view) {
-            thiz._setData(view, thiz.arrHis[idx]);
+            thiz._setData(view, thiz.arrHis[idx], idx);
         });
         this.listHis = listTai;
     },
-    _setData : function (view, data) {
+    _setData : function (view, data, idx) {
+        if(idx % 2){
+            view.bg.visible = false;
+        }
+        else{
+            view.bg.visible = true;
+        }
+
+
         view.phienLabel.setString(data["phien"]);
         view.timeLabel.setString(data["time"]);
         if(data["idCua"] == TX_CUA_TAI){
@@ -86,14 +94,12 @@ var HistoryChanLe = IDialog.extend({
         var _arrPos = _arrPosHisoty ;
         var container = new ccui.Widget();
         container.setContentSize(cc.size(860, 64));
+// var abc = this.listHis;
 
-
-        if(this.listHis._allItems.length % 2){
-            var bg = new ccui.Scale9Sprite("activity_cell_bg.png", cc.rect(10, 10, 4, 4));
-            bg.setPreferredSize(container.getContentSize());
-            bg.setAnchorPoint(cc.p(0,0));
-            container.addChild(bg);
-        }
+        var bg = new ccui.Scale9Sprite("activity_cell_bg.png", cc.rect(10, 10, 4, 4));
+        bg.setPreferredSize(cc.size(container.width - 10, container.height));
+        bg.setPosition(cc.p(container.width/2, container.height/2));
+        container.addChild(bg);
 
 
         var phienLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "time", cc.TEXT_ALIGNMENT_CENTER, 100);
@@ -137,6 +143,7 @@ var HistoryChanLe = IDialog.extend({
         container.resuftabel = resuftabel;
         container.returnLabel = returnLabel;
         container.receiewLabel = receiewLabel;
+        container.bg = bg;
 
         return container;
     },

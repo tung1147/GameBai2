@@ -147,7 +147,7 @@ var StatisticBoard = IDialog.extend({
         var bobaiLabel = this.historyTableLayout.createLabel("Bộ bài", 295, 385);//215
         this.historyTableLayout.addChild(bobaiLabel);
 
-        var tenbaiLabel = this.historyTableLayout.createLabel("Tên bài", 510, 385); // 185
+        var tenbaiLabel = this.historyTableLayout.createLabel("Tên bài", 520, 385); // 185
         this.historyTableLayout.addChild(tenbaiLabel);
 
         var tienanduocLabel = this.historyTableLayout.createLabel("Tiền ăn được", 695, 385); // 145
@@ -255,7 +255,7 @@ var StatisticBoard = IDialog.extend({
         // this.mTouch = cc.rect(this.x - mSize.width / 2 + 100, this.y - mSize.height / 2 + 100,
         //     mSize.width - 200, mSize.height - 200);
         var tableLayout = new ccui.Layout();
-        tableLayout.setContentSize(cc.size(this.mTouch.width, this.mTouch.height - 90));
+        tableLayout.setContentSize(cc.size(this.mTouch.width, this.mTouch.height - 60));
         tableLayout.setAnchorPoint(0.0, 0.0);
         tableLayout.setPosition(10, 30);
         tableLayout.setClippingEnabled(true);
@@ -309,7 +309,8 @@ var StatisticBoard = IDialog.extend({
         container.addChild(timeLabel);
 
         var betAmountLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, betAmount);
-        betAmountLabel.setPosition(330.0 * cc.winSize.screenScale, 30);
+        betAmountLabel.setAnchorPoint(cc.p(0.0, 0.5));
+        betAmountLabel.setPosition(300.0 * cc.winSize.screenScale, 30);
         betAmountLabel.setColor(cc.color("#ffde00"));
         container.addChild(betAmountLabel);
 
@@ -317,12 +318,14 @@ var StatisticBoard = IDialog.extend({
             account = account.substring(0, account.length - 3) + "***";
         }
 
-        var accountLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, account);
-        accountLabel.setPosition(510.0 * cc.winSize.screenScale, 30);
+        var accountLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, account, cc.TEXT_ALIGNMENT_LEFT);
+        accountLabel.setAnchorPoint(cc.p(0.0, 0.5));
+        accountLabel.setPosition(480.0 * cc.winSize.screenScale, 30);
         container.addChild(accountLabel);
 
-        var rewardLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, reward);
-        rewardLabel.setPosition(690.0 * cc.winSize.screenScale, 30);
+        var rewardLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, reward, cc.TEXT_ALIGNMENT_LEFT);
+        rewardLabel.setAnchorPoint(cc.p(0.0, 0.5));
+        rewardLabel.setPosition(665.0 * cc.winSize.screenScale, 30);
         rewardLabel.setColor(cc.color("#ffde00"));
         container.addChild(rewardLabel);
 
@@ -464,25 +467,36 @@ var StatisticBoard = IDialog.extend({
         } else if (this.gameType == GameType.MiniGame_CaoThap){
             rewardName = this.caoThapResults[rewardName];
         }
-        var rewardNameLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, rewardName);
-        rewardNameLabel.setPosition(520 * cc.winSize.screenScale, 30);
+        var rewardNameLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, rewardName, cc.TEXT_ALIGNMENT_LEFT);
+        rewardNameLabel.setAnchorPoint(cc.p(0.0, 0.5));
+        rewardNameLabel.setPosition(500 * cc.winSize.screenScale, 30);
         container.addChild(rewardNameLabel);
 
         var rewardLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, reward);
-        rewardLabel.setPosition(695 * cc.winSize.screenScale, 30);
+        rewardLabel.setPosition(710 * cc.winSize.screenScale, 30);
         rewardLabel.setColor(cc.color("#ffde00"));
         container.addChild(rewardLabel);
 
         var suitArray = [2, 3, 0, 1];
         var baseX = 332.5 * cc.winSize.screenScale - 50 * cc.winSize.screenScale;
         var baseY = 30;
+        var marge = 27;
+        if(deck.length > 8)
+        {
+            marge = 20;
+        }
+        else if(deck.length > 16)
+        {
+            marge = 15;
+        }
+
         for (var i = 0; i < deck.length; i++) {
             var rank = (deck[i] + 1) % 13 + 1;
             var suit = suitArray[Math.floor(deck[i] / 13)];
 
             var cardSprite = new cc.Sprite("#" + rank + s_card_suit[suit] + ".png");
             cardSprite.setScale(0.3);
-            cardSprite.setPosition(baseX + i * 27 * cc.winSize.screenScale, baseY);
+            cardSprite.setPosition(baseX + i * marge * cc.winSize.screenScale, baseY);
             container.addChild(cardSprite);
         }
 
