@@ -139,7 +139,7 @@ var BaCay = IGameScene.extend({
         this.initButton();
 
         var stateString = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, "", cc.TEXT_ALIGNMENT_CENTER);
-        stateString.setColor(cc.color("#8e9bff"));
+        stateString.setColor(cc.color("#77cbee"));
         stateString.setPosition(cc.winSize.width / 2, cc.winSize.height / 2);
         this.sceneLayer.addChild(stateString);
         this.stateString = stateString;
@@ -157,7 +157,7 @@ var BaCay = IGameScene.extend({
 
         var huThuongLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, "HŨ BA CÂY : ");
         huThuongLabel.setPosition(huThuongBg.x - 75, huThuongBg.y);
-        huThuongLabel.setColor(cc.color("#c1ceff"));
+        huThuongLabel.setColor(cc.color("#77cbee"));
         this.sceneLayer.addChild(huThuongLabel);
 
         var huThuongValueLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, "");

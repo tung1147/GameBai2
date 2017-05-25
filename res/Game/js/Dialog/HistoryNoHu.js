@@ -3,11 +3,18 @@ _arrPosHisotyMB = [80, 340, 670];
 var HistoryNoHu = IDialog.extend({
     ctor: function (isMauBinh) {
         this._super();
-        var board_bg = new ccui.Scale9Sprite("board_bg.png", cc.rect(105, 105, 147, 147));
+
+        var board_bg = new ccui.Scale9Sprite("dialog-bg.png", cc.rect(20, 20, 4, 4));
         board_bg.setAnchorPoint(cc.p(0, 0));
         this.addChild(board_bg);
         this.board_bg = board_bg;
-        this.initWithSize(cc.size(881, 650));
+        this.initWithSize(cc.size(860, 600));
+
+
+
+        this.board_bg = board_bg;
+        this.initWithSize(cc.size(700, 500));
+
         var title = "LỊCH SỬ NỔ HŨ MẬU BINH";
         var detail = "Sảnh rồng từ 2 đến Át, có Át rô";
         if(!isMauBinh)
@@ -15,21 +22,25 @@ var HistoryNoHu = IDialog.extend({
              title = "LỊCH SỬ NỔ HŨ BA CÂY";
              detail = "Sáp Át có Át rô";
         }
-        var titleLBL = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, title);
-        titleLBL.setPosition(this.getContentSize().width / 2, this.getContentSize().height - 138);
-        titleLBL.setColor(cc.color("#ffde00"));
-        this.addChild(titleLBL);
+        var dialogBgTitle = new cc.Scale9Sprite("dialog-bg-title.png", cc.rect(20, 0, 4, 60));
+        dialogBgTitle.setAnchorPoint(cc.p(0.5, 1.0));
+        dialogBgTitle.setPreferredSize(cc.size(board_bg.width, 60));
+        dialogBgTitle.setPosition(cc.p(board_bg.width/2, board_bg.height));
+        this.addChild(dialogBgTitle);
+
+        var title = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, title);
+        title.setPosition(dialogBgTitle.x, dialogBgTitle.y - 30);
+        title.setColor(cc.color("#77cbee"));
+        this.addChild(title);
 
 
         var detailLbl = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, detail);
-        detailLbl.setPosition(this.getContentSize().width / 2, 460);
+        detailLbl.setPosition(this.getContentSize().width / 2, 400);
         detailLbl.setColor(cc.color("#ffde00"));
         this.addChild(detailLbl);
 
         var listItem = new newui.TableView(cc.size(681, 340), 1);
-        listItem.setPosition(cc.p(100, 100));
-     //   listItem.setMargin(20,20,0,0);
-     //   listItem.setPadding(10);
+        listItem.setPosition(cc.p(10, 10));
         this.addChild(listItem);
         this.listItem = listItem;
         // for(var i = 0; i < 20; i++){
