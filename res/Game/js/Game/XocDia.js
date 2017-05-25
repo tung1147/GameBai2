@@ -1065,7 +1065,9 @@ var XocDiaScene = IGameScene.extend({
     },
 
     updateGold: function (username, gold) {
-        this.playerMe.setGold(gold);
+        if(PlayerMe.username === username){
+            this.playerMe.setGold(gold);
+        }
     },
 
     setUserCount: function (count) {
