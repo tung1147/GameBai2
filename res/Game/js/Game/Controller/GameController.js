@@ -107,9 +107,12 @@ var GameController = cc.Class.extend({
 
     onChangeAsset: function (cmd, content) {
         var params = content.p;
-        if(params["1"] !== null & params["1"] !== undefined){
-            this._view.updateGold(params["un"], params["1"]);
-            this._view.changeGoldEffect(params["un"], params["d"]);
+        var reason = params["r"];
+        if(reason >= 0){
+            if(params["1"] !== null & params["1"] !== undefined){
+                this._view.updateGold(params["un"], params["1"]);
+                this._view.changeGoldEffect(params["un"], params["d"]);
+            }
         }
     },
 
