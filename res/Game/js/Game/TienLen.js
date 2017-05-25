@@ -77,9 +77,6 @@ var TienLen = IGameScene.extend({
     },
 
     handleSelectSuggest: function (card) {
-
-
-
          var selectedCard = this.cardList.getCardSelected();
         
          //only allow one card selected against one
@@ -401,6 +398,7 @@ var TienLen = IGameScene.extend({
             this.setBoLuotBtVisible(false);
             this.setXepBaiBtVisible(false);
         }
+        this.suggestGroups = null;
     },
 
     onDanhbaiOther: function (username, cards) {
