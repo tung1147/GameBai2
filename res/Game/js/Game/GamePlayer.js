@@ -51,14 +51,14 @@ var GamePlayer = cc.Node.extend({
         inviteBt.setPosition(avt.getPosition());
         this.addChild(inviteBt);
 
-        var userLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_20, "PlayePlayePlaye", cc.TEXT_ALIGNMENT_CENTER);
+        var userLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_20, "PlayePlayePlaye");
         userLabel.setColor(cc.color("#63b0f1"));
-        userLabel.setLineBreakWithoutSpace(true);
-        userLabel.setDimensions(this.getContentSize().width, userLabel.getLineHeight());
+        // userLabel.setLineBreakWithoutSpace(true);
+        // userLabel.setDimensions(this.getContentSize().width, userLabel.getLineHeight());
         userLabel.setPosition(this.getContentSize().width / 2, 34);
         this.infoLayer.addChild(userLabel, 1);
 
-        var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "1.000V", cc.TEXT_ALIGNMENT_CENTER);
+        var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "1.000V");
         goldLabel.setColor(cc.color("#ffde00"));
         goldLabel.setPosition(this.getContentSize().width / 2, 14);
         this.infoLayer.addChild(goldLabel, 1);
@@ -304,7 +304,7 @@ var GamePlayerMe = GamePlayer.extend({
         this.infoLayer.addChild(timer2);
         this.timer2 = timer2;
 
-        var userLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_18, PlayerMe.username, cc.TEXT_ALIGNMENT_LEFT);
+        var userLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_18, PlayerMe.username);
         userLabel.setColor(cc.color("#63b0f1"));
         userLabel.setAnchorPoint(cc.p(0.0, 0.5));
         userLabel.setLineBreakWithoutSpace(true);
@@ -316,7 +316,7 @@ var GamePlayerMe = GamePlayer.extend({
         // goldIcon.setPosition(120, 30);
         // this.infoLayer.addChild(goldIcon);
 
-        var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "99.999.999V", cc.TEXT_ALIGNMENT_CENTER);
+        var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "99.999.999V");
         goldLabel.setAnchorPoint(cc.p(0.0, 0.5));
         goldLabel.setColor(cc.color("#ffde00"));
         goldLabel.setPosition(107, 40);
