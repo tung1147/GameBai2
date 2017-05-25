@@ -252,23 +252,9 @@ var IGameScene = IScene.extend({
     },
 
     changeGoldEffect: function (username, deltaGold) {
-        if(username == PlayerMe.username){
-            var changeText = (deltaGold >= 0 ? "+" : "") + cc.Global.NumberFormat1(deltaGold);
-            var changeSprite = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, changeText);
-            changeSprite.setColor(cc.color(deltaGold >= 0 ? "#ffde00" : "#ff0000"));
-            changeSprite.setAnchorPoint(cc.p(0.0, 0.5));
-            changeSprite.setPosition(100, 70);
-            this.sceneLayer.addChild(changeSprite, 420);
-
-            changeSprite.runAction(new cc.Sequence(new cc.MoveBy(1.0, cc.p(0, 70)), new cc.CallFunc(function () {
-                changeSprite.removeFromParent(true);
-            })));
-        }
-        else{
-            var slot = this.getSlotByUsername(username);
-            if(slot){
-                slot.runChangeGoldEffect(deltaGold);
-            }
+        var slot = this.getSlotByUsername(username);
+        if(slot){
+            slot.runChangeGoldEffect(deltaGold);
         }
     },
 
