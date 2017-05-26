@@ -37,7 +37,7 @@ var LobbySubLayer = cc.Node.extend({
         var bottomBar = new cc.Node();
         bottomBar.setPosition(0, 30);
         this.addChild(bottomBar);
-        bottomBar.setScale(cc.winSize.screenScale);
+        // bottomBar.setScale(cc.winSize.screenScale);
 
 
         var gameNav = new ccui.Scale9Sprite("sublobby-tab-bg.png", cc.rect(40, 0, 4, 44));

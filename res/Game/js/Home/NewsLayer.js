@@ -6,17 +6,18 @@ var NewsSubLayer = cc.Node.extend({
     ctor: function () {
         this._super();
         var _top = 554.0;
-        var _bottom = 90.0 * cc.winSize.screenScale;
+        var _bottom = 90.0;
 
-        var _left = 160.0;
+        var _left = 160.0* cc.winSize.screenScale;
         var _right = 1120.0;
 
         var itemList = new newui.TableView(cc.size(_right - _left , _top - _bottom), 1);
         itemList.setDirection(ccui.ScrollView.DIR_VERTICAL);
         itemList.setScrollBarEnabled(false);
-        // itemList.setPadding(10);
+        itemList.setAnchorPoint(cc.p(0.0, 1.0));
         itemList.setMargin(10, 30, 0, 0);
-        itemList.setPosition(cc.p(_left, _bottom));
+        itemList.setScale(cc.winSize.screenScale);
+        itemList.setPosition(cc.p(_left, _top));
         this.addChild(itemList, 1);
         this.itemList = itemList;
     }
@@ -140,19 +141,19 @@ var NewsLevelLayer = NewsSubLayer.extend({
         this.width3 = cc.winSize.width - this.width1 - this.width2 - _padding * 2 - _left * 2;
 
         var levelLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "Cấp");
-        levelLabel.setPosition(_left + this.width1 / 2, 576);
+        levelLabel.setPosition(210 * cc.winSize.screenScale, 576);
         levelLabel.setColor(cc.color("#2776A4"));
         this.addChild(levelLabel);
         this.levelLabel = levelLabel;
 
         var scoreLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "Điểm");
-        scoreLabel.setPosition(_left + this.width1 + this.width2 / 2 + _padding - 10, 576);
+        scoreLabel.setPosition(330 * cc.winSize.screenScale, 576);
         scoreLabel.setColor(cc.color("#2776A4"));
         this.addChild(scoreLabel);
         this.scoreLabel = scoreLabel;
 
         var contentLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "Nội dung");
-        contentLabel.setPosition(_left + this.width1 + this.width2 + this.width3 / 2 + _padding * 2 - 20, 576);
+        contentLabel.setPosition(760 * cc.winSize.screenScale, 576);
         contentLabel.setColor(cc.color("#2776A4"));
         this.addChild(contentLabel);
         this.contentLabel = contentLabel;

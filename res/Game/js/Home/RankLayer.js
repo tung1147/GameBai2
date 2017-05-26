@@ -18,19 +18,19 @@ var RankSubLayer = cc.Node.extend({
         this.x3 = this.x2 + this.width2 / 2 + this.width3 / 2 + _padding;
 
         var rankLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Cấp");
-        rankLabel.setPosition(_left + this.x1, 576);
+        rankLabel.setPosition(355 * cc.winSize.screenScale, 576);
         rankLabel.setColor(cc.color("#2776a4"));
         this.addChild(rankLabel);
         this.rankLabel = rankLabel;
 
         var userLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Người chơi");
-        userLabel.setPosition(_left + this.x2, 576);
+        userLabel.setPosition(580 * cc.winSize.screenScale, 576);
         userLabel.setColor(cc.color("#2776a4"));
         this.addChild(userLabel);
         this.userLabel = userLabel;
 
         var scoreLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Điểm");
-        scoreLabel.setPosition(_left + this.x3, 576);
+        scoreLabel.setPosition(860 * cc.winSize.screenScale, 576);
         scoreLabel.setColor(cc.color("#2776a4"));
         this.addChild(scoreLabel);
         this.scoreLabel = scoreLabel;
@@ -38,15 +38,16 @@ var RankSubLayer = cc.Node.extend({
 
     initItemList : function () {
         var _top = 554.0;
-        var _bottom = 90.0 * cc.winSize.screenScale;
-        var _left = cc.winSize.width/2 - 340;
+        var _bottom = 90.0;
+        var _left = cc.winSize.width/2 - 340 * cc.winSize.screenScale;
 
         var itemList = new newui.TableView(cc.size(680, _top - _bottom), 1);
         itemList.setDirection(ccui.ScrollView.DIR_VERTICAL);
         itemList.setScrollBarEnabled(false);
-        // itemList.setPadding(10);
+        itemList.setAnchorPoint(cc.p(0.0, 1.0));
         itemList.setMargin(10, 30, 0, 0);
-        itemList.setPosition(cc.p(_left, _bottom));
+        itemList.setScale(cc.winSize.screenScale);
+        itemList.setPosition(cc.p(_left, _top));
         this.addChild(itemList, 1);
         this.itemList = itemList;
 
@@ -176,17 +177,17 @@ var RankLevelLayer = RankSubLayer.extend({
         this._left = _left;
 
         this.scoreLabel.removeFromParent(true);
-        this.userLabel.setPositionX(_left + this.x2);
-        this.rankLabel.setPositionX(_left + this.x1);
+        this.userLabel.setPositionX(500 * cc.winSize.screenScale);
+        this.rankLabel.setPositionX(350 * cc.winSize.screenScale);
         /**/
 
         var winLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Thắng");
-        winLabel.setPosition(_left + this.x3, this.rankLabel.y);
+        winLabel.setPosition(740 * cc.winSize.screenScale, this.rankLabel.y);
         winLabel.setColor(cc.color("#2776a4"));
         this.addChild(winLabel);
 
         var loseLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Thua");
-        loseLabel.setPosition(_left + this.x4, this.rankLabel.y);
+        loseLabel.setPosition(900 * cc.winSize.screenScale, this.rankLabel.y);
         loseLabel.setColor(cc.color("#2776a4"));
         this.addChild(loseLabel);
 

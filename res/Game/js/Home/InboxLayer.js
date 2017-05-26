@@ -31,7 +31,7 @@ var InboxLayer = LobbySubLayer.extend({
         this.addChild(titleLabel);
 
 
-        var _left = 160.0;
+        var _left = 160.0 * cc.winSize.screenScale;
         var _right = 1120.0;
 
         var _top = 554.0;
@@ -42,7 +42,9 @@ var InboxLayer = LobbySubLayer.extend({
         messageList.setScrollBarEnabled(false);
         messageList.setPadding(10);
         messageList.setMargin(10,10,0,0);
-        messageList.setPosition(cc.p(_left, _bottom));
+        messageList.setAnchorPoint(cc.p(0.0, 1.0));
+        messageList.setScale(cc.winSize.screenScale);
+        messageList.setPosition(cc.p(_left, _top));
         this.addChild(messageList, 1);
         this.messageList = messageList;
 

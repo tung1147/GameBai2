@@ -139,7 +139,7 @@ var LobbyTopBar = cc.Node.extend({
         this.addChild(clippingMessage);
 
         var messageText = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "message");
-        messageText.setColor(cc.color("#bbc9ff"));
+        messageText.setColor(cc.color("#ffffff"));
         messageText.setAnchorPoint(0.0, 0.5);
         messageText.setPosition(0.0, clippingMessage.getContentSize().height/2);
         clippingMessage.addChild(messageText);

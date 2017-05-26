@@ -2,7 +2,9 @@
 #define _sms_plugin_h_
 
 #import <Foundation/Foundation.h>
-@interface SMSPlugin : NSObject{
+#import <MessageUI/MessageUI.h>
+
+@interface SMSPlugin : NSObject <MFMessageComposeViewControllerDelegate>{
     UIViewController* controller;
 }
 

@@ -381,10 +381,10 @@ var PaymentGiftcode = cc.Node.extend({
 var PaymentHistoryLayer = cc.Node.extend({
     ctor: function () {
         this._super();
-        this.setContentSize(cc.size(1280, 720));
-        this.setAnchorPoint(cc.p(0.5, 0.5));
-        this.setPosition(cc.winSize.width/2, cc.winSize.height/2);
-        this.setScale(cc.winSize.screenScale);
+        // this.setContentSize(cc.size(1280, 720));
+        // this.setAnchorPoint(cc.p(0.5, 0.5));
+        // this.setPosition(cc.winSize.width/2, cc.winSize.height/2);
+        // this.setScale(cc.winSize.screenScale);
 
         // var margin = 60.0 * cc.winSize.screenScale;
         // var padding = 2.0;
@@ -431,21 +431,22 @@ var PaymentHistoryLayer = cc.Node.extend({
 
         var _top = 554.0;
         var _bottom = 126.0;
-        var itemList = new newui.TableView(cc.size(1200, _top - _bottom), 1);
+        var itemList = new newui.TableView(cc.size(cc.winSize.width - 80, _top - _bottom), 1);
         itemList.setDirection(ccui.ScrollView.DIR_VERTICAL);
         itemList.setScrollBarEnabled(false);
-        itemList.setAnchorPoint(cc.p(0.5, 0.0));
+        itemList.setAnchorPoint(cc.p(0.5, 1.0));
         itemList.setMargin(10, 10, 0, 0);
-        itemList.setPosition(cc.p(cc.winSize.width/2, _bottom));
+        // itemList.setScale(cc.winSize.screenScale);
+        itemList.setPosition(cc.p(cc.winSize.width/2, _top));
         this.addChild(itemList, 1);
         this.itemList = itemList;
 
         LobbyClient.getInstance().addListener("fetchCashinItems", this.onRecvHistory, this);
 
 
-        // for(var i = 0; i < 10; ++i){
-        //     this.addItem("122222", "122222", "122222", "122222", "122222");
-        // }
+        for(var i = 0; i < 10; ++i){
+            this.addItem("122222", "122222", "122222", "122222", "122222");
+        }
 
 
 
@@ -453,7 +454,7 @@ var PaymentHistoryLayer = cc.Node.extend({
     setVisible : function (visible) {
         this._super(visible);
         if(visible){
-            this.itemList.removeAllItems();
+            // this.itemList.removeAllItems();
             var request = {command: "fetchCashinItems"};
             LobbyClient.getInstance().send(request);
         }
@@ -465,7 +466,7 @@ var PaymentHistoryLayer = cc.Node.extend({
     onRecvHistory: function (cmd, data) {
         data = data["data"];
         if(data.length > 0){
-            this.itemList.removeAllItems();
+            // this.itemList.removeAllItems();
 
             for (var i = 0; i < data.length; i++) {
                 var d = new Date(data[i]["createdTime"] * 1000);
@@ -474,7 +475,7 @@ var PaymentHistoryLayer = cc.Node.extend({
                 var info = data[i]["detail"];
                 var gold = data[i]["gold"];
                 var price = data[i]["price"];
-                this.addItem(timeString, type, info, gold, price);
+                // this.addItem(timeString, type, info, gold, price);
             }
         }
     },
