@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleDisplayName</key>
-	<string>G67 VIP</string>
+	<string>Vua Bài Vip</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIconFile</key>
@@ -51,11 +51,11 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>${PRODUCT_NAME}</string>
+	<string>Vua Bài Vip</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.0</string>
+	<string>3.0.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -65,18 +65,18 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb1847504665484148</string>
+				<string>fb347626685570220</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>20170516</string>
+	<string>20170520</string>
 	<key>FacebookAppID</key>
-	<string>1847504665484148</string>
+	<string>347626685570220</string>
 	<key>FacebookAppIDLogin</key>
-	<string>1847504665484148</string>
+	<string>347626685570220</string>
 	<key>FacebookDisplayName</key>
-	<string>G67 VIP</string>
+	<string>Vua Bài Vip</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>
