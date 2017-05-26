@@ -1186,7 +1186,7 @@
 				INFOPLIST_FILE = mac/Info.plist;
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.g67.gamebai;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vuabaivip.test;
 				SDKROOT = macosx;
 				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../../cocos2d-x/external/glfw3/include/mac $(SRCROOT)/../../cocos2d-x/external/spidermonkey/include/mac $(SRCROOT)/../libs/ElectroClient $(SRCROOT)/../libs/LobbyClient/src $(SRCROOT)/../libs/SmartfoxClient/src";
 			};
@@ -1208,7 +1208,7 @@
 				INFOPLIST_FILE = mac/Info.plist;
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.g67.gamebai;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vuabaivip.test;
 				SDKROOT = macosx;
 				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../../cocos2d-x/external/glfw3/include/mac $(SRCROOT)/../../cocos2d-x/external/spidermonkey/include/mac $(SRCROOT)/../libs/ElectroClient $(SRCROOT)/../libs/LobbyClient/src $(SRCROOT)/../libs/SmartfoxClient/src";
 			};
@@ -1285,9 +1285,9 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../../cocos2d-x/external/curl/prebuilt/ios";
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.danhbaionline.danhbaiviphd;
-				PROVISIONING_PROFILE = "2aed5e49-ce8d-4634-be31-25728acbd4a6";
-				PROVISIONING_PROFILE_SPECIFIER = VBVHD_DEV;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vuabaivip.test;
+				PROVISIONING_PROFILE = "f20a0c86-9c3c-4d25-b98a-4a82decf7f38";
+				PROVISIONING_PROFILE_SPECIFIER = apptest_dev;
 				SDKROOT = iphoneos;
 				STRIP_PNG_TEXT = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1316,9 +1316,9 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../../cocos2d-x/external/curl/prebuilt/ios";
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.danhbaionline.danhbaiviphd;
-				PROVISIONING_PROFILE = "2aed5e49-ce8d-4634-be31-25728acbd4a6";
-				PROVISIONING_PROFILE_SPECIFIER = VBVHD_DEV;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vuabaivip.test;
+				PROVISIONING_PROFILE = "f20a0c86-9c3c-4d25-b98a-4a82decf7f38";
+				PROVISIONING_PROFILE_SPECIFIER = apptest_dev;
 				SDKROOT = iphoneos;
 				STRIP_PNG_TEXT = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
