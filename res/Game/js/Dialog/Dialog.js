@@ -105,10 +105,9 @@ var IDialog = cc.Node.extend({
         this._isShow = false;
         var parent = this.getParent();
         if(parent){
+            this.removeFromParent(true);
             parent.removeFromParent(true);
         }
-
-        this.removeFromParent(true);
     },
 
     isShow : function () {
