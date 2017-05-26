@@ -337,7 +337,7 @@ var RankLevelLayer = RankSubLayer.extend({
 
         var userLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, username, cc.TEXT_ALIGNMENT_CENTER);
         userLabel.setLineBreakWithoutSpace(true);
-        userLabel.setDimensions(cc.size(100, 0));
+        userLabel.setDimensions(100, 0);
         userLabel.setColor(cc.color("#8de8ff"));
         userLabel.setPosition(this.x2, 30);
         container.addChild(userLabel);
