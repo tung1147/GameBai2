@@ -444,9 +444,9 @@ var PaymentHistoryLayer = cc.Node.extend({
         LobbyClient.getInstance().addListener("fetchCashinItems", this.onRecvHistory, this);
 
 
-        for(var i = 0; i < 10; ++i){
-            this.addItem("122222", "122222", "122222", "122222", "122222");
-        }
+        // for(var i = 0; i < 10; ++i){
+        //     this.addItem("122222", "122222", "122222", "122222", "122222");
+        // }
 
 
 
@@ -454,7 +454,7 @@ var PaymentHistoryLayer = cc.Node.extend({
     setVisible : function (visible) {
         this._super(visible);
         if(visible){
-            // this.itemList.removeAllItems();
+            this.itemList.removeAllItems();
             var request = {command: "fetchCashinItems"};
             LobbyClient.getInstance().send(request);
         }
@@ -466,7 +466,7 @@ var PaymentHistoryLayer = cc.Node.extend({
     onRecvHistory: function (cmd, data) {
         data = data["data"];
         if(data.length > 0){
-            // this.itemList.removeAllItems();
+            this.itemList.removeAllItems();
 
             for (var i = 0; i < data.length; i++) {
                 var d = new Date(data[i]["createdTime"] * 1000);
@@ -475,7 +475,7 @@ var PaymentHistoryLayer = cc.Node.extend({
                 var info = data[i]["detail"];
                 var gold = data[i]["gold"];
                 var price = data[i]["price"];
-                // this.addItem(timeString, type, info, gold, price);
+                this.addItem(timeString, type, info, gold, price);
             }
         }
     },

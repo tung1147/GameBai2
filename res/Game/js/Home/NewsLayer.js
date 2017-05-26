@@ -91,13 +91,13 @@ var NewsNotificationLayer = NewsSubLayer.extend({
         }
 
 
-        var titleLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, title);
+        var titleLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, title);
         titleLabel.setPosition(350, 30);
         titleLabel.setColor(cc.color("#8de8ff"))
         container.addChild(titleLabel);
 
         var d = new Date(time);
-        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, cc.Global.DateToString(d), cc.TEXT_ALIGNMENT_CENTER, 1000);
+        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, cc.Global.DateToString(d), cc.TEXT_ALIGNMENT_CENTER, 1000);
         timeLabel.setPosition(800, 30);
         timeLabel.setColor(cc.color("#8de8ff"))
         container.addChild(timeLabel);

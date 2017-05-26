@@ -86,7 +86,7 @@ var CaoThapLayer = MiniGamePopup.extend({
         this.addChild(lowValueLabel, 2);
 
         var card = new cc.Sprite("#gp_card_up.png");
-        card.setScale(2 * cc.winSize.screenScale);
+        card.setScale(2);
         card.setPosition(500, 260);
         this.addChild(card);
         this.card = card;
