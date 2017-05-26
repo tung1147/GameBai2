@@ -203,7 +203,7 @@ void GameLaucher::requestGetUpdate(){
 
 			std::string base64Encrypt(mData->data());
 			std::string json = quyetnd::SystemPlugin::getInstance()->dataDecryptBase64((char*)aes_key, base64Encrypt);
-			//std::string json = "{\"UpdateConfig\":{\"host\":\"https://c567vip.com/demo/0/\",\"versionHash\":\"40faea0cff55e29873ae0d04ffeb6d68\"}}";
+			//std::string json = "{\"data\":{\"UpdateConfig\":{\"host\":\"http://sandbox.c567vip.com/quyetnd/mobile/\",\"versionHash\":\"dd3048e0135d638868019dc67daff521\", \"demo\":true}}}";
 			CCLOG("json: %s", json.c_str());
 
 			rapidjson::Document doc;
@@ -216,9 +216,9 @@ void GameLaucher::requestGetUpdate(){
                         
 						std::string updateHost = config["host"].GetString();
 						std::string versionHash = config["versionHash"].GetString();
-						bool isDemo = false;
+						bool isInReview = false;
 						if (config.HasMember("demo")){
-							isDemo = config["demo"].GetBool();
+							isInReview = config["demo"].GetBool();
 						}
 
 						CCLOG("updateHost: %s", updateHost.c_str());
@@ -227,14 +227,25 @@ void GameLaucher::requestGetUpdate(){
 						this->resourceHost = updateHost;
 						this->versionHash = versionHash;
 
-						if (isDemo){ //ignore check versionFile
+						if (isInReview){ //review
                             FileUtils::getInstance()->setSearchPaths({"res/Game/","src/"});
-							this->checkFiles();
+
+							if (FileUtils::getInstance()->isFileExist("version.json")){ //ignore if version.json exist
+								CCLOG("load resource internal");
+								this->checkFiles();
+							}
+							else{
+								CCLOG("is demo not exist version.json -> load resource from host");
+								std::string externalPath = FileUtils::getInstance()->getWritablePath() + "Game/";
+								FileUtils::getInstance()->setSearchPaths({externalPath, "res/Game/"});
+								FileUtils::getInstance()->addSearchPath("src/", false);
+								this->checkVersionFile();
+							}
 						}
 						else{
+							CCLOG("NOT demo");
 							this->checkVersionFile();
 						}
-						
 						return;
 					}
 				}		
