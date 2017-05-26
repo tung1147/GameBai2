@@ -30,8 +30,8 @@ bool c_to_objC_showSMS(const char* phone, const char* content){
     NSString *phoneStr = [NSString stringWithCString: phone encoding:NSUTF8StringEncoding];
     NSString *contentStr = [NSString stringWithCString: content encoding:NSUTF8StringEncoding];
     
-    return false;
-   // return [[SMSPlugin getInstance] showSMS:phoneStr withMessager:contentStr];
+    //return false;
+    return [[SMSPlugin getInstance] showSMS:phoneStr withMessager:contentStr];
 }
 
 const char* c_to_objC_getUUID(const char* keyUUID){
