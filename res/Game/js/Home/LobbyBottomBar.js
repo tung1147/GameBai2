@@ -5,21 +5,29 @@
 var LobbyBottomBar = cc.Node.extend({
     ctor : function () {
         this._super();
+
+        var thiz = this;
+
         this.setAnchorPoint(cc.p(0,0));
 
-        // var bg = new cc.Sprite("#bot_bar_bg.png");
-        // bg.setAnchorPoint(cc.p(0,0));
-        // bg.setPosition(cc.p(0,0));
-        // this.addChild(bg);
+        var logo = new cc.Sprite("#bot_bar_logo.png");
+        logo.setAnchorPoint(cc.p(0.5, 0.0));
+        logo.setPosition(640, 0);
+        logo.setVisible(false);
+        this.addChild(logo);
+        this.logo = logo;
 
-        // var bg2 = new cc.Sprite("#bot_bar_avt_bg.png");
-        // bg2.setAnchorPoint(cc.p(0,0));
-        // bg2.setPosition(cc.p(0,0));
-        // this.addChild(bg2);
+        var playnowBt = new ccui.Button("bot_bar_playBg.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        playnowBt.setAnchorPoint(cc.p(0.5, 0.0));
+        playnowBt.setPosition(640, 0);
+        playnowBt.setVisible(false);
+        this.addChild(playnowBt);
+        playnowBt.addClickEventListener(function(){
+            thiz.playNowButtonHandler();
 
-        // var logo = new cc.Sprite("#bot_bar_logo.png");
-        // logo.setPosition(640, 68);
-        // this.addChild(logo);
+        });
+        this.playnowBt = playnowBt;
+
 
         var avt = UserAvatar.createMe();
         avt.setPosition(60, 48);
@@ -41,25 +49,25 @@ var LobbyBottomBar = cc.Node.extend({
         this.goldLabel = goldLabel;
 
         var level = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "6");
-        level.setPosition(340, 50);
+        level.setPosition(340, 59);
         level.setColor(cc.color("#36c9ff"));
         this.addChild(level, 1);
         this.levelLabel = level;
 
         var vip = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "6");
-        vip.setPosition(400, 50);
+        vip.setPosition(400, 59);
         vip.setColor(cc.color("#ffde00"));
         this.addChild(vip, 1);
         this.vipLabel = vip;
 
         var _levelText = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_14, "Level");
         _levelText.setColor(cc.color("#36c9ff"));
-        _levelText.setPosition(level.x, 19);
+        _levelText.setPosition(level.x, 28);
         this.addChild(_levelText, 1);
 
         var _vipText = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_14, "V.I.P");
         _vipText.setColor(cc.color("#ffde00"));
-        _vipText.setPosition(vip.x, 19);
+        _vipText.setPosition(vip.x, 28);
         this.addChild(_vipText, 1);
 
         var levelBar = new cc.ProgressTimer(new cc.Sprite("#bot_bar_levelBar_1.png"));
@@ -90,11 +98,11 @@ var LobbyBottomBar = cc.Node.extend({
         }
 
         var paymentBt = new ccui.Button("bot_bar_paymentBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        paymentBt.setPosition(933, 46);
+        paymentBt.setPosition(933, 55);
         this.addChild(paymentBt);
 
         var rewardBt = new ccui.Button("bot_bar_rewardBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        rewardBt.setPosition(1166, 46);
+        rewardBt.setPosition(1166, 55);
         this.addChild(rewardBt);
 
         var userinfoBt = new ccui.Widget();
@@ -134,11 +142,13 @@ var LobbyBottomBar = cc.Node.extend({
     },
 
     startGame : function () {
-
+        this.logo.setVisible(true);
+        this.playnowBt.setVisible(false);
     },
 
     startLobby : function () {
-
+        this.logo.setVisible(false);
+        this.playnowBt.setVisible(true);
     },
 
     playNowButtonHandler : function () {

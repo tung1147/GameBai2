@@ -57,7 +57,7 @@ var LobbyLayer = cc.Node.extend({
         var left = 290.0 + 6;
         var right = 1280.0 - 6;
         var top = 550.0;
-        var bottom = 193.0;
+        var bottom = 163.0;
 
         // var shadowBg = new cc.Sprite("#bg_chonban.png");
         // shadowBg.setAnchorPoint(cc.p(0.5, 0.0));
@@ -65,7 +65,7 @@ var LobbyLayer = cc.Node.extend({
         // roomNode.addChild(shadowBg, 1);
 
         var gameNav = new cc.Sprite("#bg_chonban.png");
-        gameNav.setPosition((right + left) / 2, 168);
+        gameNav.setPosition((right + left) / 2, 138);
         roomNode.addChild(gameNav,1);
 
         var dx = gameNav.getContentSize().width / 5;
@@ -85,7 +85,7 @@ var LobbyLayer = cc.Node.extend({
         for(var i=0; i<s_lobby_group_name.length; i++){
             (function () {
                 var icon1 = new cc.Sprite("#lobby-tab"+ (i+1) +".png");
-                icon1.setPosition(x + dx * i, 168);
+                icon1.setPosition(x + dx * i, 138);
                 roomNode.addChild(icon1,2);
 
                 var icon2 = new cc.Sprite("#lobby-tabSelected"+ (i+1) +".png");

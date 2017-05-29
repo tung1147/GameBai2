@@ -20,10 +20,10 @@ var GameLayer = cc.Node.extend({
         var left = 290.0;
         var right = 1280.0;
         var top = 550.0;
-        var bottom = 210.0;
+        var bottom = 180.0;
 
         var gameNav = new cc.Sprite("#home-gameNav-bg.png");
-        gameNav.setPosition((right + left) / 2 - 12, 168);
+        gameNav.setPosition((right + left) / 2 - 12, 138);
         this.addChild(gameNav);
 
         var dx = gameNav.getContentSize().width / 5;
@@ -39,7 +39,7 @@ var GameLayer = cc.Node.extend({
         for(var i=0;i<5;i++){
             (function () {
                 var icon1 = new cc.Sprite("#home-game-tab"+ (i+1) +".png");
-                icon1.setPosition(x + dx * i, 168);
+                icon1.setPosition(x + dx * i, 138);
                 thiz.addChild(icon1);
 
                 var icon2 = new cc.Sprite("#home-game-tab"+ (i+1) +"-2.png");
@@ -48,9 +48,9 @@ var GameLayer = cc.Node.extend({
 
                 var listGame = new newui.TableView(cc.size(right - left, (top - bottom)), 2);
                 listGame.setDirection(ccui.ScrollView.DIR_HORIZONTAL);
-                listGame.setPadding(30);
+                listGame.setPadding(60);
                 listGame.setBounceEnabled(true);
-                listGame.setMargin(0,0,30,30);
+                listGame.setMargin(30,0,30,30);
                 listGame.setScrollBarEnabled(false);
                 listGame.setPosition(left, bottom);
 
