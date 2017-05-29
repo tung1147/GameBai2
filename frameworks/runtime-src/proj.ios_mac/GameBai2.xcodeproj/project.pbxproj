@@ -1269,7 +1269,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				CODE_SIGN_ENTITLEMENTS = "GameBai2-mobile.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Quang Dao (93PT735U8T)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Quang Dao (P964R37634)";
 				COMPRESS_PNG_FILES = NO;
 				DEVELOPMENT_TEAM = P964R37634;
 				ENABLE_BITCODE = NO;
@@ -1285,9 +1285,9 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../../cocos2d-x/external/curl/prebuilt/ios";
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.vuabaivip.test;
-				PROVISIONING_PROFILE = "f20a0c86-9c3c-4d25-b98a-4a82decf7f38";
-				PROVISIONING_PROFILE_SPECIFIER = apptest_dev;
+				PRODUCT_BUNDLE_IDENTIFIER = com.danhbaionline.danhbaiviphd;
+				PROVISIONING_PROFILE = "e7c2b29e-c40e-441f-940b-d51da91f704e";
+				PROVISIONING_PROFILE_SPECIFIER = VBV_HD_Dis;
 				SDKROOT = iphoneos;
 				STRIP_PNG_TEXT = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1301,7 +1301,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				CODE_SIGN_ENTITLEMENTS = "GameBai2-mobile.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Quang Dao (93PT735U8T)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Quang Dao (P964R37634)";
 				COMPRESS_PNG_FILES = NO;
 				DEVELOPMENT_TEAM = P964R37634;
 				ENABLE_BITCODE = NO;
@@ -1316,9 +1316,9 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../../cocos2d-x/external/curl/prebuilt/ios";
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.vuabaivip.test;
-				PROVISIONING_PROFILE = "f20a0c86-9c3c-4d25-b98a-4a82decf7f38";
-				PROVISIONING_PROFILE_SPECIFIER = apptest_dev;
+				PRODUCT_BUNDLE_IDENTIFIER = com.danhbaionline.danhbaiviphd;
+				PROVISIONING_PROFILE = "e7c2b29e-c40e-441f-940b-d51da91f704e";
+				PROVISIONING_PROFILE_SPECIFIER = VBV_HD_Dis;
 				SDKROOT = iphoneos;
 				STRIP_PNG_TEXT = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
