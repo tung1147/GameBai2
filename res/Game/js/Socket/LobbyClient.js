@@ -16,9 +16,9 @@ if (cc.sys.isNative) { //mobile
 }
 else { //websocket
     var s_lobbyServer = s_lobbyServer || [
-        //"wss://vuabaivip.com/lagen2-lobby/websocket"
+        "wss://vuabaivip.com/lagen2-lobby/websocket"
         //"ws://vuabaivip.com:8887/websocket"
-        "ws://42.112.25.164:8887/websocket" // UAT
+        //"ws://42.112.25.164:8887/websocket" // UAT
         //"ws://42.112.25.154:8887/websocket" //dev2 = khoi
 
     ];
@@ -62,6 +62,7 @@ var LobbyClient = (function () {
                 this.addListener("updateItem", this._onUpdateItemHandler, this);
                 this.addListener("inboxMessage", this._onInboxMessageHandler, this);
                 this.addListener("news", this._onNewsHandler, this);
+                this.addListener("sendBroadcastMessage", this._onSendBroadcastMessage, this);
                 this.addListener("markReadedMessageInbox", this._onMarkReadedMessageInboxHandler, this);
                 this.addListener("fetchProducts", this._onFetchProductsHandler, this);
                 this.addListener("fetchCashinProductItems", this._onFetchCashinProductItemsHandler, this);
@@ -393,7 +394,14 @@ var LobbyClient = (function () {
         },
 
         _onNewsHandler : function (cmd, event) {
-            var broadcast = event["data"]["broadcast"];
+            // var broadcast = event["data"]["broadcast"];
+            // if (broadcast) {
+            //     GameConfig.broadcastMessage = broadcast;
+            // }
+        },
+
+        _onSendBroadcastMessage : function (cmd, event) {
+            var broadcast = event["data"]["message"];
             if (broadcast) {
                 GameConfig.broadcastMessage = broadcast;
             }

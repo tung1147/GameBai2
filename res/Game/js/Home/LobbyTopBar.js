@@ -151,6 +151,7 @@ var LobbyTopBar = cc.Node.extend({
     },
     
     setMessage : function (message) {
+        var thiz = this;
         var messageText = this.messageText;
         var messageBoxWidth = this.messageBoxWidth + 10.0;
 
@@ -160,9 +161,9 @@ var LobbyTopBar = cc.Node.extend({
         var moveWidth = messageBoxWidth + messageText.getContentSize().width;
         var duration = moveWidth / 75.0;
         var action = new cc.Sequence(new cc.MoveBy(duration, cc.p(-moveWidth, 0)), new cc.CallFunc(function () {
-            messageText.x = messageBoxWidth;
+            thiz.setMessage(GameConfig.broadcastMessage);
         }));
-        this.messageText.runAction(new cc.RepeatForever(action));
+        this.messageText.runAction(action);
     },
     refreshView : function () {
         this.setMessage(GameConfig.broadcastMessage);
