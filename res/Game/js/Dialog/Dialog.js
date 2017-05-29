@@ -89,9 +89,13 @@ var IDialog = cc.Node.extend({
     showWithAnimationScale : function () {
         Dialog.prototype.show.apply(this, arguments);
 
-        var scale = this.getScale();
+        var defaultScale = this._defaultScale;
+        if(defaultScale === null || defaultScale === undefined){
+            defaultScale = 1.0;
+        }
+
         this.setScale(0.0);
-        var scaleAction = new cc.EaseElasticOut(new cc.ScaleTo(0.7, scale));
+        var scaleAction = new cc.EaseElasticOut(new cc.ScaleTo(0.7, defaultScale));
         this.runAction(scaleAction);
     },
     showWithAnimationMove : function () {
