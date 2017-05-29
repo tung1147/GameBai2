@@ -234,7 +234,7 @@ var GameConfig = GameConfig || {};
 GameConfig.email = "c567vip@gmail.com";
 GameConfig.hotline = "0903.229.747";
 GameConfig.fanpage = "https://www.facebook.com/C567gamebaidoithuong/";
-GameConfig.broadcastMessage = "Chào mừng đến với Game bài C567";
+GameConfig.broadcastMessage = "";
 GameConfig.DeviceIDKey = "";
 
 var LevelData = null;

@@ -152,6 +152,8 @@ var LobbyTopBar = cc.Node.extend({
     
     setMessage : function (message) {
         var thiz = this;
+        this.oldMessage = message;
+        
         var messageText = this.messageText;
         var messageBoxWidth = this.messageBoxWidth + 10.0;
 
@@ -169,8 +171,20 @@ var LobbyTopBar = cc.Node.extend({
         this.setMessage(GameConfig.broadcastMessage);
     },
 
+    onBroadcastMessage: function () {
+        if(!this.oldMessage || this.oldMessage === ""){
+            this.refreshView();
+        }
+    },
+
     onEnter : function () {
         this._super();
         this.refreshView();
+        LobbyClient.getInstance().addListener("sendBroadcastMessage", this.onBroadcastMessage, this);
+    },
+
+    onExit : function () {
+        this._super();
+        LobbyClient.getInstance().removeListener(this);
     }
 });
