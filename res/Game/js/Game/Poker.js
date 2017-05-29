@@ -1167,8 +1167,9 @@ var Poker = IGameScene.extend({
         var thiz = this;
         if(this.minBuy > PlayerMe.gold)
         {
-            MessageNode.getInstance().show("Bạn không đủ vàng để chơi, vui lòng ra nạp vàng");
-
+            setTimeout(function () {
+                MessageNode.getInstance().show("Bạn không đủ vàng để chơi, vui lòng ra nạp vàng");
+            }, 0);
         }
         else {
             var isMax = false;
@@ -1184,7 +1185,7 @@ var Poker = IGameScene.extend({
                 thiz._controller.sendSitDownRequest(index,dialog.getGold(), dialog.cbAutoBuy.isSelected());
                 dialog.hide();
             };
-            dialog.show();
+            dialog.show(this.popupLayer);
         }
     },
     findSlotSitDown:function () {
@@ -1195,10 +1196,9 @@ var Poker = IGameScene.extend({
 
             if(this.allSlot[z].username == "")
             {
-                this.allSlot[z].runAction(new cc.Sequence(new cc.DelayTime(1), new cc.CallFunc( function () {
-                    cc.log("============= damn"+ z);
+                //setTimeout(function () {
                     thiz.showSitDownDialog(z);
-                })));
+               // }, 0);
                 isCanSit = true;
                 break;
         }
