@@ -29,6 +29,7 @@ var SmartfoxClient = (function () {
                 this.addExtensionListener("13", this._onReconnectHandler, this);
                // this.addExtensionListener("262", this._onReconnectMiniGameHandler, this);
                 this.addExtensionListener("fullRoom", this._onFullRoomHandler, this);
+                this.addExtensionListener("joinTooQuick", this._onJoinTooQuickHandler, this);
                 this.addExtensionListener("___err___", this._onSFSError, this);
             }
         },
@@ -456,7 +457,12 @@ var SmartfoxClient = (function () {
 
         _onFullRoomHandler: function (cmd, contents) {
             LoadingDialog.getInstance().hide();
-            MessageNode.getInstance().show("Phòng đầy");
+            MessageNode.getInstance().show("Phòng đầy, bình tĩnh em ơi !!!");
+        },
+
+        _onJoinTooQuickHandler : function (cmd, contents) {
+            LoadingDialog.getInstance().hide();
+            MessageNode.getInstance().show("Bình tĩnh em ơi !!!");
         },
 
         _onSFSError : function (cmd, contents) {
