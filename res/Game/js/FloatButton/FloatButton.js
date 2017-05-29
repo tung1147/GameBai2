@@ -43,7 +43,7 @@ var FloatButton = (function() {
         ctor : function () {
             this._super();
             this.showAll = false;
-            this.setPosition(cc.winSize.width/2, cc.winSize.height/2);
+//            this.setPosition(cc.winSize.width/2, cc.winSize.height/2);
 
             var bg = new cc.Sprite("#floatBt-bg.png");
             bg.visible = false;
@@ -59,13 +59,13 @@ var FloatButton = (function() {
             this.initComponent();
             this.initButtonCenter();
 
-            var left = this.rectTouch.width/2;
-            var right = cc.winSize.width - left;
-            var bottom = this.rectTouch.height/2;
-            var top = cc.winSize.height - bottom;
-            var x = left + Math.random() * (right - left);
-            var y = bottom + Math.random() * (top - bottom);
-            this.setPosition(x, y);
+            // var left = this.rectTouch.width/2;
+            // var right = cc.winSize.width - left;
+            // var bottom = this.rectTouch.height/2;
+            // var top = cc.winSize.height - bottom;
+            // var x = left + Math.random() * (right - left);
+            // var y = bottom + Math.random() * (top - bottom);
+            this.setPosition(cc.winSize.width - 45, 108);
         },
         initButtonCenter : function () {
             var btCenter = new FloatButtonCenter();
