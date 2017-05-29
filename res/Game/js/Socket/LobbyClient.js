@@ -61,6 +61,7 @@ var LobbyClient = (function () {
                 this.addListener("updateItem", this._onUpdateItemHandler, this);
                 this.addListener("inboxMessage", this._onInboxMessageHandler, this);
                 this.addListener("news", this._onNewsHandler, this);
+                this.addListener("sendBroadcastMessage", this._onSendBroadcastMessage, this);
                 this.addListener("markReadedMessageInbox", this._onMarkReadedMessageInboxHandler, this);
                 this.addListener("fetchProducts", this._onFetchProductsHandler, this);
                 this.addListener("fetchCashinProductItems", this._onFetchCashinProductItemsHandler, this);
@@ -392,7 +393,14 @@ var LobbyClient = (function () {
         },
 
         _onNewsHandler : function (cmd, event) {
-            var broadcast = event["data"]["broadcast"];
+            // var broadcast = event["data"]["broadcast"];
+            // if (broadcast) {
+            //     GameConfig.broadcastMessage = broadcast;
+            // }
+        },
+
+        _onSendBroadcastMessage : function (cmd, event) {
+            var broadcast = event["data"]["message"];
             if (broadcast) {
                 GameConfig.broadcastMessage = broadcast;
             }

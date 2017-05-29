@@ -185,7 +185,7 @@ var HomeScene = IScene.extend({
     },
 
     onNewsMessage : function (command, data) {
-        this.topBar.refreshView();
+        //this.topBar.refreshView();
         var popupMsg = data["data"]["popup"];
         if(popupMsg && popupMsg != ""){
             //show popup
@@ -194,6 +194,7 @@ var HomeScene = IScene.extend({
             messageDialog.showWithAnimationScale();
         }
     },
+
     onLoginHandler: function (command, data) {
         //  cc.log("onLoginHandler");
         if (data.status == 0) {
@@ -255,7 +256,7 @@ var HomeScene = IScene.extend({
         this.lobbyLayer.setVisible(false);
         this.userInfo.visible = true;
         this.userInfo.refreshView();
-        this.topBar.refreshView();
+        //this.topBar.refreshView();
         if (this.homeLocation == 0 || this.homeLocation == 3) {
             this.gameLayer.startAnimation();
         }
