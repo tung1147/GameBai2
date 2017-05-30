@@ -166,7 +166,7 @@ var LobbyLayer = cc.Node.extend({
         roomList.pushItem(roomCell);
 
         roomCell.addTouchCell(function () {
-            if(PlayerMe.gold < minMoney){
+            if(PlayerMe.gold < minMoney && PlayerMe.gameType != s_games_chanel[GameType.GAME_Poker]){
                 MessageNode.getInstance().show("Bạn không đủ tiền vào phòng");
             }
             else{
@@ -246,20 +246,22 @@ var LobbyLayer = cc.Node.extend({
             return;
         }
 
-        data = data["data"];
-        if (RecvInviteDialog.getInstance().isShow())
+        if(s_RecvInviteDialog){
             return;
-        RecvInviteDialog.getInstance().setInfo(data["userInvite"],s_games_display_name[s_games_chanel_id[data["gameType"]]],data["betting"]);
+        }
 
+        data = data["data"];
         var roomId = data["roomId"];
         var serverInfo = LobbyClient.getInstance().createServerInfo(data);
         serverInfo.roomId = roomId;
-        RecvInviteDialog.getInstance().setRoomInfo(serverInfo);
 
-        RecvInviteDialog.getInstance().showWithAnimationScale();
-        RecvInviteDialog.getInstance()._ignoreHandler = function () {
+        var dialog = new RecvInviteDialog();
+        dialog.setInfo(data["userInvite"],s_games_display_name[s_games_chanel_id[data["gameType"]]],data["betting"]);
+        dialog.setRoomInfo(serverInfo);
+        dialog._ignoreHandler = function () {
             thiz.ignoreAllInvite = true;
         };
+        dialog.showWithAnimationScale();
     },
 
     onUpdateAll : function (cmd, event) {
