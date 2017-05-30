@@ -166,7 +166,7 @@ var LobbyLayer = cc.Node.extend({
         roomList.pushItem(roomCell);
 
         roomCell.addTouchCell(function () {
-            if(PlayerMe.gold < minMoney){
+            if(PlayerMe.gold < minMoney && PlayerMe.gameType != s_games_chanel[GameType.GAME_Poker]){
                 MessageNode.getInstance().show("Bạn không đủ tiền vào phòng");
             }
             else{
