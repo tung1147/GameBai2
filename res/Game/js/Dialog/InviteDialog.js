@@ -84,6 +84,9 @@ var InviteDialog = Dialog.extend({
         inviteBt.addClickEventListener(function () {
             thiz._requestInvite([username]);
             thiz.listItem.removeItem(container);
+            if(thiz.listItem.size() <= 0){
+                thiz.hide();
+            }
         });
     },
 
