@@ -8,7 +8,7 @@ var s_Dialog_Create_Button1 = function (size, title) {
     bt.setCapInsets(cc.rect(10,10,4,4));
     bt.setContentSize(size);
     if(title){
-        var btTitle = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, title);
+        var btTitle = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_20, title);
         btTitle.setColor(cc.color("#835238"));
         btTitle.setPosition(size.width/2, size.height/2);
         bt.getRendererNormal().addChild(btTitle);
@@ -23,7 +23,7 @@ var s_Dialog_Create_Button2 = function (size, title) {
     bt.setCapInsets(cc.rect(10,10,4,4));
     bt.setContentSize(size);
     if(title){
-        var btTitle = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, title);
+        var btTitle = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_20, title);
         btTitle.setColor(cc.color("#40485a"));
         btTitle.setPosition(size.width/2, size.height/2);
         bt.getRendererNormal().addChild(btTitle);

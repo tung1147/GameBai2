@@ -168,10 +168,10 @@ var RecvInviteDialog = (function () {
             }
 
             var msgLabel = new ccui.RichText();
-            msgLabel.pushBackElement(new ccui.RichElementText(0, cc.color("#ffffff"), 255, username + " ", cc.res.font.Roboto_CondensedBold, 18));
-            msgLabel.pushBackElement(new ccui.RichElementText(0, cc.color("#ffffff"), 255, "Mời bạn vào chơi phòng ", cc.res.font.Roboto_Condensed, 18));
-            msgLabel.pushBackElement(new ccui.RichElementText(0, cc.color("#ffffff"), 255, gameName + " ", cc.res.font.Roboto_Condensed, 18));
-            msgLabel.pushBackElement(new ccui.RichElementText(0, cc.color("#ffde00"), 255, cc.Global.NumberFormat1(betting) + " V", cc.res.font.Roboto_Condensed, 18));
+            msgLabel.pushBackElement(new ccui.RichElementText(0, cc.color("#77cbee"), 255, username, cc.res.font.Roboto_CondensedBold, 18));
+            msgLabel.pushBackElement(new ccui.RichElementText(0, cc.color("#ffffff"), 255, " mời bạn vào chơi ", cc.res.font.Roboto_Condensed, 18));
+            msgLabel.pushBackElement(new ccui.RichElementText(0, cc.color("#ffffff"), 255, gameName + " phòng ", cc.res.font.Roboto_Condensed, 18));
+            msgLabel.pushBackElement(new ccui.RichElementText(0, cc.color("#ffde00"), 255, cc.Global.NumberFormat1(betting) + " V", cc.res.font.Roboto_CondensedBold, 18));
 
             msgLabel.setPosition(this.getContentSize().width/2 , 148);
             this.messageNode.addChild(msgLabel);
@@ -179,8 +179,8 @@ var RecvInviteDialog = (function () {
 
         setInfoWithoutSender: function (gameName, betting) {
             var msgLabel = new ccui.RichText();
-            msgLabel.pushBackElement(new ccui.RichElementText(0, cc.color("#ffffff"), 255, "Bạn nhận được lời mời chơi ", cc.res.font.Roboto_Condensed, 18));
-            msgLabel.pushBackElement(new ccui.RichElementText(0, cc.color("#ffffff"), 255, gameName + " ", cc.res.font.Roboto_Condensed, 18));
+            msgLabel.pushBackElement(new ccui.RichElementText(0, cc.color("#77cbee"), 255, "Bạn nhận được lời mời chơi ", cc.res.font.Roboto_Condensed, 18));
+            msgLabel.pushBackElement(new ccui.RichElementText(0, cc.color("#ffffff"), 255, gameName + " phòng ", cc.res.font.Roboto_Condensed, 18));
             msgLabel.pushBackElement(new ccui.RichElementText(0, cc.color("#ffde00"), 255, cc.Global.NumberFormat1(betting) + " V", cc.res.font.Roboto_Condensed, 18));
 
             msgLabel.setPosition(this.getContentSize().width/2 , 148);
