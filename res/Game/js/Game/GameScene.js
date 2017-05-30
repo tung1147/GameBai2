@@ -157,6 +157,7 @@ var IGameScene = IScene.extend({
         if (message) {
             MessageNode.getInstance().show(message, null, homeScene);
         }
+        return homeScene;
     },
     exitToGame: function (message) {
         var homeScene = new HomeScene();
@@ -165,6 +166,7 @@ var IGameScene = IScene.extend({
         if (message) {
             MessageNode.getInstance().show(message, null, homeScene);
         }
+        return homeScene;
     },
 
     onExit: function () {

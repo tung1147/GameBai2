@@ -1173,6 +1173,7 @@ var Poker = IGameScene.extend({
                 dialog.setMessage("Bạn không đủ vàng để chơi, vui lòng ra nạp vàng ?");
                 dialog.okTitle.setString("Nạp vàng");
                 dialog.okButtonHandler = function () {
+                    thiz._exitToPayment = true;
                     thiz.backButtonClickHandler();
                     dialog.hide();
                 };
@@ -1195,6 +1196,13 @@ var Poker = IGameScene.extend({
             };
             dialog.show(this.popupLayer);
         }
+    },
+    exitToLobby: function (message) {
+        var homeScene = this._super(message);
+        if(this._exitToPayment){
+            homeScene.paymentButtonHandler();
+        }
+        return homeScene;
     },
     findSlotSitDown:function () {
         var thiz = this;
