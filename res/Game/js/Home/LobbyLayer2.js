@@ -167,7 +167,11 @@ var LobbyLayer = cc.Node.extend({
 
         roomCell.addTouchCell(function () {
             if(PlayerMe.gold < minMoney && PlayerMe.gameType != s_games_chanel[GameType.GAME_Poker]){
-                MessageNode.getInstance().show("Bạn không đủ tiền vào phòng");
+                //MessageNode.getInstance().show("Bạn không đủ tiền vào phòng");
+                var homeScene = cc.director.getRunningScene();
+                if(homeScene.showPaymentDialog){
+                    homeScene.showPaymentDialog();
+                }
             }
             else{
                 var serverInfo = LobbyClient.getInstance().SFSServerInfo[serverId];

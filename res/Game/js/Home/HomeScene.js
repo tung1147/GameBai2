@@ -491,6 +491,18 @@ var HomeScene = IScene.extend({
         SmartfoxClient.getInstance().playNow(serverInfo, s_games_chanel[this.currentLobbyId]);
     },
 
+    showPaymentDialog : function () {
+        var thiz = this;
+        var dialog = new MessageConfirmDialog();
+        dialog.setMessage("Bạn không đủ vàng để chơi, vui lòng nạp vàng ?");
+        dialog.okTitle.setString("Nạp vàng");
+        dialog.okButtonHandler = function () {
+            thiz.paymentButtonHandler();
+            dialog.hide();
+        };
+        dialog.show(this.popupLayer);
+    },
+
     transferGoldButtonHandler : function () {
         if (this._checkLogin() == false) {
             return;
