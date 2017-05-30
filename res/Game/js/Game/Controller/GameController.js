@@ -126,9 +126,12 @@ var GameController = cc.Class.extend({
                 case 3:
                     message = "Bạn bị kick do không bắt đầu ván chơi";
                     break;
-                case 4:
-                    message = "Bạn không đủ vàng để chơi, vui lòng ra nạp vàng";
-                    break;
+                case 4: // het tien
+                    {
+                        var homeScene = this._view.exitToLobby(null);
+                        homeScene.showPaymentDialog();
+                        return;
+                    }
             }
             this._view.exitToLobby(message);
         }
