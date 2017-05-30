@@ -1167,9 +1167,17 @@ var Poker = IGameScene.extend({
         var thiz = this;
         if(this.minBuy > PlayerMe.gold)
         {
-            setTimeout(function () {
-                MessageNode.getInstance().show("Bạn không đủ vàng để chơi, vui lòng ra nạp vàng");
-            }, 0);
+            // setTimeout(function () {
+                // MessageNode.getInstance().show("Bạn không đủ vàng để chơi, vui lòng ra nạp vàng");
+                var dialog = new MessageConfirmDialog();
+                dialog.setMessage("Bạn không đủ vàng để chơi, vui lòng ra nạp vàng ?");
+                dialog.okTitle.setString("Nạp vàng");
+                dialog.okButtonHandler = function () {
+                    thiz.backButtonClickHandler();
+                    dialog.hide();
+                };
+                dialog.show(this.popupLayer);
+            // }, 2);
         }
         else {
             var isMax = false;
