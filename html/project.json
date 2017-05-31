@@ -30,6 +30,7 @@
     "html/Socket/SFSSocket.js",
     "html/Scene/LoadingScene.js",
     "html/Scene/HtmlViewNavigator.js",
+    "res/Game/js/Global/TextureDownloader.js",
     "res/Game/js/MiniGame/JackpotLayer.js",
     "res/Game/js/Global/Global.js",
     "res/Game/js/Core/NewAction.js",

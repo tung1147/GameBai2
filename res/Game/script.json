@@ -1,6 +1,7 @@
 [
 	"js/MiniGame/JackpotLayer.js",
 	"js/Global/Global.js",
+	"js/Global/TextureDownloader.js",
 	"js/Core/NewAction.js",
 	"js/Core/ToggleNodeGroup.js",
 	"js/Core/ButtonToggle.js",

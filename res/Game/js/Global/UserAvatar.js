@@ -45,27 +45,11 @@ var UserAvatar = cc.Node.extend({
         }
 
         var thiz = this;
-        var textureInCache = cc.textureCache.getTextureForKey(url);
-        if(textureInCache){
-            thiz._setAvatarWithTexture(textureInCache);
-        }
-        else{
-            if(cc.sys.isNative){
-                quyetnd.ResourcesDownloader.loadTexture(url, function (texture) {
-                    if(texture){
-                        thiz._setAvatarWithTexture(texture);
-                    }
-                });
+        TextureDownloader.load(url, function (tex) {
+            if(tex){
+                thiz._setAvatarWithTexture(tex);
             }
-            else{
-                cc.loader.loadImg(url, function (err, texture) {
-                    if(texture){
-                        cc.textureCache.cacheImage(url, texture);
-                        thiz._setAvatarWithTexture(texture);
-                    }
-                });
-            }
-        }
+        });
     },
     
     setAvatarMe : function () {
