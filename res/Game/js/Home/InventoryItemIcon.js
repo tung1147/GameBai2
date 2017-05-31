@@ -37,26 +37,10 @@ var InventoryItemIcon = cc.Node.extend({
         }
 
         var thiz = this;
-        var textureInCache = cc.textureCache.getTextureForKey(url);
-        if(textureInCache){
-            thiz._setItemWithTexture(textureInCache);
-        }
-        else{
-            if(cc.sys.isNative){
-                quyetnd.ResourcesDownloader.loadTexture(url, function (texture) {
-                    if(texture){
-                        thiz._setItemWithTexture(texture);
-                    }
-                });
+        TextureDownloader.load(url, function (tex) {
+            if(tex){
+                thiz._setItemWithTexture(tex);
             }
-            else{
-                cc.loader.loadImg(url, function (err, texture) {
-                    if(texture){
-                        cc.textureCache.cacheImage(url, texture);
-                        thiz._setItemWithTexture(texture);
-                    }
-                });
-            }
-        }
+        });
     }
 });

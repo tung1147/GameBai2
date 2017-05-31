@@ -50,28 +50,11 @@ var WebSprite = cc.Node.extend({
 
     reloadFromURL : function (url) {
         var thiz = this;
-        var textureInCache = cc.textureCache.getTextureForKey(url);
-        if(textureInCache){
-            var imgSprite = new cc.Sprite(textureInCache);
-            thiz._setImageSprite(imgSprite);
-            return;
-        }
-
-        if(cc.sys.isNative){
-            quyetnd.ResourcesDownloader.loadTexture(url, function (texture) {
-                cc.log("loadTexture: 1111");
-                var imgSprite = new cc.Sprite(texture);
+        TextureDownloader.load(url, function (tex) {
+            if(tex){
+                var imgSprite = new cc.Sprite(tex);
                 thiz._setImageSprite(imgSprite);
-            });
-        }
-        else{
-            cc.loader.loadImg(url, function (err, texture) {
-                if(texture){
-                    cc.textureCache.cacheImage(url, texture);
-                    var imgSprite = new cc.Sprite(texture);
-                    thiz._setImageSprite(imgSprite);
-                }
-            });
-        }
+            }
+        });
     }
 });
