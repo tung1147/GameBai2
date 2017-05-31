@@ -275,7 +275,7 @@ var TransferGoldDialog = Dialog.extend({
         if(currentGold < PlayerMe.transferGoldMinAsset){
             gold = 0;
         }
-        else if(gold < PlayerMe.transferGoldMinValue){
+        else if(goldInput < PlayerMe.transferGoldMinValue){
             gold = 0;
         }
 
