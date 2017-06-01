@@ -149,7 +149,7 @@ newui.CustomScrollView = ccui.ScrollView.extend({
             var pDelta = cc.p(0, delta);
         }
         else{
-            var pDelta = cc.p(delta, 0);
+            var pDelta = cc.p(-delta, 0);
         }
 
         /* sida */
