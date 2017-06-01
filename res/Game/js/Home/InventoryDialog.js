@@ -68,7 +68,7 @@ var InventoryUseDialog = Dialog.extend({
         icon.setPosition(iconBg.getPosition());
         this.addChild(icon,2);
 
-        var contentLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, info.itemContent, cc.TEXT_ALIGNMENT_LEFT, 340);
+        var contentLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, info.itemContent, cc.TEXT_ALIGNMENT_LEFT, 300);
         contentLabel.setAnchorPoint(cc.p(0.0, 1.0));
         contentLabel.setPosition(154, 188);
         this.addChild(contentLabel,1);
@@ -114,21 +114,22 @@ var InventoryDialog = Dialog.extend({
        // this._bgColor = cc.color(0,0,0,0);
         this.okButton.visible = false;
         this.cancelButton.visible = false;
+        this.isBgDialogShadow = true;
         this.title.setString("KHO ĐỒ");
-        this.initWithSize(cc.size(470, 640));
+        this.initWithSize(cc.size(525, 665));
 
         this.initItemListView();
         this.initUsedItemView();
     },
 
     initItemListView : function () {
-        var _left = 56;
-        var _right = 506;
-        var _top = 558;
-        var _bottom = 98;
+        var _left = 81;
+        var _right = 574;
+        var _top = 558 - 25;
+        var _bottom = 98 + 25;
 
         var listItem = new newui.TableView(cc.size(_right - _left, _top - _bottom), 4);
-        listItem.setPosition(cc.p(10, 0));
+        listItem.setPosition(cc.p(15, 25));
         listItem.setMargin(20,20,0,0);
         listItem.setPadding(10);
         this.addChild(listItem, 1);
@@ -190,8 +191,8 @@ var InventoryDialog = Dialog.extend({
     },
 
     initUsedItemView : function () {
-        var _left = 19;
-        var _right = 453;
+        var _left = 34;
+        var _right = 490;
         var _top = 557;
         var _bottom = 475;
 

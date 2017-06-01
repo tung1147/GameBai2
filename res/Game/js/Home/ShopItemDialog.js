@@ -154,17 +154,18 @@ var ShopItemDialog = Dialog.extend({
 
         this.okButton.visible = false;
         this.cancelButton.visible = false;
+        this.isBgDialogShadow  = true;
         this.title.setString("CỬA HÀNG");
-        this.initWithSize(cc.size(690, 640));
+        this.initWithSize(cc.size(740, 690));
 
         var _left = 56;
         var _right = 726;
-        var _top = 572;
-        var _bottom = 98;
+        var _top = 572 + 25;
+        var _bottom = 98 + 25;
 
         var tabBg = new ccui.Scale9Sprite("shop_tab_0.png", cc.rect(10,10,4,4));
         tabBg.setPreferredSize(cc.size(420, 50));
-        tabBg.setPosition(this.getContentSize().width/2, 517);
+        tabBg.setPosition(this.getContentSize().width/2, 543);
         this.addChild(tabBg);
 
         var mToggle = new ToggleNodeGroup();
@@ -202,7 +203,8 @@ var ShopItemDialog = Dialog.extend({
         }
 
         var listItem = new newui.TableView(cc.size(_right - _left, _top - _bottom), 6);
-        listItem.setPosition(cc.p(0, 0));
+        listItem.setAnchorPoint(cc.p(0.5, 0.0));
+        listItem.setPosition(cc.p(thiz.width/2, 25));
         listItem.setMargin(20,20,0,0);
         listItem.setPadding(10);
         this.addChild(listItem);
@@ -221,7 +223,7 @@ var ShopItemDialog = Dialog.extend({
         this.listItem.pushItem(container);
 
         var bg = new ccui.Scale9Sprite("shop_item_bg.png", cc.rect(20,20,4,4));
-        bg.setPreferredSize(container.getContentSize());
+        bg.setPreferredSize(cc.size(container.width, container.height));
         bg.setPosition(container.getContentSize().width/2, container.getContentSize().height/2);
         container.addChild(bg);
 

@@ -273,6 +273,13 @@ var Dialog = IDialog.extend({
             this.dialogBgTitle.setPosition(cc.p(this.dialogBg2.width/2, this.dialogBg2.height - this.dialogBgTitle.getContentSize().height/2));
             this.title.setPosition(this.getContentSize().width/2, this.dialogBgTitle.getPosition().y);
             this.closeButton.setPosition(this.getContentSize().width - 58.0, this.title.y);
+            this.mTouch = cc.rect(25, 25, mSize.width - 25, mSize.height - 25);
+
+            this._maxLeft = mSize.width/2 - 21;
+            this._maxRight = cc.winSize.width - mSize.width/2 + 21;
+            this._maxBottom = mSize.height/2 - 21;
+            this._maxTop = cc.winSize.height - mSize.height/2 - 4;
+
         }
         else
         {
@@ -285,18 +292,19 @@ var Dialog = IDialog.extend({
 
             this.title.setPosition(this.getContentSize().width/2, this.dialogBgTitle.getPosition().y);
             this.closeButton.setPosition(this.getContentSize().width - 33.0, this.title.y);
+            this.mTouch = cc.rect(this._marginLeft, this._marginBottom, mSize.width, mSize.height);
+
+            this._maxLeft = mSize.width/2 + 4;
+            this._maxRight = cc.winSize.width - mSize.width/2 - 4;
+            this._maxBottom = mSize.height/2 + 4;
+            this._maxTop = cc.winSize.height - mSize.height/2 - 4;
         }
 
 
         this.okButton.setPosition(this.getContentSize().width/2 - this.okButton.getContentSize().width/2 - 15.0, 50);
         this.cancelButton.setPosition(this.getContentSize().width/2 + this.cancelButton.getContentSize().width/2 + 15.0, 50);
 
-        this.mTouch = cc.rect(this._marginLeft, this._marginBottom, mSize.width, mSize.height);
 
-        this._maxLeft = mSize.width/2 + 4;
-        this._maxRight = cc.winSize.width - mSize.width/2 - 4;
-        this._maxBottom = mSize.height/2 + 4;
-        this._maxTop = cc.winSize.height - mSize.height/2 - 4;
     },
 
     closeButtonHandler : function () {
