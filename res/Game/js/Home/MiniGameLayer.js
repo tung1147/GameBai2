@@ -140,19 +140,19 @@ var MiniGameLayer = cc.Node.extend({
             case 53:
                 var huCaoThapList = data["511"];
                 for (var i = 0; i < 3; i++) {
-                    this.allMiniLayer[i].getItem(0).setGold(huCaoThapList[i]["512"]);
+                    this.allMiniLayer[huCaoThapList[i]["506"] - 1].getItem(0).setGold(huCaoThapList[i]["512"]);
                 }
                 break;
             case 262:
                 var huMiniList = data["515"];
                 for (var i = 0; i < 3; i++) {
-                    this.allMiniLayer[i].getItem(1).setGold(huMiniList[i]["514"]);
+                    this.allMiniLayer[huMiniList[i]["511"] - 1].getItem(1).setGold(huMiniList[i]["514"]);
                 }
                 break;
             case 717:
                 var huVideoList = data["1"];
                 for (var i = 0; i < 3; i++) {
-                    this.allMiniLayer[i].getItem(2).setGold(huVideoList[i]["2"]);
+                    this.allMiniLayer[huVideoList[i]["1"] - 1].getItem(2).setGold(huVideoList[i]["2"]);
                 }
                 break;
         }
