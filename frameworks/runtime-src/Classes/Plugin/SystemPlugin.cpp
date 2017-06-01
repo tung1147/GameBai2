@@ -595,7 +595,7 @@ std::vector<char> SystemPlugin::dataEncrypt(const char* key, const char* data, i
 		retData.push_back((char)ivBuffer[i]);
 	}
 
-	//add padding
+	//add padding [PKCS#5]
 	std::vector<char> dataBuffer(data, data + dataSize);
 	int padding = AES_BLOCK_SIZE_BYTE - (dataSize%AES_BLOCK_SIZE_BYTE);
 	for (int i = 0; i<padding; i++){
@@ -633,20 +633,13 @@ std::vector<char> SystemPlugin::dataDecrypt(const char* key, const char* data, i
 	uint8_t* outputBuffer = new uint8_t[encyrptSize];
 	aes_cbc_decrypt((const uint8_t*)(data + AES_BLOCK_SIZE_BYTE), outputBuffer, ivBuffer, blockSize, &secretKey);
 
-	//remove padding
+	//remove padding [PKCS#5]
 	uint8_t lastByte = outputBuffer[encyrptSize - 1];
-	int flag = 1;
-	for (int i = encyrptSize - 2; i >= 0; i--){
-		if (outputBuffer[i] == lastByte){
-			flag++;
-		}
-		else{
-			break;
-		}
+	if (lastByte > AES_BLOCK_SIZE_BYTE){
+		CCLOG("ERROR PADDING");
+		return retData;
 	}
-	if (flag == lastByte){
-		encyrptSize -= flag;
-	}
+	encyrptSize -= lastByte;
 	
 	retData.insert(retData.end(), outputBuffer, outputBuffer + encyrptSize);
 	delete[] outputBuffer;
