@@ -597,12 +597,9 @@ std::vector<char> SystemPlugin::dataEncrypt(const char* key, const char* data, i
 
 	//add padding
 	std::vector<char> dataBuffer(data, data + dataSize);
-	int padding = dataSize%AES_BLOCK_SIZE_BYTE;
-	if (padding){
-		padding = AES_BLOCK_SIZE_BYTE - padding;
-		for (int i = 0; i<padding; i++){
-			dataBuffer.push_back(padding);
-		}
+	int padding = AES_BLOCK_SIZE_BYTE - (dataSize%AES_BLOCK_SIZE_BYTE);
+	for (int i = 0; i<padding; i++){
+		dataBuffer.push_back(padding);
 	}
 
 	//encrypt
@@ -648,7 +645,6 @@ std::vector<char> SystemPlugin::dataDecrypt(const char* key, const char* data, i
 		encyrptSize -= flag;
 	}
 	
-
 	retData.insert(retData.end(), outputBuffer, outputBuffer + encyrptSize);
 	delete[] outputBuffer;
 	return retData;
