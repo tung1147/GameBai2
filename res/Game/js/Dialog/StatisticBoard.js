@@ -491,10 +491,9 @@ var StatisticBoard = IDialog.extend({
         }
 
         for (var i = 0; i < deck.length; i++) {
-            var rank = (deck[i] + 1) % 13 + 1;
-            var suit = suitArray[Math.floor(deck[i] / 13)];
+            var card = CardList.prototype.getCardWithId(deck[i]);
 
-            var cardSprite = new cc.Sprite("#" + rank + s_card_suit[suit] + ".png");
+            var cardSprite = new cc.Sprite("#" + card.rank + s_card_suit[card.suit] + ".png");
             cardSprite.setScale(0.3);
             cardSprite.setPosition(baseX + i * marge * cc.winSize.screenScale, baseY);
             container.addChild(cardSprite);
