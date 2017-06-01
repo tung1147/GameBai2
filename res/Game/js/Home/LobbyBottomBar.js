@@ -19,7 +19,7 @@ var LobbyBottomBar = cc.Node.extend({
 
 
 
-        var effectPlayNow = new cc.Sprite("bot_bar_effect_playBg.png");
+        var effectPlayNow = new cc.Sprite("#bot_bar_effect_playBg.png");
         effectPlayNow.setAnchorPoint(cc.p(0.5, 0.0));
         effectPlayNow.setPosition(640, -50);
         effectPlayNow.setVisible(false);
