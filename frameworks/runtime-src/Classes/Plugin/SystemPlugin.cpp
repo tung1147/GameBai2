@@ -617,6 +617,9 @@ std::vector<char> SystemPlugin::dataEncrypt(const char* key, const char* data, i
 
 std::vector<char> SystemPlugin::dataDecrypt(const char* key, const char* data, int dataSize){
 	std::vector<char> retData;
+	if (dataSize == 0 || dataSize % AES_BLOCK_SIZE_BYTE){
+		return retData;
+	}
 
 	//read iv
 	uint8_t ivBuffer[AES_BLOCK_SIZE_BYTE];
