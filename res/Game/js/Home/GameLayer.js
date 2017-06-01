@@ -17,10 +17,10 @@ var GameLayer = cc.Node.extend({
     initGame : function () {
         var thiz = this;
 
-        var left = 290.0;
+        var left = 260.0;
         var right = 1280.0;
         var top = 550.0;
-        var bottom = 180.0;
+        var bottom = 160.0;
 
         var gameNav = new cc.Sprite("#home-gameNav-bg.png");
         gameNav.setPosition((right + left) / 2 - 12, 138);
@@ -29,10 +29,10 @@ var GameLayer = cc.Node.extend({
         var dx = gameNav.getContentSize().width / 5;
         var x = gameNav.x - gameNav.getContentSize().width / 2 + dx / 2;
 
-        var selectSprite = new ccui.Scale9Sprite("home-gameNav-selected.png", cc.rect(4,4,4,4));
-        selectSprite.setPreferredSize(cc.size(dx, gameNav.getContentSize().height));
-        selectSprite.setPosition(0, gameNav.y);
-        this.addChild(selectSprite, 1);
+        // var selectSprite = new ccui.Scale9Sprite("home-gameNav-selected.png", cc.rect(4,4,4,4));
+        // selectSprite.setPreferredSize(cc.size(dx, gameNav.getContentSize().height));
+        // selectSprite.setPosition(0, gameNav.y);
+        // this.addChild(selectSprite, 1);
 
         var mToggle = new ToggleNodeGroup();
         this.addChild(mToggle);
@@ -48,29 +48,30 @@ var GameLayer = cc.Node.extend({
 
                 var listGame = new newui.TableView(cc.size(right - left, (top - bottom)), 2);
                 listGame.setDirection(ccui.ScrollView.DIR_HORIZONTAL);
-                listGame.setPadding(60);
+                // listGame.setPadding(60);
                 listGame.setBounceEnabled(true);
-                listGame.setMargin(30,0,30,30);
+                listGame.setPadding(20);
+                listGame.setMargin(0,0,12,30);
                 listGame.setScrollBarEnabled(false);
                 listGame.setPosition(left, bottom);
 
                 thiz.addChild(listGame,1);
                 thiz.allLayer.push(listGame);
 
-                var toggleItem = new ToggleNodeItem(selectSprite.getContentSize());
-                toggleItem.setPosition(icon1.x, selectSprite.y);
+                var toggleItem = new ToggleNodeItem(icon1.getContentSize());
+                toggleItem.setPosition(icon1.x, icon1.y);
                 toggleItem.onSelect = function (isForce) {
                     icon1.visible = false;
                     icon2.visible = true;
                     listGame.visible = true;
 
-                    selectSprite.stopAllActions();
-                    if(isForce){
-                        selectSprite.x = icon1.x;
-                    }
-                    else{
-                        selectSprite.runAction(new cc.MoveTo(0.1, cc.p(icon1.x, selectSprite.y)));
-                    }
+                    // selectSprite.stopAllActions();
+                    // if(isForce){
+                    //     selectSprite.x = icon1.x;
+                    // }
+                    // else{
+                    //     selectSprite.runAction(new cc.MoveTo(0.1, cc.p(icon1.x, selectSprite.y)));
+                    // }
                 };
                 toggleItem.onUnSelect = function () {
                     icon1.visible = true;
@@ -91,7 +92,7 @@ var GameLayer = cc.Node.extend({
 
     addGameToList : function (gameId, listGame) {
         var gameButton = new ccui.Widget();
-        gameButton.setContentSize(cc.size(200, 160));
+        gameButton.setContentSize(cc.size(214, 145));
         gameButton.setTouchEnabled(true);
 
         listGame.pushItem(gameButton);

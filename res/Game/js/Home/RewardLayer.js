@@ -11,15 +11,21 @@ var RewardSublayer = cc.Node.extend({
     ctor: function () {
         this._super();
 
-        var _top = 720.0 - (120.0 * cc.winSize.screenScale);
-        var _bottom = 130.0 * cc.winSize.screenScale;
 
-        var itemList = new newui.TableView(cc.size(cc.winSize.width, _top - _bottom), 4);
+        if(cc.winSize.width > 260 * 4){
+            var col = 4;
+        }
+        else{
+            var col = 3;
+        }
+
+        var itemList = new newui.TableView(cc.size(cc.winSize.width, 460), col);
         itemList.setDirection(ccui.ScrollView.DIR_VERTICAL);
         itemList.setScrollBarEnabled(false);
-        itemList.setPadding(60);
-        itemList.setMargin(10, 40, 0, 0);
-        itemList.setPosition(cc.p(0, _bottom));
+        itemList.setPadding(50);
+
+        itemList.setAnchorPoint(cc.p(0.5, 0.0));
+        itemList.setPosition(cc.p(cc.winSize.width/2, 136));
         this.addChild(itemList, 1);
         this.itemList = itemList;
     },
@@ -47,7 +53,7 @@ var RewardCardLayer = RewardSublayer.extend({
 
     addCard: function (cardType, cardId, netValue, gold) {
         var thiz = this;
-        var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, cc.Global.NumberFormat1(gold));
+        var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_20, cc.Global.NumberFormat1(gold));
         var goldBgWidth = goldLabel.getContentSize().width + 60.0;
         if (goldBgWidth < 170.0) {
             goldBgWidth = 170.0;
@@ -152,7 +158,7 @@ var RewardItemLayer = RewardSublayer.extend({
 
     addItem: function (itemId, itemName, itemMoney, gold, imgUrl) {
         var thiz = this;
-        var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, cc.Global.NumberFormat1(gold));
+        var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_18, cc.Global.NumberFormat1(gold));
         var goldBgWidth = goldLabel.getContentSize().width + 60.0;
         if (goldBgWidth < 170.0) {
             goldBgWidth = 170.0;
@@ -165,7 +171,7 @@ var RewardItemLayer = RewardSublayer.extend({
         // var itemBgPadding = new cc.Sprite("#reward-item-bg-2.png");
 
        // var itemIcon = new cc.Sprite("#" + itemId + ".png");
-        var itemIcon = new WebSprite(cc.size(itemBg.getContentSize().width, itemBg.getContentSize().width));
+        var itemIcon = new WebSprite(cc.size(itemBg.getContentSize().width - 20, itemBg.getContentSize().height - 20));
         itemIcon.loadDefault("#reward-item-default.png");
         itemIcon.reloadFromURL(imgUrl);
 

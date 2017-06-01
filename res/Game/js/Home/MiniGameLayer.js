@@ -10,19 +10,28 @@ var MiniGameCell = ccui.Widget.extend({
         this.allMiniLayer = [];
 
         var gameIcon = new cc.Sprite("#lobby-minigame" + (gameId) + ".png");
-        gameIcon.setPosition(66, this.getContentSize().height / 2);
+        gameIcon.setAnchorPoint(cc.p(0.0, 1.0));
+        gameIcon.setPosition(0, this.getContentSize().height);
         this.addChild(gameIcon);
 
-        var gameGold = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, "0V");
+        var gameGold = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_18, "0V");
         gameGold.setAnchorPoint(cc.p(0.0, 0.5));
-        gameGold.setPosition(112.0, this.getContentSize().height / 2 - 18.0);
+        gameGold.setPosition(77, 45);
         gameGold.setColor(cc.color(255, 222, 0));
         this.addChild(gameGold);
 
-        var gameNameLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, gameName);
+        var gameNameLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Hũ " + gameName);
         gameNameLabel.setAnchorPoint(cc.p(0.0, 0.5));
-        gameNameLabel.setPosition(112.0, this.getContentSize().height / 2 + 18.0);
+        gameNameLabel.setPosition(77, 66);
         this.addChild(gameNameLabel);
+
+        var line = new ccui.Scale9Sprite("home-minigame-bar-line.png", cc.rect(10,10,4,4));
+        line.setPreferredSize(cc.size(size.width, 1));
+        line.setOpacity(10);
+        line.setAnchorPoint(cc.p(0.5,0));
+        line.setPosition(cc.p(size.width/2, 0));
+        this.addChild(line);
+
 
         this.gameGold = gameGold;
         this.gameId = gameId;
@@ -95,6 +104,8 @@ var MiniGameLayer = cc.Node.extend({
             listGame.setDirection(ccui.ScrollView.DIR_VERTICAL);
             listGame.setBounceEnabled(true);
             listGame.setScrollBarEnabled(false);
+            listGame.setPadding(15);
+            listGame.setMargin(30, 0, 0, 0);
             miniGameLayer.addPage(listGame);
             this.allMiniLayer.push(listGame);
 
@@ -149,7 +160,7 @@ var MiniGameLayer = cc.Node.extend({
 
     addMiniGame: function (gameId, listGame) {
         //cc.log("add miniGame: "+gameId);
-        var size = cc.size(280.0, 92.0);
+        var size = cc.size(230.0, 81.0);
         var cell = new MiniGameCell(size, gameId, s_games_display_name[gameId]);
         listGame.pushItem(cell);
 

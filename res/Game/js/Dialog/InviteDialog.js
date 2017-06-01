@@ -49,37 +49,38 @@ var InviteDialog = Dialog.extend({
         var thiz = this;
 
         var container = new ccui.Widget();
-        container.setContentSize(cc.size(300, 70));
+        container.setContentSize(cc.size(320, 68));
         this.listItem.pushItem(container);
 
-        var bg1 = new ccui.Scale9Sprite("dialog-textinput-bg.png", cc.rect(12, 12, 4, 4));
-        bg1.setPreferredSize(container.getContentSize());
+        var bg1 = new ccui.Scale9Sprite("dialog-bg-cell_invite.png", cc.rect(12, 12, 4, 4));
+        bg1.setPreferredSize(cc.size(300, 68));
         bg1.setPosition(container.getContentSize().width / 2, container.getContentSize().height / 2);
         container.addChild(bg1);
 
         var avt = UserAvatar.createAvatarWithId(avt);
         avt.setScale(0.8);
-        avt.setPosition(40, container.getContentSize().height / 2);
+        avt.setPosition(45, container.getContentSize().height / 2);
         container.addChild(avt);
 
         if (displayUserName.length > 3 && (displayUserName != PlayerMe.username)) {
             displayUserName = displayUserName.substring(0, displayUserName.length - 3) + "***";
         }
-        var userLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, displayUserName, cc.TEXT_ALIGNMENT_LEFT);
+        var userLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, displayUserName, cc.TEXT_ALIGNMENT_LEFT);
         userLabel.setLineBreakWithoutSpace(true);
-        userLabel.setDimensions(200, userLabel.getLineHeight());
+        userLabel.setColor(cc.color("#77cbee"));
+        userLabel.setDimensions(190, userLabel.getLineHeight());
         userLabel.setAnchorPoint(cc.p(0.0, 0.5));
-        userLabel.setPosition(80, container.getContentSize().height / 2 + 14);
+        userLabel.setPosition(80, container.getContentSize().height / 2 + 10);
         container.addChild(userLabel);
 
-        var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, cc.Global.NumberFormat1(gold) + " V");
+        var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_18, cc.Global.NumberFormat1(gold) + " V");
         goldLabel.setColor(cc.color("#ffde00"));
         goldLabel.setAnchorPoint(cc.p(0.0, 0.5));
         goldLabel.setPosition(userLabel.x, container.getContentSize().height / 2 - 14);
         container.addChild(goldLabel);
 
-        var inviteBt = s_Dialog_Create_Button1(cc.size(58, 40), "MỜI");
-        inviteBt.setPosition(259, avt.y);
+        var inviteBt = s_Dialog_Create_Button1(cc.size(66, 35), "MỜI");
+        inviteBt.setPosition(255, avt.y);
         container.addChild(inviteBt);
         inviteBt.addClickEventListener(function () {
             thiz._requestInvite([username]);
@@ -117,27 +118,27 @@ var RecvInviteDialog = Dialog.extend({
         this.okButton.visible = false;
         this.cancelButton.visible = false;
 
-        this.initWithSize(cc.size(599, 278));
+        this.initWithSize(cc.size(580, 280));
         this.title.setString("MỜI CHƠI");
 
-        var ignoreBt = s_Dialog_Create_Button2(cc.size(180, 50), "TỪ CHỐI TẤT CẢ");
-        ignoreBt.setPosition(this.getContentSize().width/2 - 200, 55);
+        var ignoreBt = s_Dialog_Create_Button2(cc.size(160, 44), "Từ chối tất cả");
+        ignoreBt.setPosition(this.getContentSize().width/2 - 170, 46);
         ignoreBt.setZoomScale(0.02);
         this.addChild(ignoreBt);
         ignoreBt.addClickEventListener(function () {
             thiz.ignoreButtonHandler();
         });
 
-        var cancelBt = s_Dialog_Create_Button2(cc.size(180, 50), "HỦY BỎ");
-        cancelBt.setPosition(this.getContentSize().width/2, 55);
+        var cancelBt = s_Dialog_Create_Button2(cc.size(160, 44), "Từ chối");
+        cancelBt.setPosition(this.getContentSize().width/2, 46);
         cancelBt.setZoomScale(0.02);
         this.addChild(cancelBt);
         cancelBt.addClickEventListener(function () {
             thiz.cancelButtonHandler();
         });
 
-        var okButton = s_Dialog_Create_Button1(cc.size(180, 50), "ĐỒNG Ý");
-        okButton.setPosition(this.getContentSize().width/2 + 200, 55);
+        var okButton = s_Dialog_Create_Button1(cc.size(160, 44), "Đồng ý");
+        okButton.setPosition(this.getContentSize().width/2 + 170, 46);
         okButton.setZoomScale(0.02);
         this.addChild(okButton);
         okButton.addClickEventListener(function () {

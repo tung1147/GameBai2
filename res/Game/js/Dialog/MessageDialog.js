@@ -33,7 +33,7 @@ var MessageDialog = Dialog.extend({
 
     setMessage : function (message) {
         this.scrollView.removeAllItems();
-        var messageLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, message, cc.TEXT_ALIGNMENT_CENTER, this.scrollView.getContentSize().width - 10);
+        var messageLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, message, cc.TEXT_ALIGNMENT_CENTER, this.scrollView.getContentSize().width - 10);
 
         var height = messageLabel.getContentSize().height + 20.0;
         if(height <= this.scrollView.getContentSize().height){
@@ -72,7 +72,7 @@ var MessageConfirmDialog = Dialog.extend({
         this.okTitle.setString("Đồng ý");
         this.cancelTitle.setString("Đóng");
 
-        var messageLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "message", cc.TEXT_ALIGNMENT_CENTER, 550);
+        var messageLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "message", cc.TEXT_ALIGNMENT_CENTER, 550);
         messageLabel.setPosition(this.getContentSize().width/2, this.getContentSize().height/2);
         this.addChild(messageLabel);
         this.messageLabel = messageLabel;

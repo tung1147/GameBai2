@@ -14,15 +14,15 @@ var InboxLayer = LobbySubLayer.extend({
         // this.addChild(title);
         // title.setScale(cc.winSize.screenScale);
 
-        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "Thời gian");
+        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Thời gian");
         timeLabel.setColor(cc.color("#2776a4"));
         timeLabel.setPosition(235.0 * cc.winSize.screenScale, 590);
 
-        var senderLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "Người gửi");
+        var senderLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Người gửi");
         senderLabel.setColor(cc.color("#2776a4"));
         senderLabel.setPosition(482.0 * cc.winSize.screenScale, 590);
 
-        var titleLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "Nội dung");
+        var titleLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Nội dung");
         titleLabel.setColor(cc.color("#2776a4"));
         titleLabel.setPosition(745.0 * cc.winSize.screenScale, 590);
 
@@ -84,21 +84,21 @@ var InboxLayer = LobbySubLayer.extend({
 
         var d = new Date(time);
         var timeString = cc.Global.DateToString(d);
-        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, timeString, cc.TEXT_ALIGNMENT_CENTER, 250);
+        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_18, timeString, cc.TEXT_ALIGNMENT_CENTER, 250);
         timeLabel.setAnchorPoint(cc.p(0.0, 0.5));
         timeLabel.setPosition(40.0, 30);
         timeLabel.setColor(s_text_color);
         container.addChild(timeLabel);
         container.timeLabel = timeLabel;
 
-        var senderLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, sender);
+        var senderLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_18, sender);
         senderLabel.setAnchorPoint(cc.p(0.0, 0.5));
         senderLabel.setPosition(284, 30);
         senderLabel.setColor(s_text_color);
         container.addChild(senderLabel);
         container.senderLabel = senderLabel;
 
-        var titleLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, title);
+        var titleLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_18, title);
         titleLabel.setAnchorPoint(cc.p(0.0, 0.5));
         titleLabel.setPosition(555, 30);
         titleLabel.setColor(s_text_color);

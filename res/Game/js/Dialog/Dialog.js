@@ -5,6 +5,7 @@
 var s_Dialog_Create_Button1 = function (size, title) {
     var bt = new ccui.Button("dialog-button-1.png", "", "", ccui.Widget.PLIST_TEXTURE);
     bt.setScale9Enabled(true);
+    bt.setColor(cc.color("#ffde00"));
     bt.setCapInsets(cc.rect(10,10,4,4));
     bt.setContentSize(size);
     if(title){
@@ -18,13 +19,14 @@ var s_Dialog_Create_Button1 = function (size, title) {
 };
 
 var s_Dialog_Create_Button2 = function (size, title) {
-    var bt = new ccui.Button("dialog-button-2.png", "", "", ccui.Widget.PLIST_TEXTURE);
+    var bt = new ccui.Button("dialog-button-1.png", "", "", ccui.Widget.PLIST_TEXTURE);
     bt.setScale9Enabled(true);
+    bt.setColor(cc.color("#c9d6ed"));
     bt.setCapInsets(cc.rect(10,10,4,4));
     bt.setContentSize(size);
     if(title){
         var btTitle = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_20, title);
-        btTitle.setColor(cc.color("#40485a"));
+        btTitle.setColor(cc.color("#426275"));
         btTitle.setPosition(size.width/2, size.height/2);
         bt.getRendererNormal().addChild(btTitle);
         bt.buttonTitleLabel = btTitle;

@@ -13,14 +13,14 @@ var PaymentCardLayer = cc.Node.extend({
 
 
         var bg1 = new ccui.Scale9Sprite("lobby-text-input.png", cc.rect(10, 10, 4, 4));
-        bg1.setPreferredSize(cc.size(360, 50));
-        bg1.setPosition(cc.winSize.width/2 + 220, 390);
+        bg1.setPreferredSize(cc.size(280, 44));
+        bg1.setPosition(cc.winSize.width/2 + 155, 349);
         bg1.setOpacity(25);
         this.addChild(bg1);
 
         var bg2 = new ccui.Scale9Sprite("lobby-text-input.png", cc.rect(10, 10, 4, 4));
         bg2.setPreferredSize(bg1.getContentSize());
-        bg2.setPosition(bg1.x, 302);
+        bg2.setPosition(bg1.x, 271);
         bg2.setOpacity(25);
         this.addChild(bg2);
 
@@ -52,12 +52,12 @@ var PaymentCardLayer = cc.Node.extend({
         var okButton = new ccui.Button("sublobby-button.png", "sublobby-button-2.png", "", ccui.Widget.PLIST_TEXTURE);
         okButton.setScale9Enabled(true);
         okButton.setCapInsets(cc.rect(10, 10, 4, 4));
-        okButton.setContentSize(cc.size(bg1.getContentSize().width, 55));
-        okButton.setPosition(bg1.x, 192);
+        okButton.setContentSize(cc.size(bg1.getContentSize().width, 44));
+        okButton.setPosition(bg1.x, 183);
         okButton.setTitleText("NẠP VÀNG");
         okButton.setTitleFontName(cc.res.font.Roboto_Condensed);
         okButton.setTitleColor(cc.color("#835238"));
-        okButton.setTitleFontSize(25);
+        okButton.setTitleFontSize(18);
         this.addChild(okButton);
 
         var thiz = this;
@@ -97,14 +97,15 @@ var PaymentCardLayer = cc.Node.extend({
         this.cardSelected = 0;
         var card_img = ["#payment-card-mobi", "#payment-card-viettel", "#payment-card-vina", "#payment-card-gate", "#payment-card-vcoin", "#payment-card-bit"];
 
-        var _boder = 15.0 * cc.winSize.screenScale;
-        var _padding = (cc.winSize.width - _boder * 2 - 6.0 * 196.0 * cc.winSize.screenScale) / 5;
-        var listItem = new newui.TableView(cc.size(cc.winSize.width, 150), 1);
+        var _boder = 115.0 * cc.winSize.screenScale;
+        var _padding = (cc.winSize.width - _boder * 2 - 6.0 * 159.0 * cc.winSize.screenScale) / 5;
+        var listItem = new newui.TableView(cc.size(cc.winSize.width, 78), 1);
         listItem.setDirection(ccui.ScrollView.DIR_HORIZONTAL);
         listItem.setMargin(0, 0, _boder, _boder);
+        listItem.setAnchorPoint(cc.p(0.5,0.0));
         listItem.setPadding(_padding);
         listItem.setScrollBarEnabled(false);
-        listItem.setPosition(0, 447);
+        listItem.setPosition(cc.winSize.width/2, 474);
         this.addChild(listItem);
         var thiz = this;
         for (var i = 0; i < 6; i++) {
@@ -153,17 +154,17 @@ var PaymentCardLayer = cc.Node.extend({
     },
     initTiGia: function () {
         var bg = new ccui.Scale9Sprite("lobby-text-input.png", cc.rect(10, 10, 4, 4));
-        bg.setPreferredSize(cc.size(420, 260));
-        bg.setAnchorPoint(cc.p(0.5, 0.5));
-        bg.setPosition(370 * cc.winSize.screenScale, 290);
+        bg.setPreferredSize(cc.size(280, 210));
+        bg.setAnchorPoint(cc.p(1.0, 0.0));
+        bg.setPosition(cc.winSize.width/2 - 15, 162);
         bg.setOpacity(25);
         this.addChild(bg);
 
-        var listItem = new newui.TableView(cc.size(bg.getContentSize().width - 4, bg.getContentSize().height), 1);
-        listItem.setMargin(10, 20, 0, 0);
+        var listItem = new newui.TableView(cc.size(bg.getContentSize().width - 4, bg.getContentSize().height - 20), 1);
+        // listItem.setMargin(40, 40, 0, 0);
         listItem.setScrollBarEnabled(false);
-        listItem.setAnchorPoint(cc.p(0.5, 0.5));
-        listItem.setPosition(bg.getPosition());
+        listItem.setAnchorPoint(cc.p(1.0, 0.0));
+        listItem.setPosition(cc.p(bg.getPosition().x, bg.getPosition().y + 10));
         this.addChild(listItem);
         this.listTiGia = listItem;
 
@@ -177,20 +178,20 @@ var PaymentCardLayer = cc.Node.extend({
         }
 
         var container = new ccui.Widget();
-        container.setContentSize(cc.size(this.listTiGia.getContentSize().width, 40));
+        container.setContentSize(cc.size(this.listTiGia.getContentSize().width, 30));
         this.listTiGia.pushItem(container);
 
-        var moneyLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, money + " " + currency);
+        var moneyLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, money + " " + currency);
         moneyLabel.setAnchorPoint(cc.p(1.0, 0.5));
         moneyLabel.setPosition(container.getContentSize().width / 2 - 20, container.getContentSize().height / 2);
         container.addChild(moneyLabel);
 
-        var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, gold + " V");
+        var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, gold + " V");
         goldLabel.setAnchorPoint(cc.p(0.0, 0.5));
         goldLabel.setPosition(container.getContentSize().width / 2 + 20, container.getContentSize().height / 2);
         container.addChild(goldLabel);
 
-        var equalLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "=");
+        var equalLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "=");
         equalLabel.setPosition(container.getContentSize().width / 2, container.getContentSize().height / 2);
         container.addChild(equalLabel);
     },
@@ -215,12 +216,20 @@ var PaymentInAppLayer = cc.Node.extend({
     ctor: function () {
         this._super();
 
-        var listItem = new newui.TableView(cc.size(cc.winSize.width, 450), 2);
+        var _boder = 128 * cc.winSize.screenScale;
+        var _padding = (cc.winSize.width - _boder * 2 - 4.0 * 227.0) / 3;
+        if(_padding < 0){
+            _padding = (cc.winSize.width - _boder * 2 - 3.0 * 227.0) / 2;
+        }
+
+
+        var listItem = new newui.TableView(cc.size(cc.winSize.width, 367), 2);
         listItem.setDirection(ccui.ScrollView.DIR_HORIZONTAL);
-        listItem.setMargin(0, 0, 50, 50);
-        listItem.setPadding(30.0);
+        listItem.setMargin(0, 0, _boder, _boder);
+        listItem.setPadding(_padding);
+        listItem.setAnchorPoint(cc.p(0.5, 0.5));
         listItem.setScrollBarEnabled(false);
-        listItem.setPosition(0, 130);
+        listItem.setPosition(cc.winSize.width/2, cc.winSize.height/2);
         this.addChild(listItem);
         this.listItem = listItem;
 
@@ -271,15 +280,15 @@ var PaymentInAppLayer = cc.Node.extend({
         bg.setPosition(container.getContentSize().width / 2, container.getContentSize().height/2);
         container.addChild(bg);
 
-        var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, gold);
+        var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, gold);
         // goldLabel.setAnchorPoint(cc.p(0.0, 0.5));
         goldLabel.setPosition(container.getContentSize().width/2, 85);
         goldLabel.setColor(cc.color("#8de8ff"));
         container.addChild(goldLabel);
 
-        var priceLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, price);
+        var priceLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_16, price);
         priceLabel.setColor(cc.color("#ffde00"));
-        priceLabel.setPosition(container.getContentSize().width/2,18);
+        priceLabel.setPosition(container.getContentSize().width/2,15);
         container.addChild(priceLabel, 1);
         container.setTouchEnabled(true);
 
@@ -329,9 +338,14 @@ var PaymentSMSLayer = PaymentInAppLayer.extend({
 var PaymentGiftcode = cc.Node.extend({
     ctor: function () {
         this._super();
+        var star_icon = new cc.Sprite("#payment-star-giftcode.png");
+        star_icon.setPosition(cc.p(cc.winSize.width/2, 487));
+        this.addChild(star_icon);
+
+
         var bg = new ccui.Scale9Sprite("lobby-text-input.png", cc.rect(10, 10, 4, 4));
-        bg.setPreferredSize(cc.size(280, 45));
-        bg.setPosition(cc.winSize.width/2, 390);
+        bg.setPreferredSize(cc.size(280, 44));
+        bg.setPosition(cc.winSize.width/2, 356);
         bg.setOpacity(25);
         this.addChild(bg);
 
@@ -340,20 +354,20 @@ var PaymentGiftcode = cc.Node.extend({
         giftCode.setPlaceholderFont(cc.res.font.Roboto_Condensed, 18.0 * cc.winSize.screenScale);
         giftCode.setInputMode(cc.EDITBOX_INPUT_MODE_SINGLELINE);
         giftCode.setReturnType(cc.KEYBOARD_RETURNTYPE_DONE);
-        giftCode.setPlaceHolder("Nhập giftcode");
+        giftCode.setPlaceHolder("Nhập mã GIFTCODE");
         giftCode.setFontColor(cc.color("#ffffff"));
-        giftCode.setPlaceholderFontColor(cc.color("#45b8e3"));
+        giftCode.setPlaceholderFontColor(cc.color("#ffffff"));
         giftCode.setPosition(bg.getPosition());
         this.addChild(giftCode, 1);
 
         var okButton = new ccui.Button("sublobby-button.png", "sublobby-button-2.png", "", ccui.Widget.PLIST_TEXTURE);
         okButton.setScale9Enabled(true);
         okButton.setCapInsets(cc.rect(10, 10, 4, 4));
-        okButton.setContentSize(cc.size(bg.getContentSize().width, 45));
-        okButton.setPosition(bg.x, 300);
+        okButton.setContentSize(cc.size(bg.getContentSize().width, 44));
+        okButton.setPosition(bg.x, 268);
         okButton.setTitleText("NẠP VÀNG");
         okButton.setTitleFontName(cc.res.font.Roboto_Condensed);
-        okButton.setTitleFontSize(25);
+        okButton.setTitleFontSize(18);
         okButton.setTitleColor(cc.color(131, 82, 56));
         this.addChild(okButton);
 

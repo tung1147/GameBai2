@@ -29,11 +29,11 @@ var NewsNotificationLayer = NewsSubLayer.extend({
         this.newsType = "event";
         this.dialogTitle = "THÔNG BÁO";
 
-        var titleLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "Thông báo");
+        var titleLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Thông báo");
         titleLabel.setPosition(510.0 * cc.winSize.screenScale, 576);
         titleLabel.setColor(cc.color("#2776A4"));
 
-        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "Thời gian");
+        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Thời gian");
         timeLabel.setPosition(950.0 * cc.winSize.screenScale, 576);
         timeLabel.setColor(cc.color("#2776A4"));
         // titleLabel.setOpacity(0.2 * 255);
@@ -91,13 +91,13 @@ var NewsNotificationLayer = NewsSubLayer.extend({
         }
 
 
-        var titleLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, title);
+        var titleLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_18, title);
         titleLabel.setPosition(350, 30);
         titleLabel.setColor(cc.color("#8de8ff"))
         container.addChild(titleLabel);
 
         var d = new Date(time);
-        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, cc.Global.DateToString(d), cc.TEXT_ALIGNMENT_CENTER, 1000);
+        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, cc.Global.DateToString(d), cc.TEXT_ALIGNMENT_CENTER, 1000);
         timeLabel.setPosition(800, 30);
         timeLabel.setColor(cc.color("#8de8ff"))
         container.addChild(timeLabel);
@@ -140,19 +140,19 @@ var NewsLevelLayer = NewsSubLayer.extend({
         this.width2 = 180.0;
         this.width3 = cc.winSize.width - this.width1 - this.width2 - _padding * 2 - _left * 2;
 
-        var levelLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "Cấp");
+        var levelLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Cấp");
         levelLabel.setPosition(210 * cc.winSize.screenScale, 576);
         levelLabel.setColor(cc.color("#2776A4"));
         this.addChild(levelLabel);
         this.levelLabel = levelLabel;
 
-        var scoreLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "Điểm");
+        var scoreLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Điểm");
         scoreLabel.setPosition(330 * cc.winSize.screenScale, 576);
         scoreLabel.setColor(cc.color("#2776A4"));
         this.addChild(scoreLabel);
         this.scoreLabel = scoreLabel;
 
-        var contentLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "Nội dung");
+        var contentLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Nội dung");
         contentLabel.setPosition(760 * cc.winSize.screenScale, 576);
         contentLabel.setColor(cc.color("#2776A4"));
         this.addChild(contentLabel);
@@ -162,7 +162,7 @@ var NewsLevelLayer = NewsSubLayer.extend({
     },
 
     addItem: function (level, score, content) {
-        var contentlabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, content, cc.TEXT_ALIGNMENT_CENTER, this.width3 - 10.0);
+        var contentlabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, content, cc.TEXT_ALIGNMENT_CENTER, this.width3 - 10.0);
         var container = new ccui.Widget();
         this.itemList.pushItem(container);
         // var containerHeight = contentlabel.getContentSize().height + 10;
@@ -188,11 +188,11 @@ var NewsLevelLayer = NewsSubLayer.extend({
             container.addChild(bg2);
         }
 
-        var levelLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, level.toString());
+        var levelLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, level.toString());
         levelLabel.setPosition(50, 30);
         container.addChild(levelLabel);
 
-        var scoreLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, cc.Global.NumberFormat1(score));
+        var scoreLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, cc.Global.NumberFormat1(score));
         scoreLabel.setPosition(170, 30);
         container.addChild(scoreLabel);
 
