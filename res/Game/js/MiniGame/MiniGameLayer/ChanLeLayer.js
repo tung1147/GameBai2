@@ -10,6 +10,18 @@ var s_miniGame_chip_position = s_miniGame_chip_position || [
         {x: 302, y:101}
 
     ];
+
+var s_mntx_result_position = s_mntx_result_position || [
+        {x: 60, y: 61},
+        {x: 97, y: 48},
+        {x: 41, y: 97},
+        {x: 86, y: 86},
+        {x: 62, y: 113},
+        {x: 96, y: 125},
+        {x: 125, y: 106},
+        {x: 122, y: 67}
+];
+
 var s_money_betEx = s_money_betEx || [1000, 10000, 100000, 1000000, 10000000];
 var ChanLeLayer = MiniGamePopup.extend({
     ctor: function () {
@@ -258,11 +270,11 @@ var ChanLeLayer = MiniGamePopup.extend({
 
     _addResultSprite: function (result) {
         /* add result */
-        var arr = _get_random_array(3, s_xocdia_result_position.length);
+        var arr = _get_random_array(3, s_mntx_result_position.length);
         for (var i = 0; i < arr.length; i++) {
-            var sprite = new cc.Sprite("#taixiu_dice_" + result[i] + ".png");
-            sprite.setScale(1.3);
-            sprite.setPosition(s_xocdia_result_position[arr[i]]);
+            var sprite = new cc.Sprite("#minitaixiu_dice_" + result[i] + ".png");
+            //sprite.setScale(0.4);
+            sprite.setPosition(s_mntx_result_position[arr[i]]);
             this.diskNode.addChild(sprite);
         }
     },
@@ -324,7 +336,7 @@ var ChanLeLayer = MiniGamePopup.extend({
             this.diskSprite.stopAllActions();
             this.batSprite.stopAllActions();
             /* mở bát */
-            this.diskSprite.runAction(new cc.EaseSineOut(new cc.ScaleTo(0.7, 1.2)));
+            this.diskSprite.runAction(new cc.EaseSineOut(new cc.ScaleTo(0.7, 1.5)));
             this.batSpritePosition = this.batSprite.getPosition();
             this.batSprite.runAction(new cc.Sequence(
                 new cc.DelayTime(0.9),
@@ -339,7 +351,7 @@ var ChanLeLayer = MiniGamePopup.extend({
         else{
             this.diskSprite.stopAllActions();
             this.batSprite.stopAllActions();
-            this.diskSprite.setScale(1.2);
+            this.diskSprite.setScale(1.5);
             this.batSprite.setPosition(cc.p(0.0, 450.0));
         }
 
