@@ -29,7 +29,7 @@ var TutorialDialog = Dialog.extend({
         // clippingLayout.setClippingType(ccui.Layout.CLIPPING_SCISSOR);
         // this.addChild(clippingLayout);
 
-        var contentTable = new newui.TableView(cc.size(this.bouldingWidth, 470), 1);
+        var contentTable = new newui.TableView(cc.size(this.bouldingWidth, 480), 1);
         contentTable.setDirection(ccui.ScrollView.DIR_VERTICAL);
         contentTable.setScrollBarEnabled(false);
         contentTable.setPadding(0);
@@ -66,6 +66,9 @@ var TutorialDialog = Dialog.extend({
                 break;
             case GameType.GAME_VongQuayMayMan:
                 this.initVongQuayTutorial();
+                break;
+            case GameType.GAME_SLOT_FRUIT:
+                this.initSlotFruitTutorial();
                 break;
         }
     },
@@ -105,6 +108,13 @@ var TutorialDialog = Dialog.extend({
         var tutorialLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, this.HDList["VQGD"]);
         tutorialLabel.setBoundingWidth(this.bouldingWidth);
         this.contentTable.pushItem(tutorialLabel);
+    },
+
+    initSlotFruitTutorial:function () {
+        var tutorialLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, this.HDList["FruitsSlot"]);
+        tutorialLabel.setBoundingWidth(this.bouldingWidth-300);
+        this.contentTable.pushItem(tutorialLabel);
+        this.contentTable.setPosition(cc.p(this.contentTable.getPositionX() - 150,this.contentTable.getPositionY()));
     },
     initPokerTutorial: function (dataField) {
         var miniLabel1 = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, this.HDList[dataField]["text1"]
@@ -156,6 +166,7 @@ var s_VideoPockerTutorialDialog = null;
 var s_CaoThapTutorialDialog = null;
 var s_ChanLeTutorialDialog = null;
 var s_VongQuayTutorialDialog = null;
+var s_SlotFruitTutorialDialog = null;
 
 TutorialDialog.getTutorial = function (gameType) {
     switch (gameType) {
@@ -204,6 +215,14 @@ TutorialDialog.getTutorial = function (gameType) {
             }
             return s_VongQuayTutorialDialog;
             //return new TutorialDialog(gameType);
+            break;
+        }
+        case GameType.GAME_SLOT_FRUIT:{
+            if(!s_SlotFruitTutorialDialog){
+                s_SlotFruitTutorialDialog = new TutorialDialog(gameType);
+                s_SlotFruitTutorialDialog.retain();
+            }
+            return s_SlotFruitTutorialDialog;
             break;
         }
     }
