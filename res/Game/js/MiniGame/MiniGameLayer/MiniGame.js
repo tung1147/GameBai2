@@ -326,7 +326,7 @@ MiniGameNavigator.focus = function (view) {
         for(var i=0;i<MiniGameNavigator.allGame.length;i++){
             MiniGameNavigator.allGame[i].changeLayerOrder(i);
         }
-    }, 1);
+    }, 0);
 };
 
 MiniGameNavigator.hideAll = function () {
