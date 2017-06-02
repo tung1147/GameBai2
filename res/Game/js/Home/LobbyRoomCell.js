@@ -359,6 +359,9 @@ LobbyXocDiaCell = ccui.Widget.extend({
 
     addTouchCell : function (listener) {
         this.joinButton.addClickEventListener(listener);
+
+        this.setTouchEnabled(true);
+        this.addClickEventListener(listener);
     },
 
     setMetadata : function (data) {
