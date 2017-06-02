@@ -340,7 +340,7 @@ var ChanLeLayer = MiniGamePopup.extend({
             this.batSpritePosition = this.batSprite.getPosition();
             this.batSprite.runAction(new cc.Sequence(
                 new cc.DelayTime(0.9),
-                new cc.EaseSineIn(new cc.MoveBy(1.0, cc.p(0.0, 450.0))),
+                new cc.EaseSineIn(new cc.MoveBy(1.0, cc.p(0.0, 160.0))),
                 new cc.DelayTime(2.5),
                 new cc.CallFunc(function () {
                     thiz.closeDisk(true);
@@ -352,7 +352,7 @@ var ChanLeLayer = MiniGamePopup.extend({
             this.diskSprite.stopAllActions();
             this.batSprite.stopAllActions();
             this.diskSprite.setScale(1.5);
-            this.batSprite.setPosition(cc.p(0.0, 450.0));
+            this.batSprite.setPosition(cc.p(0.0, 160.0));
         }
 
     },
