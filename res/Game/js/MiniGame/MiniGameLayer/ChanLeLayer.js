@@ -283,16 +283,16 @@ var ChanLeLayer = MiniGamePopup.extend({
     },
 
     initDisk: function () {
-        var diskSprite = new cc.Sprite("#xocdia_dia.png");
+        var diskSprite = new cc.Sprite("#mntx_dia.png");
         diskSprite.setPosition(this.bg.getContentSize().width / 2 + 10, this.bg.getContentSize().height/2 +10);
         this.bg.addChild(diskSprite);
         this.diskSprite = diskSprite;
-        diskSprite.setScale(0.34);
+        // diskSprite.setScale(0.34);
         var diskNode = new cc.Node();
         diskSprite.addChild(diskNode);
         this.diskNode = diskNode;
 
-        var batSprite = new cc.Sprite("#xocdia_bat.png");
+        var batSprite = new cc.Sprite("#mntx_bat.png");
         this.batSpritePosition = cc.p(diskSprite.getContentSize().width / 2, diskSprite.getContentSize().height / 2);
         batSprite.setPosition(this.batSpritePosition);
         diskSprite.addChild(batSprite);
@@ -324,7 +324,7 @@ var ChanLeLayer = MiniGamePopup.extend({
             this.diskSprite.stopAllActions();
             this.batSprite.stopAllActions();
             /* mở bát */
-            this.diskSprite.runAction(new cc.EaseSineOut(new cc.ScaleTo(0.7, 0.5,0.5)));
+            this.diskSprite.runAction(new cc.EaseSineOut(new cc.ScaleTo(0.7, 1.2)));
             this.batSpritePosition = this.batSprite.getPosition();
             this.batSprite.runAction(new cc.Sequence(
                 new cc.DelayTime(0.9),
@@ -339,7 +339,7 @@ var ChanLeLayer = MiniGamePopup.extend({
         else{
             this.diskSprite.stopAllActions();
             this.batSprite.stopAllActions();
-            this.diskSprite.setScale(0.5);
+            this.diskSprite.setScale(1.2);
             this.batSprite.setPosition(cc.p(0.0, 450.0));
         }
 
@@ -354,7 +354,7 @@ var ChanLeLayer = MiniGamePopup.extend({
             this.diskSprite.runAction(new cc.Sequence(
                 new cc.DelayTime(1.2),
                 new cc.CallFunc(function () {
-                    thiz.diskSprite.runAction(new cc.EaseSineOut(new cc.ScaleTo(0.7, 0.34,0.34)));
+                    thiz.diskSprite.runAction(new cc.EaseSineOut(new cc.ScaleTo(0.7, 1.0)));
                     //   thiz.batSprite.setPosition(thiz.batSpritePosition);
                     // thiz.batSprite.runAction(new cc.MoveTo(1.0,thiz.batSpritePosition));
                 })
@@ -364,7 +364,7 @@ var ChanLeLayer = MiniGamePopup.extend({
             ));
         }
         else{
-            thiz.diskSprite.setScale(0.34);
+            thiz.diskSprite.setScale(1.0);
             this.batSprite.setPosition(thiz.batSpritePosition);
         }
 
