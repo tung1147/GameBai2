@@ -252,14 +252,18 @@ var VideoPokerLayer = MiniGamePopup.extend({
     },
 
     holdClick: function (holdIndex) {
-        if (this._controller.getTurnState() == 1) {
+        if (this._controller.getTurnState() === 1) {
             this.setHoldCard(holdIndex, !this.holdingList[holdIndex]);
+            return true;
         }
-        else if (this._controller.getTurnState() == 3) {
-            if (holdIndex == 0)
-                return;
+        else if (this._controller.getTurnState() === 3) {
+            if (holdIndex === 0){
+                return false;
+            }
             this._controller.sendDoubleChoice(holdIndex);
+            return true;
         }
+        return false;
     },
 
     showDoubleTurn: function (firstCardId) {
@@ -333,8 +337,10 @@ var VideoPokerLayer = MiniGamePopup.extend({
                     cc.rect(0, 0, this.cardSprites[i]._getWidth(), this.cardSprites[i]._getHeight()),
                     p
                 )) {
-                this.holdClick(i);
-                return true;
+                if(this.holdClick(i)){
+                    return true;
+                }
+                break;
             }
         }
         return this._super(touch, event);
