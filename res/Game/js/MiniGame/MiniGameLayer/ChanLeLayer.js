@@ -3,13 +3,25 @@
  */
 //var s_ChanLeLayer = null;
 var s_miniGame_chip_position = s_miniGame_chip_position || [
-        {x: 112, y: 365},
-        {x: 91, y: 262},
-        {x: 115, y: 154},
-        {x: 192, y: 108},
-        {x: 302, y:100}
+    {x: 112, y: 365},
+    {x: 91, y: 262},
+    {x: 115, y: 154},
+    {x: 192, y: 108},
+    {x: 302, y:100}
 
-    ];
+];
+
+var s_mntx_result_position = s_mntx_result_position || [
+    {x: 60, y: 61},
+    {x: 97, y: 48},
+    {x: 41, y: 97},
+    {x: 86, y: 86},
+    {x: 62, y: 113},
+    {x: 96, y: 125},
+    {x: 125, y: 106},
+    {x: 122, y: 67}
+];
+
 var s_money_betEx = s_money_betEx || [1000, 10000, 100000, 1000000, 10000000];
 var ChanLeLayer = MiniGamePopup.extend({
     ctor: function () {
@@ -258,11 +270,10 @@ var ChanLeLayer = MiniGamePopup.extend({
 
     _addResultSprite: function (result) {
         /* add result */
-        var arr = _get_random_array(3, s_xocdia_result_position.length);
+        var arr = _get_random_array(3, s_mntx_result_position.length);
         for (var i = 0; i < arr.length; i++) {
-            var sprite = new cc.Sprite("#taixiu_dice_" + result[i] + ".png");
-            sprite.setScale(1.3);
-            sprite.setPosition(s_xocdia_result_position[arr[i]]);
+            var sprite = new cc.Sprite("#minitaixiu_dice_" + result[i] + ".png");
+            sprite.setPosition(s_mntx_result_position[arr[i]]);
             this.diskNode.addChild(sprite);
         }
     },
@@ -283,16 +294,15 @@ var ChanLeLayer = MiniGamePopup.extend({
     },
 
     initDisk: function () {
-        var diskSprite = new cc.Sprite("#xocdia_dia.png");
+        var diskSprite = new cc.Sprite("#mntx_dia.png");
         diskSprite.setPosition(this.bg.getContentSize().width / 2 + 10, this.bg.getContentSize().height/2 +10);
         this.bg.addChild(diskSprite);
         this.diskSprite = diskSprite;
-        diskSprite.setScale(0.34);
         var diskNode = new cc.Node();
         diskSprite.addChild(diskNode);
         this.diskNode = diskNode;
 
-        var batSprite = new cc.Sprite("#xocdia_bat.png");
+        var batSprite = new cc.Sprite("#mntx_bat.png");
         this.batSpritePosition = cc.p(diskSprite.getContentSize().width / 2, diskSprite.getContentSize().height / 2);
         batSprite.setPosition(this.batSpritePosition);
         diskSprite.addChild(batSprite);
@@ -324,11 +334,11 @@ var ChanLeLayer = MiniGamePopup.extend({
             this.diskSprite.stopAllActions();
             this.batSprite.stopAllActions();
             /* mở bát */
-            this.diskSprite.runAction(new cc.EaseSineOut(new cc.ScaleTo(0.7, 0.5,0.5)));
+            this.diskSprite.runAction(new cc.EaseSineOut(new cc.ScaleTo(0.7, 1.5)));
             this.batSpritePosition = this.batSprite.getPosition();
             this.batSprite.runAction(new cc.Sequence(
                 new cc.DelayTime(0.9),
-                new cc.EaseSineIn(new cc.MoveBy(1.0, cc.p(0.0, 450.0))),
+                new cc.EaseSineIn(new cc.MoveBy(1.0, cc.p(0.0, 160.0))),
                 new cc.DelayTime(2.5),
                 new cc.CallFunc(function () {
                     thiz.closeDisk(true);
@@ -339,7 +349,7 @@ var ChanLeLayer = MiniGamePopup.extend({
         else{
             this.diskSprite.stopAllActions();
             this.batSprite.stopAllActions();
-            this.diskSprite.setScale(0.5);
+            this.diskSprite.setScale(1.5);
             this.batSprite.setPosition(cc.p(0.0, 450.0));
         }
 
@@ -354,7 +364,7 @@ var ChanLeLayer = MiniGamePopup.extend({
             this.diskSprite.runAction(new cc.Sequence(
                 new cc.DelayTime(1.2),
                 new cc.CallFunc(function () {
-                    thiz.diskSprite.runAction(new cc.EaseSineOut(new cc.ScaleTo(0.7, 0.34,0.34)));
+                    thiz.diskSprite.runAction(new cc.EaseSineOut(new cc.ScaleTo(0.7, 1.0)));
                     //   thiz.batSprite.setPosition(thiz.batSpritePosition);
                     // thiz.batSprite.runAction(new cc.MoveTo(1.0,thiz.batSpritePosition));
                 })
@@ -364,7 +374,7 @@ var ChanLeLayer = MiniGamePopup.extend({
             ));
         }
         else{
-            thiz.diskSprite.setScale(0.34);
+            thiz.diskSprite.setScale(1.0);
             this.batSprite.setPosition(thiz.batSpritePosition);
         }
 
