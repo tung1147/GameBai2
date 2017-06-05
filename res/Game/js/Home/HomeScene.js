@@ -563,6 +563,7 @@ var HomeScene = IScene.extend({
                 }
             }
             else{
+                SystemPlugin.getInstance().enableMipmapTexture("res/Card.png");
                 //mobile auto login
                 var loginType = cc.Global.GetSetting("lastLoginType", "");
                 if(loginType === "normalLogin"){
