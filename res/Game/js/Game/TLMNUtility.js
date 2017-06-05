@@ -37,11 +37,13 @@ var TLMNUtility = {
         var rankFreq = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         var suitFreq = [0, 0, 0, 0];
 
+
+
         for (var i = 0; i < cards.length; i++) {
             rankFreq[cards[i].rank]++;
             suitFreq[cards[i].suit]++;
         }
-
+        rankFreq[14] = rankFreq[1];
         //doi, ba , tu quy
         for (var i = 0; i < rankFreq.length; i++) {
             if (rankFreq[i] == cards.length) {
