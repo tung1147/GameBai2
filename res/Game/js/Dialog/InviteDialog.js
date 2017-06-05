@@ -63,7 +63,7 @@ var InviteDialog = Dialog.extend({
         container.addChild(avt);
 
         if (displayUserName.length > 3 && (displayUserName != PlayerMe.username)) {
-            displayUserName = displayUserName.substring(0, displayUserName.length - 3) + "***";
+            displayUserName = displayUserName.substring(0, displayUserName.length <= 10?displayUserName.length - 3:10) + "***";
         }
         var userLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, displayUserName, cc.TEXT_ALIGNMENT_LEFT);
         userLabel.setLineBreakWithoutSpace(true);

@@ -70,7 +70,7 @@ var UserListDialog = Dialog.extend({
         container.addChild(avt);
 
         if (username.length > 3 && (username != PlayerMe.username)) {
-            username = username.substring(0, username.length - 3) + "***";
+            username = username.substring(0, username.length <= 10?username.length - 3:15) + "***";
         }
 
         var userLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, username, cc.TEXT_ALIGNMENT_LEFT);
