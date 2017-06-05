@@ -445,7 +445,7 @@ var Phom = IGameScene.extend({
         for (var i = 0; i < resultData.length; i++) {
             var username = resultData[i].username;
             if (username.length > 3 && (username != PlayerMe.username)){
-                username = username.substring(0,username.length - 3) + "***";
+                username = username.substring(0,username.length <= 10?username.length - 3:15) + "***";
             }
             dialog.userLabel[i].setString(username);
             if (resultData[i].username == PlayerMe.username) {

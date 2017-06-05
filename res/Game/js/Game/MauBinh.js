@@ -1178,7 +1178,7 @@ var MauBinh = IGameScene.extend({
             for (var i = 0; i < thiz.resultEntries.length; i++) {
                 var username = thiz.resultEntries[i].username;
                 if (username.length > 3 && (username != PlayerMe.username)) {
-                    username = username.substring(0, username.length - 3) + "***";
+                    username = username.substring(0, username.length <= 10?username.length - 3:15) + "***";
                 }
                 dialog.userLabel[i].setString(username);
 
