@@ -62,8 +62,8 @@ var TienLen = IGameScene.extend({
             if (!isSelected)
                 return;
 
-            // if (cardList.getCardSelected().length > 2)
-            //     return;
+            if (cardList.getCardSelected().length > 2)
+                return;
 
             thiz.handleSelectSuggest(card);
         };
@@ -77,59 +77,54 @@ var TienLen = IGameScene.extend({
     },
 
     handleSelectSuggest: function (card) {
-        var selectedCard = this.cardList.getCardSelected();
-
-        //only allow one card selected against one
-        if ((!this.suggestGroups) || this.suggestGroups.length == 0) {
-            if (!this.isNewTurn) {
-                for (var i = 0; i < selectedCard.length; i++) {
-                    selectedCard[i].setSelected(selectedCard[i] == card);
-                }
-            }
-            return;
-        }
-
-        for (var i = 0; i < this.suggestGroups.length; i++) {
-            if (selectedCard.length == 1) {
-                var isCardLeftMost = true;
-
-                for (var j = 0; j < this.suggestGroups[i].length; j++) {
-                    isCardLeftMost = isCardLeftMost && (this.suggestGroups[i][j].x >= card.x);
-                }
-
-                if (!isCardLeftMost)
-                    continue;
-            }
-
-            if (this.suggestGroups[i].indexOf(card) != -1 && (!this.isNewTurn)) {
-                //deselect current
-                for (var j = 0; j < selectedCard.length; j++) {
-                    selectedCard[j].setSelected(false);
-                }
-
-                //select grouped card
-                for (var j = 0; j < this.suggestGroups[i].length; j++) {
-                    this.suggestGroups[i][j].setSelected(true);
-                }
-                return;
-            }
-
-            // on new turn, need 2 card selected to suggest
-            if (this.isNewTurn && selectedCard.length == 2) {
-                if (this.suggestGroups[i].indexOf(selectedCard[0]) != -1
-                    && this.suggestGroups[i].indexOf(selectedCard[1]) != -1) {
-                    for (var j = 0; j < this.suggestGroups[i].length; j++) {
-                        this.suggestGroups[i][j].setSelected(true);
-                    }
-                    return;
-                }
-            }
-        }
-
-        //deselect all if card is not in any group
-        for (var i = 0; i < selectedCard.length; i++) {
-            selectedCard[i].setSelected(selectedCard[i] == card);
-        }
+         var selectedCard = this.cardList.getCardSelected();
+        
+         //only allow one card selected against one
+         if ((!this.suggestGroups) || this.suggestGroups.length == 0) {
+             if (!this.isNewTurn) {
+                 for (var i = 0; i < selectedCard.length; i++) {
+                     selectedCard[i].setSelected(selectedCard[i] == card);
+                 }
+             }
+             return;
+         }
+        
+         for (var i = 0; i < this.suggestGroups.length; i++) {
+             if (selectedCard.length == 1) {
+                 var isCardLeftMost = true;
+        
+                 for (var j = 0; j < this.suggestGroups[i].length; j++) {
+                     isCardLeftMost = isCardLeftMost && (this.suggestGroups[i][j].x >= card.x);
+                 }
+        
+                 if (!isCardLeftMost)
+                     continue;
+             }
+        
+             if (this.suggestGroups[i].indexOf(card) != -1 && (!this.isNewTurn)) {
+                 //deselect current
+                 for (var j = 0; j < selectedCard.length; j++) {
+                     selectedCard[j].setSelected(false);
+                 }
+        
+                 //select grouped card
+                 for (var j = 0; j < this.suggestGroups[i].length; j++) {
+                     this.suggestGroups[i][j].setSelected(true);
+                 }
+                 return;
+             }
+        
+             // on new turn, need 2 card selected to suggest
+             if (this.isNewTurn && selectedCard.length == 2) {
+                 if (this.suggestGroups[i].indexOf(selectedCard[0]) != -1
+                     && this.suggestGroups[i].indexOf(selectedCard[1]) != -1) {
+                     for (var j = 0; j < this.suggestGroups[i].length; j++) {
+                         this.suggestGroups[i][j].setSelected(true);
+                     }
+                     return;
+                 }
+             }
+         }
     },
 
     initController: function () {
@@ -302,11 +297,11 @@ var TienLen = IGameScene.extend({
     onChatChem: function (params) {
         var player1 = params["7"];
         var gold1 = params["3"];
-        // var changeGold1 = params["2"];
+       // var changeGold1 = params["2"];
 
         var player2 = params["8"];
         var gold2 = params["6"];
-        // var changeGold2 = params["5"];
+       // var changeGold2 = params["5"];
 
         // for (var i = 0; i < this.allSlot.length; i++) {
         //     if (this.allSlot[i].username == player1) {
@@ -333,7 +328,7 @@ var TienLen = IGameScene.extend({
         this.suggestGroups = TLMNUtility.getSuggestedCards(null, this.cardList.cardList);
     },
 
-    suggestCardWithCards: function (cards) {
+    suggestCardWithCards : function(cards){
         this.isNewTurn = false;
         this.suggestGroups = TLMNUtility.getSuggestedCards(cards, this.cardList.cardList);
     },
@@ -387,7 +382,7 @@ var TienLen = IGameScene.extend({
     // },
 
     onDanhbaiMe: function (username, cards) {
-        // var slot = this.getSlotByUsername(username);
+       // var slot = this.getSlotByUsername(username);
         var arr = this.cardList.removeCard(cards);
         this.cardOnTable.moveOldCard();
         this.cardOnTable.addCard(arr);
@@ -396,9 +391,9 @@ var TienLen = IGameScene.extend({
             arr[i].release();
         }
         SoundPlayer.playSound("danh_bai");
-        // this.suggestGroups =
+       // this.suggestGroups =
 
-        if (this.cardList.cardList.length === 0) {
+        if(this.cardList.cardList.length === 0){
             this.setDanhBaiBtVisible(false);
             this.setBoLuotBtVisible(false);
             this.setXepBaiBtVisible(false);
@@ -410,7 +405,7 @@ var TienLen = IGameScene.extend({
         var slot = this.getSlotByUsername(username);
         this.cardOnTable.moveOldCard();
         this.cardOnTable.addNewCardList(cards, slot.getPosition());
-        this.suggestGroups = TLMNUtility.getSuggestedCards(cards, this.cardList.cardList);
+       this.suggestGroups = TLMNUtility.getSuggestedCards(cards, this.cardList.cardList);
         this.isNewTurn = false;
         SoundPlayer.playSound("danh_bai");
     },
