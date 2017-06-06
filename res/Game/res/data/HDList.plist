@@ -463,6 +463,28 @@ Lịch sử :
 			</dict>
 		</array>
 	</dict>
+	<key>FruitsSlot</key>
+	<string>Game Fruits Slot hay Xèng hoa quả là game quay slot với 3 hàng, 5 cột, 7 loại vật phẩm và 20 dòng trả thưởng. 
+Luật chơi:
+Xem bảng trả thưởng bên phải để biết phần thưởng.
+Wild là vật phẩm đặc biệt, có thể thay thế các vật phẩm khác để tạo thành kết quả.
+Nếu 1 line có nhiều kết quả trúng thưởng, chỉ tính kết quả trúng thưởng lớn nhất cho line đó.
+Cách chơi:
+Chọn mức cược
+Chọn số dòng muốn chơi bằng cách nhấn vào Nút 20 Dòng. Bạn phải chọn ít nhất 1 dòng
+Với mỗi dòng đã chọn, bạn sẽ mất số tiền tương đương mức cược. Ví dụ: mức cược 1000, chơi 20 dòng, có nghĩa bạn sẽ mất 20.000 để quay
+Ấn quay để quay, nhấn lần nữa khi đang quay sẽ dừng
+Ấn vào cột đang quay để dừng cột đó
+Nếu bạn thắng, bạn có thể chơi minigame đoán màu/đoán chất để được x2 hoặc x4 số tiền thắng.
+Minigame:
+Chọn nút x2-x4 để chơi minigame. 
+Bạn chọn màu (x2) hoặc chọn chất(x4) cây bài đang úp. 
+Nếu đoán đúng, bạn sẽ được x2-x4 số tiền thắng. Nếu thua sẽ mất toàn bộ số tiền thắng.
+Bạn có thể chơi minigame từ 0 đến 5 lần.
+Bạn có thể dừng chơi minigame bất cứ lúc nào bằng cách chọn nút Nhận Thưởng.
+Jackpot(hũ thưởng):
+Với mỗi lượt user chơi, sẽ có 1% số tiền cược được đưa vào jackpot(hũ thưởng). Jackpot sẽ nổ khi bạn quay được 5 Wild trên 1 line bất kỳ.
+Khi nổ Jackpot, bạn nhận được 1/2 số tiền trong jackpot. 1/2 được giữ lại làm jackpot tiếp theo.</string>
 	<key>MINITAIXIU</key>
 	<string>B1: Chọn mức cược để đặt
         Có 2 cách cho người chơi lựa chọn là:

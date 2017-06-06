@@ -12,7 +12,8 @@ var VQ_BUY_FIRST = 0;
 var VQ_BUY_SECOND = 1;
 var VQ_BUY_INGAME = 2;
 s_sfs_error_msg[520] = "Bạn không đủ lượt quay!";
-//s_sfs_error_msg[10] = "Không đủ tiền để mua lượt";
+s_sfs_error_msg[521] = "Bạn chưa chọn cửa";
+s_sfs_error_msg[10] = "Không đủ tiền để mua lượt";
 
 var VongQuayController = MiniGameController.extend({
     ctor: function (view) {

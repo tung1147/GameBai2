@@ -4,7 +4,7 @@
 
 var SlotItem = ccui.Widget.extend({
 
-    ctor: function (isTrue) {
+    ctor: function () {
 
         this._super();
         this.moveSpeed =  1500.0;
@@ -139,8 +139,8 @@ var SlotLayer = cc.Node.extend({
         this.clolumnCurrent = 0;
     },
 
-    newItem:function (isTrue) {
-        return new SlotItem(isTrue);
+    newItem:function (idItem) {
+        return new SlotItem(idItem);
     },
 
     rotate:function () {
@@ -150,8 +150,8 @@ var SlotLayer = cc.Node.extend({
 
             var subItem = [];
             for (var j = 0 ; j < 4; j++) { // hang
-
-                var item = this.newItem(false);
+                var randomItem = Math.floor(Math.random()*6);
+                var item = this.newItem(randomItem);
                 item.createItem(i,j,0);
                 this.nodeSlot.addChild(item);
 
@@ -168,7 +168,7 @@ var SlotLayer = cc.Node.extend({
         this.arrItems = [];
         this.clolumnCurrent = -1;
     },
-    stopSlotWithResuft:function () {
+    stopSlotWithResuft:function (ketqua) {
         var thiz = this;
         for (var i = 0; i< this.arrItems.length; i++) {
             (function () {
@@ -180,20 +180,21 @@ var SlotLayer = cc.Node.extend({
 
                     var  itemTemp = thiz.arrItems[inew][0];//phan tu dau tien cua cot
                      var distance = itemTemp.distance2Item + thiz.getMaxYOfColumn(inew,4) ;
+                    var kqColumn = [];
 
                     for(var j = 0 ;j < subItems.length; j++)
                     {
                         var items = subItems[j];
                         items.stop(distance);
                     }
-                    thiz.initItemsColumn(3,inew,null,distance);
+                    thiz.initItemsColumn(3,inew,ketqua[inew],distance);
                 })));
             })();
 
 
         }
     },
-    stopNow:function () {
+    stopNow:function (ketqua) {
         this.stopAllActions();
         var thiz = this;
         for (var i = this.clolumnCurrent+1; i< this.arrItems.length; i++) {
@@ -210,7 +211,7 @@ var SlotLayer = cc.Node.extend({
                         var items = subItems[j];
                         items.stop(distance);
                     }
-                    thiz.initItemsColumn(3,inew,null,distance);
+                    thiz.initItemsColumn(3,inew,ketqua[inew],distance);
 
             })();
 
@@ -234,7 +235,7 @@ var SlotLayer = cc.Node.extend({
         this.clolumnCurrent = i;
         var subItem = [];
         for (var j = 0 ; j < numberHorizontal; j++) {
-            var item = this.newItem(true);
+            var item = this.newItem(ketqua[j]);
             subItem.push(item);
             item.idItem = this.arrResuft.length+1;
             this.arrResuft.push(item);
