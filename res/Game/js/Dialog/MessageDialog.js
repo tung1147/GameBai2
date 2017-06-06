@@ -31,9 +31,13 @@ var MessageDialog = Dialog.extend({
         this.title.setString(title);
     },
 
-    setMessage : function (message) {
+    setMessage : function (message, textAlignment) {
+        if(textAlignment === undefined){
+            textAlignment = cc.TEXT_ALIGNMENT_CENTER;
+        }
         this.scrollView.removeAllItems();
-        var messageLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, message, cc.TEXT_ALIGNMENT_CENTER, this.scrollView.getContentSize().width - 10);
+        var messageLabel = new cc.LabelTTF(message, cc.res.font.Roboto_Condensed, 18, cc.size(this.scrollView.getContentSize().width - 10, 0), textAlignment);
+        //cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, message, cc.TEXT_ALIGNMENT_CENTER, this.scrollView.getContentSize().width - 10);
 
         var height = messageLabel.getContentSize().height + 20.0;
         if(height <= this.scrollView.getContentSize().height){

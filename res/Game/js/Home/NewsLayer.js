@@ -106,8 +106,8 @@ var NewsNotificationLayer = NewsSubLayer.extend({
         var thiz = this;
         container.addClickEventListener(function () {
             var dialog = new MessageDialog();
-            dialog.title.setString(thiz.dialogTitle);
-            dialog.setMessage(content);
+            dialog.setTitle(title);
+            dialog.setMessage(content, cc.TEXT_ALIGNMENT_LEFT);
             dialog.showWithAnimationScale();
         });
     }

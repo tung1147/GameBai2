@@ -171,7 +171,7 @@ var RecvInviteDialog = Dialog.extend({
 
     setInfoWithSender: function (username, gameName, betting) {
         if (username.length > 3 && (username != PlayerMe.username)) {
-            username = username.substring(0, username.length - 3) + "***";
+            username = username.substring(0, username.length <= 10?username.length - 3:15) + "***";
         }
 
         var msgLabel = new ccui.RichText();

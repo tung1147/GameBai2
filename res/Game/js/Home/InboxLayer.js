@@ -116,7 +116,7 @@ var InboxLayer = LobbySubLayer.extend({
         container.addClickEventListener(function () {
             var dialog = new MessageDialog();
             dialog.title.setString("TIN NHẮN");
-            dialog.setMessage(content);
+            dialog.setMessage(content, cc.TEXT_ALIGNMENT_LEFT);
             dialog.showWithAnimationScale();
             if(status === 1){
                 var request = {
