@@ -7,7 +7,7 @@ var TLMNUtility = {
     BONDOITHONG: 5,
     DAY: 6,
     preventable: [
-        [1 ,3, 4, 5], // chan 2
+        [1, 3, 4, 5], // chan 2
         [1], // chan doi
         [2], // chan bo ba
         [3, 5], // chan tu quy
@@ -42,7 +42,6 @@ var TLMNUtility = {
             suitFreq[cards[i].suit]++;
         }
         rankFreq[14] = rankFreq[1];
-
 
 
         //doi, ba , tu quy
@@ -120,13 +119,13 @@ var TLMNUtility = {
             suitFreq[handCards[i].suit]++;
         }
 
+        var preventableGroupType = this.preventable[groupType];
+
         // special handler pair 2
-        if (groupType == TLMNUtility.HAI && cards.length == 1){
-            return [];
+        if (groupType == TLMNUtility.HAI && cards.length == 1) {
+            preventableGroupType = [3, 4, 5];
         }
 
-
-        var preventableGroupType = this.preventable[groupType];
         var minRank = cards[0].rank;
         for (var i = 1; i < cards.length; i++) {
             minRank = cards[i].rank < minRank ? cards[i].rank : minRank;
@@ -325,7 +324,7 @@ var TLMNUtility = {
                     continue;
                 if (rankFreq[i] >= 2 && rankFreq[i + 1] >= 2 && rankFreq[i + 2] >= 2) {
                     var isLegal = i >= minRank;
-                    if (i == minRank && isLegal){
+                    if (i == minRank && isLegal) {
                         isLegal = false;
                         for (var j = 0; j < sameCards[i + 2].length; j++) {
                             isLegal = isLegal || (sameCards[i + 2][j].suit == 3);
@@ -413,13 +412,13 @@ var TLMNUtility = {
 };
 
 var handCards = [
-    {rank:3,suit:0},
-    {rank:3,suit:1},
-    {rank:4,suit:0},
-    {rank:4,suit:1},
-    {rank:5,suit:0},
-    {rank:5,suit:1},
-    {rank:6,suit:0},
-    {rank:6,suit:1}
+    {rank: 3, suit: 0},
+    {rank: 3, suit: 1},
+    {rank: 4, suit: 0},
+    {rank: 4, suit: 1},
+    {rank: 5, suit: 0},
+    {rank: 5, suit: 1},
+    {rank: 6, suit: 0},
+    {rank: 6, suit: 1}
 ];
-console.log(TLMNUtility.findDoiThong(handCards,null,null,3,0));
+console.log(TLMNUtility.findDoiThong(handCards, null, null, 3, 0));
