@@ -151,14 +151,9 @@ var ActivityDialog = Dialog.extend({
         }
 
         LobbyClient.getInstance().send({command : "fetchUserMissionInfo", typeMission : 0});
-        LobbyClient.getInstance().send({command : "fetchUserMissionInfo", typeMission : 1});
-        LobbyClient.getInstance().send({command : "fetchUserMissionInfo", typeMission : 2});
         LobbyClient.getInstance().send({command : "fetchUserMissionInfo", typeMission : 3});
-
-        // LobbyClient.getInstance().send({command : "fetchUserMissionStatus", typeMission : 0});
-        // LobbyClient.getInstance().send({command : "fetchUserMissionStatus", typeMission : 1});
-        // LobbyClient.getInstance().send({command : "fetchUserMissionStatus", typeMission : 2});
-        // LobbyClient.getInstance().send({command : "fetchUserMissionStatus", typeMission : 3});
+        LobbyClient.getInstance().send({command : "fetchUserMissionStatus", typeMission : 3});
+        LobbyClient.getInstance().send({command : "fetchUserMissionStatus", typeMission : 1});
     },
 
     onExit : function () {
