@@ -119,7 +119,7 @@ var VideoPokerController = MiniGameController.extend({
         this._view.showDoubleTurn(firstCardId);
         this._view.activateReward(11);
         this._view.setFlashing(true, false);
-        this._view.setRewardCards([0, 0, 0, 0, 0]);
+        this._view.setRewardCards([1, 1, 1, 1, 1]);
         this._view.setQuayBtEnable(false);
         this._view.setNhanThuongBtEnable(false);
     },

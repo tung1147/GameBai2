@@ -277,7 +277,7 @@ var ActivityLoginLayer = cc.Node.extend({
 
         if(status === 0 || status === 1){
             var statusLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Đã nhận");
-            statusLabel.setColor(cc.color("#ffde00"));
+            statusLabel.setColor(cc.color("#154c6b"));
             statusLabel.setAnchorPoint(cc.p(0.0, 0.5));
             statusLabel.setPosition(310, dateLabel.y);
             container.addChild(statusLabel);
@@ -421,7 +421,7 @@ var ActivityOnlineLayer = cc.Node.extend({
 
         if(status === 0 || status === 1){
             var statusLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Đã nhận");
-            statusLabel.setColor(cc.color("#ffde00"));
+            statusLabel.setColor(cc.color("#154c6b"));
             statusLabel.setAnchorPoint(cc.p(0.0, 0.5));
             statusLabel.setPosition(310, timeLabel.y);
             container.addChild(statusLabel);
@@ -665,7 +665,7 @@ var ActivityQuestLayer = cc.Node.extend({
 
         if(status === 0 || status === 1){
             var statusLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Đã nhận");
-            statusLabel.setColor(cc.color("#ffde00"));
+            statusLabel.setColor(cc.color("#154c6b"));
             statusLabel.setAnchorPoint(cc.p(0.0, 0.5));
             statusLabel.setPosition(435, questLabel.y);
             container.addChild(statusLabel);
