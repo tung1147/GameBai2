@@ -25,11 +25,11 @@ var MiniGameCell = ccui.Widget.extend({
         gameNameLabel.setPosition(77, 66);
         this.addChild(gameNameLabel);
 
-        var line = new ccui.Scale9Sprite("home-minigame-bar-line.png", cc.rect(20,20,8,8));
-        line.setPreferredSize(cc.size(100, 60));
-        line.setOpacity(255);
-        line.setAnchorPoint(cc.p(0.5,0));
-        line.setPosition(cc.p(100, 0));
+        var line = new ccui.Scale9Sprite("home-minigame-bar-line.png", cc.rect(10,10,4,4));
+        line.setPreferredSize(cc.size(size.width, 1));
+        line.setOpacity(10);
+        line.setAnchorPoint(cc.p(0.0,0));
+        line.setPosition(cc.p(0, 0));
         this.addChild(line);
 
 
@@ -105,7 +105,7 @@ var MiniGameLayer = cc.Node.extend({
             listGame.setBounceEnabled(true);
             listGame.setScrollBarEnabled(false);
             // listGame.setPadding(15);
-            // listGame.setMargin(30, 0, 0, 0);
+            listGame.setMargin(12, 0, 0, 0);
             miniGameLayer.addPage(listGame);
             this.allMiniLayer.push(listGame);
 

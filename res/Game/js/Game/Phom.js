@@ -414,7 +414,8 @@ var Phom = IGameScene.extend({
             var card = this.cardList.cardList[i];
             var cardId = CardList.prototype.getCardIdWithRank(card.rank, card.suit);
             if (cards.indexOf(cardId) != -1) {
-                var borderSprite = new cc.Sprite("#boder_do.png");
+                var borderSprite = new ccui.Scale9Sprite("boder_do.png", cc.rect(20, 20, 4, 4));
+                borderSprite.setPreferredSize(cc.size(card.width, card.height));
                 borderSprite.setPosition(card.width / 2, card.height / 2);
                 card.addChild(borderSprite);
             }
@@ -428,7 +429,8 @@ var Phom = IGameScene.extend({
         for (var i = 0; i < cards.length; i++) {
             var card = CardList.prototype.getCardWithId(cards[i]);
             var cardSprite = new Card(card.rank, card.suit);
-            var redBorder = new cc.Sprite("#boder_do.png");
+            var redBorder = new ccui.Scale9Sprite("boder_do.png", cc.rect(20, 20, 4, 4));
+            redBorder.setPreferredSize(cc.size(cardSprite.width, cardSprite.height));
             redBorder.setPosition(cardSprite.width / 2, cardSprite.height / 2);
             cardSprite.addChild(redBorder);
             slot.dropCards.addCard(cardSprite,true);
@@ -500,7 +502,8 @@ var Phom = IGameScene.extend({
 
             var index = cardToMau.indexOf(groupedCards[i]);
             if (index != -1) {// from hands, create new sprite
-                var borderSprite = new cc.Sprite("#boder_do.png");
+                var borderSprite = new ccui.Scale9Sprite("boder_do.png", cc.rect(20, 20, 4, 4));
+                borderSprite.setPreferredSize(cc.size(objCard.width, objCard.height));
                 borderSprite.setPosition(objCard.width / 2, objCard.height / 2);
                 cardSprite.addChild(borderSprite);
             }
@@ -541,7 +544,8 @@ var Phom = IGameScene.extend({
                     // stolenCardsSprite[index].setPosition(stolenCardsSprite[index].origin)
                     // slot.dropCards.addCard(stolenCardsSprite[index],false);
                     // stolenCardsSprite[index].release();
-                    var borderSprite = new cc.Sprite("#boder_do.png");
+                    var borderSprite = new ccui.Scale9Sprite("boder_do.png", cc.rect(20, 20, 4, 4));
+                    borderSprite.setPreferredSize(cc.size(objCard.width, objCard.height));
                     borderSprite.setPosition(objCard.width / 2, objCard.height / 2);
                     objCard.addChild(borderSprite);
                 }
@@ -581,7 +585,8 @@ var Phom = IGameScene.extend({
                     // stolenCardsSprite[index].setPosition(stolenCardsSprite[index].origin)
                     // slot.dropCards.addCard(stolenCardsSprite[index],false);
                     // stolenCardsSprite[index].release();
-                    var borderSprite = new cc.Sprite("#boder_do.png");
+                    var borderSprite = new ccui.Scale9Sprite("boder_do.png", cc.rect(20, 20, 4, 4));
+                    borderSprite.setPreferredSize(cc.size(objCard.width, objCard.height));
                     borderSprite.setPosition(objCard.width / 2, objCard.height / 2);
                     objCard.addChild(borderSprite);
                 }
@@ -669,7 +674,8 @@ var Phom = IGameScene.extend({
         cardSprite.removeAllChildren(true); //purify card, amen
         stolenUserSlot.trashCards.reOrder();
 
-        var borderSprite = new cc.Sprite("#boder_do.png");
+        var borderSprite = new ccui.Scale9Sprite("boder_do.png", cc.rect(20, 20, 4, 4));
+        borderSprite.setPreferredSize(cc.size(cardSprite.width, cardSprite.height));
         borderSprite.setPosition(cardSprite.width / 2, cardSprite.height / 2);
         cardSprite.addChild(borderSprite);
 

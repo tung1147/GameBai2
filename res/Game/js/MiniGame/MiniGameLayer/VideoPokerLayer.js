@@ -12,7 +12,6 @@ var VideoPokerLayer = MiniGamePopup.extend({
         this.cardHeight = 0;
         this.rollHeight = 0;
         this.rewards = [];
-        this.rewardLayer = [];
         this.cardRollingSprites = [];
         this.holdingList = [0, 0, 0, 0, 0];
         this.holdLayers = [];
@@ -29,7 +28,7 @@ var VideoPokerLayer = MiniGamePopup.extend({
 
         this.initRewards();
 
-        var resultLabel = new cc.LabelBMFont("", cc.res.font.Roboto_Condensed_30);
+        var resultLabel = new cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "", cc.TEXT_ALIGNMENT_CENTER);
         resultLabel.setColor(cc.color("#bef0fd"));
         resultLabel.setPosition(500, 370);
         this.resultLabel = resultLabel;
@@ -65,12 +64,6 @@ var VideoPokerLayer = MiniGamePopup.extend({
             clippingCardLayout.addChild(sprite);
             this.cardSprites.push(sprite);
 
-            var rewardSprite = new cc.Sprite("#videopoker_rewardLayer.png");
-            rewardSprite.setPosition(sprite.getPosition());
-            rewardSprite.setScale(1.4);
-            rewardSprite.setVisible(false);
-            clippingCardLayout.addChild(rewardSprite);
-            this.rewardLayer.push(rewardSprite);
 
             var holdSprite = new cc.Sprite("#videopoker_holdLayer.png");
             holdSprite.setPosition(sprite.getPosition());
@@ -124,7 +117,7 @@ var VideoPokerLayer = MiniGamePopup.extend({
             thiz.onGetRewardButtonClick();
         });
 
-        var lblHD = new cc.LabelTTF("", cc.res.font.Roboto_CondensedBold, 25);
+        var lblHD = new cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "", cc.TEXT_ALIGNMENT_CENTER);
         lblHD.setColor(cc.color(190,240,253));
         lblHD.setPosition(bg.getContentSize().width/2, 370);
         bg.addChild(lblHD);
@@ -293,7 +286,14 @@ var VideoPokerLayer = MiniGamePopup.extend({
 
     setRewardCards: function (rewardArrayIndex) {
         for (var i = 0; i < rewardArrayIndex.length; i++) {
-            this.rewardLayer[i].setVisible(rewardArrayIndex[i]);
+            if(rewardArrayIndex[i])
+            {
+                this.cardSprites[i].setOpacity(255);
+            }
+            else
+            {
+                this.cardSprites[i].setOpacity(80);
+            }
         }
     },
 
@@ -309,7 +309,7 @@ var VideoPokerLayer = MiniGamePopup.extend({
         this.rolling = isRolling;
         if (isRolling)
             for (var i = 0; i < 5; i++)
-                this.rewardLayer[i].visible = false;
+                this.cardSprites[i].setOpacity(255);
         for (var i = 0; i < 15; i++) {
             this.cardSprites[i % 5].visible = (!isRolling || this.holdingList[i % 5]);
             this.cardRollingSprites[i].visible = (isRolling && !this.holdingList[i % 5]);

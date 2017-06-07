@@ -266,7 +266,7 @@ var ActivityLoginLayer = cc.Node.extend({
         container.addChild(dateBg);
 
         var dateLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_18, date);
-        dateLabel.setColor(cc.color("#ffde00"));
+        dateLabel.setColor(cc.color("#77cbee"));
         dateLabel.setPosition(dateBg.getPosition());
         container.addChild(dateLabel);
 

@@ -134,6 +134,7 @@ var TransferGoldDialog = Dialog.extend({
         okButton.setCapInsets(cc.rect(10,10,4,4));
         okButton.setContentSize(cc.size(280, 44));
         okButton.setZoomScale(0.01);
+        okButton.setColor(cc.color("#ffde00"));
         okButton.setPosition(this.getContentSize().width/2, 109);
         this.addChild(okButton);
         okButton.addClickEventListener(function () {

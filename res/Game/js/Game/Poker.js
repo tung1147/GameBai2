@@ -1603,8 +1603,9 @@ var CardEx = Card.extend({
         this._super(rank, suit);
         var thiz = this;
 
-        var borderSprite = new cc.Sprite("#boder_vang.png");
-        borderSprite.setScale(0.95);
+        var borderSprite = new ccui.Scale9Sprite("boder_vang.png", cc.rect(20, 20, 4, 4));
+        // borderSprite.setScale(0.95);
+        borderSprite.setPreferredSize(this.getContentSize());
         borderSprite.setVisible(false);
         borderSprite.setPosition(this.getContentSize().width / 2, this.getContentSize().height / 2);
         this.addChild(borderSprite);

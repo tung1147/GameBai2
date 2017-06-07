@@ -10,24 +10,24 @@ var RewardAgencyDialog = Dialog.extend({
         var thiz = this;
         this._initTutorial();
 
-        this.initWithSize(cc.size(678,458));
+        this.initWithSize(cc.size(900,480));
         this.title.setString("CHUYỂN VÀNG");
         this.okButton.visible = false;
         this.cancelButton.visible = false;
 
         var bg1 = new ccui.Scale9Sprite("dialog-textinput-bg.png",cc.rect(12,12,4,4));
         bg1.setPreferredSize(cc.size(280, 44));
-        bg1.setPosition(487, 326);
+        bg1.setPosition(670, 348);
         this.addChild(bg1);
 
         var bg2 = new ccui.Scale9Sprite("dialog-textinput-bg.png",cc.rect(12,12,4,4));
         bg2.setPreferredSize(cc.size(280, 44));
-        bg2.setPosition(bg1.x, 256);
+        bg2.setPosition(bg1.x, 281);
         this.addChild(bg2);
 
         var bg3 = new ccui.Scale9Sprite("dialog-textinput-bg.png",cc.rect(12,12,4,4));
         bg3.setPreferredSize(cc.size(280, 44));
-        bg3.setPosition(bg1.x, 186);
+        bg3.setPosition(bg1.x, 213);
         this.addChild(bg3);
 
         var agencyCode = new newui.TextField(cc.size(bg1.getContentSize().width - 20, bg1.getContentSize().height), cc.res.font.Roboto_Condensed_18);
@@ -70,7 +70,7 @@ var RewardAgencyDialog = Dialog.extend({
 
         var feeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Phí chuyển vàng");
         feeLabel.setColor(cc.color("#ffffff"));
-        feeLabel.setPosition(bg1.x, 124);
+        feeLabel.setPosition(bg1.x, 154);
         this.addChild(feeLabel);
         this.feeLabel = feeLabel;
 
@@ -78,7 +78,8 @@ var RewardAgencyDialog = Dialog.extend({
         okButton.setScale9Enabled(true);
         okButton.setCapInsets(cc.rect(10,10,4,4));
         okButton.setContentSize(cc.size(280, 44));
-        okButton.setPosition(bg1.x, 60);
+        okButton.setColor(cc.color("ffde00"));
+        okButton.setPosition(bg1.x, 77);
         this.addChild(okButton);
 
         var okLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_18, "HOÀN THÀNH");
@@ -91,14 +92,14 @@ var RewardAgencyDialog = Dialog.extend({
     },
 
     _initTutorial : function () {
-        var itemList = new newui.TableView(cc.size(313, 367), 1);
+        var itemList = new newui.TableView(cc.size(410, 310), 1);
         itemList.setDirection(ccui.ScrollView.DIR_VERTICAL);
         itemList.setScrollBarEnabled(false);
-        itemList.setMargin(10, 10, 0, 0);
-        itemList.setPosition(cc.p(12, 10));
+        // itemList.setMargin(10, 10, 0, 0);
+        itemList.setPosition(cc.p(42, 65));
         this.addChild(itemList, 1);
 
-        var tutLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, cc.Global.getStringRes()["TransferGold"]["MerchantTutorial"], cc.TEXT_ALIGNMENT_LEFT, 300);
+        var tutLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, cc.Global.getStringRes()["TransferGold"]["MerchantTutorial"], cc.TEXT_ALIGNMENT_LEFT, 410);
         //var container =
         itemList.pushItem(tutLabel);
     },

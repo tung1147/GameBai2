@@ -5,7 +5,7 @@
 var SMSPayDialog = Dialog.extend({
     ctor: function () {
         this._super();
-        this.initWithSize(cc.size(660, 360));
+        this.initWithSize(cc.size(680, 400));
         this.title.setString("CHỌN NHÀ MẠNG");
         this.okButton.visible = false;
         this.cancelButton.visible = false;
@@ -16,7 +16,7 @@ var SMSPayDialog = Dialog.extend({
         var thiz = this;
 
         var viettelBt = new ccui.Button("payment-card-viettel.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        viettelBt.setPosition(this.getContentSize().width/2 - 210, 230);
+        viettelBt.setPosition(this.getContentSize().width/2, 252);
         viettelBt.setZoomScale(0.01);
         viettelBt.select = function () {
             viettelBt.setOpacity(255);
@@ -32,7 +32,7 @@ var SMSPayDialog = Dialog.extend({
         viettelBt.deselect();
 
         var mobiBt = new ccui.Button("payment-card-mobi.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        mobiBt.setPosition(this.getContentSize().width/2, viettelBt.y);
+        mobiBt.setPosition(this.getContentSize().width/2 - 200, viettelBt.y);
         mobiBt.setZoomScale(0.01);
         mobiBt.select = function () {
             mobiBt.setOpacity(255);
@@ -48,7 +48,7 @@ var SMSPayDialog = Dialog.extend({
         this.mobiBt = mobiBt;
 
         var vinaBt = new ccui.Button("payment-card-vina.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        vinaBt.setPosition(this.getContentSize().width/2 + 210, viettelBt.y);
+        vinaBt.setPosition(this.getContentSize().width/2 + 200, viettelBt.y);
         vinaBt.setZoomScale(0.01);
         vinaBt.select = function () {
             vinaBt.setOpacity(255);

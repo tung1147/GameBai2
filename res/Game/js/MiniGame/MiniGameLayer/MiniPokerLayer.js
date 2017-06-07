@@ -13,7 +13,6 @@ var MiniPokerLayer = MiniGamePopup.extend({
         this.cardHeight = 0;
         this.rollHeight = 0;
         this.rewards = [];
-        this.rewardLayer = [];
         this.cardRollingSprites = [];
         this.gameType = GameType.MiniGame_Poker;
 
@@ -68,13 +67,6 @@ var MiniPokerLayer = MiniGamePopup.extend({
             sprite.setPosition(60 + 135 * i, clippingCardLayout.height / 2);
             clippingCardLayout.addChild(sprite);
             this.cardSprites.push(sprite);
-
-            var rewardSprite = new cc.Sprite("#videopoker_rewardLayer.png");
-            rewardSprite.setPosition(sprite.getPosition());
-            rewardSprite.setScale(1.4);
-            rewardSprite.setVisible(false);
-            clippingCardLayout.addChild(rewardSprite);
-            this.rewardLayer.push(rewardSprite);
         }
 
         for (var i = 0; i < 15; i++) {
@@ -211,7 +203,15 @@ var MiniPokerLayer = MiniGamePopup.extend({
 
     setRewardCards: function (rewardArrayIndex) {
         for (var i = 0; i < rewardArrayIndex.length; i++) {
-            this.rewardLayer[i].setVisible(rewardArrayIndex[i]);
+
+            if(rewardArrayIndex[i])
+            {
+                this.cardSprites[i].setOpacity(255);
+            }
+            else
+            {
+                this.cardSprites[i].setOpacity(80);
+            }
         }
     },
 
@@ -257,11 +257,13 @@ var MiniPokerLayer = MiniGamePopup.extend({
         this.rolling = isRolling;
         if (isRolling)
             for (var i = 0; i < 5; i++)
-                this.rewardLayer[i].visible = false;
+                this.cardSprites[i].setOpacity(255);
+
         for (var i = 0; i < 15; i++) {
             this.cardSprites[i % 5].visible = !isRolling;
             this.cardRollingSprites[i].visible = isRolling;
         }
+
         if (isRolling) {
             this._rollingSound = SoundPlayer.playSoundLoop("mini_flyCard");
         }

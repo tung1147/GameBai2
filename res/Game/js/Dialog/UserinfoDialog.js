@@ -35,12 +35,13 @@ var UserInfoChangeLayer = cc.Node.extend({
         okButton.setCapInsets(cc.rect(10,10,4,4));
         okButton.setContentSize(280, 44);
         okButton.setPosition(bg1.x, 50);
+        okButton.setColor(cc.color("#ffde00"));
         okButton.addClickEventListener(function () {
            thiz.requestSetUserinfo();
         });
         this.addChild(okButton);
 
-        var okTitle = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "LƯU");
+        var okTitle = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_18, "LƯU");
         okTitle.setColor(cc.color("#835238"));
         okTitle.setPosition(okButton.getContentSize().width/2, okButton.getContentSize().height/2);
         okButton.getRendererNormal().addChild(okTitle);
@@ -49,25 +50,25 @@ var UserInfoChangeLayer = cc.Node.extend({
 
         var addressText = new newui.TextField(textSize, cc.res.font.Roboto_Condensed_18);
         addressText.setPlaceHolder("Địa chỉ");
-        addressText.setPlaceHolderColor(cc.color("#45b8e3"));
+        addressText.setPlaceHolderColor(cc.color("#ffffff"));
         addressText.setPosition(bg1.getPosition());
         this.addChild(addressText);
 
         var idText = new newui.TextField(textSize, cc.res.font.Roboto_Condensed_18);
         idText.setPlaceHolder("Số CMND");
-        idText.setPlaceHolderColor(cc.color("#45b8e3"));
+        idText.setPlaceHolderColor(cc.color("#ffffff"));
         idText.setPosition(bg2.getPosition());
         this.addChild(idText);
 
         var emailText = new newui.TextField(textSize, cc.res.font.Roboto_Condensed_18);
         emailText.setPlaceHolder("Email");
-        emailText.setPlaceHolderColor(cc.color("#45b8e3"));
+        emailText.setPlaceHolderColor(cc.color("#ffffff"));
         emailText.setPosition(bg3.getPosition());
         this.addChild(emailText);
 
         var merchantText = new newui.TextField(textSize, cc.res.font.Roboto_Condensed_18);
         merchantText.setPlaceHolder("Mã đại lý");
-        merchantText.setPlaceHolderColor(cc.color("#45b8e3"));
+        merchantText.setPlaceHolderColor(cc.color("#ffffff"));
         merchantText.setPosition(bg4.getPosition());
         this.addChild(merchantText);
 
@@ -156,10 +157,11 @@ var UserinfoPasswordLayer = cc.Node.extend({
         okButton.setZoomScale(0.03);
         okButton.setCapInsets(cc.rect(10,10,4,4));
         okButton.setContentSize(280, 44);
+        okButton.setColor(cc.color("#ffde00"));
         okButton.setPosition(bg1.x, 110);
         this.addChild(okButton);
 
-        var okTitle = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "ĐỔI MẬT KHẨU");
+        var okTitle = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_18, "ĐỔI MẬT KHẨU");
         okTitle.setColor(cc.color("#835238"));
         okTitle.setPosition(okButton.getContentSize().width/2, okButton.getContentSize().height/2);
         okButton.getRendererNormal().addChild(okTitle);
@@ -168,7 +170,7 @@ var UserinfoPasswordLayer = cc.Node.extend({
 
         var passwordText = new newui.TextField(textSize, cc.res.font.Roboto_Condensed_18);
         passwordText.setPlaceHolder("Mật khẩu cũ");
-        passwordText.setPlaceHolderColor(cc.color("#45b8e3"));
+        passwordText.setPlaceHolderColor(cc.color("#ffffff"));
         passwordText.setPasswordEnable(true);
         passwordText.setPosition(bg1.getPosition());
         this.addChild(passwordText);
@@ -176,7 +178,7 @@ var UserinfoPasswordLayer = cc.Node.extend({
 
         var passwordText1 = new newui.TextField(textSize, cc.res.font.Roboto_Condensed_18);
         passwordText1.setPlaceHolder("Mật khẩu mới");
-        passwordText1.setPlaceHolderColor(cc.color("#45b8e3"));
+        passwordText1.setPlaceHolderColor(cc.color("#ffffff"));
         passwordText1.setPasswordEnable(true);
         passwordText1.setPosition(bg2.getPosition());
         this.addChild(passwordText1);
@@ -184,7 +186,7 @@ var UserinfoPasswordLayer = cc.Node.extend({
 
         var passwordText2 = new newui.TextField(textSize, cc.res.font.Roboto_Condensed_18);
         passwordText2.setPlaceHolder("Nhập lại mật khẩu");
-        passwordText2.setPlaceHolderColor(cc.color("#45b8e3"));
+        passwordText2.setPlaceHolderColor(cc.color("#ffffff"));
         passwordText2.setPasswordEnable(true);
         passwordText2.setPosition(bg3.getPosition());
         this.addChild(passwordText2);
