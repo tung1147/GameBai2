@@ -189,7 +189,7 @@ var VideoPokerLayer = MiniGamePopup.extend({
         this.rollHeight -= 40;
 
         this.rollHeight = this.rollHeight > 0 ? this.rollHeight : this.rollHeight + this.cardHeight * 3;
-        for (i = 0; i < 15; i++) {
+        for (var i = 0; i < 15; i++) {
             var newY = this.baseCardHeight + (i % 3 - 1) * this.cardHeight + this.rollHeight;
             newY = newY > this.baseCardHeight + this.cardHeight ? newY - 2 * this.cardHeight
                 : newY;
@@ -331,7 +331,7 @@ var VideoPokerLayer = MiniGamePopup.extend({
     },
 
     onTouchBegan: function (touch, event) {
-        for (i = 0; i < this.cardSprites.length; i++) {
+        for (var i = 0; i < this.cardSprites.length; i++) {
             var p = this.cardSprites[i].convertToNodeSpace(touch.getLocation());
             if (cc.rectContainsPoint(
                     cc.rect(0, 0, this.cardSprites[i]._getWidth(), this.cardSprites[i]._getHeight()),
