@@ -28,7 +28,7 @@ var VideoPokerLayer = MiniGamePopup.extend({
 
         this.initRewards();
 
-        var resultLabel = new cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "", cc.TEXT_ALIGNMENT_CENTER);
+        var resultLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "", cc.TEXT_ALIGNMENT_CENTER);
         resultLabel.setColor(cc.color("#bef0fd"));
         resultLabel.setPosition(500, 370);
         this.resultLabel = resultLabel;
@@ -94,7 +94,7 @@ var VideoPokerLayer = MiniGamePopup.extend({
         coinIcon.setPosition(549, 90);
         this.addChild(coinIcon);
 
-        var bankLabel = new cc.LabelBMFont("", cc.res.font.Roboto_CondensedBold_30);
+        var bankLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, "");
         bankLabel.setColor(cc.color("#ffea00"));
         bankLabel.setAnchorPoint(cc.p(1.0, 0.5));
         bankLabel.setPosition(520, 90);
@@ -117,7 +117,7 @@ var VideoPokerLayer = MiniGamePopup.extend({
             thiz.onGetRewardButtonClick();
         });
 
-        var lblHD = new cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "", cc.TEXT_ALIGNMENT_CENTER);
+        var lblHD = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "", cc.TEXT_ALIGNMENT_CENTER);
         lblHD.setColor(cc.color(190,240,253));
         lblHD.setPosition(bg.getContentSize().width/2, 370);
         bg.addChild(lblHD);
@@ -182,7 +182,7 @@ var VideoPokerLayer = MiniGamePopup.extend({
         this.rollHeight -= 40;
 
         this.rollHeight = this.rollHeight > 0 ? this.rollHeight : this.rollHeight + this.cardHeight * 3;
-        for (i = 0; i < 15; i++) {
+        for (var i = 0; i < 15; i++) {
             var newY = this.baseCardHeight + (i % 3 - 1) * this.cardHeight + this.rollHeight;
             newY = newY > this.baseCardHeight + this.cardHeight ? newY - 2 * this.cardHeight
                 : newY;
@@ -331,7 +331,7 @@ var VideoPokerLayer = MiniGamePopup.extend({
     },
 
     onTouchBegan: function (touch, event) {
-        for (i = 0; i < this.cardSprites.length; i++) {
+        for (var i = 0; i < this.cardSprites.length; i++) {
             var p = this.cardSprites[i].convertToNodeSpace(touch.getLocation());
             if (cc.rectContainsPoint(
                     cc.rect(0, 0, this.cardSprites[i]._getWidth(), this.cardSprites[i]._getHeight()),
