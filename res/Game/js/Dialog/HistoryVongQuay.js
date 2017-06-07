@@ -3,6 +3,12 @@
  */
 
 _arrPosHisotyVQ = [15, 189, 318, 431];
+
+var STRING_VONG_LON = ["","500","1,000","2,000","5,000","10,000","20,000","50,000","100,000","200,000","500,000","100 EXP","Goodluck!"];
+
+var STRING_VONG_NHO = ["","500","1,000","5,000", "10,000", "50,000","100,000","100 EXP","Thêm lượt"];
+
+
 var HistoryVongQuay = Dialog.extend({
     ctor : function () {
         this._super();
@@ -39,7 +45,7 @@ var HistoryVongQuay = Dialog.extend({
                     name = name.substring(0, 15) ;
                 if (name.length > 3 && name != PlayerMe.username)
                     name = name.substring(0, name.length - 3) + "***";
-                    this.addItem(temp[3],name,temp[4],temp[5]);
+                    this.addItem(temp[3],name,STRING_VONG_LON[temp[4]],STRING_VONG_NHO[temp[5]]);
             }
         }
     },
@@ -82,7 +88,7 @@ var HistoryVongQuay = Dialog.extend({
 
     onExit : function () {
         this._super();
-        LobbyClient.getInstance().removeListener(this);
+        SmartfoxClient.getInstance().removeListener(this);
     }
 });
 

@@ -66,6 +66,7 @@ var ActivityDialog = Dialog.extend({
     ctor : function () {
         this._super();
         LobbyClient.getInstance().addListener("fetchUserMissionInfo", this._onRecvActivityStatus, this);
+        LobbyClient.getInstance().addListener("fetchUserMissionStatus", this._onRecvActivityStatus, this);
 
         this.okButton.visible = false;
         this.cancelButton.visible = false;
@@ -145,8 +146,6 @@ var ActivityDialog = Dialog.extend({
         this._super();
         this.mToggle.selectItem(0);
 
-        cc.Label.c
-
         for(var i=0;i<this.allTab.length;i++){
             this.allTab[i].setStatus("");
         }
@@ -155,6 +154,11 @@ var ActivityDialog = Dialog.extend({
         LobbyClient.getInstance().send({command : "fetchUserMissionInfo", typeMission : 1});
         LobbyClient.getInstance().send({command : "fetchUserMissionInfo", typeMission : 2});
         LobbyClient.getInstance().send({command : "fetchUserMissionInfo", typeMission : 3});
+
+        // LobbyClient.getInstance().send({command : "fetchUserMissionStatus", typeMission : 0});
+        // LobbyClient.getInstance().send({command : "fetchUserMissionStatus", typeMission : 1});
+        // LobbyClient.getInstance().send({command : "fetchUserMissionStatus", typeMission : 2});
+        // LobbyClient.getInstance().send({command : "fetchUserMissionStatus", typeMission : 3});
     },
 
     onExit : function () {

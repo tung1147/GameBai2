@@ -310,7 +310,7 @@ var ActivityLoginLayer = cc.Node.extend({
 var ActivityOnlineLayer = cc.Node.extend({
     ctor : function () {
         this._super();
-        LobbyClient.getInstance().addListener("fetchOnlineAccumulationLandmark", this._onRecvData, this);
+        LobbyClient.getInstance().addListener("fetchPlayingBonusMilestone", this._onRecvData, this);
 
         var mNode = new cc.Node();
         this.addChild(mNode);
@@ -364,12 +364,12 @@ var ActivityOnlineLayer = cc.Node.extend({
         this._super(visible);
         if(visible){
             this.mNode.visible = false;
-            LobbyClient.getInstance().send({command : "fetchOnlineAccumulationLandmark"});
+            LobbyClient.getInstance().send({command : "fetchPlayingBonusMilestone"});
         }
     },
 
     _onRecvData : function (cmd, data) {
-        var items = data["data"]["landmarks"];
+        var items = data["data"]["milestones"];
         if(items.length > 0){
             this.mNode.visible = true;
             this.listItem.removeAllItems();
@@ -437,7 +437,11 @@ var ActivityOnlineLayer = cc.Node.extend({
                 okButton.addClickEventListener(function () {
                     statusLabel.visible = true;
                     okButton.visible = false;
-                    _activity_request_reward(itemId);
+                    var request = {
+                        command : "acquireReward",
+                        id : itemId
+                    };
+                    LobbyClient.getInstance().send(request);
                 });
             }
         }

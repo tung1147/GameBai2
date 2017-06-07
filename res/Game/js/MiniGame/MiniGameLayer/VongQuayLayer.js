@@ -285,7 +285,9 @@ var ID_VONG_NHO = [102      ,101,108    ,107  ,106 ,105      ,104      ,103  ];
 var ID_VONG_NHO2 = [108    ,107  ,106 ,105      ,104      ,103 ,102      ,101];
 var VongQuayLayer = MiniGamePopup.extend({
     ctor: function () {
+
         this._super();
+        this.setScale(1);
         this.arrVongTo = [];
         this.arrVongNho = [];
         this.arrBuy = [];
@@ -294,7 +296,7 @@ var VongQuayLayer = MiniGamePopup.extend({
         this.gameType = GameType.GAME_VongQuayMayMan;
 
         var thiz = this;
-
+        this.isQUay = false;
         var bg = new cc.Sprite("#bg_vongquay.png");
         bg.setAnchorPoint(cc.p(0, 0));
         this.setContentSize(bg.getContentSize());
@@ -320,11 +322,16 @@ var VongQuayLayer = MiniGamePopup.extend({
         rotateBt.setPosition(vongnho.getPosition());
         bg.addChild(rotateBt);
         rotateBt.addClickEventListener(function () {
+            if(!thiz.isQUay){
+                return;
+            }
+
            if(thiz.soLuot < 1)
            {
-               MessageNode.getInstance().show("Không đủ lượt để quay");
+               MessageNode.getInstance().show("Bạn đã hết lượt quay. Mua để quay tiếp");
                return;
            }
+
             thiz.setActiveBt(rotateBt,false);
             thiz.vongto.resetVongQuay();
             thiz.vongto.startWithSpeed(1000);
@@ -332,7 +339,6 @@ var VongQuayLayer = MiniGamePopup.extend({
             thiz._controller.sendRotate( thiz.vongnho.getIdPiece());
         });
         this.rotateBt = rotateBt;
-        // this.setActiveBt(this.rotateBt,false);
         var lblLuot = new cc.LabelTTF("0",cc.res.font.Roboto_Condensed,18);
         lblLuot.setColor(cc.color(164,106,60,255));
         lblLuot.setPosition( cc.p(rotateBt.getContentSize().width/2,rotateBt.getContentSize().height/2-15));
@@ -354,7 +360,7 @@ var VongQuayLayer = MiniGamePopup.extend({
             his.show();
             thiz._controller.sendGetUserHistory();
         });
-        var btnRank = new ccui.Button("mntx_btn_bxh.png","","",ccui.Widget.PLIST_TEXTURE);
+        var btnRank = new ccui.Button("vq_icon_xh.png","","",ccui.Widget.PLIST_TEXTURE);
 
         btnRank.setPosition(cc.p(640, 292));
         btnRank.addClickEventListener(function () {
@@ -383,7 +389,7 @@ var VongQuayLayer = MiniGamePopup.extend({
             SmartfoxClient.getInstance().sendExtensionRequest(-1, "cvq", {1:thiz.vongnho.getIdPiece() ,2:aa  });
         });
 
-        var gameIdLabel = new  cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "ID : 1231231233", cc.TEXT_ALIGNMENT_LEFT);
+        var gameIdLabel =   cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "ID : 1231231233", cc.TEXT_ALIGNMENT_LEFT);
         gameIdLabel.setColor(cc.color(191, 242, 255,255));
         // gameIdLabel.setScale(0.8);
         gameIdLabel.setPosition(640, 243);
@@ -407,8 +413,10 @@ var VongQuayLayer = MiniGamePopup.extend({
 
     },
     setActiveBt : function(btn,enabled){
-        btn.setBright(enabled);
-        btn.setEnabled(enabled);
+        this.isQUay = enabled;
+        // btn.setBright(enabled);
+        btn.loadTextureNormal(enabled?"vongquay_bt.png":"vongquay_bt_2.png",ccui.Widget.PLIST_TEXTURE)
+        // btn.setEnabled(enabled);
     },
     setResuft:function (idVongNho,idVongTo) {
         var index = this.getIndexVongTo(idVongTo);
@@ -426,11 +434,10 @@ var VongQuayLayer = MiniGamePopup.extend({
 
     onFinishedRotate:function () {
       cc.log("onFinishedRotate");
-      //  this.setActiveBt(this.rotateBt,true);
     },
     onUpdateLuot:function (soLuot) {
         this.soLuot = soLuot;
-        this.lblLuot.setString(soLuot + " lượt");
+        this.lblLuot.setString(soLuot.toString() + " lượt");
     },
 
     getIndexVongTo:function (index) {

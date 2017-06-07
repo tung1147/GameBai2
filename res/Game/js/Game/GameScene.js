@@ -261,6 +261,9 @@ var IGameScene = IScene.extend({
     },
 
     getSlotByUsername: function (username) {
+        if(!this.allSlot){
+            return null;
+        }
         for (var i = 0; i < this.allSlot.length; i++) {
             if (this.allSlot[i].username == username) {
                 return this.allSlot[i];

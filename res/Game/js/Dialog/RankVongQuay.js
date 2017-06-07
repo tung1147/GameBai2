@@ -61,7 +61,7 @@ var RankVongQuay = Dialog.extend({
         nameLabel.setPosition(_arrPosRankVQ[1],30);
         bg.addChild(nameLabel);
 
-        var goldLabel = new cc.LabelTTF(gold,cc.res.font.Roboto_Condensed, 20);
+        var goldLabel = new cc.LabelTTF(cc.Global.NumberFormat1(parseInt(gold)),cc.res.font.Roboto_Condensed, 20);
         // goldLabel.setAnchorPoint(1,0.5);
         goldLabel.setColor(cc.color(255, 194, 0,255));
         goldLabel.setPosition(_arrPosRankVQ[2],30);
@@ -79,7 +79,7 @@ var RankVongQuay = Dialog.extend({
 
     onExit : function () {
         this._super();
-        LobbyClient.getInstance().removeListener(this);
+        SmartfoxClient.getInstance().removeListener(this);
     }
 });
 
