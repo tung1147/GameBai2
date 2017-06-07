@@ -54,8 +54,8 @@ var LobbyLayer = cc.Node.extend({
         this.addChild(roomNode);
         this.roomNode = roomNode;
 
-        var left = 290.0 + 6;
-        var right = 1280.0 - 6;
+        var left = 290.0;
+        var right = 1251;
         var top = 550.0;
         var bottom = 163.0;
 
@@ -65,7 +65,7 @@ var LobbyLayer = cc.Node.extend({
         // roomNode.addChild(shadowBg, 1);
 
         var gameNav = new cc.Sprite("#bg_chonban.png");
-        gameNav.setPosition((right + left) / 2, 138);
+        gameNav.setPosition((right + left) / 2, 137);
         roomNode.addChild(gameNav,1);
 
         var dx = gameNav.getContentSize().width / 5;
@@ -85,7 +85,7 @@ var LobbyLayer = cc.Node.extend({
         for(var i=0; i<s_lobby_group_name.length; i++){
             (function () {
                 var icon1 = new cc.Sprite("#lobby-tab"+ (i+1) +".png");
-                icon1.setPosition(x + dx * i, 138);
+                icon1.setPosition(x + dx * i, 137);
                 roomNode.addChild(icon1,2);
 
                 var icon2 = new cc.Sprite("#lobby-tabSelected"+ (i+1) +".png");
@@ -94,7 +94,6 @@ var LobbyLayer = cc.Node.extend({
 
                 var listGame = new newui.TableView(cc.size(right - left, (top - bottom)), 5);
                 listGame.setDirection(ccui.ScrollView.DIR_VERTICAL);
-                listGame.setPadding(25);
                 listGame.setPadding(25);
                 listGame.setBounceEnabled(true);
                 listGame.setMargin(10,10,0,0);

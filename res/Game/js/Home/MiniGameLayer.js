@@ -10,8 +10,8 @@ var MiniGameCell = ccui.Widget.extend({
         this.allMiniLayer = [];
 
         var gameIcon = new cc.Sprite("#lobby-minigame" + (gameId) + ".png");
-        gameIcon.setAnchorPoint(cc.p(0.0, 1.0));
-        gameIcon.setPosition(0, this.getContentSize().height);
+        gameIcon.setAnchorPoint(cc.p(0.0, 0.0));
+        gameIcon.setPosition(0, 13);
         this.addChild(gameIcon);
 
         var gameGold = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_18, "0V");
@@ -25,11 +25,11 @@ var MiniGameCell = ccui.Widget.extend({
         gameNameLabel.setPosition(77, 66);
         this.addChild(gameNameLabel);
 
-        var line = new ccui.Scale9Sprite("home-minigame-bar-line.png", cc.rect(10,10,4,4));
-        line.setPreferredSize(cc.size(size.width, 1));
-        line.setOpacity(10);
+        var line = new ccui.Scale9Sprite("home-minigame-bar-line.png", cc.rect(20,20,8,8));
+        line.setPreferredSize(cc.size(100, 60));
+        line.setOpacity(255);
         line.setAnchorPoint(cc.p(0.5,0));
-        line.setPosition(cc.p(size.width/2, 0));
+        line.setPosition(cc.p(100, 0));
         this.addChild(line);
 
 
@@ -104,8 +104,8 @@ var MiniGameLayer = cc.Node.extend({
             listGame.setDirection(ccui.ScrollView.DIR_VERTICAL);
             listGame.setBounceEnabled(true);
             listGame.setScrollBarEnabled(false);
-            listGame.setPadding(15);
-            listGame.setMargin(30, 0, 0, 0);
+            // listGame.setPadding(15);
+            // listGame.setMargin(30, 0, 0, 0);
             miniGameLayer.addPage(listGame);
             this.allMiniLayer.push(listGame);
 
@@ -160,7 +160,7 @@ var MiniGameLayer = cc.Node.extend({
 
     addMiniGame: function (gameId, listGame) {
         //cc.log("add miniGame: "+gameId);
-        var size = cc.size(230.0, 81.0);
+        var size = cc.size(230.0, 100.0);
         var cell = new MiniGameCell(size, gameId, s_games_display_name[gameId]);
         listGame.pushItem(cell);
 

@@ -223,10 +223,10 @@ var Dialog = IDialog.extend({
         var closeButton = new ccui.Button("dialog-button-close.png","","", ccui.Widget.PLIST_TEXTURE);
         this.addChild(closeButton);
 
-        var okButton = s_Dialog_Create_Button1(cc.size(182, 60), "OK");
+        var okButton = s_Dialog_Create_Button1(cc.size(160, 44), "OK");
         this.addChild(okButton);
 
-        var cancelButton = s_Dialog_Create_Button2(cc.size(182, 60), "CANCEL");
+        var cancelButton = s_Dialog_Create_Button2(cc.size(160, 44), "CANCEL");
         this.addChild(cancelButton);
 
         this.dialogBg = dialogBg;
@@ -301,8 +301,8 @@ var Dialog = IDialog.extend({
         }
 
 
-        this.okButton.setPosition(this.getContentSize().width/2 - this.okButton.getContentSize().width/2 - 15.0, 50);
-        this.cancelButton.setPosition(this.getContentSize().width/2 + this.cancelButton.getContentSize().width/2 + 15.0, 50);
+        this.cancelButton.setPosition(this.getContentSize().width/2 - this.okButton.getContentSize().width/2 - 15.0, 50);
+        this.okButton.setPosition(this.getContentSize().width/2 + this.cancelButton.getContentSize().width/2 + 15.0, 50);
 
 
     },

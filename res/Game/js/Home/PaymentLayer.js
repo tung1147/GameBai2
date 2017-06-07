@@ -29,8 +29,8 @@ var PaymentCardLayer = cc.Node.extend({
         maThe.setPlaceholderFont(cc.res.font.Roboto_Condensed, 18);
         maThe.setInputMode(cc.EDITBOX_INPUT_MODE_SINGLELINE);
         maThe.setReturnType(cc.KEYBOARD_RETURNTYPE_DONE);
-        maThe.setFontColor(cc.color("#ffffff"));
-        maThe.setPlaceholderFontColor(cc.color("#45b8e3"));
+        maThe.setFontColor(cc.color("#ffffff"))
+        maThe.setPlaceholderFontColor(cc.color("#ffffff"));
         maThe.setPlaceHolder("Mã thẻ");
         maThe.setPosition(bg1.getPosition());
         this.addChild(maThe, 1);
@@ -44,7 +44,7 @@ var PaymentCardLayer = cc.Node.extend({
         serialThe.setReturnType(cc.KEYBOARD_RETURNTYPE_DONE);
         serialThe.setPlaceHolder("Serial thẻ");
         serialThe.setFontColor(cc.color("#ffffff"));
-        serialThe.setPlaceholderFontColor(cc.color("#45b8e3"));
+        serialThe.setPlaceholderFontColor(cc.color("#ffffff"));
         serialThe.setPosition(bg2.getPosition());
         this.addChild(serialThe, 1);
         this.serialThe = serialThe;

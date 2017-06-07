@@ -51,14 +51,14 @@ var GamePlayer = cc.Node.extend({
         inviteBt.setPosition(avt.getPosition());
         this.addChild(inviteBt);
 
-        var userLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_20, "PlayePlayePlaye");
+        var userLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_18, "PlayePlayePlaye");
         userLabel.setColor(cc.color("#63b0f1"));
         // userLabel.setLineBreakWithoutSpace(true);
         // userLabel.setDimensions(this.getContentSize().width, userLabel.getLineHeight());
         userLabel.setPosition(this.getContentSize().width / 2, 34);
         this.infoLayer.addChild(userLabel, 1);
 
-        var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "1.000V");
+        var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "1.000V");
         goldLabel.setColor(cc.color("#ffde00"));
         goldLabel.setPosition(this.getContentSize().width / 2, 14);
         this.infoLayer.addChild(goldLabel, 1);
