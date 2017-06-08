@@ -337,8 +337,8 @@ var Phom = IGameScene.extend({
         this.initButton();
 
         var cardList = new PhomCardList(cc.size(cc.winSize.width - 10, 200));
-        cardList.setScale(1.0* cc.winSize.screenScale);
         cardList.setAnchorPoint(cc.p(0.5, 0.0));
+        cardList.setScale(1.1* cc.winSize.screenScale);
         cardList.setPosition(cc.winSize.width / 2, 40.0);
         this.sceneLayer.addChild(cardList, 2);
         this.cardList = cardList;
@@ -777,10 +777,10 @@ var Phom = IGameScene.extend({
         playerMe.setPosition(150, 50.0);
         playerMe.setScale(cc.winSize.screenScale);
         playerMe.trashCards = new TrashCardOnTable(withPhom,80,POSITION_PHOM_CENTER);
-        var pointNew = playerMe.convertToNodeSpace(cc.p(cc.winSize.width / 2, 190*cc.winSize.screenScale));
+        var pointNew = playerMe.convertToNodeSpace(cc.p(cc.winSize.width / 2, 195*cc.winSize.screenScale));
         playerMe.trashCards.setCardPosition( pointNew.x,pointNew.y);
         playerMe.dropCards = new TrashCardOnTable(withPhom,80,POSITION_PHOM_CENTER);
-        playerMe.dropCards.setCardPosition(playerMe.trashCards.x, playerMe.trashCards.y + 70);
+        playerMe.dropCards.setCardPosition(playerMe.trashCards.x, playerMe.trashCards.y + 65);
         playerMe.addChild(playerMe.dropCards);
         playerMe.addChild(playerMe.trashCards);
 

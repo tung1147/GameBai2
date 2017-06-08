@@ -51,9 +51,10 @@ var TienLen = IGameScene.extend({
         this.initButton();
 
         //initCardxd
-        var cardList = new CardList(cc.size(cc.winSize.width - 10, 100));
+        var cardList = new CardList(cc.size(cc.winSize.width - 10, 140));
         cardList.setAnchorPoint(cc.p(0.5, 0.0));
-        cardList.setPosition(cc.winSize.width / 2, 100.0);
+        cardList.setScale(1.1 * cc.winSize.screenScale);
+        cardList.setPosition(cc.winSize.width / 2, 80.0);
         this.sceneLayer.addChild(cardList);
         this.cardList = cardList;
         //implement select handler
