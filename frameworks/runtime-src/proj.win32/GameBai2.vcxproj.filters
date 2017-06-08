@@ -121,9 +121,6 @@
     <ClCompile Include="..\Classes\NewGUI\ListViewWithAdapter.cpp">
       <Filter>Classes\NewGUI</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\GameLaucher\WorkerManager.cpp">
-      <Filter>Classes\GameLaucher</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h">
@@ -219,9 +216,6 @@
     </ClInclude>
     <ClInclude Include="..\Classes\NewGUI\ListViewWithAdapter.h">
       <Filter>Classes\NewGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\GameLaucher\WorkerManager.h">
-      <Filter>Classes\GameLaucher</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

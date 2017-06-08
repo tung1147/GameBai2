@@ -36,7 +36,6 @@ enum ResourceLoaderStep{
 };
 
 typedef std::function<void(int, int)> LoaderProcessHandler;
-//typedef std::function<void()> LoadResourcesAction;
 
 class ResourceLoader : public Ref{
 	std::vector<TextureData> _preLoad;
@@ -45,12 +44,6 @@ class ResourceLoader : public Ref{
 
 	std::vector<std::string> _preloadSound;
 	std::vector<std::string> _unloadSound;
-//
-	std::mutex fileUtilsMutex;
-
-	//std::queue<std::function<void()>> _actions;
-	//std::mutex _actionsMutex;
-	//std::condition_variable _actions_condition_variable;
 
 	int index;
 	ResourceLoaderStep step;
@@ -58,20 +51,10 @@ class ResourceLoader : public Ref{
 	int targetStep;
 	int currentStep;
 
-	void loadTexture(const std::string& img, std::function<void(cocos2d::Texture2D*)> callback);
 	void onProcessLoader();
 
-	//LoadResourcesAction takeAction();
-	//void pushAction(const LoadResourcesAction& action);
-	//void runActionThread();
-
-	void loadTextureAction(const std::string& img, const std::string& plist);
-	void loadSpriteAction(cocos2d::Texture2D* tex, const std::string& plist);
-	void onLoadTextureSuccess();
-
-	void loadBitmapAction(const std::string& img, const std::string& fnt);
-	void onLoadBitmapSuccess();
-	//std::string getFullPath(const std::string& fileName);
+	void onLoadImageThread(std::string img, std::function<void(cocos2d::Texture2D*)> callback);
+	void onLoadSpriteFrameThread(std::string plist, cocos2d::Texture2D* texture, std::function<void(bool)> callback);
 public:
 	bool running;
 	std::function<void(int, int)> processHandler;

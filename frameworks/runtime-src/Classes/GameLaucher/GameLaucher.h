@@ -19,8 +19,6 @@ USING_NS_CC;
 #include "GameResource.h"
 #include "ResourceLoader.h"
 
-//#define FORCE_UPDATE
-
 namespace quyetnd {
 enum GameLaucherStatus{
 	GetUpdate = 0,	//0
@@ -37,14 +35,11 @@ enum GameLaucherStatus{
 class GameLaucher {
 	quyetnd::ResourceLoader resourceLoader;
 	std::map<std::string, GameFile*> _allResources;
-	std::vector<GameFile*> _resourceUpdate;
 
 	std::string resourceHost;
 	std::string versionHash;
 	std::string versionFile;
 //	std::string jsMainFile;
-	int stepIndex;
-	int stepTarget;
 	
 	void initLaucher();
 	void clear();
@@ -55,7 +50,6 @@ class GameLaucher {
 
 	void checkVersionFileThread();
 	void checkFilesThread();
-	void updateResources();
 	void loadScriptMetaThread();
 
 	void requestGetUpdate();
