@@ -46,8 +46,9 @@ var MiniGameController = cc.Class.extend({
 
     onSmartfoxSocketStatus: function (type, eventName) {
         if (eventName === "LostConnection") {
-            // LoadingDialog.getInstance().show("Đang kết nối lại máy chủ");
-            // LobbyClient.getInstance().requestGetLastSessionInfo();
+            this._view.backToHomeScene();
+        }
+        else if(eventName === "ConnectFailure"){
             this._view.backToHomeScene();
         }
     },
