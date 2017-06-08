@@ -1,5 +1,5 @@
 /****************************************************************************
- Copyright (c) 2014-2017 Chukong Technologies Inc.
+ Copyright (c) 2014-2016 Chukong Technologies Inc.
 
  http://www.cocos2d-x.org
 
@@ -112,18 +112,12 @@ static ALCcontext *s_ALContext = nullptr;
 AudioEngineImpl::AudioEngineImpl()
 : _lazyInitLoop(true)
 , _currentAudioID(0)
-, _scheduler(nullptr)
 {
 
 }
 
 AudioEngineImpl::~AudioEngineImpl()
 {
-    if (_scheduler != nullptr)
-    {
-        _scheduler->unschedule(CC_SCHEDULE_SELECTOR(AudioEngineImpl::update), this);
-    }
-
     if (s_ALContext) {
         alDeleteSources(MAX_AUDIOINSTANCES, _alSources);
 
@@ -149,12 +143,12 @@ bool AudioEngineImpl::init()
         s_ALDevice = alcOpenDevice(nullptr);
 
         if (s_ALDevice) {
-            alGetError();
+            auto alError = alGetError();
             s_ALContext = alcCreateContext(s_ALDevice, nullptr);
             alcMakeContextCurrent(s_ALContext);
 
             alGenSources(MAX_AUDIOINSTANCES, _alSources);
-            auto alError = alGetError();
+            alError = alGetError();
             if(alError != AL_NO_ERROR)
             {
                 ALOGE("%s:generating sources failed! error = %x\n", __FUNCTION__, alError);
@@ -450,44 +444,37 @@ void AudioEngineImpl::update(float dt)
     ALint sourceState;
     int audioID;
     AudioPlayer* player;
-    ALuint alSource;
 
 //    ALOGV("AudioPlayer count: %d", (int)_audioPlayers.size());
 
     for (auto it = _audioPlayers.begin(); it != _audioPlayers.end(); ) {
         audioID = it->first;
         player = it->second;
-        alSource = player->_alSource;
-        alGetSourcei(alSource, AL_SOURCE_STATE, &sourceState);
+        alGetSourcei(player->_alSource, AL_SOURCE_STATE, &sourceState);
 
         if (player->_removeByAudioEngine)
         {
+            _alSourceUsed[player->_alSource] = false;
+
             AudioEngine::remove(audioID);
             _threadMutex.lock();
             it = _audioPlayers.erase(it);
             _threadMutex.unlock();
             delete player;
-            _alSourceUsed[alSource] = false;
         }
         else if (player->_ready && sourceState == AL_STOPPED) {
 
-            std::string filePath;
+            _alSourceUsed[player->_alSource] = false;
             if (player->_finishCallbak) {
                 auto& audioInfo = AudioEngine::_audioIDInfoMap[audioID];
-                filePath = *audioInfo.filePath;
+                player->_finishCallbak(audioID, *audioInfo.filePath); //FIXME: callback will delay 50ms
             }
 
             AudioEngine::remove(audioID);
-            
+            delete player;
             _threadMutex.lock();
             it = _audioPlayers.erase(it);
             _threadMutex.unlock();
-
-            if (player->_finishCallbak) {
-                player->_finishCallbak(audioID, filePath); //FIXME: callback will delay 50ms
-            }
-            delete player;
-            _alSourceUsed[alSource] = false;
         }
         else{
             ++it;

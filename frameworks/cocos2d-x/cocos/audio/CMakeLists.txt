@@ -11,10 +11,6 @@ if(WINDOWS)
         audio/win32/AudioEngine-win32.cpp
         audio/win32/AudioCache.cpp
         audio/win32/AudioPlayer.cpp
-        audio/win32/AudioDecoder.cpp
-        audio/win32/AudioDecoderManager.cpp
-        audio/win32/AudioDecoderMp3.cpp
-        audio/win32/AudioDecoderOgg.cpp
     )
 
 ELSEIF(ANDROID)
@@ -45,7 +41,6 @@ elseif(MACOSX)
     set(COCOS_AUDIO_PLATFORM_SRC
         ${COCOS_AUDIO_PLATFORM_SRC_C}
         audio/apple/AudioCache.mm
-        audio/apple/AudioDecoder.mm
         audio/apple/AudioEngine-inl.mm
         audio/apple/AudioPlayer.mm
         audio/mac/SimpleAudioEngine.mm

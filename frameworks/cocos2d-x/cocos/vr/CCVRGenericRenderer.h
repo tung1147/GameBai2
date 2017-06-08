@@ -1,5 +1,5 @@
 /****************************************************************************
- Copyright (c) 2016-2017 Chukong Technologies Inc.
+ Copyright (c) 2016 Chukong Technologies Inc.
 
  http://www.cocos2d-x.org
 
@@ -63,7 +63,7 @@ public:
 
 protected:
     void setupGLProgram();
-    void renderDistortionMesh(DistortionMesh *mesh, Texture2D* texture);
+    void renderDistortionMesh(DistortionMesh *mesh, GLint textureID);
     DistortionMesh* createDistortionMesh(VREye::EyeType eyeType);
 
     experimental::FrameBuffer* _fb;

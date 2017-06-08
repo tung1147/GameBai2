@@ -1,5 +1,5 @@
 /****************************************************************************
- Copyright (c) 2015-2017 Chukong Technologies Inc.
+ Copyright (c) 2015-2016 Chukong Technologies Inc.
 
  http://www.cocos2d-x.org
 
@@ -30,7 +30,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 //  OC Classes Declaration
-#import <Foundation/Foundation.h>
+#import <Foundation/NSData.h>
 
 // this wrapper used to wrap C++ class DownloadTask into NSMutableDictionary
 @interface DownloadTaskWrapper : NSObject
@@ -227,9 +227,7 @@ namespace cocos2d { namespace network {
         request = [NSURLRequest requestWithURL:url];
     }
     NSURLSessionDataTask *ocTask = [self.downloadSession dataTaskWithRequest:request];
-    DownloadTaskWrapper* taskWrapper = [[DownloadTaskWrapper alloc] init:task];
-    [self.taskDict setObject:taskWrapper forKey:ocTask];
-    [taskWrapper release];
+    [self.taskDict setObject:[[DownloadTaskWrapper alloc] init:task] forKey:ocTask];
 
     if (_taskQueue.size() < _hints.countOfMaxProcessingTasks) {
         [ocTask resume];
@@ -265,10 +263,7 @@ namespace cocos2d { namespace network {
     {
         ocTask = [self.downloadSession downloadTaskWithRequest:request];
     }
-
-    DownloadTaskWrapper* taskWrapper = [[DownloadTaskWrapper alloc] init:task];
-    [self.taskDict setObject:taskWrapper forKey:ocTask];
-    [taskWrapper release];
+    [self.taskDict setObject:[[DownloadTaskWrapper alloc] init:task] forKey:ocTask];
 
     if (_taskQueue.size() < _hints.countOfMaxProcessingTasks) {
         [ocTask resume];
@@ -336,9 +331,8 @@ namespace cocos2d { namespace network {
 
 -(void)dealloc
 {
-    DLLOG("Destruct DownloaderAppleImpl %p", self);
-    self.downloadSession = nil;
     [super dealloc];
+    DLLOG("Destruct DownloaderAppleImpl %p", self);
 }
 #pragma mark - NSURLSessionTaskDelegate methods
 
@@ -444,6 +438,7 @@ namespace cocos2d { namespace network {
         }
     }
     [self.taskDict removeObjectForKey:task];
+    [wrapper release];
 
     while (!_taskQueue.empty() && _taskQueue.front() == nil) {
         _taskQueue.pop();

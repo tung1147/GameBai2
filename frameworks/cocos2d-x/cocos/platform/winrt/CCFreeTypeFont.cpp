@@ -460,11 +460,12 @@ FT_Error CCFreeTypeFont::initWordGlyphs(std::vector<TGlyph>& glyphs, const std::
 	FT_UInt			previous = 0;
 	FT_Error		error = 0;
 	PGlyph			glyph;
-	unsigned int    numGlyphs = 0;
+    unsigned int    numGlyphs = 0;
+    wchar_t *       pwszBuffer = nullptr;
 
 	int num_chars = static_cast<int>(text.size());
 	int nBufLen  = num_chars + 1;
-	wchar_t * pwszBuffer = new wchar_t[nBufLen];
+	pwszBuffer = new wchar_t[nBufLen];
     if(!pwszBuffer)
     {
         return -1;

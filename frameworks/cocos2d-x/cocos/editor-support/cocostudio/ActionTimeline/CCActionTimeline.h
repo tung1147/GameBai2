@@ -202,7 +202,7 @@ public:
     /// @name implement Playable Protocol
     virtual void start() override;
     virtual void stop() override;
-    /// @} end of PlayableProtocol
+    /// @} end of PlaybleProtocol
 
 protected:
     virtual void gotoFrame(int frameIndex);

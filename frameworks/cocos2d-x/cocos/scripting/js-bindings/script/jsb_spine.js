@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013-2017 Chukong Technologies Inc.
+ * Copyright (c) 2013-2014 Chukong Technologies Inc.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,11 +22,9 @@
 
 sp.ANIMATION_EVENT_TYPE = {
 	START: 0,
-    INTERRUPT: 1,
-	END: 2,
-	COMPLETE: 3,
-    DISPOSE: 4,
-	EVENT: 5
+	END: 1,
+	COMPLETE: 2,
+	EVENT: 3
 };
 
 // Temporary solution before upgrade the Spine API

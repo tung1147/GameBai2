@@ -1,6 +1,6 @@
 /****************************************************************************
  Copyright (c) 2013      Zynga Inc.
- Copyright (c) 2013-2017 Chukong Technologies Inc.
+ Copyright (c) 2013-2016 Chukong Technologies Inc.
  
  http://www.cocos2d-x.org
 
@@ -159,9 +159,9 @@ void FontAtlas::listenRendererRecreated(EventCustom * /*event*/)
     purgeTexturesAtlas();
 }
 
-void FontAtlas::addLetterDefinition(char32_t utf32Char, const FontLetterDefinition &letterDefinition)
+void FontAtlas::addLetterDefinition(char16_t utf16Char, const FontLetterDefinition &letterDefinition)
 {
-    _letterDefinitions[utf32Char] = letterDefinition;
+    _letterDefinitions[utf16Char] = letterDefinition;
 }
 
 void FontAtlas::scaleFontLetterDefinition(float scaleFactor)
@@ -176,9 +176,9 @@ void FontAtlas::scaleFontLetterDefinition(float scaleFactor)
     }
 }
 
-bool FontAtlas::getLetterDefinitionForChar(char32_t utf32Char, FontLetterDefinition &letterDefinition)
+bool FontAtlas::getLetterDefinitionForChar(char16_t utf16Char, FontLetterDefinition &letterDefinition)
 {
-    auto outIterator = _letterDefinitions.find(utf32Char);
+    auto outIterator = _letterDefinitions.find(utf16Char);
 
     if (outIterator != _letterDefinitions.end())
     {
@@ -191,9 +191,9 @@ bool FontAtlas::getLetterDefinitionForChar(char32_t utf32Char, FontLetterDefinit
     }
 }
 
-void FontAtlas::conversionU32TOGB2312(const std::u32string& u32Text, std::unordered_map<unsigned int, unsigned int>& charCodeMap)
+void FontAtlas::conversionU16TOGB2312(const std::u16string& u16Text, std::unordered_map<unsigned short, unsigned short>& charCodeMap)
 {
-    size_t strLen = u32Text.length();
+    size_t strLen = u16Text.length();
     auto gb2312StrSize = strLen * 2;
     auto gb2312Text = new (std::nothrow) char[gb2312StrSize];
     memset(gb2312Text, 0, gb2312StrSize);
@@ -203,24 +203,22 @@ void FontAtlas::conversionU32TOGB2312(const std::u32string& u32Text, std::unorde
     case FT_ENCODING_GB2312:
     {
 #if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32 || CC_TARGET_PLATFORM == CC_PLATFORM_WINRT
-        std::u16string u16Text;
-        cocos2d::StringUtils::UTF32ToUTF16(u32Text, u16Text);
         WideCharToMultiByte(936, NULL, (LPCWCH)u16Text.c_str(), strLen, (LPSTR)gb2312Text, gb2312StrSize, NULL, NULL);
 #elif CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
-        conversionEncodingJNI((char*)u32Text.c_str(), gb2312StrSize, "UTF-32LE", gb2312Text, "GB2312");
+        conversionEncodingJNI((char*)u16Text.c_str(), gb2312StrSize, "UTF-16LE", gb2312Text, "GB2312");
 #else
         if (_iconv == nullptr)
         {
-            _iconv = iconv_open("GBK//TRANSLIT", "UTF-32LE");
+            _iconv = iconv_open("GBK//TRANSLIT", "UTF-16LE");
         }
 
         if (_iconv == (iconv_t)-1)
         {
-            CCLOG("conversion from utf32 to gb2312 not available");
+            CCLOG("conversion from utf16 to gb2312 not available");
         }
         else
         {
-            char* pin = (char*)u32Text.c_str();
+            char* pin = (char*)u16Text.c_str();
             char* pout = gb2312Text;
             size_t inLen = strLen * 2;
             size_t outLen = gb2312StrSize;
@@ -237,20 +235,20 @@ void FontAtlas::conversionU32TOGB2312(const std::u32string& u32Text, std::unorde
 
     unsigned short gb2312Code = 0;
     unsigned char* dst = (unsigned char*)&gb2312Code;
-    char32_t u32Code;
+    unsigned short u16Code;
     for (size_t index = 0, gbIndex = 0; index < strLen; ++index)
     {
-        u32Code = u32Text[index];
-        if (u32Code < 256)
+        u16Code = u16Text[index];
+        if (u16Code < 256)
         {
-            charCodeMap[u32Code] = u32Code;
+            charCodeMap[u16Code] = u16Code;
             gbIndex += 1;
         }
         else
         {
             dst[0] = gb2312Text[gbIndex + 1];
             dst[1] = gb2312Text[gbIndex];
-            charCodeMap[u32Code] = gb2312Code;
+            charCodeMap[u16Code] = gb2312Code;
 
             gbIndex += 2;
         }
@@ -259,39 +257,39 @@ void FontAtlas::conversionU32TOGB2312(const std::u32string& u32Text, std::unorde
     delete[] gb2312Text;
 }
 
-void FontAtlas::findNewCharacters(const std::u32string& u32Text, std::unordered_map<unsigned int, unsigned int>& charCodeMap)
+void FontAtlas::findNewCharacters(const std::u16string& u16Text, std::unordered_map<unsigned short, unsigned short>& charCodeMap)
 {
-    std::u32string newChars;
+    std::u16string newChars;
     FT_Encoding charEncoding = _fontFreeType->getEncoding();
 
     //find new characters
     if (_letterDefinitions.empty())
     {
         // fixed #16169: new android project crash in android 5.0.2 device (Nexus 7) when use 3.12.
-        // While using clang compiler with gnustl_static on android, the copy assignment operator of `std::u32string`
-        // will affect the memory validity, it means after `newChars` is destroyed, the memory of `u32Text` holds
-        // will be a dead region. `u32text` represents the variable in `Label::_utf32Text`, when somewhere
+        // While using clang compiler with gnustl_static on android, the copy assignment operator of `std::u16string`
+        // will affect the memory validity, it means after `newChars` is destroyed, the memory of `u16Text` holds
+        // will be a dead region. `u16text` represents the variable in `Label::_utf16Text`, when somewhere
         // allocates memory by `malloc, realloc, new, new[]`, the generated memory address may be the same
-        // as `Label::_utf32Text` holds. If doing a `memset` or other memory operations, the orignal `Label::_utf32Text`
-        // will be in an unknown state. Meanwhile, a bunch lots of logic which depends on `Label::_utf32Text`
+        // as `Label::_utf16Text` holds. If doing a `memset` or other memory operations, the original `Label::_utf16Text`
+        // will be in an unknown state. Meanwhile, a bunch lots of logic which depends on `Label::_utf16Text`
         // will be broken.
         
-        // newChars = u32Text;
+        // newChars = u16Text;
         
-        // Using `append` method is a workaround for this issue. So please be carefuly while using the assignment operator
-        // of `std::u32string`.
-        newChars.append(u32Text);
+        // Using `append` method is a workaround for this issue. So please be carefully while using the assignment operator
+        // of `std::u16string`.
+        newChars.append(u16Text);
     }
     else
     {
-        auto length = u32Text.length();
+        auto length = u16Text.length();
         newChars.reserve(length);
         for (size_t i = 0; i < length; ++i)
         {
-            auto outIterator = _letterDefinitions.find(u32Text[i]);
+            auto outIterator = _letterDefinitions.find(u16Text[i]);
             if (outIterator == _letterDefinitions.end())
             {
-                newChars.push_back(u32Text[i]);
+                newChars.push_back(u16Text[i]);
             }
         }
     }
@@ -302,15 +300,15 @@ void FontAtlas::findNewCharacters(const std::u32string& u32Text, std::unordered_
         {
         case FT_ENCODING_UNICODE:
         {
-            for (auto u32Code : newChars)
+            for (auto u16Code : newChars)
             {
-                charCodeMap[u32Code] = u32Code;
+                charCodeMap[u16Code] = u16Code;
             }
             break;
         }
         case FT_ENCODING_GB2312:
         {
-            conversionU32TOGB2312(newChars, charCodeMap);
+            conversionU16TOGB2312(newChars, charCodeMap);
             break;
         }
         default:
@@ -320,15 +318,15 @@ void FontAtlas::findNewCharacters(const std::u32string& u32Text, std::unordered_
     }
 }
 
-bool FontAtlas::prepareLetterDefinitions(const std::u32string& utf32Text)
+bool FontAtlas::prepareLetterDefinitions(const std::u16string& utf16Text)
 {
     if (_fontFreeType == nullptr)
     {
         return false;
     } 
     
-    std::unordered_map<unsigned int, unsigned int> codeMapOfNewChar;
-    findNewCharacters(utf32Text, codeMapOfNewChar);
+    std::unordered_map<unsigned short, unsigned short> codeMapOfNewChar;
+    findNewCharacters(utf16Text, codeMapOfNewChar);
     if (codeMapOfNewChar.empty())
     {
         return false;

@@ -2,7 +2,7 @@
 Copyright (c) 2008-2010 Ricardo Quesada
 Copyright (c) 2010-2012 cocos2d-x.org
 Copyright (c) 2011      Zynga Inc.
-Copyright (c) 2013-2017 Chukong Technologies Inc.
+Copyright (c) 2013-2016 Chukong Technologies Inc.
 
 http://www.cocos2d-x.org
 
@@ -468,17 +468,11 @@ public:
      */
     void setPolygonInfo(const PolygonInfo& info);
 
-    /** whether or not contentSize stretches the sprite's texture */
-    void setStretchEnabled(bool enabled);
+    /** whether or not contentSize streches the sprite's texture */
+    void setStrechEnabled(bool enabled);
 
-    /** @deprecated Use setStretchEnabled() instead. */
-    CC_DEPRECATED_ATTRIBUTE void setStrechEnabled(bool enabled);
-
-    /** returns whether or not contentSize stretches the sprite's texture */
-    bool isStretchEnabled() const;
-
-    /** @deprecated Use isStretchEnabled() instead. */
-    CC_DEPRECATED_ATTRIBUTE bool isStrechEnabled() const;
+    /** returns whether or not contentSize streches the sprite's texture */
+    bool isStrechEnabled() const;
 
     //
     // Overrides
@@ -653,7 +647,6 @@ protected:
     virtual void setTextureCoords(const Rect& rect);
     virtual void setTextureCoords(const Rect& rect, V3F_C4B_T2F_Quad* outQuad);
     virtual void setVertexCoords(const Rect& rect, V3F_C4B_T2F_Quad* outQuad);
-    void populateTriangle(int quadIndex, const V3F_C4B_T2F_Quad& quad);
     virtual void updateBlendFunc();
     virtual void setReorderChildDirtyRecursively();
     virtual void setDirtyRecursively(bool value);
@@ -693,7 +686,7 @@ protected:
 
     Rect _centerRectNormalized;             /// Rectangle to implement "slice 9"
     RenderMode _renderMode;                 /// render mode used by the Sprite: Quad, Slice9, Polygon or Quad_Batchnode
-    Vec2 _stretchFactor;                    /// stretch factor to match the contentSize. for 1- and 9- slice sprites
+    Vec2 _strechFactor;                     /// strech factor to match the contentSize. for 1- and 9- slice sprites
     Size _originalContentSize;              /// original content size
 
 
@@ -703,8 +696,7 @@ protected:
 
     // vertex coords, texture coords and color info
     V3F_C4B_T2F_Quad _quad;
-    V3F_C4B_T2F* _trianglesVertex;
-    unsigned short* _trianglesIndex;
+    V3F_C4B_T2F_Quad* _quads;
     PolygonInfo  _polyInfo;
 
     // opacity and RGB protocol
@@ -719,7 +711,7 @@ protected:
     std::string _fileName;
     int _fileType;
 
-    bool _stretchEnabled;
+    bool _strechEnabled;
 
 private:
     CC_DISALLOW_COPY_AND_ASSIGN(Sprite);

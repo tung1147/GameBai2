@@ -1,5 +1,5 @@
 #include "Decryptor.h"
-#include "crypt_md5.h"
+#include "MD5.h"
 #include "crypt_aes.h"
 #include <sstream>
 
@@ -94,7 +94,20 @@ void Decryptor::decyrpt(std::vector<char> &outBuffer, const char* encryptedData,
 	decryptor_aes_cbc_decrypt((const uint8_t*)(encryptedData + 16), outputBuffer, ivBuffer, blockSize, &secretKey);
 
 	//remove padding
-	encyrptSize -= outputBuffer[encyrptSize - 1];
+	uint8_t lastByte = outputBuffer[encyrptSize - 1];
+	int flag = 1;
+	for (int i = encyrptSize - 2; i >= 0; i--){
+		if (outputBuffer[i] == lastByte){
+			flag++;
+		}
+		else{
+			break;
+		}
+	}
+	if (flag == lastByte){
+		encyrptSize -= flag;
+	}
+
 	outBuffer.assign(outputBuffer, outputBuffer + encyrptSize);
 	delete[] outputBuffer;
 }

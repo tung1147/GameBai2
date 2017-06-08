@@ -210,7 +210,7 @@ AudioPlayer::AudioPlayer()
     , _finishCallback(nullptr)
     , _xaMasterVoice(nullptr)
     , _xaSourceVoice(nullptr)
-    , _state(AudioPlayerState::INITIALIZING)
+    , _state(AudioPlayerState::INITIALZING)
 {
     init();
 }

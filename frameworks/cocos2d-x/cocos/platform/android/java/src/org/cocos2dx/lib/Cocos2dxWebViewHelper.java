@@ -5,7 +5,6 @@ import android.os.Looper;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.webkit.WebSettings;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -143,14 +142,12 @@ public class Cocos2dxWebViewHelper {
         });
     }
 
-    public static void loadUrl(final int index, final String url, final boolean cleanCachedData) {
+    public static void loadUrl(final int index, final String url) {
         sCocos2dxActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 Cocos2dxWebView webView = webViews.get(index);
                 if (webView != null) {
-                    webView.getSettings().setCacheMode(cleanCachedData ? WebSettings.LOAD_NO_CACHE
-                                                                       : WebSettings.LOAD_DEFAULT);
                     webView.loadUrl(url);
                 }
             }

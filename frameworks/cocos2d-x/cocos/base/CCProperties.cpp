@@ -1,6 +1,6 @@
 /**
  Copyright 2013 BlackBerry Inc.
- Copyright (c) 2015-2017 Chukong Technologies
+ Copyright (c) 2015 Chukong Technologies
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -43,16 +43,15 @@ void calculateNamespacePath(const std::string& urlString, std::string& fileStrin
 Properties* getPropertiesFromNamespacePath(Properties* properties, const std::vector<std::string>& namespacePath);
 
 Properties::Properties()
-    :  _dataIdx(nullptr), _data(nullptr), _variables(nullptr), _dirPath(nullptr), _parent(nullptr)
+: _variables(nullptr), _dirPath(nullptr), _parent(nullptr), _dataIdx(nullptr), _data(nullptr)
 {
     _properties.reserve(32);
 }
 
 Properties::Properties(const Properties& copy)
-    : _dataIdx(copy._dataIdx), _data(copy._data), _namespace(copy._namespace),
-      _id(copy._id), _parentID(copy._parentID), _properties(copy._properties),
-      _variables(nullptr), _dirPath(nullptr), _parent(copy._parent)
-      
+    : _namespace(copy._namespace), _id(copy._id), _parentID(copy._parentID), _properties(copy._properties),
+      _variables(nullptr), _dirPath(nullptr), _parent(copy._parent),
+      _dataIdx(copy._dataIdx), _data(copy._data)
 {
     setDirectoryPath(copy._dirPath);
 
@@ -64,14 +63,14 @@ Properties::Properties(const Properties& copy)
 }
 
 Properties::Properties(Data* data, ssize_t* dataIdx)
-    : _dataIdx(dataIdx), _data(data), _variables(NULL), _dirPath(NULL), _parent(NULL)
+    : _variables(NULL), _dirPath(NULL), _parent(NULL), _dataIdx(dataIdx), _data(data)
 {
     readProperties();
     rewind();
 }
 
 Properties::Properties(Data* data, ssize_t* dataIdx, const std::string& name, const char* id, const char* parentID, Properties* parent)
-    : _dataIdx(dataIdx), _data(data), _namespace(name), _variables(NULL), _dirPath(NULL), _parent(parent)
+    : _namespace(name), _variables(NULL), _dirPath(NULL), _parent(parent), _dataIdx(dataIdx), _data(data)
 {
     if (id)
     {
@@ -480,8 +479,10 @@ char* Properties::trimWhiteSpace(char *str)
         return str;
     }
 
+    char *end;
+
     // Trim leading space.
-    while (*str != '\0' && isspace(*str))
+    while (isspace(*str))
         str++;
 
     // All spaces?
@@ -491,7 +492,7 @@ char* Properties::trimWhiteSpace(char *str)
     }
 
     // Trim trailing space.
-    char *end = str + strlen(str) - 1;
+    end = str + strlen(str) - 1;
     while (end > str && isspace(*end))
         end--;
 

@@ -93,8 +93,6 @@
     textInput.ccui_text = _textInput.ccui_text ?: @"";
     textInput.ccui_placeholder = _textInput.ccui_placeholder ?: @"";
     textInput.ccui_font = _textInput.ccui_font ?: [UIFont systemFontOfSize:self.frameRect.size.height*2/3];
-    textInput.ccui_placeholderFont = _textInput.ccui_placeholderFont ?: textInput.ccui_font;
-    textInput.ccui_placeholderTextColor = _textInput.ccui_placeholderTextColor ?: [UIColor lightGrayColor];
     
     [_textInput resignFirstResponder];
     [_textInput removeFromSuperview];
@@ -139,12 +137,12 @@
 
 - (void)setPlaceholderFont:(UIFont *)font
 {
-    self.textInput.ccui_placeholderFont = font;
+    self.textInput.ccui_placeholderLabel.font = font;
 }
 
 - (void)setPlaceholderTextColor:(UIColor *)color
 {
-    self.textInput.ccui_placeholderTextColor = color;
+    self.textInput.ccui_placeholderLabel.textColor = color;
 }
 
 - (void)setInputMode:(cocos2d::ui::EditBox::InputMode)inputMode

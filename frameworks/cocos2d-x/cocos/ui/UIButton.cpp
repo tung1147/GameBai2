@@ -1,5 +1,5 @@
 /****************************************************************************
-Copyright (c) 2013-2017 Chukong Technologies Inc.
+Copyright (c) 2013-2016 Chukong Technologies Inc.
 
 http://www.cocos2d-x.org
 
@@ -312,11 +312,11 @@ void Button::loadTexturePressed(const std::string& selected,TextureResType texTy
 {
     _clickedFileName = selected;
     _pressedTexType = texType;
-    bool textureLoaded = true;
+    bool textureLoade = true;
     if (selected.empty())
     {
         _buttonClickedRenderer->resetRender();
-        textureLoaded = false;
+        textureLoade = false;
     }
     else
     {
@@ -332,7 +332,7 @@ void Button::loadTexturePressed(const std::string& selected,TextureResType texTy
             break;
         }
     }
-    this->setupPressedTexture(textureLoaded);
+    this->setupPressedTexture(textureLoade);
 }
 
 void Button::setupPressedTexture(bool textureLoaded)

@@ -245,16 +245,6 @@ generateMipmap : function (
 },
 
 /**
- * @method getAlphaTexture
- * @return {cc.Texture2D}
- */
-getAlphaTexture : function (
-)
-{
-    return cc.Texture2D;
-},
-
-/**
  * @method getDescription
  * @return {String}
  */
@@ -2713,20 +2703,20 @@ pause : function (
 
 /**
  * @method pushProjectionMatrix
- * @param {unsigned long} arg0
+ * @param {unsigned int} arg0
  */
 pushProjectionMatrix : function (
-long 
+int 
 )
 {
 },
 
 /**
  * @method popProjectionMatrix
- * @param {unsigned long} arg0
+ * @param {unsigned int} arg0
  */
 popProjectionMatrix : function (
-long 
+int 
 )
 {
 },
@@ -2743,10 +2733,10 @@ eventdispatcher
 
 /**
  * @method loadProjectionIdentityMatrix
- * @param {unsigned long} arg0
+ * @param {unsigned int} arg0
  */
 loadProjectionIdentityMatrix : function (
-long 
+int 
 )
 {
 },
@@ -2996,11 +2986,11 @@ scheduler
 /**
  * @method multiplyProjectionMatrix
  * @param {mat4_object} arg0
- * @param {unsigned long} arg1
+ * @param {unsigned int} arg1
  */
 multiplyProjectionMatrix : function (
 mat4, 
-long 
+int 
 )
 {
 },
@@ -3278,21 +3268,21 @@ getVisibleSize : function (
 /**
  * @method loadProjectionMatrix
  * @param {mat4_object} arg0
- * @param {unsigned long} arg1
+ * @param {unsigned int} arg1
  */
 loadProjectionMatrix : function (
 mat4, 
-long 
+int 
 )
 {
 },
 
 /**
  * @method initProjectionMatrixStack
- * @param {unsigned long} arg0
+ * @param {unsigned int} arg0
  */
 initProjectionMatrixStack : function (
-long 
+int 
 )
 {
 },
@@ -3450,14 +3440,6 @@ int
  */
 performFunctionInCocosThread : function (
 func 
-)
-{
-},
-
-/**
- * @method removeAllFunctionsToBePerformedInCocosThread
- */
-removeAllFunctionsToBePerformedInCocosThread : function (
 )
 {
 },
@@ -4323,12 +4305,12 @@ getGLProgram : function (
 
 /**
  * @method setUniformTexture
-* @param {int|String} int
-* @param {cc.Texture2D|cc.Texture2D} texture2d
+* @param {String|String|int|int} str
+* @param {unsigned int|cc.Texture2D|cc.Texture2D|unsigned int} int
 */
 setUniformTexture : function(
-str,
-texture2d 
+int,
+int 
 )
 {
 },
@@ -7071,28 +7053,26 @@ str
 
 /**
  * @method getStringFromFile
-* @param {String|String} str
-* @param {function} func
-* @return {String}
-*/
-getStringFromFile : function(
-str,
-func 
+ * @param {String} arg0
+ * @return {String}
+ */
+getStringFromFile : function (
+str 
 )
 {
+    return ;
 },
 
 /**
  * @method removeFile
-* @param {String|String} str
-* @param {function} func
-* @return {bool}
-*/
-removeFile : function(
-str,
-func 
+ * @param {String} arg0
+ * @return {bool}
+ */
+removeFile : function (
+str 
 )
 {
+    return false;
 },
 
 /**
@@ -7109,29 +7089,18 @@ str
 
 /**
  * @method renameFile
-* @param {String|String|String|String} str
-* @param {String|String|String|String} str
-* @param {String|String|function} str
-* @param {function} func
+* @param {String|String} str
+* @param {String|String} str
+* @param {String} str
 * @return {bool|bool}
 */
 renameFile : function(
 str,
 str,
-str,
-func 
+str 
 )
 {
-},
-
-/**
- * @method getDefaultResourceRootPath
- * @return {String}
- */
-getDefaultResourceRootPath : function (
-)
-{
-    return ;
+    return false;
 },
 
 /**
@@ -7191,16 +7160,6 @@ str
 },
 
 /**
- * @method getOriginalSearchPaths
- * @return {Array}
- */
-getOriginalSearchPaths : function (
-)
-{
-    return new Array();
-},
-
-/**
  * @method getNewFilename
  * @param {String} arg0
  * @return {String}
@@ -7210,18 +7169,6 @@ str
 )
 {
     return ;
-},
-
-/**
- * @method listFiles
- * @param {String} arg0
- * @return {Array}
- */
-listFiles : function (
-str 
-)
-{
-    return new Array();
 },
 
 /**
@@ -7238,15 +7185,14 @@ str
 
 /**
  * @method getFileSize
-* @param {String|String} str
-* @param {function} func
-* @return {long}
-*/
-getFileSize : function(
-str,
-func 
+ * @param {String} arg0
+ * @return {long}
+ */
+getFileSize : function (
+str 
 )
 {
+    return 0;
 },
 
 /**
@@ -7265,15 +7211,14 @@ int
 
 /**
  * @method removeDirectory
-* @param {String|String} str
-* @param {function} func
-* @return {bool}
-*/
-removeDirectory : function(
-str,
-func 
+ * @param {String} arg0
+ * @return {bool}
+ */
+removeDirectory : function (
+str 
 )
 {
+    return false;
 },
 
 /**
@@ -7288,17 +7233,16 @@ array
 
 /**
  * @method writeStringToFile
-* @param {String|String} str
-* @param {String|String} str
-* @param {function} func
-* @return {bool}
-*/
-writeStringToFile : function(
-str,
-str,
-func 
+ * @param {String} arg0
+ * @param {String} arg1
+ * @return {bool}
+ */
+writeStringToFile : function (
+str, 
+str 
 )
 {
+    return false;
 },
 
 /**
@@ -7337,30 +7281,28 @@ bool
 
 /**
  * @method writeValueVectorToFile
-* @param {Array|Array} array
-* @param {String|String} str
-* @param {function} func
-* @return {bool}
-*/
-writeValueVectorToFile : function(
-array,
-str,
-func 
+ * @param {Array} arg0
+ * @param {String} arg1
+ * @return {bool}
+ */
+writeValueVectorToFile : function (
+array, 
+str 
 )
 {
+    return false;
 },
 
 /**
  * @method isFileExist
-* @param {String|String} str
-* @param {function} func
-* @return {bool}
-*/
-isFileExist : function(
-str,
-func 
+ * @param {String} arg0
+ * @return {bool}
+ */
+isFileExist : function (
+str 
 )
 {
+    return false;
 },
 
 /**
@@ -7399,17 +7341,16 @@ str
 
 /**
  * @method writeValueMapToFile
-* @param {map_object|map_object} map
-* @param {String|String} str
-* @param {function} func
-* @return {bool}
-*/
-writeValueMapToFile : function(
-map,
-str,
-func 
+ * @param {map_object} arg0
+ * @param {String} arg1
+ * @return {bool}
+ */
+writeValueMapToFile : function (
+map, 
+str 
 )
 {
+    return false;
 },
 
 /**
@@ -7446,15 +7387,14 @@ bool
 
 /**
  * @method isDirectoryExist
-* @param {String|String} str
-* @param {function} func
-* @return {bool}
-*/
-isDirectoryExist : function(
-str,
-func 
+ * @param {String} arg0
+ * @return {bool}
+ */
+isDirectoryExist : function (
+str 
 )
 {
+    return false;
 },
 
 /**
@@ -7479,27 +7419,14 @@ getSearchResolutionsOrder : function (
 
 /**
  * @method createDirectory
-* @param {String|String} str
-* @param {function} func
-* @return {bool}
-*/
-createDirectory : function(
-str,
-func 
-)
-{
-},
-
-/**
- * @method listFilesRecursively
  * @param {String} arg0
- * @param {Array} arg1
+ * @return {bool}
  */
-listFilesRecursively : function (
-str, 
-array 
+createDirectory : function (
+str 
 )
 {
+    return false;
 },
 
 /**
@@ -7908,7 +7835,7 @@ cc.EventMouse = {
 
 /**
  * @method getMouseButton
- * @return {cc.EventMouse::MouseButton}
+ * @return {int}
  */
 getMouseButton : function (
 )
@@ -7928,10 +7855,10 @@ getLocation : function (
 
 /**
  * @method setMouseButton
- * @param {cc.EventMouse::MouseButton} arg0
+ * @param {int} arg0
  */
 setMouseButton : function (
-mousebutton 
+int 
 )
 {
 },
@@ -12564,7 +12491,7 @@ isWrapEnabled : function (
 
 /**
  * @method getOutlineSize
- * @return {float}
+ * @return {int}
  */
 getOutlineSize : function (
 )
@@ -17423,16 +17350,6 @@ rect
 },
 
 /**
- * @method isStretchEnabled
- * @return {bool}
- */
-isStretchEnabled : function (
-)
-{
-    return false;
-},
-
-/**
  * @method setTextureRect
 * @param {rect_object|rect_object} rect
 * @param {bool} bool
@@ -17456,16 +17373,6 @@ str
 )
 {
     return false;
-},
-
-/**
- * @method setStretchEnabled
- * @param {bool} arg0
- */
-setStretchEnabled : function (
-bool 
-)
-{
 },
 
 /**
@@ -17617,6 +17524,16 @@ isTextureRectRotated : function (
 },
 
 /**
+ * @method setStrechEnabled
+ * @param {bool} arg0
+ */
+setStrechEnabled : function (
+bool 
+)
+{
+},
+
+/**
  * @method getTextureRect
  * @return {rect_object}
  */
@@ -17624,6 +17541,16 @@ getTextureRect : function (
 )
 {
     return cc.Rect;
+},
+
+/**
+ * @method isStrechEnabled
+ * @return {bool}
+ */
+isStrechEnabled : function (
+)
+{
+    return false;
 },
 
 /**
@@ -21643,14 +21570,12 @@ removeAllTextures : function (
 
 /**
  * @method addImageAsync
-* @param {String|String} str
-* @param {function|function} func
-* @param {String} str
-*/
-addImageAsync : function(
-str,
-func,
-str 
+ * @param {String} arg0
+ * @param {function} arg1
+ */
+addImageAsync : function (
+str, 
+func 
 )
 {
 },
@@ -21769,16 +21694,6 @@ setETC1AlphaFileSuffix : function (
 str 
 )
 {
-},
-
-/**
- * @method getETC1AlphaFileSuffix
- * @return {String}
- */
-getETC1AlphaFileSuffix : function (
-)
-{
-    return ;
 },
 
 /**

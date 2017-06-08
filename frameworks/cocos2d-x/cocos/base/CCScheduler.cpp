@@ -2,7 +2,7 @@
 Copyright (c) 2008-2010 Ricardo Quesada
 Copyright (c) 2010-2012 cocos2d-x.org
 Copyright (c) 2011      Zynga Inc.
-Copyright (c) 2013-2017 Chukong Technologies Inc.
+Copyright (c) 2013-2016 Chukong Technologies Inc.
 
 http://www.cocos2d-x.org
 
@@ -63,6 +63,7 @@ typedef struct _hashSelectorEntry
     void                *target;
     int                 timerIndex;
     Timer               *currentTimer;
+    bool                currentTimerSalvaged;
     bool                paused;
     UT_hash_handle      hh;
 } tHashTimerEntry;
@@ -78,9 +79,7 @@ Timer::Timer()
 , _repeat(0)
 , _delay(0.0f)
 , _interval(0.0f)
-, _aborted(false)
 {
-
 }
 
 void Timer::setupTimerWithInterval(float seconds, unsigned int repeat, float delay)
@@ -126,7 +125,7 @@ void Timer::update(float dt)
     
     // if _interval == 0, should trigger once every frame
     float interval = (_interval > 0) ? _interval : _elapsed;
-    while ((_elapsed >= interval) && !_aborted)
+    while (_elapsed >= interval)
     {
         trigger(interval);
         _elapsed -= interval;
@@ -350,10 +349,10 @@ void Scheduler::unschedule(const std::string &key, void *target)
 
             if (timer && key == timer->getKey())
             {
-                if (timer == element->currentTimer && (! timer->isAborted()))
+                if (timer == element->currentTimer && (! element->currentTimerSalvaged))
                 {
-                    timer->retain();
-                    timer->setAborted();
+                    element->currentTimer->retain();
+                    element->currentTimerSalvaged = true;
                 }
 
                 ccArrayRemoveObjectAtIndex(element->timers, i, true);
@@ -465,15 +464,26 @@ void Scheduler::schedulePerFrame(const ccSchedulerFunc& callback, void *target, 
     HASH_FIND_PTR(_hashForUpdates, &target, hashElement);
     if (hashElement)
     {
-        // change priority: should unschedule it first
-        if (hashElement->entry->priority != priority)
+        // check if priority has changed
+        if ((*hashElement->list)->priority != priority)
         {
-            unscheduleUpdate(target);
+            if (_updateHashLocked)
+            {
+                CCLOG("warning: you CANNOT change update priority in scheduled function");
+                hashElement->entry->markedForDeletion = false;
+                hashElement->entry->paused = paused;
+                return;
+            }
+            else
+            {
+            	// will be added again outside if (hashElement).
+                unscheduleUpdate(target);
+            }
         }
         else
         {
-            // don't add it again
-            CCLOG("warning: don't update it again");
+            hashElement->entry->markedForDeletion = false;
+            hashElement->entry->paused = paused;
             return;
         }
     }
@@ -539,13 +549,7 @@ void Scheduler::removeUpdateFromHash(struct _listEntry *entry)
     {
         // list entry
         DL_DELETE(*element->list, element->entry);
-        if (!_updateHashLocked)
-            CC_SAFE_DELETE(element->entry);
-        else
-        {
-            element->entry->markedForDeletion = true;
-            _updateDeleteVector.push_back(element->entry);
-        }
+        CC_SAFE_DELETE(element->entry);
 
         // hash entry
         HASH_DEL(_hashForUpdates, element);
@@ -563,7 +567,16 @@ void Scheduler::unscheduleUpdate(void *target)
     tHashUpdateEntry *element = nullptr;
     HASH_FIND_PTR(_hashForUpdates, &target, element);
     if (element)
-        this->removeUpdateFromHash(element->entry);
+    {
+        if (_updateHashLocked)
+        {
+            element->entry->markedForDeletion = true;
+        }
+        else
+        {
+            this->removeUpdateFromHash(element->entry);
+        }
+    }
 }
 
 void Scheduler::unscheduleAll(void)
@@ -633,10 +646,10 @@ void Scheduler::unscheduleAllForTarget(void *target)
     if (element)
     {
         if (ccArrayContainsObject(element->timers, element->currentTimer)
-            && (! element->currentTimer->isAborted()))
+            && (! element->currentTimerSalvaged))
         {
             element->currentTimer->retain();
-            element->currentTimer->setAborted();
+            element->currentTimerSalvaged = true;
         }
         ccArrayRemoveAllObjects(element->timers);
 
@@ -812,12 +825,6 @@ void Scheduler::performFunctionInCocosThread(const std::function<void ()> &funct
     _performMutex.unlock();
 }
 
-void Scheduler::removeAllFunctionsToBePerformedInCocosThread()
-{
-    std::unique_lock<std::mutex> lock(_performMutex);
-    _functionsToPerform.clear();
-}
-
 // main loop
 void Scheduler::update(float dt)
 {
@@ -874,13 +881,11 @@ void Scheduler::update(float dt)
             for (elt->timerIndex = 0; elt->timerIndex < elt->timers->num; ++(elt->timerIndex))
             {
                 elt->currentTimer = (Timer*)(elt->timers->arr[elt->timerIndex]);
-                CCASSERT
-                  ( !elt->currentTimer->isAborted(),
-                    "An aborted timer should not be updated" );
+                elt->currentTimerSalvaged = false;
 
                 elt->currentTimer->update(dt);
 
-                if (elt->currentTimer->isAborted())
+                if (elt->currentTimerSalvaged)
                 {
                     // The currentTimer told the remove itself. To prevent the timer from
                     // accidentally deallocating itself before finishing its step, we retained
@@ -902,12 +907,34 @@ void Scheduler::update(float dt)
             removeHashElement(_currentTarget);
         }
     }
- 
-    // delete all updates that are removed in update
-    for (auto &e : _updateDeleteVector)
-        delete e;
 
-    _updateDeleteVector.clear();
+    // delete all updates that are marked for deletion
+    // updates with priority < 0
+    DL_FOREACH_SAFE(_updatesNegList, entry, tmp)
+    {
+        if (entry->markedForDeletion)
+        {
+            this->removeUpdateFromHash(entry);
+        }
+    }
+
+    // updates with priority == 0
+    DL_FOREACH_SAFE(_updates0List, entry, tmp)
+    {
+        if (entry->markedForDeletion)
+        {
+            this->removeUpdateFromHash(entry);
+        }
+    }
+
+    // updates with priority > 0
+    DL_FOREACH_SAFE(_updatesPosList, entry, tmp)
+    {
+        if (entry->markedForDeletion)
+        {
+            this->removeUpdateFromHash(entry);
+        }
+    }
 
     _updateHashLocked = false;
     _currentTarget = nullptr;
@@ -1049,6 +1076,9 @@ void Scheduler::unschedule(SEL_SCHEDULE selector, Ref *target)
         return;
     }
     
+    //CCASSERT(target);
+    //CCASSERT(selector);
+    
     tHashTimerEntry *element = nullptr;
     HASH_FIND_PTR(_hashForTimers, &target, element);
     
@@ -1060,10 +1090,10 @@ void Scheduler::unschedule(SEL_SCHEDULE selector, Ref *target)
             
             if (timer && selector == timer->getSelector())
             {
-                if (timer == element->currentTimer && (! timer->isAborted()))
+                if (timer == element->currentTimer && (! element->currentTimerSalvaged))
                 {
-                    timer->retain();
-                    timer->setAborted();
+                    element->currentTimer->retain();
+                    element->currentTimerSalvaged = true;
                 }
                 
                 ccArrayRemoveObjectAtIndex(element->timers, i, true);

@@ -1,5 +1,5 @@
 /****************************************************************************
- Copyright (c) 2014-2017 Chukong Technologies Inc.
+ Copyright (c) 2014-2016 Chukong Technologies Inc.
 
  http://www.cocos2d-x.org
 
@@ -80,12 +80,7 @@ namespace experimental{
 
         void WebView::loadURL(const std::string &url)
         {
-            this->loadURL(url, false);
-        }
-
-        void WebView::loadURL(const std::string& url, bool cleanCachedData)
-        {
-            _impl->loadURL(url, cleanCachedData);
+            _impl->loadURL(url);
         }
 
         void WebView::loadFile(const std::string &fileName)

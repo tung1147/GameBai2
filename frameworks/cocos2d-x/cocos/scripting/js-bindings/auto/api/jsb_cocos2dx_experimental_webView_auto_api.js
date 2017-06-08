@@ -78,12 +78,10 @@ str
 
 /**
  * @method loadURL
-* @param {String|String} str
-* @param {bool} bool
-*/
-loadURL : function(
-str,
-bool 
+ * @param {String} arg0
+ */
+loadURL : function (
+str 
 )
 {
 },

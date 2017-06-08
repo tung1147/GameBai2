@@ -37,7 +37,7 @@ typedef struct AudioInfo
 enum class AudioPlayerState
 {
     ERRORED = -1,
-    INITIALIZING,
+    INITIALZING,
     READY,
     PLAYING,
     PAUSED,

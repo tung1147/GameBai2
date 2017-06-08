@@ -90,8 +90,8 @@ cocos2d.cpp \
 3d/CCFrustum.cpp \
 3d/CCPlane.cpp \
 platform/decryptor/crypt_aes.cpp \
-platform/decryptor/crypt_md5.cpp \
 platform/decryptor/Decryptor.cpp \
+platform/decryptor/MD5.cpp \
 platform/CCFileUtils.cpp \
 platform/CCGLView.cpp \
 platform/CCImage.cpp \
@@ -221,7 +221,6 @@ navmesh/CCNavMeshObstacle.cpp \
 navmesh/CCNavMeshUtils.cpp \
 ../external/ConvertUTF/ConvertUTFWrapper.cpp \
 ../external/ConvertUTF/ConvertUTF.c \
-../external/md5/md5.c \
 ../external/tinyxml2/tinyxml2.cpp \
 ../external/unzip/ioapi_mem.cpp \
 ../external/unzip/ioapi.cpp \
@@ -275,7 +274,6 @@ LOCAL_STATIC_LIBRARIES += cocos_tiff_static
 LOCAL_STATIC_LIBRARIES += cocos_webp_static
 LOCAL_STATIC_LIBRARIES += cocos_chipmunk_static
 LOCAL_STATIC_LIBRARIES += cocos_zlib_static
-LOCAL_STATIC_LIBRARIES += cocos_ssl_static
 LOCAL_STATIC_LIBRARIES += recast_static
 LOCAL_STATIC_LIBRARIES += bullet_static
 
@@ -335,5 +333,4 @@ $(call import-module,bullet)
 $(call import-module,recast)
 # $(call import-module,curl/prebuilt/android)
 $(call import-module,websockets/prebuilt/android)
-$(call import-module,openssl/prebuilt/android)
 $(call import-module,flatbuffers)

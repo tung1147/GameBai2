@@ -1,5 +1,5 @@
 /****************************************************************************
- Copyright (c) 2014-2017 Chukong Technologies Inc.
+ Copyright (c) 2014-2016 Chukong Technologies Inc.
 
  http://www.cocos2d-x.org
 
@@ -79,9 +79,8 @@ void AudioEngineInterruptionListenerCallback(void* user_data, UInt32 interruptio
     if (self = [super init])
     {
       if ([[[UIDevice currentDevice] systemVersion] intValue] > 5) {
-          [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleInterruption:) name:AVAudioSessionInterruptionNotification object:[AVAudioSession sharedInstance]];
-          [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleInterruption:) name:UIApplicationDidBecomeActiveNotification object:nil];
-          [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleInterruption:) name:UIApplicationWillResignActiveNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleInterruption:) name:AVAudioSessionInterruptionNotification object:[AVAudioSession sharedInstance]];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleInterruption:) name:UIApplicationDidBecomeActiveNotification object:nil];
       }
     // only enable it on iOS. Disable it on tvOS
     // AudioSessionInitialize removed from tvOS
@@ -96,83 +95,37 @@ void AudioEngineInterruptionListenerCallback(void* user_data, UInt32 interruptio
 
 -(void)handleInterruption:(NSNotification*)notification
 {
-    static bool isAudioSessionInterrupted = false;
     static bool resumeOnBecomingActive = false;
-    static bool pauseOnResignActive = false;
 
-    if ([notification.name isEqualToString:AVAudioSessionInterruptionNotification])
-    {
+    if ([notification.name isEqualToString:AVAudioSessionInterruptionNotification]) {
         NSInteger reason = [[[notification userInfo] objectForKey:AVAudioSessionInterruptionTypeKey] integerValue];
-        if (reason == AVAudioSessionInterruptionTypeBegan)
-        {
-            isAudioSessionInterrupted = true;
-
-            if ([UIApplication sharedApplication].applicationState != UIApplicationStateActive)
-            {
-                ALOGD("AVAudioSessionInterruptionTypeBegan, application != UIApplicationStateActive, alcMakeContextCurrent(nullptr)");
-                alcMakeContextCurrent(nullptr);
-            }
-            else
-            {
-                ALOGD("AVAudioSessionInterruptionTypeBegan, application == UIApplicationStateActive, pauseOnResignActive = true");
-                pauseOnResignActive = true;
-            }
+        if (reason == AVAudioSessionInterruptionTypeBegan) {
+            alcMakeContextCurrent(NULL);
         }
 
-        if (reason == AVAudioSessionInterruptionTypeEnded)
-        {
-            isAudioSessionInterrupted = false;
-
-            if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive)
-            {
-                ALOGD("AVAudioSessionInterruptionTypeEnded, application == UIApplicationStateActive, alcMakeContextCurrent(s_ALContext)");
+        if (reason == AVAudioSessionInterruptionTypeEnded) {
+            if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
                 NSError *error = nil;
                 [[AVAudioSession sharedInstance] setActive:YES error:&error];
                 alcMakeContextCurrent(s_ALContext);
-                if (Director::getInstance()->isPaused())
-                {
-                    ALOGD("AVAudioSessionInterruptionTypeEnded, director was paused, try to resume it.");
-                    Director::getInstance()->resume();
-                }
-            }
-            else
-            {
-                ALOGD("AVAudioSessionInterruptionTypeEnded, application != UIApplicationStateActive, resumeOnBecomingActive = true");
+            } else {
                 resumeOnBecomingActive = true;
             }
         }
     }
-    else if ([notification.name isEqualToString:UIApplicationWillResignActiveNotification])
-    {
-        ALOGD("UIApplicationWillResignActiveNotification");
-        if (pauseOnResignActive)
-        {
-            pauseOnResignActive = false;
-            ALOGD("UIApplicationWillResignActiveNotification, alcMakeContextCurrent(nullptr)");
-            alcMakeContextCurrent(nullptr);
+
+    if ([notification.name isEqualToString:UIApplicationDidBecomeActiveNotification] && resumeOnBecomingActive) {
+        resumeOnBecomingActive = false;
+        NSError *error = nil;
+        BOOL success = [[AVAudioSession sharedInstance]
+                        setCategory: AVAudioSessionCategoryAmbient
+                        error: &error];
+        if (!success) {
+            ALOGE("Fail to set audio session.");
+            return;
         }
-    }
-    else if ([notification.name isEqualToString:UIApplicationDidBecomeActiveNotification])
-    {
-        ALOGD("UIApplicationDidBecomeActiveNotification");
-        if (resumeOnBecomingActive)
-        {
-            resumeOnBecomingActive = false;
-            ALOGD("UIApplicationDidBecomeActiveNotification, alcMakeContextCurrent(s_ALContext)");
-            NSError *error = nil;
-            BOOL success = [[AVAudioSession sharedInstance] setCategory: AVAudioSessionCategoryAmbient error: &error];
-            if (!success) {
-                ALOGE("Fail to set audio session.");
-                return;
-            }
-            [[AVAudioSession sharedInstance] setActive:YES error:&error];
-            alcMakeContextCurrent(s_ALContext);
-        }
-        else if (isAudioSessionInterrupted)
-        {
-            ALOGD("Audio session is still interrupted, pause director!");
-            Director::getInstance()->pause();
-        }
+        [[AVAudioSession sharedInstance] setActive:YES error:&error];
+        alcMakeContextCurrent(s_ALContext);
     }
 }
 
@@ -180,7 +133,6 @@ void AudioEngineInterruptionListenerCallback(void* user_data, UInt32 interruptio
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:AVAudioSessionInterruptionNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
 
     [super dealloc];
 }
@@ -192,18 +144,12 @@ static id s_AudioEngineSessionHandler = nullptr;
 AudioEngineImpl::AudioEngineImpl()
 : _lazyInitLoop(true)
 , _currentAudioID(0)
-, _scheduler(nullptr)
 {
 
 }
 
 AudioEngineImpl::~AudioEngineImpl()
 {
-    if (_scheduler != nullptr)
-    {
-        _scheduler->unschedule(CC_SCHEDULE_SELECTOR(AudioEngineImpl::update), this);
-    }
-
     if (s_ALContext) {
         alDeleteSources(MAX_AUDIOINSTANCES, _alSources);
 
@@ -594,44 +540,37 @@ void AudioEngineImpl::update(float dt)
     ALint sourceState;
     int audioID;
     AudioPlayer* player;
-    ALuint alSource;
 
 //    ALOGV("AudioPlayer count: %d", (int)_audioPlayers.size());
 
     for (auto it = _audioPlayers.begin(); it != _audioPlayers.end(); ) {
         audioID = it->first;
         player = it->second;
-        alSource = player->_alSource;
-        alGetSourcei(alSource, AL_SOURCE_STATE, &sourceState);
+        alGetSourcei(player->_alSource, AL_SOURCE_STATE, &sourceState);
 
         if (player->_removeByAudioEngine)
         {
+            _alSourceUsed[player->_alSource] = false;
+
             AudioEngine::remove(audioID);
             _threadMutex.lock();
             it = _audioPlayers.erase(it);
             _threadMutex.unlock();
             delete player;
-            _alSourceUsed[alSource] = false;
         }
         else if (player->_ready && sourceState == AL_STOPPED) {
 
-            std::string filePath;
+            _alSourceUsed[player->_alSource] = false;
             if (player->_finishCallbak) {
                 auto& audioInfo = AudioEngine::_audioIDInfoMap[audioID];
-                filePath = *audioInfo.filePath;
+                player->_finishCallbak(audioID, *audioInfo.filePath); //FIXME: callback will delay 50ms
             }
 
             AudioEngine::remove(audioID);
+            delete player;
             _threadMutex.lock();
             it = _audioPlayers.erase(it);
             _threadMutex.unlock();
-
-            if (player->_finishCallbak) {
-                player->_finishCallbak(audioID, filePath); //FIXME: callback will delay 50ms
-            }
-
-            delete player;
-            _alSourceUsed[alSource] = false;
         }
         else{
             ++it;

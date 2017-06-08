@@ -1,9 +1,5 @@
-#ifdef __aarch64__
-#include "curlbuild-arm64.h"
-#elif __arm__
-#include "curlbuild-arm32.h"
-#elif __i386__
-#include "curlbuild-x86.h"
+#if defined(__LP64__) && __LP64__
+#include "curlbuild-64.h"
 #else
-#error "Unsupported architecture!"
+#include "curlbuild-32.h"
 #endif

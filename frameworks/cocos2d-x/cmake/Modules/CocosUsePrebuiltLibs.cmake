@@ -62,9 +62,6 @@ set(_webp_libs webp libwebp)
 set(_websockets_inc libwebsockets.h)
 set(_websockets_libs websockets libwebsockets)
 
-set(_openssl_inc openssl/ssl.h)
-set(_openssl_libs ssl crypto)
-
 set(_glfw3_inc glfw3.h)
 if(WINDOWS)
     if (${MSVC_VERSION} STREQUAL "1900")
@@ -117,7 +114,6 @@ set(all_prebuilt_libs
   tiff
   webp
   websockets
-  openssl
 )
 
 

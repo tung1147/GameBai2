@@ -1,5 +1,5 @@
 /****************************************************************************
-Copyright (c) 2013-2017 Chukong Technologies Inc.
+Copyright (c) 2013-2016 Chukong Technologies Inc.
 
 http://www.cocos2d-x.org
 
@@ -56,7 +56,7 @@ class Widget::FocusNavigationController
     }
     ~FocusNavigationController();
 protected:
-    void setFirstFocusedWidget(Widget* widget);
+    void setFirstFocsuedWidget(Widget* widget);
 
     void onKeypadKeyPressed(EventKeyboard::KeyCode, Event*);
 
@@ -112,7 +112,7 @@ void Widget::FocusNavigationController::enableFocusNavigation(bool flag)
         this->removeKeyboardEventListener();
 }
 
-void Widget::FocusNavigationController::setFirstFocusedWidget(Widget* widget)
+void Widget::FocusNavigationController::setFirstFocsuedWidget(Widget* widget)
 {
     _firstFocusedWidget = widget;
 }
@@ -690,7 +690,7 @@ void Widget::updateChildrenDisplayedRGBA()
 }
 
 
-Widget* Widget::getAncestorWidget(Node* node)
+Widget* Widget::getAncensterWidget(Node* node)
 {
     if (nullptr == node)
     {
@@ -709,13 +709,8 @@ Widget* Widget::getAncestorWidget(Node* node)
     }
     else
     {
-        return this->getAncestorWidget(parent->getParent());
+        return this->getAncensterWidget(parent->getParent());
     }
-}
-
-Widget* Widget::getAncensterWidget(Node* node)
-{
-    return getAncestorWidget(node);
 }
 
 bool Widget::isAncestorsVisible(Node* node)
@@ -735,7 +730,7 @@ bool Widget::isAncestorsVisible(Node* node)
 
 bool Widget::isAncestorsEnabled()
 {
-    Widget* parentWidget = this->getAncestorWidget(this);
+    Widget* parentWidget = this->getAncensterWidget(this);
     if (parentWidget == nullptr)
     {
         return true;
@@ -861,16 +856,8 @@ void Widget::onTouchEnded(Touch *touch, Event* /*unusedEvent*/)
     }
 }
 
-void Widget::onTouchCancelled(Touch* touch, Event* /*unusedEvent*/)
+void Widget::onTouchCancelled(Touch* /*touch*/, Event* /*unusedEvent*/)
 {
-    /*
-     * Propagate touch events to its parents
-     */
-    if (_propagateTouchEvents)
-    {
-        this->propagateTouchEvent(TouchEventType::CANCELED, this, touch);
-    }
-    
     setHighlighted(false);
     cancelUpEvent();
 }
@@ -1212,12 +1199,18 @@ void Widget::copyClonedWidgetChildren(Widget* model)
 
 GLProgramState* Widget::getNormalGLProgramState(Texture2D* texture)const
 {
-    return GLProgramState::getOrCreateWithGLProgramName(GLProgram::SHADER_NAME_POSITION_TEXTURE_COLOR_NO_MVP, texture);
+    GLProgramState *glState = nullptr;
+
+    glState = GLProgramState::getOrCreateWithGLProgramName(GLProgram::SHADER_NAME_POSITION_TEXTURE_COLOR_NO_MVP, texture);
+    return glState;
 }
 
 GLProgramState* Widget::getGrayGLProgramState(Texture2D* texture)const
 {
-    return GLProgramState::getOrCreateWithGLProgramName(GLProgram::SHADER_NAME_POSITION_GRAYSCALE, texture);
+    GLProgramState *glState = nullptr;
+
+    glState = GLProgramState::getOrCreateWithGLProgramName(GLProgram::SHADER_NAME_POSITION_GRAYSCALE, texture);
+    return glState;
 }
 
 void Widget::copySpecialProperties(Widget* /*model*/)
@@ -1364,7 +1357,7 @@ void Widget::setFocused(bool focus)
     if (focus) {
         _focusedWidget = this;
         if (_focusNavigationController) {
-            _focusNavigationController->setFirstFocusedWidget(this);
+            _focusNavigationController->setFirstFocsuedWidget(this);
         }
     }
 
@@ -1491,7 +1484,7 @@ void Widget::enableDpadNavigation(bool enable)
             _focusNavigationController = new (std::nothrow) FocusNavigationController;
             if (_focusedWidget)
             {
-                _focusNavigationController->setFirstFocusedWidget(_focusedWidget);
+                _focusNavigationController->setFirstFocsuedWidget(_focusedWidget);
             }
         }
     }

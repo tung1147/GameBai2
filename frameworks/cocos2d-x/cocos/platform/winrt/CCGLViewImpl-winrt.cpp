@@ -88,7 +88,7 @@ GLViewImpl::GLViewImpl()
     , m_height(0)
     , m_orientation(DisplayOrientations::Landscape)
     , m_appShouldExit(false)
-    , _lastMouseButtonPressed(EventMouse::MouseButton::BUTTON_UNSET)
+    , _lastMouseButtonPressed(MouseButton::None)
 {
 	s_pEglView = this;
     _viewName =  "cocos2dx";
@@ -334,7 +334,7 @@ void cocos2d::GLViewImpl::OnMousePressed(Windows::UI::Core::PointerEventArgs^ ar
         handleTouchesBegin(1, &id, &pt.x, &pt.y);
     }
 
-    if (_lastMouseButtonPressed != EventMouse::MouseButton::BUTTON_UNSET)
+    if (_lastMouseButtonPressed != MouseButton::None)
     {
         EventMouse event(EventMouse::MouseEventType::MOUSE_UP);
 
@@ -347,15 +347,15 @@ void cocos2d::GLViewImpl::OnMousePressed(Windows::UI::Core::PointerEventArgs^ ar
     // Set current button
     if (args->CurrentPoint->Properties->IsLeftButtonPressed)
     {
-        _lastMouseButtonPressed = EventMouse::MouseButton::BUTTON_LEFT;
+        _lastMouseButtonPressed = MouseButton::Left;
     }
     else if (args->CurrentPoint->Properties->IsRightButtonPressed)
     {
-        _lastMouseButtonPressed = EventMouse::MouseButton::BUTTON_RIGHT;
+        _lastMouseButtonPressed = MouseButton::Right;
     }
     else if (args->CurrentPoint->Properties->IsMiddleButtonPressed)
     {
-        _lastMouseButtonPressed = EventMouse::MouseButton::BUTTON_MIDDLE;
+        _lastMouseButtonPressed = MouseButton::Middle;
     }
     event.setMouseButton(_lastMouseButtonPressed);
     event.setCursorPosition(mousePosition.x, mousePosition.y);
@@ -378,15 +378,15 @@ void cocos2d::GLViewImpl::OnMouseMoved(Windows::UI::Core::PointerEventArgs^ args
     // Set current button
     if (args->CurrentPoint->Properties->IsLeftButtonPressed)
     {
-        event.setMouseButton(EventMouse::MouseButton::BUTTON_LEFT);
+        event.setMouseButton(MouseButton::Left);
     }
     else if (args->CurrentPoint->Properties->IsRightButtonPressed)
     {
-        event.setMouseButton(EventMouse::MouseButton::BUTTON_RIGHT);
+        event.setMouseButton(MouseButton::Right);
     }
     else if (args->CurrentPoint->Properties->IsMiddleButtonPressed)
     {
-        event.setMouseButton(EventMouse::MouseButton::BUTTON_MIDDLE);
+        event.setMouseButton(MouseButton::Middle);
     }
     event.setCursorPosition(mousePosition.x, mousePosition.y);
     Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
@@ -397,7 +397,7 @@ void cocos2d::GLViewImpl::OnMouseReleased(Windows::UI::Core::PointerEventArgs^ a
     Vec2 mousePosition = GetPointMouse(args);
 
     // Emulated touch, if left mouse button
-    if (_lastMouseButtonPressed == EventMouse::MouseButton::BUTTON_LEFT)
+    if (_lastMouseButtonPressed == MouseButton::Left)
     {
         intptr_t id = 0;
         Vec2 pt = GetPoint(args);
@@ -410,7 +410,7 @@ void cocos2d::GLViewImpl::OnMouseReleased(Windows::UI::Core::PointerEventArgs^ a
     event.setCursorPosition(mousePosition.x, mousePosition.y);
     Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
 
-    _lastMouseButtonPressed = EventMouse::MouseButton::BUTTON_UNSET;
+    _lastMouseButtonPressed = MouseButton::None;
 }
 
 void cocos2d::GLViewImpl::OnMouseWheelChanged(Windows::UI::Core::PointerEventArgs^ args)

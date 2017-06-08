@@ -13,10 +13,6 @@ if(ANDROID)
    set(COCOS_NETWORK_PLATFORM_SRC
         network/CCDownloader-android.cpp
         )
-elseif(MACOSX)
-   set(COCOS_NETWORK_PLATFORM_SRC
-        network/CCDownloader-apple.mm
-        )
 endif()
 
 set(COCOS_NETWORK_SRC
@@ -26,7 +22,6 @@ set(COCOS_NETWORK_SRC
     network/WebSocket.cpp
     network/CCDownloader.cpp
     network/CCDownloader-curl.cpp
-    network/Uri.cpp
 )
 
 

@@ -173,7 +173,7 @@ private:
 	bool m_windowClosed;
 	bool m_windowVisible;
     // PointerReleased for mouse not send button id, need save in PointerPressed last button
-    EventMouse::MouseButton _lastMouseButtonPressed;
+    MouseButton _lastMouseButtonPressed;
 
     bool m_running;
 	bool m_initialized;

@@ -37,7 +37,6 @@
 
 NS_CC_EXT_BEGIN
 
-#define TEMP_PACKAGE_SUFFIX     "_temp"
 #define VERSION_FILENAME        "version.manifest"
 #define TEMP_MANIFEST_FILENAME  "project.manifest.temp"
 #define MANIFEST_FILENAME       "project.manifest"
@@ -45,9 +44,7 @@ NS_CC_EXT_BEGIN
 #define BUFFER_SIZE    8192
 #define MAX_FILENAME   512
 
-#define DEFAULT_CONNECTION_TIMEOUT 45
-
-#define SAVE_POINT_INTERVAL 0.1
+#define DEFAULT_CONNECTION_TIMEOUT 8
 
 const std::string AssetsManagerEx::VERSION_ID = "@version";
 const std::string AssetsManagerEx::MANIFEST_ID = "@manifest";
@@ -58,7 +55,7 @@ AssetsManagerEx::AssetsManagerEx(const std::string& manifestUrl, const std::stri
 : _updateState(State::UNCHECKED)
 , _assets(nullptr)
 , _storagePath("")
-, _tempVersionPath("")
+, _cacheVersionPath("")
 , _cacheManifestPath("")
 , _tempManifestPath("")
 , _manifestUrl(manifestUrl)
@@ -70,11 +67,6 @@ AssetsManagerEx::AssetsManagerEx(const std::string& manifestUrl, const std::stri
 , _percentByFile(0)
 , _totalToDownload(0)
 , _totalWaitToDownload(0)
-, _nextSavePoint(0.0)
-, _maxConcurrentTask(32)
-, _currConcurrentTask(0)
-, _versionCompareHandle(nullptr)
-, _verifyCallback(nullptr)
 , _inited(false)
 {
     // Init variables
@@ -83,13 +75,8 @@ AssetsManagerEx::AssetsManagerEx(const std::string& manifestUrl, const std::stri
     _eventName = EventListenerAssetsManagerEx::LISTENER_ID + pointer;
     _fileUtils = FileUtils::getInstance();
 
-    network::DownloaderHints hints =
-    {
-        static_cast<uint32_t>(_maxConcurrentTask),
-        DEFAULT_CONNECTION_TIMEOUT,
-        ".tmp"
-    };
-    _downloader = std::shared_ptr<network::Downloader>(new network::Downloader(hints));
+    _downloader = std::shared_ptr<network::Downloader>(new network::Downloader);
+//    _downloader->setConnectionTimeout(DEFAULT_CONNECTION_TIMEOUT);
     _downloader->onTaskError = std::bind(&AssetsManagerEx::onError, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4);
     _downloader->onTaskProgress = [this](const network::DownloadTask& task,
                                          int64_t /*bytesReceived*/,
@@ -103,9 +90,9 @@ AssetsManagerEx::AssetsManagerEx(const std::string& manifestUrl, const std::stri
         this->onSuccess(task.requestURL, task.storagePath, task.identifier);
     };
     setStoragePath(storagePath);
-    _tempVersionPath = _tempStoragePath + VERSION_FILENAME;
+    _cacheVersionPath = _storagePath + VERSION_FILENAME;
     _cacheManifestPath = _storagePath + MANIFEST_FILENAME;
-    _tempManifestPath = _tempStoragePath + TEMP_MANIFEST_FILENAME;
+    _tempManifestPath = _storagePath + TEMP_MANIFEST_FILENAME;
 
     initManifests(manifestUrl);
 }
@@ -150,17 +137,8 @@ void AssetsManagerEx::initManifests(const std::string& manifestUrl)
         if (_tempManifest)
         {
             _tempManifest->parse(_tempManifestPath);
-            // Previous update is interrupted
-            if (_fileUtils->isFileExist(_tempManifestPath))
-            {
-                // Manifest parse failed, remove all temp files
-                if (!_tempManifest->isLoaded())
-                {
-                    _fileUtils->removeDirectory(_tempStoragePath);
-                    CC_SAFE_RELEASE(_tempManifest);
-                    _tempManifest = nullptr;
-                }
-            }
+            if (!_tempManifest->isLoaded() && _fileUtils->isFileExist(_tempManifestPath))
+                _fileUtils->removeFile(_tempManifestPath);
         }
         else
         {
@@ -181,12 +159,9 @@ void AssetsManagerEx::initManifests(const std::string& manifestUrl)
     
     if (!_inited)
     {
-        CC_SAFE_RELEASE(_localManifest);
-        CC_SAFE_RELEASE(_tempManifest);
-        CC_SAFE_RELEASE(_remoteManifest);
-        _localManifest = nullptr;
-        _tempManifest = nullptr;
-        _remoteManifest = nullptr;
+        CC_SAFE_DELETE(_localManifest);
+        CC_SAFE_DELETE(_tempManifest);
+        CC_SAFE_DELETE(_remoteManifest);
     }
 }
 
@@ -217,34 +192,13 @@ void AssetsManagerEx::loadLocalManifest(const std::string& /*manifestUrl*/)
         }
     }
     
-    // Ensure no search path of cached manifest is used to load this manifest
-    std::vector<std::string> searchPaths = _fileUtils->getSearchPaths();
-    if (cachedManifest)
-    {
-        std::vector<std::string> cacheSearchPaths = cachedManifest->getSearchPaths();
-        std::vector<std::string> trimmedPaths = searchPaths;
-        for (auto path : cacheSearchPaths)
-        {
-            const auto pos = std::find(trimmedPaths.begin(), trimmedPaths.end(), path);
-            if (pos != trimmedPaths.end())
-            {
-                trimmedPaths.erase(pos);
-            }
-        }
-        _fileUtils->setSearchPaths(trimmedPaths);
-    }
     // Load local manifest in app package
     _localManifest->parse(_manifestUrl);
-    if (cachedManifest) {
-        // Restore search paths
-        _fileUtils->setSearchPaths(searchPaths);
-    }
     if (_localManifest->isLoaded())
     {
         // Compare with cached manifest to determine which one to use
         if (cachedManifest) {
-            bool localNewer = _localManifest->versionGreater(cachedManifest, _versionCompareHandle);
-            if (localNewer)
+            if (strcmp(_localManifest->getVersion().c_str(), cachedManifest->getVersion().c_str()) > 0)
             {
                 // Recreate storage, to empty the content
                 _fileUtils->removeDirectory(_storagePath);
@@ -311,10 +265,6 @@ void AssetsManagerEx::setStoragePath(const std::string& storagePath)
     _storagePath = storagePath;
     adjustPath(_storagePath);
     _fileUtils->createDirectory(_storagePath);
-    
-    _tempStoragePath = _storagePath;
-    _tempStoragePath.insert(_storagePath.size() - 1, TEMP_PACKAGE_SUFFIX);
-    _fileUtils->createDirectory(_tempStoragePath);
 }
 
 void AssetsManagerEx::adjustPath(std::string &path)
@@ -463,44 +413,18 @@ bool AssetsManagerEx::decompress(const std::string &zip)
     return true;
 }
 
-void AssetsManagerEx::decompressDownloadedZip(const std::string &customId, const std::string &storagePath)
+void AssetsManagerEx::decompressDownloadedZip()
 {
-    struct AsyncData
-    {
-        std::string customId;
-        std::string zipFile;
-        bool succeed;
-    };
-    
-    AsyncData* asyncData = new AsyncData;
-    asyncData->customId = customId;
-    asyncData->zipFile = storagePath;
-    asyncData->succeed = false;
-    
-    std::function<void(void*)> decompressFinished = [this](void* param) {
-        auto dataInner = reinterpret_cast<AsyncData*>(param);
-        if (dataInner->succeed)
+    // Decompress all compressed files
+    for (auto it = _compressedFiles.begin(); it != _compressedFiles.end(); ++it) {
+        std::string zipfile = *it;
+        if (!decompress(zipfile))
         {
-            fileSuccess(dataInner->customId, dataInner->zipFile);
+            dispatchUpdateEvent(EventAssetsManagerEx::EventCode::ERROR_DECOMPRESS, "", "Unable to decompress file " + zipfile);
         }
-        else
-        {
-            std::string errorMsg = "Unable to decompress file " + dataInner->zipFile;
-            // Ensure zip file deletion (if decompress failure cause task thread exit anormally)
-            _fileUtils->removeFile(dataInner->zipFile);
-            dispatchUpdateEvent(EventAssetsManagerEx::EventCode::ERROR_DECOMPRESS, "", errorMsg);
-            fileError(dataInner->customId, errorMsg);
-        }
-        delete dataInner;
-    };
-    AsyncTaskPool::getInstance()->enqueue(AsyncTaskPool::TaskType::TASK_OTHER, decompressFinished, (void*)asyncData, [this, asyncData]() {
-        // Decompress all compressed files
-        if (decompress(asyncData->zipFile))
-        {
-            asyncData->succeed = true;
-        }
-        _fileUtils->removeFile(asyncData->zipFile);
-    });
+        _fileUtils->removeFile(zipfile);
+    }
+    _compressedFiles.clear();
 }
 
 void AssetsManagerEx::dispatchUpdateEvent(EventAssetsManagerEx::EventCode code, const std::string &assetId/* = ""*/, const std::string &message/* = ""*/, int curle_code/* = CURLE_OK*/, int curlm_code/* = CURLM_OK*/)
@@ -551,7 +475,7 @@ void AssetsManagerEx::downloadVersion()
     {
         _updateState = State::DOWNLOADING_VERSION;
         // Download version file asynchronously
-        _downloader->createDownloadFileTask(versionUrl, _tempVersionPath, VERSION_ID);
+        _downloader->createDownloadFileTask(versionUrl, _cacheVersionPath, VERSION_ID);
     }
     // No version file found
     else
@@ -567,7 +491,7 @@ void AssetsManagerEx::parseVersion()
     if (_updateState != State::VERSION_LOADED)
         return;
 
-    _remoteManifest->parseVersion(_tempVersionPath);
+    _remoteManifest->parseVersion(_cacheVersionPath);
 
     if (!_remoteManifest->isVersionLoaded())
     {
@@ -577,27 +501,24 @@ void AssetsManagerEx::parseVersion()
     }
     else
     {
-        if (_localManifest->versionGreater(_remoteManifest, _versionCompareHandle))
+        if (_localManifest->versionEquals(_remoteManifest))
         {
             _updateState = State::UP_TO_DATE;
-            _fileUtils->removeDirectory(_tempStoragePath);
             dispatchUpdateEvent(EventAssetsManagerEx::EventCode::ALREADY_UP_TO_DATE);
         }
         else
         {
+            // Save the old update entry type since its value may be changed in event listener.
+            UpdateEntry oldUpdateEntry = _updateEntry;
+
             _updateState = State::NEED_UPDATE;
+            dispatchUpdateEvent(EventAssetsManagerEx::EventCode::NEW_VERSION_FOUND);
 
             // Wait to update so continue the process
-            if (_updateEntry == UpdateEntry::DO_UPDATE)
+            if (oldUpdateEntry == UpdateEntry::DO_UPDATE)
             {
-                // dispatch after checking update entry because event dispatching may modify the update entry
-                dispatchUpdateEvent(EventAssetsManagerEx::EventCode::NEW_VERSION_FOUND);
                 _updateState = State::PREDOWNLOAD_MANIFEST;
                 downloadManifest();
-            }
-            else
-            {
-                dispatchUpdateEvent(EventAssetsManagerEx::EventCode::NEW_VERSION_FOUND);
             }
         }
     }
@@ -645,10 +566,9 @@ void AssetsManagerEx::parseManifest()
     }
     else
     {
-        if (_localManifest->versionGreater(_remoteManifest, _versionCompareHandle))
+        if (_localManifest->versionEquals(_remoteManifest))
         {
             _updateState = State::UP_TO_DATE;
-            _fileUtils->removeDirectory(_tempStoragePath);
             dispatchUpdateEvent(EventAssetsManagerEx::EventCode::ALREADY_UP_TO_DATE);
         }
         else
@@ -673,16 +593,15 @@ void AssetsManagerEx::startUpdate()
     // Clean up before update
     _failedUnits.clear();
     _downloadUnits.clear();
+    _compressedFiles.clear();
     _totalWaitToDownload = _totalToDownload = 0;
-    _nextSavePoint = 0;
     _percent = _percentByFile = _sizeCollected = _totalSize = 0;
     _downloadedSize.clear();
     _totalEnabled = false;
     
     // Temporary manifest exists, resuming previous download
-    if (_tempManifest && _tempManifest->isLoaded() && _tempManifest->versionEquals(_remoteManifest))
+    if (_tempManifest->isLoaded() && _tempManifest->versionEquals(_remoteManifest))
     {
-        _tempManifest->saveToFile(_tempManifestPath);
         _tempManifest->genResumeAssetsList(&_downloadUnits);
         _totalWaitToDownload = _totalToDownload = (int)_downloadUnits.size();
         this->batchDownload();
@@ -690,24 +609,15 @@ void AssetsManagerEx::startUpdate()
         std::string msg = StringUtils::format("Resuming from previous unfinished update, %d files remains to be finished.", _totalToDownload);
         dispatchUpdateEvent(EventAssetsManagerEx::EventCode::UPDATE_PROGRESSION, "", msg);
     }
+    // Check difference
     else
     {
-        // Temporary manifest exists, but can't be parsed or version doesn't equals remote manifest (out of date)
-        if (_tempManifest)
-        {
-            // Remove all temp files
-            _fileUtils->removeDirectory(_tempStoragePath);
-            CC_SAFE_RELEASE(_tempManifest);
-            // Recreate temp storage path and save remote manifest
-            _fileUtils->createDirectory(_tempStoragePath);
-            _remoteManifest->saveToFile(_tempManifestPath);
-        }
-        
-        // Temporary manifest will be used to register the download states of each asset,
+        // Temporary manifest not exists or out of date,
+        // it will be used to register the download states of each asset,
         // in this case, it equals remote manifest.
+        _tempManifest->release();
         _tempManifest = _remoteManifest;
         
-        // Check difference between local manifest and remote manifest
         std::unordered_map<std::string, Manifest::AssetDiff> diff_map = _localManifest->genDiff(_remoteManifest);
         if (diff_map.size() == 0)
         {
@@ -717,22 +627,36 @@ void AssetsManagerEx::startUpdate()
         {
             // Generate download units for all assets that need to be updated or added
             std::string packageUrl = _remoteManifest->getPackageUrl();
-            // Save current download manifest information for resuming
-            _tempManifest->saveToFile(_tempManifestPath);
-            // Preprocessing local files in previous version and creating download folders
             for (auto it = diff_map.begin(); it != diff_map.end(); ++it)
             {
                 Manifest::AssetDiff diff = it->second;
-                if (diff.type != Manifest::DiffType::DELETED)
+
+                if (diff.type == Manifest::DiffType::DELETED)
+                {
+                    _fileUtils->removeFile(_storagePath + diff.asset.path);
+                }
+                else
                 {
                     std::string path = diff.asset.path;
+                    // Create path
+                    _fileUtils->createDirectory(basename(_storagePath + path));
+
                     DownloadUnit unit;
                     unit.customId = it->first;
                     unit.srcUrl = packageUrl + path;
-                    unit.storagePath = _tempStoragePath + path;
-                    unit.size = diff.asset.size;
+                    unit.storagePath = _storagePath + path;
                     _downloadUnits.emplace(unit.customId, unit);
-                    _tempManifest->setAssetDownloadState(it->first, Manifest::DownloadState::UNSTARTED);
+                }
+            }
+            // Set other assets' downloadState to SUCCESSED
+            auto &assets = _remoteManifest->getAssets();
+            for (auto it = assets.cbegin(); it != assets.cend(); ++it)
+            {
+                const std::string &key = it->first;
+                auto diffIt = diff_map.find(key);
+                if (diffIt == diff_map.end())
+                {
+                    _tempManifest->setAssetDownloadState(key, Manifest::DownloadState::SUCCESSED);
                 }
             }
             _totalWaitToDownload = _totalToDownload = (int)_downloadUnits.size();
@@ -748,50 +672,58 @@ void AssetsManagerEx::updateSucceed()
 {
     // Every thing is correctly downloaded, do the following
     // 1. rename temporary manifest to valid manifest
-    std::string tempFileName = TEMP_MANIFEST_FILENAME;
-    std::string fileName = MANIFEST_FILENAME;
-    _fileUtils->renameFile(_tempStoragePath, tempFileName, fileName);
-    // 2. merge temporary storage path to storage path so that temporary version turns to cached version
-    if (_fileUtils->isDirectoryExist(_tempStoragePath))
-    {
-        // Merging all files in temp storage path to storage path
-        std::vector<std::string> files;
-        _fileUtils->listFilesRecursively(_tempStoragePath, &files);
-        int baseOffset = (int)_tempStoragePath.length();
-        std::string relativePath, dstPath;
-        for (std::vector<std::string>::iterator it = files.begin(); it != files.end(); ++it)
-        {
-            relativePath.assign((*it).substr(baseOffset));
-            dstPath.assign(_storagePath + relativePath);
-            // Create directory
-            if (relativePath.back() == '/')
-            {
-                _fileUtils->createDirectory(dstPath);
-            }
-            // Copy file
-            else
-            {
-                if (_fileUtils->isFileExist(dstPath))
-                {
-                    _fileUtils->removeFile(dstPath);
-                }
-                _fileUtils->renameFile(*it, dstPath);
-            }
-        }
-        // Remove temp storage path
-        _fileUtils->removeDirectory(_tempStoragePath);
-    }
-    // 3. swap the localManifest
-    CC_SAFE_RELEASE(_localManifest);
+    _fileUtils->renameFile(_storagePath, TEMP_MANIFEST_FILENAME, MANIFEST_FILENAME);
+    // 2. swap the localManifest
+    if (_localManifest != nullptr)
+        _localManifest->release();
     _localManifest = _remoteManifest;
-    _localManifest->setManifestRoot(_storagePath);
     _remoteManifest = nullptr;
-    // 4. make local manifest take effect
+    // 3. make local manifest take effect
     prepareLocalManifest();
-    // 5. Set update state
-    _updateState = State::UP_TO_DATE;
-    // 6. Notify finished event
-    dispatchUpdateEvent(EventAssetsManagerEx::EventCode::UPDATE_FINISHED);
+
+
+    _updateState = State::UNZIPPING;
+    // 4. decompress all compressed files
+    //decompressDownloadedZip();
+
+    struct AsyncData
+    {
+        std::vector<std::string> compressedFiles;
+        std::string errorCompressedFile;
+    };
+
+    AsyncData* asyncData = new AsyncData;
+    asyncData->compressedFiles = _compressedFiles;
+    _compressedFiles.clear();
+
+    std::function<void(void*)> mainThread = [this](void* param) {
+        auto asyncDataInner = reinterpret_cast<AsyncData*>(param);
+        if (asyncDataInner->errorCompressedFile.empty())
+        {
+            // 5. Set update state
+            _updateState = State::UP_TO_DATE;
+            // 6. Notify finished event
+            dispatchUpdateEvent(EventAssetsManagerEx::EventCode::UPDATE_FINISHED);
+        }
+        else
+        {
+            _updateState = State::FAIL_TO_UPDATE;
+            dispatchUpdateEvent(EventAssetsManagerEx::EventCode::ERROR_DECOMPRESS, "", "Unable to decompress file " + asyncDataInner->errorCompressedFile);
+        }
+
+        delete asyncDataInner;
+    };
+    AsyncTaskPool::getInstance()->enqueue(AsyncTaskPool::TaskType::TASK_OTHER, mainThread, (void*)asyncData, [this, asyncData]() {
+        // Decompress all compressed files
+        for (auto& zipFile : asyncData->compressedFiles) {
+            if (!decompress(zipFile))
+            {
+                asyncData->errorCompressedFile = zipFile;
+                break;
+            }
+            _fileUtils->removeFile(zipFile);
+        }
+    });
 }
 
 void AssetsManagerEx::checkUpdate()
@@ -921,21 +853,18 @@ void AssetsManagerEx::updateAssets(const DownloadUnits& assets)
     
     if (_updateState != State::UPDATING && _localManifest->isLoaded() && _remoteManifest->isLoaded())
     {
-        _updateState = State::UPDATING;
-        _downloadUnits.clear();
-        _downloadedSize.clear();
-        _percent = _percentByFile = _sizeCollected = _totalSize = 0;
-        _totalWaitToDownload = _totalToDownload = (int)assets.size();
-        _nextSavePoint = 0;
-        _totalEnabled = false;
-        if (_totalToDownload > 0)
+        int size = (int)(assets.size());
+        if (size > 0)
         {
+            _updateState = State::UPDATING;
+            _downloadUnits.clear();
             _downloadUnits = assets;
+            _totalWaitToDownload = _totalToDownload = (int)_downloadUnits.size();
             this->batchDownload();
         }
-        else if (_totalToDownload == 0)
+        else if (size == 0 && _totalWaitToDownload == 0)
         {
-            onDownloadUnitsFinished();
+            updateSucceed();
         }
     }
 }
@@ -951,53 +880,6 @@ void AssetsManagerEx::downloadFailedAssets()
     updateAssets(_failedUnits);
 }
 
-void AssetsManagerEx::fileError(const std::string& identifier, const std::string& errorStr, int errorCode, int errorCodeInternal)
-{
-    auto unitIt = _downloadUnits.find(identifier);
-    // Found unit and add it to failed units
-    if (unitIt != _downloadUnits.end())
-    {
-        _totalWaitToDownload--;
-        
-        DownloadUnit unit = unitIt->second;
-        _failedUnits.emplace(unit.customId, unit);
-    }
-    dispatchUpdateEvent(EventAssetsManagerEx::EventCode::ERROR_UPDATING, identifier, errorStr, errorCode, errorCodeInternal);
-    _tempManifest->setAssetDownloadState(identifier, Manifest::DownloadState::UNSTARTED);
-    
-    _currConcurrentTask = MAX(0, _currConcurrentTask-1);
-    queueDowload();
-}
-
-void AssetsManagerEx::fileSuccess(const std::string &customId, const std::string &storagePath)
-{
-    // Set download state to SUCCESSED
-    _tempManifest->setAssetDownloadState(customId, Manifest::DownloadState::SUCCESSED);
-    
-    auto unitIt = _failedUnits.find(customId);
-    // Found unit and delete it
-    if (unitIt != _failedUnits.end())
-    {
-        // Remove from failed units list
-        _failedUnits.erase(unitIt);
-    }
-    
-    unitIt = _downloadUnits.find(customId);
-    if (unitIt != _downloadUnits.end())
-    {
-        // Reduce count only when unit found in _downloadUnits
-        _totalWaitToDownload--;
-        
-        _percentByFile = 100 * (float)(_totalToDownload - _totalWaitToDownload) / _totalToDownload;
-        // Notify progression event
-        dispatchUpdateEvent(EventAssetsManagerEx::EventCode::UPDATE_PROGRESSION, "");
-    }
-    // Notify asset updated event
-    dispatchUpdateEvent(EventAssetsManagerEx::EventCode::ASSET_UPDATED, customId);
-    
-    _currConcurrentTask = MAX(0, _currConcurrentTask-1);
-    queueDowload();
-}
 
 void AssetsManagerEx::onError(const network::DownloadTask& task,
                               int errorCode,
@@ -1014,11 +896,24 @@ void AssetsManagerEx::onError(const network::DownloadTask& task,
     else if (task.identifier == MANIFEST_ID)
     {
         dispatchUpdateEvent(EventAssetsManagerEx::EventCode::ERROR_DOWNLOAD_MANIFEST, task.identifier, errorStr, errorCode, errorCodeInternal);
-        _updateState = State::FAIL_TO_UPDATE;
     }
     else
     {
-        fileError(task.identifier, errorStr, errorCode, errorCodeInternal);
+        auto unitIt = _downloadUnits.find(task.identifier);
+        // Found unit and add it to failed units
+        if (unitIt != _downloadUnits.end())
+        {
+            _totalWaitToDownload--;
+            
+            DownloadUnit unit = unitIt->second;
+            _failedUnits.emplace(unit.customId, unit);
+        }
+        dispatchUpdateEvent(EventAssetsManagerEx::EventCode::ERROR_UPDATING, task.identifier, errorStr, errorCode, errorCodeInternal);
+
+        if (_totalWaitToDownload <= 0)
+        {
+            this->onDownloadUnitsFinished();
+        }
     }
 }
 
@@ -1052,16 +947,12 @@ void AssetsManagerEx::onProgress(double total, double downloaded, const std::str
             _tempManifest->setAssetDownloadState(customId, Manifest::DownloadState::DOWNLOADING);
             // Register the download size information
             _downloadedSize.emplace(customId, downloaded);
-            // Check download unit size existance, if not exist collect size in total size
-            if (_downloadUnits[customId].size == 0)
+            _totalSize += total;
+            _sizeCollected++;
+            // All collected, enable total size
+            if (_sizeCollected == _totalToDownload)
             {
-                _totalSize += total;
-                _sizeCollected++;
-                // All collected, enable total size
-                if (_sizeCollected == _totalToDownload)
-                {
-                    _totalEnabled = true;
-                }
+                _totalEnabled = true;
             }
         }
         
@@ -1092,91 +983,59 @@ void AssetsManagerEx::onSuccess(const std::string &/*srcUrl*/, const std::string
     }
     else
     {
-        bool ok = true;
         auto &assets = _remoteManifest->getAssets();
         auto assetIt = assets.find(customId);
         if (assetIt != assets.end())
         {
-            Manifest::Asset asset = assetIt->second;
-            if (_verifyCallback != nullptr)
-            {
-                ok = _verifyCallback(storagePath, asset);
+            // Set download state to SUCCESSED
+            _tempManifest->setAssetDownloadState(customId, Manifest::DownloadState::SUCCESSED);
+            
+            // Add file to need decompress list
+            if (assetIt->second.compressed) {
+                _compressedFiles.push_back(storagePath);
             }
         }
         
-        if (ok)
+        auto unitIt = _downloadUnits.find(customId);
+        if (unitIt != _downloadUnits.end())
         {
-            bool compressed = assetIt != assets.end() ? assetIt->second.compressed : false;
-            if (compressed)
-            {
-                decompressDownloadedZip(customId, storagePath);
-            }
-            else
-            {
-                fileSuccess(customId, storagePath);
-            }
+            // Reduce count only when unit found in _downloadUnits
+            _totalWaitToDownload--;
+            
+            _percentByFile = 100 * (float)(_totalToDownload - _totalWaitToDownload) / _totalToDownload;
+            // Notify progression event
+            dispatchUpdateEvent(EventAssetsManagerEx::EventCode::UPDATE_PROGRESSION, "");
         }
-        else
+        // Notify asset updated event
+        dispatchUpdateEvent(EventAssetsManagerEx::EventCode::ASSET_UPDATED, customId);
+        
+        unitIt = _failedUnits.find(customId);
+        // Found unit and delete it
+        if (unitIt != _failedUnits.end())
         {
-            fileError(customId, "Asset file verification failed after downloaded");
+            // Remove from failed units list
+            _failedUnits.erase(unitIt);
+        }
+        
+        if (_totalWaitToDownload <= 0)
+        {
+            this->onDownloadUnitsFinished();
         }
     }
 }
 
 void AssetsManagerEx::destroyDownloadedVersion()
 {
-    _fileUtils->removeDirectory(_storagePath);
-    _fileUtils->removeDirectory(_tempStoragePath);
+    _fileUtils->removeFile(_cacheVersionPath);
+    _fileUtils->removeFile(_cacheManifestPath);
 }
 
 void AssetsManagerEx::batchDownload()
 {
-    _queue.clear();
     for(auto iter : _downloadUnits)
     {
-        const DownloadUnit& unit = iter.second;
-        if (unit.size > 0)
-        {
-            _totalSize += unit.size;
-            _sizeCollected++;
-        }
-        
-        _queue.push_back(iter.first);
-    }
-    // All collected, enable total size
-    if (_sizeCollected == _totalToDownload)
-    {
-        _totalEnabled = true;
-    }
-    
-    queueDowload();
-}
-
-void AssetsManagerEx::queueDowload()
-{
-    if (_totalWaitToDownload == 0)
-    {
-        this->onDownloadUnitsFinished();
-        return;
-    }
-    
-    while (_currConcurrentTask < _maxConcurrentTask && _queue.size() > 0)
-    {
-        std::string key = _queue.back();
-        _queue.pop_back();
-        
-        _currConcurrentTask++;
-        DownloadUnit& unit = _downloadUnits[key];
-        _fileUtils->createDirectory(basename(unit.storagePath));
+        DownloadUnit& unit = iter.second;
         _downloader->createDownloadFileTask(unit.srcUrl, unit.storagePath, unit.customId);
-        
-        _tempManifest->setAssetDownloadState(key, Manifest::DownloadState::DOWNLOADING);
-    }
-    if (_percentByFile / 100 > _nextSavePoint)
-    {
-        // Save current download manifest information for resuming
-        _tempManifest->saveToFile(_tempManifestPath);
-        _nextSavePoint += SAVE_POINT_INTERVAL;
     }
 }
 
@@ -1188,10 +1047,12 @@ void AssetsManagerEx::onDownloadUnitsFinished()
         // Save current download manifest information for resuming
         _tempManifest->saveToFile(_tempManifestPath);
     
+        decompressDownloadedZip();
+    
         _updateState = State::FAIL_TO_UPDATE;
         dispatchUpdateEvent(EventAssetsManagerEx::EventCode::UPDATE_FAILED);
     }
-    else if (_updateState == State::UPDATING)
+    else
     {
         updateSucceed();
     }

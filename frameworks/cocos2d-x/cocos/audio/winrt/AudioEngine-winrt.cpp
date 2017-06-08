@@ -38,14 +38,15 @@ AudioEngineImpl::AudioEngineImpl()
 
 AudioEngineImpl::~AudioEngineImpl()
 {
-    auto scheduler = cocos2d::Director::getInstance()->getScheduler();
-    scheduler->unschedule(schedule_selector(AudioEngineImpl::update), this);
     _audioCaches.clear();
 }
 
 bool AudioEngineImpl::init()
 {
-    return true;
+    bool ret = false;
+
+    ret = true;
+    return ret;
 }
 
 AudioCache* AudioEngineImpl::preload(const std::string& filePath, std::function<void(bool)> callback)
