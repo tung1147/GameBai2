@@ -124,6 +124,7 @@ GameType.MiniGame_CaoThap = 13;
 GameType.MiniGame_Poker = 14;
 GameType.MiniGame_VideoPoker = 15;
 GameType.GAME_Poker = 16;
+GameType.GAME_SLOT_FRUIT = 17;
 
 var s_game_available = s_game_available || {};
 s_game_available[GameType.GAME_MauBinh] = true;
@@ -133,7 +134,7 @@ s_game_available[GameType.GAME_Sam] = true;
 s_game_available[GameType.GAME_BaCay] = true;
 s_game_available[GameType.GAME_XocDia] = true;
 s_game_available[GameType.GAME_TaiXiu] = true;
-s_game_available[GameType.GAME_VongQuayMayMan] = false;
+s_game_available[GameType.GAME_VongQuayMayMan] = true;
 s_game_available[GameType.GAME_TLMN_Solo] = true;
 s_game_available[GameType.GAME_Sam_Solo] = true;
 s_game_available[GameType.GAME_Lieng] = false;

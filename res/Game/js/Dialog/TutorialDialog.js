@@ -105,9 +105,16 @@ var TutorialDialog = Dialog.extend({
         this.contentTable.pushItem(tutorialLabel);
     },
     initVongQuayTutorial:function () {
+        this.bouldingWidth = 545;
+        this.initWithSize(cc.size(600, 340));
+        this.contentTable.setAnchorPoint(cc.p(0.5, 0.5));
+        this.contentTable.setContentSize(cc.size(this.bouldingWidth, 270));
         var tutorialLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, this.HDList["VQGD"]);
         tutorialLabel.setBoundingWidth(this.bouldingWidth);
         this.contentTable.pushItem(tutorialLabel);
+        this.contentTable.setPosition(this.getContentSize().width / 2, this.getContentSize().height / 2 - 30);
+
+
     },
 
     initSlotFruitTutorial:function () {
@@ -115,6 +122,43 @@ var TutorialDialog = Dialog.extend({
         tutorialLabel.setBoundingWidth(this.bouldingWidth-300);
         this.contentTable.pushItem(tutorialLabel);
         this.contentTable.setPosition(cc.p(this.contentTable.getPositionX() - 150,this.contentTable.getPositionY()));
+
+        var table = new cc.Sprite("#slot_hdc.png");
+        table.setPosition(cc.p(this.getContentSize().width/2 + 260 - table.getContentSize().width/2,-20+this.getContentSize().height/2- table.getContentSize().height/2));
+        this.addChild(table);
+        table.setAnchorPoint(cc.p(0,0));
+        var arrX5 = ["15","33","80","250","1,000","8,000","Nỗ hũ",];
+        var arrX4 = ["1,5","2","5","10","30","150",""];
+        var arrX3 = ["0,2","0,4","0,6","1,1","2,5","7",""];
+        for(var i = 0; i < 7; i ++){
+            (function () {
+                var iNew = i;
+                var name = "#slot_fruit_"+(6-iNew).toString()+".png";
+                var icon = new cc.Sprite(name);
+                icon.setScale(0.3);
+                icon.setPosition(cc.p(33,24+40*iNew));
+                table.addChild(icon);
+
+                var lblX5 = new cc.LabelTTF(arrX5[i],cc.res.font.Roboto_CondensedBold,15);
+                lblX5.setColor(cc.color(255,222,0));
+                lblX5.setPosition(cc.p(91,24+40*iNew));
+                table.addChild(lblX5);
+
+
+                var lblX4 = new cc.LabelTTF(arrX4[i],cc.res.font.Roboto_CondensedBold,15);
+                lblX4.setColor(cc.color(255,222,0));
+                lblX4.setPosition(cc.p(152,24+40*iNew));
+                table.addChild(lblX4);
+
+
+                var lblX3 = new cc.LabelTTF(arrX3[i],cc.res.font.Roboto_CondensedBold,15);
+                lblX3.setColor(cc.color(255,222,0));
+                lblX3.setPosition(cc.p(210,24+40*iNew));
+                table.addChild(lblX3);
+
+            })();
+
+        }
     },
     initPokerTutorial: function (dataField) {
         var miniLabel1 = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, this.HDList[dataField]["text1"]

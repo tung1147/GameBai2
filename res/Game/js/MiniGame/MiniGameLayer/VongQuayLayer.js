@@ -302,7 +302,7 @@ var VongQuayLayer = MiniGamePopup.extend({
         this.setContentSize(bg.getContentSize());
         this.setAnchorPoint(cc.p(0.5, 0.5));
         this.addChild(bg);
-        this._boudingRect = cc.rect(182, 86, 891, 503);
+        this._boudingRect = cc.rect(40, 46, 840, 440);
 
         var vongto =  new VongTo("#vongquay_to.png");
         vongto.setPosition(254,258);
@@ -371,23 +371,23 @@ var VongQuayLayer = MiniGamePopup.extend({
         });
         bg.addChild(btnRank);
 
-        this.moneyTF = new newui.TextField(cc.size(240, 55), cc.res.font.Roboto_Condensed_30);
-        this.moneyTF.setPlaceHolder("vong ngoai");
-        this.moneyTF.setTextColor(cc.color(255,255,255));
-        this.moneyTF.setPlaceHolderColor(cc.color(190, 240, 253,255));
-
-        this.moneyTF.setPosition(cc.winSize.width - 310*cc.winSize.screenScale, 150);
-        this.addChild(this.moneyTF);
-        var buyBt = new ccui.Button("game-xepbaiBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        buyBt.setPosition(cc.winSize.width - 310*cc.winSize.screenScale, 100);
-        this.addChild(buyBt);
-        buyBt.addClickEventListener(function () {
-
-            thiz.vongto.startWithSpeed(1000);
-            thiz.vongnho.startWithSpeed(-1000);
-            var aa = thiz.moneyTF.getText() + ";"+ thiz.vongnho.getIdPiece();
-            SmartfoxClient.getInstance().sendExtensionRequest(-1, "cvq", {1:thiz.vongnho.getIdPiece() ,2:aa  });
-        });
+        // this.moneyTF = new newui.TextField(cc.size(240, 55), cc.res.font.Roboto_Condensed_30);
+        // this.moneyTF.setPlaceHolder("vong ngoai");
+        // this.moneyTF.setTextColor(cc.color(255,255,255));
+        // this.moneyTF.setPlaceHolderColor(cc.color(190, 240, 253,255));
+        //
+        // this.moneyTF.setPosition(cc.winSize.width - 310*cc.winSize.screenScale, 150);
+        // this.addChild(this.moneyTF);
+        // var buyBt = new ccui.Button("game-xepbaiBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        // buyBt.setPosition(cc.winSize.width - 310*cc.winSize.screenScale, 100);
+        // this.addChild(buyBt);
+        // buyBt.addClickEventListener(function () {
+        //
+        //     thiz.vongto.startWithSpeed(1000);
+        //     thiz.vongnho.startWithSpeed(-1000);
+        //     var aa = thiz.moneyTF.getText() + ";"+ thiz.vongnho.getIdPiece();
+        //     SmartfoxClient.getInstance().sendExtensionRequest(-1, "cvq", {1:thiz.vongnho.getIdPiece() ,2:aa  });
+        // });
 
         var gameIdLabel =   cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "ID : 1231231233", cc.TEXT_ALIGNMENT_LEFT);
         gameIdLabel.setColor(cc.color(191, 242, 255,255));

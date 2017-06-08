@@ -161,6 +161,25 @@ var SlotLayer = cc.Node.extend({
             this.arrItems.push(subItem);
         }
     },
+    showNotEffect:function (ketqua) {
+        this.arrResuft = [];
+        this.clearAll();
+        for (var i = 0; i < 5; i++) { // cot
+
+            // var subItem = [];
+            for (var j = 0 ; j < 3; j++) { // hang
+                var item = this.newItem(ketqua[i][j]);
+                item.createItem(i,j,0);
+                item.isRunning = false;
+                this.nodeSlot.addChild(item);
+                this.arrResuft.push(item);
+                // subItem.push(item);
+
+            }
+            // this.arrItems.push(subItem);
+        }
+
+    },
     clearAll:function () {
         this.arrResuft = [];
         this.stopAllActions();

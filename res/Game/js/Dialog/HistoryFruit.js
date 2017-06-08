@@ -84,6 +84,10 @@ var HistoryFruit = Dialog.extend({
         var container = new ccui.Widget();
         container.setContentSize(cc.size(800, 67));
 
+        var bg = new ccui.Scale9Sprite("activity_cell_bg.png", cc.rect(10, 10, 4, 4));
+        bg.setPreferredSize(cc.size(750, 60));
+        bg.setPosition(container.getContentSize().width/2, container.getContentSize().height/2);
+        container.addChild(bg);
         var phienLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "time", cc.TEXT_ALIGNMENT_CENTER, 100);
         phienLabel.setAnchorPoint(cc.p(0,0.5));
         phienLabel.setPosition(_arrPos[0], 33);
@@ -131,29 +135,36 @@ var HistoryFruit = Dialog.extend({
     },
     onSFSExtension: function (messageType, content) {
 
-        if(content.c == 703){
+        view.phienLabel.setString(data["phien"]);
+        view.timeLabel.setString(data["time"]);
+
+
+        view.bettingLabel.setString(cc.Global.NumberFormat1(data["betting"]));
+
+
+
+        view.lineLabel.setString(cc.Global.NumberFormat1(data["lineBet"]));
+        view.lineWinLabel.setString(cc.Global.NumberFormat1(data["lineWin"]));
+        view.receiewLabel.setString(cc.Global.NumberFormat1(data["moneyWin"]));
+        if(content.c == 100003){
             var items = content.p["1"];
             for(var i=0;i<items.length;i++){
-                var arrPhien = items[i]["3"]["1"];
-                var phien = items[i]["2"];
-                var ketqua = items[i]["3"]["2"]["1"];
-                for(var j=0; j < arrPhien.length; j++){
-                    var idCua = parseInt(arrPhien[j]["2"]);
-                    var betting = parseInt(arrPhien[j]["5"]);
-                    var nhan = parseInt(arrPhien[j]["4"]);
-                    var tra = parseInt(arrPhien[j]["6"]);
-                    var time = arrPhien[j]["7"];
+
+                var phien = items[i]["1"];
+                var time = items[i]["2"];
+
+
                     var obj = {
-                        ketqua:ketqua,
+
                         phien : phien,
-                        time :  cc.Global.DateToString(new Date(time)),
-                        nhan : nhan,
-                        tra : tra,
-                        betting:betting,
-                        idCua:idCua
+                        time :  time,//cc.Global.DateToString(new Date(time)),
+                        betting : nhan,
+                        lineBet : 0,
+                        lineWin:items[i]["4"],
+                        moneyWin:items[i]["5"]
                     };
                     this.arrHis.push(obj);
-                }
+
 
             }
 
@@ -162,8 +173,9 @@ var HistoryFruit = Dialog.extend({
     },
     onEnter: function () {
         this._super();
-        SmartfoxClient.getInstance().addListener(socket.SmartfoxClient.CallExtension, this.onSFSExtension, this);
-        SmartfoxClient.getInstance().sendExtensionRequest(-1, "703", null);
+
+       // SmartfoxClient.getInstance().addListener(socket.SmartfoxClient.CallExtension, this.onSFSExtension, this);
+        SmartfoxClient.getInstance().sendExtensionRequest(-1, "1005", null);
     },
     onExit: function () {
         this._super();
