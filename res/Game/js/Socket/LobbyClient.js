@@ -703,7 +703,7 @@ var LobbyClient = (function () {
             var token = SystemPlugin.getInstance().getPushNotificationToken();
             if(token && token != ""){
                 var request = {
-                    sandbox : true,
+                    sandbox : false,
                     command : "registerPush",
                     token : token
                 }
