@@ -419,7 +419,7 @@ var CardOnTable = cc.Node.extend({
         this._super();
         this.cardList = [];
         this.cardSize = null;
-        this.cardScale = 0.5;
+        this.cardScale = 0.75;
         this.cardPosition = cc.p(cc.winSize.width / 2, cc.winSize.height / 2);
     },
     moveOldCard: function () {
@@ -472,7 +472,7 @@ var CardOnTable = cc.Node.extend({
         for (var i = 0; i < cards.length; i++) {
             var card = cards[i];
             var moveAction = new cc.MoveTo(animationDuration, cc.p(x, this.cardPosition.y));
-            var scaleAction = new cc.ScaleTo(animationDuration, 0.5);
+            var scaleAction = new cc.ScaleTo(animationDuration, this.cardScale);
             card.runAction(new cc.EaseBackIn(new cc.Spawn(moveAction, scaleAction)));
             //card.setScale(card.getScale() * this.cardScale);
             var rotate = 20.0 - Math.random() * 40.0;
@@ -494,7 +494,7 @@ var CardOnTable = cc.Node.extend({
         for (var i = 0; i < cards.length; i++) {
             var card = cards[i];
             card.setPosition(x, this.cardPosition.y);
-            card.setScale(0.5);
+            card.setScale(this.cardScale);
             var rotate = 20.0 - Math.random() * 40.0;
             card.setRotation(rotate);
             this.addChild(card, 0);
