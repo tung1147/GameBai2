@@ -1063,7 +1063,9 @@ var XocDiaScene = IGameScene.extend({
             this.pendingGoldChange = gold;
         }
     },
-
+    changeGoldEffect: function (username, deltaGold) {
+        this.playerMe.runChangeGoldEffect(deltaGold);
+    },
     updateGold: function (username, gold) {
         if(PlayerMe.username === username){
             this.playerMe.setGold(gold);
