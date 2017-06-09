@@ -164,10 +164,10 @@ var s_game_id = s_game_id || [
     ],
     [
         GameType.MiniGame_CaoThap, GameType.MiniGame_Poker,
-        GameType.MiniGame_ChanLe,GameType.MiniGame_VideoPoker
+        GameType.MiniGame_ChanLe,GameType.MiniGame_VideoPoker,GameType.GAME_VongQuayMayMan
     ],
     [
-        GameType.GAME_VongQuayMayMan
+
     ],
     [
         GameType.GAME_TLMN_Solo, GameType.GAME_Sam_Solo,
