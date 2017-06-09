@@ -11,7 +11,7 @@ var TLMNUtility = {
         [1], // chan doi
         [2], // chan bo ba
         [3, 5], // chan tu quy
-        [4, 5], // chan ba doi thong
+        [3, 4, 5], // chan ba doi thong
         [5], //chan bon doi thong
         [6] // chan day
     ],
