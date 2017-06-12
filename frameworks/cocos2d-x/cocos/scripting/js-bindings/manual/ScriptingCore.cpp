@@ -754,15 +754,11 @@ JS::PersistentRootedScript* ScriptingCore::compileScript(const std::string& path
         op.setFileAndLine(fullPath.c_str(), 1);
 
         bool ok = false;
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
         std::string jsFileContent = futil->getStringFromFile(fullPath);
         if (!jsFileContent.empty())
         {
             ok = JS::Compile(cx, obj, op, jsFileContent.c_str(), jsFileContent.size(), &(*script));
         }
-#else
-        ok = JS::Compile(cx, obj, op, fullPath.c_str(), &(*script));
-#endif
         if (ok) {
             compileSucceed = true;
             filename_script[fullPath] = script;

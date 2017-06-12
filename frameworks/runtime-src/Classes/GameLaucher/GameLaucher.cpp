@@ -17,7 +17,7 @@
 #include "jsfriendapi.h"
 #include "scripting/js-bindings/manual/cocos2d_specifics.hpp"
 
-//#define FORCE_UPDATE
+//
 
 static unsigned char aes_key[16] = { 0x33, 0x5a, 0x35, 0x16, 0x96, 0xff, 0xe8, 0x20, 0xa1, 0x62, 0x16, 0xbe, 0x77, 0x6a, 0x4e, 0xea };
 std::string _createJsonConfig(const std::map<std::string, std::string>& params){
@@ -69,7 +69,7 @@ GameLaucher::GameLaucher() {
 	versionFile = "version.json";
 	versionHash = "";
 //	jsMainFile = "js/main.js";
-	resourceHost = "http://gamebai.test/release/mobile/";
+	resourceHost = "http://sandbox.c567vip.com/quyetnd/testcrash";
 }
 
 GameLaucher::~GameLaucher() {

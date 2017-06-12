@@ -19,6 +19,8 @@ USING_NS_CC;
 #include "GameResource.h"
 #include "ResourceLoader.h"
 
+#define FORCE_UPDATE
+
 namespace quyetnd {
 enum GameLaucherStatus{
 	GetUpdate = 0,	//0
