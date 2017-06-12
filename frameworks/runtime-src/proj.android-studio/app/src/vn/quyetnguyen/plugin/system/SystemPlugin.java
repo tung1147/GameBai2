@@ -6,7 +6,7 @@ import org.cocos2dx.javascript.AppActivity;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.c567vip.gamebaihot.R;
+import com.puppet.gamebai2.R;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;

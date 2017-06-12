@@ -7,7 +7,7 @@ android {
     buildToolsVersion "25.0.0"
 
     defaultConfig {
-        applicationId "com.c567vip.gamebaihot"
+        applicationId "com.puppet.gamebai2"
         minSdkVersion 15
         targetSdkVersion PROP_TARGET_SDK_VERSION
         versionCode 1
@@ -118,5 +118,5 @@ task buildNative << {
 }
 
 clean.dependsOn cleanAssets
-//preBuild.dependsOn ("buildNative", "copyAssets")
-preBuild.dependsOn ("cleanAssets", "copyAssets")
+preBuild.dependsOn ("cleanAssets", "buildNative", "copyAssets")
+//preBuild.dependsOn ("cleanAssets", "copyAssets")

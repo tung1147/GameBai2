@@ -69,7 +69,7 @@ GameLaucher::GameLaucher() {
 	versionFile = "version.json";
 	versionHash = "";
 //	jsMainFile = "js/main.js";
-	resourceHost = "http://sandbox.c567vip.com/quyetnd/testcrash";
+	resourceHost = "http://sandbox.c567vip.com/quyetnd/testcrash/";
 }
 
 GameLaucher::~GameLaucher() {

@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:1045665144472:android:1df4cc785529352f",
         "android_client_info": {
-          "package_name": "com.iluckystarvn.daisiu"
+          "package_name": "com.puppet.gamebai2"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "1045665144472-u59c0e0sfd0pm2cfmj3jb7in0tdjh4ug.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.iluckystarvn.daisiu",
+            "package_name": "com.puppet.gamebai2",
             "certificate_hash": "ec8aa3d868655fc5709afd8f9a6f75c4e812c3c9"
           }
         },
@@ -26,7 +26,7 @@
           "client_id": "1045665144472-kh7jgb555iekelhvrh682q7gooiivq0j.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.iluckystarvn.daisiu",
+            "package_name": "com.puppet.gamebai2",
             "certificate_hash": "456ce6e5904cbd510a9edd1cbe5dd9e45488c3e7"
           }
         },
