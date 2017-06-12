@@ -6,7 +6,8 @@ var s_float_button_games = s_float_button_games || [
         GameType.MiniGame_CaoThap,
         GameType.MiniGame_Poker,
         GameType.MiniGame_ChanLe,
-        GameType.MiniGame_VideoPoker
+        GameType.MiniGame_VideoPoker,
+        GameType.GAME_VongQuayMayMan
 ];
 var s_float_button_animationDuration = s_float_button_animationDuration || 0.2;
 
@@ -314,12 +315,12 @@ var FloatButton = (function() {
             this._super(visible);
             this.newCountMiniTaiXiu.setVisible(visible);
             if (visible) {
-                this.sendCommandSubrideMiniTaiXiu("subscribeMiniGameMetaData");
+               this.sendCommandSubrideMiniTaiXiu("subscribeMiniGameMetaData");
             }
-            else
-            {
-                this.sendCommandSubrideMiniTaiXiu("unSubscribeMiniGameMetaData");
-            }
+            // else
+            // {
+            //     this.sendCommandSubrideMiniTaiXiu("unSubscribeMiniGameMetaData");
+            // }
         },
         sendCommandSubrideMiniTaiXiu: function (command){
             LobbyClient.getInstance().send({

@@ -8,8 +8,8 @@
 if (cc.sys.isNative) { //mobile
     var s_lobbyServer = s_lobbyServer || [
         {
-            host: "gbvcity.com",
-            // host: "42.112.25.164",
+            // host: "gbvcity.com",
+            host: "42.112.25.164",
             port: 9999
         }
     ];
@@ -703,7 +703,7 @@ var LobbyClient = (function () {
             var token = SystemPlugin.getInstance().getPushNotificationToken();
             if(token && token != ""){
                 var request = {
-                    sandbox : false,
+                    sandbox : f,
                     command : "registerPush",
                     token : token
                 }

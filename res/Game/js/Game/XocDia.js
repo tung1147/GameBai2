@@ -587,8 +587,8 @@ var XocDiaScene = IGameScene.extend({
             new cc.EaseSineIn(new cc.MoveBy(1.0, cc.p(0.0, 450.0))),
             new cc.CallFunc(function () {
                 SoundPlayer.playSound(sounds);
-                // thiz._addHistory(result);
-                // thiz._refreshHistory();
+                thiz._addHistory(result);
+                thiz._refreshHistory();
             })
         ));
 

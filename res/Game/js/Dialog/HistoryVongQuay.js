@@ -2,7 +2,7 @@
  * Created by Quyet Nguyen on 3/21/2017.
  */
 
-_arrPosHisotyVQ = [15, 189, 318, 431];
+_arrPosHisotyVQ = [51, 301, 479, 650];
 
 var STRING_VONG_LON = ["","500","1,000","2,000","5,000","10,000","20,000","50,000","100,000","200,000","500,000","100 EXP","Goodluck!"];
 
@@ -12,22 +12,20 @@ var STRING_VONG_NHO = ["","500","1,000","5,000", "10,000", "50,000","100,000","1
 var HistoryVongQuay = Dialog.extend({
     ctor : function () {
         this._super();
-
-
         this.okButton.visible = false;
         this.cancelButton.visible = false;
-        this.title.setString("Lịch sử");
-        this.initWithSize(cc.size(600, 340));
-        var listItem = new newui.TableView(cc.size(548, 230), 1);
-        listItem.setPosition(cc.p(125, 100));
+        this.title.setString("LỊCH SỬ");
+        this.initWithSize(cc.size(860, 520));
+        var listItem = new newui.TableView(cc.size(this.getContentSize().width - 28 * 2, 370), 1);
+        listItem.setPosition(cc.p(28, 18));
         this.addChild(listItem);
         this.listItem = listItem;
         var arrName = ["Giờ","ID","Vòng lớn" , "Vòng nhỏ"] ;
         for(var i = 0; i < 4; i++){
-            var timeLaybel =  new cc.LabelTTF(arrName[i],cc.res.font.Roboto_Condensed, 20);
+            var timeLaybel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, arrName[i]);
             timeLaybel.setAnchorPoint(cc.p(0,0.5));
-            timeLaybel.setPosition(_arrPosHisotyVQ[i]+125,355);
-            timeLaybel.setColor(cc.color(87, 110, 176,255));
+            timeLaybel.setPosition(_arrPosHisotyVQ[i],403);
+            timeLaybel.setColor(cc.color("#77cbee"));
             this.addChild(timeLaybel);
         }
         // for(var i= 0; i<20;i++){
@@ -51,34 +49,42 @@ var HistoryVongQuay = Dialog.extend({
     },
     addItem:function (timeCreate, userName,gold,gold2) {
         var container = new ccui.Widget();
-        container.setContentSize(cc.size(548, 60));
+        container.setContentSize(cc.size(this.listItem.getContentSize().width, 60));
         this.listItem.pushItem(container);
-        var bg = new ccui.Scale9Sprite("activity_cell_bg.png", cc.rect(10, 10, 4, 4));
-        bg.setPreferredSize(cc.size(548, 55));
-        bg.setPosition(container.getContentSize().width/2, container.getContentSize().height/2);
+        if(this.listItem.size()%2)
+        {
+            var bg = new ccui.Scale9Sprite("activity_cell_bg.png", cc.rect(10, 10, 4, 4));
+            bg.setPreferredSize(cc.size(container.width, 60));
+            bg.setColor(cc.color("#000000"));
+            bg.setOpacity(100);
+            bg.setPosition(container.getContentSize().width/2, container.getContentSize().height/2);
+            container.addChild(bg);
+        }
 
-        var timeLaybel =  new cc.LabelTTF(timeCreate,cc.res.font.Roboto_Condensed, 20);
-        timeLaybel.setPosition(_arrPosHisotyVQ[0],30);
-        bg.addChild(timeLaybel);
+
+        var timeLaybel =  cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, timeCreate);
+        timeLaybel.setPosition(_arrPosHisotyVQ[0] - 28,30);
+        container.addChild(timeLaybel);
         timeLaybel.setAnchorPoint(cc.p(0,0.5));
-        var nameLabel = new cc.LabelTTF(userName,cc.res.font.Roboto_Condensed, 20);
-        nameLabel.setPosition(_arrPosHisotyVQ[1],30);
-        bg.addChild(nameLabel);
+
+        var nameLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, userName);
+        nameLabel.setPosition(_arrPosHisotyVQ[1] - 28,30);
+        container.addChild(nameLabel);
         nameLabel.setAnchorPoint(cc.p(0,0.5));
-        var goldLabel = new cc.LabelTTF(gold,cc.res.font.Roboto_Condensed, 20);
+
+        var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_20, gold);
         goldLabel.setColor(cc.color(255, 194, 0,255));
-        goldLabel.setPosition(_arrPosHisotyVQ[2],30);
-        bg.addChild(goldLabel);
+        goldLabel.setPosition(_arrPosHisotyVQ[2] - 28,30);
+        container.addChild(goldLabel);
         goldLabel.setAnchorPoint(cc.p(0,0.5));
 
-
-        var goldLabel2 = new cc.LabelTTF(gold2,cc.res.font.Roboto_Condensed, 20);
+        var goldLabel2 = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_20, gold2);
         goldLabel2.setColor(cc.color(255, 194, 0,255));
-        goldLabel2.setPosition(_arrPosHisotyVQ[3],30);
-        bg.addChild(goldLabel2);
+        goldLabel2.setPosition(_arrPosHisotyVQ[3] - 28,30);
+        container.addChild(goldLabel2);
         goldLabel2.setAnchorPoint(cc.p(0,0.5));
 
-        container.addChild(bg);
+
     },
 
     onEnter : function () {

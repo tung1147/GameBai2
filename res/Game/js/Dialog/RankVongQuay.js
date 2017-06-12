@@ -2,7 +2,7 @@
  * Created by Quyet Nguyen on 3/21/2017.
  */
 
-_arrPosRankVQ = [22, 157, 404];
+_arrPosRankVQ = [64, 231, 481];
 var RankVongQuay = Dialog.extend({
     ctor : function () {
         this._super();
@@ -10,18 +10,19 @@ var RankVongQuay = Dialog.extend({
 
         this.okButton.visible = false;
         this.cancelButton.visible = false;
-        this.title.setString("Bảng xếp hạng");
-        this.initWithSize(cc.size(600, 340));
+        this.title.setString("BẢNG XẾP HẠNG");
+        this.initWithSize(cc.size(860, 520));
 
-        var listItem = new newui.TableView(cc.size(544, 230), 1);
-        listItem.setPosition(cc.p(125, 100));
+        var listItem = new newui.TableView(cc.size(this.getContentSize().width - 45 * 2, 360), 1);
+        listItem.setPosition(cc.p(45, 26));
         this.addChild(listItem);
         this.listItem = listItem;
-        var arrName = ["Top","Người chơi","Vàng thắng"] ;
+        var arrName = ["Top","Người chơi","Số vàng thắng"] ;
         for(var i = 0; i < 3; i++){
-            var timeLaybel =  new cc.LabelTTF(arrName[i],cc.res.font.Roboto_Condensed, 20);
-            timeLaybel.setPosition(_arrPosRankVQ[i]+125,355);
-            timeLaybel.setColor(cc.color(87, 110, 176,255));
+            var timeLaybel =  cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, arrName[i]);
+            timeLaybel.setAnchorPoint(cc.p(0.0, 0.5));
+            timeLaybel.setPosition(_arrPosRankVQ[i],403);
+            timeLaybel.setColor(cc.color("#77cbee"));
             this.addChild(timeLaybel);
         }
         // for(var i= 0; i<20;i++){
@@ -45,29 +46,35 @@ var RankVongQuay = Dialog.extend({
     },
     addItem:function (timeCreate, userName,gold) {
         var container = new ccui.Widget();
-        container.setContentSize(cc.size(544, 60));
+        container.setContentSize(cc.size(this.listItem.getContentSize().width, 60));
         this.listItem.pushItem(container);
-        var bg = new ccui.Scale9Sprite("activity_cell_bg.png", cc.rect(10, 10, 4, 4));
-        bg.setPreferredSize(cc.size(544, 55));
-        bg.setPosition(container.getContentSize().width/2, container.getContentSize().height/2);
 
-        var timeLaybel =  new cc.LabelTTF(timeCreate,cc.res.font.Roboto_Condensed, 20);
-        // timeLaybel.setDimensions(150,0);
-        // timeLaybel.setAnchorPoint(0,0.5);
-        timeLaybel.setPosition(_arrPosRankVQ[0],30);
-        bg.addChild(timeLaybel);
+        if(this.listItem.size()%2)
+        {
+            var bg = new ccui.Scale9Sprite("activity_cell_bg.png", cc.rect(10, 10, 4, 4));
+            bg.setPreferredSize(cc.size(container.width, 60));
+            bg.setColor(cc.color("#000000"));
+            bg.setOpacity(100);
+            bg.setPosition(container.getContentSize().width/2, container.getContentSize().height/2);
+            container.addChild(bg);
+        }
+        var timeLaybel =  cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, timeCreate);
+        timeLaybel.setAnchorPoint(cc.p(0.0, 0.5));
+        timeLaybel.setPosition(_arrPosRankVQ[0] - 38,30);
+        container.addChild(timeLaybel);
 
-        var nameLabel = new cc.LabelTTF(userName,cc.res.font.Roboto_Condensed, 20);
-        nameLabel.setPosition(_arrPosRankVQ[1],30);
-        bg.addChild(nameLabel);
+        var nameLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, userName);
+        nameLabel.setAnchorPoint(cc.p(0.0, 0.5));
+        nameLabel.setPosition(_arrPosRankVQ[1] - 45,30);
+        container.addChild(nameLabel);
 
-        var goldLabel = new cc.LabelTTF(cc.Global.NumberFormat1(parseInt(gold)),cc.res.font.Roboto_Condensed, 20);
-        // goldLabel.setAnchorPoint(1,0.5);
-        goldLabel.setColor(cc.color(255, 194, 0,255));
-        goldLabel.setPosition(_arrPosRankVQ[2],30);
-        bg.addChild(goldLabel);
+        var goldLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_20, cc.Global.NumberFormat1(parseInt(gold)));
+        goldLabel.setAnchorPoint(cc.p(0.0, 0.5));
+        goldLabel.setColor(cc.color("#ffde00"));
+        goldLabel.setPosition(_arrPosRankVQ[2] - 45,30);
+        container.addChild(goldLabel);
 
-        container.addChild(bg);
+
     },
 
     onEnter : function () {

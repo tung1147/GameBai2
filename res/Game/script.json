@@ -39,6 +39,8 @@
 	"js/Dialog/AvatarDialog.js",
 	"js/Dialog/TransferGoldDialog.js",
 	"js/Dialog/TransferGoldHistory.js",
+	"js/Dialog/RankVongQuay.js",
+	"js/Dialog/HistoryVongQuay.js",
 	"js/IScene.js",
 	"js/Home/LobbySubLayer.js",
 	"js/Home/LobbyTopBar.js",
@@ -98,6 +100,7 @@
 	"js/MiniGame/Controller/MiniPokerController.js",
 	"js/MiniGame/Controller/VideoPokerController.js",
 	"js/MiniGame/Controller/ChanLeController.js",
+	"js/MiniGame/Controller/VongQuayController.js",
 	"js/MiniGame/MiniGameScene.js",
 	"js/MiniGame/CaoThapScene.js",
 	"js/MiniGame/MiniPockerScene.js",
@@ -108,5 +111,6 @@
 	"js/MiniGame/MiniGameLayer/MiniPokerLayer.js",
 	"js/MiniGame/MiniGameLayer/VideoPokerLayer.js",
 	"js/MiniGame/MiniGameLayer/ChanLeLayer.js",
+	"js/MiniGame/MiniGameLayer/VongQuayLayer.js",
 	"js/SceneNavigator.js"
 ]

@@ -133,7 +133,7 @@ s_game_available[GameType.GAME_Sam] = true;
 s_game_available[GameType.GAME_BaCay] = true;
 s_game_available[GameType.GAME_XocDia] = true;
 s_game_available[GameType.GAME_TaiXiu] = true;
-s_game_available[GameType.GAME_VongQuayMayMan] = false;
+s_game_available[GameType.GAME_VongQuayMayMan] = true;
 s_game_available[GameType.GAME_TLMN_Solo] = true;
 s_game_available[GameType.GAME_Sam_Solo] = true;
 s_game_available[GameType.GAME_Lieng] = false;
@@ -163,10 +163,11 @@ var s_game_id = s_game_id || [
     ],
     [
         GameType.MiniGame_CaoThap, GameType.MiniGame_Poker,
-        GameType.MiniGame_ChanLe,GameType.MiniGame_VideoPoker
+        GameType.MiniGame_ChanLe,GameType.MiniGame_VideoPoker,
+        GameType.GAME_VongQuayMayMan
     ],
     [
-        GameType.GAME_VongQuayMayMan
+
     ],
     [
         GameType.GAME_TLMN_Solo, GameType.GAME_Sam_Solo,

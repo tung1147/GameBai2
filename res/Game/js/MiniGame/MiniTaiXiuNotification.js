@@ -20,12 +20,12 @@ var MiniTaiXiuNotification = cc.Node.extend({
         _lb_count.setPosition(cc.p(this.bg.getContentSize().width/2, this.bg.getContentSize().height/2));
         this.bg.addChild(_lb_count);
         this.lb_count = _lb_count;
+        LobbyClient.getInstance().addListener("updateMiniGameMetaData", this.updateMiniGameMetaData, this);
 
     },
     update:function(dt) {
         if(this.timeRemaining >= 0){
             this.timeRemaining -= dt;
-            //mod
             this.bg.setVisible(true);
             this.lb_count.setString(Math.round(this.timeRemaining));
 
@@ -37,13 +37,12 @@ var MiniTaiXiuNotification = cc.Node.extend({
 
     onEnter: function () {
         this._super();
-        LobbyClient.getInstance().addListener("updateMiniGameMetaData", this.updateMiniGameMetaData, this);
         this.scheduleUpdate();
     },
 
     onExit: function () {
         this._super();
-        LobbyClient.getInstance().removeListener(this);
+        //LobbyClient.getInstance().removeListener(this);
         this.unscheduleUpdate();
     },
 
