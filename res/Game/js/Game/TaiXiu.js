@@ -432,9 +432,7 @@ var TaiXiuScene = XocDiaScene.extend({
             this.historyNode.addChild(sumLabel, 1);
         }
     },
-    changeGoldEffect: function (username, deltaGold) {
-        this.playerMe.runChangeGoldEffect(deltaGold);
-    },
+   
     _addResultSprite: function (result) {
         /* add result */
         var arr = _get_random_array(result.length, s_taixiu_result_position.length);

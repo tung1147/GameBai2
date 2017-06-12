@@ -1064,7 +1064,10 @@ var XocDiaScene = IGameScene.extend({
         }
     },
     changeGoldEffect: function (username, deltaGold) {
-        this.playerMe.runChangeGoldEffect(deltaGold);
+        if(username == PlayerMe.username){
+            this.playerMe.runChangeGoldEffect(deltaGold);
+        }
+
     },
     updateGold: function (username, gold) {
         if(PlayerMe.username === username){

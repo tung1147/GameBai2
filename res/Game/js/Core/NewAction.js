@@ -56,7 +56,7 @@ quyetnd.ActionNumber = cc.CustomAction.extend({
 
     onStartWithTarget : function (target) {
         this._target = target;
-        var str = this._target.getString().replace(/[.]/g,'');
+        var str = this._target.getString().replace(/[.,]/g,'');
         this._startNumber = parseInt(str);
         this._currentNumber = this._startNumber;
     }
