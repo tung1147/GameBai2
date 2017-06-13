@@ -22,11 +22,7 @@ struct WriteDataHandler{
     UpdateHandler handler;
 };
 class GameFile {
-	bool isExistFile(const std::string& filePath);
 	bool checkHashFile();
-	bool checkHashFileContent();
-
-	//size_t writeData(void *ptr, size_t size, size_t nmemb, FILE *fp);
 	std::string downloadHash;
 public:
 	std::string fileName;
@@ -37,8 +33,7 @@ public:
 	GameFile();
 	virtual ~GameFile();
 	bool test();
-	int update(const std::string& url, bool zipFileAvailable, UpdateHandler handler = nullptr);
-   // int updateNoHandler(const std::string& url, std::function<void(int)> updateHandler = nullptr);
+	int update(const std::string& url, UpdateHandler handler = nullptr);
 };
 
 

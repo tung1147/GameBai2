@@ -28,7 +28,7 @@ public:
 #endif
 
 	const std::string& getJSON();
-	DictValue* getValue();
+	Value* getValue();
 
 	static ValueJson* create(const std::string& json);
 	static ValueJson* create(Value* value);

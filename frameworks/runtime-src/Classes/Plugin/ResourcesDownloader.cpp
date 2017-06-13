@@ -7,6 +7,7 @@
 
 #include "ResourcesDownloader.h"
 #include "MD5.h"
+#include "../GameLaucher/EngineUtilsThreadSafe.h"
 #include <curl/curl.h>
 
 #define RESOURCES_CACHE_DIR "res_cache/"
@@ -56,12 +57,12 @@ void Resources::addData(unsigned char* data, int size){
 }
 
 void Resources::loadFromCache(){
-	Data d = FileUtils::getInstance()->getDataFromFile(_cacheFileName);
+	Data d = EngineUtilsThreadSafe::getInstance()->getFileData(_cacheFileName);
 	if (!d.isNull()){
 		_buffer.assign(d.getBytes(), d.getBytes() + d.getSize());
 	}
 	else{
-		FileUtils::getInstance()->removeFile(_cacheFileName);
+		remove(_cacheFileName.c_str());
 	}
 
 	this->onLoadResourcePreFinished();

@@ -117,8 +117,13 @@ void LobbyClient::close(){
 
 void LobbyClient::onRecvMessage(quyetnd::net::SocketData* data){
 	quyetnd::data::ValueJson* json = (quyetnd::data::ValueJson*)data;
-	quyetnd::data::DictValue* msg = json->getValue();
-	auto command = msg->getString("command");
+	quyetnd::data::Value* msg = json->getValue();
+	if (msg->valueType != quyetnd::data::ValueType::TypeDict){
+		CCLOG("Message is not object");
+		mClient->closeSocket();
+		return;
+	}
+	auto command = ((quyetnd::data::DictValue*)msg)->getString("command");
 	if (command == "ping"){
 		_waitingPing = false;
 	}

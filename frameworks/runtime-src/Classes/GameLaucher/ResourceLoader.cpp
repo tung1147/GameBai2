@@ -10,6 +10,7 @@
 //#include "audio/include/SimpleAudioEngine.h"
 #include "audio/include/AudioEngine.h"
 #include "GameLaucher.h"
+#include "EngineUtilsThreadSafe.h"
 //using namespace CocosDenshion;
 
 namespace quyetnd {
@@ -56,20 +57,20 @@ void ResourceLoader::addSoundUnload(const std::string& sound){
 }
 
 void ResourceLoader::onLoadImageThread(std::string img, std::function<void(cocos2d::Texture2D*)> callback){
-	std::string fullpath = FileUtils::getInstance()->fullPathForFilename(img);
-	Texture2D* texture = TextureCache::getInstance()->getTextureForKey(fullpath);
+	std::string fullpath = EngineUtilsThreadSafe::getInstance()->fullPathForFilename(img);
+	Texture2D* texture = EngineUtilsThreadSafe::getInstance()->getTextureForKey(fullpath);
 	if (texture){
-		UIThread::getInstance()->runOnUI([=](){
+		GameLaucher::getInstance()->runOnUI([=](){
 			callback(texture);
 		});
 		return;
 	}
 	else{
-		Data data = FileUtils::getInstance()->getDataFromFile(fullpath);
+		Data data = EngineUtilsThreadSafe::getInstance()->getFileData(fullpath);
 		if (!data.isNull()){
 			Image* imageData = new Image();
 			imageData->initWithImageData(data.getBytes(), data.getSize());			
-			UIThread::getInstance()->runOnUI([=](){
+			GameLaucher::getInstance()->runOnUI([=](){
 				Texture2D* texture = TextureCache::getInstance()->addImage(imageData, fullpath);
 				callback(texture);
 				imageData->release();
@@ -78,23 +79,23 @@ void ResourceLoader::onLoadImageThread(std::string img, std::function<void(cocos
 			return;
 		}
 	}
-	UIThread::getInstance()->runOnUI([=](){
+	GameLaucher::getInstance()->runOnUI([=](){
 		callback(0);
 	});
 }
 
 void ResourceLoader::onLoadSpriteFrameThread(std::string plist, cocos2d::Texture2D* texture, std::function<void(bool)> callback){
-	std::string fullpath = FileUtils::getInstance()->fullPathForFilename(plist);
-	Data data = FileUtils::getInstance()->getDataFromFile(fullpath);
+	std::string fullpath = EngineUtilsThreadSafe::getInstance()->fullPathForFilename(plist);
+	Data data = EngineUtilsThreadSafe::getInstance()->getFileData(fullpath);
 	if (!data.isNull()){
 		std::string plistContent(data.getBytes(), data.getBytes() + data.getSize());		
-		UIThread::getInstance()->runOnUI([=](){
+		GameLaucher::getInstance()->runOnUI([=](){
 			SpriteFrameCache::getInstance()->addSpriteFramesWithFileContent(plistContent, texture);
 			callback(true);
 		});
 		return;
 	}
-	UIThread::getInstance()->runOnUI([=](){
+	GameLaucher::getInstance()->runOnUI([=](){
 		callback(false);
 	});
 }

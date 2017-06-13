@@ -59,9 +59,6 @@ class GameLaucher {
 	void checkFiles();
 	void loadResource();
 	void loadScript();
-#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
-	void loadAndroidExt();
-#endif
 	void finishLaucher();
 	void onProcessStatus(int status);
 	void onLoadResourceProcess(int current, int max);
@@ -72,28 +69,13 @@ public:
 	void run();
 	void update(float dt);
 	void onUpdateDownloadProcess(int size);
+	void runOnUI(const std::function<void()>& handler);
 	
 	GameFile* getFile(const std::string& file);
 //	GameFile* getMainJs();
 	bool checkFileValidate(const std::string& file);
 
 	static GameLaucher* getInstance();
-};
-
-typedef std::function<void()> UIThreadRunnable;
-class UIThread{
-	std::queue<UIThreadRunnable> mQueue;
-	std::mutex _mutex;
-
-	UIThreadRunnable popEvent();
-public:
-	UIThread();
-	virtual ~UIThread();
-	
-	void runOnUI(const UIThreadRunnable& callback);
-	void update(float dt);
-
-	static UIThread* getInstance();
 };
 
 } /* namespace quyetnd */

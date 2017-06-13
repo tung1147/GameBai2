@@ -182,6 +182,7 @@ copy "$(ProjectDir)..\..\..\project.json" "$(OutDir)\" /Y</Command>
     <ClCompile Include="..\Classes\Action\ActionShake2D.cpp" />
     <ClCompile Include="..\Classes\Action\CustomAction.cpp" />
     <ClCompile Include="..\Classes\Action\jsb_quyetnd_action.cpp" />
+    <ClCompile Include="..\Classes\GameLaucher\EngineUtilsThreadSafe.cpp" />
     <ClCompile Include="..\Classes\GameLaucher\GameLaucher.cpp" />
     <ClCompile Include="..\Classes\GameLaucher\GameResource.cpp" />
     <ClCompile Include="..\Classes\GameLaucher\ResourceLoader.cpp" />
@@ -215,6 +216,7 @@ copy "$(ProjectDir)..\..\..\project.json" "$(OutDir)\" /Y</Command>
     <ClInclude Include="..\Classes\Action\ActionShake2D.h" />
     <ClInclude Include="..\Classes\Action\CustomAction.h" />
     <ClInclude Include="..\Classes\Action\jsb_quyetnd_action.hpp" />
+    <ClInclude Include="..\Classes\GameLaucher\EngineUtilsThreadSafe.h" />
     <ClInclude Include="..\Classes\GameLaucher\GameLaucher.h" />
     <ClInclude Include="..\Classes\GameLaucher\GameResource.h" />
     <ClInclude Include="..\Classes\GameLaucher\ResourceLoader.h" />

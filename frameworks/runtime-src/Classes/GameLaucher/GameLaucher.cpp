@@ -13,6 +13,7 @@
 #include "json/prettywriter.h"
 #include "../Plugin/SystemPlugin.h"
 #include "network/HttpClient.h"
+#include "EngineUtilsThreadSafe.h"
 #include "jsapi.h"
 #include "jsfriendapi.h"
 #include "scripting/js-bindings/manual/cocos2d_specifics.hpp"
@@ -68,8 +69,11 @@ GameLaucher::GameLaucher() {
 	// TODO Auto-generated constructor stub
 	versionFile = "version.json";
 	versionHash = "";
-//	jsMainFile = "js/main.js";
 	resourceHost = "http://sandbox.c567vip.com/quyetnd/testcrash/";
+}
+
+void GameLaucher::runOnUI(const std::function<void()>& handler){
+	Director::getInstance()->getScheduler()->performFunctionInCocosThread(handler);
 }
 
 GameLaucher::~GameLaucher() {
@@ -87,12 +91,12 @@ void GameLaucher::clear(){
 void GameLaucher::initLaucher(){
 	resourceLoader.processHandler = CC_CALLBACK_2(GameLaucher::onLoadResourceProcess, this);
 
-	std::string filePath = FileUtils::getInstance()->fullPathForFilename("version.json");
+	std::string filePath = EngineUtilsThreadSafe::getInstance()->fullPathForFilename("version.json");
 	if (filePath.empty()){
 		return;
 	}
 
-	Data d = FileUtils::getInstance()->getDataFromFile(filePath);
+	Data d = EngineUtilsThreadSafe::getInstance()->getFileData(filePath);
 	if (d.isNull()){
 		return;
 	}
@@ -133,7 +137,6 @@ void GameLaucher::run(){
 
 void GameLaucher::update(float dt){
 	resourceLoader.update(dt);
-	UIThread::getInstance()->update(dt);
 	if (status == GameLaucherStatus::LoadResource){
 		if (resourceLoader.isFinished()){
 			this->loadScript();
@@ -274,7 +277,7 @@ void GameLaucher::loadResource(){
 		return;
 	}
 
-	Data d = FileUtils::getInstance()->getDataFromFile(file->filePath);
+	Data d = EngineUtilsThreadSafe::getInstance()->getFileData(file->filePath);
 	if (d.isNull()){
 		CCLOG("resource Metafile NULL");
 		return;
@@ -321,61 +324,6 @@ void GameLaucher::loadScript(){
 	loadThread.detach();
 }
 
-#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
-void GameLaucher::loadAndroidExt(){
-	this->onProcessStatus(GameLaucherStatus::LoadAndroidExt);
-	auto file = this->getFile("jar/extension.json");
-	if (file){
-		Data d = FileUtils::getInstance()->getDataFromFile(file->filePath);
-		if (!d.isNull()){
-			char* data = (char*)d.getBytes();
-			ssize_t fileSize = d.getSize();
-			std::string buffer(data, data + fileSize);
-
-			rapidjson::Document doc;
-			bool error = doc.Parse<0>(buffer.data()).HasParseError();
-			if (!error){
-				for (int i = 0; i < doc.Size(); i++){
-					std::string jarFilePath = doc[i]["extFile"].GetString();
-					auto jarFile = this->getFile("jar/" + jarFilePath);
-					if (jarFile){
-						auto extFilePath = FileUtils::getInstance()->getWritablePath() + "Game/" + jarFile->fileName;
-						if (!FileUtils::getInstance()->isFileExist(extFilePath)){
-							Data d = FileUtils::getInstance()->getDataFromFile(jarFile->fileName);
-							if (d.isNull()){
-								CCLOG("not found android-ext: %s", jarFile->fileName.c_str());
-							}
-							else{
-								size_t n = extFilePath.find_last_of("/");
-								std::string parentFolder = extFilePath.substr(0, n);
-								if (!FileUtils::getInstance()->isDirectoryExist(parentFolder)){
-									FileUtils::getInstance()->createDirectory(parentFolder);
-								}
-								FileUtils::getInstance()->writeDataToFile(d, extFilePath);
-							}
-						}
-						SystemPlugin::getInstance()->androidLoadExtension(extFilePath);
-					}
-					else{
-						CCLOG("no JAR: %s", jarFilePath.c_str());
-					}
-				}
-			}
-			else{
-				CCLOG("parse android-ext metafile error");
-			}
-		}
-		else{
-			CCLOG("no android-ext metafile");
-		}	
-	}
-	else{
-		CCLOG("android no extension");
-	}
-	this->finishLaucher();
-}
-#endif
-
 void GameLaucher::finishLaucher(){
 	this->onProcessStatus(GameLaucherStatus::Finished);
 	Director::getInstance()->getScheduler()->unscheduleUpdate(this);
@@ -396,9 +344,9 @@ void GameLaucher::checkVersionFileThread(){
 
 	if (!versionFile.test()){
 		//int returnCode = versionFile.updateNoHandler(resourceHost + versionFile.fileName);
-        int returnCode = versionFile.update(resourceHost + versionFile.fileName, false);
+        int returnCode = versionFile.update(resourceHost + versionFile.fileName);
 		if (returnCode != 0){
-			UIThread::getInstance()->runOnUI([=](){
+			this->runOnUI([=](){
 				this->onProcessStatus(GameLaucherStatus::UpdateFailure);
 			});
 			return;
@@ -406,7 +354,7 @@ void GameLaucher::checkVersionFileThread(){
 	}
 
 	std::string filePath = versionFile.filePath;
-	UIThread::getInstance()->runOnUI([=](){
+	this->runOnUI([=](){
 		this->versionFile = filePath;
 		this->checkFiles();
 	});
@@ -416,7 +364,7 @@ void GameLaucher::checkFilesThread(){
 	this->clear();
 
 	std::vector<GameFile*> _resourceUpdate;
-	Data d = FileUtils::getInstance()->getDataFromFile(versionFile);
+	Data d = EngineUtilsThreadSafe::getInstance()->getFileData(versionFile);
 	char* data = (char*)d.getBytes();
 	ssize_t fileSize = d.getSize();
 
@@ -459,18 +407,18 @@ void GameLaucher::checkFilesThread(){
 		downloadCurrentValue = 0;
 		FileUtils::getInstance()->purgeCachedEntries();
 
-		UIThread::getInstance()->runOnUI([=](){
+		this->runOnUI([=](){
 			this->onProcessStatus(GameLaucherStatus::Updating);
 		});		
 		for (int i = 0; i < _resourceUpdate.size();){
-			auto pret = _resourceUpdate[i]->update(resourceHost + _resourceUpdate[i]->fileName, zipFileAvailable, [=](int bytes){
+			auto pret = _resourceUpdate[i]->update(resourceHost + _resourceUpdate[i]->fileName, [=](int bytes){
                 this->onUpdateDownloadProcess(bytes);
             });
 			if (pret == 0){
 				i++;
 			}
 			else{
-				UIThread::getInstance()->runOnUI([=](){
+				this->runOnUI([=](){
 					this->onProcessStatus(GameLaucherStatus::UpdateFailure);
 				});
 				if (pret == 2){ //error network -> retry
@@ -482,14 +430,14 @@ void GameLaucher::checkFilesThread(){
 	}
 
 	/*start loadResource*/
-	UIThread::getInstance()->runOnUI([=](){		
+	this->runOnUI([=](){
 		this->loadResource();
 	});
 }
 
 void GameLaucher::loadScriptMetaThread(){
 	auto scriptMetaFile = this->getFile("script.json");
-	Data data = FileUtils::getInstance()->getDataFromFile(scriptMetaFile->filePath);
+	Data data = EngineUtilsThreadSafe::getInstance()->getFileData(scriptMetaFile->filePath);
 	if (data.getSize() > 0){
 		std::vector<std::string> scripts;
 
@@ -503,7 +451,7 @@ void GameLaucher::loadScriptMetaThread(){
 			}
 		}
 
-		UIThread::getInstance()->runOnUI([=](){
+		this->runOnUI([=](){
 			auto sc = ScriptingCore::getInstance();
 			auto cx = sc->getGlobalContext();
 			auto rootObject = sc->getGlobalObject();
@@ -514,19 +462,15 @@ void GameLaucher::loadScriptMetaThread(){
 				JS::RootedValue returnValue(cx);
 				sc->requireScript(scripts[i].c_str(), globalObj, cx, &returnValue);
 			}
-#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
-			this->loadAndroidExt();
-#else
-			this->finishLaucher();
-#endif
-			
+
+			this->finishLaucher();			
 		});
 	}
 }
 
 /*event*/
 void GameLaucher::onUpdateDownloadProcess(int size){
-	UIThread::getInstance()->runOnUI([=](){
+	this->runOnUI([=](){
 		downloadCurrentValue += size;
 
 		//call js event running scene;
@@ -626,45 +570,6 @@ GameLaucher* GameLaucher::getInstance(){
 		s_GameLaucher->initLaucher();
 	}
 	return s_GameLaucher;
-}
-
-/****/
-UIThread::UIThread(){
-
-}
-UIThread::~UIThread(){
-
-}
-
-UIThreadRunnable UIThread::popEvent(){
-	std::unique_lock<std::mutex> lk(_mutex);
-	if (!mQueue.empty()){
-		auto ev = mQueue.front();
-		mQueue.pop();
-		return ev;
-	}
-	return nullptr;
-}
-
-void UIThread::runOnUI(const std::function<void()>& callback){
-	std::unique_lock<std::mutex> lk(_mutex);
-	mQueue.push(callback);
-}
-
-void UIThread::update(float dt){
-	auto ev = this->popEvent();
-	while (ev){
-		ev();
-		ev = this->popEvent();
-	}
-}
-
-static UIThread* s_UIThread = 0;
-UIThread* UIThread::getInstance(){
-	if (!s_UIThread){
-		s_UIThread = new UIThread();
-	}
-	return s_UIThread;
 }
 
 

@@ -166,8 +166,8 @@ const std::string& ValueJson::getJSON(){
 	return jsonStr;
 }
 
-DictValue* ValueJson::getValue(){
-	return (DictValue*)value;
+Value* ValueJson::getValue(){
+	return value;
 }
 
 void ValueJson::initWithJson(const std::string& json){
