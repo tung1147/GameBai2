@@ -36,25 +36,28 @@ var MessageDialog = Dialog.extend({
             textAlignment = cc.TEXT_ALIGNMENT_CENTER;
         }
         this.scrollView.removeAllItems();
-        var messageLabel = new cc.LabelTTF(message, cc.res.font.Roboto_Condensed, 25, cc.size(this.scrollView.getContentSize().width - 10, 0), textAlignment);
-        //cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, message, cc.TEXT_ALIGNMENT_CENTER, this.scrollView.getContentSize().width - 10);
+        // var messageLabel = new cc.LabelTTF(message, cc.res.font.Roboto_Condensed, 22, cc.size(this.scrollView.getContentSize().width - 10, 0), textAlignment);
+        var messageLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, message, textAlignment, this.scrollView.getContentSize().width - 10);
 
         var height = messageLabel.getContentSize().height + 20.0;
+
         if(height <= this.scrollView.getContentSize().height){
-            height = this.scrollView.getContentSize().height;
             this.scrollView.setEnabled(false);
+            messageLabel.setAnchorPoint(cc.p(0.5, 1.0));
+            messageLabel.setPosition(cc.p(this.getContentSize().width/2, this.getContentSize().height - 80));
+            this.addChild(messageLabel);
         }
-        else{
+        else
+        {
             this.scrollView.setEnabled(true);
             this.scrollHeight = height - this.scrollView.getContentSize().height;
             this.startAutoScroll(4.0);
+            var container = new ccui.Widget();
+            container.setContentSize(cc.size(this.scrollView.getContentSize().width - 10, height));
+            container.addChild(messageLabel);
+            messageLabel.setPosition(container.getContentSize().width/2, container.getContentSize().height/2);
+            this.scrollView.pushBackCustomItem(container);
         }
-
-        var container = new ccui.Widget();
-        container.setContentSize(cc.size(this.scrollView.getContentSize().width - 10, height));
-        container.addChild(messageLabel);
-        messageLabel.setPosition(container.getContentSize().width/2, container.getContentSize().height/2);
-        this.scrollView.pushBackCustomItem(container);
     },
     
     startAutoScroll : function (delayTime) {
@@ -75,8 +78,7 @@ var MessageConfirmDialog = Dialog.extend({
         this.closeButton.visible = true;
         this.okTitle.setString("Đồng ý");
         this.cancelTitle.setString("Huỷ");
-
-        var messageLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "message", cc.TEXT_ALIGNMENT_CENTER, 550);
+        var messageLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "message", cc.TEXT_ALIGNMENT_CENTER, 550);
         messageLabel.setPosition(this.getContentSize().width/2, this.getContentSize().height/2);
         this.addChild(messageLabel);
         this.messageLabel = messageLabel;
