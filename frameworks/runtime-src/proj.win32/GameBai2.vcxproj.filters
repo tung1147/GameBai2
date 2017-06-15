@@ -121,6 +121,12 @@
     <ClCompile Include="..\Classes\NewGUI\ListViewWithAdapter.cpp">
       <Filter>Classes\NewGUI</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\GameLaucher\EngineUtilsThreadSafe.cpp">
+      <Filter>Classes\GameLaucher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plugin\HttpFileDownloader.cpp">
+      <Filter>Classes\Plugin</Filter>
+    </ClCompile>
     <ClCompile Include="..\Classes\GameLaucher\WorkerManager.cpp">
       <Filter>Classes\GameLaucher</Filter>
     </ClCompile>
@@ -219,6 +225,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\NewGUI\ListViewWithAdapter.h">
       <Filter>Classes\NewGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameLaucher\EngineUtilsThreadSafe.h">
+      <Filter>Classes\GameLaucher</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plugin\HttpFileDownloader.h">
+      <Filter>Classes\Plugin</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\GameLaucher\WorkerManager.h">
       <Filter>Classes\GameLaucher</Filter>

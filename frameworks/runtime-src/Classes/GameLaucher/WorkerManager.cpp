@@ -7,6 +7,38 @@
 
 #include "WorkerManager.h"
 
+WorkerTicket::WorkerTicket(int count){
+	_count = count;
+	_success = _count;
+	finishedCallback = nullptr;
+}
+
+WorkerTicket::~WorkerTicket(){
+
+}
+
+void WorkerTicket::done(bool sucess){
+	_count_mutex.lock();
+	_count--;
+	if (sucess){
+		_success--;
+	}
+	if (_count <= 0){
+		_count_mutex.unlock();
+		if (finishedCallback){
+			finishedCallback(_success == 0);
+		}
+		delete this;
+		return;
+	}
+	_count_mutex.unlock();
+}
+
+WorkerTicket* WorkerTicket::create(int count){
+	auto ticker = new WorkerTicket(count);
+	return ticker;
+}
+
 static WorkerManager* s_WorkerManager = 0;
 WorkerManager* WorkerManager::getInstance(){
 	if (!s_WorkerManager){
@@ -56,7 +88,6 @@ void WorkerManager::runActionThread(){
 			break;
 		}
 	} while (true);
-	//CCLOG("worker end");
 }
 
 void WorkerManager::start(int thread){

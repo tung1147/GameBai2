@@ -9,6 +9,7 @@
 #define COMMON_RESOURCELOADER_H_
 
 #include "cocos2d.h"
+#include "WorkerManager.h"
 USING_NS_CC;
 
 namespace quyetnd {
@@ -36,7 +37,6 @@ enum ResourceLoaderStep{
 };
 
 typedef std::function<void(int, int)> LoaderProcessHandler;
-//typedef std::function<void()> LoadResourcesAction;
 
 class ResourceLoader : public Ref{
 	std::vector<TextureData> _preLoad;
@@ -45,12 +45,6 @@ class ResourceLoader : public Ref{
 
 	std::vector<std::string> _preloadSound;
 	std::vector<std::string> _unloadSound;
-//
-	std::mutex fileUtilsMutex;
-
-	//std::queue<std::function<void()>> _actions;
-	//std::mutex _actionsMutex;
-	//std::condition_variable _actions_condition_variable;
 
 	int index;
 	ResourceLoaderStep step;
@@ -58,20 +52,14 @@ class ResourceLoader : public Ref{
 	int targetStep;
 	int currentStep;
 
-	void loadTexture(const std::string& img, std::function<void(cocos2d::Texture2D*)> callback);
 	void onProcessLoader();
 
-	//LoadResourcesAction takeAction();
-	//void pushAction(const LoadResourcesAction& action);
-	//void runActionThread();
+	void onLoadImageThread(std::string img, std::function<void(cocos2d::Texture2D*)> callback);
+	void onLoadSpriteFrameThread(std::string plist, cocos2d::Texture2D* texture, std::function<void(bool)> callback);
 
-	void loadTextureAction(const std::string& img, const std::string& plist);
-	void loadSpriteAction(cocos2d::Texture2D* tex, const std::string& plist);
-	void onLoadTextureSuccess();
-
-	void loadBitmapAction(const std::string& img, const std::string& fnt);
-	void onLoadBitmapSuccess();
-	//std::string getFullPath(const std::string& fileName);
+	void runOnUI(const std::function<void()>& runable);
+	void loadTexture(std::string img, std::string plist, WorkerTicket* ticket);
+	void loadSpriteFrame(Texture2D* tex, std::string plist, WorkerTicket* ticket);
 public:
 	bool running;
 	std::function<void(int, int)> processHandler;

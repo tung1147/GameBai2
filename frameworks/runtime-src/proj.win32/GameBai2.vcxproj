@@ -182,6 +182,7 @@ copy "$(ProjectDir)..\..\..\project.json" "$(OutDir)\" /Y</Command>
     <ClCompile Include="..\Classes\Action\ActionShake2D.cpp" />
     <ClCompile Include="..\Classes\Action\CustomAction.cpp" />
     <ClCompile Include="..\Classes\Action\jsb_quyetnd_action.cpp" />
+    <ClCompile Include="..\Classes\GameLaucher\EngineUtilsThreadSafe.cpp" />
     <ClCompile Include="..\Classes\GameLaucher\GameLaucher.cpp" />
     <ClCompile Include="..\Classes\GameLaucher\GameResource.cpp" />
     <ClCompile Include="..\Classes\GameLaucher\ResourceLoader.cpp" />
@@ -196,6 +197,7 @@ copy "$(ProjectDir)..\..\..\project.json" "$(OutDir)\" /Y</Command>
     <ClCompile Include="..\Classes\Plugin\CRC32.cpp" />
     <ClCompile Include="..\Classes\Plugin\crypt_aes.cpp" />
     <ClCompile Include="..\Classes\Plugin\FacebookPlugin.cpp" />
+    <ClCompile Include="..\Classes\Plugin\HttpFileDownloader.cpp" />
     <ClCompile Include="..\Classes\Plugin\jsb_quyetnd_facebook_plugin.cpp" />
     <ClCompile Include="..\Classes\Plugin\jsb_quyetnd_resourcedownloader.cpp" />
     <ClCompile Include="..\Classes\Plugin\jsb_quyetnd_systemplugin.cpp" />
@@ -216,6 +218,7 @@ copy "$(ProjectDir)..\..\..\project.json" "$(OutDir)\" /Y</Command>
     <ClInclude Include="..\Classes\Action\ActionShake2D.h" />
     <ClInclude Include="..\Classes\Action\CustomAction.h" />
     <ClInclude Include="..\Classes\Action\jsb_quyetnd_action.hpp" />
+    <ClInclude Include="..\Classes\GameLaucher\EngineUtilsThreadSafe.h" />
     <ClInclude Include="..\Classes\GameLaucher\GameLaucher.h" />
     <ClInclude Include="..\Classes\GameLaucher\GameResource.h" />
     <ClInclude Include="..\Classes\GameLaucher\ResourceLoader.h" />
@@ -230,6 +233,7 @@ copy "$(ProjectDir)..\..\..\project.json" "$(OutDir)\" /Y</Command>
     <ClInclude Include="..\Classes\Plugin\CRC32.h" />
     <ClInclude Include="..\Classes\Plugin\crypt_aes.h" />
     <ClInclude Include="..\Classes\Plugin\FacebookPlugin.h" />
+    <ClInclude Include="..\Classes\Plugin\HttpFileDownloader.h" />
     <ClInclude Include="..\Classes\Plugin\jsb_quyetnd_facebook_plugin.hpp" />
     <ClInclude Include="..\Classes\Plugin\jsb_quyetnd_resourcedownloader.hpp" />
     <ClInclude Include="..\Classes\Plugin\jsb_quyetnd_systemplugin.hpp" />

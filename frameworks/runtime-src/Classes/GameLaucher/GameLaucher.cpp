@@ -13,10 +13,14 @@
 #include "json/prettywriter.h"
 #include "../Plugin/SystemPlugin.h"
 #include "network/HttpClient.h"
+#include "EngineUtilsThreadSafe.h"
 #include "jsapi.h"
 #include "jsfriendapi.h"
 #include "scripting/js-bindings/manual/cocos2d_specifics.hpp"
 #include "WorkerManager.h"
+#include "../Plugin/HttpFileDownloader.h"
+
+//
 
 static unsigned char aes_key[16] = { 0x33, 0x5a, 0x35, 0x16, 0x96, 0xff, 0xe8, 0x20, 0xa1, 0x62, 0x16, 0xbe, 0x77, 0x6a, 0x4e, 0xea };
 std::string _createJsonConfig(const std::map<std::string, std::string>& params){
@@ -60,27 +64,6 @@ std::string _URLEncode(const std::string& data){
 	}
 	return pRet;
 }
-//inline bool _isxdigit(char c){
-//	if ('0' <= c && c <= '9'){
-//		return true;
-//	}
-//	if ('a' <= c && c <= 'f'){
-//		return true;
-//	}
-//	if ('A' <= c && c <= 'F'){
-//		return true;
-//	}
-//	return false;
-//}
-//char _charxtoint(char c){
-//	if ('0' <= c && c <= '9'){
-//		return (c - '0');
-//	}
-//	if ('a' <= c && c <= 'f'){
-//		return (c - 'a' + 10);
-//	}
-//	return (c - 'A' + 10);
-//}
 
 namespace quyetnd {
 
@@ -88,11 +71,11 @@ GameLaucher::GameLaucher() {
 	// TODO Auto-generated constructor stub
 	versionFile = "version.json";
 	versionHash = "";
-//	jsMainFile = "js/main.js";
-    resourceHost = "";
-	//resourceHost = "https://c567vip.com/demo/mobile/";
-	//resourceHost = "http://sandbox.c567vip.com/tuyennc/mobile/";
-	//resourceHost = "http://sandbox.c567vip.com/tampn/mobile/";
+	resourceHost = "http://sandbox.c567vip.com/quyetnd/testcrash/";
+}
+
+void GameLaucher::runOnUI(const std::function<void()>& handler){
+	Director::getInstance()->getScheduler()->performFunctionInCocosThread(handler);
 }
 
 GameLaucher::~GameLaucher() {
@@ -109,55 +92,6 @@ void GameLaucher::clear(){
 
 void GameLaucher::initLaucher(){
 	resourceLoader.processHandler = CC_CALLBACK_2(GameLaucher::onLoadResourceProcess, this);
-
-	std::string filePath = FileUtils::getInstance()->fullPathForFilename("version.json");
-	if (filePath.empty()){
-		return;
-	}
-
-	Data d = FileUtils::getInstance()->getDataFromFile(filePath);
-	if (d.isNull()){
-		return;
-	}
-	char* data = (char*)d.getBytes();
-	ssize_t fileSize = d.getSize();
-	std::string buffer(data, data + fileSize);
-
-	rapidjson::Document doc;
-	bool error = doc.Parse<0>(buffer.data()).HasParseError();
-	if (!error){
-		const rapidjson::Value& files = doc["files"];
-		for (int i = 0; i < files.Size(); i++){
-			const rapidjson::Value& fileData = files[i];
-
-			std::string fileName = fileData["file"].GetString();
-			std::string md5Digest = fileData["hash"].GetString();
-			std::transform(md5Digest.begin(), md5Digest.end(), md5Digest.begin(), ::tolower);
-			int fileSize = fileData["size"].GetUint();
-			GameFile* resource = new GameFile(fileName, md5Digest, fileSize);
-
-			_allResources.insert(std::make_pair(fileName, resource));
-		}
-	}
-}
-
-void GameLaucher::run(){
-	this->onProcessStatus(GameLaucherStatus::GetUpdate);
-	WorkerManager::getInstance()->start(4);
-	//clear all
-	this->clear();
-	this->requestGetUpdate();
-	Director::getInstance()->getScheduler()->scheduleUpdate(this, 0, false);
-}
-
-void GameLaucher::update(float dt){
-	resourceLoader.update(dt);
-	UIThread::getInstance()->update(dt);
-	if (status == GameLaucherStatus::LoadResource){
-		if (resourceLoader.isFinished()){
-			this->loadScript();
-		}
-	}
 }
 
 /*acs config*/
@@ -212,8 +146,8 @@ void GameLaucher::requestGetUpdate(){
 				if (doc.HasMember("data")){
 					const rapidjson::Value& data = doc["data"];
 					if (data.HasMember("UpdateConfig")){
-                        const rapidjson::Value& config = data["UpdateConfig"];
-                        
+						const rapidjson::Value& config = data["UpdateConfig"];
+
 						std::string updateHost = config["host"].GetString();
 						std::string versionHash = config["versionHash"].GetString();
 						bool isInReview = false;
@@ -228,7 +162,7 @@ void GameLaucher::requestGetUpdate(){
 						this->versionHash = versionHash;
 
 						if (isInReview){ //review
-                            FileUtils::getInstance()->setSearchPaths({"res/Game/","src/"});
+							FileUtils::getInstance()->setSearchPaths({ "res/Game/", "src/" });
 
 							if (FileUtils::getInstance()->isFileExist("version.json")){ //ignore if version.json exist
 								CCLOG("load resource internal");
@@ -237,7 +171,7 @@ void GameLaucher::requestGetUpdate(){
 							else{
 								CCLOG("is demo not exist version.json -> load resource from host");
 								std::string externalPath = FileUtils::getInstance()->getWritablePath() + "Game/";
-								FileUtils::getInstance()->setSearchPaths({externalPath, "res/Game/"});
+								FileUtils::getInstance()->setSearchPaths({ externalPath, "res/Game/" });
 								FileUtils::getInstance()->addSearchPath("src/", false);
 								this->checkVersionFile();
 							}
@@ -248,12 +182,12 @@ void GameLaucher::requestGetUpdate(){
 						}
 						return;
 					}
-				}		
+				}
 			}
 			else{
 				CCLOG("ACS error getConfig");
 			}
-			
+
 		}
 		else{
 			CCLOG("ACS error network");
@@ -272,6 +206,24 @@ void GameLaucher::requestGetUpdate(){
 #endif
 }
 
+void GameLaucher::run(){
+	this->onProcessStatus(GameLaucherStatus::GetUpdate);
+	//clear all
+	this->clear();
+	this->requestGetUpdate();
+	Director::getInstance()->getScheduler()->scheduleUpdate(this, 0, false);
+	WorkerManager::getInstance()->start(4);
+}
+
+void GameLaucher::update(float dt){
+	resourceLoader.update(dt);
+	if (status == GameLaucherStatus::LoadResource){
+		if (resourceLoader.isFinished()){
+			this->loadScript();
+		}
+	}
+}
+
 void GameLaucher::checkVersionFile(){
 	this->onProcessStatus(GameLaucherStatus::TestVersion);
 	WorkerManager::getInstance()->pushAction([=](){
@@ -286,21 +238,62 @@ void GameLaucher::checkFiles(){
 	});
 }
 
+void GameLaucher::updateResources(std::vector<GameFile*>* resUpdate){
+	if (resUpdate->size() > 0){
+		downloadCurrentValue = 0;
+		downloadMaxValue = 0;
+
+		for (int i = 0; i < resUpdate->size(); i++){
+			auto res = resUpdate->at(i);
+			downloadMaxValue += res->fileSize;
+		}
+
+		auto ticket = WorkerTicket::create(resUpdate->size());
+		ticket->finishedCallback = [=](bool success){ //update ok
+			/*start loadResource*/
+			this->runOnUI([=](){
+				FileUtils::getInstance()->purgeCachedEntries();
+				this->loadResource();
+			});
+		};
+
+		this->runOnUI([=](){
+			this->onProcessStatus(GameLaucherStatus::Updating);
+		});
+
+		for (int i = 0; i < resUpdate->size(); i++){
+			auto res = resUpdate->at(i);
+			res->update(resourceHost + res->fileName, 
+			[=](int bytes){
+				this->onUpdateDownloadProcess(bytes);
+			}, 
+			[=](int returnCode){
+				ticket->done(returnCode == 0);
+				if (returnCode != 0){
+					this->runOnUI([=](){
+						this->onProcessStatus(GameLaucherStatus::UpdateFailure);
+					});
+				}
+			});
+		}
+	}
+	else{
+		/*start loadResource*/
+		this->runOnUI([=](){
+			this->loadResource();
+		});
+	}
+}
 
 void GameLaucher::loadResource(){
 	this->onProcessStatus(GameLaucherStatus::LoadResource);
-
-	for (auto it = _allResources.begin(); it != _allResources.end(); it++){
-		it->second->getFullPath();
-	}
-
 	GameFile* file = this->getFile("resources.json");
 	if (!file){
 		CCLOG("load resource failure");
 		return;
 	}
 
-	Data d = FileUtils::getInstance()->getDataFromFile(file->fullPath);
+	Data d = EngineUtilsThreadSafe::getInstance()->getFileData(file->filePath);
 	if (d.isNull()){
 		CCLOG("resource Metafile NULL");
 		return;
@@ -348,102 +341,55 @@ void GameLaucher::loadScript(){
 	});
 }
 
-#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
-void GameLaucher::loadAndroidExt(){
-	//this->onProcessStatus(GameLaucherStatus::LoadAndroidExt);
-	//auto file = this->getFile("jar/extension.json");
-	//if (file){
-	//	Data d = FileUtils::getInstance()->getDataFromFile(file->filePath);
-	//	if (!d.isNull()){
-	//		char* data = (char*)d.getBytes();
-	//		ssize_t fileSize = d.getSize();
-	//		std::string buffer(data, data + fileSize);
-
-	//		rapidjson::Document doc;
-	//		bool error = doc.Parse<0>(buffer.data()).HasParseError();
-	//		if (!error){
-	//			for (int i = 0; i < doc.Size(); i++){
-	//				std::string jarFilePath = doc[i]["extFile"].GetString();
-	//				auto jarFile = this->getFile("jar/" + jarFilePath);
-	//				if (jarFile){
-	//					auto extFilePath = FileUtils::getInstance()->getWritablePath() + "Game/" + jarFile->fileName;
-	//					if (!FileUtils::getInstance()->isFileExist(extFilePath)){
-	//						Data d = FileUtils::getInstance()->getDataFromFile(jarFile->fileName);
-	//						if (d.isNull()){
-	//							CCLOG("not found android-ext: %s", jarFile->fileName.c_str());
-	//						}
-	//						else{
-	//							size_t n = extFilePath.find_last_of("/");
-	//							std::string parentFolder = extFilePath.substr(0, n);
-	//							if (!FileUtils::getInstance()->isDirectoryExist(parentFolder)){
-	//								FileUtils::getInstance()->createDirectory(parentFolder);
-	//							}
-	//							FileUtils::getInstance()->writeDataToFile(d, extFilePath);
-	//						}
-	//					}
-	//					SystemPlugin::getInstance()->androidLoadExtension(extFilePath);
-	//				}
-	//				else{
-	//					CCLOG("no JAR: %s", jarFilePath.c_str());
-	//				}
-	//			}
-	//		}
-	//		else{
-	//			CCLOG("parse android-ext metafile error");
-	//		}
-	//	}
-	//	else{
-	//		CCLOG("no android-ext metafile");
-	//	}	
-	//}
-	//else{
-	//	CCLOG("android no extension");
-	//}
-	//this->finishLaucher();
-}
-#endif
-
 void GameLaucher::finishLaucher(){
-	WorkerManager::getInstance()->stop();
 	this->onProcessStatus(GameLaucherStatus::Finished);
 	Director::getInstance()->getScheduler()->unscheduleUpdate(this);
+	WorkerManager::getInstance()->stop();
 }
 
 /*thread*/
 void GameLaucher::checkVersionFileThread(){
-
+	GameFile versionFile;
+	versionFile.fileName = "version.json";
 #ifdef FORCE_UPDATE
-	GameFile versionFile("version.json", "", 0);
+	versionFile.md5Digest = "";
+	versionFile.fileSize = 0;
 #else
-	std::transform(versionHash.begin(), versionHash.end(), versionHash.begin(), ::tolower);
-	GameFile versionFile("version.json", versionHash, 0);
+	versionFile.md5Digest = versionHash;
+	std::transform(versionFile.md5Digest.begin(), versionFile.md5Digest.end(), versionFile.md5Digest.begin(), ::tolower);
+	versionFile.fileSize = 0;
 #endif
 
 	if (!versionFile.test()){
-		//int returnCode = versionFile.updateNoHandler(resourceHost + versionFile.fileName);
-		FileUtils::getInstance()->purgeCachedEntries();
-        int returnCode = versionFile.update(resourceHost, false);
-		if (returnCode != 0){
-			UIThread::getInstance()->runOnUI([=](){
-				this->onProcessStatus(GameLaucherStatus::UpdateFailure);
-			});
-			return;
-		}
+		versionFile.update(resourceHost + versionFile.fileName, nullptr, [=](int returnCode){
+			if (returnCode != 0){
+				this->runOnUI([=](){
+					this->onProcessStatus(GameLaucherStatus::UpdateFailure);
+				});
+			}
+			else{
+				std::string filePath = versionFile.filePath;
+				this->runOnUI([=](){
+					this->versionFile = filePath;
+					this->checkFiles();
+				});
+			}
+		});
 	}
-
-	versionFile.getFullPath();
-	std::string filePath = versionFile.fullPath;
-	UIThread::getInstance()->runOnUI([=](){
-		this->versionFile = filePath;
-		this->checkFiles();
-	});
+	else{
+		std::string filePath = versionFile.filePath;
+		this->runOnUI([=](){
+			this->versionFile = filePath;
+			this->checkFiles();
+		});
+	}
 }
 
 void GameLaucher::checkFilesThread(){
 	this->clear();
-	_resourceUpdate.clear();
-	
-	Data d = FileUtils::getInstance()->getDataFromFile(versionFile);
+
+	std::vector<GameFile*> _resourceUpdate;
+	Data d = EngineUtilsThreadSafe::getInstance()->getFileData(versionFile);
 	char* data = (char*)d.getBytes();
 	ssize_t fileSize = d.getSize();
 
@@ -461,96 +407,39 @@ void GameLaucher::checkFilesThread(){
 	for (int i = 0; i < files.Size(); i++){
 		const rapidjson::Value& fileData = files[i];
 
-		
-		std::string fileName = fileData["file"].GetString();
-		std::string md5Digest = fileData["hash"].GetString();
-		std::transform(md5Digest.begin(), md5Digest.end(), md5Digest.begin(), ::tolower);
-		int fileSize = fileData["size"].GetUint();
-		GameFile* resource = new GameFile(fileName, md5Digest, fileSize);
+		GameFile* resource = new GameFile();
+		resource->fileName = fileData["file"].GetString();
+		resource->md5Digest = fileData["hash"].GetString();
+		std::transform(resource->md5Digest.begin(), resource->md5Digest.end(), resource->md5Digest.begin(), ::tolower);
+		resource->fileSize = fileData["size"].GetUint();
 
-		_allResources.insert(std::make_pair(fileName, resource));
+		_allResources.insert(std::make_pair(resource->fileName, resource));
 	}
 
-	stepIndex = 0;
-	stepTarget = _allResources.size();
+	auto updateRes = new std::vector<GameFile*>();
+	auto ticket = WorkerTicket::create(_allResources.size());
+	ticket->finishedCallback = [=](bool){
+		this->updateResources(updateRes);
+		delete updateRes;
+	};
 
-	downloadMaxValue = 0;
 	for (auto it = _allResources.begin(); it != _allResources.end(); it++){
-		auto res = it->second;
+		auto file = it->second;
 		WorkerManager::getInstance()->pushAction([=](){
-			auto ret = res->test();
-			UIThread::getInstance()->runOnUI([=](){
-				if (ret){
-					CCLOG("HASH true: %s", res->fullPath.c_str());
-				}
-				else{
-					CCLOG("HASH false: %s", res->fullPath.c_str());
-					downloadMaxValue += res->fileSize;
-					_resourceUpdate.push_back(res);
-				}
-				stepIndex++;
-				if (stepIndex >= stepTarget){
-					this->updateResources();
-					CCLOG("done");
-				}
-			});	
-		});
-	}
-}
-
-void GameLaucher::updateResources(){
-	if (_resourceUpdate.size() == 0){
-		UIThread::getInstance()->runOnUI([=](){		
-			this->loadResource();
-		});
-		return;
-	}
-
-	bool zipFileAvailable = false;
-	FileUtils::getInstance()->purgeCachedEntries();
-	UIThread::getInstance()->runOnUI([=](){
-		this->onProcessStatus(GameLaucherStatus::Updating);
-	});	
-
-	stepIndex = 0;
-	stepTarget = _resourceUpdate.size();
-	downloadCurrentValue = 0;
-
-	for (int i = 0; i < _resourceUpdate.size();i++){
-		auto res = _resourceUpdate[i];
-		WorkerManager::getInstance()->pushAction([=](){
-			while (true){
-				auto pret = res->update(resourceHost, zipFileAvailable, [=](int bytes){
-					CCLOG("b: %d", bytes);
-					this->onUpdateDownloadProcess(bytes);
-				});
-				UIThread::getInstance()->runOnUI([=](){
-					if (pret == 0){
-						CCLOG("UPDATE OK: %s", res->fullPath.c_str());
-						stepIndex++;
-						if (stepIndex >= stepTarget){
-                            this->resourceHost = "";
-							this->loadResource();
-						}
-					}
-					else{
-						this->onProcessStatus(GameLaucherStatus::UpdateFailure);
-					}
-				});
-				if (pret == 2){ //error network -> retry
-					std::this_thread::sleep_for(std::chrono::milliseconds(1000)); // 1000s
-				}
-				else{
-					break;
-				}
+			if (file->test()){
+				CCLOG("HASH true: %s", file->filePath.c_str());
 			}
+			else{
+				updateRes->push_back(file);
+			}
+			ticket->done(true);
 		});
 	}
 }
 
 void GameLaucher::loadScriptMetaThread(){
 	auto scriptMetaFile = this->getFile("script.json");
-	Data data = FileUtils::getInstance()->getDataFromFile(scriptMetaFile->fullPath);
+	Data data = EngineUtilsThreadSafe::getInstance()->getFileData(scriptMetaFile->filePath);
 	if (data.getSize() > 0){
 		std::vector<std::string> scripts;
 
@@ -564,7 +453,7 @@ void GameLaucher::loadScriptMetaThread(){
 			}
 		}
 
-		UIThread::getInstance()->runOnUI([=](){
+		this->runOnUI([=](){
 			auto sc = ScriptingCore::getInstance();
 			auto cx = sc->getGlobalContext();
 			auto rootObject = sc->getGlobalObject();
@@ -583,9 +472,8 @@ void GameLaucher::loadScriptMetaThread(){
 
 /*event*/
 void GameLaucher::onUpdateDownloadProcess(int size){
-	UIThread::getInstance()->runOnUI([=](){
+	this->runOnUI([=](){
 		downloadCurrentValue += size;
-		CCLOG("a: %d", downloadCurrentValue);
 
 		//call js event running scene;
 		auto scene = Director::getInstance()->getRunningScene();
@@ -684,45 +572,6 @@ GameLaucher* GameLaucher::getInstance(){
 		s_GameLaucher->initLaucher();
 	}
 	return s_GameLaucher;
-}
-
-/****/
-UIThread::UIThread(){
-
-}
-UIThread::~UIThread(){
-
-}
-
-UIThreadRunnable UIThread::popEvent(){
-	std::unique_lock<std::mutex> lk(_mutex);
-	if (!mQueue.empty()){
-		auto ev = mQueue.front();
-		mQueue.pop();
-		return ev;
-	}
-	return nullptr;
-}
-
-void UIThread::runOnUI(const std::function<void()>& callback){
-	std::unique_lock<std::mutex> lk(_mutex);
-	mQueue.push(callback);
-}
-
-void UIThread::update(float dt){
-	auto ev = this->popEvent();
-	while (ev){
-		ev();
-		ev = this->popEvent();
-	}
-}
-
-static UIThread* s_UIThread = 0;
-UIThread* UIThread::getInstance(){
-	if (!s_UIThread){
-		s_UIThread = new UIThread();
-	}
-	return s_UIThread;
 }
 
 

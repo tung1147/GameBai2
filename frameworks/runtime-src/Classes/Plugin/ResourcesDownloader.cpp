@@ -6,8 +6,9 @@
  */
 
 #include "ResourcesDownloader.h"
+#include "../GameLaucher/EngineUtilsThreadSafe.h"
 #include "MD5.h"
-#include <curl/curl.h>
+#include "HttpFileDownloader.h"
 
 #define RESOURCES_CACHE_DIR "res_cache/"
 
@@ -56,7 +57,7 @@ void Resources::addData(unsigned char* data, int size){
 }
 
 void Resources::loadFromCache(){
-	Data d = FileUtils::getInstance()->getDataFromFile(_cacheFileName);
+	Data d = EngineUtilsThreadSafe::getInstance()->getFileData(_cacheFileName);
 	if (!d.isNull()){
 		_buffer.assign(d.getBytes(), d.getBytes() + d.getSize());
 	}
@@ -83,49 +84,32 @@ size_t _Resources_Downloader_write_data_handler(void *ptr, size_t size, size_t n
 void Resources::loadFromUrl(){
 	_buffer.clear();
 
-	CURL *curl;
-	CURLcode res;
-	curl = curl_easy_init();
-	if (curl != NULL) {
-		FILE *fp = NULL;
-		if (this->_isCache){
-			fp = fopen(_cacheFileName.c_str(), "wb");
-		}
-		
-		ResourcesDownload writeData;
-		writeData.file = fp;
-		writeData.resources = this;
-
-		curl_easy_setopt(curl, CURLOPT_URL, _url.c_str());
-		curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, true);
-		curl_easy_setopt(curl, CURLOPT_AUTOREFERER, true);
-		curl_easy_setopt(curl, CURLOPT_MAXREDIRS, 10);
-		curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, 120);
-		curl_easy_setopt(curl, CURLOPT_TIMEOUT, 120);
-		curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, false);
-		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, _Resources_Downloader_write_data_handler);
-		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &writeData);
-		res = curl_easy_perform(curl);
-		curl_easy_cleanup(curl);
-
-		if (fp){
-			fclose(fp);
-		}	
-		if (res != CURLE_OK) {
-			_buffer.clear();
-		}
-
-		if (_buffer.size() == 0){
-			remove(_cacheFileName.c_str());
-		}
+	std::string filename = "";
+	if (this->_isCache){
+		filename = _cacheFileName;
 	}
+	auto request = new quyetnd::DownloadRequest(_url, filename);
+	request->processCallback = [=](unsigned char* data, size_t size){
+		this->addData(data, size);
+	};
+	request->finishedCallback = [=](int returnCode){
+		if (returnCode == 0){
+				
+		}
+		else{
+			_buffer.clear();
+			if (!filename.empty()){
+				remove(filename.c_str());
+			}
+		}
 
-	//finished
-	this->onLoadResourcePreFinished();
-	Director::getInstance()->getScheduler()->performFunctionInCocosThread([=](){
-		this->onLoadResourceFinished();
-		this->invokeCallback();
-	});
+		this->onLoadResourcePreFinished();
+		Director::getInstance()->getScheduler()->performFunctionInCocosThread([=](){
+			this->onLoadResourceFinished();
+			this->invokeCallback();
+		});
+	};
+	quyetnd::HttpFileDownloader::getInstance()->addRequest(request);
 }
 
 void Resources::loadResources(){
