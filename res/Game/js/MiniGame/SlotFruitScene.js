@@ -128,6 +128,24 @@ var SlotFruit = SlotLayer.extend({
         }
 
     },
+    initRandom:function () {
+        this.clearAll();
+        for (var i = 0; i < 5; i++) { // cot
+
+            var subItem = [];
+            for (var j = 0 ; j < 4; j++) { // hang
+                var randomItem = Math.floor(Math.random()*6);
+                var item = this.newItem(randomItem);
+                item.createItem(i,j,0);
+                item.isRunning = false;
+                this.nodeSlot.addChild(item);
+
+                subItem.push(item);
+
+            }
+            this.arrItems.push(subItem);
+        }
+    },
     clearAllItemInLine:function () {
 
         for(var i = 0; i <  this.arrResuft.length; i++)
@@ -156,7 +174,7 @@ var SelectLine =  cc.Node.extend({
         var closeButton = new ccui.Button("dialog-button-close.png","","", ccui.Widget.PLIST_TEXTURE);
         closeButton.setPosition(cc.p(870,700));
         closeButton.addClickEventListener(function () {
-           thiz.setVisible(false);
+            thiz.setLineSend();
         });
 
 
@@ -343,6 +361,55 @@ var SelectLine =  cc.Node.extend({
 
     }
 });
+var CardBobus = TrashCardOnTable.extend({
+    ctor: function (width_Phom, height_Phom, typeArrange) {
+
+        this._super(width_Phom, height_Phom, typeArrange);
+    },
+
+    addCard: function (card, noAnimation) {
+        var oldParent = card.getParent();
+        card.retain();
+        if(oldParent){
+            var p = oldParent.convertToWorldSpace(card.getPosition());
+            card.removeFromParent(true);
+        }
+        else{
+            var p = card.getPosition();
+        }
+        var newP = this.convertToNodeSpace(p);
+        card.setPosition(newP);
+        this.addChild(card);
+        card.release();
+
+        var animationDuration = 0.1;
+
+        if (!this.cardSize)
+            this.cardSize = card.getContentSize();
+
+        card.canTouch = false;
+        this.cardList.push(card);
+        card.setScale(this.height_Phom / this.cardSize.height);
+        // card.runAction(new cc.ScaleTo(0.1,this.height_Phom / this.cardSize.height));
+        // var moveAction = new cc.MoveTo(animationDuration, this.getNewPostionCard(this.cardList.length - 1));
+
+        // var thiz = this;
+        // var delay = new cc.DelayTime(animationDuration);
+        // var orderAgain = new cc.CallFunc(function () {
+        //     thiz.reOrder(noAnimation);
+        // });
+
+        // thiz.runAction(new cc.Sequence(delay, orderAgain));
+        this.reOrder(noAnimation);
+    },
+    removeCardFirst: function () {
+        var retVal = this.cardList[0];
+        retVal.removeFromParent(true);
+        this.cardList.splice(0, 1);
+        this.reOrder(false);
+    },
+
+});
 
 var DuplicateGold =  cc.Node.extend({
    ctor:function () {
@@ -372,13 +439,13 @@ var DuplicateGold =  cc.Node.extend({
         }, this);
         this.addChild(layerBlack);
         var bg = new ccui.Scale9Sprite("slot_bg_x2.png",cc.rect(113,113,4,4));
-        bg.setPreferredSize(cc.size(995,654));
+        bg.setPreferredSize(cc.size(995,754));
         bg.setScale(cc.winSize.screenScale);
         bg.setPosition(cc.winSize.width/2, cc.winSize.height/2);
         this.bg = bg;
         this.addChild(bg);
-        var lbl = new cc.LabelTTF("Đoán màu cây bài để X2 hoặc chất cây bài để X4 tiền thắng. \n                  Chọn nhận thưởng để dừng chơi.",cc.res.font.Roboto_Condensed,24);
-        lbl.setPosition(500,429);
+        var lbl = new cc.LabelTTF("Đoán màu cây bài để X2 hoặc chất cây bài để X4 tiền thắng. \n                        Chọn nhận thưởng để dừng chơi.",cc.res.font.Roboto_Condensed,24);
+        lbl.setPosition(500,529);
         bg.addChild(lbl);
         this.arrButtonBonus = [];
         for(var i = 0; i < 6; i++){
@@ -400,17 +467,15 @@ var DuplicateGold =  cc.Node.extend({
         btnClose.addClickEventListener(function () {
             thiz.setVisible(false);
         });
-        btnClose.setPosition(877,536);
+        btnClose.setPosition(877,636);
         bg.addChild(btnClose);
 
         var wgGive = new ccui.Widget();
         wgGive.setContentSize(cc.size(130,130));
         wgGive.setTouchEnabled(true);
-        wgGive.setPosition(877,536);
+        wgGive.setPosition(877,636);
         bg.addChild(wgGive);
         thiz.wgGive = wgGive;
-
-
 
         var btnGive = new cc.Sprite("#slot_btn_nt2.png");
         btnGive.setPosition(65,65);
@@ -433,17 +498,14 @@ var DuplicateGold =  cc.Node.extend({
 
         wgGive.addChild(btnGive);
 
-
-
-
         var bg_give = new ccui.Scale9Sprite("slot_x2_bg_money.png",cc.rect(10,10,4,4));
-        bg_give.setPreferredSize(cc.size(280,50));
-        bg_give.setPosition(500, 501);
+        bg_give.setPreferredSize(cc.size(380,50));
+        bg_give.setPosition(500, 601);
         bg.addChild(bg_give);
 
         var lblMoney = new cc.LabelTTF("10.000",cc.res.font.Roboto_CondensedBold,30);
         lblMoney.setColor(cc.color(255,222,0));
-        lblMoney.setPosition(140,25);
+        lblMoney.setPosition(190,25);
         bg_give.addChild(lblMoney);
         this.lblMoney = lblMoney;
 
@@ -460,49 +522,131 @@ var DuplicateGold =  cc.Node.extend({
         var scale1 = new cc.ScaleTo(0.5, 0.0, 1);
         var scale2 = new cc.ScaleTo(0.5, 1, 1);
         cardUp.runAction(new cc.RepeatForever( new cc.Sequence(scale1, scale2)));
+        var bgTrash = new ccui.Scale9Sprite("bg_card_trash.png", cc.rect(10, 10, 4, 4));
+        bgTrash.setPreferredSize(cc.size(680, 90));
+        bgTrash.setPosition(500,440);
+        bg.addChild(bgTrash);
+
+        var cards = [1,2,2,2,2,1,2,2,2,2,1,2,2,2,2,1,2,2,2,2,1,2,2,2,2];
+        var trashCards = new CardBobus(660,80,POSITION_PHOM_LEFT);
+        // for (var j = 0; j < cards.length; j++) {
+        //     var card = CardList.prototype.getCardWithId(cards[j]);
+        //     trashCards.addCard(new Card(card.rank, card.suit),true);
+        // }
+        this.trashCards = trashCards;
+        trashCards.setPosition(cc.p(680/2,5));
+        bgTrash.addChild(trashCards);
 
     },
     setVisibleArrButton:function (isVisble) {
-        // for(var  i = 0; i < this.arrButtonBonus.length; i++)
-        //     this.setActiveBt(this.arrButtonBonus[i],isVisble);
-        this.enableTouchZ = isVisble;
+        for(var  i = 0; i < this.arrButtonBonus.length; i++)
+            this.setActiveBt(this.arrButtonBonus[i],isVisble);
+             this.enableTouchZ = isVisble;
     },
 
     handelResuft:function (idCard,type,moneyWin) {
-      this.setCard(idCard) ;
-        this.setVisibleArrButton(type!=3);
-        this.lblMoney.setString(cc.Global.NumberFormat1(parseInt(moneyWin)));
-        if(type == 3){
-            this.wgGive.setVisible(false);
+        var thiz = this;
+        this.setCard(idCard) ;
+        thiz.typezzz = type;
+        this.lblMoney.runAction(new cc.Sequence(new cc.DelayTime(0.0),
+        new cc.CallFunc(function () {
+
+            if(type == 3){
+                thiz.wgGive.setVisible(false);
+                thiz.lblMoney.setString("Chúc bạn may mắn lần sau!");
+                thiz.lblMoney.setColor(cc.color(255,255,255,255));
+            }
+            else {
+                var action = new quyetnd.ActionNumber(0.3, parseInt(moneyWin));
+                thiz.lblMoney.runAction(action);
+
+                thiz.lblMoney.setColor(cc.color(255,222,0,255));
+                var goldMini = new  cc.ParticleSystem("res/SelectCard.plist");
+                goldMini.setPosition(cc.p(670, 621));
+                thiz.addChild(goldMini);
+            }
+
         }
+        ),
+            new cc.DelayTime(0.5),
+            new cc.CallFunc(function () {
+                thiz.setVisibleArrButton(thiz.typezzz!=3);
+            })
+        ));
+
+        // setTimeout(function () {
+        //
+        // }, 0.4);
+
+
     },
     setMoney:function (moneyWin) {
         this.lblMoney.setString(cc.Global.NumberFormat1(parseInt(moneyWin)));
-        this.bg.removeChildByTag(7);
+        this.lblMoney.setColor(cc.color(255,222,0,255));
+        // this.bg.removeChildByTag(7);
+
+
+
         this.cardUp.setVisible(false);
         this.cardDefualt.setVisible(true);
-        this.enableTouchZ = true;
+        // this.enableTouchZ = true;
+        this.setVisibleArrButton(true);
 
     },
     setCard:function (idCard) {
+        var thiz = this;
         this.cardUp.setVisible(false);
         var dataCard = CardList.prototype.getCardWithId(idCard);
         var cardNew = new Card(dataCard.rank, dataCard.suit);
+        cardNew.setSpriteFrame("gp_card_up2.png");
         cardNew.canTouch = false;
         cardNew.setPosition(this.cardUp.getPosition());
         cardNew.setTag(7);
-        cardNew.setScale(this.cardDefualt.getContentSize().height/cardNew.getContentSize().height + 0.1);
+        var orgScale = this.cardDefualt.getContentSize().height/cardNew.getContentSize().height + 0.1;
+
+        cardNew.setScale(orgScale);
         this.bg.addChild(cardNew,1);
+        var nameCard = dataCard.rank + s_card_suit[dataCard.suit] + ".png";
+        var changeFrame = new cc.CallFunc(function () {
+            cardNew.setSpriteFrame(nameCard);
+        });
+        var scale1 = new cc.ScaleTo(0.2,0,orgScale) ;
+        var scale2 = new cc.ScaleTo(0.2,orgScale,orgScale) ;
+        cardNew.runAction(new cc.Sequence(scale1,changeFrame,scale2));
+
+        thiz.runAction(new cc.Sequence(new cc.DelayTime(1),
+            new cc.CallFunc(function () {
+
+                if(thiz.trashCards.cardList.length>19){
+                    thiz.trashCards.removeCardFirst();
+                }
+                thiz.cardDefualt.setVisible(true);
+                thiz.trashCards.addCard(cardNew,false);
+
+             })
+
+        ));
+
+
+
     },
     handelBonusClick:function (i) {
         if(!this.enableTouchZ)
         {
             return;
         }
+        var goldMini = new  cc.ParticleSystem("res/ring2.plist");
+        goldMini.setPosition(cc.p(POS_BUT_DUP[i].x,POS_BUT_DUP[i].y));
+        if(i!=5 && i!=0){
+            goldMini.setPosition(cc.p(POS_BUT_DUP[i].x,POS_BUT_DUP[i].y+20));
+        }
+        this.bg.addChild(goldMini);
+
         this.setVisibleArrButton(false);
         this.cardDefualt.setVisible(false);
-        this.cardUp.setVisible(true);
-        this.bg.removeChildByTag(7);
+        this.cardUp.setVisible(false);//here
+        var card = this.bg.getChildByTag(7);
+
         if(this._clickButHandler){
             this._clickButHandler(ID_BONUS[i]);
         }
@@ -548,7 +692,7 @@ var CoinNode = cc.Node.extend({
         this._rotateDelta = 30.0;
 
         this._forceStart = 900.0;
-        this._forceDelta = 200.0;
+        this._forceDelta = 700.0;
 
         this._torqueStart = -8.0;
         this._torqueDelta = 16.0;
@@ -556,8 +700,11 @@ var CoinNode = cc.Node.extend({
         this._timeStart = 2.0;
         this._timeDelta = 1.0;
 
-        this._startPosition = cc.p(cc.winSize.width/2, 800);
-        this._startPositionDelta = cc.p(40, 10);
+        // this._startPosition = cc.p(cc.winSize.width/2, cc.winSize.height+100);
+        // this._startPositionDelta = cc.p(cc.winSize.width-300, 80);
+
+        this._startPosition = cc.p(cc.winSize.width/2, cc.winSize.height/2);
+        this._startPositionDelta = cc.p(100, 10);
 
         this._super();
         this._initPhysics();
@@ -565,11 +712,11 @@ var CoinNode = cc.Node.extend({
     },
     _initPhysics:function() {
         this.space = new cp.Space();
-        this.space.gravity = cp.v(0, -1200);
+        this.space.gravity = cp.v(0, -2000);
         this.space.sleepTimeThreshold = 0.5;
 
         var floorShape = new cp.SegmentShape(this.space.staticBody, cp.v(0, 0), cp.v(cc.winSize.width*2, 0), 0);
-        floorShape.setElasticity(1);
+        floorShape.setElasticity(1.2);
         floorShape.setFriction(1);
         floorShape.setLayers(~0);
         this.space.addStaticShape(floorShape);
@@ -588,7 +735,9 @@ var CoinNode = cc.Node.extend({
         var rotate = this._rotateStart + (Math.random() * this._rotateDelta);
         var torque = this._torqueStart + (Math.random() * this._torqueDelta);
 
-        var forceVector = cc.pRotateByAngle(cc.p(0, force), cc.p(0,0), cc.degreesToRadians(rotate));
+        var dongshit =100- Math.random()*200;
+
+        var forceVector = cc.pRotateByAngle(cc.p(dongshit, force), cc.p(0,0), cc.degreesToRadians(rotate));
 
         var time = this._timeStart + (Math.random() * this._timeDelta);
         var x = this._startPosition.x + (-this._startPositionDelta.x + Math.random() * this._startPositionDelta.x * 2);
@@ -600,6 +749,8 @@ var CoinNode = cc.Node.extend({
         coin._force = cp.v(forceVector.x, forceVector.y);
         coin._torque = torque;
 
+        coin.setScale(0.4+Math.random()*0.6);
+
         this.addChild(coin);
         coin.startWithDuration(time, endScale);
 
@@ -607,9 +758,14 @@ var CoinNode = cc.Node.extend({
     },
     addAllCoin : function () {
         this.removeAllChildren();
-        var n = 50 + Math.floor(Math.random()* 20);
+        var n = 150 + Math.floor(Math.random()* 20);
+        // var ran = Math.random()*1.5;
+        var thiz = this;
         for(var i=0; i<n ;i++){
-            this._addCoin();
+            // this.runAction(new cc.Sequence(new cc.DelayTime(ran),new cc.CallFunc(function () {
+                thiz._addCoin();
+            // })))
+
         }
 
         var thiz = this;
@@ -645,7 +801,7 @@ var LINE_SLOT = [[1,4,7,10,13], [2,5,8,11,14],[0,3,6,9,12],[1,4,8,10,13],[1,4,6,
                 [1,3,7,11,13],[1,5,7,9,13],[0,4,8,10,12],[2,4,6,10,14],[0,3,7,11,14],
                 [2,4,7,10,14],[1,5,8,11,13],[1,3,6,9,13],[0,4,7,10,12],[2,5,7,9,12]];
 
-var ARR_BET_SLOT = [1000,10000,100000];
+var ARR_BET_SLOT = [100,1000,10000];
 var SlotFruitScene = IScene.extend({
     ctor: function () {
         this._super();
@@ -657,12 +813,14 @@ var SlotFruitScene = IScene.extend({
         this.sceneLayer.addChild(bg);
 
         this.initView();
-        this.setTextHuThuong("1.000.000");
+        this.setTextHuThuong("1000000");
         this.setTextBet("10.000");
         this.setTextWin("");
         this.initController();
         this._controller.sendJoinGame();
         this.enableAutoRotate(false);
+        // this.onBigwin();
+
     },
     initView:function () {
         var thiz = this;
@@ -698,6 +856,10 @@ var SlotFruitScene = IScene.extend({
         this.btnGive = btnGive;
 
         btnGive.addClickEventListener(function () {
+            if(thiz.nodeBigWin != undefined && thiz.nodeBigWin != null){
+                thiz.nodeBigWin.removeFromParent(true);
+                thiz.nodeBigWin = null;
+            }
             thiz.enableAutoRotate(false);
             thiz.btnX2.setVisible(false);
             btnGive.setVisible(false);
@@ -774,6 +936,10 @@ var SlotFruitScene = IScene.extend({
         ));
 
         btnX2.addClickEventListener(function () {
+            if(thiz.nodeBigWin != undefined && thiz.nodeBigWin != null){
+                thiz.nodeBigWin.removeFromParent(true);
+                thiz.nodeBigWin = null;
+            }
             thiz.dup.show(true);
             thiz.enableAutoRotate(false);
         });
@@ -829,8 +995,13 @@ var SlotFruitScene = IScene.extend({
         this.isAutoRotate = isEnable;
         this.slot_chambi.setVisible(isEnable);
 
+
     },
     rotateRequest:function () {
+        if(this.nodeBigWin != undefined && this.nodeBigWin != null){
+            this.nodeBigWin.removeFromParent(true);
+            this.nodeBigWin = null;
+        }
         this.activeButtonNewGame(false);
         this.isHaveData = false;
         this.slotfui.rotate();
@@ -858,15 +1029,27 @@ var SlotFruitScene = IScene.extend({
     },
 
     setTextHuThuong:function (value) {
-        this.lblHu.setString("Hũ thưởng  "+ value);
-        var posX =  290/2 - (this.lblHu.getContentSize().width/2 - this.txtHu.getContentSize().width);
-        this.lblHu.setString(value);
+
+        this.lblHu.stopAllActions();
+        this.txtHu.setString("Hũ thưởng  "+ value);
+        var a = this.txtHu.getContentSize().width/2;
+        this.txtHu.setString("Hũ thưởng");
+        var posX =  290/2 - (a - this.txtHu.getContentSize().width);
+        // this.lblHu.setString(value);
+        var zz =  parseInt(value);
+        var yy = parseInt(this.lblHu.getString().replace(/[.,]/g,''));
+        if(yy != zz)
+        {
+            var action = new quyetnd.ActionNumber(0.3,zz);
+            this.lblHu.runAction(action);
+        }
+
         this.txtHu.setPosition(posX,this.txtHu.getPositionY());
         this.lblHu.setPosition(posX+4,this.txtHu.getPositionY());
     },
     setTextBet:function (value) {
-        this.lblBet.setString("Cược: "+ value);
-        var posX =  220/2 - (this.lblBet.getContentSize().width/2 - this.txtBet.getContentSize().width);
+        this.lblBet.setString("Tổng Cược: "+ value);
+        var posX =  225/2 - (this.lblBet.getContentSize().width/2 - this.txtBet.getContentSize().width);
         this.lblBet.setString(value);
         this.txtBet.setPosition(posX,this.txtBet.getPositionY());
         this.lblBet.setPosition(posX+2,this.txtBet.getPositionY());
@@ -880,11 +1063,31 @@ var SlotFruitScene = IScene.extend({
     },
     onNhanThuong:function () {
         this.setTextWin("0");
+        var thiz = this;
         var from = this.lblWin.getParent().convertToWorldSpace(this.lblWin.getPosition());
         var to = this.playerMe.avt.getParent().convertToWorldSpace(this.playerMe.avt.getPosition());
         this.move4Chip(from, to);
         this.btnX2.setVisible(false);
+        this.btnGive.setVisible(false);
         this.activeButtonNewGame(true);
+
+        //var randeom = Math.floor(Math.random()*8);
+        // if(randeom !=2){
+        //     return;
+        // }
+        // for(var i = 0; i < 5; i++){
+        //     (function () {
+        //         var iNew = i;
+        //         thiz.btnX2.runAction(new cc.Sequence(
+        //             new cc.DelayTime(iNew*0.2),
+        //             new cc.CallFunc(function () {
+        //                 var coin =  new CoinNode();
+        //                 coin.show();
+        //             })
+        //         ))
+        //
+        //     })();
+        // }
     },
     initLabel:function () {
         //hu thuong
@@ -897,6 +1100,8 @@ var SlotFruitScene = IScene.extend({
         this.bgSlot.addChild(bgHu,100);
         bgHu.addClickEventListener(function () {
            cc.log("Lich su no hu");
+            var his = new HistoryNoHuFruit();
+            his.show();
         });
 
 
@@ -926,7 +1131,7 @@ var SlotFruitScene = IScene.extend({
         bgBet.setPosition(cc.p(504-115,140));
         this.bgSlot.addChild(bgBet);
 
-        var txtBet = new cc.LabelTTF("Cược:", cc.res.font.Roboto_Condensed,24);
+        var txtBet = new cc.LabelTTF("Tổng Cược:", cc.res.font.Roboto_Condensed,24);
         txtBet.setColor(cc.color(186,194,249,255));
         txtBet.setAnchorPoint(cc.p(1,0.5));
         txtBet.setPosition(108,23);
@@ -1005,7 +1210,7 @@ var SlotFruitScene = IScene.extend({
         }
         this.onSetTextBet();
         if(this.arrHuThuong.length > 2){
-            this.setTextHuThuong(cc.Global.NumberFormat1(parseInt(this.arrHuThuong[index])));
+            this.setTextHuThuong(parseInt(this.arrHuThuong[index]));
         }
     },
     initTopBar:function () {
@@ -1070,7 +1275,7 @@ var SlotFruitScene = IScene.extend({
 
         this.obArrLine = obArrLine;
         this.arrItem = arrItem;
-        if(obArrLine.length > 0){
+        if(arrItem.length > 0){
             this.btnStop.setVisible(true);
         }
         if(isReconnect){
@@ -1088,12 +1293,17 @@ var SlotFruitScene = IScene.extend({
     onFinishQuay:function () {
         // this.obArrLine.length
         this.setTextWin(cc.Global.NumberFormat1(parseInt(this.moneyWin)));
+        if(parseInt(this.moneyWin) > 10*this.selectLine.getLines().length*ARR_BET_SLOT[this.indexBet])
+        {
+            this.onBigwin();
+        }
+
         if(this.isX2){
             this.btnX2.setVisible(true);
             this.btnGive.setVisible(true);
         }
         else{
-            this.activeLineAndBet(true);
+            this.activeButtonNewGame(true);
         }
          this.btnStop.setVisible(false);
 
@@ -1115,7 +1325,12 @@ var SlotFruitScene = IScene.extend({
                 if(!thiz.isHaveData){
                     return;
                 }
-                thiz.rotateRequest();
+                if(thiz.isAutoRotate){
+                    thiz.setTextWin("0");
+                    thiz.btnGive.setVisible(false);
+                    thiz.rotateRequest();
+                }
+
             })));
 
         }
@@ -1196,13 +1411,14 @@ var SlotFruitScene = IScene.extend({
         }
         this.setlectButtonBet(0);
         this.showArrButtonBet();
+        this.slotfui.initRandom();
     },
     performChangeRewardFund:function (data) {
         if(this.arrHuThuong.length>0){
             for(var i =0; i < this.arrHuThuong.length; i++){
                 this.arrHuThuong[i] = data[i][2];
             }
-            this.setTextHuThuong(cc.Global.NumberFormat1(parseInt(this.arrHuThuong[this.indexBet])));
+            this.setTextHuThuong(parseInt(this.arrHuThuong[this.indexBet]));
         }
 
     },
@@ -1234,7 +1450,7 @@ var SlotFruitScene = IScene.extend({
 
     },
 
-    updateGold: function (username, gold) {
+    updateGold: function ( gold) {
         var goldNumber = gold;
         if (typeof gold === "string") {
             goldNumber = parseInt(gold);
@@ -1243,11 +1459,11 @@ var SlotFruitScene = IScene.extend({
         this.playerMe.setGold(goldNumber);
 
     },
-    changeGoldEffect: function (username, deltaGold) {
-        var slot = this.getSlotByUsername(username);
-        if(slot){
-            slot.runChangeGoldEffect(deltaGold);
-        }
+    changeGoldEffect: function ( deltaGold) {
+      if(parseInt(deltaGold)>0){
+          this.playerMe.runChangeGoldEffect(deltaGold);
+      }
+
     },
     onEnter: function () {
         this._super();
@@ -1265,7 +1481,7 @@ var SlotFruitScene = IScene.extend({
                 chip.setVisible(true);
                 chip.runAction(new cc.Sequence(
                     new cc.DelayTime(0.05*i),
-                    new cc.EaseSineIn(new cc.MoveTo(0.5, to)),
+                    new cc.EaseSineIn(new cc.MoveTo(0.7, to)),
                     new cc.CallFunc(function () {
                         chip.removeFromParent(true);
                     })
@@ -1290,6 +1506,72 @@ var SlotFruitScene = IScene.extend({
         for(var  i = 0;i < this.arrButBet.length; i++)
         this.setActiveBt(this.arrButBet[i],isActive);
     },
+    onError:function(params){
+        if(params["code"] == 10){
+            this.slotfui.clearAll();
+            this.activeButtonNewGame(true);
+            this.enableAutoRotate(false);
+        }
+    },
+
+    onBigwin:function () {
+      var nodeBigWin = new cc.Node();
+        this.nodeBigWin = nodeBigWin;
+        var spriHom = new cc.Sprite("#slot_hom_do.png");
+        var cardBg = new cc.Sprite("#slot_bg_hom.png");
+        cardBg.setPosition(spriHom.getContentSize().width/2, spriHom.getContentSize().height/2+50);
+        spriHom.addChild(cardBg,-1);
+
+
+
+        cardBg.runAction(new cc.RepeatForever(new cc.RotateBy(2,360)));
+
+        var spWin = new cc.Sprite("#slot_winbig.png");
+        spWin.setPosition(spriHom.getContentSize().width/2+50, spriHom.getContentSize().height/2+10);
+        spriHom.runAction(new cc.RepeatForever(
+            new cc.Sequence(
+                new cc.ScaleTo(0.5,0.95),
+                new cc.ScaleTo(0.5,1)
+            )
+        ));
+        spWin.setScale(0.4);
+        spriHom.addChild(spWin);
+        // spriHom.setAnchorPoint(0.5,1);
+        spriHom.setPosition(cc.winSize.width/2,cc.winSize.height);
+        spriHom.runAction(new cc.EaseBounceOut(new cc.MoveTo(1,cc.p(cc.winSize.width/2,cc.winSize.height/2-50))));
+        nodeBigWin.addChild(spriHom);
+        spriHom.runAction(new cc.Sequence(new cc.DelayTime(0.4),new cc.CallFunc(function () {
+            spWin.runAction(new cc.ScaleTo(0.5,1));
+            var coin = new CoinNode();
+            coin.show();
+        })));
+        var lblMoneyW = new cc.LabelTTF("0",cc.res.font.Roboto_CondensedBold,45);
+        lblMoneyW.setPosition(spriHom.getContentSize().width/2+10, spriHom.getContentSize().height/2-60);
+        lblMoneyW.setColor(cc.color(255,240,0,255));
+        var action = new quyetnd.ActionNumber(2, 200000);
+        lblMoneyW.runAction(action);
+        spriHom.addChild(lblMoneyW);
+
+        this.addChild(nodeBigWin,2);
+
+        nodeBigWin.runAction(new cc.Sequence(new cc.DelayTime(5),new cc.CallFunc(function () {
+            cc.eventManager.addListener({
+                event: cc.EventListener.TOUCH_ONE_BY_ONE,
+                swallowTouches:true,
+                onTouchBegan : function (touch, event) {
+
+                    nodeBigWin.removeFromParent(true);
+
+                    return true;
+                },
+            }, nodeBigWin);
+        })));
+
+        
+
+
+    },
+
     initController: function () {
         this._controller = new SlotFruitController(this);
     }

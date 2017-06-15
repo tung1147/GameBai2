@@ -3,7 +3,8 @@
  */
 
 
-s_sfs_error_msg[10] = "Không đủ tiền để quay";
+// s_sfs_error_msg[10] = "Không đủ tiền để quay";
+s_sfs_error_msg[0] = "Hack detected";
 
 var SlotFruitController = cc.Class.extend({
     ctor: function (view) {
@@ -42,9 +43,7 @@ var SlotFruitController = cc.Class.extend({
         var gameName = params["groupName"];
         if(gameName === this.gameGroup){
             this._view.onError(params);
-            if(params["code"] == 10){
-                this._view.slotfui.clearAll();
-            }
+
             return true;
         }
         return false;
@@ -55,8 +54,8 @@ var SlotFruitController = cc.Class.extend({
         var reason = params["r"];
         if(reason >= 0){
             if(params["1"] !== null & params["1"] !== undefined){
-                this._view.updateGold(params["un"], params["1"]);
-                this._view.changeGoldEffect(params["un"], params["d"]);
+                this._view.updateGold( params["1"]);
+                this._view.changeGoldEffect( params["d"]);
             }
         }
     },
@@ -177,7 +176,7 @@ var SlotFruitController = cc.Class.extend({
         SmartfoxClient.getInstance().joinMiniGame(PlayerMe.miniGameInfo, "1008");
     },
     sendRouteRequest:function (lineBets,indexBet) {
-        SmartfoxClient.getInstance().sendExtensionRequest(-1, "1001", {2: lineBets, 1: indexBet});
+        SmartfoxClient.getInstance().sendExtensionRequest(-1, "1001", {2: lineBets, 1: indexBet});//,3:1
     },
     sendBonus:function (idBonus) {
         SmartfoxClient.getInstance().sendExtensionRequest(-1, "1002", {1: idBonus});

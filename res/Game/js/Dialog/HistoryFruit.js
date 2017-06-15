@@ -11,22 +11,22 @@ var HistoryFruit = Dialog.extend({
         this.title.setString("LỊCH SỬ ĐẶT CƯỢC");
         this._createHistory();
 
-
-            for(var j=0; j < 20; j++){
-
-                var obj = {
-                    phien : "222",
-                    time : "aaa",// cc.Global.DateToString(new Date(time)),
-                    betting:100,
-                    lineBet : 100,
-                    lineWin : 100,
-                    moneyWin:100
-                };
-                this.arrHis.push(obj);
-            }
-
-
-        this.listHis.refreshView();
+        //
+        //     for(var j=0; j < 20; j++){
+        //
+        //         var obj = {
+        //             phien : "222",
+        //             time : "aaa",// cc.Global.DateToString(new Date(time)),
+        //             betting:100,
+        //             lineBet : 100,
+        //             lineWin : 100,
+        //             moneyWin:100
+        //         };
+        //         this.arrHis.push(obj);
+        //     }
+        //
+        //
+        // this.listHis.refreshView();
 
 
     },
@@ -72,9 +72,9 @@ var HistoryFruit = Dialog.extend({
 
 
 
-        view.lineLabel.setString(cc.Global.NumberFormat1(data["lineBet"]));
+        view.lineLabel.setString(cc.Global.NumberFormat1(data["lineBet"].toString()));
         view.lineWinLabel.setString(cc.Global.NumberFormat1(data["lineWin"]));
-        view.receiewLabel.setString(cc.Global.NumberFormat1(data["moneyWin"]));
+        view.receiewLabel.setString(data["moneyWin"]);
 
     },
     _createCell : function () {
@@ -135,19 +135,9 @@ var HistoryFruit = Dialog.extend({
     },
     onSFSExtension: function (messageType, content) {
 
-        view.phienLabel.setString(data["phien"]);
-        view.timeLabel.setString(data["time"]);
 
-
-        view.bettingLabel.setString(cc.Global.NumberFormat1(data["betting"]));
-
-
-
-        view.lineLabel.setString(cc.Global.NumberFormat1(data["lineBet"]));
-        view.lineWinLabel.setString(cc.Global.NumberFormat1(data["lineWin"]));
-        view.receiewLabel.setString(cc.Global.NumberFormat1(data["moneyWin"]));
         if(content.c == 100003){
-            var items = content.p["1"];
+            var items = content.p["data"]["1"];
             for(var i=0;i<items.length;i++){
 
                 var phien = items[i]["1"];
@@ -158,10 +148,10 @@ var HistoryFruit = Dialog.extend({
 
                         phien : phien,
                         time :  time,//cc.Global.DateToString(new Date(time)),
-                        betting : nhan,
-                        lineBet : 0,
-                        lineWin:items[i]["4"],
-                        moneyWin:items[i]["5"]
+                        betting : items[i]["3"],
+                        lineBet : items[i]["5"],
+                        lineWin:items[i]["6"],
+                        moneyWin:items[i]["4"]
                     };
                     this.arrHis.push(obj);
 
@@ -174,7 +164,7 @@ var HistoryFruit = Dialog.extend({
     onEnter: function () {
         this._super();
 
-       // SmartfoxClient.getInstance().addListener(socket.SmartfoxClient.CallExtension, this.onSFSExtension, this);
+       SmartfoxClient.getInstance().addListener(socket.SmartfoxClient.CallExtension, this.onSFSExtension, this);
         SmartfoxClient.getInstance().sendExtensionRequest(-1, "1005", null);
     },
     onExit: function () {
