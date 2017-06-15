@@ -71,7 +71,8 @@ GameLaucher::GameLaucher() {
 	// TODO Auto-generated constructor stub
 	versionFile = "version.json";
 	versionHash = "";
-	resourceHost = "http://sandbox.c567vip.com/quyetnd/testcrash/";
+	resourceHost = "";
+	//resourceHost = "http://sandbox.c567vip.com/quyetnd/testcrash/";
 }
 
 void GameLaucher::runOnUI(const std::function<void()>& handler){
@@ -344,6 +345,7 @@ void GameLaucher::loadScript(){
 void GameLaucher::finishLaucher(){
 	this->onProcessStatus(GameLaucherStatus::Finished);
 	Director::getInstance()->getScheduler()->unscheduleUpdate(this);
+	resourceHost = "";
 	WorkerManager::getInstance()->stop();
 }
 
