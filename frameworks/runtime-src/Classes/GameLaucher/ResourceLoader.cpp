@@ -7,9 +7,12 @@
 
 #include "ResourceLoader.h"
 #include "2d/CCFontAtlasCache.h"
+//#include "audio/include/SimpleAudioEngine.h"
 #include "audio/include/AudioEngine.h"
 #include "GameLaucher.h"
+#include "EngineUtilsThreadSafe.h"
 #include "WorkerManager.h"
+//using namespace CocosDenshion;
 
 namespace quyetnd {
 
@@ -22,14 +25,8 @@ ResourceLoader::ResourceLoader() {
 ResourceLoader::~ResourceLoader() {
 	// TODO Auto-generated destructor stub
 	Director::getInstance()->getScheduler()->unscheduleAllForTarget(this);
-	this->stop();
 	CCLOG("ResourceLoader::~ResourceLoader");
 }
-
-//std::string ResourceLoader::getFullPath(const std::string& fileName){
-//	std::unique_lock<std::mutex> lk(fileUtilsMutex);
-//	return FileUtils::getInstance()->fullPathForFilename(fileName);
-//}
 
 void ResourceLoader::addTextureLoad(const std::string &img, const std::string &plist){
 	TextureData textureLoad;
@@ -60,31 +57,157 @@ void ResourceLoader::addSoundUnload(const std::string& sound){
 	_unloadSound.push_back(sound);
 }
 
-void ResourceLoader::loadTexture(const std::string& img, std::function<void(cocos2d::Texture2D*)> callback){
-	std::string fullpath = FileUtils::getInstance()->fullPathForFilename(img);
-	Texture2D* texture = TextureCache::getInstance()->getTextureForKey(fullpath);
-	if (texture){
-		UIThread::getInstance()->runOnUI([=](){
-			callback(texture);
-		});
-		return;
-	}
-	else{
-		Data data = FileUtils::getInstance()->getDataFromFile(fullpath);
-		if (!data.isNull()){
-			Image* imageData = new Image();
-			imageData->initWithImageData(data.getBytes(), data.getSize());			
-			UIThread::getInstance()->runOnUI([=](){
-				Texture2D* texture = TextureCache::getInstance()->addImage(imageData, fullpath);
-				callback(texture);
-				imageData->release();
-				//delete imageData;
-			});
-			return;
+//void ResourceLoader::onLoadImageThread(std::string img, std::function<void(cocos2d::Texture2D*)> callback){
+//	std::string fullpath = EngineUtilsThreadSafe::getInstance()->fullPathForFilename(img);
+//	Texture2D* texture = EngineUtilsThreadSafe::getInstance()->getTextureForKey(fullpath);
+//	if (texture){
+//		GameLaucher::getInstance()->runOnUI([=](){
+//			callback(texture);
+//		});
+//		return;
+//	}
+//	else{
+//		Data data = EngineUtilsThreadSafe::getInstance()->getFileData(fullpath);
+//		if (!data.isNull()){
+//			Image* imageData = new Image();
+//			imageData->initWithImageData(data.getBytes(), data.getSize());			
+//			GameLaucher::getInstance()->runOnUI([=](){
+//				Texture2D* texture = TextureCache::getInstance()->addImage(imageData, fullpath);
+//				callback(texture);
+//				imageData->release();
+//				//delete imageData;
+//			});
+//			return;
+//		}
+//	}
+//	GameLaucher::getInstance()->runOnUI([=](){
+//		callback(0);
+//	});
+//}
+//
+//void ResourceLoader::onLoadSpriteFrameThread(std::string plist, cocos2d::Texture2D* texture, std::function<void(bool)> callback){
+//	std::string fullpath = EngineUtilsThreadSafe::getInstance()->fullPathForFilename(plist);
+//	Data data = EngineUtilsThreadSafe::getInstance()->getFileData(fullpath);
+//	if (!data.isNull()){
+//		std::string plistContent(data.getBytes(), data.getBytes() + data.getSize());		
+//		GameLaucher::getInstance()->runOnUI([=](){
+//			SpriteFrameCache::getInstance()->addSpriteFramesWithFileContent(plistContent, texture);
+//			callback(true);
+//		});
+//		return;
+//	}
+//	GameLaucher::getInstance()->runOnUI([=](){
+//		callback(false);
+//	});
+//}
+
+void ResourceLoader::runOnUI(const std::function<void()>& runable){
+	cocos2d::Director::getInstance()->getScheduler()->performFunctionInCocosThread(runable);
+}
+
+void ResourceLoader::loadTexture(std::string img, std::string plist, WorkerTicket* ticket){
+	WorkerManager::getInstance()->pushAction([=](){
+		std::string fullpath = EngineUtilsThreadSafe::getInstance()->fullPathForFilename(img);
+		auto tex = EngineUtilsThreadSafe::getInstance()->getTextureForKey(fullpath);
+		if (tex){
+			if (plist.empty()){
+				this->runOnUI([=](){
+					ticket->done(true);
+					this->currentStep++;
+					this->onProcessLoader();
+				});
+			}
+			else{
+				this->loadSpriteFrame(tex, plist, ticket);
+			}
 		}
-	}
-	UIThread::getInstance()->runOnUI([=](){
-		callback(0);
+		else{
+			Data data = EngineUtilsThreadSafe::getInstance()->getFileData(fullpath);
+			if (!data.isNull()){
+				Image* imageData = new Image();
+				if (imageData->initWithImageData(data.getBytes(), data.getSize())){
+					this->runOnUI([=](){
+						Texture2D* texture = TextureCache::getInstance()->addImage(imageData, fullpath);
+						imageData->release();
+						if (texture){
+							if (plist.empty()){
+								ticket->done(true);
+								this->currentStep++;
+								this->onProcessLoader();
+							}
+							else{
+								this->loadSpriteFrame(texture, plist, ticket);
+							}
+						}
+						else{
+							ticket->done(false);
+						}					
+					});
+					return;
+				}
+			}
+			CCLOG("loadTexture error: ", img.c_str());
+			ticket->done(false);
+		}
+	});
+}
+
+void ResourceLoader::loadSpriteFrame(Texture2D* tex, std::string plist, WorkerTicket* ticket){
+	WorkerManager::getInstance()->pushAction([=](){
+		std::string fullpath = EngineUtilsThreadSafe::getInstance()->fullPathForFilename(plist);
+		Data data = EngineUtilsThreadSafe::getInstance()->getFileData(fullpath);
+		if (!data.isNull()){
+			std::string plistContent(data.getBytes(), data.getBytes() + data.getSize());
+			this->runOnUI([=](){
+				SpriteFrameCache::getInstance()->addSpriteFramesWithFileContent(plistContent, tex);
+				ticket->done(true);
+				this->currentStep++;
+				this->onProcessLoader();
+			});
+		}
+		else{
+			CCLOG("loadSpriteFrame error: ", plist.c_str());
+			ticket->done(false);
+		}
+	});
+}
+
+void ResourceLoader::loadBitmapFont(std::string img, std::string fnt, WorkerTicket* ticket){
+	WorkerManager::getInstance()->pushAction([=](){
+		std::string fullpath = EngineUtilsThreadSafe::getInstance()->fullPathForFilename(img);
+		auto tex = EngineUtilsThreadSafe::getInstance()->getTextureForKey(fullpath);
+		if (tex){
+			this->runOnUI([=](){
+				FontAtlasCache::getFontAtlasFNT(fnt);
+				ticket->done(true);
+				currentStep++;
+				onProcessLoader();
+			});
+		}
+		else{
+			Data data = EngineUtilsThreadSafe::getInstance()->getFileData(fullpath);
+			if (!data.isNull()){
+				Image* imageData = new Image();
+				if (imageData->initWithImageData(data.getBytes(), data.getSize())){
+					this->runOnUI([=](){
+						Texture2D* texture = TextureCache::getInstance()->addImage(imageData, fullpath);
+						imageData->release();
+						if (texture){
+							ticket->done(true);
+							currentStep++;
+							onProcessLoader();
+						}
+						else{
+							ticket->done(false);						
+						}
+					});
+				}
+			}
+			else{
+				CCLOG("loadTexture error: ", img.c_str());
+				ticket->done(false);
+			}
+		}
 	});
 }
 
@@ -122,6 +245,8 @@ void ResourceLoader::update(float dt){
 				if (index < _unloadSound.size()){
 					CCLOG("unload sound: %s", _unloadSound[index].c_str());
 					cocos2d::experimental::AudioEngine::uncache(_unloadSound[index]);
+					//SimpleAudioEngine* audioEngine = SimpleAudioEngine::getInstance();
+					//audioEngine->unloadEffect(_unloadSound[index].c_str());
 
 					index++;
 					currentStep++;
@@ -137,38 +262,45 @@ void ResourceLoader::update(float dt){
 
 			case kStepLoadImage:
 			{	
-				if (_preLoad.size() > 0){
-					step = kStepWaitingLoadImage;
-					for (int i = 0; i < _preLoad.size(); i++){
-						auto textureImg = _preLoad[i].texture;
-						auto plistData = _preLoad[i].plist;
-						WorkerManager::getInstance()->pushAction([=](){
-							this->loadTextureAction(textureImg, plistData);
-						});
+				step = kStepWaitingLoadImage;
+				auto ticket = WorkerTicket::create(_preLoad.size());
+				ticket->finishedCallback = [=](bool success){
+					if (success){
+						index = 0;
+						step = kStepLoadBMFont;
 					}
+					else{
+						CCLOG("LOAD TEXTURE ERROR");
+					}
+				};
+
+				for (int i = 0; i < _preLoad.size(); i++){
+					auto textureImg = _preLoad[i].texture;
+					auto plistData = _preLoad[i].plist;
+					CCLOG("loading texture: %s : %s", textureImg.c_str(), plistData.c_str());
+					this->loadTexture(textureImg, plistData, ticket);
 				}
-				else{
-					step = kStepLoadBMFont;
-				}
-				
-				break;
 			}
 
 			case kStepLoadBMFont:
 			{	
-				if (_preloadBMFont.size() > 0){
-					step = kStepWaitingLoadImage;
-					for (int i = 0; i < _preloadBMFont.size(); i++){
-						auto textureImg = _preloadBMFont[i].texture;
-						auto fntData = _preloadBMFont[i].font;
-						WorkerManager::getInstance()->pushAction([=](){
-							this->loadBitmapAction(textureImg, fntData);
-						});
+				step = kStepWaitingLoadImage;
+				auto ticket = WorkerTicket::create(_preloadBMFont.size());
+				ticket->finishedCallback = [=](bool success){
+					if (success){
+						index = 0;
+						step = kStepLoadSound;
 					}
-					break;
-				}
-				else{
-					step = kStepLoadSound;
+					else{
+						CCLOG("LOAD TEXTURE ERROR");
+					}
+				};
+
+				for (int i = 0; i < _preloadBMFont.size(); i++){
+					auto textureImg = _preloadBMFont[i].texture;
+					auto fnt = _preloadBMFont[i].font;
+					CCLOG("loading font: %s : %s", textureImg.c_str(), fnt.c_str());
+					this->loadBitmapFont(textureImg, fnt, ticket);
 				}
 			}
 
@@ -201,7 +333,7 @@ void ResourceLoader::update(float dt){
 			}
 
 			case kStepPreFinishLoadResource:
-			{	
+			{
 				currentStep++;
 				onProcessLoader();
 				step = kStepFinishLoadResource;
@@ -241,83 +373,6 @@ void ResourceLoader::start(){
 
 void ResourceLoader::stop(){
 	running = false;
-}
-
-void ResourceLoader::loadSpriteAction(cocos2d::Texture2D* tex, const std::string& plist){
-	if (plist == ""){
-		UIThread::getInstance()->runOnUI([=](){
-			this->onLoadTextureSuccess();
-		});
-		return;
-	}
-
-	std::string fullpath = FileUtils::getInstance()->fullPathForFilename(plist);
-	Data data = FileUtils::getInstance()->getDataFromFile(fullpath);
-	if (!data.isNull()){
-		std::string plistContent(data.getBytes(), data.getBytes() + data.getSize());
-
-		UIThread::getInstance()->runOnUI([=](){
-			SpriteFrameCache::getInstance()->addSpriteFramesWithFileContent(plistContent, tex);
-			UIThread::getInstance()->runOnUI([=](){
-				this->onLoadTextureSuccess();
-			});
-		});
-		return;
-	}
-
-	UIThread::getInstance()->runOnUI([=](){
-		CCLOG("load loadSpriteAction failure 3");
-	});
-}
-
-void ResourceLoader::loadTextureAction(const std::string& img, const std::string& plist){
-	this->loadTexture(img, [=](cocos2d::Texture2D* tex){
-		if (tex){
-			WorkerManager::getInstance()->pushAction([=](){
-				this->loadSpriteAction(tex, plist);
-			});
-		}
-		else{
-			CCLOG("Load Texture FAILURE: %s", img.c_str());
-		}
-	});
-}
-
-void ResourceLoader::onLoadTextureSuccess(){
-	index++;
-	currentStep++;
-	onProcessLoader();
-
-	if (index >= _preLoad.size()){
-		index = 0;
-		step = kStepLoadBMFont;
-	}
-}
-
-void ResourceLoader::loadBitmapAction(const std::string& img, const std::string& fnt){
-	this->loadTexture(img, [=](cocos2d::Texture2D* tex){
-		if (tex){
-			UIThread::getInstance()->runOnUI([=](){
-				FontAtlasCache::getFontAtlasFNT(fnt);
-
-				index++;
-				currentStep++;
-				onProcessLoader();
-
-				if (index >= _preloadBMFont.size()){
-					index = 0;
-					step = kStepLoadSound;
-				}
-			});
-		}
-		else{
-			CCLOG("Load Bitmap FAILURE: %s", img.c_str());
-		}
-	});
-}
-
-void ResourceLoader::onLoadBitmapSuccess(){
-	FontAtlasCache::getFontAtlasFNT(_preloadBMFont[index].font);
 }
 
 void ResourceLoader::onProcessLoader(){
