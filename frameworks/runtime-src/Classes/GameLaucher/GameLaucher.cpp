@@ -351,26 +351,28 @@ void GameLaucher::finishLaucher(){
 
 /*thread*/
 void GameLaucher::checkVersionFileThread(){
-	GameFile versionFile;
-	versionFile.fileName = "version.json";
+	GameFile* versionFile = new GameFile();
+	_allResources.insert(std::make_pair("version.json", versionFile));
+
+	versionFile->fileName = "version.json";
 #ifdef FORCE_UPDATE
 	versionFile.md5Digest = "";
 	versionFile.fileSize = 0;
 #else
-	versionFile.md5Digest = versionHash;
-	std::transform(versionFile.md5Digest.begin(), versionFile.md5Digest.end(), versionFile.md5Digest.begin(), ::tolower);
-	versionFile.fileSize = 0;
+	versionFile->md5Digest = versionHash;
+	std::transform(versionFile->md5Digest.begin(), versionFile->md5Digest.end(), versionFile->md5Digest.begin(), ::tolower);
+	versionFile->fileSize = 0;
 #endif
 
-	if (!versionFile.test()){
-		versionFile.update(resourceHost + versionFile.fileName, nullptr, [=](int returnCode){
+	if (!versionFile->test()){
+		versionFile->update(resourceHost + versionFile->fileName, nullptr, [=](int returnCode){
 			if (returnCode != 0){
 				this->runOnUI([=](){
 					this->onProcessStatus(GameLaucherStatus::UpdateFailure);
 				});
 			}
 			else{
-				std::string filePath = versionFile.filePath;
+				std::string filePath = versionFile->filePath;
 				this->runOnUI([=](){
 					this->versionFile = filePath;
 					this->checkFiles();
@@ -379,7 +381,7 @@ void GameLaucher::checkVersionFileThread(){
 		});
 	}
 	else{
-		std::string filePath = versionFile.filePath;
+		std::string filePath = versionFile->filePath;
 		this->runOnUI([=](){
 			this->versionFile = filePath;
 			this->checkFiles();
