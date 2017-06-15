@@ -57,49 +57,49 @@ void ResourceLoader::addSoundUnload(const std::string& sound){
 	_unloadSound.push_back(sound);
 }
 
-void ResourceLoader::onLoadImageThread(std::string img, std::function<void(cocos2d::Texture2D*)> callback){
-	std::string fullpath = EngineUtilsThreadSafe::getInstance()->fullPathForFilename(img);
-	Texture2D* texture = EngineUtilsThreadSafe::getInstance()->getTextureForKey(fullpath);
-	if (texture){
-		GameLaucher::getInstance()->runOnUI([=](){
-			callback(texture);
-		});
-		return;
-	}
-	else{
-		Data data = EngineUtilsThreadSafe::getInstance()->getFileData(fullpath);
-		if (!data.isNull()){
-			Image* imageData = new Image();
-			imageData->initWithImageData(data.getBytes(), data.getSize());			
-			GameLaucher::getInstance()->runOnUI([=](){
-				Texture2D* texture = TextureCache::getInstance()->addImage(imageData, fullpath);
-				callback(texture);
-				imageData->release();
-				//delete imageData;
-			});
-			return;
-		}
-	}
-	GameLaucher::getInstance()->runOnUI([=](){
-		callback(0);
-	});
-}
-
-void ResourceLoader::onLoadSpriteFrameThread(std::string plist, cocos2d::Texture2D* texture, std::function<void(bool)> callback){
-	std::string fullpath = EngineUtilsThreadSafe::getInstance()->fullPathForFilename(plist);
-	Data data = EngineUtilsThreadSafe::getInstance()->getFileData(fullpath);
-	if (!data.isNull()){
-		std::string plistContent(data.getBytes(), data.getBytes() + data.getSize());		
-		GameLaucher::getInstance()->runOnUI([=](){
-			SpriteFrameCache::getInstance()->addSpriteFramesWithFileContent(plistContent, texture);
-			callback(true);
-		});
-		return;
-	}
-	GameLaucher::getInstance()->runOnUI([=](){
-		callback(false);
-	});
-}
+//void ResourceLoader::onLoadImageThread(std::string img, std::function<void(cocos2d::Texture2D*)> callback){
+//	std::string fullpath = EngineUtilsThreadSafe::getInstance()->fullPathForFilename(img);
+//	Texture2D* texture = EngineUtilsThreadSafe::getInstance()->getTextureForKey(fullpath);
+//	if (texture){
+//		GameLaucher::getInstance()->runOnUI([=](){
+//			callback(texture);
+//		});
+//		return;
+//	}
+//	else{
+//		Data data = EngineUtilsThreadSafe::getInstance()->getFileData(fullpath);
+//		if (!data.isNull()){
+//			Image* imageData = new Image();
+//			imageData->initWithImageData(data.getBytes(), data.getSize());			
+//			GameLaucher::getInstance()->runOnUI([=](){
+//				Texture2D* texture = TextureCache::getInstance()->addImage(imageData, fullpath);
+//				callback(texture);
+//				imageData->release();
+//				//delete imageData;
+//			});
+//			return;
+//		}
+//	}
+//	GameLaucher::getInstance()->runOnUI([=](){
+//		callback(0);
+//	});
+//}
+//
+//void ResourceLoader::onLoadSpriteFrameThread(std::string plist, cocos2d::Texture2D* texture, std::function<void(bool)> callback){
+//	std::string fullpath = EngineUtilsThreadSafe::getInstance()->fullPathForFilename(plist);
+//	Data data = EngineUtilsThreadSafe::getInstance()->getFileData(fullpath);
+//	if (!data.isNull()){
+//		std::string plistContent(data.getBytes(), data.getBytes() + data.getSize());		
+//		GameLaucher::getInstance()->runOnUI([=](){
+//			SpriteFrameCache::getInstance()->addSpriteFramesWithFileContent(plistContent, texture);
+//			callback(true);
+//		});
+//		return;
+//	}
+//	GameLaucher::getInstance()->runOnUI([=](){
+//		callback(false);
+//	});
+//}
 
 void ResourceLoader::runOnUI(const std::function<void()>& runable){
 	cocos2d::Director::getInstance()->getScheduler()->performFunctionInCocosThread(runable);
@@ -107,30 +107,48 @@ void ResourceLoader::runOnUI(const std::function<void()>& runable){
 
 void ResourceLoader::loadTexture(std::string img, std::string plist, WorkerTicket* ticket){
 	WorkerManager::getInstance()->pushAction([=](){
-		std::string fullpath = EngineUtilsThreadSafe::getInstance()->fullPathForFilename(plist);
-		Data data = EngineUtilsThreadSafe::getInstance()->getFileData(fullpath);
-
-		if (!data.isNull()){
-			Image* imageData = new Image();
-			if (imageData->initWithImageData(data.getBytes(), data.getSize())){
+		std::string fullpath = EngineUtilsThreadSafe::getInstance()->fullPathForFilename(img);
+		auto tex = EngineUtilsThreadSafe::getInstance()->getTextureForKey(fullpath);
+		if (tex){
+			if (plist.empty()){
 				this->runOnUI([=](){
-					Texture2D* texture = TextureCache::getInstance()->addImage(imageData, fullpath);
-					imageData->release();
-					if (plist.empty()){
-						ticket->done(true);
-						this->currentStep++;
-						this->onProcessLoader();
-					}
-					else{
-						this->loadSpriteFrame(texture, plist, ticket);
-					}
+					ticket->done(true);
+					this->currentStep++;
+					this->onProcessLoader();
 				});
-				return;
+			}
+			else{
+				this->loadSpriteFrame(tex, plist, ticket);
 			}
 		}
-
-		CCLOG("loadTexture error: ", img.c_str());
-		ticket->done(false);
+		else{
+			Data data = EngineUtilsThreadSafe::getInstance()->getFileData(fullpath);
+			if (!data.isNull()){
+				Image* imageData = new Image();
+				if (imageData->initWithImageData(data.getBytes(), data.getSize())){
+					this->runOnUI([=](){
+						Texture2D* texture = TextureCache::getInstance()->addImage(imageData, fullpath);
+						imageData->release();
+						if (texture){
+							if (plist.empty()){
+								ticket->done(true);
+								this->currentStep++;
+								this->onProcessLoader();
+							}
+							else{
+								this->loadSpriteFrame(texture, plist, ticket);
+							}
+						}
+						else{
+							ticket->done(false);
+						}					
+					});
+					return;
+				}
+			}
+			CCLOG("loadTexture error: ", img.c_str());
+			ticket->done(false);
+		}
 	});
 }
 
@@ -140,17 +158,56 @@ void ResourceLoader::loadSpriteFrame(Texture2D* tex, std::string plist, WorkerTi
 		Data data = EngineUtilsThreadSafe::getInstance()->getFileData(fullpath);
 		if (!data.isNull()){
 			std::string plistContent(data.getBytes(), data.getBytes() + data.getSize());
-			GameLaucher::getInstance()->runOnUI([=](){
+			this->runOnUI([=](){
 				SpriteFrameCache::getInstance()->addSpriteFramesWithFileContent(plistContent, tex);
 				ticket->done(true);
 				this->currentStep++;
 				this->onProcessLoader();
 			});
-			return;
 		}
+		else{
+			CCLOG("loadSpriteFrame error: ", plist.c_str());
+			ticket->done(false);
+		}
+	});
+}
 
-		CCLOG("loadSpriteFrame error: ", plist.c_str());
-		ticket->done(false);
+void ResourceLoader::loadBitmapFont(std::string img, std::string fnt, WorkerTicket* ticket){
+	WorkerManager::getInstance()->pushAction([=](){
+		std::string fullpath = EngineUtilsThreadSafe::getInstance()->fullPathForFilename(img);
+		auto tex = EngineUtilsThreadSafe::getInstance()->getTextureForKey(fullpath);
+		if (tex){
+			this->runOnUI([=](){
+				FontAtlasCache::getFontAtlasFNT(fnt);
+				ticket->done(true);
+				currentStep++;
+				onProcessLoader();
+			});
+		}
+		else{
+			Data data = EngineUtilsThreadSafe::getInstance()->getFileData(fullpath);
+			if (!data.isNull()){
+				Image* imageData = new Image();
+				if (imageData->initWithImageData(data.getBytes(), data.getSize())){
+					this->runOnUI([=](){
+						Texture2D* texture = TextureCache::getInstance()->addImage(imageData, fullpath);
+						imageData->release();
+						if (texture){
+							ticket->done(true);
+							currentStep++;
+							onProcessLoader();
+						}
+						else{
+							ticket->done(false);						
+						}
+					});
+				}
+			}
+			else{
+				CCLOG("loadTexture error: ", img.c_str());
+				ticket->done(false);
+			}
+		}
 	});
 }
 
@@ -218,78 +275,33 @@ void ResourceLoader::update(float dt){
 				};
 
 				for (int i = 0; i < _preLoad.size(); i++){
-					auto textureImg = _preLoad[index].texture;
-					auto plistData = _preLoad[index].plist;
+					auto textureImg = _preLoad[i].texture;
+					auto plistData = _preLoad[i].plist;
 					CCLOG("loading texture: %s : %s", textureImg.c_str(), plistData.c_str());
 					this->loadTexture(textureImg, plistData, ticket);
 				}
-
-				/*if (index < _preLoad.size()){
-					step = kStepWaitingLoadImage;
-                    auto textureImg = _preLoad[index].texture;
-                    auto plistData = _preLoad[index].plist;
-					CCLOG("loading texture: %s : %s", textureImg.c_str(), plistData.c_str());
-					std::thread loadImg(&ResourceLoader::onLoadImageThread, this, textureImg, [=](Texture2D* texture){
-						if (texture){
-							if (plistData != ""){
-								std::thread loadFrame(&ResourceLoader::onLoadSpriteFrameThread, this, plistData, texture, [=](bool ok){
-									if (ok){
-										index++;
-										currentStep++;
-										onProcessLoader();
-										step = kStepLoadImage;
-									}
-									else{
-										log("load Frame Error: %s", plistData.c_str());
-									}
-								});
-								loadFrame.detach();
-							}
-							else{
-								index++;
-								currentStep++;
-								onProcessLoader();
-								step = kStepLoadImage;
-							}
-						}
-						else{
-							log("load Image Error: %s", textureImg.c_str());
-						}
-					});
-					loadImg.detach();
-				}
-				else{
-					index = 0;
-					step = kStepLoadBMFont;
-				}
-				break;*/
 			}
 
 			case kStepLoadBMFont:
 			{	
-				if (index < _preloadBMFont.size()){
-					step = kStepWaitingLoadImage;
-					CCLOG("load fonts: %s : %s", _preloadBMFont[index].texture.c_str(), _preloadBMFont[index].font.c_str());
-					std::thread loadImg(&ResourceLoader::onLoadImageThread, this, _preloadBMFont[index].texture, [=](Texture2D* texture){
-						if (texture){
-							FontAtlasCache::getFontAtlasFNT(_preloadBMFont[index].font);
+				step = kStepWaitingLoadImage;
+				auto ticket = WorkerTicket::create(_preloadBMFont.size());
+				ticket->finishedCallback = [=](bool success){
+					if (success){
+						index = 0;
+						step = kStepLoadSound;
+					}
+					else{
+						CCLOG("LOAD TEXTURE ERROR");
+					}
+				};
 
-							index++;
-							currentStep++;
-							onProcessLoader();
-							step = kStepLoadBMFont;
-						}
-						else{
-							log("load Image Error: %s", _preloadBMFont[index].texture.c_str());
-						}
-					});
-					loadImg.detach();				
+				for (int i = 0; i < _preloadBMFont.size(); i++){
+					auto textureImg = _preloadBMFont[i].texture;
+					auto fnt = _preloadBMFont[i].font;
+					CCLOG("loading font: %s : %s", textureImg.c_str(), fnt.c_str());
+					this->loadBitmapFont(textureImg, fnt, ticket);
 				}
-				else{
-					index = 0;
-					step = kStepLoadSound;
-				}
-				break;
 			}
 
 			case kStepWaitingLoadImage:

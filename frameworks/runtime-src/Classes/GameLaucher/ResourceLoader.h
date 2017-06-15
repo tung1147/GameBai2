@@ -54,12 +54,15 @@ class ResourceLoader : public Ref{
 
 	void onProcessLoader();
 
-	void onLoadImageThread(std::string img, std::function<void(cocos2d::Texture2D*)> callback);
-	void onLoadSpriteFrameThread(std::string plist, cocos2d::Texture2D* texture, std::function<void(bool)> callback);
+	//void onLoadImageThread(std::string img, std::function<void(cocos2d::Texture2D*)> callback);
+	//void onLoadSpriteFrameThread(std::string plist, cocos2d::Texture2D* texture, std::function<void(bool)> callback);
 
 	void runOnUI(const std::function<void()>& runable);
+
 	void loadTexture(std::string img, std::string plist, WorkerTicket* ticket);
 	void loadSpriteFrame(Texture2D* tex, std::string plist, WorkerTicket* ticket);
+
+	void loadBitmapFont(std::string img, std::string fnt, WorkerTicket* ticket);
 public:
 	bool running;
 	std::function<void(int, int)> processHandler;
