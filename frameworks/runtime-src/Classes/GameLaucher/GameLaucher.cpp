@@ -71,7 +71,8 @@ GameLaucher::GameLaucher() {
 	// TODO Auto-generated constructor stub
 	versionFile = "version.json";
 	versionHash = "";
-	resourceHost = "http://sandbox.c567vip.com/quyetnd/testcrash/";
+	resourceHost = "";
+	//resourceHost = "http://sandbox.c567vip.com/quyetnd/testcrash/";
 }
 
 void GameLaucher::runOnUI(const std::function<void()>& handler){
@@ -344,31 +345,34 @@ void GameLaucher::loadScript(){
 void GameLaucher::finishLaucher(){
 	this->onProcessStatus(GameLaucherStatus::Finished);
 	Director::getInstance()->getScheduler()->unscheduleUpdate(this);
+	resourceHost = "";
 	WorkerManager::getInstance()->stop();
 }
 
 /*thread*/
 void GameLaucher::checkVersionFileThread(){
-	GameFile versionFile;
-	versionFile.fileName = "version.json";
+	GameFile* versionFile = new GameFile();
+	_allResources.insert(std::make_pair("version.json", versionFile));
+
+	versionFile->fileName = "version.json";
 #ifdef FORCE_UPDATE
 	versionFile.md5Digest = "";
 	versionFile.fileSize = 0;
 #else
-	versionFile.md5Digest = versionHash;
-	std::transform(versionFile.md5Digest.begin(), versionFile.md5Digest.end(), versionFile.md5Digest.begin(), ::tolower);
-	versionFile.fileSize = 0;
+	versionFile->md5Digest = versionHash;
+	std::transform(versionFile->md5Digest.begin(), versionFile->md5Digest.end(), versionFile->md5Digest.begin(), ::tolower);
+	versionFile->fileSize = 0;
 #endif
 
-	if (!versionFile.test()){
-		versionFile.update(resourceHost + versionFile.fileName, nullptr, [=](int returnCode){
+	if (!versionFile->test()){
+		versionFile->update(resourceHost + versionFile->fileName, nullptr, [=](int returnCode){
 			if (returnCode != 0){
 				this->runOnUI([=](){
 					this->onProcessStatus(GameLaucherStatus::UpdateFailure);
 				});
 			}
 			else{
-				std::string filePath = versionFile.filePath;
+				std::string filePath = versionFile->filePath;
 				this->runOnUI([=](){
 					this->versionFile = filePath;
 					this->checkFiles();
@@ -377,7 +381,7 @@ void GameLaucher::checkVersionFileThread(){
 		});
 	}
 	else{
-		std::string filePath = versionFile.filePath;
+		std::string filePath = versionFile->filePath;
 		this->runOnUI([=](){
 			this->versionFile = filePath;
 			this->checkFiles();
