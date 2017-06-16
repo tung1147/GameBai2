@@ -280,6 +280,8 @@ void ResourceLoader::update(float dt){
 					CCLOG("loading texture: %s : %s", textureImg.c_str(), plistData.c_str());
 					this->loadTexture(textureImg, plistData, ticket);
 				}
+
+				break;
 			}
 
 			case kStepLoadBMFont:
@@ -302,6 +304,8 @@ void ResourceLoader::update(float dt){
 					CCLOG("loading font: %s : %s", textureImg.c_str(), fnt.c_str());
 					this->loadBitmapFont(textureImg, fnt, ticket);
 				}
+
+				break;
 			}
 
 			case kStepWaitingLoadImage:
