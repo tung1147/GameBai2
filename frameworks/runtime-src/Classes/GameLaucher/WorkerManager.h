@@ -19,12 +19,24 @@
 
 typedef std::function <void()> LaucherAction;
 
+class WorkerTicket{
+private:
+	std::mutex _count_mutex;
+	int _count;
+	int _success;
+public:
+	std::function<void(bool)> finishedCallback;
+public:
+	WorkerTicket(int count);
+	virtual ~WorkerTicket();
+	void done(bool sucess = true);
+	static WorkerTicket* create(int count);
+};
+
 class WorkerManager{
 	std::queue<LaucherAction> _actions;
 	std::mutex _actionsMutex;
 	std::condition_variable _actions_condition_variable;
-
-
 
 	LaucherAction takeAction();
 	void runActionThread();

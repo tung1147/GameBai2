@@ -112,12 +112,6 @@
     <ClCompile Include="..\Classes\Socket\LobbyClient.cpp">
       <Filter>Classes\Socket</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Socket\ElectroClient.cpp">
-      <Filter>Classes\Socket</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Socket\jsb_quyetnd_electro_socket.cpp">
-      <Filter>Classes\Socket</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Plugin\ResourcesDownloader.cpp">
       <Filter>Classes\Plugin</Filter>
     </ClCompile>
@@ -129,6 +123,12 @@
     </ClCompile>
     <ClCompile Include="..\Classes\GameLaucher\WorkerManager.cpp">
       <Filter>Classes\GameLaucher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameLaucher\EngineUtilsThreadSafe.cpp">
+      <Filter>Classes\GameLaucher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plugin\HttpFileDownloader.cpp">
+      <Filter>Classes\Plugin</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -217,12 +217,6 @@
     <ClInclude Include="..\Classes\Socket\LobbyClient.h">
       <Filter>Classes\Socket</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Socket\ElectroClient.h">
-      <Filter>Classes\Socket</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Socket\jsb_quyetnd_electro_socket.hpp">
-      <Filter>Classes\Socket</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\Plugin\ResourcesDownloader.h">
       <Filter>Classes\Plugin</Filter>
     </ClInclude>
@@ -234,6 +228,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\GameLaucher\WorkerManager.h">
       <Filter>Classes\GameLaucher</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameLaucher\EngineUtilsThreadSafe.h">
+      <Filter>Classes\GameLaucher</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plugin\HttpFileDownloader.h">
+      <Filter>Classes\Plugin</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
