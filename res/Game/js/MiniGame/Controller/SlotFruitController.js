@@ -72,6 +72,7 @@ var SlotFruitController = cc.Class.extend({
         if (content.p.group !== this.gameGroup){
             return;
         }
+
         this._view.performChangeRewardFund(content.p.data["1"]);
     },
 
@@ -79,8 +80,14 @@ var SlotFruitController = cc.Class.extend({
         if (content.p.group !== this.gameGroup){
             return;
         }
+
+
+
        this._view.initHuThuong(content.p.data["pbs"]); // thay doi hu thuong
         cc.log(content);
+        this._view.runAction(new cc.Sequence(new cc.DelayTime(0), new cc.CallFunc(function () {
+            LoadingDialog.getInstance().hide();
+        })));
     },
     
     _onReconnect : function (messageType, content) {
@@ -89,6 +96,9 @@ var SlotFruitController = cc.Class.extend({
         }
         this._view.initHuThuong(content.p.data["pbs"]);
         this.onReconnect(content.p["data"]);
+        this._view.runAction(new cc.Sequence(new cc.DelayTime(0), new cc.CallFunc(function () {
+            LoadingDialog.getInstance().hide();
+        })));
     },
     _onNhanThuong:function (messageType, content) {
         this._view.onNhanThuong();
@@ -133,13 +143,16 @@ var SlotFruitController = cc.Class.extend({
         this._view.lblID.setString("ID: "+ param[1]);
         var arrItem = param["2"];
         var arrLine = param["3"]["1"];
-        this._view.handleResuft(false,arrItem,arrLine,param["4"],param["5"]);
+
+       // this._view.handleResuft(false,arrItem,arrLine,param["4"],param["5"]);
+        this._view.handleResuftZ(false,param);
     },
     onReconnect: function (param) {
         var arrItem = param["10"]["2"];
         var arrLine = param["10"]["3"]["1"];
         this._view.lblID.setString("ID: "+  param["10"]["1"]);
-       this._view.handleResuft(true,arrItem,arrLine,param["10"]["4"],param["10"]["5"]);
+       // this._view.handleResuft(true,arrItem,arrLine,param["10"]["4"],param["10"]["5"]);
+        this._view.handleResuftZ(true,param["10"]);
         var arrLineSelect = param["10"]["8"];
         this._view.showNumLineReconnect(arrLineSelect,param["10"]["7"]-1);
     },
@@ -163,7 +176,7 @@ var SlotFruitController = cc.Class.extend({
             return;
         }
         else {
-            LoadingDialog.getInstance().hide();
+            //LoadingDialog.getInstance().hide();
         }
         this._view.exitToGame();
     },
@@ -173,6 +186,7 @@ var SlotFruitController = cc.Class.extend({
     },
 
     sendJoinGame: function () {
+
         SmartfoxClient.getInstance().joinMiniGame(PlayerMe.miniGameInfo, "1008");
     },
     sendRouteRequest:function (lineBets,indexBet) {
