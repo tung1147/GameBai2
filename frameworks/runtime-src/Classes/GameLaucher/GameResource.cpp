@@ -92,7 +92,7 @@ size_t _GameFile_write_data_handler(void *ptr, size_t size, size_t nmemb, WriteD
     return written;
 }
 
-void GameFile::update(const std::string& url, UpdateHandler processHandler, UpdateHandler finishedCallback){
+void GameFile::update(const std::string url, UpdateHandler processHandler, UpdateHandler finishedCallback){
 	auto request = new quyetnd::DownloadRequest(url, filePath);
 
 	MD5* md5 = 0;
@@ -115,6 +115,7 @@ void GameFile::update(const std::string& url, UpdateHandler processHandler, Upda
 			auto md5Str = md5->hexdigest();
 			std::transform(md5Str.begin(), md5Str.end(), md5Str.begin(), ::tolower);
 			if (md5Str != md5Digest){
+				CCLOG("download file invalid hash: %s", this->fileName.c_str());
 				returnCode = -1;
 			}
 		}
@@ -123,8 +124,24 @@ void GameFile::update(const std::string& url, UpdateHandler processHandler, Upda
 			delete md5;
 		}
 
-		if (finishedCallback){
-			finishedCallback(returnCode);
+		//if (finishedCallback){
+		//	finishedCallback(returnCode);
+		//}
+
+		if (returnCode == DownloadResult::NETWORK_ERROR){		
+			this->update(url, processHandler, finishedCallback);
+
+			//Director::getInstance()->getScheduler()->performFunctionInCocosThread([=](){
+			//	//log("retry: %s", url.c_str());
+			//	Director::getInstance()->getScheduler()->schedule([=](float){
+			//		Director::getInstance()->getScheduler()->unschedule("_update_res", this);				
+			//	}, this, 1.0, false, "_update_res");
+			//});
+		}
+		else{
+			if (finishedCallback){
+				finishedCallback(returnCode);
+			}
 		}
 	};
 

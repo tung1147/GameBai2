@@ -181,9 +181,8 @@ void UUIDEncrypt::initPlugin(){
 
 	/* write sdcard */
 	std::string fileName = "UUIDEncrypt-gamebai389";// + jniGetAndroidPackage();
-	for(int i=0; i<s_path.size(); i++){
-		std::string _temp = fileName;
-		std::string fileName = string_to_md5(_temp);
+	for(int i=0; i<s_path.size(); i++){ 
+		fileName = string_to_md5(fileName);
 		std::string filePath = base64_decode(s_path[i]) + "." + fileName;
 		allPath.push_back(jniGetExternalStoragePath(filePath));
 	}

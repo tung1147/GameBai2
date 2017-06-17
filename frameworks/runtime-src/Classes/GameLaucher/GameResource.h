@@ -33,7 +33,7 @@ public:
 	GameFile();
 	virtual ~GameFile();
 	bool test();
-	void update(const std::string& url, UpdateHandler processHandler, UpdateHandler finishedCallback);
+	void update(const std::string url, UpdateHandler processHandler, UpdateHandler finishedCallback);
 };
 
 
