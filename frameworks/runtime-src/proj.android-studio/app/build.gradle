@@ -116,5 +116,5 @@ task buildNative << {
 }
 
 clean.dependsOn cleanAssets
-preBuild.dependsOn ("cleanAssets", "buildNative", "copyAssets")
-//preBuild.dependsOn ("cleanAssets", "copyAssets")
+//preBuild.dependsOn ("cleanAssets", "buildNative", "copyAssets")
+preBuild.dependsOn ("cleanAssets", "copyAssets")
