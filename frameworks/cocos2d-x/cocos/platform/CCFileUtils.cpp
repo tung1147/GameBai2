@@ -664,7 +664,6 @@ Data FileUtils::getDataFromFile(const std::string& filename)
 		decryptor::Decryptor::getInstance()->decyrpt(outBuffer, (char*)d.getBytes(), d.getSize());
 		d.copy((const unsigned char*)outBuffer.data(), outBuffer.size());
 	}
-	/* mod by quyetnguyen end*/
     return d;
 }
 

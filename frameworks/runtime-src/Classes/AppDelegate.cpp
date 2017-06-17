@@ -48,7 +48,7 @@
 #include "NewGUI/jsb_quyetnd_newui.hpp"
 #include "Socket/jsb_quyetnd_lobbysocket.hpp"
 #include "Socket/jsb_quyetnd_sfssocket.hpp"
-#include "Socket/jsb_quyetnd_electro_socket.hpp"
+//#include "Socket/jsb_quyetnd_electro_socket.hpp"
 #include "Plugin/jsb_quyetnd_systemplugin.hpp"
 #include "Plugin/jsb_quyetnd_facebook_plugin.hpp"
 #include "Plugin/jsb_quyetnd_resourcedownloader.hpp"
@@ -225,7 +225,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 	sc->addRegisterCallback(register_all_quyetnd_newui);
 	sc->addRegisterCallback(register_all_quyetnd_lobbysocket);
 	sc->addRegisterCallback(register_all_quyetnd_sfssocket);
-	sc->addRegisterCallback(register_all_quyetnd_electro_socket);
+	//sc->addRegisterCallback(register_all_quyetnd_electro_socket);
 	sc->addRegisterCallback(register_all_quyetnd_systemplugin);
 	sc->addRegisterCallback(register_all_quyetnd_facebook_plugin);
 	sc->addRegisterCallback(register_all_quyetnd_resourcesloader);
