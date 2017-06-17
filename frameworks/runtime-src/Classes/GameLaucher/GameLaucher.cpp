@@ -251,10 +251,16 @@ void GameLaucher::updateResources(std::vector<GameFile*>* resUpdate){
 
 		auto ticket = WorkerTicket::create(resUpdate->size());
 		ticket->finishedCallback = [=](bool success){ //update ok
-			/*start loadResource*/
+			
 			this->runOnUI([=](){
-				FileUtils::getInstance()->purgeCachedEntries();
-				this->loadResource();
+				if (success){
+					/*start loadResource*/
+					FileUtils::getInstance()->purgeCachedEntries();
+					this->loadResource();
+				}
+				else{
+					this->onProcessStatus(GameLaucherStatus::UpdateFailure);
+				}
 			});
 		};
 
@@ -402,10 +408,10 @@ void GameLaucher::checkFilesThread(){
 
 	rapidjson::Document doc;
 	doc.Parse<0>(buffer.data());
-	bool zipFileAvailable = false;
-	if (doc.HasMember("zipFileAvailable")){
-		zipFileAvailable = doc["zipFileAvailable"].GetBool();
-	}
+	//bool zipFileAvailable = false;
+	//if (doc.HasMember("zipFileAvailable")){
+	//	zipFileAvailable = doc["zipFileAvailable"].GetBool();
+	//}
 
 	const rapidjson::Value& files = doc["files"];
 	for (int i = 0; i < files.Size(); i++){

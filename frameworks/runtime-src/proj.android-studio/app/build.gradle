@@ -100,12 +100,10 @@ task buildNative << {
     def TOOLCHAIN = "4.9"
     def DEBUG = 0
     def buid_thread = Runtime.getRuntime().availableProcessors();
-    def buildPlatform = "android-" + PROP_TARGET_SDK_VERSION;
     def command = [ndk_builder_file.getAbsolutePath(),
                    "-j" + java.lang.Integer.toString(buid_thread),
                    "-C",
                    projectAppDir.getAbsolutePath(),
-                   "APP_PLATFORM=" + buildPlatform,
                    "NDK_DEBUG=" + java.lang.Integer.toString(DEBUG),
                    "NDK_TOOLCHAIN_VERSION=" + TOOLCHAIN,
                    "NDK_MODULE_PATH=" + rootDir.getAbsolutePath() + ";" + engineDir.getAbsolutePath() + ";" + externalDir.getAbsolutePath() + ";" + cocosDir.getAbsolutePath()
@@ -118,5 +116,5 @@ task buildNative << {
 }
 
 clean.dependsOn cleanAssets
-//preBuild.dependsOn ("buildNative", "copyAssets")
-preBuild.dependsOn ("cleanAssets", "copyAssets")
+preBuild.dependsOn ("cleanAssets", "buildNative", "copyAssets")
+//preBuild.dependsOn ("cleanAssets", "copyAssets")
