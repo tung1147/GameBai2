@@ -25,7 +25,7 @@ var ActivityDiemDanhLayer = cc.Node.extend({
         nameLabel.setPosition(356, 575);
         mNode.addChild(nameLabel);
 
-        var contentLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18,cc.Global.getStringRes()["Mission"]["diemdanhContent"],cc.TEXT_ALIGNMENT_LEFT, 570);
+        var contentLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18,cc.Global.getStringRes()["Mission"]["diemdanhContent"],cc.TEXT_ALIGNMENT_LEFT, 640);
         contentLabel.setColor(cc.color("#ffffff"));
         contentLabel.setAnchorPoint(cc.p(0.0, 1.0));
         contentLabel.setPosition(356, 550);
@@ -174,7 +174,7 @@ var ActivityLoginLayer = cc.Node.extend({
         nameLabel.setPosition(356, 575);
         mNode.addChild(nameLabel);
 
-        var contentLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, cc.Global.getStringRes()["Mission"]["loginContent"], cc.TEXT_ALIGNMENT_LEFT, 570);
+        var contentLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, cc.Global.getStringRes()["Mission"]["loginContent"], cc.TEXT_ALIGNMENT_LEFT, 640);
         contentLabel.setColor(cc.color("#ffffff"));
         contentLabel.setAnchorPoint(cc.p(0.0, 1.0));
         contentLabel.setPosition(356, 550);
@@ -316,36 +316,41 @@ var ActivityOnlineLayer = cc.Node.extend({
         this.addChild(mNode);
         this.mNode = mNode;
 
-        var nameLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "Online nhận quà");
+        var nameLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, "Online nhận quà");
         nameLabel.setColor(cc.color("#ffde00"));
         nameLabel.setAnchorPoint(cc.p(0.0, 0.5));
         nameLabel.setPosition(356, 575);
         mNode.addChild(nameLabel);
 
-        var contentLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, cc.Global.getStringRes()["Mission"]["onlineContent"], cc.TEXT_ALIGNMENT_LEFT, 570);
+        var contentLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, cc.Global.getStringRes()["Mission"]["onlineContent"], cc.TEXT_ALIGNMENT_LEFT, 640);
         contentLabel.setColor(cc.color("#ffffff"));
         contentLabel.setAnchorPoint(cc.p(0.0, 1.0));
         contentLabel.setPosition(356, 550);
         mNode.addChild(contentLabel);
 
+        var bottom1 = contentLabel.y - contentLabel.getContentSize().height - 20;
+
         var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_16, "Thời gian");
-        timeLabel.setColor(cc.color("#4d6181"));
-        timeLabel.setPosition(394, 485);
+        timeLabel.setColor(cc.color("#77cbee"));
+        timeLabel.setPosition(394, bottom1);
         mNode.addChild(timeLabel);
 
         var rewardLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_16, "Phần thưởng");
-        rewardLabel.setColor(cc.color("#4d6181"));
-        rewardLabel.setPosition(529, 485);
+        rewardLabel.setColor(cc.color("#77cbee"));
+        rewardLabel.setPosition(529, bottom1);
         mNode.addChild(rewardLabel);
 
         var statusLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_16, "Trạng thái");
         statusLabel.setAnchorPoint(cc.p(0.0, 0.5));
-        statusLabel.setColor(cc.color("#4d6181"));
-        statusLabel.setPosition(664, 485);
+        statusLabel.setColor(cc.color("#77cbee"));
+        statusLabel.setPosition(664, bottom1);
         mNode.addChild(statusLabel);
 
-        var listItem = new newui.TableView(cc.size(641, 370), 1);
-        listItem.setPosition(cc.p(355, 98));
+        var top = bottom1 - 20;
+        var bottom2 = 98;
+
+        var listItem = new newui.TableView(cc.size(641, top - bottom2), 1);
+        listItem.setPosition(cc.p(355, bottom2));
         listItem.setMargin(10,10,0,0);
         mNode.addChild(listItem);
         this.listItem = listItem;
