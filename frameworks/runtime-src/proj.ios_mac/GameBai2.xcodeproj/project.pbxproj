@@ -15,6 +15,10 @@
 		2714514C1ECC2E9A00A17CA0 /* WorkerManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2799BC0D1EC0645A00057795 /* WorkerManager.cpp */; };
 		27343D951ED02CF5005CB8E8 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27343D941ED02CF5005CB8E8 /* StoreKit.framework */; };
 		2799BC0F1EC0645A00057795 /* WorkerManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2799BC0D1EC0645A00057795 /* WorkerManager.cpp */; };
+		27BF66A61EF92D4D00281CC3 /* HttpFileDownloader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27BF66A41EF92D4D00281CC3 /* HttpFileDownloader.cpp */; };
+		27BF66A71EF92D4D00281CC3 /* HttpFileDownloader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27BF66A41EF92D4D00281CC3 /* HttpFileDownloader.cpp */; };
+		27BF66AA1EF92D5C00281CC3 /* EngineUtilsThreadSafe.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27BF66A81EF92D5C00281CC3 /* EngineUtilsThreadSafe.cpp */; };
+		27BF66AB1EF92D5C00281CC3 /* EngineUtilsThreadSafe.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27BF66A81EF92D5C00281CC3 /* EngineUtilsThreadSafe.cpp */; };
 		294D0D681D0D56F400F7F5D4 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 294D0D671D0D56F400F7F5D4 /* CoreText.framework */; };
 		502380DC17EBB88200990C9B /* libcurl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 502380DB17EBB88200990C9B /* libcurl.dylib */; };
 		5091731A17ECDF7A00D62437 /* Icon-29.png in Resources */ = {isa = PBXBuildFile; fileRef = 5091731417ECDF7A00D62437 /* Icon-29.png */; };
@@ -105,20 +109,12 @@
 		560F84D71EB3802200C3C032 /* SystemPlugin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 560F848E1EB3802200C3C032 /* SystemPlugin.cpp */; };
 		560F84D81EB3802200C3C032 /* UUIDEncrypt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 560F84901EB3802200C3C032 /* UUIDEncrypt.cpp */; };
 		560F84D91EB3802200C3C032 /* UUIDEncrypt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 560F84901EB3802200C3C032 /* UUIDEncrypt.cpp */; };
-		560F84DA1EB3802200C3C032 /* ElectroClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 560F84931EB3802200C3C032 /* ElectroClient.cpp */; };
-		560F84DB1EB3802200C3C032 /* ElectroClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 560F84931EB3802200C3C032 /* ElectroClient.cpp */; };
-		560F84DC1EB3802200C3C032 /* jsb_quyetnd_electro_socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 560F84951EB3802200C3C032 /* jsb_quyetnd_electro_socket.cpp */; };
-		560F84DD1EB3802200C3C032 /* jsb_quyetnd_electro_socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 560F84951EB3802200C3C032 /* jsb_quyetnd_electro_socket.cpp */; };
-		560F84DE1EB3802200C3C032 /* jsb_quyetnd_electro_socket_api.js in Resources */ = {isa = PBXBuildFile; fileRef = 560F84971EB3802200C3C032 /* jsb_quyetnd_electro_socket_api.js */; };
-		560F84DF1EB3802200C3C032 /* jsb_quyetnd_electro_socket_api.js in Resources */ = {isa = PBXBuildFile; fileRef = 560F84971EB3802200C3C032 /* jsb_quyetnd_electro_socket_api.js */; };
 		560F84E01EB3802200C3C032 /* jsb_quyetnd_lobbysocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 560F84981EB3802200C3C032 /* jsb_quyetnd_lobbysocket.cpp */; };
 		560F84E11EB3802200C3C032 /* jsb_quyetnd_lobbysocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 560F84981EB3802200C3C032 /* jsb_quyetnd_lobbysocket.cpp */; };
 		560F84E21EB3802200C3C032 /* jsb_quyetnd_lobbysocket_api.js in Resources */ = {isa = PBXBuildFile; fileRef = 560F849A1EB3802200C3C032 /* jsb_quyetnd_lobbysocket_api.js */; };
 		560F84E31EB3802200C3C032 /* jsb_quyetnd_lobbysocket_api.js in Resources */ = {isa = PBXBuildFile; fileRef = 560F849A1EB3802200C3C032 /* jsb_quyetnd_lobbysocket_api.js */; };
 		560F84E41EB3802200C3C032 /* jsb_quyetnd_sfssocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 560F849B1EB3802200C3C032 /* jsb_quyetnd_sfssocket.cpp */; };
 		560F84E51EB3802200C3C032 /* jsb_quyetnd_sfssocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 560F849B1EB3802200C3C032 /* jsb_quyetnd_sfssocket.cpp */; };
-		560F84E61EB3802200C3C032 /* jsb_quyetnd_sfssocket_api.js in Resources */ = {isa = PBXBuildFile; fileRef = 560F849D1EB3802200C3C032 /* jsb_quyetnd_sfssocket_api.js */; };
-		560F84E71EB3802200C3C032 /* jsb_quyetnd_sfssocket_api.js in Resources */ = {isa = PBXBuildFile; fileRef = 560F849D1EB3802200C3C032 /* jsb_quyetnd_sfssocket_api.js */; };
 		560F84E81EB3802200C3C032 /* LobbyClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 560F849E1EB3802200C3C032 /* LobbyClient.cpp */; };
 		560F84E91EB3802200C3C032 /* LobbyClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 560F849E1EB3802200C3C032 /* LobbyClient.cpp */; };
 		560F84EA1EB3802200C3C032 /* SmartfoxClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 560F84A01EB3802200C3C032 /* SmartfoxClient.cpp */; };
@@ -340,6 +336,10 @@
 		2799BC0D1EC0645A00057795 /* WorkerManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WorkerManager.cpp; sourceTree = "<group>"; };
 		2799BC0E1EC0645A00057795 /* WorkerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkerManager.h; sourceTree = "<group>"; };
 		2799BC141EC06FA700057795 /* GameBai2-mobile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "GameBai2-mobile.entitlements"; sourceTree = "<group>"; };
+		27BF66A41EF92D4D00281CC3 /* HttpFileDownloader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HttpFileDownloader.cpp; sourceTree = "<group>"; };
+		27BF66A51EF92D4D00281CC3 /* HttpFileDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpFileDownloader.h; sourceTree = "<group>"; };
+		27BF66A81EF92D5C00281CC3 /* EngineUtilsThreadSafe.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EngineUtilsThreadSafe.cpp; sourceTree = "<group>"; };
+		27BF66A91EF92D5C00281CC3 /* EngineUtilsThreadSafe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EngineUtilsThreadSafe.h; sourceTree = "<group>"; };
 		294D0D671D0D56F400F7F5D4 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/CoreText.framework; sourceTree = DEVELOPER_DIR; };
 		502380DB17EBB88200990C9B /* libcurl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcurl.dylib; path = usr/lib/libcurl.dylib; sourceTree = SDKROOT; };
 		5091731417ECDF7A00D62437 /* Icon-29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-29.png"; path = "ios/Icon-29.png"; sourceTree = "<group>"; };
@@ -425,17 +425,11 @@
 		560F848F1EB3802200C3C032 /* SystemPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemPlugin.h; sourceTree = "<group>"; };
 		560F84901EB3802200C3C032 /* UUIDEncrypt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UUIDEncrypt.cpp; sourceTree = "<group>"; };
 		560F84911EB3802200C3C032 /* UUIDEncrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UUIDEncrypt.h; sourceTree = "<group>"; };
-		560F84931EB3802200C3C032 /* ElectroClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ElectroClient.cpp; sourceTree = "<group>"; };
-		560F84941EB3802200C3C032 /* ElectroClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ElectroClient.h; sourceTree = "<group>"; };
-		560F84951EB3802200C3C032 /* jsb_quyetnd_electro_socket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jsb_quyetnd_electro_socket.cpp; sourceTree = "<group>"; };
-		560F84961EB3802200C3C032 /* jsb_quyetnd_electro_socket.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = jsb_quyetnd_electro_socket.hpp; sourceTree = "<group>"; };
-		560F84971EB3802200C3C032 /* jsb_quyetnd_electro_socket_api.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jsb_quyetnd_electro_socket_api.js; sourceTree = "<group>"; };
 		560F84981EB3802200C3C032 /* jsb_quyetnd_lobbysocket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jsb_quyetnd_lobbysocket.cpp; sourceTree = "<group>"; };
 		560F84991EB3802200C3C032 /* jsb_quyetnd_lobbysocket.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = jsb_quyetnd_lobbysocket.hpp; sourceTree = "<group>"; };
 		560F849A1EB3802200C3C032 /* jsb_quyetnd_lobbysocket_api.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jsb_quyetnd_lobbysocket_api.js; sourceTree = "<group>"; };
 		560F849B1EB3802200C3C032 /* jsb_quyetnd_sfssocket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jsb_quyetnd_sfssocket.cpp; sourceTree = "<group>"; };
 		560F849C1EB3802200C3C032 /* jsb_quyetnd_sfssocket.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = jsb_quyetnd_sfssocket.hpp; sourceTree = "<group>"; };
-		560F849D1EB3802200C3C032 /* jsb_quyetnd_sfssocket_api.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jsb_quyetnd_sfssocket_api.js; sourceTree = "<group>"; };
 		560F849E1EB3802200C3C032 /* LobbyClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LobbyClient.cpp; sourceTree = "<group>"; };
 		560F849F1EB3802200C3C032 /* LobbyClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LobbyClient.h; sourceTree = "<group>"; };
 		560F84A01EB3802200C3C032 /* SmartfoxClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SmartfoxClient.cpp; sourceTree = "<group>"; };
@@ -633,6 +627,8 @@
 		560F84631EB3802200C3C032 /* GameLaucher */ = {
 			isa = PBXGroup;
 			children = (
+				27BF66A81EF92D5C00281CC3 /* EngineUtilsThreadSafe.cpp */,
+				27BF66A91EF92D5C00281CC3 /* EngineUtilsThreadSafe.h */,
 				2799BC0D1EC0645A00057795 /* WorkerManager.cpp */,
 				2799BC0E1EC0645A00057795 /* WorkerManager.h */,
 				560F84641EB3802200C3C032 /* GameLaucher.cpp */,
@@ -668,6 +664,8 @@
 		560F84781EB3802200C3C032 /* Plugin */ = {
 			isa = PBXGroup;
 			children = (
+				27BF66A41EF92D4D00281CC3 /* HttpFileDownloader.cpp */,
+				27BF66A51EF92D4D00281CC3 /* HttpFileDownloader.h */,
 				560F84791EB3802200C3C032 /* base64.cpp */,
 				560F847A1EB3802200C3C032 /* base64.h */,
 				560F847B1EB3802200C3C032 /* CRC32.cpp */,
@@ -700,17 +698,11 @@
 		560F84921EB3802200C3C032 /* Socket */ = {
 			isa = PBXGroup;
 			children = (
-				560F84931EB3802200C3C032 /* ElectroClient.cpp */,
-				560F84941EB3802200C3C032 /* ElectroClient.h */,
-				560F84951EB3802200C3C032 /* jsb_quyetnd_electro_socket.cpp */,
-				560F84961EB3802200C3C032 /* jsb_quyetnd_electro_socket.hpp */,
-				560F84971EB3802200C3C032 /* jsb_quyetnd_electro_socket_api.js */,
 				560F84981EB3802200C3C032 /* jsb_quyetnd_lobbysocket.cpp */,
 				560F84991EB3802200C3C032 /* jsb_quyetnd_lobbysocket.hpp */,
 				560F849A1EB3802200C3C032 /* jsb_quyetnd_lobbysocket_api.js */,
 				560F849B1EB3802200C3C032 /* jsb_quyetnd_sfssocket.cpp */,
 				560F849C1EB3802200C3C032 /* jsb_quyetnd_sfssocket.hpp */,
-				560F849D1EB3802200C3C032 /* jsb_quyetnd_sfssocket_api.js */,
 				560F849E1EB3802200C3C032 /* LobbyClient.cpp */,
 				560F849F1EB3802200C3C032 /* LobbyClient.h */,
 				560F84A01EB3802200C3C032 /* SmartfoxClient.cpp */,
@@ -1101,8 +1093,6 @@
 				560F84E31EB3802200C3C032 /* jsb_quyetnd_lobbysocket_api.js in Resources */,
 				509D4ACF17EBB2BE00697056 /* Icon.icns in Resources */,
 				560F84AB1EB3802200C3C032 /* jsb_quyetnd_action_api.js in Resources */,
-				560F84DF1EB3802200C3C032 /* jsb_quyetnd_electro_socket_api.js in Resources */,
-				560F84E71EB3802200C3C032 /* jsb_quyetnd_sfssocket_api.js in Resources */,
 				560F84CF1EB3802200C3C032 /* jsb_quyetnd_systemplugin_api.js in Resources */,
 				C03780EC18BEE0E400FE4F13 /* src in Resources */,
 			);
@@ -1119,7 +1109,6 @@
 				5091731E17ECDF7A00D62437 /* Icon-80.png in Resources */,
 				5091731F17ECDF7A00D62437 /* Icon-100.png in Resources */,
 				560F84FC1EB3807200C3C032 /* Icon-180.png in Resources */,
-				560F84DE1EB3802200C3C032 /* jsb_quyetnd_electro_socket_api.js in Resources */,
 				509D4AC117EBB2AB00697056 /* Icon-72.png in Resources */,
 				560F84B41EB3802200C3C032 /* jsb_quyetnd_newui_api.js in Resources */,
 				509D4AC017EBB2AB00697056 /* Icon-57.png in Resources */,
@@ -1132,7 +1121,6 @@
 				509D4AC517EBB2AB00697056 /* Icon-144.png in Resources */,
 				509D4AC317EBB2AB00697056 /* Icon-114.png in Resources */,
 				560F85651EB3880300C3C032 /* FacebookSDKStrings.bundle in Resources */,
-				560F84E61EB3802200C3C032 /* jsb_quyetnd_sfssocket_api.js in Resources */,
 				509D4ABD17EBB2AB00697056 /* Default-568h@2x.png in Resources */,
 				509D4ABF17EBB2AB00697056 /* Default@2x.png in Resources */,
 				509D4AC217EBB2AB00697056 /* Icon-76.png in Resources */,
@@ -1156,7 +1144,6 @@
 				560F84D11EB3802200C3C032 /* MD5.cpp in Sources */,
 				560F84D91EB3802200C3C032 /* UUIDEncrypt.cpp in Sources */,
 				560F84C11EB3802200C3C032 /* base64.cpp in Sources */,
-				560F84DD1EB3802200C3C032 /* jsb_quyetnd_electro_socket.cpp in Sources */,
 				560F84D31EB3802200C3C032 /* ResourcesDownloader.cpp in Sources */,
 				560F84AD1EB3802200C3C032 /* GameLaucher.cpp in Sources */,
 				560F84E11EB3802200C3C032 /* jsb_quyetnd_lobbysocket.cpp in Sources */,
@@ -1166,7 +1153,6 @@
 				560F84CB1EB3802200C3C032 /* jsb_quyetnd_resourcedownloader.cpp in Sources */,
 				560F84D51EB3802200C3C032 /* sha1.cpp in Sources */,
 				560F84B91EB3802200C3C032 /* NewTableView.cpp in Sources */,
-				560F84DB1EB3802200C3C032 /* ElectroClient.cpp in Sources */,
 				560F84EB1EB3802200C3C032 /* SmartfoxClient.cpp in Sources */,
 				560F84B71EB3802200C3C032 /* ListViewWithAdapter.cpp in Sources */,
 				560F84A91EB3802200C3C032 /* jsb_quyetnd_action.cpp in Sources */,
@@ -1179,6 +1165,7 @@
 				560F84BD1EB3802200C3C032 /* NewTextInput.cpp in Sources */,
 				560F84E51EB3802200C3C032 /* jsb_quyetnd_sfssocket.cpp in Sources */,
 				560F84E91EB3802200C3C032 /* LobbyClient.cpp in Sources */,
+				27BF66A71EF92D4D00281CC3 /* HttpFileDownloader.cpp in Sources */,
 				560F84B11EB3802200C3C032 /* ResourceLoader.cpp in Sources */,
 				560F84A51EB3802200C3C032 /* ActionShake2D.cpp in Sources */,
 				560F84A71EB3802200C3C032 /* CustomAction.cpp in Sources */,
@@ -1188,6 +1175,7 @@
 				560F854C1EB384F300C3C032 /* MacOS_native_linker.mm in Sources */,
 				C06E23CC18CEFE680093C81A /* main.cpp in Sources */,
 				560F84C71EB3802200C3C032 /* FacebookPlugin.cpp in Sources */,
+				27BF66AB1EF92D5C00281CC3 /* EngineUtilsThreadSafe.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1206,7 +1194,6 @@
 				560F85641EB3880300C3C032 /* FacebookPlugin_iOS.mm in Sources */,
 				560F84A41EB3802200C3C032 /* ActionShake2D.cpp in Sources */,
 				560F84C81EB3802200C3C032 /* jsb_quyetnd_facebook_plugin.cpp in Sources */,
-				560F84DA1EB3802200C3C032 /* ElectroClient.cpp in Sources */,
 				560F84D61EB3802200C3C032 /* SystemPlugin.cpp in Sources */,
 				509D4AC917EBB2AB00697056 /* RootViewController.mm in Sources */,
 				560F84BA1EB3802200C3C032 /* NewTextField.cpp in Sources */,
@@ -1217,6 +1204,7 @@
 				560F84A21EB3802200C3C032 /* ActionNumber.cpp in Sources */,
 				560F84F81EB3805200C3C032 /* iOS_native_linker.mm in Sources */,
 				560F84B61EB3802200C3C032 /* ListViewWithAdapter.cpp in Sources */,
+				27BF66AA1EF92D5C00281CC3 /* EngineUtilsThreadSafe.cpp in Sources */,
 				560F84B81EB3802200C3C032 /* NewTableView.cpp in Sources */,
 				560F84F51EB3803900C3C032 /* UICKeyChainStore.m in Sources */,
 				560F84EA1EB3802200C3C032 /* SmartfoxClient.cpp in Sources */,
@@ -1226,8 +1214,8 @@
 				560F84C61EB3802200C3C032 /* FacebookPlugin.cpp in Sources */,
 				2799BC0F1EC0645A00057795 /* WorkerManager.cpp in Sources */,
 				560F84F31EB3803900C3C032 /* InAppPurchare.mm in Sources */,
+				27BF66A61EF92D4D00281CC3 /* HttpFileDownloader.cpp in Sources */,
 				560F84B21EB3802200C3C032 /* jsb_quyetnd_newui.cpp in Sources */,
-				560F84DC1EB3802200C3C032 /* jsb_quyetnd_electro_socket.cpp in Sources */,
 				560F84C01EB3802200C3C032 /* base64.cpp in Sources */,
 				560F84F41EB3803900C3C032 /* SMSPlugin.m in Sources */,
 				560F84B01EB3802200C3C032 /* ResourceLoader.cpp in Sources */,

@@ -114,6 +114,9 @@ void GameLaucher::requestGetUpdate(){
 	this->checkVersionFile();
 	return;
 #else
+    this->checkFiles();
+    return;
+    
 
 	std::string versionName = quyetnd::SystemPlugin::getInstance()->getVersionName();
 	std::string bundleName = quyetnd::SystemPlugin::getInstance()->getPackageName();
@@ -138,7 +141,7 @@ void GameLaucher::requestGetUpdate(){
 
 			std::string base64Encrypt(mData->data());
 			std::string json = quyetnd::SystemPlugin::getInstance()->dataDecryptBase64((char*)aes_key, base64Encrypt);
-			//std::string json = "{\"data\":{\"UpdateConfig\":{\"host\":\"http://sandbox.c567vip.com/quyetnd/mobile/\",\"versionHash\":\"dd3048e0135d638868019dc67daff521\", \"demo\":true}}}";
+//			std::string json = "{\"data\":{\"UpdateConfig\":{\"host\":\"http://sandbox.c567vip.com/quyetnd/mobile/\",\"versionHash\":\"dd3048e0135d638868019dc67daff521\", \"demo\":true}}}";
 			CCLOG("json: %s", json.c_str());
 
 			rapidjson::Document doc;

@@ -493,45 +493,50 @@ var RewardHistoryLayer = RewardSublayer.extend({
     ctor: function () {
         this._super();
 
-        var margin = 60.0 * cc.winSize.screenScale;
-        var padding = 2.0;
-        this.width1 = 200.0 * cc.winSize.screenScale;
-        this.width2 = 230.0 * cc.winSize.screenScale;
-        this.width4 = 210.0 * cc.winSize.screenScale;
-        this.width3 = cc.winSize.width - this.width1 - this.width2 - this.width4 - margin * 2 - padding * 3;
-        this.x1 = margin + this.width1 / 2;
-        this.x2 = this.x1 + this.width1 / 2 + this.width2 / 2 + padding;
-        this.x3 = this.x2 + this.width2 / 2 + this.width3 / 2 + padding;
-        this.x4 = this.x3 + this.width3 / 2 + this.width4 / 2 + padding;
+        this.x1 = 64;
+        this.x2 = 240;
+        this.x3 = 560;
+        this.x4 = 1040;
 
         var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Thời gian");
+        timeLabel.setAnchorPoint(cc.p(0.0, 0.5));
         timeLabel.setColor(cc.color("#2776a4"));
-        timeLabel.setPosition(this.x1, 576);
+        timeLabel.setPosition(64 * cc.winSize.screenScale, 576);
         this.addChild(timeLabel, 1);
 
         var typeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Loại");
         typeLabel.setColor(cc.color("#2776a4"));
-        typeLabel.setPosition(this.x2, 576);
+        typeLabel.setAnchorPoint(cc.p(0.0, 0.5));
+        typeLabel.setPosition(240 * cc.winSize.screenScale, 576);
         this.addChild(typeLabel, 1);
 
         var infoLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Thông tin ");
         infoLabel.setColor(cc.color("#2776a4"));
-        infoLabel.setPosition(this.x3, 576);
+        infoLabel.setAnchorPoint(cc.p(0.0, 0.5));
+        infoLabel.setPosition(560 * cc.winSize.screenScale, 576);
         this.addChild(infoLabel, 1);
 
         var statusLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Trạng thái ");
         statusLabel.setColor(cc.color("#2776a4"));
-        statusLabel.setPosition(this.x4, 576);
+        statusLabel.setAnchorPoint(cc.p(0.0, 0.5));
+        statusLabel.setPosition(1040 * cc.winSize.screenScale, 576);
         this.addChild(statusLabel, 1);
 
-        var _top = 554.0;
-        var _bottom = 126.0;
-        var itemList = new newui.TableView(cc.size(cc.winSize.width, _top - _bottom), 1);
+
+        var _top = 556.0;
+        var _bottom = 97.0;
+
+        var _left = 40.0* cc.winSize.screenScale;
+        var _right = 1240.0;
+
+
+        var itemList = new newui.TableView(cc.size(_right - _left, _top - _bottom), 1);
         itemList.setDirection(ccui.ScrollView.DIR_VERTICAL);
         itemList.setScrollBarEnabled(false);
-        itemList.setPadding(10);
+        itemList.setAnchorPoint(cc.p(0.0, 1.0));
         itemList.setMargin(10, 10, 0, 0);
-        itemList.setPosition(cc.p(0, _bottom));
+        itemList.setScale(cc.winSize.screenScale);
+        itemList.setPosition(cc.p(_left, _top));
         this.addChild(itemList, 1);
         this.itemList = itemList;
 
@@ -559,15 +564,24 @@ var RewardHistoryLayer = RewardSublayer.extend({
         this.itemList.removeAllItems();
         var itemList = data.data;
         for (var i = 0; i < itemList.length; i++) {
-            this.addItem(itemList[i].createdTime, itemList[i].productName, itemList[i].resultContent, itemList[i].status);
+            this.addItem(itemList[i].createdTime, itemList[i].productName, itemList[i].resultContent, itemList[i].status, itemList[i]);
         }
     },
-    addItem: function (time, type, info, status) {
+    addItem: function (time, type, info, status, data) {
         var d = new Date(time);
-        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, cc.Global.DateToString(d), cc.TEXT_ALIGNMENT_CENTER, this.width1);
+        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, cc.Global.DateToString(d), cc.TEXT_ALIGNMENT_CENTER, 100);
         var typeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, type);
         var infoLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, info);
-        var statusLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Thành công");
+        var statusLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "");
+
+        timeLabel.setAnchorPoint(cc.p(0.0, 0.5));
+        typeLabel.setAnchorPoint(cc.p(0.0, 0.5));
+        infoLabel.setAnchorPoint(cc.p(0.0, 0.5));
+        statusLabel.setAnchorPoint(cc.p(0.0, 0.5));
+        timeLabel.setColor(cc.color("#8de8ff"));
+        typeLabel.setColor(cc.color("#8de8ff"));
+        infoLabel.setColor(cc.color("#8de8ff"));
+
         var height = 60.0;
         if (timeLabel.getContentSize().height > height) {
             height = timeLabel.getContentSize().height;
@@ -582,49 +596,75 @@ var RewardHistoryLayer = RewardSublayer.extend({
         container.setContentSize(cc.size(this.itemList.getContentSize().width, height));
         this.itemList.pushItem(container);
 
-        var bg1 = new ccui.Scale9Sprite("lobby-text-input.png", cc.rect(10, 10, 4, 4));
-        bg1.setPreferredSize(cc.size(this.width1, container.getContentSize().height));
-        bg1.setOpacity(25);
-        bg1.setPosition(this.x1, container.getContentSize().height / 2);
-        container.addChild(bg1);
 
-        var bg2 = new ccui.Scale9Sprite("lobby-text-input.png", cc.rect(10, 10, 4, 4));
-        bg2.setPreferredSize(cc.size(this.width2, container.getContentSize().height));
-        bg2.setOpacity(25);
-        bg2.setPosition(this.x2, container.getContentSize().height / 2);
-        container.addChild(bg2);
+        if(this.itemList.size() % 2){
+            var bg = new ccui.Scale9Sprite("activity_cell_bg.png", cc.rect(10, 10, 4, 4));
+            bg.setPreferredSize(container.getContentSize());
+            bg.setAnchorPoint(cc.p(0,0));
+            container.addChild(bg);
 
-        var bg3 = new ccui.Scale9Sprite("lobby-text-input.png", cc.rect(10, 10, 4, 4));
-        bg3.setPreferredSize(cc.size(this.width3, container.getContentSize().height));
-        bg3.setOpacity(25);
-        bg3.setPosition(this.x3, container.getContentSize().height / 2);
-        container.addChild(bg3);
+            var bg1 = new ccui.Scale9Sprite("activity_cell_bg.png", cc.rect(10, 10, 4, 4));
+            bg1.setPreferredSize(cc.size(1, 50));
+            bg1.setPosition(170, 30);
+            container.addChild(bg1);
 
-        var bg4 = new ccui.Scale9Sprite("lobby-text-input.png", cc.rect(10, 10, 4, 4));
-        bg4.setPreferredSize(cc.size(this.width4, container.getContentSize().height));
-        bg4.setOpacity(25);
-        bg4.setPosition(this.x4, container.getContentSize().height / 2);
-        container.addChild(bg4);
+            var bg2 = new ccui.Scale9Sprite("activity_cell_bg.png", cc.rect(10, 10, 4, 4));
+            bg2.setPreferredSize(cc.size(1, 50));
+            bg2.setPosition(500, 30);
+            container.addChild(bg2);
 
-        timeLabel.setPosition(bg1.getPosition());
+            var bg3 = new ccui.Scale9Sprite("activity_cell_bg.png", cc.rect(10, 10, 4, 4));
+            bg3.setPreferredSize(cc.size(1, 50));
+            bg3.setPosition(980, 30);
+            container.addChild(bg3);
+
+        }
+
+        timeLabel.setPosition(cc.p(this.x1 - 40, 30));
         container.addChild(timeLabel, 1);
 
-        typeLabel.setPosition(bg2.getPosition());
+        typeLabel.setPosition(cc.p(this.x2 - 40, 30));
         container.addChild(typeLabel, 1);
 
-        infoLabel.setPosition(bg3.getPosition());
+        infoLabel.setPosition(cc.p(this.x3 - 40, 30));
         container.addChild(infoLabel, 1);
 
-        statusLabel.setPosition(bg4.getPosition());
+        statusLabel.setPosition(cc.p(this.x4 - 40, 30));
         container.addChild(statusLabel, 1);
         if (status == 0) { //thanh cong
-            statusLabel.setString("Đã trả");
-            statusLabel.setColor(cc.color("#ffde00"));
+            if(data.productType === 1)
+            {
+                var btnNapLai = new ccui.Button("reward-naplai-card.png", "", "", ccui.Widget.PLIST_TEXTURE);
+                btnNapLai.setAnchorPoint(cc.p(0.0,0.5));
+                btnNapLai.setPosition(this.x4 - 40, 30);
+                btnNapLai.addClickEventListener(function () {
 
-            var successIcon = new cc.Sprite("#reward-success-icon.png");
-            container.addChild(successIcon);
-            statusLabel.setPositionX(bg4.x - 30);
-            successIcon.setPosition(statusLabel.x + statusLabel.getContentSize().width / 2 + successIcon.getContentSize().width / 2, statusLabel.y);
+                    var dialog = new MessageConfirmDialog();
+                    dialog.setMessage("Bạn chắc chắn muốn nạp lại thẻ này?");
+                    dialog.okButtonHandler = function () {
+                        var request = {
+                            command: "cashin",
+                            code: data.code,
+                            serial: data.serial,
+                            telco: data.telco,
+                            type: 1
+                        };
+                        LobbyClient.getInstance().send(request);
+                        dialog.hide();
+                    };
+                    dialog.cancelButtonHandler = function () {
+                        dialog.hide();
+                    };
+                    dialog.show();
+                });
+                container.addChild(btnNapLai);
+            }
+            else
+            {
+                statusLabel.setString("Đã trả");
+                statusLabel.setColor(cc.color("#ffde00"));
+            }
+
         }
         else if (status == 1) {
             statusLabel.setString("Chờ duyệt");
