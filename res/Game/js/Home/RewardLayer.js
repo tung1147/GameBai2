@@ -550,15 +550,15 @@ var RewardHistoryLayer = RewardSublayer.extend({
         this.itemList.removeAllItems();
         var itemList = data.data;
         for (var i = 0; i < itemList.length; i++) {
-            this.addItem(itemList[i].createdTime, itemList[i].productName, itemList[i].resultContent, itemList[i].status);
+            this.addItem(itemList[i].createdTime, itemList[i].productName, itemList[i].resultContent, itemList[i].status, itemList[i]);
         }
     },
-    addItem: function (time, type, info, status) {
+    addItem: function (time, type, info, status, data) {
         var d = new Date(time);
         var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, cc.Global.DateToString(d), cc.TEXT_ALIGNMENT_CENTER, this.width1);
         var typeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, type);
         var infoLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, info);
-        var statusLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "Thành công");
+        var statusLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, "");
         var height = 60.0;
         if (timeLabel.getContentSize().height > height) {
             height = timeLabel.getContentSize().height;
@@ -605,13 +605,45 @@ var RewardHistoryLayer = RewardSublayer.extend({
         statusLabel.setPosition(bg4.getPosition());
         container.addChild(statusLabel, 1);
         if (status == 0) { //thanh cong
-            statusLabel.setString("Đã trả");
-            statusLabel.setColor(cc.color("#ffde00"));
 
-            var successIcon = new cc.Sprite("#reward-success-icon.png");
-            container.addChild(successIcon);
-            statusLabel.setPositionX(bg4.x - 30);
-            successIcon.setPosition(statusLabel.x + statusLabel.getContentSize().width / 2 + successIcon.getContentSize().width / 2, statusLabel.y);
+            if(data.productType === 1)
+            {
+                var btnNapLai = new ccui.Button("reward-naplai-card.png", "", "", ccui.Widget.PLIST_TEXTURE);
+                // btnNapLai.setAnchorPoint(cc.p(0.0,0.5));
+                btnNapLai.setPosition(this.x4, 30);
+                btnNapLai.addClickEventListener(function () {
+
+                    var dialog = new MessageConfirmDialog();
+                    dialog.setMessage("Bạn chắc chắn muốn nạp lại thẻ này?");
+                    dialog.okButtonHandler = function () {
+                        var request = {
+                            command: "cashin",
+                            code: data.code,
+                            serial: data.serial,
+                            telco: data.telco,
+                            type: 1
+                        };
+                        LobbyClient.getInstance().send(request);
+                        dialog.hide();
+                    };
+                    dialog.cancelButtonHandler = function () {
+                        dialog.hide();
+                    };
+                    dialog.show();
+                });
+                container.addChild(btnNapLai);
+            }
+            else
+            {
+                statusLabel.setString("Đã trả");
+                statusLabel.setColor(cc.color("#ffde00"));
+
+                // var successIcon = new cc.Sprite("#reward-success-icon.png");
+                // container.addChild(successIcon);
+                // statusLabel.setPositionX(bg4.x - 30);
+                // successIcon.setPosition(statusLabel.x + statusLabel.getContentSize().width / 2 + successIcon.getContentSize().width / 2, statusLabel.y);
+            }
+
         }
         else if (status == 1) {
             statusLabel.setString("Chờ duyệt");
