@@ -32,7 +32,7 @@ var HistoryFruit = Dialog.extend({
     },
 
     _createHistory : function () {
-        var mSize = cc.size(800, 350);
+        var mSize = cc.size(800, 330);
         var dx = 0.0;
         var thiz = this;
 
@@ -50,7 +50,7 @@ var HistoryFruit = Dialog.extend({
         }
 
         var listTai = new newui.ListViewWithAdaptor(mSize);
-        listTai.setPosition(dx+100 , 100);
+        listTai.setPosition(dx+100 , 120);
         this.addChild(listTai);
         listTai.setCreateItemCallback(function () {
             return thiz._createCell();
