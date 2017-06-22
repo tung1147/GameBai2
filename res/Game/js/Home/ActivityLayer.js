@@ -686,7 +686,11 @@ var ActivityQuestLayer = cc.Node.extend({
                 okButton.addClickEventListener(function () {
                     statusLabel.visible = true;
                     okButton.visible = false;
-                    _activity_request_reward(itemId);
+                    var request = {
+                        command : "acquireReward",
+                        id : itemId
+                    };
+                    LobbyClient.getInstance().send(request);
                 });
             }
         }
