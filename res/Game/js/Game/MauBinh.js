@@ -947,6 +947,7 @@ var MauBinh = IGameScene.extend({
         }
     },
     performDealCards: function (cards, animation,typeTrang) {
+
         var thiz = this;
         if (this.cleanTimeout) {
             clearTimeout(this.cleanTimeout);
@@ -960,13 +961,26 @@ var MauBinh = IGameScene.extend({
 
         for (var j = 0; j < this.playerView.length; j++) {
             if(this.playerView[j].username != "" && !this.playerView[j].spectator ){
-                this.playerView[j].cardList.dealCards(cardArray, j == 0, animation);
+                if(!cards || cards.length == 0 ){
+                    var cardArrayTemp = [1,2,3,4,5,6,7,8,9,10,11,12,13];
+                    this.playerView[j].cardList.dealCards(cardArrayTemp, j == 0, animation);
+                }
+                else{
+                    this.playerView[j].cardList.dealCards(cardArray, j == 0, animation);
+                }
+
                 if(j!=0){
                     this.playerView[j].cardList.setNameChi(MB_CHI_DAU,"Đang xếp",false);
                 }
             }
         }
 
+        if(!cards || cards.length == 0 ){
+            thiz.nhanhBt.setVisible(false);
+            thiz.xongBt.setVisible(false);
+            thiz.xepLaiBt.setVisible(false);
+            return;
+        }
         if(typeTrang < 7){
 
             var cardIDMe = this.convertNew2Old(this.listCardMe.getCardsId());
