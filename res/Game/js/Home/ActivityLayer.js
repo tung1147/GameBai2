@@ -641,8 +641,8 @@ var ActivityQuestLayer = cc.Node.extend({
         }
     },
 
-    addItem : function(date, reward, status, itemId){
-        var questLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_18, "Nhiệm vụ", cc.TEXT_ALIGNMENT_LEFT, 245);
+    addItem : function(name, reward, status, itemId){
+        var questLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_18, name, cc.TEXT_ALIGNMENT_LEFT, 245);
         var containerHeight = questLabel.getContentSize().height;
         if(containerHeight < 50){
             containerHeight = 50;
