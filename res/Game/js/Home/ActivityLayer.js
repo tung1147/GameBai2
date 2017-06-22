@@ -509,18 +509,18 @@ var ActivityQuestLayer = cc.Node.extend({
         questLabel.setAnchorPoint(cc.p(0.0, 0.5));
         questLabel.setColor(cc.color("#4d6181"));
         questLabel.setPosition(375, 507);
-        mNode.addChild(questLabel);
+        this.itemNode.addChild(questLabel);
 
         var rewardLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_16, "Phần thưởng");
         rewardLabel.setColor(cc.color("#4d6181"));
         rewardLabel.setPosition(704, 507);
-        mNode.addChild(rewardLabel);
+        this.itemNode.addChild(rewardLabel);
 
         var statusLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_16, "Trạng thái");
         statusLabel.setAnchorPoint(cc.p(0.0, 0.5));
         statusLabel.setColor(cc.color("#4d6181"));
         statusLabel.setPosition(789, 507);
-        mNode.addChild(statusLabel);
+        this.itemNode.addChild(statusLabel);
 
         var listItem = new newui.TableView(cc.size(641, 370), 1);
         listItem.setPosition(cc.p(355, 98));
@@ -577,9 +577,10 @@ var ActivityQuestLayer = cc.Node.extend({
     },
 
     _onRecvItemData : function (cmd, data) {
-        var items = data["data"]["landmarks"];
+        var items = data["data"]["milestones"];
         if(items.length > 0){
             this.mNode.visible = true;
+            this.itemNode.visible = true;
             this.listItem.removeAllItems();
 
             for(var i=0;i<items.length;i++){
