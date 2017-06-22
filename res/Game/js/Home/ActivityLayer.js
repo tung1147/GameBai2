@@ -490,8 +490,8 @@ var ActivityQuestTab = ccui.Widget.extend({
 var ActivityQuestLayer = cc.Node.extend({
     ctor : function () {
         this._super();
-        LobbyClient.getInstance().addListener("fetchUserLandmark", this._onRecvItemData, this);
-        LobbyClient.getInstance().addListener("fetchMissionInActionGroup", this._onRecvGroupData, this);
+        LobbyClient.getInstance().addListener("fetchQuestGroup", this._onRecvGroupData, this);
+        LobbyClient.getInstance().addListener("fetchMilestones", this._onRecvItemData, this);
 
         var mNode = new cc.Node();
         this.addChild(mNode);
@@ -549,7 +549,7 @@ var ActivityQuestLayer = cc.Node.extend({
         this._super(visible);
         if(visible){
             this.mNode.visible = false;
-            LobbyClient.getInstance().send({command : "fetchMissionInActionGroup"});
+            LobbyClient.getInstance().send({command : "fetchQuestGroup"});
         }
     },
 
@@ -611,8 +611,8 @@ var ActivityQuestLayer = cc.Node.extend({
 
         if(groupId){
             var request = {
-                command : "fetchUserLandmark",
-                missionId : groupId
+                command : "fetchMilestones",
+                name : groupId
             };
             LobbyClient.getInstance().send(request);
             this.itemNode.visible = false;
