@@ -114,13 +114,19 @@ var MauBinhController = GameController.extend({
         this.onGameStatus({1: param["1"]["1"], 2: Math.floor(param["1"]["13"] / 1000)});
         if(stateGame == 2 || stateGame == 3){
             this._view.performDealCards(param["3"],false,0);
-            if(stateGame==2){ // dang xep
-                this._view.xepLaiBt.setVisible(isShowArrange);
-                this._view.showNodeArrangement(!isShowArrange);
+            if(!param["3"] || param["3"].length == 0 ){
+                this._view.showNodeArrangement(false);
             }
             else{
-                this.onGameFinish(param["1"]["14"], true);
+                if(stateGame==2){ // dang xep
+                    this._view.xepLaiBt.setVisible(isShowArrange);
+                    this._view.showNodeArrangement(!isShowArrange);
+                }
+                else{
+                    this.onGameFinish(param["1"]["14"], true);
+                }
             }
+
         }
 
 

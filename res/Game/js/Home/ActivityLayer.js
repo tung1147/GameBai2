@@ -495,8 +495,8 @@ var ActivityQuestTab = ccui.Widget.extend({
 var ActivityQuestLayer = cc.Node.extend({
     ctor : function () {
         this._super();
-        LobbyClient.getInstance().addListener("fetchUserLandmark", this._onRecvItemData, this);
-        LobbyClient.getInstance().addListener("fetchMissionInActionGroup", this._onRecvGroupData, this);
+        LobbyClient.getInstance().addListener("fetchQuestGroup", this._onRecvGroupData, this);
+        LobbyClient.getInstance().addListener("fetchMilestones", this._onRecvItemData, this);
 
         var mNode = new cc.Node();
         this.addChild(mNode);
@@ -509,18 +509,18 @@ var ActivityQuestLayer = cc.Node.extend({
         questLabel.setAnchorPoint(cc.p(0.0, 0.5));
         questLabel.setColor(cc.color("#4d6181"));
         questLabel.setPosition(375, 507);
-        mNode.addChild(questLabel);
+        this.itemNode.addChild(questLabel);
 
         var rewardLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_16, "Phần thưởng");
         rewardLabel.setColor(cc.color("#4d6181"));
         rewardLabel.setPosition(704, 507);
-        mNode.addChild(rewardLabel);
+        this.itemNode.addChild(rewardLabel);
 
         var statusLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_16, "Trạng thái");
         statusLabel.setAnchorPoint(cc.p(0.0, 0.5));
         statusLabel.setColor(cc.color("#4d6181"));
         statusLabel.setPosition(789, 507);
-        mNode.addChild(statusLabel);
+        this.itemNode.addChild(statusLabel);
 
         var listItem = new newui.TableView(cc.size(641, 370), 1);
         listItem.setPosition(cc.p(355, 98));
@@ -554,7 +554,7 @@ var ActivityQuestLayer = cc.Node.extend({
         this._super(visible);
         if(visible){
             this.mNode.visible = false;
-            LobbyClient.getInstance().send({command : "fetchMissionInActionGroup"});
+            LobbyClient.getInstance().send({command : "fetchQuestGroup"});
         }
     },
 
@@ -577,9 +577,10 @@ var ActivityQuestLayer = cc.Node.extend({
     },
 
     _onRecvItemData : function (cmd, data) {
-        var items = data["data"]["landmarks"];
+        var items = data["data"]["milestones"];
         if(items.length > 0){
             this.mNode.visible = true;
+            this.itemNode.visible = true;
             this.listItem.removeAllItems();
 
             for(var i=0;i<items.length;i++){
@@ -616,8 +617,8 @@ var ActivityQuestLayer = cc.Node.extend({
 
         if(groupId){
             var request = {
-                command : "fetchUserLandmark",
-                missionId : groupId
+                command : "fetchMilestones",
+                name : groupId
             };
             LobbyClient.getInstance().send(request);
             this.itemNode.visible = false;
@@ -640,8 +641,8 @@ var ActivityQuestLayer = cc.Node.extend({
         }
     },
 
-    addItem : function(date, reward, status, itemId){
-        var questLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_18, "Nhiệm vụ", cc.TEXT_ALIGNMENT_LEFT, 245);
+    addItem : function(name, reward, status, itemId){
+        var questLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_18, name, cc.TEXT_ALIGNMENT_LEFT, 245);
         var containerHeight = questLabel.getContentSize().height;
         if(containerHeight < 50){
             containerHeight = 50;
@@ -685,7 +686,11 @@ var ActivityQuestLayer = cc.Node.extend({
                 okButton.addClickEventListener(function () {
                     statusLabel.visible = true;
                     okButton.visible = false;
-                    _activity_request_reward(itemId);
+                    var request = {
+                        command : "acquireReward",
+                        id : itemId
+                    };
+                    LobbyClient.getInstance().send(request);
                 });
             }
         }

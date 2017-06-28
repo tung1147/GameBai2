@@ -99,6 +99,7 @@
         {"img": "res/gp_table.png"},
         {"img": "res/gp_table_poker.png"},
         {"img": "res/loading_bg.jpg"},
+        {"img": "res/slot_bg.png"},
         {
             "img": "res/CaoThap.png",
             "plist": "res/CaoThap.plist"
@@ -144,12 +145,20 @@
             "plist": "res/home.plist"
         },
         {
+            "img": "res/LineSlot.png",
+            "plist": "res/LineSlot.plist"
+        },
+        {
             "img": "res/MiniPoker.png",
             "plist": "res/MiniPoker.plist"
         },
         {
             "img": "res/pokerGame.png",
             "plist": "res/pokerGame.plist"
+        },
+        {
+            "img": "res/SlotFruit.png",
+            "plist": "res/SlotFruit.plist"
         },
         {
             "img": "res/videopoker.png",

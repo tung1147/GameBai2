@@ -716,8 +716,11 @@ var Phom = IGameScene.extend({
         card.runAction(new cc.Sequence(moveAction, removeAction));
     },
     performDrawDeckUpdate: function (cardCount) {
-        if (cardCount)
-            this.drawDeckLabel.setString(cardCount);
+        this.drawDeckLabel.setString(cardCount);
+        if (parseInt(cardCount)< 1){
+            this._view.setDeckVisible(false);
+        }
+
     },
     showTimeRemainUser: function (username, currentTime, maxTime) {
         maxTime = maxTime || currentTime;
