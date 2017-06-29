@@ -161,7 +161,7 @@ var ChanLeController = MiniGameController.extend({
             var len = (arr_his.length>11)?11:arr_his.length;
             this._view.wgResuft.removeAllChildren();
             var z = 0;
-            for(var i = arr_his.length - len; i < arr_his.length;i++){
+            for(var i = 0; i < len;i++){
                 (function () {
                     var iNew = i;
                     var dataItemTx  = {
@@ -169,7 +169,7 @@ var ChanLeController = MiniGameController.extend({
                       number : arr_his[iNew][2],
                         idVan : arr_his[iNew][3],
                     };
-                    thiz._view.pushItemHistory((arr_his.length>11)?z:iNew,dataItemTx);
+                    thiz._view.pushItemHistory(len-iNew-1,dataItemTx);
                     z++;
 
                 })();
