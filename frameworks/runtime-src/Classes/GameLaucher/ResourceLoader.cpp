@@ -193,9 +193,12 @@ void ResourceLoader::loadBitmapFont(std::string img, std::string fnt, WorkerTick
 						Texture2D* texture = TextureCache::getInstance()->addImage(imageData, fullpath);
 						imageData->release();
 						if (texture){
-							ticket->done(true);
-							currentStep++;
-							onProcessLoader();
+                            this->runOnUI([=](){
+                                FontAtlasCache::getFontAtlasFNT(fnt);
+                                ticket->done(true);
+                                currentStep++;
+                                onProcessLoader();
+                            });
 						}
 						else{
 							ticket->done(false);						
@@ -275,8 +278,8 @@ void ResourceLoader::update(float dt){
 				};
 
 				for (int i = 0; i < _preLoad.size(); i++){
-					auto textureImg = _preLoad[i].texture;
-					auto plistData = _preLoad[i].plist;
+					auto textureImg = EngineUtilsThreadSafe::getInstance()->fullPathForFilename(_preLoad[i].texture);
+					auto plistData = EngineUtilsThreadSafe::getInstance()->fullPathForFilename(_preLoad[i].plist);
 					CCLOG("loading texture: %s : %s", textureImg.c_str(), plistData.c_str());
 					this->loadTexture(textureImg, plistData, ticket);
 				}
@@ -299,8 +302,8 @@ void ResourceLoader::update(float dt){
 				};
 
 				for (int i = 0; i < _preloadBMFont.size(); i++){
-					auto textureImg = _preloadBMFont[i].texture;
-					auto fnt = _preloadBMFont[i].font;
+					auto textureImg = EngineUtilsThreadSafe::getInstance()->fullPathForFilename(_preloadBMFont[i].texture);
+					auto fnt = EngineUtilsThreadSafe::getInstance()->fullPathForFilename(_preloadBMFont[i].font);
 					CCLOG("loading font: %s : %s", textureImg.c_str(), fnt.c_str());
 					this->loadBitmapFont(textureImg, fnt, ticket);
 				}
