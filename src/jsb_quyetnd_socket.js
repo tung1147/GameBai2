@@ -79,4 +79,3 @@ socket.SmartfoxClient.ReconnectionFailure = 1006;
 socket.SmartfoxClient.SetMMOItemVariables = 1007;
 
 socket.SmartfoxClient.SocketStatus = 3000;
-

@@ -1,5 +1,5 @@
 
-
+_arrPosHisotyFruit = [80, 240,460, 670];
 var HistoryNoHuFruit = Dialog.extend({
     ctor: function () {
         this._super();
@@ -11,8 +11,8 @@ var HistoryNoHuFruit = Dialog.extend({
         this.cancelButton.visible = false;
         this.title.setString("LỊCH SỬ NỔ HŨ TRÁI CÂY");
 
-        var listItem = new newui.TableView(cc.size(681, 380), 1);
-        listItem.setPosition(cc.p(118, 100));
+        var listItem = new newui.TableView(cc.size(681, 325), 1);
+        listItem.setPosition(cc.p(20, 5));
      //   listItem.setMargin(20,20,0,0);
      //   listItem.setPadding(10);
         this.addChild(listItem);
@@ -20,10 +20,21 @@ var HistoryNoHuFruit = Dialog.extend({
         // for(var i = 0; i < 20; i++){
         //     this.addItem("22/11/2016 14:04:48","1231231","1312");
         // }
+        var arrName = ["Thời gian","Người chơi","Mức cược","Tiền"];
+        var _arrPos = [70, 250,480, 670];
+        var thiz = this;
+        for(var i  = 0 ; i < arrName.length; i++){
 
+            (function () {
+                var lbl = new cc.LabelBMFont(arrName[i], cc.res.font.Roboto_Condensed_18);
+                lbl.setColor(cc.color("#67b8e7"));
+                lbl.setPosition(_arrPos[i],350);
+                thiz.addChild(lbl);
+            })();
+        }
     },
 
-    addItem:function (timeCreate, userName,gold) {
+    addItem:function (timeCreate, userName,gold,bet) {
         var container = new ccui.Widget();
         container.setContentSize(cc.size(680, 80));
         this.listItem.pushItem(container);
@@ -31,20 +42,26 @@ var HistoryNoHuFruit = Dialog.extend({
         bg.setPreferredSize(cc.size(680, 70));
         bg.setPosition(container.getContentSize().width/2, container.getContentSize().height/2);
 
-        var timeLaybel =  new cc.LabelTTF(timeCreate,cc.res.font.Roboto_Condensed, 24);
-        timeLaybel.setDimensions(150,0);
+        var timeLaybel =  new cc.LabelBMFont(timeCreate,cc.res.font.Roboto_Condensed_20, 100, cc.TEXT_ALIGNMENT_CENTER);
+        // timeLaybel.setDimensions(120,0);
         // timeLaybel.setAnchorPoint(0,0.5);
-        timeLaybel.setPosition(_arrPosHisotyMB[0],35);
+        timeLaybel.setPosition(_arrPosHisotyFruit[0],35);
         bg.addChild(timeLaybel);
 
-        var nameLabel = new cc.LabelTTF(userName,cc.res.font.Roboto_Condensed, 24);
-        nameLabel.setPosition(_arrPosHisotyMB[1],35);
+        var nameLabel = new cc.LabelBMFont(userName,cc.res.font.Roboto_Condensed_20);
+        nameLabel.setPosition(_arrPosHisotyFruit[1],35);
         bg.addChild(nameLabel);
 
-        var goldLabel = new cc.LabelTTF(gold,cc.res.font.Roboto_Condensed, 24);
+        var betLabel = new cc.LabelBMFont(bet,cc.res.font.Roboto_Condensed_20);
+        // betLabel.setAnchorPoint(1,0.5);
+        betLabel.setColor(cc.color(255, 194, 0,255));
+        betLabel.setPosition(_arrPosHisotyFruit[2],35);
+        bg.addChild(betLabel);
+
+        var goldLabel = new cc.LabelBMFont(gold,cc.res.font.Roboto_Condensed_20);
         goldLabel.setAnchorPoint(1,0.5);
         goldLabel.setColor(cc.color(255, 194, 0,255));
-        goldLabel.setPosition(_arrPosHisotyMB[2],35);
+        goldLabel.setPosition(_arrPosHisotyFruit[3],35);
         bg.addChild(goldLabel);
 
         container.addChild(bg);
@@ -57,13 +74,14 @@ var HistoryNoHuFruit = Dialog.extend({
             for(var i=0;i<items.length;i++){
                 var time = items[i]["1"];
                 var name = items[i]["3"];
+                var bet = items[i]["2"];
                 if (name.length > 15)
                     name = name.substring(0, 15) ;
                 if (name.length > 3 && name != PlayerMe.username)
                     name = name.substring(0, name.length - 3) + "***";
                 var money =  items[i]["4"];//cc.Global.NumberFormat1(parseInt());
 
-                this.addItem(time,name,money);
+                this.addItem(time,name,money,bet);
             }
         }
     },

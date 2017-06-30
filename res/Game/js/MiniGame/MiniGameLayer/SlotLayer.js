@@ -12,6 +12,7 @@ var SlotItem = ccui.Widget.extend({
         this.YStop = -100000.0;
         this.isRunning = false;
         this.idItem = -1;
+        this.isStopNow = false;
 
     },
     createItem:function (i,j,lastY) {
@@ -92,6 +93,11 @@ var SlotItem = ccui.Widget.extend({
                         this._finishedHandler();
                     }
                 }
+                if(this.idItem%3 == 0 && !this.isStopNow ){
+                    SoundPlayer.playSound("slot_stop");
+                }else  if(this.idItem == 15) {
+                   SoundPlayer.playSound("slot_stop");
+                }
 
             }
             var yyyy = this.y2  + this.moveSpeed*this.timeElapsed + (this.acceleration*this.timeElapsed*this.timeElapsed)/2;
@@ -161,6 +167,25 @@ var SlotLayer = cc.Node.extend({
             this.arrItems.push(subItem);
         }
     },
+    showNotEffect:function (ketqua) {
+        this.arrResuft = [];
+        this.clearAll();
+        for (var i = 0; i < 5; i++) { // cot
+
+            // var subItem = [];
+            for (var j = 0 ; j < 3; j++) { // hang
+                var item = this.newItem(ketqua[i][j]);
+                item.createItem(i,j,0);
+                item.isRunning = false;
+                this.nodeSlot.addChild(item);
+                this.arrResuft.push(item);
+                // subItem.push(item);
+
+            }
+            // this.arrItems.push(subItem);
+        }
+
+    },
     clearAll:function () {
         this.arrResuft = [];
         this.stopAllActions();
@@ -177,7 +202,7 @@ var SlotLayer = cc.Node.extend({
 
                 thiz.runAction(new cc.Sequence(new cc.DelayTime(inew*0.5),new  cc.CallFunc(function () {
 
-
+                    SoundPlayer.playSound("quay_cham_dan");
                     var  itemTemp = thiz.arrItems[inew][0];//phan tu dau tien cua cot
                      var distance = itemTemp.distance2Item + thiz.getMaxYOfColumn(inew,4) ;
                     var kqColumn = [];
@@ -187,7 +212,7 @@ var SlotLayer = cc.Node.extend({
                         var items = subItems[j];
                         items.stop(distance);
                     }
-                    thiz.initItemsColumn(3,inew,ketqua[inew],distance);
+                    thiz.initItemsColumn(3,inew,ketqua[inew],distance,false);
                 })));
             })();
 
@@ -197,6 +222,8 @@ var SlotLayer = cc.Node.extend({
     stopNow:function (ketqua) {
         this.stopAllActions();
         var thiz = this;
+        // SoundPlayer.stopSound("quay_cham_dan");
+        // SoundPlayer.playSound("quay_cham_dan");
         for (var i = this.clolumnCurrent+1; i< this.arrItems.length; i++) {
             (function () {
                 var inew = i;
@@ -211,7 +238,7 @@ var SlotLayer = cc.Node.extend({
                         var items = subItems[j];
                         items.stop(distance);
                     }
-                    thiz.initItemsColumn(3,inew,ketqua[inew],distance);
+                    thiz.initItemsColumn(3,inew,ketqua[inew],distance,true);
 
             })();
 
@@ -230,12 +257,13 @@ var SlotLayer = cc.Node.extend({
         }
         return y;
     },
-    initItemsColumn:function (numberHorizontal, i , ketqua,distance) {
+    initItemsColumn:function (numberHorizontal, i , ketqua,distance,stopNow) {
         var thiz = this;
         this.clolumnCurrent = i;
         var subItem = [];
         for (var j = 0 ; j < numberHorizontal; j++) {
             var item = this.newItem(ketqua[j]);
+            item.isStopNow = stopNow;
             subItem.push(item);
             item.idItem = this.arrResuft.length+1;
             this.arrResuft.push(item);

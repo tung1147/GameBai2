@@ -32,7 +32,7 @@ var HistoryFruit = Dialog.extend({
     },
 
     _createHistory : function () {
-        var mSize = cc.size(800, 330);
+        var mSize = cc.size(800, 360);
         var dx = 0.0;
         var thiz = this;
 
@@ -42,15 +42,15 @@ var HistoryFruit = Dialog.extend({
         var arrTitle = ["Phiên","Thời gian","Mức cược","Số dòng","Dòng thắng", "Vàng nhận"];
 
         for(var i =0; i < arrTitle.length; i++){
-            var lblTitle = new cc.LabelTTF(arrTitle[i], cc.res.font.Roboto_Condensed,20);
-            lblTitle.setColor(cc.color(87, 110, 176,255));
-            lblTitle.setPosition(_arrPosFruit[i]+100,480);
+            var lblTitle = new cc.LabelBMFont(arrTitle[i], cc.res.font.Roboto_Condensed_20);
+            lblTitle.setColor(cc.color("#67b8e7"));
+            lblTitle.setPosition(_arrPosFruit[i],390);
             lblTitle.setAnchorPoint(cc.p(0,0.5));
             this.addChild(lblTitle);
         }
 
         var listTai = new newui.ListViewWithAdaptor(mSize);
-        listTai.setPosition(dx+100 , 120);
+        listTai.setPosition(0, 5);
         this.addChild(listTai);
         listTai.setCreateItemCallback(function () {
             return thiz._createCell();
@@ -73,7 +73,7 @@ var HistoryFruit = Dialog.extend({
 
 
         view.lineLabel.setString(cc.Global.NumberFormat1(data["lineBet"].toString()));
-        view.lineWinLabel.setString(cc.Global.NumberFormat1(data["lineWin"]));
+        view.lineWinLabel.setString(data["lineWin"]);
         view.receiewLabel.setString(data["moneyWin"]);
 
     },
@@ -84,10 +84,13 @@ var HistoryFruit = Dialog.extend({
         var container = new ccui.Widget();
         container.setContentSize(cc.size(800, 67));
 
-        var bg = new ccui.Scale9Sprite("activity_cell_bg.png", cc.rect(10, 10, 4, 4));
-        bg.setPreferredSize(cc.size(750, 60));
-        bg.setPosition(container.getContentSize().width/2, container.getContentSize().height/2);
-        container.addChild(bg);
+        // if(this.listHis.getItemSize() % 2) {
+        //     var bg = new ccui.Scale9Sprite("activity_cell_bg.png", cc.rect(10, 10, 4, 4));
+        //     bg.setPreferredSize(container.getContentSize());
+        //     bg.setAnchorPoint(cc.p(0, 0));
+        //     container.addChild(bg);
+        // }
+
         var phienLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "time", cc.TEXT_ALIGNMENT_CENTER, 100);
         phienLabel.setAnchorPoint(cc.p(0,0.5));
         phienLabel.setPosition(_arrPos[0], 33);

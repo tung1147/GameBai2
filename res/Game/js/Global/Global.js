@@ -124,6 +124,7 @@ GameType.MiniGame_CaoThap = 13;
 GameType.MiniGame_Poker = 14;
 GameType.MiniGame_VideoPoker = 15;
 GameType.GAME_Poker = 16;
+GameType.GAME_SLOT_FRUIT = 17;
 
 var s_game_available = s_game_available || {};
 s_game_available[GameType.GAME_MauBinh] = true;
@@ -143,6 +144,7 @@ s_game_available[GameType.MiniGame_CaoThap] = true;
 s_game_available[GameType.MiniGame_Poker] = true;
 s_game_available[GameType.MiniGame_VideoPoker] = true;
 s_game_available[GameType.GAME_Poker] = true;
+s_game_available[GameType.GAME_SLOT_FRUIT] = true;
 
 var s_game_id = s_game_id || [
     [
@@ -153,7 +155,7 @@ var s_game_id = s_game_id || [
         GameType.GAME_XocDia, GameType.GAME_TaiXiu,
         GameType.MiniGame_ChanLe, GameType.MiniGame_Poker,
         GameType.MiniGame_VideoPoker, GameType.MiniGame_CaoThap,
-        GameType.GAME_VongQuayMayMan
+        GameType.GAME_VongQuayMayMan,GameType.GAME_SLOT_FRUIT
     ],
     [
         GameType.GAME_TLMN_Solo, GameType.GAME_TienLenMN,
@@ -167,7 +169,7 @@ var s_game_id = s_game_id || [
         GameType.GAME_VongQuayMayMan
     ],
     [
-
+        GameType.GAME_SLOT_FRUIT
     ],
     [
         GameType.GAME_TLMN_Solo, GameType.GAME_Sam_Solo,
@@ -192,6 +194,7 @@ s_games_display_name[GameType.MiniGame_CaoThap] = "Cao thấp";
 s_games_display_name[GameType.MiniGame_Poker] = "MiniPoker";
 s_games_display_name[GameType.MiniGame_VideoPoker] = "VideoPoker";
 s_games_display_name[GameType.GAME_Poker] = "Poker";
+s_games_display_name[GameType.GAME_SLOT_FRUIT] = "SlotFruit";
 
 var s_games_chanel = s_games_chanel || [];
 s_games_chanel[GameType.GAME_TLMN_Solo] = "tlmn_solo";
