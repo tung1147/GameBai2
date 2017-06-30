@@ -302,6 +302,11 @@ var HomeScene = IScene.extend({
             MessageNode.getInstance().show("Game chưa ra mắt");
             return;
         }
+        if(gameId == GameType.GAME_SLOT_FRUIT)
+        {
+            cc.director.replaceScene(new SlotFruitScene());
+            return;
+        }
 
         if (gameId == GameType.GAME_VongQuayMayMan ||
             gameId == GameType.MiniGame_CaoThap ||

@@ -118,47 +118,58 @@ var TutorialDialog = Dialog.extend({
     },
 
     initSlotFruitTutorial:function () {
-        var tutorialLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, this.HDList["FruitsSlot"]);
-        tutorialLabel.setBoundingWidth(this.bouldingWidth-300);
-        this.contentTable.pushItem(tutorialLabel);
-        this.contentTable.setPosition(cc.p(this.contentTable.getPositionX() - 150,this.contentTable.getPositionY()));
 
-        var table = new cc.Sprite("#slot_hdc.png");
-        table.setPosition(cc.p(this.getContentSize().width/2 + 260 - table.getContentSize().width/2,-20+this.getContentSize().height/2- table.getContentSize().height/2));
-        this.addChild(table);
-        table.setAnchorPoint(cc.p(0,0));
-        var arrX5 = ["15","33","80","250","1,000","8,000","Nỗ hũ",];
-        var arrX4 = ["1,5","2","5","10","30","150",""];
-        var arrX3 = ["0,2","0,4","0,6","1,1","2,5","7",""];
-        for(var i = 0; i < 7; i ++){
-            (function () {
-                var iNew = i;
-                var name = "#slot_fruit_"+(6-iNew).toString()+".png";
-                var icon = new cc.Sprite(name);
-                icon.setScale(0.3);
-                icon.setPosition(cc.p(33,24+40*iNew));
-                table.addChild(icon);
+        // this.bouldingWidth = 545;
+        this.initWithSize(cc.size(880, 650));
+        // this.contentTable.setAnchorPoint(cc.p(0.5, 0.5));
+        // this.contentTable.setContentSize(cc.size(this.bouldingWidth, 350));
+        //
+        // var tutorialLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, this.HDList["FruitsSlot"]);
+        // tutorialLabel.setBoundingWidth(this.bouldingWidth-50);
+        // this.contentTable.pushItem(tutorialLabel);
+        // this.contentTable.setPosition(cc.p(this.contentTable.getPositionX() - 150,this.contentTable.getPositionY()-70));
+        //
+        // var table = new cc.Sprite("#slot_hdc.png");
+        // table.setPosition(cc.p(this.getContentSize().width/2 + 260 - table.getContentSize().width/2,this.getContentSize().height/2- table.getContentSize().height/2-30));
+        // this.addChild(table);
+        // table.setAnchorPoint(cc.p(0,0));
+        // var arrX5 = ["15","30","80","200","500","8,000","Nỗ hũ",];
+        // var arrX4 = ["3","7","10","25","50","100",""];
+        // var arrX3 = ["1","2","3","5","8","10",""];
+        // for(var i = 0; i < 7; i ++){
+        //     (function () {
+        //         var iNew = i;
+        //         var name = "#slot_fruit_"+(6-iNew).toString()+".png";
+        //         var icon = new cc.Sprite(name);
+        //         icon.setScale(0.3);
+        //         icon.setPosition(cc.p(33,24+40*iNew));
+        //         table.addChild(icon);
+        //
+        //         var lblX5 = new cc.LabelTTF(arrX5[i],cc.res.font.Roboto_CondensedBold,15);
+        //         lblX5.setColor(cc.color(255,222,0));
+        //         lblX5.setPosition(cc.p(91,24+40*iNew));
+        //         table.addChild(lblX5);
+        //
+        //
+        //         var lblX4 = new cc.LabelTTF(arrX4[i],cc.res.font.Roboto_CondensedBold,15);
+        //         lblX4.setColor(cc.color(255,222,0));
+        //         lblX4.setPosition(cc.p(152,24+40*iNew));
+        //         table.addChild(lblX4);
+        //
+        //
+        //         var lblX3 = new cc.LabelTTF(arrX3[i],cc.res.font.Roboto_CondensedBold,15);
+        //         lblX3.setColor(cc.color(255,222,0));
+        //         lblX3.setPosition(cc.p(210,24+40*iNew));
+        //         table.addChild(lblX3);
+        //
+        //     })();
+        //
+        // }
 
-                var lblX5 = new cc.LabelTTF(arrX5[i],cc.res.font.Roboto_CondensedBold,15);
-                lblX5.setColor(cc.color(255,222,0));
-                lblX5.setPosition(cc.p(91,24+40*iNew));
-                table.addChild(lblX5);
-
-
-                var lblX4 = new cc.LabelTTF(arrX4[i],cc.res.font.Roboto_CondensedBold,15);
-                lblX4.setColor(cc.color(255,222,0));
-                lblX4.setPosition(cc.p(152,24+40*iNew));
-                table.addChild(lblX4);
-
-
-                var lblX3 = new cc.LabelTTF(arrX3[i],cc.res.font.Roboto_CondensedBold,15);
-                lblX3.setColor(cc.color(255,222,0));
-                lblX3.setPosition(cc.p(210,24+40*iNew));
-                table.addChild(lblX3);
-
-            })();
-
-        }
+        var bg2 = new cc.Sprite("res/bg_slot_hdc.png");
+        bg2.x = this.getContentSize().width / 2;
+        bg2.y = this.getContentSize().height / 2 -20;
+        this.addChild(bg2);
     },
     initPokerTutorial: function (dataField) {
         var miniLabel1 = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, this.HDList[dataField]["text1"]

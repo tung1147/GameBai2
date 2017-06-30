@@ -16,7 +16,7 @@ var GamePlayer = cc.Node.extend({
         this.gold = 0;
 
         this.infoLayer = new cc.Node();
-        this.addChild(this.infoLayer);
+        this.addChild(this.infoLayer,1);
 
         var avt = UserAvatar.createAvatar();
         avt.setPosition(this.getContentSize().width / 2, 79);

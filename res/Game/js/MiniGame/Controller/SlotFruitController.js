@@ -14,7 +14,7 @@ var SlotFruitController = cc.Class.extend({
 
     initWithView: function (view) {
         this._view = view;
-        this.gameGroup = "mini.jokerslot";
+        this.gameGroup = "mini.fruitsslot";
         SmartfoxClient.getInstance().addListener(socket.SmartfoxClient.SocketStatus, this.onSmartfoxSocketStatus, this);
 
         SmartfoxClient.getInstance().addExtensionListener("___err___", this.onSFSError, this);
@@ -23,6 +23,7 @@ var SlotFruitController = cc.Class.extend({
         SmartfoxClient.getInstance().addExtensionListener("1010", this._onReconnect, this);
         SmartfoxClient.getInstance().addExtensionListener("1011", this._onFreeSpin, this);
         SmartfoxClient.getInstance().addExtensionListener("1001", this._onResuftRotate, this);
+        SmartfoxClient.getInstance().addExtensionListener("1012", this._onResuftTry, this);
         SmartfoxClient.getInstance().addExtensionListener("1009", this._onExitGame, this);
         SmartfoxClient.getInstance().addExtensionListener("1003", this._onNhanThuong, this);
         SmartfoxClient.getInstance().addExtensionListener("-1", this.onSFSChangeAssets, this);
@@ -132,6 +133,14 @@ var SlotFruitController = cc.Class.extend({
         }
         this.onResuftRotate(content.p["data"]);
     },
+    _onResuftTry:function (messageType, content) {
+        cc.log("aaaa");
+        if (content.p.group !== this.gameGroup){
+            return;
+        }
+        this.onResuftTry(content.p["data"]);
+    },
+
     onSFSExtension: function (messageType, content) {
         // switch (content.c) {
         //
@@ -151,12 +160,15 @@ var SlotFruitController = cc.Class.extend({
     },
     onResuftRotate:function (param) {
         this._view.lblID.setString("ID: "+ param[1]);
-        var arrItem = param["2"];
-        var arrLine = param["3"]["1"];
 
-       // this._view.handleResuft(false,arrItem,arrLine,param["4"],param["5"]);
         this._view.handleResuftZ(false,param);
     },
+    onResuftTry:function (param) {
+        this._view.lblID.setString("ID: "+ param[1]);
+
+        this._view.handleResuftZ(false,param);
+    },
+
     onFreeSpin:function (param) {
 
         this._view.onFreeSpin(param);
@@ -216,6 +228,16 @@ var SlotFruitController = cc.Class.extend({
     },
     sendRouteRequest:function (lineBets,indexBet) {
         SmartfoxClient.getInstance().sendExtensionRequest(-1, "1001", {2: lineBets, 1: indexBet});//,3:1  7 bonus -1 no hu 8 la free
+    },
+    sendRouteRequest3:function (lineBets,indexBet,line1,line2,line3) {
+        SmartfoxClient.getInstance().sendExtensionRequest(-1, "1001", {2: lineBets, 1: indexBet,4:line1,5:line2,6:line3});//,3:1  7 bonus -1 no hu 8 la free
+    },
+    sendRouteRequestCh:function (lineBets,indexBet,id) {
+        SmartfoxClient.getInstance().sendExtensionRequest(-1, "1001", {2: lineBets, 1: indexBet,3:id});//,3:1  7 bonus -1 no hu 8 la free
+    },
+    sendRouteRequestTry:function (lineBets,indexBet,id) {
+        cc.log("id gui " + id);
+        SmartfoxClient.getInstance().sendExtensionRequest(-1, "1012", {2: lineBets, 1: indexBet,3:id});//,3:1  7 bonus -1 no hu 8 la free
     },
     sendBonus:function (idBonus) {
         SmartfoxClient.getInstance().sendExtensionRequest(-1, "1002", {1: idBonus});

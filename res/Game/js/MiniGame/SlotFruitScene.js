@@ -2,7 +2,8 @@
  * Created by QuyetNguyen on 12/20/2016.
  */
 //var s_ChanLeLayer = null;
-
+s_sfs_error_msg[1001] = "Bạn không đủ điều kiện chơi bonus";
+s_sfs_error_msg[1000] = "Chưa hết thời gian chọn bonus!";
 var TuyenItem = cc.Sprite.extend({
 
     ctor: function () {
@@ -160,7 +161,7 @@ var SlotFruit = SlotLayer.extend({
 });
 
 var POS_BUT_DUP = [{x: 267, y: 166},    {x: 733, y: 166},      {x: 787, y: 310},{x: 681, y: 310},{x: 316, y: 310},{x: 212, y: 310}];
-var POS_LAL_DUP = [{x: 267, y: 166},    {x: 733, y: 166},      {x: 787, y: 234},{x: 681, y: 234},{x: 316, y: 234},{x: 212, y: 234}];
+var POS_LAL_DUP = [{x: 267, y: 166},    {x: 733, y: 166},      {x: 733, y: 234},{x: 267, y: 234},{x: 316, y: 234},{x: 212, y: 234}];
 var IMG_BUT_DUP = ["slot_x2_btn_do.png","slot_x2_btn_den.png", "slot_x2_x4t.png","slot_x2_x4b.png", "slot_x2_x4r.png", "slot_x2_x4c.png"];
 var ID_BONUS = [5,6, 3,4, 2, 1];
 var SelectLine =  cc.Node.extend({
@@ -420,6 +421,8 @@ var DuplicateGold =  cc.Node.extend({
        this._super();
        this.initView();
        this.enableTouchZ = true;
+       this.isTry = false;
+       this.moneyWin = 0;
    },
     initView:function () {
         var thiz = this;
@@ -466,12 +469,14 @@ var DuplicateGold =  cc.Node.extend({
 
 
                 thiz.arrButtonBonus.push(btnX);
+                if(i<4){
+                    var lbl = new cc.LabelTTF("80",cc.res.font.Roboto_CondensedBold,24);
+                    lbl.setPosition(POS_LAL_DUP[i]);
+                    lbl.setColor(cc.color(255,222,0));
+                    bg.addChild(lbl);
+                    thiz.arrLabelBonus.push(lbl);
+                }
 
-                var lbl = new cc.LabelTTF("80",cc.res.font.Roboto_CondensedBold,24);
-                lbl.setPosition(POS_LAL_DUP[i]);
-                lbl.setColor(cc.color(255,222,0));
-                bg.addChild(lbl);
-                thiz.arrLabelBonus.push(lbl);
 
             })();
 
@@ -497,8 +502,8 @@ var DuplicateGold =  cc.Node.extend({
             if(event == ccui.Widget.TOUCH_ENDED){
               cc.log("touch here");
                 thiz.setVisible(false);
-                if(thiz._handeGiveClick()){
-                    thiz._handeGiveClick();
+                if(thiz._handeGiveClick){
+                    thiz._handeGiveClick(parseInt(thiz.moneyWin));
                 }
             } ;
             if(event == ccui.Widget.TOUCH_BEGAN)
@@ -601,11 +606,13 @@ var DuplicateGold =  cc.Node.extend({
         new cc.CallFunc(function () {
 
             if(type == 3){
+                SoundPlayer.playSound("losing");
                 thiz.wgGive.setVisible(false);
                 thiz.lblMoney.setString("Chúc bạn may mắn lần sau!");
                 thiz.lblMoney.setColor(cc.color(255,255,255,255));
             }
             else {
+                SoundPlayer.playSound("NormalWin");
                 var action = new quyetnd.ActionNumber(0.3, parseInt(moneyWin));
                 thiz.lblMoney.runAction(action);
 
@@ -618,7 +625,7 @@ var DuplicateGold =  cc.Node.extend({
 
         }
         ),
-            new cc.DelayTime(0.5),
+            new cc.DelayTime(1),
             new cc.CallFunc(function () {
                 thiz.setVisibleArrButton(thiz.typezzz!=3);
             })
@@ -641,7 +648,7 @@ var DuplicateGold =  cc.Node.extend({
         this.cardDefualt.setVisible(true);
         // this.enableTouchZ = true;
         this.setVisibleArrButton(true);
-
+        this.moneyWin = moneyWin;
     },
     setCard:function (idCard) {
         var thiz = this;
@@ -681,6 +688,7 @@ var DuplicateGold =  cc.Node.extend({
 
     },
     handelBonusClick:function (i) {
+        cc.log(i);
         if(!this.enableTouchZ)
         {
             return;
@@ -696,10 +704,42 @@ var DuplicateGold =  cc.Node.extend({
         this.cardDefualt.setVisible(false);
         this.cardUp.setVisible(false);//here
         var card = this.bg.getChildByTag(7);
+        if(this.isTry){
+            var idCard = Math.floor(cc.rand()%51);
+            var dataCard = CardList.prototype.getCardWithId(idCard);
 
-        if(this._clickButHandler){
-            this._clickButHandler(ID_BONUS[i]);
+            if( i == 0 && (s_card_suit[dataCard.suit] == "r" || s_card_suit[dataCard.suit] == "c")){// do
+                this.moneyWin = this.moneyWin*2;
+            } else  if( i == 1 && (s_card_suit[dataCard.suit] == "t" || s_card_suit[dataCard.suit] == "b")){ //den
+                this.moneyWin = this.moneyWin*2;
+            } else  if( i == 2 && s_card_suit[dataCard.suit] == "t" ){ //tep
+                this.moneyWin = this.moneyWin*4;
+            }
+            else  if( i == 3 && s_card_suit[dataCard.suit] == "b" ){ //bich
+                this.moneyWin = this.moneyWin*4;
+            }
+            else  if( i == 4 && s_card_suit[dataCard.suit] == "r" ){ //ro
+                this.moneyWin = this.moneyWin*4;
+            }
+            else  if( i == 5 && s_card_suit[dataCard.suit] == "c" ){ //co
+                this.moneyWin = this.moneyWin*4;
+            }
+            else {
+                this.moneyWin = 0;
+            }
+            if(this._resuftDupVitual){
+                this._resuftDupVitual(idCard,(this.moneyWin!=0)?1:3,this.moneyWin);
+            }
+            // this.handelResuft(idCard,(this.moneyWin!=0)?1:3,this.moneyWin);
+        }else {
+            if(this._clickButHandler){
+                this._clickButHandler(ID_BONUS[i]);
+            }
         }
+
+    },
+    setTry:function(isTry){
+      this.isTry = isTry;
     },
     show:function () {
         this.setVisible(true);
@@ -721,6 +761,16 @@ var BonusLucky =  cc.Node.extend({
         this.isShow = false;
         this.timeRemaining = 10;
         this.numSelect = 0;
+        this.isTry = false;
+       // for(var i = 0; i < 100; i++){
+       //      this.createRandom();
+       //  }
+    },
+    setTry:function(isTry){
+        this.isTry = isTry;
+        if(isTry){
+
+        }
     },
     initView:function () {
         var thiz = this;
@@ -763,7 +813,7 @@ var BonusLucky =  cc.Node.extend({
         bg.addChild(lblBonus);
         var group1 = new ccui.Widget();
         group1.setContentSize(cc.size(900,450));
-        group1.setPosition(450,225);
+        group1.setPosition(450,235);
         bg.addChild(group1);
         this.group1 = group1;
 
@@ -838,36 +888,71 @@ var BonusLucky =  cc.Node.extend({
         this.arrItemWin = [];
     },
     createItemWin:function(idItem,money, isOpen){
-        var spritebg =  new cc.Sprite(isOpen?"#slot_bonus_item2.png":"#slot_bonus_hom1.png");
-        spritebg.setTag(idItem);
-        spritebg.setPosition( (idItem%6)*144 + 96 - 12, Math.floor(idItem/6)*144+ 86+7);
-        var lbl = new cc.LabelTTF( cc.Global.NumberFormat1(parseInt(money)),cc.res.font.Roboto_CondensedBold,24);
-        lbl.setPosition(70,-20);
-        lbl.setColor(isOpen?cc.color(255,222,0,255):cc.color(127,127,127,255));
-        spritebg.addChild(lbl);
-        this.arrItemWin.push(spritebg);
-        this.group1.addChild(spritebg);
-    },
+        if(parseInt(money)!=0){
+            var spritebg =  new cc.Sprite(isOpen?"#slot_bonus_item2.png":"#slot_bonus_hom1.png");
+            spritebg.setTag(idItem);
+            spritebg.setPosition( (idItem%6)*144 + 96 - 12, Math.floor(idItem/6)*144+ 86+7);
+            var lbl = new cc.LabelTTF( cc.Global.NumberFormat1(parseInt(money)),cc.res.font.Roboto_CondensedBold,24);
+            lbl.setPosition(70,-20);
+            lbl.setColor(isOpen?cc.color(255,222,0,255):cc.color(127,127,127,255));
+            spritebg.addChild(lbl);
+            this.arrItemWin.push(spritebg);
+            this.group1.addChild(spritebg);
+        }
+        else {
+            var lbl = new cc.LabelTTF("Không có gì",cc.res.font.Roboto_CondensedBold,24);
+            lbl.setPosition((idItem%6)*144 + 96 , Math.floor(idItem/6)*144+ 86+7-70);
+            lbl.setColor(isOpen?cc.color(255,222,0,255):cc.color(127,127,127,255));
+            this.arrItemWin.push(lbl);
+            this.group1.addChild(lbl);
+        }
 
+    },
+    createRandom:function () {
+        var arrValuew = ["0","0","0","500000","500000","500000","500000","1000000","1000000","1000000","2000000","5000000"];
+        this.arrValueTry = [];
+        this.arr12 = [0,1,2,3,4,5,6,7,8,9,10,11];
+        for(var i = 0; i < 12; i++){
+            var index = Math.floor(cc.rand()%arrValuew.length);
+            this.arrValueTry.push(arrValuew[index]);
+            arrValuew.splice(index,1);
+        }
+       // cc.log("mang la" + arrNew.toString());
+    },
     openAllItem:function (arrBonus, arrRandom) {
 
         var thiz = this;
         thiz.numSelect = 4;
         var totalMoney = 0;
+        var totalTry = 0;
         for(var i = 0; i < arrBonus.length; i++){
            var isOpen = false;
+            var isCreate = false;
+            if(this.group1.getChildByTag(i) == null){
+                isCreate =  true;
+            }
             for(var j = 0; j < arrRandom.length; j++){
             if(arrRandom[j] == i){
                 totalMoney+= parseInt(arrBonus[i]);
+                if(isCreate  && thiz.isTry){
+                    totalTry+= parseInt(arrBonus[i]);
+                }
+
                 isOpen = true;
                 break;
             }
             }
-            if(this.group1.getChildByTag(i) == null)
+            if(isCreate)
             {
                 this.createItemWin(i,arrBonus[i],isOpen);
             }
 
+
+        }
+        if(thiz.isTry){
+            if(this._onBonusVitual){
+                this._onBonusVitual(totalTry);
+            }
         }
         for(var i = 0; i <    this.arrButton.length;i++){
             this.arrButton[i].setVisible(false);
@@ -889,12 +974,38 @@ var BonusLucky =  cc.Node.extend({
         if(this.numSelect>2){
             return;
         }
+        SoundPlayer.playSound("DoubleOrNothing");
         this.numSelect++;
         this.arrButton[i].setVisible(false);
-        SmartfoxClient.getInstance().sendExtensionRequest(-1, "1004",{"1":i});
+        if(this.isTry){
+
+            this.openItem(i,this.arrValueTry[i]);
+            if(this._onBonusVitual){
+                this._onBonusVitual(this.arrValueTry[i]);
+            }
+            // this.arrRandom.push(i);
+            for(var j = 0 ; j < this.arr12.length; j++){
+                if(this.arr12[j] == i ){
+                    this.arrRandom.push(i);
+                    this.arr12.splice(j,1);
+                    break;
+                }
+            }
+            if(this.arrRandom.length == 3){
+                this.openAllItem(this.arrValueTry,this.arrRandom);
+            }
+        }else {
+            SmartfoxClient.getInstance().sendExtensionRequest(-1, "1004",{"1":i});
+        }
     },
     show:function () {
         // this.scheduleUpdate();
+        if(this.isTry){
+            this.createRandom();
+            this.arrRandom = [];
+        }
+        this.stopAllActions();
+        var thiz =  this;
         this.numSelect = 0;
         this.group2.setVisible(false);
         this.timeRemaining = 10;
@@ -905,8 +1016,24 @@ var BonusLucky =  cc.Node.extend({
             this.arrItemWin[i].removeFromParent(true);
 
         this.arrItemWin = [];
-        this.group1.removeChildByTag(4);
+        // this.group1.removeChildByTag(4);
         this.setVisible(true);
+        this.runAction(new cc.Sequence(new cc.DelayTime(10), new cc.CallFunc(function () {
+            if(thiz.isTry){
+                if(thiz.arrRandom.length<3){
+                    var thieu = 3-thiz.arrRandom.length;
+                    for(var j = 0; j < thieu; j++){
+                        var index = Math.floor(cc.rand()%thiz.arr12.length);
+                        thiz.arrRandom.push(thiz.arr12[index]);
+                        thiz.arr12.splice(index,1);
+                    }
+
+                    thiz.openAllItem(thiz.arrValueTry,thiz.arrRandom);
+                }
+
+            }
+            thiz.numSelect = 4;
+        })));
     },
     update : function (dt) {
 
@@ -1067,16 +1194,44 @@ var LINE_SLOT = [[1,4,7,10,13], [2,5,8,11,14],[0,3,6,9,12],[1,4,8,10,13],[1,4,6,
                 [2,4,7,10,14],[1,5,8,11,13],[1,3,6,9,13],[0,4,7,10,12],[2,5,7,9,12]];
 
 var ARR_BET_SLOT = [100,1000,10000];
+
+var GamePlaySlot = GamePlayerMe.extend({
+    setGold: function (gold) {
+        this.goldLabel.stopAllActions();
+        if(this.gold >= gold){
+            this.goldLabel.setString(cc.Global.NumberFormat1(gold));
+        }
+        else {
+            var action = new quyetnd.ActionNumber(0.5,gold);
+            this.goldLabel.runAction(action);
+        }
+
+        this.gold = gold;
+    },
+    setGoldTry: function (goldTry,gold) {
+        this.goldLabel.stopAllActions();
+        if(goldTry >= gold){
+            this.goldLabel.setString(cc.Global.NumberFormat1(gold));
+        }
+        else {
+            var action = new quyetnd.ActionNumber(0.5,gold);
+            this.goldLabel.runAction(action);
+        }
+    }
+});
+
 var SlotFruitScene = IScene.extend({
     ctor: function () {
         this._super();
         this.isHaveData = true;
+        var thiz = this;
+        this.isTry = false;
         this.isAutoRotate = false;
         var bg = new cc.Sprite("res/game-bg.jpg");
         bg.x = cc.winSize.width / 2;
         bg.y = cc.winSize.height / 2;
         this.sceneLayer.addChild(bg);
-
+        this.arrButBet = [];
         this.initView();
         this.setTextHuThuong("1000000");
         this.setTextBet("10.000");
@@ -1090,9 +1245,19 @@ var SlotFruitScene = IScene.extend({
         this.isFreeSpin = 0;
 
         var bonusLucky = new BonusLucky();
-        this.addChild(bonusLucky);
+        bonusLucky._onBonusVitual = function (money) {
+            thiz.setGoldVituarl(parseInt(money));
+            thiz.changeGoldEffect(money);
+        },
+        this.addChild(bonusLucky,3);
         this.bonusLucky = bonusLucky;
         this.bonusLucky.setVisible(false);
+
+        // for(var i = 0; i < 200; i++){
+        //   var aaa =    Math.floor(cc.rand()%12);
+        //     cc.log(aaa);
+        // }
+
     },
 
     initView:function () {
@@ -1132,6 +1297,15 @@ var SlotFruitScene = IScene.extend({
         free_spin.setVisible(false);
         this.free_spin = free_spin;
 
+        var bg_choithu = new cc.Scale9Sprite("slot_bg_choithu.png",cc.rect(8, 8, 2, 2));
+        bg_choithu.setAnchorPoint(cc.p(0,0));
+        bg_choithu.setPosition(cc.p(-48, -2));
+        bg_choithu.setPreferredSize(cc.size(790 , 420));
+        slotfui.addChild(bg_choithu,-1);
+        bg_choithu.setVisible(false);
+        this.bg_choithu = bg_choithu;
+
+
         var btnGive = new ccui.Button("slot_btn_nt1.png", "", "", ccui.Widget.PLIST_TEXTURE);
         btnGive.setPosition(cc.p(925,80));
         bgSlot.addChild(btnGive);
@@ -1146,9 +1320,13 @@ var SlotFruitScene = IScene.extend({
             thiz.enableAutoRotate(false);
             thiz.btnX2.setVisible(false);
             btnGive.setVisible(false);
-            thiz._controller.sendGiveGold();
-
-
+            if(thiz.isTry){
+                thiz.setGoldVituarl(parseInt(thiz.dataSlot["3"]["4"]));
+                thiz.changeGoldEffect(thiz.dataSlot["3"]["4"]);
+                thiz.onNhanThuong();
+            }else{
+                thiz._controller.sendGiveGold();
+            }
 
         });
 
@@ -1197,7 +1375,8 @@ var SlotFruitScene = IScene.extend({
         btn20Row.addClickEventListener(function () {
             thiz.selectLine.setVisible(true);
             thiz.enableAutoRotate(false);
-
+            // thiz.bonusLucky.show();
+            // thiz.showJackpot();
         });
 
         this.initLabel();
@@ -1219,6 +1398,7 @@ var SlotFruitScene = IScene.extend({
         ));
 
         btnX2.addClickEventListener(function () {
+            SoundPlayer.playSound("DoubleOrNothing");
             if(thiz.nodeBigWin != undefined && thiz.nodeBigWin != null){
                 thiz.nodeBigWin.removeFromParent(true);
                 thiz.nodeBigWin = null;
@@ -1237,8 +1417,19 @@ var SlotFruitScene = IScene.extend({
             cc.log(i);
             thiz._controller.sendBonus(i);
         };
-        dup._handeGiveClick = function () {
-            thiz._controller.sendGiveGold();
+        dup._handeGiveClick = function (money) {
+            if(thiz.isTry){
+                thiz.setGoldVituarl(money);
+                thiz.changeGoldEffect(money);
+                thiz.onNhanThuong();
+            }
+            else {
+                thiz._controller.sendGiveGold();
+            }
+
+        };
+        dup._resuftDupVitual = function (idCard,type,moneyWin) {
+            thiz.onBonus(idCard,type,moneyWin);
         };
         dup.setVisible(false);
 
@@ -1268,7 +1459,7 @@ var SlotFruitScene = IScene.extend({
         selectLine.setVisible(false);
         this.selectLine = selectLine;
         this.initBetButtons();
-        var playerMe = new GamePlayerMe();
+        var playerMe = new GamePlaySlot();
         playerMe.setPosition(150, 50.0);
         this.addChild(playerMe, 1);
         this.playerMe =  playerMe;
@@ -1297,15 +1488,64 @@ var SlotFruitScene = IScene.extend({
         this.lblFree = lblFree;
 
 
-    },
-    enableAutoRotate:function (isEnable) {
-        // this.setActiveBt(this.btnAuto,!isEnable);
-        this.isAutoRotate = isEnable;
-        this.slot_chambi.setVisible(isEnable);
+
+
+
+        var cheatNo = s_Dialog_Create_Button1(cc.size(120, 60), "Nohu");
+        cheatNo.setPosition(200,cc.winSize.height -100);
+        cheatNo.addClickEventListener(function () {
+            thiz.rotateRequestCh(-1);
+        }),
+        this.addChild(cheatNo);
+
+        var cheatFree = s_Dialog_Create_Button1(cc.size(120, 60), "Free");
+        cheatFree.setPosition(200,cc.winSize.height-200);
+        cheatFree.addClickEventListener(function () {
+            thiz.rotateRequestCh(8);
+        }),
+            this.addChild(cheatFree);
+        var cheatBonus = s_Dialog_Create_Button1(cc.size(120, 60), "Lucky");
+        cheatBonus.setPosition(200,cc.winSize.height-300);
+        cheatBonus.addClickEventListener(function () {
+            thiz.rotateRequestCh(7);
+        }),
+            this.addChild(cheatBonus);
+
+        var line1 = new newui.TextField(cc.size(300, 80), cc.res.font.Roboto_CondensedBold_25);
+        line1.setPlaceHolder("line 1");
+        line1.setPlaceHolderColor(cc.color("#909090"));
+        line1.setPosition(cc.winSize.width-100,240);
+
+        this.addChild(line1);
+
+        var line2 = new newui.TextField(cc.size(300, 80), cc.res.font.Roboto_CondensedBold_25);
+        line2.setPlaceHolder("line 2");
+        line2.setPlaceHolderColor(cc.color("#909090"));
+        line2.setPosition(cc.winSize.width-100,300);
+
+        this.addChild(line2);
+
+
+        var line3 = new newui.TextField(cc.size(300, 80), cc.res.font.Roboto_CondensedBold_25);
+        line3.setPlaceHolder("line 3");
+        line3.setPlaceHolderColor(cc.color("#909090"));
+        line3.setPosition(cc.winSize.width-100,400);
+
+        this.addChild(line3);
+
+
+        var rotasteaa = s_Dialog_Create_Button1(cc.size(120, 60), "QuayZ");
+        rotasteaa.setPosition(200,cc.winSize.height-400);
+        rotasteaa.addClickEventListener(function () {
+            thiz.rotateRequest3(line1.getText(),line2.getText(),line3.getText());
+        }),
+            this.addChild(rotasteaa);
+
+
 
 
     },
-    rotateRequest:function () {
+    rotateRequestCh:function (index) {
         if(this.nodeBigWin != undefined && this.nodeBigWin != null){
             this.nodeBigWin.removeFromParent(true);
             this.nodeBigWin = null;
@@ -1328,7 +1568,89 @@ var SlotFruitScene = IScene.extend({
         }
         this.slotfui.rotate();
         this.isHaveData = false;
-        this._controller.sendRouteRequest(this.indexBet+1,this.selectLine.getLines());
+        this._controller.sendRouteRequestCh(this.indexBet+1,this.selectLine.getLines(),index);
+    },
+    rotateRequest3:function (line1,line2,line3) {
+        if(this.nodeBigWin != undefined && this.nodeBigWin != null){
+            this.nodeBigWin.removeFromParent(true);
+            this.nodeBigWin = null;
+        }
+        // this.lblMoneyLine.stopAllActions();
+        // this.lblMoneyLine.setString("");
+        this.activeButtonNewGame(false);
+
+        this.free_spin.setVisible(false);
+        this.clearLineDraw();
+        this.stopAllActions();
+
+        if(PlayerMe.gold < this.selectLine.getLines().length*ARR_BET_SLOT[this.indexBet]){
+            MessageNode.getInstance().show("Bạn không đủ tiền để quay tiếp !");
+            this.isHaveData = true;
+            this.activeButtonNewGame(true);
+            this.enableAutoRotate(false);
+
+            return;
+        }
+        this.slotfui.rotate();
+        this.isHaveData = false;
+        this._controller.sendRouteRequest3(this.indexBet+1,this.selectLine.getLines(),line1,line2,line3);
+    },
+
+    enableAutoRotate:function (isEnable) {
+        // this.setActiveBt(this.btnAuto,!isEnable);
+        this.isAutoRotate = isEnable;
+        this.slot_chambi.setVisible(isEnable);
+
+
+    },
+    rotateRequest:function () {
+
+        if(this.nodeBigWin != undefined && this.nodeBigWin != null){
+            this.nodeBigWin.removeFromParent(true);
+            this.nodeBigWin = null;
+        }
+        // this.lblMoneyLine.stopAllActions();
+        // this.lblMoneyLine.setString("");
+        this.setTextWin("0");
+        this.activeButtonNewGame(false);
+        this.btnX2.setVisible(false);
+        this.free_spin.setVisible(false);
+        this.clearLineDraw();
+        this.stopAllActions();
+
+        if(PlayerMe.gold < this.selectLine.getLines().length*ARR_BET_SLOT[this.indexBet] && !this.isTry){
+            MessageNode.getInstance().show("Bạn không đủ tiền để quay tiếp !");
+            this.isHaveData = true;
+            this.activeButtonNewGame(true);
+            this.enableAutoRotate(false);
+
+            return;
+        }
+        this.slotfui.rotate();
+        this.isHaveData = false;
+        if(this.isTry){
+            var yy = parseInt(this.lblHu.getString().replace(/[.,]/g,''));
+            this.setGoldVituarl(-10000*this.selectLine.getLines().length);
+            this.setTextHuThuong(yy +0.01*10000*this.selectLine.getLines().length);
+           if(this.numberTry.length > 0){
+               this.setActiveBt(this.btnTry,false);
+               var randomTry = Math.floor(cc.rand()%this.numberTry.length);
+
+               this._controller.sendRouteRequestTry(3,this.selectLine.getLines(), this.numberTry[randomTry]);
+               this.numberTry.splice(randomTry,1);
+           }else {
+               this._controller.sendRouteRequestTry(3,this.selectLine.getLines(),-1);
+           }
+
+
+        }
+        else {
+            this._controller.sendRouteRequest(this.indexBet+1,this.selectLine.getLines());
+        }
+
+      this._soundRotate =   SoundPlayer.playSoundLoop("quayrepeat");
+
+
     },
     initLine:function () {
         this.arrLine = [];
@@ -1510,7 +1832,7 @@ var SlotFruitScene = IScene.extend({
             (function () {
                 var inew = i;
                 var btnBet = new ccui.Button("slot_bet_a1.png", "", "", ccui.Widget.PLIST_TEXTURE);
-                btnBet.setPosition(cc.p(-50,250 + i*121));
+                btnBet.setPosition(cc.p(-50,170 + i*121));
                 btnBet.addClickEventListener(function () {
                     thiz.setlectButtonBet(inew);
                 });
@@ -1520,6 +1842,50 @@ var SlotFruitScene = IScene.extend({
             })();
 
         }
+        var play_vitual = new ccui.Button("btn_choithu.png","","" ,ccui.Widget.PLIST_TEXTURE);
+        play_vitual.setPosition(-50,170 + 3*121);
+        play_vitual.addClickEventListener(function () {
+            thiz.isTry = !thiz.isTry;
+            var nameText = (thiz.isTry)?"btn_choithu2.png":"btn_choithu.png";
+            play_vitual.loadTextureNormal(nameText,ccui.Widget.PLIST_TEXTURE);
+            thiz.bg_choithu.setVisible(thiz.isTry);
+            thiz.dup.setTry(thiz.isTry);
+            thiz.bonusLucky.setTry(thiz.isTry);
+            for(var  i = 0;i < thiz.arrButBet.length; i++){
+                thiz.arrButBet[i].setVisible(!thiz.isTry);//   thiz.setActiveBt(thiz.arrButBet[i],!thiz.isTry);
+            }
+            if(thiz.isTry)  {
+                thiz.goldVitual = 50000000;
+                thiz.playerMe.setGoldTry(thiz.goldVitual,thiz.goldVitual);
+                thiz.numberTry = [1,2,3,4,5,6,7,8];
+                thiz.btnGive.setVisible(false);
+                thiz.setTextHuThuong("10000000");
+                thiz.setTextBet(cc.Global.NumberFormat1(thiz.selectLine.getLines().length*10000));
+            }
+            else {
+                thiz.setTextBet(cc.Global.NumberFormat1(thiz.selectLine.getLines().length*ARR_BET_SLOT[thiz.indexBet]));
+                thiz.setlectButtonBet(thiz.indexBet);
+                thiz.btnGive.setVisible(false);
+                thiz.btnX2.setVisible(false);
+                thiz.activeButtonNewGame(true);
+                thiz.playerMe.setGold(PlayerMe.gold);
+            }
+
+        });
+        thiz.bgSlot.addChild(play_vitual);
+        this.btnTry = play_vitual;
+
+    },
+    setModePlay:function (isTry) {
+        this.isTry = false;
+        this.dup.setTry(this.isTry);
+        this.bonusLucky.setTry(this.isTry);
+        this.btnTry.loadTextureNormal("btn_choithu.png",ccui.Widget.PLIST_TEXTURE);
+        this.setActiveBt( this.btnTry,true);
+        this.bg_choithu.setVisible(false);
+
+        for(var i = 0; i < this.arrButBet.length; i++)
+            this.arrButBet[i].setVisible(true);
 
     },
     setActiveBt : function(btn,enabled){
@@ -1528,8 +1894,7 @@ var SlotFruitScene = IScene.extend({
     },
 
     onSetTextBet:function () {
-        cc.log("tuye");
-        this.setTextBet(cc.Global.NumberFormat1(this.selectLine.getLines().length*ARR_BET_SLOT[this.indexBet]));
+        this.setTextBet(cc.Global.NumberFormat1(this.selectLine.getLines().length*ARR_BET_SLOT[this.isTry?2:this.indexBet]));
         this.lblRowNumber.setString(this.selectLine.getLines().length.toString() );
     },
 
@@ -1552,7 +1917,7 @@ var SlotFruitScene = IScene.extend({
         backBt.setPosition(54*cc.winSize.screenScale, 666);
         this.addChild(backBt);
         backBt.addClickEventListener(function () {
-           thiz._controller.requestQuitRoom();
+            thiz.backButtonClickHandler();
         });
 
         var settingBt = new ccui.Button("ingame-settingBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
@@ -1623,7 +1988,14 @@ var SlotFruitScene = IScene.extend({
 
     },
     handleResuftZ:function(isReconnect,param){
+        if(!isReconnect){
+            this.runAction(new cc.Sequence(new cc.DelayTime(0.05), new cc.CallFunc(function () {
+                SoundPlayer.stopSoundLoop(thiz._soundRotate);
+                thiz._rollingSound = null;
 
+            })));
+
+        }
         this.dataSlot = param;
         var arrItem = param["2"];
         var moneyWin = param["3"]["4"];
@@ -1656,6 +2028,8 @@ var SlotFruitScene = IScene.extend({
         this.slotfui.stopNow(this.dataSlot["2"]);
     },
     onFinishQuay:function () {
+
+
         var  thiz =  this;
         var moneyWin =   this.dataSlot["3"]["4"];
         this.setTextWin(moneyWin);
@@ -1669,10 +2043,12 @@ var SlotFruitScene = IScene.extend({
             thiz.enableAutoRotate(false);
             MessageNode.getInstance().show("Bạn có " + this.isFreeSpin + " lượt quay miễn phí!");
             this.free_spin.setVisible(true);
+
         }
 
         // this.free_spin.setVisible((this.isFreeSpin>0)?true:false);
         this.btnFree.setVisible((this.isFreeSpin>0)?true:false);
+        this.setActiveBt(this.btnAuto,(this.isFreeSpin>0)?false:true);
         if(this.isFreeSpin>0 && thiz.arrFreeSpin != undefined ){
 
             var zzz = thiz.isFreeSpin;
@@ -1686,19 +2062,16 @@ var SlotFruitScene = IScene.extend({
                 //
                     thiz.lblFree.setString( (zzz- 1).toString());
                     thiz.handleResuftZ(false,thiz.arrFreeSpin[thiz.arrFreeSpin.length-zzz ]);
-                cc.log("cai quan que gi the nay" + zzz);
-            })
-                //, new cc.DelayTime(0),
-                //new cc.CallFunc(function () {
 
-              //  })
+            })
+
             ));
             thiz.isFreeSpin--;
-
+            this.btnX2.setVisible(false);
             return;
         }
 
-        if(parseInt(moneyWin) > 10*this.selectLine.getLines().length*ARR_BET_SLOT[this.indexBet])
+        if(parseInt(moneyWin) > 10*this.selectLine.getLines().length*ARR_BET_SLOT[(thiz.isTry)?2:this.indexBet])
         {
             this.onBigwin(moneyWin);
         }
@@ -1707,13 +2080,40 @@ var SlotFruitScene = IScene.extend({
             isX2 = false;
         }
         if(isX2){
-            this.btnX2.setVisible(true);
-            this.btnGive.setVisible(true);
+            if(thiz.isTry){
+
+                this.isAutoRotate = false;
+                this.btnX2.setVisible(true);
+                this.btnGive.setVisible(true);
+                if(this.isFreeSpin == 0){
+                    this.setActiveBt(this.btnTry,true);
+                }
+                if(this.dataSlot["3"]["3"]){
+                    var yy = parseInt(this.lblHu.getString().replace(/[.,]/g,''));
+                    thiz.setTextHuThuong(Math.floor(yy/2).toString());
+                    thiz.showJackpot();
+                    thiz.setGoldVituarl(Math.floor(yy/2));
+                }
+            }
+            else {
+                this.btnX2.setVisible(true);
+                this.btnGive.setVisible(true);
+                this.activeButtonNewGame(false);
+            }
         }
-        else{
-            this.activeButtonNewGame(true);
+
+        else {
+                this.activeButtonNewGame(true);
+
         }
-         this.btnStop.setVisible(false);
+
+        if(thiz.btnX2.isVisible() ){
+            this.runAction(new cc.Sequence(new cc.DelayTime(0.5), new cc.CallFunc(function () {
+                SoundPlayer.playSound("slot_win");
+            })));
+
+        }
+        this.btnStop.setVisible(false);
 
 
          this.runAction(new cc.Sequence(new cc.CallFunc(function () {
@@ -1734,7 +2134,7 @@ var SlotFruitScene = IScene.extend({
                     return;
                 }
                 if(thiz.isAutoRotate){
-                    thiz.setTextWin("0");
+
                     thiz.btnGive.setVisible(false);
                     thiz.rotateRequest();
                 }
@@ -1756,6 +2156,9 @@ var SlotFruitScene = IScene.extend({
     },
 
     showNumLineReconnect:function (arrLine,index) {
+
+        this.setModePlay();
+
         this.indexBet = index;
         this.setlectButtonBet(index);
         this.selectLine.setLineReconnect(arrLine);
@@ -1771,7 +2174,12 @@ var SlotFruitScene = IScene.extend({
     //         this.arrNum[arrLine-1].visibleNew(true);
     //     }
     },
-
+    setGoldVituarl:function (goldAdd) {
+          var thiz = this;
+            var moneyCurrent = thiz.goldVitual +  goldAdd;
+            thiz.playerMe.setGoldTry(thiz.goldVitual,moneyCurrent);
+            thiz.goldVitual = moneyCurrent;
+        },
     showAllLineWin:function(){
         var obArrLine = this.dataSlot["3"]["1"];
 
@@ -1798,6 +2206,7 @@ var SlotFruitScene = IScene.extend({
         var arrAction  = [];
         var obArrLine = this.dataSlot["3"]["1"];
         var money1Line = 0;
+        this.isPlaySound = true;
         for(var i = 0; i < obArrLine.length  ; i++){
 
             (function () {
@@ -1824,6 +2233,13 @@ var SlotFruitScene = IScene.extend({
                     // }
 
                     thiz.slotfui.showLineWin(idLine,line["3"]);
+                    if(thiz.isPlaySound){
+                        SoundPlayer.playSound("slot_line");
+                    }
+
+                    if(iNew ==obArrLine.length-1 ){
+                        thiz.isPlaySound = false;
+                    }
                 });
                var clearzzz =  new cc.CallFunc(function () {
                     thiz.clearAllLine();
@@ -1854,12 +2270,15 @@ var SlotFruitScene = IScene.extend({
         this.slotfui.initRandom();
     },
     performChangeRewardFund:function (data) {
-        if(this.arrHuThuong.length>0){
-            for(var i =0; i < this.arrHuThuong.length; i++){
-                this.arrHuThuong[i] = data[i][2];
+        if(!this.isTry){
+            if(this.arrHuThuong && this.arrHuThuong.length>0){
+                for(var i =0; i < this.arrHuThuong.length; i++){
+                    this.arrHuThuong[i] = data[i][2];
+                }
+                this.setTextHuThuong(parseInt(this.arrHuThuong[this.indexBet]));
             }
-            this.setTextHuThuong(parseInt(this.arrHuThuong[this.indexBet]));
         }
+
 
     },
     showArrButtonBet:function () {
@@ -1868,6 +2287,11 @@ var SlotFruitScene = IScene.extend({
         }
     },
     clickAutoQuay:function () {
+        if(this.isTry){
+            MessageNode.getInstance().show("Chỉ hỗ trợ ở chế độ chơi thật");
+            return;
+        }
+
         if(!this.isHaveData || this.isFreeSpin > 0 || this.isAutoRotate){
             return;
         }
@@ -1903,13 +2327,73 @@ var SlotFruitScene = IScene.extend({
       }
 
     },
-    onEnter: function () {
+
+    onExit: function () {
         this._super();
+        this.unscheduleUpdate();
+        SoundPlayer.stopAllSound();
+        if (this._controller) {
+            this._controller.releaseController();
+            this._controller = null;
+        }
+    },
+
+    setModeChoiThu:function () {
+
+    },
+
+    onEnter : function () {
+        this._super();
+        var thiz = this;
         this.scheduleUpdate();
+        cc.eventManager.addListener({
+            event: cc.EventListener.KEYBOARD,
+            onKeyReleased: function (keyCode, event) {
+                if(cc.sys.isNative){
+                    if (parseKeyCode(keyCode) === cc.KEY.back) {
+                        thiz.backButtonClickHandler();
+                    }
+                }
+                else{
+                    if(keyCode === cc.KEY.escape){
+                        thiz.backButtonClickHandler();
+                    }
+                }
+            }
+        }, this);
+
+        MiniGameNavigator.showAll();
+        FloatButton.getInstance().show(this.floatButtonLayer);
+        FloatButton.getInstance().setVisible(true);
+    },
+    backButtonClickHandler: function () {
+        // var thiz = this;
+        // if (LoadingDialog.getInstance().isShow()) {
+        //     return;
+        // }
+        // if (this.popupLayer.getChildren().length > 0) {
+        //     this.popupLayer.removeAllChildren();
+        //     return;
+        // }
+        // var dialog = new MessageConfirmDialog();
+        // dialog.setMessage("Bạn muốn thoát ra khỏi phòng ?");
+        // dialog.okButtonHandler = function () {
+        //     if (this._controller) {
+        //         this._controller.requestQuitRoom();
+        //     }
+        this.exitToGame();
+        // };
+        // dialog.cancelButtonHandler = function () {
+        //     dialog.hide();
+        // };
+        // dialog.show();
+
+
     },
     move4Chip:function (from, to) {
         // var distance = cc.pDistance(from,to);
         // var timeRun = distance/380;
+        SoundPlayer.playSound("mini_betchip");
         var thiz = this;
         for(var i = 0; i < 4; i++ ){
             (function () {
@@ -1930,22 +2414,36 @@ var SlotFruitScene = IScene.extend({
         }
 
     },
-    onExit: function () {
-        this._super();
-        this.unscheduleUpdate();
-        this._controller.releaseController();
-    },
+
     showJackpot: function () {
+        var spritNo = new cc.Sprite("#slot_nohu.png");
+        spritNo.setVisible(true);
+        spritNo.setPosition(cc.winSize.width/2,cc.winSize.height/2 + 170);
+        this.addChild(spritNo,2);
         var layer = new JackpotLayer();
+
         layer.show();
+        spritNo.runAction(new cc.Sequence(
+
+            new cc.DelayTime(4),
+            new cc.CallFunc(function () {
+                spritNo.removeFromParent(true);
+            })
+        ));
     },
     activeButtonNewGame:function (isActive) {
-      this.setActiveBt(this.btn20Row,isActive);
+
+        this.setActiveBt(this.btnTry,isActive);
+        this.setActiveBt(this.btn20Row,isActive);
         this.setActiveBt(this.btnQuay,isActive);
-        for(var  i = 0;i < this.arrButBet.length; i++)
-        this.setActiveBt(this.arrButBet[i],isActive);
+        if(!this.isTry){
+            for(var  i = 0;i < this.arrButBet.length; i++)
+                this.setActiveBt(this.arrButBet[i],isActive);
+        }
+
     },
     onError:function(params){
+        SoundPlayer.stopAllSound();
         if(params["code"] == 10){
             this.slotfui.clearAll();
             this.isHaveData = true;
@@ -2003,7 +2501,7 @@ var SlotFruitScene = IScene.extend({
 
         this.addChild(nodeBigWin,2);
         nodeBigWin.setPosition(-40*cc.winSize.screenScale,0);
-        nodeBigWin.runAction(new cc.Sequence(new cc.DelayTime(5),new cc.CallFunc(function () {
+        nodeBigWin.runAction(new cc.Sequence(new cc.DelayTime(4),new cc.CallFunc(function () {
             cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
                 swallowTouches:true,
@@ -2015,7 +2513,7 @@ var SlotFruitScene = IScene.extend({
                 },
             }, nodeBigWin);
         }),
-            new cc.DelayTime(3),
+            new cc.DelayTime(2),
             new cc.CallFunc(function () {
                 nodeBigWin.removeFromParent(true);
             })

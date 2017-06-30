@@ -73,7 +73,7 @@ var HistoryFruit = Dialog.extend({
 
 
         view.lineLabel.setString(cc.Global.NumberFormat1(data["lineBet"].toString()));
-        view.lineWinLabel.setString(cc.Global.NumberFormat1(data["lineWin"]));
+        view.lineWinLabel.setString(data["lineWin"]);
         view.receiewLabel.setString(data["moneyWin"]);
 
     },
@@ -84,10 +84,10 @@ var HistoryFruit = Dialog.extend({
         var container = new ccui.Widget();
         container.setContentSize(cc.size(800, 67));
 
-        var bg = new ccui.Scale9Sprite("activity_cell_bg.png", cc.rect(10, 10, 4, 4));
-        bg.setPreferredSize(cc.size(750, 60));
-        bg.setPosition(container.getContentSize().width/2, container.getContentSize().height/2);
-        container.addChild(bg);
+        // var bg = new ccui.Scale9Sprite("activity_cell_bg.png", cc.rect(10, 10, 4, 4));
+        // bg.setPreferredSize(cc.size(750, 60));
+        // bg.setPosition(container.getContentSize().width/2, container.getContentSize().height/2);
+        // container.addChild(bg);
         var phienLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "time", cc.TEXT_ALIGNMENT_CENTER, 100);
         phienLabel.setAnchorPoint(cc.p(0,0.5));
         phienLabel.setPosition(_arrPos[0], 33);

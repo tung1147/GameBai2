@@ -12,6 +12,7 @@ var SlotItem = ccui.Widget.extend({
         this.YStop = -100000.0;
         this.isRunning = false;
         this.idItem = -1;
+        this.isStopNow = false;
 
     },
     createItem:function (i,j,lastY) {
@@ -91,6 +92,11 @@ var SlotItem = ccui.Widget.extend({
                     if(this._finishedHandler){
                         this._finishedHandler();
                     }
+                }
+                if(this.idItem%3 == 0 && !this.isStopNow ){
+                    SoundPlayer.playSound("slot_stop");
+                }else  if(this.idItem == 15) {
+                   SoundPlayer.playSound("slot_stop");
                 }
 
             }
@@ -196,7 +202,7 @@ var SlotLayer = cc.Node.extend({
 
                 thiz.runAction(new cc.Sequence(new cc.DelayTime(inew*0.5),new  cc.CallFunc(function () {
 
-
+                    SoundPlayer.playSound("quay_cham_dan");
                     var  itemTemp = thiz.arrItems[inew][0];//phan tu dau tien cua cot
                      var distance = itemTemp.distance2Item + thiz.getMaxYOfColumn(inew,4) ;
                     var kqColumn = [];
@@ -206,7 +212,7 @@ var SlotLayer = cc.Node.extend({
                         var items = subItems[j];
                         items.stop(distance);
                     }
-                    thiz.initItemsColumn(3,inew,ketqua[inew],distance);
+                    thiz.initItemsColumn(3,inew,ketqua[inew],distance,false);
                 })));
             })();
 
@@ -216,6 +222,8 @@ var SlotLayer = cc.Node.extend({
     stopNow:function (ketqua) {
         this.stopAllActions();
         var thiz = this;
+        // SoundPlayer.stopSound("quay_cham_dan");
+        // SoundPlayer.playSound("quay_cham_dan");
         for (var i = this.clolumnCurrent+1; i< this.arrItems.length; i++) {
             (function () {
                 var inew = i;
@@ -230,7 +238,7 @@ var SlotLayer = cc.Node.extend({
                         var items = subItems[j];
                         items.stop(distance);
                     }
-                    thiz.initItemsColumn(3,inew,ketqua[inew],distance);
+                    thiz.initItemsColumn(3,inew,ketqua[inew],distance,true);
 
             })();
 
@@ -249,12 +257,13 @@ var SlotLayer = cc.Node.extend({
         }
         return y;
     },
-    initItemsColumn:function (numberHorizontal, i , ketqua,distance) {
+    initItemsColumn:function (numberHorizontal, i , ketqua,distance,stopNow) {
         var thiz = this;
         this.clolumnCurrent = i;
         var subItem = [];
         for (var j = 0 ; j < numberHorizontal; j++) {
             var item = this.newItem(ketqua[j]);
+            item.isStopNow = stopNow;
             subItem.push(item);
             item.idItem = this.arrResuft.length+1;
             this.arrResuft.push(item);
