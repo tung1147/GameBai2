@@ -1491,55 +1491,55 @@ var SlotFruitScene = IScene.extend({
 
 
 
-        var cheatNo = s_Dialog_Create_Button1(cc.size(120, 60), "Nohu");
-        cheatNo.setPosition(200,cc.winSize.height -100);
-        cheatNo.addClickEventListener(function () {
-            thiz.rotateRequestCh(-1);
-        }),
-        this.addChild(cheatNo);
-
-        var cheatFree = s_Dialog_Create_Button1(cc.size(120, 60), "Free");
-        cheatFree.setPosition(200,cc.winSize.height-200);
-        cheatFree.addClickEventListener(function () {
-            thiz.rotateRequestCh(8);
-        }),
-            this.addChild(cheatFree);
-        var cheatBonus = s_Dialog_Create_Button1(cc.size(120, 60), "Lucky");
-        cheatBonus.setPosition(200,cc.winSize.height-300);
-        cheatBonus.addClickEventListener(function () {
-            thiz.rotateRequestCh(7);
-        }),
-            this.addChild(cheatBonus);
-
-        var line1 = new newui.TextField(cc.size(300, 80), cc.res.font.Roboto_CondensedBold_25);
-        line1.setPlaceHolder("line 1");
-        line1.setPlaceHolderColor(cc.color("#909090"));
-        line1.setPosition(cc.winSize.width-100,240);
-
-        this.addChild(line1);
-
-        var line2 = new newui.TextField(cc.size(300, 80), cc.res.font.Roboto_CondensedBold_25);
-        line2.setPlaceHolder("line 2");
-        line2.setPlaceHolderColor(cc.color("#909090"));
-        line2.setPosition(cc.winSize.width-100,300);
-
-        this.addChild(line2);
-
-
-        var line3 = new newui.TextField(cc.size(300, 80), cc.res.font.Roboto_CondensedBold_25);
-        line3.setPlaceHolder("line 3");
-        line3.setPlaceHolderColor(cc.color("#909090"));
-        line3.setPosition(cc.winSize.width-100,400);
-
-        this.addChild(line3);
-
-
-        var rotasteaa = s_Dialog_Create_Button1(cc.size(120, 60), "QuayZ");
-        rotasteaa.setPosition(200,cc.winSize.height-400);
-        rotasteaa.addClickEventListener(function () {
-            thiz.rotateRequest3(line1.getText(),line2.getText(),line3.getText());
-        }),
-            this.addChild(rotasteaa);
+        // var cheatNo = s_Dialog_Create_Button1(cc.size(120, 60), "Nohu");
+        // cheatNo.setPosition(200,cc.winSize.height -100);
+        // cheatNo.addClickEventListener(function () {
+        //     thiz.rotateRequestCh(-1);
+        // }),
+        // this.addChild(cheatNo);
+        //
+        // var cheatFree = s_Dialog_Create_Button1(cc.size(120, 60), "Free");
+        // cheatFree.setPosition(200,cc.winSize.height-200);
+        // cheatFree.addClickEventListener(function () {
+        //     thiz.rotateRequestCh(8);
+        // }),
+        //     this.addChild(cheatFree);
+        // var cheatBonus = s_Dialog_Create_Button1(cc.size(120, 60), "Lucky");
+        // cheatBonus.setPosition(200,cc.winSize.height-300);
+        // cheatBonus.addClickEventListener(function () {
+        //     thiz.rotateRequestCh(7);
+        // }),
+        //     this.addChild(cheatBonus);
+        //
+        // var line1 = new newui.TextField(cc.size(300, 80), cc.res.font.Roboto_CondensedBold_25);
+        // line1.setPlaceHolder("line 1");
+        // line1.setPlaceHolderColor(cc.color("#909090"));
+        // line1.setPosition(cc.winSize.width-100,240);
+        //
+        // this.addChild(line1);
+        //
+        // var line2 = new newui.TextField(cc.size(300, 80), cc.res.font.Roboto_CondensedBold_25);
+        // line2.setPlaceHolder("line 2");
+        // line2.setPlaceHolderColor(cc.color("#909090"));
+        // line2.setPosition(cc.winSize.width-100,300);
+        //
+        // this.addChild(line2);
+        //
+        //
+        // var line3 = new newui.TextField(cc.size(300, 80), cc.res.font.Roboto_CondensedBold_25);
+        // line3.setPlaceHolder("line 3");
+        // line3.setPlaceHolderColor(cc.color("#909090"));
+        // line3.setPosition(cc.winSize.width-100,400);
+        //
+        // this.addChild(line3);
+        //
+        //
+        // var rotasteaa = s_Dialog_Create_Button1(cc.size(120, 60), "QuayZ");
+        // rotasteaa.setPosition(200,cc.winSize.height-400);
+        // rotasteaa.addClickEventListener(function () {
+        //     thiz.rotateRequest3(line1.getText(),line2.getText(),line3.getText());
+        // }),
+        //     this.addChild(rotasteaa);
 
 
 
