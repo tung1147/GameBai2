@@ -1225,6 +1225,8 @@ var ARR_BET_SLOT = [100,1000,10000];
 
 var GamePlaySlot = GamePlayerMe.extend({
     setGold: function (gold) {
+        this.timer2.setVisible(false);
+        this.timer.setVisible(false);
         this.goldLabel.stopAllActions();
         if(this.gold >= gold){
             this.goldLabel.setString(cc.Global.NumberFormat1(gold));
@@ -1500,7 +1502,7 @@ var SlotFruitScene = IScene.extend({
         this.initBetButtons();
         var playerMe = new GamePlaySlot();
         playerMe.setPosition(150, 50.0);
-        this.addChild(playerMe, 1);
+        this.addChild(playerMe, 0);
         this.playerMe =  playerMe;
 
         // var lblMoneyLine =  new cc.LabelBMFont("",  "res/fonts/Roboto_GoldSlot.fnt");
@@ -1782,7 +1784,7 @@ var SlotFruitScene = IScene.extend({
     },
     initLabel:function () {
         //hu thuong
-
+        var thiz = this;
         var bgHu = new ccui.Button("slot_bg_hu.png", "", "", ccui.Widget.PLIST_TEXTURE);
         bgHu.setScale9Enabled(true);
         bgHu.setCapInsets(cc.rect(12, 0, 4, 51));
@@ -1791,8 +1793,13 @@ var SlotFruitScene = IScene.extend({
         this.bgSlot.addChild(bgHu,100);
         bgHu.addClickEventListener(function () {
            cc.log("Lich su no hu");
-            var his = new HistoryNoHuFruit();
-            his.show();
+            if(thiz.isTry){
+                MessageNode.getInstance().show("Chỉ hỗ trợ ở chế độ chơi thật");
+            }else {
+                var his = new HistoryNoHuFruit();
+                his.show();
+            }
+
         });
 
 
@@ -1972,8 +1979,14 @@ var SlotFruitScene = IScene.extend({
         hisBt.setScale(cc.winSize.screenScale);
         hisBt.setPosition(1120*cc.winSize.screenScale, backBt.y);
         hisBt.addClickEventListener(function () {
-            var his = new HistoryFruit();
-            his.show();
+            if(thiz.isTry){
+                MessageNode.getInstance().show("Chỉ hỗ trợ ở chế độ chơi thật");
+            }
+            else {
+                var his = new HistoryFruit();
+                his.show();
+            }
+
         });
         this.addChild(hisBt);
 

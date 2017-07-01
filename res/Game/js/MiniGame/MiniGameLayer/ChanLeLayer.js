@@ -517,6 +517,7 @@ var ChanLeLayer = MiniGamePopup.extend({
         this.isCountDownSound = false;
     },
     setTimeFomat:function () {
+        this.lblTime.setPosition(this.diskSprite.getPosition());
         var number = Math.floor(this.timer);
         var minute = Math.floor(number/60);
         var second = number - minute*60;
