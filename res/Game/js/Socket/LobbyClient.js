@@ -8,17 +8,17 @@
 if (cc.sys.isNative) { //mobile
     var s_lobbyServer = s_lobbyServer || [
         {
-            host: "42.112.25.164",
-            //host: "vuabaivip.com",
+            // host: "42.112.25.164",
+            host: "gbvcity.com",
             port: 9999
         }
     ];
 }
 else { //websocket
     var s_lobbyServer = s_lobbyServer || [
-        //"wss://gbvcity.com/lagen2-lobby/websocket"
+        "wss://gbvcity.com/lagen2-lobby/websocket"
         //"ws://vuabaivip.com:8887/websocket"
-        "ws://42.112.25.164:8887/websocket" // UAT
+        // "ws://42.112.25.164:8887/websocket" // UAT
         //"ws://42.112.25.154:8887/websocket" //dev2 = khoi
 
     ];

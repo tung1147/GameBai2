@@ -5,6 +5,10 @@
             "fnt": "res/fonts/bigsmall_number_font.fnt"
         },
         {
+            "img": "res/fonts/fontFreeSpin.png",
+            "fnt": "res/fonts/fontFreeSpin.fnt"
+        },
+        {
             "img": "res/fonts/fonttime1.png",
             "fnt": "res/fonts/fonttime1.fnt"
         },
@@ -23,6 +27,10 @@
         {
             "img": "res/fonts/Roboto_BoldCondensed_36_Glow.png",
             "fnt": "res/fonts/Roboto_BoldCondensed_36_Glow.fnt"
+        },
+        {
+            "img": "res/fonts/Roboto_GoldSlot.png",
+            "fnt": "res/fonts/Roboto_GoldSlot.fnt"
         },
         {
             "img": "res/fonts/RobotoBoldCondensed_14.png",
@@ -94,6 +102,7 @@
         }
     ],
     "texture": [
+        {"img": "res/bg_slot_hdc.png"},
         {"img": "res/game-bg.jpg"},
         {"img": "res/game-poker-bg.png"},
         {"img": "res/gp_table.png"},
@@ -250,11 +259,17 @@
         "res/Sound/pk_dealer_turn.mp3",
         "res/Sound/pk_fold.mp3",
         "res/Sound/pk_raise.mp3",
+        "res/Sound/quay_cham_dan.mp3",
+        "res/Sound/quayrepeat.mp3",
         "res/Sound/ro.mp3",
         "res/Sound/sanh.mp3",
         "res/Sound/sanhrong.mp3",
         "res/Sound/sanhtoi.mp3",
         "res/Sound/singlechip.mp3",
+        "res/Sound/slot_line.mp3",
+        "res/Sound/slot_quay.mp3",
+        "res/Sound/slot_stop.mp3",
+        "res/Sound/slot_win.mp3",
         "res/Sound/so_0.mp3",
         "res/Sound/so_1.mp3",
         "res/Sound/so_10.mp3",
