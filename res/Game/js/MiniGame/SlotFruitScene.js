@@ -1197,6 +1197,8 @@ var ARR_BET_SLOT = [100,1000,10000];
 
 var GamePlaySlot = GamePlayerMe.extend({
     setGold: function (gold) {
+        this.timer2.setVisible(false);
+        this.timer.setVisible(false);
         this.goldLabel.stopAllActions();
         if(this.gold >= gold){
             this.goldLabel.setString(cc.Global.NumberFormat1(gold));
@@ -1461,7 +1463,7 @@ var SlotFruitScene = IScene.extend({
         this.initBetButtons();
         var playerMe = new GamePlaySlot();
         playerMe.setPosition(150, 50.0);
-        this.addChild(playerMe, 1);
+        this.addChild(playerMe, 0);
         this.playerMe =  playerMe;
 
         // var lblMoneyLine =  new cc.LabelBMFont("",  "res/fonts/Roboto_GoldSlot.fnt");
