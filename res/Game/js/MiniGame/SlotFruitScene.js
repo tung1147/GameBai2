@@ -513,13 +513,13 @@ var DuplicateGold =  cc.Node.extend({
         btnClose.addClickEventListener(function () {
             thiz.setVisible(false);
         });
-        btnClose.setPosition(877,636);
+        btnClose.setPosition(775, 554);
         bg.addChild(btnClose);
 
         var wgGive = new ccui.Widget();
         wgGive.setContentSize(cc.size(130,130));
         wgGive.setTouchEnabled(true);
-        wgGive.setPosition(877,636);
+        wgGive.setPosition(787,560);
         bg.addChild(wgGive);
         thiz.wgGive = wgGive;
 
@@ -546,11 +546,11 @@ var DuplicateGold =  cc.Node.extend({
 
         var bg_give = new ccui.Scale9Sprite("slot_x2_bg_money.png",cc.rect(10,10,4,4));
         bg_give.setPreferredSize(cc.size(380,50));
-        bg_give.setPosition(500, 601);
+        bg_give.setPosition(bg.width/2, 530);
         bg.addChild(bg_give);
 
-        var lblMoney = new cc.LabelTTF("10.000",cc.res.font.Roboto_CondensedBold,30);
-        lblMoney.setColor(cc.color(255,222,0));
+        var lblMoney = new cc.LabelBMFont("10.000",cc.res.font.Roboto_CondensedBold_30);
+        lblMoney.setColor(cc.color("#ffde00"));
         lblMoney.setPosition(190,25);
         bg_give.addChild(lblMoney);
         this.lblMoney = lblMoney;
@@ -826,8 +826,8 @@ var BonusLucky =  cc.Node.extend({
             },
         }, this);
         this.addChild(layerBlack);
-        var bg = new ccui.Scale9Sprite("bg_bonus12.png",cc.rect(7,7,4,4));
-        bg.setPreferredSize(cc.size(900,450));
+        var bg = new ccui.Scale9Sprite("bg_bonus12.png",cc.rect(10,10,4,4));
+        bg.setPreferredSize(cc.size(901, 541));
         bg.setPosition(cc.winSize.width/2, cc.winSize.height/2);
         this.bg = bg;
         this.addChild(bg);
@@ -836,20 +836,21 @@ var BonusLucky =  cc.Node.extend({
 
         var lblBonus = new cc.LabelTTF("BONUS",cc.res.font.Roboto_CondensedBold,36);
         lblBonus.setColor(cc.color(255,222,0));
-        lblBonus.setPosition(450,400);
+        lblBonus.setPosition(bg.width/2, 494);
         bg.addChild(lblBonus);
+
         var group1 = new ccui.Widget();
-        group1.setContentSize(cc.size(900,450));
-        group1.setPosition(450,235);
+        group1.setContentSize(cc.size(901,541));
+        group1.setPosition(bg.width/2,bg.height/2);
         bg.addChild(group1);
         this.group1 = group1;
 
-        var lbl = new cc.LabelTTF("Bạn được mở 3 ô phần thưởng",cc.res.font.Roboto_Condensed,24);
-        lbl.setPosition(450,350);
+        var lbl = new cc.LabelBMFont("Bạn được mở 3 ô phần thưởng",cc.res.font.Roboto_Condensed_25);
+        lbl.setPosition(bg.width/2, 464);
         group1.addChild(lbl);
 
-        var lblCount = new cc.LabelTTF("Hệ thống sẽ tự động chọn ngẫu nhiên sau 10s nếu bạn không tương tác",cc.res.font.Roboto_Condensed,24);
-        lblCount.setPosition(450,320);
+        var lblCount = new cc.LabelBMFont("Hệ thống sẽ tự động chọn ngẫu nhiên sau 10s nếu bạn không tương tác",cc.res.font.Roboto_Condensed_25);
+        lblCount.setPosition(bg.width/2, 437);
         group1.addChild(lblCount);
         this.lb_count = lblCount;
         this.arrButton = [];
@@ -857,7 +858,7 @@ var BonusLucky =  cc.Node.extend({
             (function () {
                 var iNew = i;
                 var spritebg =  new cc.Sprite("#slot_bonus_item3.png");
-                spritebg.setPosition( (i%6)*144 + 96, Math.floor(i/6)*144+ 86);
+                spritebg.setPosition( (i%6)*144 + 96, Math.floor(i/6)*144+ 150);
                 group1.addChild(spritebg);
 
                 var btnX = new ccui.Button("slot_bonus_item1.png", "", "", ccui.Widget.PLIST_TEXTURE);
@@ -881,27 +882,27 @@ var BonusLucky =  cc.Node.extend({
         }
 
         var group2 = new ccui.Widget();
-        group2.setContentSize(cc.size(900,450));
-        group2.setPosition(450,225);
+        group2.setContentSize(cc.size(688,348));
+        group2.setPosition(bg.width/2,bg.height/2);
         bg.addChild(group2);
 
-        var slot_bonus_bgtotal =  new cc.Scale9Sprite("slot_bonus_bgtotal.png",cc.rect(49,38,2,2));//new cc.Scale9Sprite("slot_bg_freeSpin.png",cc.rect(8, 8, 2, 2)); //
-        slot_bonus_bgtotal.setPreferredSize(cc.size(580,360));
-        slot_bonus_bgtotal.setPosition(450,225);
+        var slot_bonus_bgtotal =  new cc.Scale9Sprite("slot_bonus_bgtotal.png",cc.rect(50,50,4,4));//new cc.Scale9Sprite("slot_bg_freeSpin.png",cc.rect(8, 8, 2, 2)); //
+        slot_bonus_bgtotal.setPreferredSize(cc.size(688, 348));
+        slot_bonus_bgtotal.setPosition(group2.width/2,group2.height/2);
         group2.addChild(slot_bonus_bgtotal);
 
 
-        var lbl2 = new cc.LabelTTF("Chúc mừng bạn nhận được",cc.res.font.Roboto_Condensed,30);
-        lbl2.setPosition(450,173);
+        var lbl2 = new cc.LabelBMFont("Chúc mừng bạn nhận được",cc.res.font.Roboto_Condensed_30);
+        lbl2.setPosition(group2.width/2,116);
         group2.addChild(lbl2);
 
-        var lbl3 = new cc.LabelTTF("300.000 V",cc.res.font.Roboto_CondensedBold,48);
+        var lbl3 = new cc.LabelBMFont("300.000 V",cc.res.font.Roboto_CondensedBold_40);
         lbl3.setColor(cc.color(255,222,0));
-        lbl3.setPosition(450,130);
+        lbl3.setPosition(group2.width/2,70);
         group2.addChild(lbl3);
         this.lblTotal = lbl3;
         var spriteWin =  new cc.Sprite("#slot_bonus_hom.png");
-        spriteWin.setPosition( 450, 290);
+        spriteWin.setPosition( group2.width/2, 216);
         group2.addChild(spriteWin);
 
         // var closeButton = new ccui.Button("dialog-button-close.png","","", ccui.Widget.PLIST_TEXTURE);
@@ -918,7 +919,7 @@ var BonusLucky =  cc.Node.extend({
         if(parseInt(money)!=0){
             var spritebg =  new cc.Sprite(isOpen?"#slot_bonus_item2.png":"#slot_bonus_hom1.png");
             spritebg.setTag(idItem);
-            spritebg.setPosition( (idItem%6)*144 + 96 - 12, Math.floor(idItem/6)*144+ 86+7);
+            spritebg.setPosition( (idItem%6)*144 + 96 - 12, Math.floor(idItem/6)*144+ 150 + 7);
             var lbl = new cc.LabelTTF( cc.Global.NumberFormat1(parseInt(money)),cc.res.font.Roboto_CondensedBold,24);
             lbl.setPosition(70,-20);
             lbl.setColor(isOpen?cc.color(255,222,0,255):cc.color(127,127,127,255));
@@ -928,7 +929,7 @@ var BonusLucky =  cc.Node.extend({
         }
         else {
             var lbl = new cc.LabelTTF("Không có gì",cc.res.font.Roboto_CondensedBold,24);
-            lbl.setPosition((idItem%6)*144 + 96 , Math.floor(idItem/6)*144+ 86+7-70);
+            lbl.setPosition((idItem%6)*144 + 96 , Math.floor(idItem/6)*144+ 150+7-70);
             lbl.setColor(isOpen?cc.color(255,222,0,255):cc.color(127,127,127,255));
             this.arrItemWin.push(lbl);
             this.group1.addChild(lbl);
@@ -1527,7 +1528,7 @@ var SlotFruitScene = IScene.extend({
 
 
 
-
+/*
 
         var cheatNo = s_Dialog_Create_Button1(cc.size(120, 60), "Nohu");
         cheatNo.setPosition(200,cc.winSize.height -100);
@@ -1576,12 +1577,10 @@ var SlotFruitScene = IScene.extend({
         rotasteaa.setPosition(200,cc.winSize.height-400);
         rotasteaa.addClickEventListener(function () {
             thiz.rotateRequest3(line1.getText(),line2.getText(),line3.getText());
-        }),
-            this.addChild(rotasteaa);
+        });
+        this.addChild(rotasteaa);
 
-
-
-
+        */
     },
     rotateRequestCh:function (index) {
         if(this.nodeBigWin != undefined && this.nodeBigWin != null){
