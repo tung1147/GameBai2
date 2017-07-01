@@ -7,6 +7,12 @@ var Sam = TienLen.extend({
 
         this.timeRemaining = 0;
         this.timeInterval = null;
+
+        for (var i = 0; i < this.playerView.length; i++) {
+            if(this.playerView[i].cardRemaining){
+                this.playerView[i].cardRemaining.setVisible(false);
+            }
+        }
     },
     initButton : function () {
         this._super();
