@@ -5,7 +5,7 @@
 var LoadingScene = cc.Scene.extend({
     ctor : function () {
         this._super();
-        var bg = new cc.Sprite("res/loading_bg.jpg");
+        var bg = new cc.Sprite("html/res/loading_bg.jpg");
         bg.setPosition(cc.winSize.width/2, cc.winSize.height/2);
         this.addChild(bg);
 
