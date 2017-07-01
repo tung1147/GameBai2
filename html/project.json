@@ -12,7 +12,7 @@
     "modules" : ["cocos2d", "extensions"],
 
     "jsList" : [
-        "html/HackTimer",
+        "html/Core/HackTimer.js",
         "html/resource.js",
         "html/Core/GameLaucher.js",
         "html/Core/jsb_api_wrapper.js",
