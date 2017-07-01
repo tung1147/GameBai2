@@ -503,11 +503,11 @@ var Poker = IGameScene.extend({
         lblVcl.setAnchorPoint(cc.p(0,0.5));
         lblVcl.setPosition(160,20);
         lblVcl.setColor(cc.color(255,216,0,255));
-        vcl.setVisible(false);
-        lblVcl.setVisible(false);
+        // vcl.setVisible(false);
+        // lblVcl.setVisible(false);
         this.lblVcl = lblVcl;
         this.sceneLayer.addChild(lblVcl);
-
+        this.setGoldRemain(true,PlayerMe.gold);
         // var cardData = [1,2,3,4,5];
         //
          this.runAction(new cc.Sequence(new cc.DelayTime(2), new cc.CallFunc(function () {
@@ -517,18 +517,51 @@ var Poker = IGameScene.extend({
     },
 
     setGoldRemain:function (isShow,gold) {
-        if(isShow){
+      //  if(isShow){
             this.lblVcl.setVisible(true);
             this.vcl.setVisible(true);
             this.lblVcl.setString(cc.Global.NumberFormat1(parseInt(gold)));
-        }
-        else{
-            this.lblVcl.setVisible(false);
-            this.vcl.setVisible(false);
-        }
+    //    }
+    //    else{
+    //        this.lblVcl.setVisible(false);
+    //        this.vcl.setVisible(false);
+    //    }
     },
     updateGold: function (username, gold) {
+        this.setGoldRemain(true,gold);
+    },
 
+    changeGoldEffect: function (username, gold) {
+        // if(username != PlayerMe.username){
+        //     return;
+        // }
+        // var goldNumber = gold;
+        // if (typeof gold === "string") {
+        //     goldNumber = parseInt(gold);
+        // }
+        // var strGold = cc.Global.NumberFormat1(Math.abs(goldNumber)) + "V";
+        // if (gold >= 0) {
+        //     strGold = "+" + strGold;
+        // }
+        // else {
+        //     strGold = "-" + strGold;
+        // }
+        // var labelEffect = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_30, strGold);
+        // if (gold >= 0) {
+        //     labelEffect.setColor(cc.color("#ffde00"));
+        // }
+        // else {
+        //     labelEffect.setColor(cc.color("#ff0000"));
+        // }
+        // labelEffect.setPosition(this.userLabel.getPosition());
+        // this.addChild(labelEffect, 10);
+        //
+        // var effectDuration = 2.0;
+        // var moveAction = new cc.MoveBy(effectDuration, cc.p(0.0, 100.0));
+        // var finishedAction = new cc.CallFunc(function () {
+        //     labelEffect.removeFromParent(true);
+        // });
+        // labelEffect.runAction(new cc.Sequence(moveAction, finishedAction));
     },
     handleButtonCofirm:function () {
         this.hideAllButton();
@@ -1450,8 +1483,8 @@ var PopupSitdown = Dialog.extend({
                 percentCurr = 100;
             }
             slider.percent = percentCurr;
-            this.gold =  Math.floor(slider.percent*maxGold/100) + minBuy;
-            thiz.lblMoney.setString(cc.Global.NumberFormat1(this.gold));
+            thiz.gold =  Math.floor(slider.percent*maxGold/100) + minBuy;
+            thiz.lblMoney.setString(cc.Global.NumberFormat1(thiz.gold));
         });
 
         leftBut.addClickEventListener(function () {
@@ -1461,8 +1494,8 @@ var PopupSitdown = Dialog.extend({
                 percentCurr = 0;
             }
             slider.percent = percentCurr;
-            this.gold =  Math.floor(slider.percent*maxGold/100) + minBuy;
-            thiz.lblMoney.setString(cc.Global.NumberFormat1(this.gold));
+            thiz.gold =  Math.floor(slider.percent*maxGold/100) + minBuy;
+            thiz.lblMoney.setString(cc.Global.NumberFormat1(thiz.gold));
         });
 
         this.cancelButtonHandler = function () {

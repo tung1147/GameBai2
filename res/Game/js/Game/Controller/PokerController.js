@@ -53,9 +53,6 @@ var PokerController = GameController.extend({
         this._view.setGoldRemain(true,content.p["2"]);
     },
 
-    onChangeAsset: function (cmd, content) {
-
-    },
 
     _updateStatusHandler : function(cmd, content){
         this.onGameStatus(content.p["1"]);
@@ -127,7 +124,7 @@ var PokerController = GameController.extend({
             username: "",
         }
         if(data.p.u == PlayerMe.username){
-            this._view.setGoldRemain(false,"0");
+            this._view.setGoldRemain(false,PlayerMe.gold);
             this._view.gameTopBar.backBt.loadTextureNormal("ingame-backBt.png",ccui.Widget.PLIST_TEXTURE) ;
             this._view.allSlot[0].setIsMe(false);
             this._view.stateMe =  PK_STATUSME_STANDUP;
