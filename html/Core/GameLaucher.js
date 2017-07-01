@@ -58,7 +58,7 @@ var GameLaucher = cc.Class.extend({
         function (result, count, loadedCount) {
             var runningScene = cc.director.getRunningScene();
             if(runningScene.updateLoadResources){
-                runningScene.updateLoadResources(loadedCount + 1, count);
+                runningScene.updateLoadResources(loadedCount + 1, s_resource.length + s_texture.length);
             }
         }, function () {
             thiz.itemLoaded = 0;
@@ -76,8 +76,8 @@ var GameLaucher = cc.Class.extend({
             cc.spriteFrameCache.addSpriteFrames(texture.plist, texture.img);
 
             var runningScene = cc.director.getRunningScene();
-            if(runningScene.updateLoadTexture){
-                runningScene.updateLoadTexture(this.itemLoaded, s_texture.length);
+            if(runningScene.updateLoadResources){
+                runningScene.updateLoadResources(this.itemLoaded + s_resource.length, s_resource.length + s_texture.length);
             }
         }
     },

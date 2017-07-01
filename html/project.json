@@ -13,6 +13,7 @@
     "chipmunk"
   ],
   "jsList": [
+    "Html/Core/HackTimer.js",
     "html/GameHotfix.js",
     "html/resource.js",
     "html/Core/GameLaucher.js",

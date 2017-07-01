@@ -95,17 +95,18 @@ cc.game.onStart = function(){
     // cc.view.setRealPixelResolution(960, 640, cc.ResolutionPolicy.SHOW_ALL);
     // The game will be resized when browser size change
     cc.view.resizeWithBrowserSize(true);
-    cc.loader.resPath = window.cc_resources_search_path;
     var loading_texture = [
         "res/loading_bg.jpg",
-       // "res/loading.plist",
-      //  "res/loading.png"
+        "res/lg_separator_load.png",
+        "res/lg_bg_load.png"
     ];
     cc.loader.load(loading_texture,
         function (result, count, loadedCount) { //load
 
         }, function () { //finished
-         //   cc.spriteFrameCache.addSpriteFrames("res/loading.plist", "res/loading.png");
+            if(window.cc_resources_search_path){
+                cc.loader.resPath = window.cc_resources_search_path;
+            }
             cc.director.runScene(new LoadingScene());
         });
 
