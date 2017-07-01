@@ -9,23 +9,21 @@ var LoadingScene = cc.Scene.extend({
         bg.setPosition(cc.winSize.width/2, cc.winSize.height/2);
         this.addChild(bg);
 
-        // var logo = new cc.Sprite("#loading_logo.png");
-        // logo.setPosition(bg.getPosition());
-        // this.addChild(logo);
-        //
-        // var loadingText = new cc.Sprite("#loading_text_0.png");
-        // loadingText.setPosition(bg.getPosition());
-        // this.addChild(loadingText);
-        //
-        // var frames = [];
-        // for(var i=0;i<20;i++){
-        //     var spiteFrame = cc.spriteFrameCache.getSpriteFrame("loading_text_" + i + ".png");
-        //     frames.push(spiteFrame);
-        // }
-        // var animation = new cc.Animation(frames, 0.1, 1);
-        // loadingText.runAction(new cc.RepeatForever(new cc.Animate(animation)));
+        this._loadingBarPercentage = 0.0;
+        var loadingBar = new cc.ProgressTimer(new cc.Sprite("res/lg_separator_load.png"));
+        loadingBar.setType(cc.ProgressTimer.TYPE_BAR);
+        loadingBar.setMidpoint(cc.p(0.0, 0.5));
+        loadingBar.setBarChangeRate(cc.p(1.0, 0.0));
+        loadingBar.setPosition(cc.winSize.width/2, 130);
+        this.addChild(loadingBar,2);
+        this.loadingBar = loadingBar;
+        loadingBar.setPercentage(50);
+        loadingBar.setVisible(false);
 
-
+        var loadingBarBg = new cc.Sprite("res/lg_bg_load.png");
+        loadingBarBg.setPosition(loadingBar.getContentSize().width/2, loadingBar.getContentSize().height/2);
+        loadingBar.addChild(loadingBarBg, -1);
+        
         var label = new cc.LabelTTF("", "arial", 20);
         label.setPosition(cc.winSize.width/2, 200);
         this.title = label;
@@ -67,15 +65,14 @@ var LoadingScene = cc.Scene.extend({
 
     updateLoadResources : function (current, target) {
         cc.log("updateLoadResources: "+current +"/"+target);
-        this.title.setString("Đang tải "+current + "/"+target);
+        this.title.setString("Đang tải tài nguyên ["+ Math.round(current / target * 100) + "%]");
+        this.loadingBar.setVisible(true);
+        this.loadingBar.setPercentage(100 * current / target);
     },
-    updateLoadTexture : function (current, target) {
-        cc.log("updateLoadTexture: "+current +"/"+target);
-        this.title.setString("Đang tải tài nguyên "+current + "/"+target);
-    },
+
     onUpdateStatus : function (status) {
         cc.log("onUpdateStatus: "+status);
-        if(status == LaucherStatus.OnLoadFinished){
+        if(status === LaucherStatus.OnLoadFinished){
             this.nextScene();
         }
     },

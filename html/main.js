@@ -96,7 +96,9 @@ cc.game.onStart = function(){
     // The game will be resized when browser size change
     cc.view.resizeWithBrowserSize(true);
     var loading_texture = [
-        "res/loading_bg.jpg"
+        "res/loading_bg.jpg",
+        "res/lg_separator_load.png",
+        "res/lg_bg_load.png"
     ];
     cc.loader.load(loading_texture,
         function (result, count, loadedCount) { //load
