@@ -131,19 +131,22 @@ var SlotFruit = SlotLayer.extend({
     },
     initRandom:function () {
         this.clearAll();
+        this.arrItemRandom = [];
         for (var i = 0; i < 5; i++) { // cot
 
             var subItem = [];
+            var subItemRan = [];
             for (var j = 0 ; j < 4; j++) { // hang
                 var randomItem = Math.floor(Math.random()*6);
                 var item = this.newItem(randomItem);
                 item.createItem(i,j,0);
                 item.isRunning = false;
                 this.nodeSlot.addChild(item);
-
+                subItemRan.push(randomItem);
                 subItem.push(item);
 
             }
+            this.arrItemRandom.push(subItemRan);
             this.arrItems.push(subItem);
         }
     },
@@ -2462,6 +2465,20 @@ var SlotFruitScene = IScene.extend({
             this.isHaveData = true;
             this.activeButtonNewGame(true);
             this.enableAutoRotate(false);
+            if(this.dataSlot == undefined)
+            {
+                if( this.slotfui.arrItemRandom != undefined && this.slotfui.arrItemRandom.length !=0  ){
+                    this.slotfui.showNotEffect(this.slotfui.arrItemRandom);
+                }
+                else {
+                    this.slotfui.initRandom();
+                }
+
+
+            }else if(this.dataSlot[2]!= null && this.dataSlot[2].length >0){
+                this.slotfui.showNotEffect(this.dataSlot[2]);
+            }
+
         }
     },
 
