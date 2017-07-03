@@ -85,7 +85,6 @@ var s_resource = s_resource || [
 	"res/home.png",
 	"res/LineSlot.plist",
 	"res/LineSlot.png",
-	"res/loading_bg.jpg",
 	"res/MiniPoker.plist",
 	"res/MiniPoker.png",
 	"res/pokerGame.plist",

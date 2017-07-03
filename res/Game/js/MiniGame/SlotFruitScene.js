@@ -496,13 +496,13 @@ var DuplicateGold =  cc.Node.extend({
 
 
                 thiz.arrButtonBonus.push(btnX);
-                if(i<4){
+                // if(i<4){
                     var lbl = new cc.LabelBMFont("80",cc.res.font.Roboto_CondensedBold_25);
                     lbl.setPosition(POS_LAL_DUP[i]);
                     lbl.setColor(cc.color(255,222,0));
                     bg.addChild(lbl);
                     thiz.arrLabelBonus.push(lbl);
-                }
+                // }
 
 
             })();
@@ -1095,7 +1095,7 @@ var NumberSlot  = cc.Sprite.extend({// ccui.Button.extend({
     visibleNew:function (isVisible) {
         //this.loadTextureNormal( (isVisible)?"slot_bg_number1.png":"slot_bg_number2.png",ccui.Widget.PLIST_TEXTURE) ;
         this.setSpriteFrame( (isVisible)?"slot_bg_number1.png":"slot_bg_number2.png") ;
-        this.lblBel.setColor((isVisible)?cc.color(255,222,0):cc.color(95,115,217));
+        this.lblBel.setColor((isVisible)?cc.color("#ffffff"):cc.color("#c1c2ff"));
     },
 });
 
@@ -1401,17 +1401,28 @@ var SlotFruitScene = IScene.extend({
         var btn20Row = new ccui.Button("slot_btn_row.png", "", "", ccui.Widget.PLIST_TEXTURE);
         btn20Row.setPosition(cc.p(200,65));
         bgSlot.addChild(btn20Row);
-        var lblRowNumber = new cc.LabelTTF("20", cc.res.font.Roboto_CondensedBold, 24);
-        lblRowNumber.setPosition(btn20Row.getContentSize().width/2,btn20Row.getContentSize().height/2+15);
-        btn20Row.addChild(lblRowNumber);
+
+        // var lblRowNumber = new cc.LabelTTF("20", cc.res.font.Roboto_CondensedBold, 24);
+        // lblRowNumber.setColor(cc.color("#eaff2b"));
+        // // lblRowNumber.enableOutline(cc.color("#0087a4"), 2);
+        // lblRowNumber.setPosition(btn20Row.getContentSize().width/2,btn20Row.getContentSize().height/2+15);
+        // btn20Row.addChild(lblRowNumber);
 
         this.btn20Row = btn20Row;
 
-        this.lblRowNumber = lblRowNumber;
+        // this.lblRowNumber = lblRowNumber;
 
-        var lblDong = new cc.LabelTTF("DÒNG", cc.res.font.Roboto_CondensedBold, 24);
-        lblDong.setPosition(btn20Row.getContentSize().width/2,btn20Row.getContentSize().height/2-15);
-        btn20Row.addChild(lblDong);
+        var spriRowNumber = new cc.Sprite("#slot_text_line20.png");
+        spriRowNumber.setPosition(btn20Row.width/2,btn20Row.height/2);
+        btn20Row.addChild(spriRowNumber);
+
+        this.spriRowNumber = spriRowNumber;
+
+        // var lblDong = new cc.LabelTTF("DÒNG", cc.res.font.Roboto_CondensedBold, 24);
+        // lblDong.setColor(cc.color("#eaff2b"));
+        // // lblDong.enableOutline(cc.color("#0087a4"), 2);
+        // lblDong.setPosition(btn20Row.getContentSize().width/2,btn20Row.getContentSize().height/2-15);
+        // btn20Row.addChild(lblDong);
 
         btn20Row.addClickEventListener(function () {
             thiz.selectLine.setVisible(true);
@@ -1941,7 +1952,9 @@ var SlotFruitScene = IScene.extend({
 
     onSetTextBet:function () {
         this.setTextBet(cc.Global.NumberFormat1(this.selectLine.getLines().length*ARR_BET_SLOT[this.isTry?2:this.indexBet]));
-        this.lblRowNumber.setString(this.selectLine.getLines().length.toString() );
+        // this.lblRowNumber.setString(this.selectLine.getLines().length.toString() );
+        var nameLine = "slot_text_line"+this.selectLine.getLines().length.toString()+".png";
+        this.spriRowNumber.setSpriteFrame(nameLine);
     },
 
     setlectButtonBet:function (index) {
