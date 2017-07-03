@@ -88,7 +88,7 @@ var HistoryFruit = Dialog.extend({
         // bg.setPreferredSize(cc.size(750, 60));
         // bg.setPosition(container.getContentSize().width/2, container.getContentSize().height/2);
         // container.addChild(bg);
-        var phienLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "time", cc.TEXT_ALIGNMENT_CENTER, 100);
+        var phienLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "time", cc.TEXT_ALIGNMENT_CENTER, 200);
         phienLabel.setAnchorPoint(cc.p(0,0.5));
         phienLabel.setPosition(_arrPos[0], 33);
         container.addChild(phienLabel);
