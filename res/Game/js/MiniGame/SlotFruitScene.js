@@ -1620,7 +1620,7 @@ var SlotFruitScene = IScene.extend({
         this.clearLineDraw();
         this.stopAllActions();
 
-        if(PlayerMe.gold < this.selectLine.getLines().length*ARR_BET_SLOT[this.indexBet] && !this.isTry){
+        if(PlayerMe.gold < this.selectLine.getLines().length*ARR_BET_SLOT[this.indexBet] && !this.isTry && !this.isAutoRotate){
             MessageNode.getInstance().show("Bạn không đủ tiền để quay tiếp !");
             this.isHaveData = true;
             this.activeButtonNewGame(true);
