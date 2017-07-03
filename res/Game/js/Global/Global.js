@@ -151,11 +151,11 @@ var s_game_id = s_game_id || [
         GameType.GAME_TLMN_Solo, GameType.GAME_TienLenMN,
         GameType.GAME_Poker, GameType.GAME_MauBinh,
         GameType.GAME_Sam_Solo, GameType.GAME_Sam,
-        GameType.GAME_Phom, GameType.GAME_BaCay,
+        GameType.GAME_Phom, GameType.GAME_SLOT_FRUIT,
         GameType.GAME_XocDia, GameType.GAME_TaiXiu,
         GameType.MiniGame_ChanLe, GameType.MiniGame_Poker,
         GameType.MiniGame_VideoPoker, GameType.MiniGame_CaoThap,
-        GameType.GAME_VongQuayMayMan,GameType.GAME_SLOT_FRUIT
+        GameType.GAME_VongQuayMayMan,GameType.GAME_BaCay
     ],
     [
         GameType.GAME_TLMN_Solo, GameType.GAME_TienLenMN,
