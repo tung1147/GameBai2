@@ -4,8 +4,10 @@
 
 
 // s_sfs_error_msg[10] = "Không đủ tiền để quay";
- s_sfs_error_msg[0] = "Bình tĩnh em ơi!";
-
+ s_sfs_error_msg[1002] = "Bình tĩnh em ơi!";
+s_sfs_error_msg[1003] = "Lựa chọn không hợp lệ";
+s_sfs_error_msg[1004] = "Phải chọn ít nhất 1 line";
+s_sfs_error_msg[1005] = "Chưa chọn mức cược";
 var SlotFruitController = cc.Class.extend({
     ctor: function (view) {
 
