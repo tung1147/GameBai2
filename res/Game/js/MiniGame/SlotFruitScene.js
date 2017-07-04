@@ -1700,7 +1700,9 @@ var SlotFruitScene = IScene.extend({
         else {
             this._controller.sendRouteRequest(this.indexBet+1,this.selectLine.getLines());
         }
-
+        if( this._soundRotate != undefined &&  this._soundRotate != null){
+            SoundPlayer.stopSoundLoop(this._soundRotate );
+        }
       this._soundRotate =   SoundPlayer.playSoundLoop("quayrepeat");
 
 
@@ -2059,7 +2061,7 @@ var SlotFruitScene = IScene.extend({
         if(!isReconnect){
             this.runAction(new cc.Sequence(new cc.DelayTime(0.05), new cc.CallFunc(function () {
                 SoundPlayer.stopSoundLoop(thiz._soundRotate);
-                thiz._rollingSound = null;
+                // thiz._rollingSound = null;
 
             })));
 
