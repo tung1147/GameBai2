@@ -65,7 +65,7 @@ var ActivityTab = ToggleNodeItem.extend({
 var ActivityDialog = Dialog.extend({
     ctor : function () {
         this._super();
-        LobbyClient.getInstance().addListener("fetchUserMissionInfo", this._onRecvActivityStatus, this);
+       // LobbyClient.getInstance().addListener("fetchUserMissionInfo", this._onRecvActivityStatus, this);
         LobbyClient.getInstance().addListener("fetchUserMissionStatus", this._onRecvActivityStatus, this);
 
         this.okButton.visible = false;
@@ -150,8 +150,8 @@ var ActivityDialog = Dialog.extend({
             this.allTab[i].setStatus("");
         }
 
-        LobbyClient.getInstance().send({command : "fetchUserMissionInfo", typeMission : 0});
-        LobbyClient.getInstance().send({command : "fetchUserMissionInfo", typeMission : 2});
+        LobbyClient.getInstance().send({command : "fetchUserMissionStatus", typeMission : 0});
+        LobbyClient.getInstance().send({command : "fetchUserMissionStatus", typeMission : 2});
         LobbyClient.getInstance().send({command : "fetchUserMissionStatus", typeMission : 3});
         LobbyClient.getInstance().send({command : "fetchUserMissionStatus", typeMission : 1});
     },

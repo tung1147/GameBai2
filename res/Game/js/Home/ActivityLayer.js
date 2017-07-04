@@ -4,8 +4,8 @@
 
 var _activity_request_reward = function (itemId) {
     var request = {
-        command : "getBonusMission",
-        landmarkId : itemId
+        command : "acquireReward",
+        id : itemId
     };
     LobbyClient.getInstance().send(request);
 };
@@ -13,7 +13,7 @@ var _activity_request_reward = function (itemId) {
 var ActivityDiemDanhLayer = cc.Node.extend({
     ctor : function () {
         this._super();
-        LobbyClient.getInstance().addListener("fetchAttendanceLandmark", this._onRecvData, this);
+        LobbyClient.getInstance().addListener("fetchAttendanceMilestone", this._onRecvData, this);
 
         var mNode = new cc.Node();
         this.addChild(mNode);
@@ -68,12 +68,12 @@ var ActivityDiemDanhLayer = cc.Node.extend({
         if(visible){
             this.mNode.visible = false;
 
-            LobbyClient.getInstance().send({command : "fetchAttendanceLandmark"});
+            LobbyClient.getInstance().send({command : "fetchAttendanceMilestone"});
         }
     },
 
     _onRecvData : function (cmd, data) {
-        var items = data["data"]["landmarks"];
+        var items = data["data"]["milestones"];
         if(items.length > 0){
             this.mNode.visible = true;
             this.listItem.removeAllItems();
@@ -162,7 +162,7 @@ var ActivityDiemDanhLayer = cc.Node.extend({
 var ActivityLoginLayer = cc.Node.extend({
     ctor : function () {
         this._super();
-        LobbyClient.getInstance().addListener("fetchLoginAccumulationLandmark", this._onRecvData, this);
+        LobbyClient.getInstance().addListener("fetchLoginCumulationMilestone", this._onRecvData, this);
 
         var mNode = new cc.Node();
         this.addChild(mNode);
@@ -216,12 +216,12 @@ var ActivityLoginLayer = cc.Node.extend({
         this._super(visible);
         if(visible){
             this.mNode.visible = false;
-            LobbyClient.getInstance().send({command : "fetchLoginAccumulationLandmark"});
+            LobbyClient.getInstance().send({command : "fetchLoginCumulationMilestone"});
         }
     },
 
     _onRecvData : function (cmd, data) {
-        var items = data["data"]["landmarks"];
+        var items = data["data"]["milestones"];
         if(items.length > 0){
             this.mNode.visible = true;
             this.listItem.removeAllItems();
@@ -442,11 +442,7 @@ var ActivityOnlineLayer = cc.Node.extend({
                 okButton.addClickEventListener(function () {
                     statusLabel.visible = true;
                     okButton.visible = false;
-                    var request = {
-                        command : "acquireReward",
-                        id : itemId
-                    };
-                    LobbyClient.getInstance().send(request);
+                    _activity_request_reward(itemId);
                 });
             }
         }
@@ -686,11 +682,7 @@ var ActivityQuestLayer = cc.Node.extend({
                 okButton.addClickEventListener(function () {
                     statusLabel.visible = true;
                     okButton.visible = false;
-                    var request = {
-                        command : "acquireReward",
-                        id : itemId
-                    };
-                    LobbyClient.getInstance().send(request);
+                    _activity_request_reward(itemId);
                 });
             }
         }
