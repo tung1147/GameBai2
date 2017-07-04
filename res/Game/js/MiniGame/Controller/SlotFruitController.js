@@ -4,7 +4,7 @@
 
 
 // s_sfs_error_msg[10] = "Không đủ tiền để quay";
-s_sfs_error_msg[0] = "Hack detected";
+ s_sfs_error_msg[0] = "Bình tĩnh em ơi!";
 
 var SlotFruitController = cc.Class.extend({
     ctor: function (view) {
