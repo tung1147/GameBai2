@@ -470,7 +470,7 @@ var ActivityQuestTab = ccui.Widget.extend({
         this.addChild(nameLabel, 1);
 
         var selectSprite = new ccui.Scale9Sprite("activity_tab_1.png", cc.rect(10,10,4,4));
-        selectSprite.setPreferredSize(cc.size(this.getContentSize()));
+        selectSprite.setPreferredSize(this.getContentSize());
         selectSprite.setPosition(nameLabel.getPosition());
         this.addChild(selectSprite);
 
