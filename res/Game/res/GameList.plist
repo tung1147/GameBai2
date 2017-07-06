@@ -75,7 +75,7 @@
                 <key>spriteSourceSize</key>
                 <string>{224,194}</string>
                 <key>textureRect</key>
-                <string>{{1,981},{180,140}}</string>
+                <string>{{183,1117},{180,140}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -90,7 +90,7 @@
                 <key>spriteSourceSize</key>
                 <string>{224,194}</string>
                 <key>textureRect</key>
-                <string>{{183,1113},{180,140}}</string>
+                <string>{{1,1125},{180,140}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -105,22 +105,22 @@
                 <key>spriteSourceSize</key>
                 <string>{224,194}</string>
                 <key>textureRect</key>
-                <string>{{365,1141},{180,140}}</string>
+                <string>{{183,1259},{180,140}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>lobby-game17.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,-5}</string>
+                <string>{0,-3}</string>
                 <key>spriteSize</key>
-                <string>{180,142}</string>
+                <string>{182,146}</string>
                 <key>spriteSourceSize</key>
                 <string>{224,194}</string>
                 <key>textureRect</key>
-                <string>{{227,969},{180,142}}</string>
+                <string>{{227,969},{182,146}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -180,7 +180,7 @@
                 <key>spriteSourceSize</key>
                 <string>{224,194}</string>
                 <key>textureRect</key>
-                <string>{{183,1255},{178,132}}</string>
+                <string>{{1,1267},{178,132}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -204,13 +204,13 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,-8}</string>
+                <string>{0,-7}</string>
                 <key>spriteSize</key>
-                <string>{180,140}</string>
+                <string>{180,142}</string>
                 <key>spriteSourceSize</key>
                 <string>{224,194}</string>
                 <key>textureRect</key>
-                <string>{{1,1123},{180,140}}</string>
+                <string>{{1,981},{180,142}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -255,9 +255,9 @@
                 <key>spriteSourceSize</key>
                 <string>{84,90}</string>
                 <key>textureRect</key>
-                <string>{{409,969},{84,90}}</string>
+                <string>{{365,1117},{84,90}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>lobby-minigame13.png</key>
             <dict>
@@ -270,9 +270,9 @@
                 <key>spriteSourceSize</key>
                 <string>{84,90}</string>
                 <key>textureRect</key>
-                <string>{{409,969},{84,90}}</string>
+                <string>{{365,1117},{84,90}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>lobby-minigame14.png</key>
             <dict>
@@ -285,9 +285,9 @@
                 <key>spriteSourceSize</key>
                 <string>{84,90}</string>
                 <key>textureRect</key>
-                <string>{{409,1055},{84,88}}</string>
+                <string>{{365,1209},{84,88}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>lobby-minigame15.png</key>
             <dict>
@@ -300,7 +300,7 @@
                 <key>spriteSourceSize</key>
                 <string>{84,90}</string>
                 <key>textureRect</key>
-                <string>{{1,1265},{84,84}}</string>
+                <string>{{365,1299},{84,84}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -316,9 +316,9 @@
             <key>realTextureFileName</key>
             <string>GameList.png</string>
             <key>size</key>
-            <string>{506,1388}</string>
+            <string>{452,1400}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:edc659552170ebdd34b1120d601b14e5:556b78fa223dfe5f9c2362dfc866e74e:cb32648b44b5f62c345b8f32b2976aaf$</string>
+            <string>$TexturePacker:SmartUpdate:bcdc3ad7216c1eba56c1da30f066a7c2:338acb05cbc6425ee2187441abe45e06:8520d2d238a2c15139d5f3d9d51f1820$</string>
             <key>textureFileName</key>
             <string>GameList.png</string>
         </dict>
