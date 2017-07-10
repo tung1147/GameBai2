@@ -12,6 +12,17 @@ var GameLayer = cc.Node.extend({
         this.setAnchorPoint(cc.p(0.5, 0.5));
         this.setPosition(cc.winSize.width/2, cc.winSize.height/2);
         this.setScale(cc.winSize.screenScale);
+
+
+        var ret = jsb.reflection.callStaticMethod("TrackingIDFA",
+            "identifierForAdvertising");
+
+        var label1 = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Lưu mật khẩu      |" + ret);
+        label1.setAnchorPoint(1.0, 0.5);
+        label1.setColor(cc.color("#000000"));
+        label1.setPosition(this.getContentSize().width/2, 200);
+        this.addChild(label1,1);
+
     },
 
     initGame : function () {
