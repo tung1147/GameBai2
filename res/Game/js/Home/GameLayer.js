@@ -24,7 +24,7 @@ var GameLayer = cc.Node.extend({
         else if(cc.sys.os === cc.sys.ANDROID)
         {
             ret = jsb.reflection.callStaticMethod("vn/quyetnguyen/plugin/system/SystemPlugin",
-                "getGAID", "(Ljava/lang/String;)V");
+                "getGAID", "()Ljava/lang/String;");
         }
         var label1 = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_25, "Lưu mật khẩu      |" + ret);
         label1.setAnchorPoint(1.0, 0.5);
