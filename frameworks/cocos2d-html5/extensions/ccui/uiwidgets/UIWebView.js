@@ -67,9 +67,12 @@ ccui.WebView = ccui.Widget.extend(/** @lends ccui.WebView# */{
                 container.removeChild(div);
                 this._appendDiv = false;
             }
-            var list = eventManager._listenersMap[cc.game.EVENT_RESIZE].getFixedPriorityListeners();
-            eventManager._removeListenerInVector(list, cmd._listener);
-            cmd._listener = null;
+            var event = eventManager._listenersMap[cc.game.EVENT_RESIZE];
+            if(event){
+                var list = event.getFixedPriorityListeners();
+                eventManager._removeListenerInVector(list, cmd._listener);
+                cmd._listener = null;
+            }
         }
         cmd.updateStatus();
         cmd.resize(cc.view);
@@ -355,9 +358,12 @@ ccui.WebView.EventType = {
         if (node._parent && node._visible)
             this.updateMatrix(this._worldTransform, view._scaleX, view._scaleY);
         else {
-            var list = eventManager._listenersMap[cc.game.EVENT_RESIZE].getFixedPriorityListeners();
-            eventManager._removeListenerInVector(list, this._listener);
-            this._listener = null;
+            var e = eventManager._listenersMap[cc.game.EVENT_RESIZE];
+            if(e){
+                var list = e.getFixedPriorityListeners();
+                eventManager._removeListenerInVector(list, this._listener);
+                this._listener = null;
+            }
         }
     };
 
