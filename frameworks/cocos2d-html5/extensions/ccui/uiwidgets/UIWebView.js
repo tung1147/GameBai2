@@ -47,7 +47,11 @@ ccui.WebView = ccui.Widget.extend(/** @lends ccui.WebView# */{
             container = cc.container,
             eventManager = cc.eventManager;
         if (this._visible) {
-            container.appendChild(div);
+            if(!this._appendDiv){
+                container.appendChild(div);
+                this._appendDiv = true;
+            }
+
             if (this._listener === null)
                 this._listener = eventManager.addCustomListener(cc.game.EVENT_RESIZE, function () {
                     cmd.resize();
@@ -59,8 +63,10 @@ ccui.WebView = ccui.Widget.extend(/** @lends ccui.WebView# */{
             } else {
                 hasChild = container.compareDocumentPosition(div) % 16;
             }
-            if (hasChild)
+            if (hasChild){
                 container.removeChild(div);
+                this._appendDiv = false;
+            }
             var list = eventManager._listenersMap[cc.game.EVENT_RESIZE].getFixedPriorityListeners();
             eventManager._removeListenerInVector(list, cmd._listener);
             cmd._listener = null;
@@ -310,7 +316,7 @@ ccui.WebView.EventType = {
         this._iframe.addEventListener("error", function () {
             node._dispatchEvent(ccui.WebView.EventType.ERROR);
         });
-        this._div.style["background"] = "#FFF";
+        //this._div.style["background"] = "#FFF";
         this._div.style.height = "200px";
         this._div.style.width = "300px";
         this._div.style.overflow = "scroll";
