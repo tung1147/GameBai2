@@ -71,7 +71,7 @@ var ActivityDialog = Dialog.extend({
         this.okButton.visible = false;
         this.cancelButton.visible = false;
         this.title.setString("Hoạt động");
-        this.initWithSize(cc.size(918, 578));
+        this.initWithSize(cc.size(918, 600));
         this._initView();
     },
 
