@@ -707,31 +707,45 @@ var ActivityQuestLayer = cc.Node.extend({
 var ActivityEventLayer = cc.Node.extend({
     ctor : function () {
         this._super();
-        LobbyClient.getInstance().addListener("getNews", this._onRecvData, this);
+        var thiz = this;
 
-        var mNode = new cc.Node();
-        this.addChild(mNode);
-        this.mNode = mNode;
-6
-        var titleLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_16, "Nội dung");
-        titleLabel.setColor(cc.color("#4d6181"));
-        titleLabel.setPosition(572, 580);
-        mNode.addChild(titleLabel);
+        LobbyClient.getInstance().addListener("fetchEvents", this._onFetchEvents, this);
+        LobbyClient.getInstance().addListener("fetchContentEvent", this._onFetchContentEvent, this);
 
-        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_16, "Thời gian");
-        timeLabel.setColor(cc.color("#4d6181"));
-        timeLabel.setPosition(892, 580);
-        mNode.addChild(timeLabel);
+        var itemNode = new cc.Node();
+        this.addChild(itemNode);
+        this.itemNode = itemNode;
 
-        var listItem = new newui.TableView(cc.size(641, 460), 1);
-        listItem.setPosition(cc.p(355, 98));
-        listItem.setMargin(10,10,0,0);
-        mNode.addChild(listItem);
+        var eventLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, "Sự kiện đang diễn ra");
+        eventLabel.setColor(cc.color("#ffde00"));
+        eventLabel.setAnchorPoint(cc.p(0.0, 0.5));
+        eventLabel.setPosition(cc.p(353, 594));
+        itemNode.addChild(eventLabel);
+
+        var listItem = new newui.TableView(cc.size(640, 467), 1);
+        listItem.setPosition(cc.p(353, 98));
+        listItem.setMargin(0,10,0,0);
+        listItem.setPadding(5);
+        itemNode.addChild(listItem);
         this.listItem = listItem;
 
-        // for(var i=0;i<20; i++){
-        //     this.addItem("date", "reward", "content");
-        // }
+        var detailNode = new cc.Node();
+        this.addChild(detailNode);
+        this.detailNode = detailNode;
+
+        var backBt = new ccui.Button("activity_backBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        backBt.setPosition(369, 595);
+        detailNode.addChild(backBt);
+        backBt.addClickEventListener(function () {
+            thiz.detailBackButtonHandler();
+        });
+
+        var detailLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, "Sự kiện đang diễn ra");
+        detailLabel.setColor(cc.color("#ffde00"));
+        detailLabel.setAnchorPoint(cc.p(0.0, 0.5));
+        detailLabel.setPosition(cc.p(393, 594));
+        detailNode.addChild(detailLabel);
+        this.detailLabel = detailLabel;
     },
 
     onExit : function () {
@@ -742,63 +756,92 @@ var ActivityEventLayer = cc.Node.extend({
     setVisible : function (visible) {
         this._super(visible);
         if(visible){
-            this.mNode.visible = false;
+            this.itemNode.setVisible(false);
+            this.detailNode.setVisible(false);
 
-            var request = {
-                command : "getNews",
-                type : "MISSION"
-            };
-            LobbyClient.getInstance().send(request);
+            var detailContent = new ccui.WebView();
+            detailContent.setContentSize(640, 450);
+            detailContent.setAnchorPoint(cc.p(0,0));
+            detailContent.setPosition(353, 118);
+            detailContent.setScalesPageToFit(false);
+            detailContent.setVisible(false);
+            this.addChild(detailContent);
+            this.detailContent = detailContent;
+
+            //request
+            LobbyClient.getInstance().send({command : "fetchEvents"});
         }
-    },
-
-    _onRecvData : function (cmd, data) {
-        var items = data["data"]["mission"];
-        if(items && items.length > 0){
-            this.listItem.removeAllItems();
-            for(var i=0;i<items.length;i++){
-                var title = items[i]["title"];
-                var content = items[i]["content"];
-                var time = items[i]["createTime"];
-
-                this.addItem(title, content, cc.Global.DateToString(new Date(time)));
+        else{
+            if(this.detailContent){
+                this.detailContent.removeFromParent(true);
+                this.detailContent = null;
             }
         }
     },
 
-    addItem : function(title, time, content){
-        var titleLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_18, title, cc.TEXT_ALIGNMENT_CENTER, 400);
-        var containerHeight = titleLabel.getContentSize().height;
-        if(containerHeight < 50){
-            containerHeight = 50;
-        }
+    _onFetchEvents : function (cmd, data) {
+        var events = data["data"];
+        if(events){
+            this.itemNode.setVisible(true);
+            this.listItem.removeAllItems();
 
+            for(var i=0;i<events.length; i++){
+                this.addEventItem(events[i]["name"], events[i]["id"]);
+            }
+        }
+    },
+
+    _onFetchContentEvent : function (cmd, event) {
+        var data = event["data"];
+        if(this.currentEventId === data["id"]){
+            this.detailContent.setVisible(true);
+            this.detailContent.loadHTMLString(data["content"]);
+        }
+    },
+
+    addEventItem : function(eventName, eventId){
         var container = new ccui.Widget();
-        container.setContentSize(cc.size(this.listItem.getContentSize().width, containerHeight));
+        container.setContentSize(cc.size(640, 50));
         this.listItem.pushItem(container);
-        if(this.listItem.size() % 2){
-            var bg = new ccui.Scale9Sprite("activity_cell_bg.png", cc.rect(10, 10, 4, 4));
-            bg.setPreferredSize(container.getContentSize());
-            bg.setAnchorPoint(cc.p(0,0));
-            container.addChild(bg);
-        }
 
+        var bg = new ccui.Scale9Sprite("activity_cell_bg_2.png", cc.rect(10,10,4,4));
+        bg.setPreferredSize(container.getContentSize());
+        bg.setPosition(320,25);
+        container.addChild(bg);
 
-        titleLabel.setColor(cc.color("#95c8e6"));
-        titleLabel.setPosition(218, container.getContentSize().height/2);
-        container.addChild(titleLabel);
+        var nameLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_18, eventName);
+        nameLabel.setColor(cc.color("#77cbee"));
+        nameLabel.setAnchorPoint(cc.p(0.0, 0.5));
+        nameLabel.setPosition(cc.p(18, 25));
+        container.addChild(nameLabel);
 
-        var timeLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_18, time);
-        timeLabel.setColor(cc.color("#ffde00"));
-        timeLabel.setPosition(538, titleLabel.y);
-        container.addChild(timeLabel);
-
+        var thiz = this;
         container.setTouchEnabled(true);
         container.addClickEventListener(function () {
-            var dialog = new MessageDialog();
-            dialog.setTitle(title);
-            dialog.setMessage(content);
-            dialog.showWithAnimationScale();
+            thiz.showEventDetail(eventName, eventId);
         });
+    },
+
+    showEventDetail : function (eventName, eventId) {
+        this.detailLabel.setString(eventName);
+        this.detailNode.setVisible(true);
+        this.detailContent.setVisible(false);
+        this.itemNode.setVisible(false);
+
+        this.currentEventId = eventId;
+        var request = {
+            command : "fetchContentEvent",
+            product : "vbv",
+            //product : "c567",
+            id : eventId
+        };
+
+        LobbyClient.getInstance().send(request);
+    },
+
+    detailBackButtonHandler : function () {
+        this.detailNode.setVisible(false);
+        this.detailContent.setVisible(false);
+        this.itemNode.setVisible(true);
     }
 });

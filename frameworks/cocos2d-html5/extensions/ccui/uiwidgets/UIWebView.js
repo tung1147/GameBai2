@@ -47,7 +47,11 @@ ccui.WebView = ccui.Widget.extend(/** @lends ccui.WebView# */{
             container = cc.container,
             eventManager = cc.eventManager;
         if (this._visible) {
-            container.appendChild(div);
+            if(!this._appendDiv){
+                container.appendChild(div);
+                this._appendDiv = true;
+            }
+
             if (this._listener === null)
                 this._listener = eventManager.addCustomListener(cc.game.EVENT_RESIZE, function () {
                     cmd.resize();
@@ -59,11 +63,16 @@ ccui.WebView = ccui.Widget.extend(/** @lends ccui.WebView# */{
             } else {
                 hasChild = container.compareDocumentPosition(div) % 16;
             }
-            if (hasChild)
+            if (hasChild){
                 container.removeChild(div);
-            var list = eventManager._listenersMap[cc.game.EVENT_RESIZE].getFixedPriorityListeners();
-            eventManager._removeListenerInVector(list, cmd._listener);
-            cmd._listener = null;
+                this._appendDiv = false;
+            }
+            var event = eventManager._listenersMap[cc.game.EVENT_RESIZE];
+            if(event){
+                var list = event.getFixedPriorityListeners();
+                eventManager._removeListenerInVector(list, cmd._listener);
+                cmd._listener = null;
+            }
         }
         cmd.updateStatus();
         cmd.resize(cc.view);
@@ -310,7 +319,7 @@ ccui.WebView.EventType = {
         this._iframe.addEventListener("error", function () {
             node._dispatchEvent(ccui.WebView.EventType.ERROR);
         });
-        this._div.style["background"] = "#FFF";
+        //this._div.style["background"] = "#FFF";
         this._div.style.height = "200px";
         this._div.style.width = "300px";
         this._div.style.overflow = "scroll";
@@ -349,9 +358,12 @@ ccui.WebView.EventType = {
         if (node._parent && node._visible)
             this.updateMatrix(this._worldTransform, view._scaleX, view._scaleY);
         else {
-            var list = eventManager._listenersMap[cc.game.EVENT_RESIZE].getFixedPriorityListeners();
-            eventManager._removeListenerInVector(list, this._listener);
-            this._listener = null;
+            var e = eventManager._listenersMap[cc.game.EVENT_RESIZE];
+            if(e){
+                var list = e.getFixedPriorityListeners();
+                eventManager._removeListenerInVector(list, this._listener);
+                this._listener = null;
+            }
         }
     };
 

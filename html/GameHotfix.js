@@ -109,3 +109,11 @@ quyetnd.hotfixFunction = function () {
         LobbyClient.getInstance().close();
     };
 };
+
+ccui.WebView.prototype.loadHTMLString = function (string, baseURL){
+    this.loadURL('data:text/html;charset=utf-8,' + encodeURIComponent(string));
+};
+
+(function () {
+    ccui.WebView._polyfill.enableBG = true;
+})();
