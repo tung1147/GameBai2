@@ -709,7 +709,8 @@ var ActivityEventLayer = cc.Node.extend({
         this._super();
         var thiz = this;
 
-        LobbyClient.getInstance().addListener("getNews", this._onRecvData, this);
+        LobbyClient.getInstance().addListener("fetchEvents", this._onFetchEvents, this);
+        LobbyClient.getInstance().addListener("fetchContentEvent", this._onFetchContentEvent, this);
 
         var itemNode = new cc.Node();
         this.addChild(itemNode);
@@ -745,14 +746,6 @@ var ActivityEventLayer = cc.Node.extend({
         detailLabel.setPosition(cc.p(393, 594));
         detailNode.addChild(detailLabel);
         this.detailLabel = detailLabel;
-
-      //  detailNode.setVisible(false);
-
-        for(var i=0;i<10;i++){
-            this.addEventItem("eventname", i);
-        }
-
-
     },
 
     onExit : function () {
@@ -763,17 +756,20 @@ var ActivityEventLayer = cc.Node.extend({
     setVisible : function (visible) {
         this._super(visible);
         if(visible){
-            this.itemNode.setVisible(true);
+            this.itemNode.setVisible(false);
             this.detailNode.setVisible(false);
 
             var detailContent = new ccui.WebView();
             detailContent.setContentSize(640, 450);
             detailContent.setAnchorPoint(cc.p(0,0));
             detailContent.setPosition(353, 118);
-            detailContent.setScalesPageToFit(true);
+            detailContent.setScalesPageToFit(false);
             detailContent.setVisible(false);
             this.addChild(detailContent);
             this.detailContent = detailContent;
+
+            //request
+            LobbyClient.getInstance().send({command : "fetchEvents"});
         }
         else{
             if(this.detailContent){
@@ -783,8 +779,24 @@ var ActivityEventLayer = cc.Node.extend({
         }
     },
 
-    _onRecvData : function (cmd, data) {
+    _onFetchEvents : function (cmd, data) {
+        var events = data["data"];
+        if(events){
+            this.itemNode.setVisible(true);
+            this.listItem.removeAllItems();
 
+            for(var i=0;i<events.length; i++){
+                this.addEventItem(events[i]["name"], events[i]["id"]);
+            }
+        }
+    },
+
+    _onFetchContentEvent : function (cmd, event) {
+        var data = event["data"];
+        if(this.currentEventId === data["id"]){
+            this.detailContent.setVisible(true);
+            this.detailContent.loadHTMLString(data["content"]);
+        }
     },
 
     addEventItem : function(eventName, eventId){
@@ -813,8 +825,18 @@ var ActivityEventLayer = cc.Node.extend({
     showEventDetail : function (eventName, eventId) {
         this.detailLabel.setString(eventName);
         this.detailNode.setVisible(true);
-        this.detailContent.setVisible(true);
+        this.detailContent.setVisible(false);
         this.itemNode.setVisible(false);
+
+        this.currentEventId = eventId;
+        var request = {
+            command : "fetchContentEvent",
+            //product : "vbv",
+            product : "c567",
+            id : eventId
+        };
+
+        LobbyClient.getInstance().send(request);
     },
 
     detailBackButtonHandler : function () {
