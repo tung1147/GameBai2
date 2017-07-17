@@ -1,12 +1,15 @@
 package vn.quyetnguyen.plugin.system;
 
+import java.io.IOException;
 import java.util.regex.Pattern;
 
 import org.cocos2dx.javascript.AppActivity;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.puppet.gamebai2.R;
+import com.c567vip.gamebaihot.R;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -33,6 +36,9 @@ import android.util.Patterns;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.Window;
+import com.google.android.gms.ads.identifier.AdvertisingIdClient;
+import com.google.android.gms.ads.identifier.AdvertisingIdClient.Info;
+
 
 public class SystemPlugin {
 	static SystemPlugin instance = null;
@@ -50,7 +56,7 @@ public class SystemPlugin {
 	
 	private Activity activity = null;
 	private View rootLayout;
-	
+
 	public void init(Activity activity){
 		this.activity = activity;
 		final Window windows = activity.getWindow();
@@ -70,7 +76,30 @@ public class SystemPlugin {
     	Log.d(TAG, "getKeyboardHeight: " + metrics.heightPixels + " - " + r.bottom);
     	return (metrics.heightPixels - r.bottom);
 	}
-	
+
+
+	public static String getGAID()
+	{
+		Info adInfo = null;
+		try {
+			adInfo = AdvertisingIdClient.getAdvertisingIdInfo(SystemPlugin.getInstance().activity.getApplicationContext());
+		} catch (GooglePlayServicesNotAvailableException e) {
+			e.printStackTrace();
+		} catch (GooglePlayServicesRepairableException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return adInfo.getId();
+	}
+
+
+	public static String getFBIDTracking()
+	{
+		return  SystemPlugin.getInstance().activity.getString(R.string.facebook_app_id);
+	}
+
 	private void initViewVisibleListener(){		
 		rootViewRect = new Rect();
 		rootLayout.getWindowVisibleDisplayFrame(rootViewRect);
@@ -350,7 +379,7 @@ public class SystemPlugin {
 
       Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
       NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(activity)
-			  .setSmallIcon(R.mipmap.ic_launcher)
+			  .setSmallIcon(R.mipmap.notification_small)
               .setContentTitle(title)
               .setContentText(message)
               .setStyle(new NotificationCompat.BigTextStyle().bigText(title))
