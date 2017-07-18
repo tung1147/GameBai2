@@ -747,7 +747,9 @@ var DuplicateGold =  cc.Node.extend({
     show:function () {
         this.setVisible(true);
         this.wgGive.setVisible(true);
-
+        if(parseInt(this.moneyWin) > 0){
+            this.setVisibleArrButton(true);
+        }
 
     },
     setActiveBt : function(btn,enabled){
