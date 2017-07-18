@@ -1,10 +1,16 @@
 package vn.quyetnguyen.plugin.system;
 
+import java.io.IOException;
 import java.util.regex.Pattern;
 
 import org.cocos2dx.javascript.AppActivity;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 
+
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.ads.identifier.AdvertisingIdClient;
+import com.google.android.gms.ads.identifier.AdvertisingIdClient.Info;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.c567vip.gamebaihot.R;
 
@@ -57,7 +63,33 @@ public class SystemPlugin {
 		rootLayout = windows.getDecorView().findViewById(android.R.id.content);	
 		this.initViewVisibleListener();
 	}
-	
+
+
+
+	public static String getGAID()
+	{
+		Info adInfo = null;
+		try {
+			adInfo = AdvertisingIdClient.getAdvertisingIdInfo(SystemPlugin.getInstance().activity.getApplicationContext());
+		} catch (GooglePlayServicesNotAvailableException e) {
+			e.printStackTrace();
+		} catch (GooglePlayServicesRepairableException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return adInfo.getId();
+	}
+
+
+	public static String getFBIDTracking()
+	{
+		return  SystemPlugin.getInstance().activity.getString(R.string.facebook_app_id);
+	}
+
+
+
 	private Rect rootViewRect;
 	
 	public int getKeyboardHeight(){

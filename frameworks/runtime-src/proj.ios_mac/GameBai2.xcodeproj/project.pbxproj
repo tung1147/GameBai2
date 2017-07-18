@@ -16,6 +16,7 @@
 		270C7D811EC17A7C00E8D4E3 /* script in Resources */ = {isa = PBXBuildFile; fileRef = 270C7D7F1EC17A7C00E8D4E3 /* script */; };
 		270C7D9E1EC1CE7D00E8D4E3 /* WorkerManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2799BC0D1EC0645A00057795 /* WorkerManager.cpp */; };
 		276DDF9A1EC9A190006FE5A8 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 276DDF991EC9A190006FE5A8 /* StoreKit.framework */; };
+		2777CE4F1F1E0F42009CDBEA /* TrackingIDFA.m in Sources */ = {isa = PBXBuildFile; fileRef = 2777CE4D1F1E0F42009CDBEA /* TrackingIDFA.m */; };
 		2799BC0F1EC0645A00057795 /* WorkerManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2799BC0D1EC0645A00057795 /* WorkerManager.cpp */; };
 		27ED90D41EF26CCE007AF982 /* EngineUtilsThreadSafe.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27ED90D21EF26CCE007AF982 /* EngineUtilsThreadSafe.cpp */; };
 		27ED90D51EF26CCE007AF982 /* EngineUtilsThreadSafe.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27ED90D21EF26CCE007AF982 /* EngineUtilsThreadSafe.cpp */; };
@@ -296,6 +297,8 @@
 		1AC6FB34180E9ACB004C840B /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = "../../cocos2d-x/build/cocos2d_libs.xcodeproj"; sourceTree = "<group>"; };
 		270C7D7F1EC17A7C00E8D4E3 /* script */ = {isa = PBXFileReference; lastKnownFileType = folder; name = script; path = ../../../js_min/prebuilt/script; sourceTree = "<group>"; };
 		276DDF991EC9A190006FE5A8 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/StoreKit.framework; sourceTree = DEVELOPER_DIR; };
+		2777CE4D1F1E0F42009CDBEA /* TrackingIDFA.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackingIDFA.m; sourceTree = "<group>"; };
+		2777CE4E1F1E0F42009CDBEA /* TrackingIDFA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackingIDFA.h; sourceTree = "<group>"; };
 		2799BC0D1EC0645A00057795 /* WorkerManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WorkerManager.cpp; sourceTree = "<group>"; };
 		2799BC0E1EC0645A00057795 /* WorkerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkerManager.h; sourceTree = "<group>"; };
 		2799BC141EC06FA700057795 /* GameBai2-mobile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "GameBai2-mobile.entitlements"; sourceTree = "<group>"; };
@@ -665,6 +668,8 @@
 		560F84EC1EB3803900C3C032 /* Plugin */ = {
 			isa = PBXGroup;
 			children = (
+				2777CE4D1F1E0F42009CDBEA /* TrackingIDFA.m */,
+				2777CE4E1F1E0F42009CDBEA /* TrackingIDFA.h */,
 				560F84F61EB3805200C3C032 /* iOS_native_linker.h */,
 				560F84F71EB3805200C3C032 /* iOS_native_linker.mm */,
 				560F84ED1EB3803900C3C032 /* InAppPurchare.h */,
@@ -1106,6 +1111,7 @@
 				560F84BC1EB3802200C3C032 /* NewTextInput.cpp in Sources */,
 				560F84E41EB3802200C3C032 /* jsb_quyetnd_sfssocket.cpp in Sources */,
 				560F85641EB3880300C3C032 /* FacebookPlugin_iOS.mm in Sources */,
+				2777CE4F1F1E0F42009CDBEA /* TrackingIDFA.m in Sources */,
 				560F84A41EB3802200C3C032 /* ActionShake2D.cpp in Sources */,
 				560F84C81EB3802200C3C032 /* jsb_quyetnd_facebook_plugin.cpp in Sources */,
 				560F84D61EB3802200C3C032 /* SystemPlugin.cpp in Sources */,
