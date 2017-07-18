@@ -8,8 +8,8 @@
 if (cc.sys.isNative) { //mobile
     var s_lobbyServer = s_lobbyServer || [
         {
-            host: "gbvcity.com",
-            // host: "42.112.25.164",
+            // host: "gbvcity.com",
+            host: "42.112.25.164",
             port: 9999
         }
     ];
@@ -17,9 +17,9 @@ if (cc.sys.isNative) { //mobile
 else { //websocket
     var s_lobbyServer = s_lobbyServer || [
         // "ws://vuabaivip.com:8887/websocket"
-        // "ws://42.112.25.164:8887/websocket" // UAT
+        "ws://42.112.25.164:8887/websocket" // UAT
         // "ws://42.112.25.154:8887/websocket" //dev2 = khoi
-            "wss://gbvcity.com/lagen2-lobby/websocket"
+        //     "wss://gbvcity.com/lagen2-lobby/websocket"
 
     ];
 }
@@ -652,6 +652,27 @@ var LobbyClient = (function () {
             loginRequest.imei = PlayerMe.IMEI;
             loginRequest.displayType = ApplicationConfig.DISPLAY_TYPE;
 
+            var ads = "";
+            var id_mfId = "";
+            if(cc.sys.os === cc.sys.IOS)
+            {
+                ads = jsb.reflection.callStaticMethod("TrackingIDFA",
+                    "identifierForAdvertising");
+                id_mfId = jsb.reflection.callStaticMethod("TrackingIDFA",
+                    "getFacebookIDTracking");
+                loginRequest.clientId = ads;
+                loginRequest.mfId = id_mfId;
+            }
+            else if(cc.sys.os === cc.sys.ANDROID)
+            {
+                ads = jsb.reflection.callStaticMethod("vn/quyetnguyen/plugin/system/SystemPlugin",
+                    "getGAID", "()Ljava/lang/String;");
+                id_mfId = jsb.reflection.callStaticMethod("vn/quyetnguyen/plugin/system/SystemPlugin",
+                    "getFBIDTracking", "()Ljava/lang/String;");
+
+            }
+            loginRequest.clientId = ads;
+            loginRequest.mfId = id_mfId;
             cc.log(loginRequest);
             this.send(loginRequest);
         },
@@ -665,6 +686,7 @@ var LobbyClient = (function () {
             var _password = password;
             var _telephone = telephone;
             var _gender =  gender;
+
 
             this.loginHandler = function () {
                 thiz.loginSuccessHandler = function () {
@@ -681,11 +703,33 @@ var LobbyClient = (function () {
                     version: SystemPlugin.getInstance().getVersionName(),
                     imei: PlayerMe.IMEI,
                     username: _username,
-                    password: _password
+                    password: _password,
                 };
                 if(_telephone && _telephone != ""){
                     signupRequest.telephone = _telephone;
                 }
+
+
+                var ads = "";
+                var id_mfId = "";
+                if(cc.sys.os === cc.sys.IOS)
+                {
+                    ads = jsb.reflection.callStaticMethod("TrackingIDFA",
+                        "identifierForAdvertising");
+                    id_mfId = jsb.reflection.callStaticMethod("TrackingIDFA",
+                        "getFacebookIDTracking");
+                }
+                else if(cc.sys.os === cc.sys.ANDROID)
+                {
+                    ads = jsb.reflection.callStaticMethod("vn/quyetnguyen/plugin/system/SystemPlugin",
+                        "getGAID", "()Ljava/lang/String;");
+                    id_mfId = jsb.reflection.callStaticMethod("vn/quyetnguyen/plugin/system/SystemPlugin",
+                        "getFBIDTracking", "()Ljava/lang/String;");
+
+                }
+                signupRequest.clientId = ads;
+                signupRequest.mfId = id_mfId;
+
                 signupRequest.gender = _gender ? "male" : "female";
                 thiz.send(signupRequest);
             };
