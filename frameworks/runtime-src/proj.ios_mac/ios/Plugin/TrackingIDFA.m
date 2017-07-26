@@ -22,7 +22,7 @@
     return @"";
 }
 
-- (NSString *)getFacebookIDTracking{
++ (NSString *)getFacebookIDTracking{
     NSString *path = [[NSBundle mainBundle] pathForResource:@"Info" ofType:@"plist"];
     NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:path];
     return [dict objectForKey:@"FacebookAppID"];

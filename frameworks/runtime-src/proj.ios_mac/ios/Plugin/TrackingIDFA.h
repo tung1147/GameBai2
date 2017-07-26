@@ -12,5 +12,5 @@
 
 
 + (NSString *)identifierForAdvertising;
-- (NSString *)getFacebookIDTracking;
++ (NSString *)getFacebookIDTracking;
 @end
