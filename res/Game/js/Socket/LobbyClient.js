@@ -35,6 +35,10 @@ var LobbyClient = (function () {
             } else {
                 var thiz = this;
 
+
+                this.idAds = "web";
+                this.idTrackingFB = "web";
+
                 this.allListener = {};
                 this.serverIndex = 0;
                 this.isKicked = false;
@@ -652,27 +656,11 @@ var LobbyClient = (function () {
             loginRequest.imei = PlayerMe.IMEI;
             loginRequest.displayType = ApplicationConfig.DISPLAY_TYPE;
 
-            var ads = "";
-            var id_mfId = "";
-            if(cc.sys.os === cc.sys.IOS)
-            {
-                ads = jsb.reflection.callStaticMethod("TrackingIDFA",
-                    "identifierForAdvertising");
-                id_mfId = jsb.reflection.callStaticMethod("TrackingIDFA",
-                    "getFacebookIDTracking");
-                loginRequest.clientId = ads;
-                loginRequest.mfId = id_mfId;
-            }
-            else if(cc.sys.os === cc.sys.ANDROID)
-            {
-                ads = jsb.reflection.callStaticMethod("vn/quyetnguyen/plugin/system/SystemPlugin",
-                    "getGAID", "()Ljava/lang/String;");
-                id_mfId = jsb.reflection.callStaticMethod("vn/quyetnguyen/plugin/system/SystemPlugin",
-                    "getFBIDTracking", "()Ljava/lang/String;");
 
-            }
-            loginRequest.clientId = ads;
-            loginRequest.mfId = id_mfId;
+            loginRequest.clientId = this.idAds;
+            loginRequest.mfId = this.idTrackingFB;
+
+
             cc.log(loginRequest);
             this.send(loginRequest);
         },
@@ -709,26 +697,8 @@ var LobbyClient = (function () {
                     signupRequest.telephone = _telephone;
                 }
 
-
-                var ads = "";
-                var id_mfId = "";
-                if(cc.sys.os === cc.sys.IOS)
-                {
-                    ads = jsb.reflection.callStaticMethod("TrackingIDFA",
-                        "identifierForAdvertising");
-                    id_mfId = jsb.reflection.callStaticMethod("TrackingIDFA",
-                        "getFacebookIDTracking");
-                }
-                else if(cc.sys.os === cc.sys.ANDROID)
-                {
-                    ads = jsb.reflection.callStaticMethod("vn/quyetnguyen/plugin/system/SystemPlugin",
-                        "getGAID", "()Ljava/lang/String;");
-                    id_mfId = jsb.reflection.callStaticMethod("vn/quyetnguyen/plugin/system/SystemPlugin",
-                        "getFBIDTracking", "()Ljava/lang/String;");
-
-                }
-                signupRequest.clientId = ads;
-                signupRequest.mfId = id_mfId;
+                signupRequest.clientId = this.idAds;
+                signupRequest.mfId = this.idTrackingFB;
 
                 signupRequest.gender = _gender ? "male" : "female";
                 thiz.send(signupRequest);
