@@ -24,27 +24,69 @@ var PaymentCardLayer = cc.Node.extend({
         bg2.setOpacity(25);
         this.addChild(bg2);
 
-        var maThe = new newui.EditBox(cc.size(bg1.getContentSize().width - 6, bg1.getContentSize().height - 2));
-        maThe.setFont(cc.res.font.Roboto_Condensed, 18);
-        maThe.setPlaceholderFont(cc.res.font.Roboto_Condensed, 18);
-        maThe.setInputMode(cc.EDITBOX_INPUT_MODE_SINGLELINE);
-        maThe.setReturnType(cc.KEYBOARD_RETURNTYPE_DONE);
-        maThe.setFontColor(cc.color("#ffffff"))
-        maThe.setPlaceholderFontColor(cc.color("#ffffff"));
-        maThe.setPlaceHolder("Mã thẻ");
+        if(cc.sys.isNative)
+        {
+            var maThe = new newui.EditBox(cc.size(bg1.getContentSize().width - 6, bg1.getContentSize().height - 2));
+            maThe.setFont(cc.res.font.Roboto_Condensed, 18);
+            maThe.setPlaceholderFont(cc.res.font.Roboto_Condensed, 18);
+            maThe.setInputMode(cc.EDITBOX_INPUT_MODE_SINGLELINE);
+            maThe.setReturnType(cc.KEYBOARD_RETURNTYPE_DONE);
+            maThe.setFontColor(cc.color("#ffffff"))
+            maThe.setPlaceholderFontColor(cc.color("#ffffff"));
+            maThe.setPlaceHolder("Mã thẻ");
+
+
+        }
+        else
+        {
+            var maThe = new newui.TextField(cc.size(bg1.getContentSize().width - 6, bg1.getContentSize().height - 2), cc.res.font.Roboto_Condensed_18);
+            maThe.setPlaceHolder("Mã thẻ");
+            maThe.setTextColor(cc.color("#ffffff"));
+            maThe.setPlaceHolderColor(cc.color("#ffffff"));
+            maThe.getString = function () {
+                return maThe.getText();
+            };
+            maThe.setString = function (mtext) {
+                maThe.setText(mtext);
+            };
+        }
+
         maThe.setPosition(bg1.getPosition());
         this.addChild(maThe, 1);
+
+
         this.maThe = maThe;
         this.type = payment_card_type[0];
 
-        var serialThe = new newui.EditBox(cc.size(bg2.getContentSize().width - 6, bg2.getContentSize().height - 2));
-        serialThe.setFont(cc.res.font.Roboto_Condensed, 18);
-        serialThe.setPlaceholderFont(cc.res.font.Roboto_Condensed, 18);
-        serialThe.setInputMode(cc.EDITBOX_INPUT_MODE_SINGLELINE);
-        serialThe.setReturnType(cc.KEYBOARD_RETURNTYPE_DONE);
-        serialThe.setPlaceHolder("Serial thẻ");
-        serialThe.setFontColor(cc.color("#ffffff"));
-        serialThe.setPlaceholderFontColor(cc.color("#ffffff"));
+
+        if(cc.sys.isNative)
+        {
+            var serialThe = new newui.EditBox(cc.size(bg2.getContentSize().width - 6, bg2.getContentSize().height - 2));
+            serialThe.setFont(cc.res.font.Roboto_Condensed, 18);
+            serialThe.setPlaceholderFont(cc.res.font.Roboto_Condensed, 18);
+            serialThe.setInputMode(cc.EDITBOX_INPUT_MODE_SINGLELINE);
+            serialThe.setReturnType(cc.KEYBOARD_RETURNTYPE_DONE);
+            serialThe.setPlaceHolder("Serial thẻ");
+            serialThe.setFontColor(cc.color("#ffffff"));
+            serialThe.setPlaceholderFontColor(cc.color("#ffffff"));
+
+
+        }
+        else
+        {
+            var serialThe = new newui.TextField(cc.size(bg2.getContentSize().width - 6, bg2.getContentSize().height - 2), cc.res.font.Roboto_Condensed_18);
+            serialThe.setPlaceHolder("Serial thẻ");
+            serialThe.setTextColor(cc.color("#ffffff"));
+            serialThe.setPlaceHolderColor(cc.color("#ffffff"));
+            serialThe.getString = function () {
+                return serialThe.getText();
+            };
+            serialThe.setString = function (mtext) {
+                serialThe.setText(mtext);
+            };
+        }
+
+
         serialThe.setPosition(bg2.getPosition());
         this.addChild(serialThe, 1);
         this.serialThe = serialThe;
