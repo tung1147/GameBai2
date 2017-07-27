@@ -83,6 +83,27 @@ var SystemPlugin = (function() {
         },
         downloadFile : function (url, savePath, callback) {
             this.plugin.downloadFile.apply(this.plugin, arguments);
+        },
+        getAdsId : function(){
+            if(cc.sys.os === cc.sys.OS_IOS)
+            {
+                return jsb.reflection.callStaticMethod("TrackingIDFA", "identifierForAdvertising");
+            }
+            else if(cc.sys.os === cc.sys.OS_ANDROID)
+            {
+                return jsb.reflection.callStaticMethod("vn/quyetnguyen/plugin/system/SystemPlugin", "getGAID", "()Ljava/lang/String;");
+            }
+        },
+
+        getFacebookId : function () {
+            if(cc.sys.os === cc.sys.OS_IOS)
+            {
+                return jsb.reflection.callStaticMethod("TrackingIDFA", "getFacebookIDTracking");
+            }
+            else if(cc.sys.os === cc.sys.OS_ANDROID)
+            {
+               return jsb.reflection.callStaticMethod("vn/quyetnguyen/plugin/system/SystemPlugin", "getFBIDTracking", "()Ljava/lang/String;");
+            }
         }
     });
 
