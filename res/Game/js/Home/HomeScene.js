@@ -5,6 +5,18 @@
 var s_homescene_first_run = true;
 
 var HomeScene = IScene.extend({
+    getParamesTracking : function(){
+
+        if(SystemPlugin.getInstance().getAdsId){
+            LobbyClient.getInstance().idAds = SystemPlugin.getInstance().getAdsId();
+        }
+
+        if(SystemPlugin.getInstance().getFacebookId){
+            LobbyClient.getInstance().idTrackingFB = SystemPlugin.getInstance().getFacebookId();
+        }
+
+    },
+
     ctor: function () {
         this._super();
         this.miniGameLayer = new cc.Node();
@@ -13,19 +25,7 @@ var HomeScene = IScene.extend({
         this.type = "HomeScene";
         this.homeLocation = 0;
 
-        if(cc.sys.os === cc.sys.OS_IOS)
-        {
-            LobbyClient.getInstance().idAds = jsb.reflection.callStaticMethod("TrackingIDFA",
-                "identifierForAdvertising");
-            LobbyClient.getInstance().idTrackingFB = jsb.reflection.callStaticMethod("TrackingIDFA",
-                "getFacebookIDTracking");
-        }
-        else if(cc.sys.os === cc.sys.OS_ANDROID)
-        {
-            LobbyClient.getInstance().idAds = jsb.reflection.callStaticMethod("vn/quyetnguyen/plugin/system/SystemPlugin", "getGAID", "()Ljava/lang/String;");
-            LobbyClient.getInstance().idTrackingFB = jsb.reflection.callStaticMethod("vn/quyetnguyen/plugin/system/SystemPlugin", "getFBIDTracking", "()Ljava/lang/String;");
-
-        }
+        this.getParamesTracking();
 
         LobbyClient.getInstance().addListener("login", this.onLoginHandler, this);
         LobbyClient.getInstance().addListener("LobbyStatus", this.onLobbyStatusHandler, this);
