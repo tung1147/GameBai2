@@ -464,7 +464,7 @@ var ActivityQuestTab = ccui.Widget.extend({
     ctor : function (tabName) {
         this._super();
 
-        var nameLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_16, tabName);
+        var nameLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_16, tabName);
         this.setContentSize(cc.size(nameLabel.getContentSize().width + 30, 44));
         nameLabel.setPosition(this.getContentSize().width/2, this.getContentSize().height/2);
         this.addChild(nameLabel, 1);
@@ -481,12 +481,12 @@ var ActivityQuestTab = ccui.Widget.extend({
     select : function (selected) {
         if(selected){
             this.selectSprite.visible = true;
-            this.nameLabel.setColor(cc.color("#364865"));
+            this.nameLabel.setColor(cc.color("#c6e6f9"));
             this.setTouchEnabled(false);
         }
         else{
             this.selectSprite.visible = false;
-            this.nameLabel.setColor(cc.color("#69768d"));
+            this.nameLabel.setColor(cc.color("#154c6b"));
             this.setTouchEnabled(true);
         }
     }
@@ -507,18 +507,18 @@ var ActivityQuestLayer = cc.Node.extend({
 
         var questLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_16, "Nhiệm vụ");
         questLabel.setAnchorPoint(cc.p(0.0, 0.5));
-        questLabel.setColor(cc.color("#4d6181"));
+        questLabel.setColor(cc.color("#77cbee"));
         questLabel.setPosition(375, 507);
         this.itemNode.addChild(questLabel);
 
         var rewardLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_16, "Phần thưởng");
-        rewardLabel.setColor(cc.color("#4d6181"));
+        rewardLabel.setColor(cc.color("#77cbee"));
         rewardLabel.setPosition(704, 507);
         this.itemNode.addChild(rewardLabel);
 
         var statusLabel = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_16, "Trạng thái");
         statusLabel.setAnchorPoint(cc.p(0.0, 0.5));
-        statusLabel.setColor(cc.color("#4d6181"));
+        statusLabel.setColor(cc.color("#77cbee"));
         statusLabel.setPosition(789, 507);
         this.itemNode.addChild(statusLabel);
 
