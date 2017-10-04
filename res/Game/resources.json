@@ -5,6 +5,22 @@
             "fnt": "res/fonts/bigsmall_number_font.fnt"
         },
         {
+            "img": "res/fonts/fnt_seagull_80.png",
+            "fnt": "res/fonts/fnt_seagull_80.fnt"
+        },
+        {
+            "img": "res/fonts/fnt_seagull_80_italic.png",
+            "fnt": "res/fonts/fnt_seagull_80_italic.fnt"
+        },
+        {
+            "img": "res/fonts/fnt_tien1.png",
+            "fnt": "res/fonts/fnt_tien1.fnt"
+        },
+        {
+            "img": "res/fonts/fnt_tien2.png",
+            "fnt": "res/fonts/fnt_tien2.fnt"
+        },
+        {
             "img": "res/fonts/fontFreeSpin.png",
             "fnt": "res/fonts/fontFreeSpin.fnt"
         },
@@ -23,14 +39,6 @@
         {
             "img": "res/fonts/minigame-number-1.png",
             "fnt": "res/fonts/minigame-number-1.fnt"
-        },
-        {
-            "img": "res/fonts/Roboto_BoldCondensed_36_Glow.png",
-            "fnt": "res/fonts/Roboto_BoldCondensed_36_Glow.fnt"
-        },
-        {
-            "img": "res/fonts/Roboto_GoldSlot.png",
-            "fnt": "res/fonts/Roboto_GoldSlot.fnt"
         },
         {
             "img": "res/fonts/RobotoBoldCondensed_14.png",
@@ -83,6 +91,14 @@
         {
             "img": "res/fonts/RobotoCondensed_30.png",
             "fnt": "res/fonts/RobotoCondensed_30.fnt"
+        },
+        {
+            "img": "res/fonts/Roboto_BoldCondensed_36_Glow.png",
+            "fnt": "res/fonts/Roboto_BoldCondensed_36_Glow.fnt"
+        },
+        {
+            "img": "res/fonts/Roboto_GoldSlot.png",
+            "fnt": "res/fonts/Roboto_GoldSlot.fnt"
         },
         {
             "img": "res/fonts/UTMAvoBold_25.png",
@@ -258,8 +274,8 @@
         "res/Sound/pk_dealer_turn.mp3",
         "res/Sound/pk_fold.mp3",
         "res/Sound/pk_raise.mp3",
-        "res/Sound/quay_cham_dan.mp3",
         "res/Sound/quayrepeat.mp3",
+        "res/Sound/quay_cham_dan.mp3",
         "res/Sound/ro.mp3",
         "res/Sound/sanh.mp3",
         "res/Sound/sanhrong.mp3",

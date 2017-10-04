@@ -69,11 +69,17 @@ if(cc.sys.isNative){
     cc.res.font.Roboto_Condensed = "res/fonts/Roboto-Condensed.ttf";
     cc.res.font.Roboto_CondensedBold = "res/fonts/Roboto-BoldCondensed.ttf";
     cc.res.font.UTM_AvoBold = "res/fonts/UTM-AvoBold.ttf";
+
+    cc.res.font.UTM_SeagullBold = "res/fonts/UTM_SeagullBold.ttf";
+    cc.res.font.UTM_SeagullBoldItalic = "res/fonts/UTM_SeagullBoldItalic.ttf";
 }
 else{
     cc.res.font.Roboto_Condensed = "Roboto-Condensed";
     cc.res.font.Roboto_CondensedBold = "Roboto-BoldCondensed";
     cc.res.font.UTM_AvoBold = "UTM-AvoBold";
+
+    cc.res.font.UTM_SeagullBold = "UTM Seagull";
+    cc.res.font.UTM_SeagullBoldItalic = "UTM Seagull";
 }
 
 cc.res.font.Roboto_Condensed_40 = "res/fonts/RobotoCondensed_40.fnt";
@@ -114,17 +120,19 @@ GameType.GAME_Sam = 3;
 GameType.GAME_BaCay = 4;
 GameType.GAME_XocDia = 5;
 GameType.GAME_TaiXiu = 6;
-GameType.GAME_VongQuayMayMan = 7;
-GameType.GAME_TLMN_Solo = 8;
-GameType.GAME_Sam_Solo = 9;
-GameType.GAME_Lieng = 10;
-GameType.GAME_BaCayChuong = 11;
-GameType.MiniGame_ChanLe = 12;
-GameType.MiniGame_CaoThap = 13;
-GameType.MiniGame_Poker = 14;
-GameType.MiniGame_VideoPoker = 15;
-GameType.GAME_Poker = 16;
-GameType.GAME_SLOT_FRUIT = 17;
+GameType.GAME_TLMN_Solo = 7;
+GameType.GAME_Sam_Solo = 8;
+GameType.GAME_Lieng = 9;
+GameType.GAME_BaCayChuong = 10;
+GameType.GAME_Poker = 11;
+GameType.GAME_SLOT_FRUIT = 12;
+
+GameType.MiniGame_ChanLe = 101;
+GameType.MiniGame_CaoThap = 102;
+GameType.MiniGame_Poker = 103;
+GameType.MiniGame_VideoPoker = 104;
+GameType.MiniGame_RungMaQuai = 105;
+GameType.GAME_VongQuayMayMan = 106;
 
 var s_game_available = s_game_available || {};
 s_game_available[GameType.GAME_MauBinh] = true;
@@ -220,11 +228,13 @@ var s_games_chanel_id = s_games_chanel_id || {};
 })();
 
 var PlayerMe = PlayerMe || {};
-PlayerMe.username = "quyetnd";
-PlayerMe.password = "1234567";
+PlayerMe.username = "username";
+PlayerMe.password = "password";
 PlayerMe.phoneNumber = "0123456789";
 PlayerMe.gameType = "";
 PlayerMe.gold = 1000;
+PlayerMe.gold1 = 3000;
+PlayerMe.gold2 = 2000;
 PlayerMe.exp = 11000;
 PlayerMe.vipExp = 1000;
 PlayerMe.avatar = "";

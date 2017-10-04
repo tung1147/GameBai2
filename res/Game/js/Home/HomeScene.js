@@ -10,22 +10,6 @@ var HomeScene = IScene.extend({
         this.miniGameLayer = new cc.Node();
         this.addChild(this.miniGameLayer, 1);
 
-        this.type = "HomeScene";
-        this.homeLocation = 0;
-
-        LobbyClient.getInstance().addListener("login", this.onLoginHandler, this);
-        LobbyClient.getInstance().addListener("LobbyStatus", this.onLobbyStatusHandler, this);
-        LobbyClient.getInstance().addListener("ca", this.onChangeAsset, this);
-        LobbyClient.getInstance().addListener("inboxMessage", this.onChangeRefeshUserInfo, this);
-        LobbyClient.getInstance().addListener("getPlayNowServer", this.onGetPlayNowServer, this);
-
-        // LobbyClient.getInstance().addListener("inventory", this.onChangeRefeshUserInfo, this);
-        // LobbyClient.getInstance().addListener("updateItem", this.onChangeRefeshUserInfo, this);
-        //LobbyClient.getInstance().addListener("markReadedMessageInbox", this.onChangeRefeshUserInfo, this);
-        LobbyClient.getInstance().addListener("news", this.onNewsMessage, this);
-        LobbyClient.getInstance().addListener("miniGameReconnect", this.onMiniGameReconnect, this);
-        SmartfoxClient.getInstance().addExtensionListener("0", this.onSFSChangeGold, this);
-
         var bg = new cc.Sprite("res/game-bg.jpg");
         bg.x = cc.winSize.width / 2;
         bg.y = cc.winSize.height / 2;
@@ -34,75 +18,13 @@ var HomeScene = IScene.extend({
         this.mainLayer = new cc.Node();
         this.sceneLayer.addChild(this.mainLayer);
 
-        this.topBar = new LobbyTopBar();
-        this.mainLayer.addChild(this.topBar);
+        var topBar = new LobbyTopBar();
+        this.mainLayer.addChild(topBar);
 
-        this.userInfo = new LobbyBottomBar();
-        this.mainLayer.addChild(this.userInfo);
+        var bottomBar = new LobbyBottomBar();
+        this.mainLayer.addChild(bottomBar);
 
-        this.homeLayer = new HomeLayer();
-        this.mainLayer.addChild(this.homeLayer, 1);
-
-        this.gameLayer = new GameLayer();
-        this.mainLayer.addChild(this.gameLayer);
-
-        this.lobbyLayer = new LobbyLayer();
-        this.mainLayer.addChild(this.lobbyLayer);
-
-        this.miniGame = new MiniGameLayer();
-        this.mainLayer.addChild(this.miniGame);
-
-        var thiz = this;
-        this.topBar.backBt.addClickEventListener(function () {
-            thiz.backButtonHandler();
-        });
-        this.topBar.newsBt.addClickEventListener(function () {
-            thiz.newsButtonhandler();
-        });
-        this.topBar.rankBt.addClickEventListener(function () {
-            thiz.rankButtonHandler();
-        });
-        this.topBar.callBt.addClickEventListener(function () {
-            thiz.callButtonHandler();
-        });
-        this.topBar.settingBt.addClickEventListener(function () {
-            thiz.settingButtonHandler();
-        });
-        this.topBar.inboxBt.addClickEventListener(function () {
-            thiz.newsMesasgeButtonHandler();
-        });
-        this.topBar.activityBt.addClickEventListener(function () {
-            thiz.activityButtonHandler();
-        });
-        this.topBar.shopBt.addClickEventListener(function () {
-            thiz.shopButtonHandler();
-        });
-        this.topBar.transferGoldBt.addClickEventListener(function () {
-            thiz.transferGoldButtonHandler();
-        });
-        this.userInfo.paymentBt.addClickEventListener(function () {
-            thiz.paymentButtonHandler();
-        });
-        this.userInfo.rewardBt.addClickEventListener(function () {
-            thiz.rewardButtonHandler();
-        });
-        this.userInfo.userinfoBt.addClickEventListener(function () {
-            thiz.userInfoButtonHandler();
-        });
-        this.userInfo.playNowButtonHandler = function () {
-            thiz.playNowButtonHandler();
-        };
-
-        this.homeLayer.fbButton.addClickEventListener(function () {
-            SceneNavigator.showLoginFacebook();
-        });
-
-        this.startHome();
-        //this.startGame();
-        //this.startLobby();
-
-        //
-        FloatButton.getInstance().show(this.floatButtonLayer);
+       // FloatButton.getInstance().show(this.floatButtonLayer);
 
        // LobbyClient.getInstance().addListener("fetchProducts", this.onFetchProduct, this);
        // LobbyClient.getInstance().addListener("fetchCashinProductItems", this.onFetchCashin, this);
@@ -158,28 +80,6 @@ var HomeScene = IScene.extend({
         return true;
     },
 
-    onChangeAsset : function (cmd, data) {
-        this.onChangeRefeshUserInfo();
-        var userAssets = data["data"]["userAssets"];
-        if(userAssets["gold"]){
-            var deltaGold = userAssets["delta"];
-            //var reason = userAssets["reason"];
-
-            //if(deltaGold > 0){
-                var changeText = (deltaGold >= 0 ? "+" : "") + cc.Global.NumberFormat1(deltaGold);
-                var changeSprite = cc.Label.createWithBMFont(cc.res.font.Roboto_CondensedBold_25, changeText);
-                changeSprite.setColor(cc.color(deltaGold >= 0 ? "#ffde00" : "#ff0000"));
-                changeSprite.setAnchorPoint(cc.p(0.0, 0.5));
-                changeSprite.setPosition(100, 70);
-                this.addChild(changeSprite, 420);
-
-                changeSprite.runAction(new cc.Sequence(new cc.MoveBy(1.0, cc.p(0, 70)), new cc.CallFunc(function () {
-                    changeSprite.removeFromParent(true);
-                })));
-            //}
-        }
-    },
-
     onChangeRefeshUserInfo : function (command, data) {
         this.userInfo.refreshView();
     },
@@ -217,82 +117,19 @@ var HomeScene = IScene.extend({
     onLobbyStatusHandler: function () {
         //  cc.log("onLobbyStatusHandler");
     },
+
     startHome: function () {
         this.popupLayer.removeAllChildren();
-        if (this.subLayer) {
-            this.subLayer.removeFromParent(true);
-            this.subLayer = 0;
-            this.mainLayer.visible = true;
-        }
-        this.homeLayer.setVisible(true);
-        this.gameLayer.setVisible(true);
-        this.lobbyLayer.setVisible(false);
-        this.userInfo.visible = false;
-        if (this.homeLocation == 0 || this.homeLocation == 3) {
-            this.gameLayer.startAnimation();
-        }
-        if (this.homeLocation == 0) {
-            this.miniGame.startAnimation();
-        }
-        if(this.homeLocation != 1){
-            this.homeLayer.y = -100.0;
-            this.homeLayer.stopAllActions();
-            this.homeLayer.runAction(new cc.EaseSineOut(new cc.MoveTo(0.3, cc.p(0, 0))));
-            this.homeLocation = 1;
-        }
-        FloatButton.getInstance().setVisible(false);
     },
+
     startGame: function () {
-        this.userInfo.startGame();
-        PlayerMe.lastGroupSelected = null;
-        this.popupLayer.removeAllChildren();
-        if (this.homeLocation == 0 || this.homeLocation == 1) {
-            this.userInfo.y = -100.0;
-            this.userInfo.stopAllActions();
-            this.userInfo.runAction(new cc.EaseSineOut(new cc.MoveTo(0.3, cc.p(0, 0))));
-        }
-        this.homeLayer.visible = false;
-        this.gameLayer.visible = true;
-        this.lobbyLayer.setVisible(false);
-        this.userInfo.visible = true;
-        this.userInfo.refreshView();
-        //this.topBar.refreshView();
-        if (this.homeLocation == 0 || this.homeLocation == 3) {
-            this.gameLayer.startAnimation();
-        }
-        if (this.homeLocation == 0) {
-            this.miniGame.startAnimation();
-        }
-        this.homeLocation = 2;
-        FloatButton.getInstance().setVisible(true);
+
     },
 
     startLobby: function () {
-        this.popupLayer.removeAllChildren();
-        this.homeLayer.visible = false;
-        this.gameLayer.visible = false;
-        this.lobbyLayer.setVisible(true);
-        this.userInfo.visible = true;
-        this.userInfo.refreshView();
-        if (arguments.length === 1) {
-            var gameId = arguments[0];
-            this.lobbyLayer.startGame(gameId);
-            LobbyClient.getInstance().subscribe(gameId);
-            if(gameId === GameType.GAME_TaiXiu || gameId === GameType.GAME_XocDia){
-                this.userInfo.startGame();
-            }
-            else{
-                this.currentLobbyId = gameId;
-                this.userInfo.startLobby();
-            }
-        }
-        else {
-            this.userInfo.startGame();
-            this.lobbyLayer.startGame(-1);
-        }
-        this.homeLocation = 3;
-        FloatButton.getInstance().setVisible(true);
+
     },
+
     onTouchGame: function (gameId) {
         if (this._checkLogin() == false) {
             return;
@@ -318,10 +155,6 @@ var HomeScene = IScene.extend({
         else {
             this.startLobby(gameId);
         }
-    },
-
-    startGameWithAnimation: function () {
-        this.startGame();
     },
 
     backButtonHandler: function () {
@@ -374,156 +207,6 @@ var HomeScene = IScene.extend({
             //to game
             LobbyClient.getInstance().unSubscribe();
             this.startGame();
-        }
-    },
-
-    addSubLayer: function (subLayer) {
-        if(this.subLayer){
-            return;
-        }
-        
-        var thiz = this;
-        subLayer.backBt.addClickEventListener(function () {
-            thiz.backButtonHandler();
-        });
-        subLayer.settingBt.addClickEventListener(function () {
-            thiz.settingButtonHandler();
-        });
-
-        this.subLayer = subLayer;
-        this.sceneLayer.addChild(subLayer);
-        this.mainLayer.visible = false;
-    },
-
-    newsButtonhandler: function () {
-        if (this._checkLogin() == false) {
-            return;
-        }
-        this.addSubLayer(new NewsLayer());
-    },
-
-    rankButtonHandler: function () {
-        if (this._checkLogin() == false) {
-            return;
-        }
-        this.addSubLayer(new RankLayer());
-    },
-
-    settingButtonHandler: function () {
-        var dialog = new SettingDialog();
-        dialog.show();
-    },
-
-    callButtonHandler: function () {
-        if(cc.sys.isNative){
-            SystemPlugin.getInstance().showCallPhone(GameConfig.hotline);
-        }
-        else{
-            var dialog = new ContactDialog();
-            dialog.show();
-        }
-
-        // var request = cc.loader.getXMLHttpRequest();
-        // request.open("GET", "google.com");
-        // request.setRequestHeader( "Content-Type","text/plain;charset=UTF-8" );
-        // request.d
-        // request.onreadystatechange = function () {
-        //     if (request.readyState == 4 && ( request.status >= 200 && request.status <= 207 ) ) {
-        //         var httpStatus = request.statusText;
-        //         cc.log( httpStatus );
-        //         cc.log( request.responseText );
-        //     }
-        // };
-        // request.send();
-    },
-
-    newsMesasgeButtonHandler: function () {
-        if (this._checkLogin() == false) {
-            return;
-        }
-        this.addSubLayer(new InboxLayer());
-    },
-
-    activityButtonHandler : function () {
-        if (this._checkLogin() == false) {
-            return;
-        }
-        var dialog = new ActivityDialog();
-        dialog.show();
-    },
-
-    shopButtonHandler : function () {
-        if (this._checkLogin() == false) {
-            return;
-        }
-        var dialog = new HomeShopLayer();
-        dialog.show();
-    },
-
-    rewardButtonHandler: function () {
-        if (this._checkLogin() == false) {
-            return;
-        }
-        this.addSubLayer(new RewardLayer());
-    },
-
-    paymentButtonHandler: function () {
-        if (this._checkLogin() == false) {
-            return;
-        }
-        this.addSubLayer(new PaymentLayer());
-    },
-
-    userInfoButtonHandler: function () {
-        if (this._checkLogin() == false) {
-            return;
-        }
-        var dialog = new UserinfoDialog();
-        dialog.show();
-    },
-
-    playNowButtonHandler : function () {
-        var request = {
-            command : "getPlayNowServer",
-            gameType : s_games_chanel[this.currentLobbyId]
-        };
-        LobbyClient.getInstance().send(request);
-        LoadingDialog.getInstance().show("Đang tìm phòng chơi");
-    },
-
-    onGetPlayNowServer : function (cmd, data) {
-        var serverInfo = LobbyClient.getInstance().createServerInfo(data["data"]);
-        SmartfoxClient.getInstance().playNow(serverInfo, s_games_chanel[this.currentLobbyId]);
-    },
-
-    showPaymentDialog : function () {
-        var thiz = this;
-        var dialog = new MessageConfirmDialog();
-        dialog.setMessage("Bạn không đủ vàng để chơi, vui lòng nạp vàng ?");
-        dialog.okTitle.setString("Nạp vàng");
-        dialog.okButtonHandler = function () {
-            thiz.paymentButtonHandler();
-            dialog.hide();
-        };
-        dialog.show(this.popupLayer);
-    },
-
-    transferGoldButtonHandler : function () {
-        if (this._checkLogin() == false) {
-            return;
-        }
-        if(PlayerMe.phoneNumber && PlayerMe.phoneNumber != ""){
-            var dialog = new TransferGoldDialog();
-            dialog.show();
-        }
-        else{
-            var dialog = new MessageConfirmDialog();
-            dialog.setMessage("Bạn phải xác thực tài khoản để chuyển vàng");
-            dialog.showWithAnimationScale();
-            dialog.okButtonHandler = function () {
-                dialog.hide();
-                SceneNavigator.toAccountActiveView();
-            };
         }
     },
 
@@ -593,7 +276,5 @@ var HomeScene = IScene.extend({
         this._super();
         LobbyClient.getInstance().removeListener(this);
         SmartfoxClient.getInstance().removeListener(this);
-
-        //MiniGameNavigator.hideAll();
     }
 });

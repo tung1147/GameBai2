@@ -57,134 +57,78 @@ var InboxCountNode = cc.Node.extend({
 var LobbyTopBar = cc.Node.extend({
     ctor : function () {
         this._super();
-
-        this.setAnchorPoint(0.0, 1.0);
-        this.setContentSize(1280.0, 720.0);
-        this.setPosition(0.0, 720.0);
+        this.setContentSize(cc.size(1280, 720));
+        this.setAnchorPoint(cc.p(0.0, 1.0));
+        this.setPosition(cc.p(0, 720));
         this.setScale(cc.winSize.screenScale);
 
-        var backBt = new ccui.Button("top_bar_backBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        backBt.setPosition(54, 660);
-        this.addChild(backBt);
-
-        var callBt = new ccui.Button("top_bar_callBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        callBt.setPosition(200, backBt.y);
-        this.addChild(callBt);
-
-        var transferGoldBt = new ccui.Button("top_bar_goldBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        transferGoldBt.setPosition(347, backBt.y);
-        this.addChild(transferGoldBt);
-
-        var shopBt = new ccui.Button("top_bar_shopBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        shopBt.setPosition(493, backBt.y);
-        this.addChild(shopBt);
-
-        var activityBt = new ccui.Button("top_bar_activityBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        activityBt.setPosition(639, backBt.y);
-        this.addChild(activityBt);
-
-        var activityNotif = new ActivityCountNode();
-        activityNotif.setPosition(70,80);
-        activityBt.getRendererNormal().addChild(activityNotif);
-
-        var inboxBt = new ccui.Button("top_bar_inboxBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        inboxBt.setPosition(786, backBt.y);
-        this.addChild(inboxBt);
-
-        var notif = new InboxCountNode();
-        notif.setPosition(70,80);
-        inboxBt.getRendererNormal().addChild(notif);
-
-        var newsBt = new ccui.Button("top_bar_newsBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        newsBt.setPosition(932, backBt.y);
-        this.addChild(newsBt);
-
-        var rankBt = new ccui.Button("top_bar_rankBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        rankBt.setPosition(1078, backBt.y);
-        this.addChild(rankBt);
-
-        var settingBt = new ccui.Button("top_bar_settingBt.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        settingBt.setPosition(1224, backBt.y);
-        this.addChild(settingBt);
-
-        this._initMessageLabel();
-
-        this.backBt = backBt;
-        this.callBt = callBt;
-        this.transferGoldBt = transferGoldBt;
-        this.shopBt = shopBt;
-        this.activityBt = activityBt;
-        this.inboxBt = inboxBt;
-        this.newsBt = newsBt;
-        this.rankBt = rankBt;
-        this.settingBt = settingBt;
-    },
-
-    _initMessageLabel : function () {
-        var bg = new ccui.Scale9Sprite("top_bar_text_bg.png", cc.rect(4,4,4,4));
-        bg.setPreferredSize(cc.size(1280, 56));
-        bg.setAnchorPoint(cc.p(0,0));
-        bg.setPosition(0, 550);
+        var bg = new cc.Sprite("#home_topBar_bg.png");
+        bg.setAnchorPoint(cc.p(0, 1.0));
+        bg.setPosition(cc.p(0, 720));
         this.addChild(bg);
 
-        var messageBoxLeft = 0.0;
-        var messageBoxRight = 1280.0;
-        var messageBoxWidth = messageBoxRight - messageBoxLeft;
+        // var avatar = UserAvatar.createMe();
+        // avatar.setPosition(148, 667);
+        // this.addChild(avatar, 2);
 
-        var clippingMessage = new ccui.Layout();
-        clippingMessage.setContentSize(messageBoxWidth, 56);
-        clippingMessage.setClippingEnabled(true);
-        clippingMessage.setClippingType(ccui.Layout.CLIPPING_SCISSOR);
-        clippingMessage.setPosition(messageBoxLeft, bg.y);
-        this.addChild(clippingMessage);
+        var rewardBt = new ccui.Button("home_buttonReward.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        rewardBt.setPosition(640, 677);
+        this.addChild(rewardBt);
 
-        var messageText = cc.Label.createWithBMFont(cc.res.font.Roboto_Condensed_20, "message");
-        messageText.setColor(cc.color("#bbc9ff"));
-        messageText.setAnchorPoint(0.0, 0.5);
-        messageText.setPosition(0.0, clippingMessage.getContentSize().height/2);
-        clippingMessage.addChild(messageText);
+        var backBt = new ccui.Button("home_buttonBack.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        backBt.setPosition(43, 677);
+        this.addChild(backBt);
 
-        this.messageText = messageText;
-        this.messageBoxWidth = messageBoxWidth;
+        var inboxBt = new ccui.Button("home_buttonInbox.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        inboxBt.setPosition(1146, 677);
+        this.addChild(inboxBt);
 
-        this.setMessage("Sự kiện nhân đôi vàng, bắt đầu từ ngày 30/05/2015 - 01/06/2015");
-    },
-    
-    setMessage : function (message) {
-        var thiz = this;
-        this.oldMessage = message;
-        
-        var messageText = this.messageText;
-        var messageBoxWidth = this.messageBoxWidth + 10.0;
+        var menuBt = new ccui.Button("home_buttonMenu.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        menuBt.setPosition(1236, 677);
+        this.addChild(menuBt);
 
-        messageText.stopAllActions();
-        messageText.setString(message);
-        messageText.x = messageBoxWidth;
-        var moveWidth = messageBoxWidth + messageText.getContentSize().width;
-        var duration = moveWidth / 75.0;
-        var action = new cc.Sequence(new cc.MoveBy(duration, cc.p(-moveWidth, 0)), new cc.CallFunc(function () {
-            thiz.setMessage(GameConfig.broadcastMessage);
-        }));
-        this.messageText.runAction(action);
-    },
-    refreshView : function () {
-        this.setMessage(GameConfig.broadcastMessage);
-    },
+        var nameBg = new ccui.Scale9Sprite("home_name_bg.png", cc.rect(12, 0, 4, 17));
+        nameBg.setPosition(148, 640);
+        nameBg.setPreferredSize(cc.size(77, 17));
+        this.addChild(nameBg);
 
-    onBroadcastMessage: function () {
-        if(!this.oldMessage || this.oldMessage === ""){
-            this.refreshView();
-        }
-    },
+        var goldLabel1 = cc.Label.createWithBMFont("res/fonts/fnt_tien1.fnt", "1.000.000");
+        goldLabel1.setAnchorPoint(cc.p(0.0, 0.5));
+        goldLabel1.setPosition(cc.p(265, 677));
+        this.addChild(goldLabel1);
 
-    onEnter : function () {
-        this._super();
+        var goldLabel2 = cc.Label.createWithBMFont("res/fonts/fnt_tien2.fnt", "1.000.000");
+        goldLabel2.setAnchorPoint(cc.p(0.0, 0.5));
+        goldLabel2.setPosition(cc.p(849, 677));
+        this.addChild(goldLabel2);
+
+        var nameLabel = new cc.LabelTTF("nameLabel", cc.res.font.UTM_SeagullBold, 15);
+        nameLabel.setPosition(nameBg.getPosition());
+        nameLabel.setFontFillColor(cc.color("#000000"));
+        this.addChild(nameLabel);
+
+        this.goldLabel1 = goldLabel1;
+        this.goldLabel2 = goldLabel2;
+        this.nameBg = nameBg;
+        this.nameLabel = nameLabel;
+
         this.refreshView();
-        LobbyClient.getInstance().addListener("sendBroadcastMessage", this.onBroadcastMessage, this);
     },
 
-    onExit : function () {
-        this._super();
-        LobbyClient.getInstance().removeListener(this);
+    refreshView : function () {
+        this.goldLabel1.setString(cc.Global.NumberFormat1(PlayerMe.gold1));
+        this.goldLabel2.setString(cc.Global.NumberFormat1(PlayerMe.gold2));
+
+        // var username = PlayerMe.username;
+        // if(username.length > 16){
+        //     username = username.substr(0, 16);
+        // }
+        this.nameLabel.setString(PlayerMe.username);
+
+        var width = this.nameLabel.width + 20;
+        if(width < 77){
+            width = 77;
+        }
+        this.nameBg.setPreferredSize(cc.size(width, 17));
     }
 });
