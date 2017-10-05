@@ -154,36 +154,6 @@ s_game_available[GameType.MiniGame_VideoPoker] = true;
 s_game_available[GameType.GAME_Poker] = true;
 s_game_available[GameType.GAME_SLOT_FRUIT] = true;
 
-var s_game_id = s_game_id || [
-    [
-        GameType.GAME_TLMN_Solo, GameType.GAME_TienLenMN,
-        GameType.GAME_Poker, GameType.GAME_MauBinh,
-        GameType.GAME_Sam_Solo, GameType.GAME_Sam,
-        GameType.GAME_Phom, GameType.GAME_SLOT_FRUIT,
-        GameType.GAME_XocDia, GameType.GAME_TaiXiu,
-        GameType.MiniGame_ChanLe, GameType.MiniGame_Poker,
-        GameType.MiniGame_VideoPoker, GameType.MiniGame_CaoThap,
-        GameType.GAME_VongQuayMayMan,GameType.GAME_BaCay
-    ],
-    [
-        GameType.GAME_TLMN_Solo, GameType.GAME_TienLenMN,
-        GameType.GAME_Poker, GameType.GAME_MauBinh,
-        GameType.GAME_Sam_Solo, GameType.GAME_Sam,
-        GameType.GAME_Phom, GameType.GAME_BaCay
-    ],
-    [
-        GameType.MiniGame_CaoThap, GameType.MiniGame_Poker,
-        GameType.MiniGame_ChanLe,GameType.MiniGame_VideoPoker,GameType.GAME_VongQuayMayMan
-    ],
-    [
-        GameType.GAME_SLOT_FRUIT
-    ],
-    [
-        GameType.GAME_TLMN_Solo, GameType.GAME_Sam_Solo,
-        GameType.GAME_TaiXiu, GameType.GAME_XocDia
-    ]
-];
-
 var s_mini_game_id = [GameType.MiniGame_CaoThap, GameType.MiniGame_Poker, GameType.MiniGame_VideoPoker];
 var s_games_display_name = s_games_display_name || [];
 s_games_display_name[GameType.GAME_TLMN_Solo] = "TLMN ĐẾM LÁ SOLO";

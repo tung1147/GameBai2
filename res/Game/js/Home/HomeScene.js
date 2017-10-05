@@ -18,16 +18,17 @@ var HomeScene = IScene.extend({
         this.mainLayer = new cc.Node();
         this.sceneLayer.addChild(this.mainLayer);
 
+        var miniGame = new MiniGameLayer();
+        this.mainLayer.addChild(miniGame);
+
+        var gameLayer = new GameLayer();
+        this.mainLayer.addChild(gameLayer);
+
         var topBar = new LobbyTopBar();
         this.mainLayer.addChild(topBar);
 
         var bottomBar = new LobbyBottomBar();
         this.mainLayer.addChild(bottomBar);
-
-       // FloatButton.getInstance().show(this.floatButtonLayer);
-
-       // LobbyClient.getInstance().addListener("fetchProducts", this.onFetchProduct, this);
-       // LobbyClient.getInstance().addListener("fetchCashinProductItems", this.onFetchCashin, this);
     },
 
     onFetchProduct: function (command, data) {

@@ -4,303 +4,288 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>lobby-game0.png</key>
+            <key>lobby_gameIcon_0.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{212,182}</string>
+                <string>{190,197}</string>
                 <key>spriteSourceSize</key>
-                <string>{224,194}</string>
+                <string>{190,197}</string>
                 <key>textureRect</key>
-                <string>{{227,785},{212,182}}</string>
+                <string>{{1,1},{190,197}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>lobby-game1.png</key>
+            <key>lobby_gameIcon_1.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{224,194}</string>
+                <string>{190,197}</string>
                 <key>spriteSourceSize</key>
-                <string>{224,194}</string>
+                <string>{190,197}</string>
                 <key>textureRect</key>
-                <string>{{1,1},{224,194}}</string>
+                <string>{{1,1},{190,197}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>lobby-game12.png</key>
+            <key>lobby_gameIcon_10.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{224,194}</string>
+                <string>{190,197}</string>
                 <key>spriteSourceSize</key>
-                <string>{224,194}</string>
+                <string>{190,197}</string>
                 <key>textureRect</key>
-                <string>{{227,1},{224,194}}</string>
+                <string>{{1,1},{190,197}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>lobby-game13.png</key>
+            <key>lobby_gameIcon_101.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{224,194}</string>
+                <string>{190,197}</string>
                 <key>spriteSourceSize</key>
-                <string>{224,194}</string>
+                <string>{190,197}</string>
                 <key>textureRect</key>
-                <string>{{1,197},{224,194}}</string>
+                <string>{{1,1},{190,197}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>lobby-game14.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,-8}</string>
-                <key>spriteSize</key>
-                <string>{180,140}</string>
-                <key>spriteSourceSize</key>
-                <string>{224,194}</string>
-                <key>textureRect</key>
-                <string>{{183,1117},{180,140}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>lobby-game15.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,-8}</string>
-                <key>spriteSize</key>
-                <string>{180,140}</string>
-                <key>spriteSourceSize</key>
-                <string>{224,194}</string>
-                <key>textureRect</key>
-                <string>{{1,1125},{180,140}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>lobby-game16.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,-8}</string>
-                <key>spriteSize</key>
-                <string>{180,140}</string>
-                <key>spriteSourceSize</key>
-                <string>{224,194}</string>
-                <key>textureRect</key>
-                <string>{{183,1259},{180,140}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>lobby-game17.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,-3}</string>
-                <key>spriteSize</key>
-                <string>{182,146}</string>
-                <key>spriteSourceSize</key>
-                <string>{224,194}</string>
-                <key>textureRect</key>
-                <string>{{227,969},{182,146}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>lobby-game2.png</key>
+            <key>lobby_gameIcon_102.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{224,194}</string>
+                <string>{190,197}</string>
                 <key>spriteSourceSize</key>
-                <string>{224,194}</string>
+                <string>{190,197}</string>
                 <key>textureRect</key>
-                <string>{{227,197},{224,194}}</string>
+                <string>{{1,1},{190,197}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>lobby-game3.png</key>
+            <key>lobby_gameIcon_103.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{224,194}</string>
+                <string>{190,197}</string>
                 <key>spriteSourceSize</key>
-                <string>{224,194}</string>
+                <string>{190,197}</string>
                 <key>textureRect</key>
-                <string>{{1,393},{224,194}}</string>
+                <string>{{1,1},{190,197}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>lobby-game4.png</key>
+            <key>lobby_gameIcon_104.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{224,194}</string>
+                <string>{190,197}</string>
                 <key>spriteSourceSize</key>
-                <string>{224,194}</string>
+                <string>{190,197}</string>
                 <key>textureRect</key>
-                <string>{{227,393},{224,194}}</string>
+                <string>{{1,1},{190,197}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>lobby-game5.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,-12}</string>
-                <key>spriteSize</key>
-                <string>{178,132}</string>
-                <key>spriteSourceSize</key>
-                <string>{224,194}</string>
-                <key>textureRect</key>
-                <string>{{1,1267},{178,132}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>lobby-game6.png</key>
+            <key>lobby_gameIcon_105.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{224,194}</string>
+                <string>{190,197}</string>
                 <key>spriteSourceSize</key>
-                <string>{224,194}</string>
+                <string>{190,197}</string>
                 <key>textureRect</key>
-                <string>{{1,589},{224,194}}</string>
+                <string>{{1,1},{190,197}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>lobby-game7.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,-7}</string>
-                <key>spriteSize</key>
-                <string>{180,142}</string>
-                <key>spriteSourceSize</key>
-                <string>{224,194}</string>
-                <key>textureRect</key>
-                <string>{{1,981},{180,142}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>lobby-game8.png</key>
+            <key>lobby_gameIcon_106.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{224,194}</string>
+                <string>{190,197}</string>
                 <key>spriteSourceSize</key>
-                <string>{224,194}</string>
+                <string>{190,197}</string>
                 <key>textureRect</key>
-                <string>{{227,589},{224,194}}</string>
+                <string>{{1,1},{190,197}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>lobby-game9.png</key>
+            <key>lobby_gameIcon_11.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{224,194}</string>
+                <string>{190,197}</string>
                 <key>spriteSourceSize</key>
-                <string>{224,194}</string>
+                <string>{190,197}</string>
                 <key>textureRect</key>
-                <string>{{1,785},{224,194}}</string>
+                <string>{{1,1},{190,197}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>lobby-minigame12.png</key>
+            <key>lobby_gameIcon_12.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{84,90}</string>
+                <string>{190,197}</string>
                 <key>spriteSourceSize</key>
-                <string>{84,90}</string>
+                <string>{190,197}</string>
                 <key>textureRect</key>
-                <string>{{365,1117},{84,90}}</string>
+                <string>{{1,1},{190,197}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>lobby-minigame13.png</key>
+            <key>lobby_gameIcon_2.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{84,90}</string>
+                <string>{190,197}</string>
                 <key>spriteSourceSize</key>
-                <string>{84,90}</string>
+                <string>{190,197}</string>
                 <key>textureRect</key>
-                <string>{{365,1117},{84,90}}</string>
+                <string>{{1,1},{190,197}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>lobby-minigame14.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,1}</string>
-                <key>spriteSize</key>
-                <string>{84,88}</string>
-                <key>spriteSourceSize</key>
-                <string>{84,90}</string>
-                <key>textureRect</key>
-                <string>{{365,1209},{84,88}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>lobby-minigame15.png</key>
+            <key>lobby_gameIcon_3.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{84,84}</string>
+                <string>{190,197}</string>
                 <key>spriteSourceSize</key>
-                <string>{84,90}</string>
+                <string>{190,197}</string>
                 <key>textureRect</key>
-                <string>{{365,1299},{84,84}}</string>
+                <string>{{1,1},{190,197}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>lobby_gameIcon_4.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{190,197}</string>
+                <key>spriteSourceSize</key>
+                <string>{190,197}</string>
+                <key>textureRect</key>
+                <string>{{1,1},{190,197}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>lobby_gameIcon_5.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{190,197}</string>
+                <key>spriteSourceSize</key>
+                <string>{190,197}</string>
+                <key>textureRect</key>
+                <string>{{1,1},{190,197}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>lobby_gameIcon_6.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{190,197}</string>
+                <key>spriteSourceSize</key>
+                <string>{190,197}</string>
+                <key>textureRect</key>
+                <string>{{1,1},{190,197}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>lobby_gameIcon_7.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{190,197}</string>
+                <key>spriteSourceSize</key>
+                <string>{190,197}</string>
+                <key>textureRect</key>
+                <string>{{1,1},{190,197}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>lobby_gameIcon_8.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{190,197}</string>
+                <key>spriteSourceSize</key>
+                <string>{190,197}</string>
+                <key>textureRect</key>
+                <string>{{1,1},{190,197}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>lobby_gameIcon_9.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{190,197}</string>
+                <key>spriteSourceSize</key>
+                <string>{190,197}</string>
+                <key>textureRect</key>
+                <string>{{1,1},{190,197}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -316,9 +301,9 @@
             <key>realTextureFileName</key>
             <string>GameList.png</string>
             <key>size</key>
-            <string>{452,1400}</string>
+            <string>{192,199}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:bcdc3ad7216c1eba56c1da30f066a7c2:338acb05cbc6425ee2187441abe45e06:8520d2d238a2c15139d5f3d9d51f1820$</string>
+            <string>$TexturePacker:SmartUpdate:db6da044ae9ea5d0fdd1c2099795c47e:5b76789ae1cd473e043703a883a5c85f:8520d2d238a2c15139d5f3d9d51f1820$</string>
             <key>textureFileName</key>
             <string>GameList.png</string>
         </dict>
